@@ -1,0 +1,60 @@
+[20:22] Server started up
+[20:24] Server closed
+[20:24] Server saving players...
+[20:24] Server saving complete...
+[20:25] Server started up
+[20:25] Server closed
+[20:25] Server saving players...
+[20:25] Server saving complete...
+[20:28] Server started up
+[20:28] ADMIN has been warped on Map#143 x:12 y:9
+[20:29] ADMIN has been warped on Map#26 x:13 y:5
+[20:29] ADMIN has been warped on Map#38 x:11 y:12
+[20:29] ADMIN has been warped on Map#26 x:36 y:6
+[20:29] ADMIN has been warped on Map#38 x:11 y:12
+[20:29] ADMIN has been warped on Map#26 x:36 y:6
+[20:34] ADMIN has been warped on Map#26 x:42 y:16
+[20:35] Character 'das' has been created from Account 'teste
+[20:35] ADMIN has been warped on Map#26 x:35 y:8
+[20:36] ADMIN has been warped on Map#38 x:11 y:12
+[20:36] ADMIN has been warped on Map#26 x:36 y:6
+[20:36] ADMIN has been warped on Map#38 x:11 y:12
+[20:36] ADMIN has been warped on Map#26 x:36 y:6
+[20:37] ADMIN has been warped on Map#143 x:12 y:14
+[20:37] ADMIN has been warped on Map#26 x:13 y:5
+[20:37] ADMIN has been warped on Map#37 x:12 y:14
+[20:37] ADMIN enter storage
+[20:37] ADMIN enter storage
+[20:37] ADMIN has been warped on Map#26 x:33 y:24
+[20:37] ADMIN has been warped on Map#37 x:12 y:14
+[20:37] ADMIN has been warped on Map#26 x:33 y:24
+[20:38] ADMIN requested to edit Item
+[20:38] ADMIN , Admin Rights: Get Item#57 x200
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:38] ADMIN use item Rare Candy
+[20:39] ADMIN has been warped on Map#143 x:12 y:14
+[20:39] ADMIN requested to edit npc
+[20:39] ADMIN save npc#1 data
+[20:39] ADMIN save npc#25 data
+[20:39] Server closed
+[20:39] Server saving players...
+[20:39] Server saving complete...

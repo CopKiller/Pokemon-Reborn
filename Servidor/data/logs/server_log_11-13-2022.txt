@@ -1,0 +1,48 @@
+[00:02] Server closed
+[00:02] Server saving players...
+[00:02] Server saving complete...
+[00:53] Server started up
+[00:54] Yag has been warped on Map#5 x:19 y:10
+[00:54] [Mapa]Yag: \dfsf
+[00:54] [Mapa]Yag: asdaDASDSd
+[00:56] Yag has been warped on Map#5 x:21 y:15
+[00:56] Yag has been warped on Map#5 x:21 y:15
+[00:58] Server closed
+[00:58] Server saving players...
+[00:58] Server saving complete...
+[14:05] Server started up
+[14:07] Server closed
+[14:07] Server saving players...
+[14:07] Server saving complete...
+[14:10] Server started up
+[14:10] Yag has been warped on Map#5 x:21 y:15
+[14:11] Yag requested to edit map#5
+[14:12] Yag has been warped on Map#5 x:10 y:7
+[14:12] Yag updated map#5
+[14:12] Yag requested to edit map#5
+[14:18] Yag has been warped on Map#5 x:51 y:12
+[14:18] Yag updated map#5
+[14:18] Yag requested to edit Spawn
+[14:19] Yag save Spawn#1 data
+[14:19] Yag save Spawn#12 data
+[14:19] Yag save Spawn#13 data
+[14:19] Yag save Spawn#14 data
+[14:19] Yag save Spawn#15 data
+[14:19] Yag save Spawn#16 data
+[14:19] Yag save Spawn#17 data
+[14:19] Yag requested to edit map#5
+[14:20] Yag has been warped on Map#5 x:37 y:15
+[14:20] Yag updated map#5
+[14:20] Yag requested to edit map#5
+[14:21] Yag has been warped on Map#5 x:51 y:12
+[14:21] Yag updated map#5
+[14:21] Yag requested to edit map#5
+[14:21] Yag has been warped on Map#5 x:51 y:15
+[14:21] Yag updated map#5
+[14:21] Yag requested to edit map#5
+[14:22] Yag has been warped on Map#5 x:51 y:11
+[14:22] Yag updated map#5
+[14:23] Yag has been warped on Map#5 x:67 y:25
+[14:28] Server closed
+[14:28] Server saving players...
+[14:28] Server saving complete...

@@ -1,0 +1,97 @@
+//el admin no anda si tenes el server y cliente en una misma pc
+
+// Como funciona el FLY
+when u open the server
+there will be a file that will be created inside server>data folser
+folder
+called fly.ini
+
+/loc comando para ver numero de mapa y coordenadas.
+movenum = el movimiento que tiene que tener algun pokemon para poder volar
+x Y son las coordenadas
+direccion para donde mira el entrenador.
+
+¿Y si quiero hacer que sea con el movimiento FLY ? (que es el numero 20)
+try to create a tm item
+it might be a lot of work but..
+first
+create a tm item.. then set it as fly..
+
+then on pokemon editor
+
+/editpokemon
+
+there is a part of tm move..
+
+u place fly on all pokemon that can learn fly
+
+// HACER ADMIN
+ohh.. use my account
+then open 2 client
+type
+on my account
+/setaccess PlayerName 4
+like
+/setaccess Wolf 4
+
+
+editpokemon = edit pokemon data..
+editspawn = edit pokemon on maps
+
+
+normal commands:
+/map
+/all
+@playername
+/online
+
+mod commands:
+/warpto map (/warpto 50)
+/warptome playername = track (trae un pj a donde yo estoy)
+/warpmeto playername = trace (me lleva a donde esta un pj)
+/loc = ver numero de mapa y demas yerbas
+/ban nick
+/mute nick
+/unmute nick
+/kick nick
+/stealthmode
+
+
+
+mapper comands:
+/editmap
+
+developer commands:
+/editnpc
+/editpokemon
+/edititem
+/editanimation
+/editmove
+/editspawn
+/editconversation
+/editshop
+/editquest
+/getitem itemnum itemval
+
+admin commands:
+/setaccess playerbname access
+/setaccess Wolf 4 (full admin)
+/motd msg
+/stealthmode (invisibilidad)
+
+Colores: amarillo = normal
+cyan = mod
+celeste = mapper
+cyan otro = dev
+rojo = admin
+
+pokemons que evolucionan con trade o piedras, cuando pueden evolucionar sale un boton.
+al apretarlo hay q tener las piedras o el item "link cable"
+el item lo dropean los pokemon salvajes q lo usan, por ejemplo lo dropea un alakazam
+
+for music, put the music on sfx folder
+then on map editor.. set the music
+so u find music on jntetnet
+
+
+in pokemon editor set aggressive or not, Para q te ataque salvajemente.

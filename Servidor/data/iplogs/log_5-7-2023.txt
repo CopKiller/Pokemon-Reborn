@@ -1,0 +1,56 @@
+[03:41] Receiving connection from 127.0.0.1
+[03:41] Account 'yag' has logged in on IP 127.0.0.1
+[03:52] Connection from 127.0.0.1 was terminated
+[03:52] Receiving connection from 127.0.0.1
+[03:52] Account 'yag' has logged in on IP 127.0.0.1
+[03:52] Connection from 127.0.0.1 was terminated
+[03:52] Receiving connection from 127.0.0.1
+[03:52] Account 'yag' has logged in on IP 127.0.0.1
+[04:13] Connection from 127.0.0.1 was terminated
+[04:13] Receiving connection from 127.0.0.1
+[04:13] Account 'yag' has logged in on IP 127.0.0.1
+[04:15] Connection from 127.0.0.1 was terminated
+[04:30] Receiving connection from 127.0.0.1
+[04:30] Account 'yag' has logged in on IP 127.0.0.1
+[04:35] Connection from 127.0.0.1 was terminated
+[04:35] Receiving connection from 127.0.0.1
+[04:35] Account 'yag' has logged in on IP 127.0.0.1
+[04:38] Connection from 127.0.0.1 was terminated
+[04:45] Receiving connection from 127.0.0.1
+[04:45] Account 'yag' has logged in on IP 127.0.0.1
+[04:47] Connection from 127.0.0.1 was terminated
+[02:22] Receiving connection from 127.0.0.1
+[02:22] Account 'teste1' has logged in on IP 127.0.0.1
+[02:33] Connection from 127.0.0.1 was terminated
+[02:33] Receiving connection from 127.0.0.1
+[02:33] Account 'teste1' has logged in on IP 127.0.0.1
+[02:45] Connection from 127.0.0.1 was terminated
+[02:45] Receiving connection from 127.0.0.1
+[02:45] Account 'teste1' has logged in on IP 127.0.0.1
+[04:37] Connection from 127.0.0.1 was terminated
+[04:38] Receiving connection from 127.0.0.1
+[04:38] Account 'teste1' has logged in on IP 127.0.0.1
+[04:38] Connection from 127.0.0.1 was terminated
+[04:49] Receiving connection from 127.0.0.1
+[04:49] Account 'teste1' has logged in on IP 127.0.0.1
+[04:53] Connection from 127.0.0.1 was terminated
+[04:53] Receiving connection from 127.0.0.1
+[04:53] Account 'teste1' has logged in on IP 127.0.0.1
+[05:11] Connection from 127.0.0.1 was terminated
+[23:31] Receiving connection from 127.0.0.1
+[23:31] Account 'teste1' has logged in on IP 127.0.0.1
+[23:50] Connection from 127.0.0.1 was terminated
+[23:51] Receiving connection from 127.0.0.1
+[23:51] Account 'teste1' has logged in on IP 127.0.0.1
+[23:52] Connection from 127.0.0.1 was terminated
+[23:52] Receiving connection from 127.0.0.1
+[23:52] Account 'teste1' has logged in on IP 127.0.0.1
+[23:52] Connection from 127.0.0.1 was terminated
+[23:52] Receiving connection from 127.0.0.1
+[23:52] Account 'teste1' has logged in on IP 127.0.0.1
+[23:53] Connection from 127.0.0.1 was terminated
+[23:53] Receiving connection from 127.0.0.1
+[23:53] Account 'teste1' has logged in on IP 127.0.0.1
+[23:59] Connection from 127.0.0.1 was terminated
+[23:59] Receiving connection from 127.0.0.1
+[23:59] Account 'teste1' has logged in on IP 127.0.0.1

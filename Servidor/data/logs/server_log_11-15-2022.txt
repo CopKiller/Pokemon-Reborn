@@ -1,0 +1,478 @@
+[00:12] Server closed
+[00:12] Server saving players...
+[00:12] Server saving complete...
+[10:15] Server started up
+[10:18] Server started up
+[10:21] Server started up
+[10:25] Server started up
+[10:26] Yag has been warped on Map#5 x:67 y:25
+[10:32] Yag has been warped on Map#5 x:67 y:25
+[10:32] Yag has been warped on Map#5 x:67 y:25
+[10:32] Server closed
+[10:32] Server saving players...
+[10:32] Server saving complete...
+[10:35] Server started up
+[10:35] Yag has been warped on Map#5 x:67 y:25
+[10:35] Yag requested to edit Spawn
+[10:36] Yag save Spawn#1 data
+[10:36] Yag save Spawn#18 data
+[10:37] Server closed
+[10:37] Server saving players...
+[10:37] Server saving complete...
+[11:15] Server started up
+[11:16] Yag has been warped on Map#5 x:36 y:16
+[11:19] Server started up
+[11:19] Yag has been warped on Map#5 x:36 y:16
+[11:20] Yag has been warped on Map#5 x:36 y:16
+[11:20] Server closed
+[11:20] Server saving players...
+[11:20] Server saving complete...
+[11:52] Server closed
+[11:52] Server saving players...
+[11:52] Server saving complete...
+[11:52] Server started up
+[11:53] Yag has been warped on Map#5 x:36 y:16
+[11:53] Server closed
+[11:53] Server saving players...
+[11:53] Server saving complete...
+[12:02] Server started up
+[12:02] Yag has been warped on Map#5 x:36 y:16
+[12:02] Server closed
+[12:02] Server saving players...
+[12:02] Server saving complete...
+[12:03] Server started up
+[12:03] Yag has been warped on Map#5 x:36 y:16
+[12:03] Server closed
+[12:03] Server saving players...
+[12:03] Server saving complete...
+[12:07] Server started up
+[12:07] Yag has been warped on Map#5 x:36 y:16
+[12:07] Server started up
+[12:07] Yag has been warped on Map#5 x:36 y:16
+[12:08] Server started up
+[12:10] Yag has been warped on Map#5 x:36 y:16
+[12:10] Server closed
+[12:10] Server saving players...
+[12:10] Server saving complete...
+[12:15] Server started up
+[12:15] Yag has been warped on Map#5 x:36 y:16
+[12:17] Leahos has been warped on Map#5 x:13 y:6
+[12:19] Server closed
+[12:19] Server saving players...
+[12:19] Server saving complete...
+[12:22] Server started up
+[12:22] Server closed
+[12:22] Server saving players...
+[12:22] Server saving complete...
+[12:22] Server closed
+[12:22] Server saving players...
+[12:22] Server saving complete...
+[12:27] Server started up
+[12:27] Server started up
+[12:28] Server closed
+[12:28] Server saving players...
+[12:28] Server saving complete...
+[12:28] Server started up
+[12:28] Server closed
+[12:28] Server saving players...
+[12:28] Server saving complete...
+[12:28] Server started up
+[12:28] Server closed
+[12:28] Server saving players...
+[12:28] Server saving complete...
+[12:28] Server started up
+[12:29] Server started up
+[12:30] Server closed
+[12:30] Server saving players...
+[12:30] Server saving complete...
+[12:30] Server closed
+[12:30] Server saving players...
+[12:30] Server saving complete...
+[12:31] Server started up
+[12:31] Server closed
+[12:31] Server saving players...
+[12:31] Server saving complete...
+[12:42] Server started up
+[12:42] Yag has been warped on Map#5 x:38 y:18
+[12:47] Server started up
+[12:49] Server started up
+[12:49] Yag has been warped on Map#5 x:38 y:18
+[12:51] Server started up
+[12:54] Server started up
+[12:58] Server started up
+[12:59] Server started up
+[13:00] Yag has been warped on Map#5 x:38 y:18
+[13:00] Server closed
+[13:00] Server saving players...
+[13:00] Server saving complete...
+[13:02] Server started up
+[13:09] Server started up
+[13:10] Server started up
+[13:11] Server started up
+[13:13] Yag has been warped on Map#5 x:38 y:18
+[13:13] Server closed
+[13:13] Server saving players...
+[13:13] Server saving complete...
+[13:13] Server started up
+[13:13] Yag has been warped on Map#5 x:38 y:18
+[13:14] Server closed
+[13:14] Server saving players...
+[13:14] Server saving complete...
+[13:44] Server started up
+[13:45] Server started up
+[13:47] Server started up
+[13:48] Server started up
+[13:48] Server started up
+[13:49] Server started up
+[13:50] Yag has been warped on Map#5 x:38 y:18
+[13:52] Server closed
+[13:52] Server saving players...
+[13:52] Server saving complete...
+[13:53] Server started up
+[13:53] Yag has been warped on Map#5 x:38 y:18
+[13:54] Yag has been warped on Map#5 x:38 y:18
+[13:55] Server closed
+[13:55] Server saving players...
+[13:55] Server saving complete...
+[13:56] Server started up
+[13:57] Server closed
+[13:57] Server saving players...
+[13:57] Server saving complete...
+[13:57] Server started up
+[13:57] Server closed
+[13:57] Server saving players...
+[13:57] Server saving complete...
+[13:57] Server started up
+[13:57] Yag has been warped on Map#5 x:38 y:18
+[14:01] Server closed
+[14:01] Server saving players...
+[14:01] Server saving complete...
+[14:05] Server started up
+[14:05] Yag has been warped on Map#5 x:38 y:18
+[14:07] Server closed
+[14:07] Server saving players...
+[14:07] Server saving complete...
+[14:11] Server started up
+[14:11] Yag has been warped on Map#5 x:38 y:18
+[14:11] [Mapa]Yag: asdasd
+[14:11] Server closed
+[14:11] Server saving players...
+[14:11] Server saving complete...
+[14:12] Server started up
+[14:12] Yag has been warped on Map#5 x:38 y:18
+[14:12] [Mapa]Yag: asdasd
+[14:12] Server closed
+[14:12] Server saving players...
+[14:12] Server saving complete...
+[14:12] Server started up
+[14:13] Yag has been warped on Map#5 x:38 y:18
+[14:13] [Mapa]Yag: asdasd
+[14:16] Leahos has been warped on Map#5 x:29 y:16
+[14:16] Server closed
+[14:16] Server saving players...
+[14:16] Server saving complete...
+[14:19] Server started up
+[14:19] Leahos has been warped on Map#5 x:29 y:16
+[14:20] Leahos requested to edit Spawn
+[14:20] Leahos save Spawn#1 data
+[14:20] Leahos save Spawn#12 data
+[14:20] Leahos save Spawn#13 data
+[14:20] Leahos save Spawn#14 data
+[14:20] Leahos save Spawn#15 data
+[14:20] Leahos save Spawn#16 data
+[14:20] Leahos save Spawn#17 data
+[14:20] Leahos save Spawn#18 data
+[14:21] Server closed
+[14:21] Server saving players...
+[14:21] Server saving complete...
+[14:25] Server started up
+[14:25] Leahos has been warped on Map#5 x:50 y:17
+[14:27] Server started up
+[14:28] Server closed
+[14:28] Server saving players...
+[14:28] Server saving complete...
+[14:28] Server started up
+[14:28] Server closed
+[14:28] Server saving players...
+[14:28] Server saving complete...
+[14:29] Server started up
+[14:29] Server closed
+[14:29] Server saving players...
+[14:29] Server saving complete...
+[14:29] Server started up
+[14:30] Leahos has been warped on Map#5 x:36 y:13
+[14:31] Server closed
+[14:31] Server saving players...
+[14:31] Server saving complete...
+[14:32] Server started up
+[14:32] Leahos has been warped on Map#5 x:42 y:9
+[14:33] Leahos evolved Charmander to Charmeleon
+[14:34] Leahos requested to edit Spawn
+[14:34] Leahos save Spawn#1 data
+[14:34] Leahos save Spawn#12 data
+[14:34] Leahos save Spawn#13 data
+[14:34] Leahos save Spawn#14 data
+[14:34] Leahos save Spawn#15 data
+[14:34] Leahos save Spawn#16 data
+[14:34] Leahos save Spawn#17 data
+[14:34] Leahos save Spawn#18 data
+[14:34] Leahos requested to edit Pokemon
+[14:35] Leahos save pokemon#1 data
+[14:35] Leahos save pokemon#2 data
+[14:35] Leahos save pokemon#4 data
+[14:35] Leahos requested to edit map#5
+[14:35] Leahos has been warped on Map#5 x:37 y:12
+[14:35] Leahos updated map#5
+[14:36] Leahos requested to edit map#5
+[14:37] Server closed
+[14:37] Server saving players...
+[14:37] Server saving complete...
+[14:38] Server started up
+[14:38] Yag has been warped on Map#5 x:38 y:18
+[14:44] Server closed
+[14:44] Server saving players...
+[14:44] Server saving complete...
+[14:45] Server started up
+[14:45] Yag has been warped on Map#5 x:61 y:25
+[14:45] Yag requested to edit Spawn
+[14:45] Yag save Spawn#1 data
+[14:46] Character 'SAGDHJ' has been created from Account 'Yag
+[14:46] SAGDHJ has been warped on Map#5 x:10 y:7
+[14:47] SAGDHJ has been warped on Map#5 x:10 y:7
+[14:49] Server closed
+[14:49] Server saving players...
+[14:49] Server saving complete...
+[14:53] Server started up
+[14:53] Server closed
+[14:53] Server saving players...
+[14:53] Server saving complete...
+[14:54] Server closed
+[14:54] Server saving players...
+[14:54] Server saving complete...
+[14:55] Server started up
+[14:55] Server closed
+[14:55] Server saving players...
+[14:55] Server saving complete...
+[14:56] Server started up
+[14:56] Server closed
+[14:56] Server saving players...
+[14:56] Server saving complete...
+[14:56] Server started up
+[14:57] Server closed
+[14:57] Server saving players...
+[14:57] Server saving complete...
+[14:57] Server closed
+[14:57] Server saving players...
+[14:57] Server saving complete...
+[14:57] Server closed
+[14:57] Server saving players...
+[14:57] Server saving complete...
+[14:57] Server closed
+[14:57] Server saving players...
+[14:57] Server saving complete...
+[14:58] Server closed
+[14:58] Server saving players...
+[14:58] Server saving complete...
+[14:59] Server started up
+[14:59] Server closed
+[14:59] Server saving players...
+[14:59] Server saving complete...
+[14:59] Server started up
+[14:59] Server closed
+[14:59] Server saving players...
+[14:59] Server saving complete...
+[15:00] Server started up
+[15:04] Server started up
+[15:05] Yag has been warped on Map#5 x:48 y:23
+[15:06] Server started up
+[15:06] Yag has been warped on Map#5 x:48 y:23
+[15:07] Server closed
+[15:07] Server saving players...
+[15:07] Server saving complete...
+[15:08] Server started up
+[15:08] Yag has been warped on Map#5 x:48 y:23
+[15:08] Server closed
+[15:08] Server saving players...
+[15:08] Server saving complete...
+[15:09] Server started up
+[15:09] Yag has been warped on Map#5 x:48 y:23
+[15:10] Server closed
+[15:10] Server saving players...
+[15:10] Server saving complete...
+[15:12] Server started up
+[15:12] Server closed
+[15:12] Server saving players...
+[15:12] Server saving complete...
+[15:32] Server started up
+[15:32] Yag has been warped on Map#5 x:63 y:21
+[15:45] Server started up
+[15:46] Yag has been warped on Map#5 x:63 y:21
+[15:50] Server started up
+[15:50] Yag has been warped on Map#5 x:63 y:21
+[15:51] Server closed
+[15:51] Server saving players...
+[15:51] Server saving complete...
+[15:56] Server closed
+[15:56] Server saving players...
+[15:56] Server saving complete...
+[15:56] Server started up
+[15:57] Yag has been warped on Map#5 x:34 y:21
+[15:58] [Mapa]Yag: la
+[15:58] Server closed
+[15:58] Server saving players...
+[15:58] Server saving complete...
+[16:04] Server started up
+[16:05] Server closed
+[16:05] Server saving players...
+[16:05] Server saving complete...
+[16:09] Server started up
+[16:09] Server closed
+[16:09] Server saving players...
+[16:09] Server saving complete...
+[16:10] Server started up
+[16:11] Server closed
+[16:11] Server saving players...
+[16:11] Server saving complete...
+[16:19] Server started up
+[16:19] Yag has been warped on Map#5 x:46 y:7
+[16:20] Yag has been warped on Map#5 x:46 y:7
+[16:20] Yag has been warped on Map#5 x:46 y:7
+[16:20] Server closed
+[16:20] Server saving players...
+[16:20] Server saving complete...
+[16:21] Server started up
+[16:21] Yag has been warped on Map#5 x:46 y:7
+[16:25] Yag has been warped on Map#5 x:42 y:12
+[16:32] Yag has been warped on Map#5 x:47 y:20
+[16:37] Yag has been warped on Map#5 x:44 y:22
+[16:37] Yag has been warped on Map#5 x:46 y:22
+[16:39] Yag has been warped on Map#5 x:46 y:22
+[16:52] Yag requested to edit map#5
+[16:52] Yag requested to edit map#5
+[16:52] Yag has been warped on Map#5 x:22 y:13
+[16:52] Yag updated map#5
+[16:53] Yag requested to edit npc
+[16:53] Yag save npc#1 data
+[16:53] Yag requested to edit map#5
+[16:53] Yag requested to edit npc
+[16:53] Yag save npc#1 data
+[16:56] Yag has been warped on Map#5 x:26 y:5
+[16:57] Yag has been warped on Map#5 x:26 y:10
+[16:58] Yag has been warped on Map#5 x:26 y:10
+[16:59] Yag has been warped on Map#5 x:26 y:10
+[16:59] Yag has been warped on Map#5 x:26 y:10
+[17:03] Yag requested to edit map#5
+[17:03] Yag has been warped on Map#5 x:23 y:10
+[17:03] Yag updated map#5
+[17:03] Yag requested to edit map#5
+[17:04] Yag has been warped on Map#5 x:23 y:10
+[17:04] Yag updated map#5
+[17:04] Yag requested to edit map#5
+[17:04] Yag has been warped on Map#5 x:23 y:10
+[17:04] Yag updated map#5
+[17:04] Yag requested to edit map#5
+[17:04] Yag has been warped on Map#5 x:23 y:10
+[17:04] Yag updated map#5
+[17:04] Yag requested to edit map#5
+[17:05] Yag has been warped on Map#5 x:23 y:10
+[17:05] Yag updated map#5
+[17:05] Yag requested to edit Pokemon
+[17:05] Yag save pokemon#1 data
+[17:06] Yag requested to edit Pokemon
+[17:06] Yag save pokemon#1 data
+[17:07] Character 'asdasd' has been created from Account 'Yag
+[17:07] Yag has been warped on Map#5 x:30 y:8
+[17:07] asdasd has been warped on Map#5 x:10 y:7
+[17:11] asdasd has been warped on Map#5 x:25 y:18
+[17:16] Character 'bulba' has been created from Account 'Yag
+[17:16] Yag has been warped on Map#5 x:30 y:8
+[17:17] bulba has been warped on Map#5 x:10 y:7
+[17:19] Yag has been warped on Map#5 x:30 y:8
+[17:19] bulba has been warped on Map#5 x:24 y:3
+[17:33] Yag has been warped on Map#5 x:30 y:3
+[17:33] bulba has been warped on Map#5 x:25 y:2
+[17:33] Yag has been warped on Map#5 x:32 y:7
+[17:33] bulba has been warped on Map#5 x:29 y:3
+[17:52] bulba has been warped on Map#5 x:29 y:3
+[17:57] bulba has been warped on Map#5 x:31 y:7
+[17:58] bulba requested to edit npc
+[17:59] bulba requested npc data
+[18:22] bulba has been warped on Map#5 x:31 y:19
+[18:26] bulba requested to edit Pokemon
+[18:26] bulba requested Pokemon data
+[18:28] bulba has been warped on Map#5 x:29 y:19
+[18:28] bulba requested to edit Pokemon
+[18:38] bulba requested to edit Pokemon
+[18:50] bulba has been warped on Map#5 x:29 y:19
+[18:50] bulba requested to edit Spawn
+[18:50] bulba save Spawn#1 data
+[18:52] bulba has been warped on Map#5 x:61 y:19
+[18:53] bulba has been warped on Map#5 x:61 y:19
+[18:54] bulba use item Pokeball
+[18:54] bulba has caught Ivysaur
+[19:00] bulba has been warped on Map#5 x:30 y:9
+[19:00] bulba requested to edit map#5
+[19:02] bulba has been warped on Map#5 x:26 y:7
+[19:02] bulba updated map#5
+[19:02] bulba requested to edit map#5
+[19:12] bulba has been warped on Map#5 x:24 y:18
+[19:12] bulba updated map#5
+[19:13] bulba requested to edit map#5
+[19:14] bulba has been warped on Map#5 x:20 y:21
+[19:14] bulba updated map#5
+[19:14] bulba requested to edit map#5
+[19:14] bulba has been warped on Map#5 x:20 y:21
+[19:14] bulba updated map#5
+[19:14] bulba requested to edit map#5
+[19:17] bulba has been warped on Map#5 x:6 y:7
+[19:17] bulba updated map#5
+[19:17] bulba requested to edit map#5
+[19:29] bulba has been warped on Map#5 x:60 y:18
+[19:29] bulba updated map#5
+[19:29] bulba requested to edit map#5
+[19:30] bulba has been warped on Map#5 x:58 y:22
+[19:30] bulba updated map#5
+[19:30] bulba requested to edit map#5
+[19:42] bulba has been warped on Map#5 x:51 y:0
+[19:42] bulba updated map#5
+[19:43] bulba requested to edit map#5
+[19:46] bulba has been warped on Map#5 x:53 y:8
+[19:46] bulba updated map#5
+[19:47] bulba requested to edit npc
+[19:48] bulba has been warped on Map#5 x:62 y:8
+[19:50] bulba requested to edit map#5
+[19:50] bulba has been warped on Map#5 x:46 y:8
+[19:50] bulba updated map#5
+[19:51] bulba requested to edit map#5
+[19:51] bulba has been warped on Map#5 x:55 y:5
+[19:51] bulba updated map#5
+[19:51] bulba has been warped on Map#5 x:49 y:6
+[19:51] bulba has been warped on Map#5 x:49 y:6
+[19:51] bulba has been warped on Map#5 x:42 y:8
+[19:51] bulba has been warped on Map#5 x:44 y:8
+[19:52] bulba requested to edit map#5
+[19:55] bulba has been warped on Map#5 x:60 y:5
+[19:55] bulba updated map#5
+[20:06] bulba has been warped on Map#5 x:55 y:24
+[20:06] bulba requested to edit map#5
+[20:06] bulba has been warped on Map#5 x:5 y:10
+[20:06] bulba updated map#5
+[20:08] bulba requested to edit map#5
+[20:09] bulba requested to edit Pokemon
+[20:09] bulba save pokemon#1 data
+[20:10] bulba's pokemon, Bulbasaur, learned the move Sleep Powder replacing Growl
+[20:11] bulba's pokemon, Bulbasaur, learned the move Take Down replacing Tackle
+[20:12] bulba evolved Bulbasaur to Ivysaur
+[20:12] bulba requested to edit Spawn
+[20:12] bulba save Spawn#1 data
+[20:12] bulba save Spawn#15 data
+[20:12] bulba save Spawn#16 data
+[20:12] bulba save Spawn#17 data
+[20:12] bulba save Spawn#18 data
+[20:12] bulba use item Pokeball
+[20:12] bulba has caught Venusaur
+[20:16] bulba has been warped on Map#5 x:51 y:6
+[20:17] bulba has been warped on Map#5 x:55 y:13
+[20:21] Server closed
+[20:21] Server saving players...
+[20:21] Server saving complete...

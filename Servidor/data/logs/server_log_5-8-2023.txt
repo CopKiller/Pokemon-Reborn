@@ -1,0 +1,69 @@
+[00:00] teste1 has been warped on Map#5 x:37 y:10
+[00:00] teste1 has been warped on Map#5 x:58 y:29
+[00:01] teste1 has been warped on Map#5 x:52 y:21
+[00:02] teste1 requested to edit map#5
+[00:02] teste1 has been warped on Map#5 x:52 y:13
+[00:02] teste1 updated map#5
+[00:02] teste1 has been warped on Map#5 x:58 y:29
+[00:02] teste1 requested to edit map#5
+[00:02] teste1 has been warped on Map#5 x:56 y:8
+[00:02] teste1 updated map#5
+[00:02] teste1 has been warped on Map#4 x:56 y:40
+[00:02] teste1 has been warped on Map#5 x:56 y:0
+[00:03] teste1 has been warped on Map#4 x:56 y:40
+[00:03] teste1 requested to edit map#4
+[00:03] teste1 has been warped on Map#5 x:56 y:0
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:04] teste1 use item Rare Candy
+[00:05] teste1 requested to edit map#5
+[00:05] teste1 has been warped on Map#5 x:59 y:10
+[00:05] teste1 updated map#5
+[00:05] teste1 has been warped on Map#4 x:56 y:40
+[00:05] teste1 has been warped on Map#5 x:56 y:0
+[00:15] teste1 requested to edit Pokemon
+[00:18] teste1 requested to edit map#5
+[00:18] teste1 has been warped on Map#5 x:56 y:5
+[00:18] teste1 updated map#5
+[00:18] teste1 has been warped on Map#4 x:56 y:40
+[00:18] teste1 has been warped on Map#5 x:56 y:0
+[00:19] teste1 requested to edit map#5
+[00:20] teste1 has been warped on Map#5 x:56 y:8
+[00:20] teste1 updated map#5
+[00:20] teste1 has been warped on Map#4 x:56 y:40
+[00:20] teste1 has been warped on Map#5 x:56 y:0
+[00:21] teste1 requested to edit map#5
+[00:21] teste1 has been warped on Map#5 x:56 y:7
+[00:21] teste1 updated map#5
+[00:21] teste1 has been warped on Map#4 x:56 y:40
+[00:21] teste1 has been warped on Map#5 x:56 y:0
+[00:22] teste1 requested to edit map#5
+[00:22] teste1 has been warped on Map#5 x:56 y:15
+[00:22] teste1 updated map#5
+[00:22] teste1 has been warped on Map#4 x:56 y:40
+[00:22] teste1 has been warped on Map#5 x:56 y:0
+[00:22] teste1 requested to edit map#5
+[00:23] teste1 has been warped on Map#5 x:56 y:12
+[00:23] teste1 updated map#5
+[07:23] teste1 has been warped on Map#4 x:56 y:40
+[07:23] teste1 has been warped on Map#5 x:56 y:0
+[07:23] teste1 requested to edit map#5
+[07:24] teste1 has been warped on Map#5 x:56 y:12
+[07:24] teste1 updated map#5
+[07:24] teste1 has been warped on Map#4 x:56 y:40
+[07:24] teste1 has been warped on Map#5 x:56 y:0
+[07:36] Server closed
+[07:36] Server saving players...
+[07:36] Server saving complete...

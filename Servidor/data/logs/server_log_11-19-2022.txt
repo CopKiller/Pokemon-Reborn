@@ -1,0 +1,8 @@
+[01:41] Server started up
+[01:42] bulba has been warped on Map#5 x:30 y:7
+[01:43] saddasd has been warped on Map#5 x:10 y:7
+[01:43] bulba has been warped on Map#5 x:38 y:13
+[01:44] [Mapa]bulba: asdasd
+[01:45] Server closed
+[01:45] Server saving players...
+[01:45] Server saving complete...

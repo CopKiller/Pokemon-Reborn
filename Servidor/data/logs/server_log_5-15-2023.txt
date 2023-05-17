@@ -1,0 +1,30 @@
+[20:04] Server started up
+[20:05] Account 'teste' has been created
+[20:05] Character 'ADMIN' has been created from Account 'teste
+[20:05] ADMIN has been warped on Map#5 x:10 y:7
+[20:06] ADMIN has been warped on Map#5 x:10 y:7
+[20:06] ADMIN requested to edit map#5
+[20:07] ADMIN requested to edit map#5
+[20:09] Server started up
+[20:09] ADMIN has been warped on Map#5 x:39 y:13
+[20:09] ADMIN has been warped on Map#4 x:6 y:40
+[20:09] Server closed
+[20:09] Server saving players...
+[20:09] Server saving complete...
+[20:11] Server started up
+[20:12] ADMIN has been warped on Map#4 x:7 y:33
+[20:12] ADMIN warped to map#25
+[20:12] ADMIN has been warped on Map#25 x:32 y:20
+[20:12] ADMIN has been warped on Map#88 x:13 y:13
+[20:12] ADMIN has been warped on Map#87 x:5 y:4
+[20:13] ADMIN has been warped on Map#88 x:14 y:8
+[20:13] ADMIN has been warped on Map#25 x:24 y:7
+[20:13] ADMIN has been warped on Map#24 x:50 y:10
+[20:13] ADMIN has been warped on Map#26 x:20 y:50
+[20:13] ADMIN has been warped on Map#143 x:12 y:14
+[20:16] Server started up
+[20:16] ADMIN has been warped on Map#143 x:12 y:7
+[20:16] ADMIN has been warped on Map#143 x:12 y:7
+[20:17] Server closed
+[20:17] Server saving players...
+[20:17] Server saving complete...

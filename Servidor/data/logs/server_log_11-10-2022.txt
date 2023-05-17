@@ -1,0 +1,24 @@
+[17:01] Server closed
+[17:01] Server saving players...
+[17:01] Server saving complete...
+[17:01] Server started up
+[17:02] Leahos has been warped on Map#4 x:14 y:18
+[17:02] Server closed
+[17:02] Server saving players...
+[17:02] Server saving complete...
+[17:02] Server started up
+[17:02] Leahos has been warped on Map#4 x:14 y:18
+[17:02] Leahos requested to edit map#4
+[17:02] Leahos has been warped on Map#4 x:14 y:18
+[17:02] Leahos updated map#4
+[17:03] [Local] Leahos: sfsdfsdf
+[17:03] [Local] Leahos: asfsfdfsd
+[17:03] [Local] Leahos: sdfsdfsd
+[17:03] [Local] Leahos: sdfsdf
+[17:03] [Local] Leahos: sdfsdf
+[17:03] [Local] Leahos: werwer
+[17:03] [Local] Leahos: xcvxcv
+[17:03] [Local] Leahos: xvxcvxcv
+[17:04] Server closed
+[17:04] Server saving players...
+[17:04] Server saving complete...

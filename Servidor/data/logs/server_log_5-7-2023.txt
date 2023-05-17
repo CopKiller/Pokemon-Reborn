@@ -1,0 +1,514 @@
+[03:34] Server started up
+[03:44] Character 'Teste' has been created from Account 'Yag
+[03:44] Teste has been warped on Map#5 x:10 y:7
+[03:47] Teste requested to edit map#5
+[03:48] Teste requested to edit map#5
+[03:48] Teste has been warped on Map#5 x:40 y:19
+[03:48] Teste updated map#5
+[03:50] Teste use item Pokeball
+[03:50] Teste use item Pokeball
+[03:50] Teste use item Pokeball
+[03:50] Teste use item Pokeball
+[03:50] Teste use item Pokeball
+[03:50] Teste has caught Bulbasaur
+[03:52] saddasd has been warped on Map#5 x:10 y:7
+[03:52] Teste has been warped on Map#5 x:30 y:13
+[03:53] Teste requested to edit Item
+[03:53] Teste requested to edit Pokemon
+[03:55] Teste requested to edit Spawn
+[03:56] Teste requested Spawn data
+[03:56] Teste requested to edit map#5
+[03:59] [Mapa]Teste: asdasdasdasdasdasdsad
+[03:59] [Mapa]Teste: asdasdasd
+[03:59] [Mapa]Teste: asdasdas
+[04:02] Teste use item Pokeball
+[04:02] Teste requested to edit map#5
+[04:03] Teste requested to edit map#5
+[04:03] Teste has been warped on Map#5 x:62 y:16
+[04:03] Teste updated map#5
+[04:04] Teste requested to edit map#5
+[04:06] Teste has been warped on Map#5 x:63 y:18
+[04:06] Teste updated map#5
+[04:06] Teste requested to edit map#5
+[04:06] Teste has been warped on Map#5 x:59 y:15
+[04:06] Teste updated map#5
+[04:11] [Mapa]Teste: fgdfdgdgf
+[04:12] Teste use item Pokeball
+[04:12] Teste has caught Venusaur
+[04:14] Teste has been warped on Map#5 x:51 y:6
+[04:15] Server closed
+[04:15] Server saving players...
+[04:15] Server saving complete...
+[04:29] Server started up
+[04:30] Teste has been warped on Map#5 x:52 y:6
+[04:30] Teste requested to edit Item
+[04:31] Teste requested Item data
+[04:31] Teste requested to edit Quest
+[04:32] Teste requested to edit Pokemon
+[04:33] Teste , Admin Rights: Give Pokemon To Teste, Pokemon#133 Level6
+[04:33] [Mapa]Teste: dasd
+[04:33] [Mapa]Teste: asdasd
+[04:33] Teste requested to edit Item
+[04:34] Teste requested to edit Item
+[04:34] Teste requested to edit Item
+[04:34] Teste requested to edit Item
+[04:35] Teste , Admin Rights: Give Item To Teste, Item#71 x1
+[04:35] Teste has been warped on Map#5 x:55 y:10
+[04:36] Teste requested to edit Item
+[04:36] Teste save item#1 data
+[04:36] Teste save item#71 data
+[04:37] Teste evolved Eevee to Jolteon
+[04:37] Teste requested to edit Pokemon
+[04:45] Teste has been warped on Map#5 x:55 y:10
+[04:47] Server closed
+[04:47] Server saving players...
+[04:47] Server saving complete...
+[02:16] Server started up
+[02:22] Account 'teste1' has been created
+[02:23] Character 'teste1' has been created from Account 'teste1
+[02:24] teste1 has been warped on Map#5 x:10 y:7
+[02:25] teste1 has been warped on Map#5 x:10 y:7
+[02:26] teste1 requested to edit Conversation
+[02:33] teste1 has been warped on Map#5 x:61 y:16
+[02:37] [Mapa]teste1: teste
+[02:37] [Mapa]teste1: teste
+[02:37] [Mapa]teste1: teste
+[02:37] [Mapa]teste1: teste
+[02:37] [Mapa]teste1: teste
+[02:37] [Mapa]teste1: teste
+[02:37] [Mapa]teste1: teste
+[02:37] [Mapa]teste1: teste
+[02:37] [Mapa]teste1: teste
+[02:37] [Mapa]teste1: teste
+[02:41] teste1 use item Pokeball
+[02:41] teste1 use item Pokeball
+[02:41] teste1 use item Pokeball
+[02:41] teste1 use item Pokeball
+[02:41] teste1 has caught Bulbasaur
+[02:42] teste1 use item Pokeball
+[02:42] teste1 use item Pokeball
+[02:42] teste1 use item Pokeball
+[02:42] teste1 use item Pokeball
+[02:42] teste1 use item Pokeball
+[02:42] teste1 use item Pokeball
+[02:42] teste1 has caught Venusaur
+[02:45] teste1 has been warped on Map#5 x:54 y:7
+[02:46] teste1 requested to edit npc
+[02:47] teste1 requested to edit map#5
+[02:48] teste1 has been warped on Map#5 x:53 y:9
+[02:48] teste1 updated map#5
+[02:49] teste1 requested to edit Shop
+[02:50] teste1 requested to edit npc
+[02:51] teste1 requested npc data
+[02:51] teste1 requested to edit npc
+[02:52] teste1 requested to edit map#5
+[02:52] teste1 has been warped on Map#5 x:37 y:13
+[02:52] teste1 updated map#5
+[02:53] teste1 requested to edit Shop
+[02:53] teste1 requested to edit npc
+[02:53] teste1 requested to edit map#5
+[02:53] teste1 has been warped on Map#5 x:53 y:15
+[02:53] teste1 updated map#5
+[02:57] [Mapa]teste1: oii
+[02:57] [Mapa]teste1: asidjaisdj
+[02:57] [Mapa]teste1: adasdlkamskdlmasdas
+[02:57] [Mapa]teste1: teste
+[02:57] [Mapa]teste1: tesadas,d ,a;d,as
+[02:57] [Mapa]teste1: asd,as,d.a,d.;,a;.d,dnalndas
+[02:58] [Mapa]teste1: teste
+[02:58] [Mapa]teste1: teste1233213123
+[02:58] [Mapa]teste1: 12321321312
+[03:04] teste1 requested to edit Pokemon
+[03:06] teste1 save pokemon#1 data
+[03:08] teste1 requested to edit Pokemon
+[03:16] teste1 has been warped on Map#5 x:58 y:10
+[03:17] teste1 requested to edit Item
+[03:21] teste1 requested Item data
+[03:22] teste1 requested to edit Spawn
+[03:23] teste1 requested Spawn data
+[03:24] teste1 requested to edit Animation
+[03:24] teste1 requested to edit Pokemon Move
+[03:39] teste1 requested Pokemon Move data
+[03:39] teste1 requested to edit Pokemon
+[03:40] teste1 save pokemon#1 data
+[03:40] teste1 save pokemon#7 data
+[03:43] teste1 requested to edit Pokemon
+[03:45] teste1 save pokemon#1 data
+[03:45] teste1 save pokemon#2 data
+[03:45] teste1 save pokemon#3 data
+[03:49] teste1 requested to edit map#5
+[03:49] teste1 requested to edit map#5
+[03:51] teste1 requested to edit Spawn
+[03:52] teste1 requested Spawn data
+[03:54] [Mapa]teste1: oi
+[03:54] [Todos] teste1: ola
+[03:54] [Mapa]teste1: koe
+[03:54] [Mapa]teste1: @dkaldkal
+[03:55] teste1 requested to edit npc
+[03:56] teste1 requested to edit Shop
+[03:57] teste1 requested to edit Quest
+[03:57] teste1 requested to edit Conversation
+[03:59] teste1 requested to edit Item
+[04:00] teste1 requested to edit Pokemon
+[04:01] teste1 requested Pokemon data
+[04:01] teste1 requested to edit Item
+[04:02] teste1 save item#1 data
+[04:02] teste1 save item#2 data
+[04:02] teste1 save item#3 data
+[04:03] teste1 , Admin Rights: Get Item#2 x10
+[04:03] teste1 use item Great Ball
+[04:03] teste1 has caught Bulbasaur
+[04:03] teste1 use item Great Ball
+[04:03] teste1 use item Great Ball
+[04:03] teste1 use item Great Ball
+[04:03] teste1 use item Great Ball
+[04:03] teste1 use item Great Ball
+[04:03] teste1 use item Great Ball
+[04:03] teste1 has caught Venusaur
+[04:03] teste1 requested to edit Item
+[04:05] teste1 , Admin Rights: Get Item#6 x20
+[04:06] [Mapa]teste1: edititem
+[04:06] teste1 requested to edit Item
+[04:06] teste1 save item#1 data
+[04:06] teste1 save item#2 data
+[04:06] teste1 save item#3 data
+[04:06] teste1 save item#4 data
+[04:06] teste1 save item#5 data
+[04:06] teste1 save item#6 data
+[04:06] teste1 save item#7 data
+[04:06] teste1 requested to edit Item
+[04:07] teste1 save item#1 data
+[04:07] teste1 save item#2 data
+[04:07] teste1 save item#3 data
+[04:07] teste1 save item#4 data
+[04:07] teste1 save item#5 data
+[04:07] teste1 save item#6 data
+[04:07] teste1 save item#7 data
+[04:07] teste1 save item#8 data
+[04:11] teste1 requested to edit Item
+[04:12] teste1 save item#1 data
+[04:12] teste1 save item#2 data
+[04:12] teste1 save item#3 data
+[04:12] teste1 save item#4 data
+[04:12] teste1 save item#5 data
+[04:12] teste1 save item#6 data
+[04:12] teste1 save item#7 data
+[04:12] teste1 save item#8 data
+[04:12] teste1 , Admin Rights: Get Item#8 x110
+[04:13] teste1 requested to edit Item
+[04:13] teste1 save item#1 data
+[04:13] teste1 save item#2 data
+[04:13] teste1 use item Pokeball
+[04:13] teste1 use item Pokeball
+[04:13] teste1 has caught Venusaur
+[04:14] teste1 requested to edit Item
+[04:14] teste1 save item#1 data
+[04:14] teste1 save item#2 data
+[04:14] teste1 save item#3 data
+[04:14] teste1 save item#4 data
+[04:14] teste1 save item#5 data
+[04:14] teste1 save item#6 data
+[04:14] teste1 save item#7 data
+[04:14] teste1 use item Luxury Ball
+[04:18] teste1 use item Luxury Ball
+[04:18] teste1 use item Luxury Ball
+[04:18] teste1 use item Luxury Ball
+[04:18] teste1 use item Luxury Ball
+[04:18] teste1 use item Luxury Ball
+[04:22] teste1 requested to edit npc
+[04:22] teste1 requested to edit map#5
+[04:23] teste1 has been warped on Map#5 x:34 y:8
+[04:23] teste1 updated map#5
+[04:24] teste1 requested to edit map#5
+[04:24] teste1 has been warped on Map#5 x:38 y:11
+[04:24] teste1 updated map#5
+[04:24] teste1 enter storage
+[04:25] teste1 enter storage
+[04:25] teste1 enter storage
+[04:25] teste1 enter storage
+[04:25] teste1 enter storage
+[04:25] teste1 enter storage
+[04:25] teste1 enter storage
+[04:26] teste1 enter storage
+[04:26] teste1 enter storage
+[04:26] teste1 enter storage
+[04:26] teste1 enter storage
+[04:27] teste1 use item Great Ball
+[04:27] teste1 enter storage
+[04:28] teste1 enter storage
+[04:28] teste1 enter storage
+[04:28] teste1 enter storage
+[04:28] teste1 enter storage
+[04:28] teste1 enter storage
+[04:33] teste1 enter storage
+[04:33] teste1 enter storage
+[04:34] teste1 enter storage
+[04:38] teste1 has been warped on Map#5 x:58 y:10
+[04:49] teste1 has been warped on Map#5 x:58 y:10
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 has caught Venusaur
+[04:49] teste1 use item Pokeball
+[04:49] teste1 use item Pokeball
+[04:49] teste1 has caught Ivysaur
+[04:50] teste1 enter storage
+[04:50] teste1 enter storage
+[04:50] teste1 use item Pokeball
+[04:50] teste1 has caught Venusaur
+[04:50] teste1 use item Pokeball
+[04:51] teste1 requested to edit Item
+[04:51] teste1 , Admin Rights: Get Item#57 x50
+[04:51] teste1 use item Rare Candy
+[04:51] teste1 use item Rare Candy
+[04:51] teste1 use item Rare Candy
+[04:51] teste1 use item Rare Candy
+[04:51] teste1 use item Rare Candy
+[04:51] teste1 use item Rare Candy
+[04:51] teste1 use item Rare Candy
+[04:51] teste1 use item Rare Candy
+[04:52] teste1 use item Rare Candy
+[04:52] teste1 use item Rare Candy
+[04:52] teste1 use item Rare Candy
+[04:52] teste1 use item Rare Candy
+[04:52] teste1's pokemon, Charmander, learned the move Dragon Rage replacing Smokescreen
+[04:53] teste1 has been warped on Map#5 x:42 y:24
+[04:55] teste1 evolved Charmander to Charmeleon
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1's pokemon, Charmeleon, learned the move Fire Fang replacing Growl
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:55] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Pokeball
+[04:56] teste1 use item Pokeball
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Pokeball
+[04:56] teste1 use item Pokeball
+[04:56] teste1 use item Rare Candy
+[04:56] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 , Admin Rights: Get Item#57 x10
+[04:57] teste1 , Admin Rights: Get Item#57 x150
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:57] teste1 use item Rare Candy
+[04:58] teste1's pokemon, Bulbasaur, learned the move Sleep Powder replacing Poison Powder
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1's pokemon, Bulbasaur, learned the move Take Down replacing Growl
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1's pokemon, Bulbasaur, learned the move Razor Leaf replacing Tackle
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1's pokemon, Bulbasaur, learned the move Double-Edge replacing Vine Whip
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[04:58] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Pokeball
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:00] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1's pokemon, Venusaur, learned the move Leech Seed replacing Vine Whip
+[05:01] teste1 use item Rare Candy
+[05:01] teste1's pokemon, Venusaur, learned the move Sleep Powder replacing Growl
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1's pokemon, Venusaur, learned the move Razor Leaf replacing Growl
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1's pokemon, Venusaur, learned the move Growth replacing Tackle
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:01] teste1 use item Rare Candy
+[05:07] teste1 requested to edit Pokemon Move
+[05:07] teste1 save pokemonmove#1 data
+[05:07] teste1 save pokemonmove#53 data
+[05:08] teste1 requested to edit Pokemon Move
+[05:08] teste1 save pokemonmove#1 data
+[05:08] teste1 save pokemonmove#53 data
+[05:08] teste1 requested to edit Pokemon Move
+[05:09] teste1 save pokemonmove#1 data
+[05:09] teste1 save pokemonmove#53 data
+[05:09] teste1 requested to edit Pokemon Move
+[05:09] teste1 save pokemonmove#1 data
+[05:09] teste1 save pokemonmove#53 data
+[05:10] teste1 requested to edit Animation
+[05:11] Server closed
+[05:11] Server saving players...
+[05:11] Server saving complete...
+[23:30] Server started up
+[23:31] teste1 has been warped on Map#5 x:24 y:7
+[23:35] [Mapa]teste1: editmap
+[23:36] teste1 requested to edit map#5
+[23:36] teste1 has been warped on Map#5 x:10 y:6
+[23:36] teste1 updated map#5
+[23:36] teste1 has been warped on Map#4 x:6 y:18
+[23:38] teste1 requested to edit map#4
+[23:40] teste1 warped to map#5
+[23:40] teste1 has been warped on Map#5 x:4 y:18
+[23:41] teste1 requested to edit map#5
+[23:46] teste1 has been warped on Map#4 x:24 y:18
+[23:49] teste1 warped to map#4
+[23:49] teste1 has been warped on Map#4 x:24 y:18
+[23:49] teste1 warped to map#4
+[23:49] teste1 has been warped on Map#4 x:24 y:18
+[23:49] teste1 warped to map#5
+[23:49] teste1 has been warped on Map#5 x:24 y:18
+[23:51] teste1 has been warped on Map#5 x:40 y:13
+[23:51] [Mapa]teste1: 4
+[23:52] teste1 has been warped on Map#5 x:39 y:11
+[23:52] teste1 has been warped on Map#5 x:39 y:11
+[23:53] teste1 has been warped on Map#5 x:40 y:14
+[23:53] teste1 requested to edit map#5
+[23:54] teste1 has been warped on Map#5 x:51 y:19
+[23:54] teste1 updated map#5
+[23:54] teste1 requested to edit map#5
+[23:56] teste1 has been warped on Map#5 x:51 y:19
+[23:56] teste1 updated map#5
+[23:56] teste1 has been warped on Map#4 x:24 y:18
+[23:57] teste1 requested to edit map#4
+[23:57] teste1 has been warped on Map#4 x:24 y:2
+[23:57] teste1 updated map#4
+[23:58] teste1 requested to edit map#4
+[23:59] teste1 has been warped on Map#4 x:29 y:37
+[23:59] teste1 updated map#4
+[23:59] teste1 has been warped on Map#5 x:29 y:0
+[23:59] teste1 has been warped on Map#4 x:29 y:40
+[23:59] teste1 has been warped on Map#5 x:29 y:0
+[23:59] teste1 has been warped on Map#4 x:29 y:40
+[23:59] teste1 has been warped on Map#5 x:29 y:0
+[23:59] teste1 has been warped on Map#5 x:39 y:16

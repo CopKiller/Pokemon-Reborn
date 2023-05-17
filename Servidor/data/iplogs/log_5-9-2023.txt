@@ -1,0 +1,14 @@
+[00:07] Receiving connection from 127.0.0.1
+[00:07] Account 'teste1' has logged in on IP 127.0.0.1
+[00:48] Receiving connection from 127.0.0.1
+[00:48] Account 'teste1' has logged in on IP 127.0.0.1
+[00:51] Connection from 127.0.0.1 was terminated
+[00:54] Receiving connection from 127.0.0.1
+[00:54] Account 'teste1' has logged in on IP 127.0.0.1
+[00:58] Receiving connection from 127.0.0.1
+[00:58] Account 'teste1' has logged in on IP 127.0.0.1
+[01:36] Receiving connection from 127.0.0.1
+[01:36] Account 'teste1' has logged in on IP 127.0.0.1
+[01:42] Connection from 127.0.0.1 was terminated
+[01:42] Receiving connection from 127.0.0.1
+[01:42] Account 'teste1' has logged in on IP 127.0.0.1
