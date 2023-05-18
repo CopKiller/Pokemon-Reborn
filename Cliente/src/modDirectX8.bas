@@ -1198,7 +1198,7 @@ Public Sub Render_Screen()
     End If
 
     If CanShowCursor Then
-        If Not InvItemDescShow Then
+        If Not InvItemDescShow Then ' and Not ShopItemDescShow Then
             If MouseIcon = 1 Then
                 RenderTexture Tex_System(gSystemEnum.CursorIcon), CursorX - 3, CursorY, 32 * MouseIcon, 0, 32, 32, 32, 32
             Else
@@ -1536,6 +1536,7 @@ Dim AddY As Long
     End If
     
     DrawInvItemDesc
+    DrawShopItemDesc
 End Sub
 
 '//This render all graphics of Menu
@@ -3309,8 +3310,8 @@ Dim DrawX As Long, DrawY As Long
                     RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
                     
                     '//Count
-                    If PlayerInvStorage(InvCurSlot).Data(i).Value > 1 Then
-                        RenderText Font_Default, PlayerInvStorage(InvCurSlot).Data(i).Value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInvStorage(InvCurSlot).Data(i).Value)), DrawY + 14, White
+                    If PlayerInvStorage(InvCurSlot).Data(i).value > 1 Then
+                        RenderText Font_Default, PlayerInvStorage(InvCurSlot).Data(i).value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInvStorage(InvCurSlot).Data(i).value)), DrawY + 14, White
                     End If
                 End If
             End If
@@ -3628,8 +3629,8 @@ Dim currencyText As String
                         End If
                         
                         '//Count
-                        If YourTrade.Data(i).Value > 1 Then
-                            RenderText Font_Default, YourTrade.Data(i).Value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, YourTrade.Data(i).Value)), DrawY + 7 + 14, White
+                        If YourTrade.Data(i).value > 1 Then
+                            RenderText Font_Default, YourTrade.Data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, YourTrade.Data(i).value)), DrawY + 7 + 14, White
                         End If
                     ElseIf YourTrade.Data(i).TradeType = 2 Then  '//Pokemon
                         Sprite = Pokemon(YourTrade.Data(i).Num).Sprite
@@ -3656,8 +3657,8 @@ Dim currencyText As String
                         End If
                         
                         '//Count
-                        If TheirTrade.Data(i).Value > 1 Then
-                            RenderText Font_Default, TheirTrade.Data(i).Value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, TheirTrade.Data(i).Value)), DrawY + 7 + 14, White
+                        If TheirTrade.Data(i).value > 1 Then
+                            RenderText Font_Default, TheirTrade.Data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, TheirTrade.Data(i).value)), DrawY + 7 + 14, White
                         End If
                     ElseIf TheirTrade.Data(i).TradeType = 2 Then '//Pokemon
                         Sprite = Pokemon(TheirTrade.Data(i).Num).Sprite
@@ -4364,7 +4365,7 @@ Dim ShouldRender As Boolean
         
         For i = 0 To 1
             '//Set index
-            AnimationNum = .scrlSprite(i).Value
+            AnimationNum = .scrlSprite(i).value
             If AnimationNum <= 0 Or AnimationNum > Count_Animation Then
                 .picSprite(i).Cls
                 GoTo continue
@@ -4378,8 +4379,8 @@ Dim ShouldRender As Boolean
             D3DDevice.BeginScene
 
             If AnimationNum > 0 And AnimationNum <= Count_Animation Then
-                looptime = .scrlLoopTime(i).Value
-                FrameCount = .scrlFrameCount(i).Value
+                looptime = .scrlLoopTime(i).value
+                FrameCount = .scrlFrameCount(i).value
     
                 If FrameCount > 0 Then
                     '//check if we need to render new frame
@@ -4394,7 +4395,7 @@ Dim ShouldRender As Boolean
                     End If
                 
                     '//total width divided by frame count
-                    Width = GetPicWidth(Tex_Animation(AnimationNum)) / frmEditor_Animation.scrlFrameCount(i).Value 'AnimColumns 'GetPicWidth(Tex_Animation(AnimationNum)) '/ frmEditor_Animation.scrlFrameCount(i).value
+                    Width = GetPicWidth(Tex_Animation(AnimationNum)) / frmEditor_Animation.scrlFrameCount(i).value 'AnimColumns 'GetPicWidth(Tex_Animation(AnimationNum)) '/ frmEditor_Animation.scrlFrameCount(i).value
                     Height = GetPicHeight(Tex_Animation(AnimationNum)) 'GetPicWidth(Tex_Animation(AnimationNum)) '/ AnimColumns 'GetPicHeight(Tex_Animation(AnimationNum))
         
                     sX = (AnimEditorFrame(i) - 1) * Width '(Width * (((AnimEditorFrame(i) - 1) Mod AnimColumns))) '(AnimEditorFrame(i) - 1) * Width
@@ -4410,4 +4411,68 @@ Dim ShouldRender As Boolean
 continue:
         Next
     End With
+End Sub
+
+Public Sub DrawShopItemDesc()
+    Dim ItemName As String
+    Dim ItemIcon As Long
+    Dim DescString As String
+    Dim LowBound As Long, UpBound As Long
+    Dim ArrayText() As String
+    Dim i As Integer
+    Dim X As Long, Y As Long
+    Dim yOffset As Long
+    Dim SizeY As Long
+    Dim ItemPrice As String
+    
+    If ShopNum = 0 Then Exit Sub
+    If ShopItemDesc <= 0 Or ShopItemDesc > MAX_SHOP_ITEM Then Exit Sub
+    If ShopItemDescTimer + 400 > GetTickCount Then Exit Sub
+    ShopItemDescShow = True
+
+    ItemIcon = Item(Shop(ShopNum).ShopItem(ShopItemDesc).Num).Sprite
+    ItemName = "~ " & Trim$(Item(Shop(ShopNum).ShopItem(ShopItemDesc).Num).Name) & " ~"
+    DescString = Trim$(Item(Shop(ShopNum).ShopItem(ShopItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
+
+    'If Item(Shop(ShopNum).ShopItem(ShopItemDesc).Num).IsCash = NO Then
+    '    ItemPrice = "Price: " & Item(PlayerInv(InvItemDesc).Num).Price
+    'Else
+    '    ItemPrice = "Price: Non Sellable"
+    'End If
+
+    '//Make sure that loading text have something to draw
+    If Len(DescString) < 0 Then Exit Sub
+
+    '//Wrap the text
+    WordWrap_Array Font_Default, DescString, 150, ArrayText
+
+    '//we need these often
+    LowBound = LBound(ArrayText)
+    UpBound = UBound(ArrayText)
+
+    SizeY = 25 + ((UpBound + 1) * 16)
+
+    RenderTexture Tex_System(gSystemEnum.UserInterface), CursorX, CursorY, 0, 8, 182, 219, 1, 1, D3DColorARGB(180, 0, 0, 0)
+
+    RenderTexture Tex_Item(ItemIcon), CursorX + GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetPicHeight(Tex_Item(ItemIcon)) / 2), CursorY + 8 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon)), GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon))
+
+    RenderText Font_Default, ItemName, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
+    
+    'RenderText Font_Default, ItemPrice, GUI(GuiEnum.GUI_INVENTORY).X + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 150 + ((219 * 0.5) - (SizeY * 0.5)), White
+
+    '//Reset
+    yOffset = 25
+    '//Loop to all items
+    For i = LowBound To UpBound
+        '//Set Location
+        '//Keep it centered
+        X = CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, Trim$(ArrayText(i))) * 0.5))
+        Y = CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)) + yOffset
+
+        '//Render the text
+        RenderText Font_Default, Trim$(ArrayText(i)), X, Y, White
+
+        '//Increase the location for each line
+        yOffset = yOffset + 16
+    Next
 End Sub

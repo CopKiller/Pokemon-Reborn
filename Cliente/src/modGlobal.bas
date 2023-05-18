@@ -332,6 +332,11 @@ Public InvItemDescTimer As Long
 Public InvItemDesc As Integer
 Public InvItemDescShow As Boolean
 
+'// Shop Desc
+Public ShopItemDescTimer As Long
+Public ShopItemDesc As Integer
+Public ShopItemDescShow As Boolean
+
 ' Variáveis globais da lista de resolução
 Public ShowResolutionList As Boolean
 Public ResolutionList As Boolean

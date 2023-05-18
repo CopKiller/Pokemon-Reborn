@@ -867,6 +867,7 @@ Dim PreventAction As Boolean
         End If
     End If
     
+    '//Inv
     If InvItemDesc > 0 Then
         i = IsInvItem(CursorX, CursorY)
         If Not i = InvItemDesc Then
@@ -874,6 +875,18 @@ Dim PreventAction As Boolean
             InvItemDescTimer = 0
             InvItemDescShow = False
         End If
+    End If
+    
+    '//Shop
+    If ShopItemDesc > 0 Then
+        i = IsShopItem(CursorX, CursorY)
+        If Not i = ShopItemDesc Then
+            ShopItemDesc = 0
+            ShopItemDescTimer = 0
+            ShopItemDescShow = False
+        End If
+        
+        ShopItemDescTimer = GetTickCount + 400
     End If
     
     WindowPriority = 0
@@ -2792,28 +2805,28 @@ Dim DrawX As Long, DrawY As Long
 End Sub
 
 Private Sub ShopMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim tmpX As Long, tmpY As Long
-Dim i As Long
-Dim DrawX As Long, DrawY As Long
+    Dim tmpX As Long, tmpY As Long
+    Dim i As Long
+    Dim DrawX As Long, DrawY As Long
 
     With GUI(GuiEnum.GUI_SHOP)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         If GuiVisibleCount <= 0 Then Exit Sub
         If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_SHOP Then Exit Sub
-        
+
         IsHovering = False
-        
+
         '//Loop through all items
         For i = ButtonEnum.Shop_Close To ButtonEnum.Shop_ScrollDown
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
-            
+
                         IsHovering = True
-                        MouseIcon = 1 '//Select
+                        MouseIcon = 1    '//Select
                     End If
                 End If
             End If
@@ -2825,21 +2838,21 @@ Dim DrawX As Long, DrawY As Long
                 If Shop(ShopNum).ShopItem(i).Num > 0 Then
                     DrawX = .X + (31 + ((4 + 127) * (((((i + 1) - ShopAddY) - 1) Mod 3))))
                     DrawY = .Y + (42 + ((4 + 78) * ((((i + 1) - ShopAddY) - 1) \ 3)))
-                    
+
                     '//Button
                     If X >= DrawX + 12 And X <= DrawX + 12 + 103 And Y >= DrawY + 44 And Y <= DrawY + 44 + 25 Then
                         ShopButtonHover = i
                         If ShopButtonState = 0 Then
-                            ShopButtonState = 1 '//Hover
+                            ShopButtonState = 1    '//Hover
                         End If
                         IsHovering = True
-                        MouseIcon = 1 '//Select
+                        MouseIcon = 1    '//Select
                     End If
-                    
+
                     '//Icon
                     If X >= DrawX + 9 And X <= DrawX + 9 + 32 And Y >= DrawY + 6 And Y <= DrawY + 6 + 32 Then
                         IsHovering = True
-                        MouseIcon = 1 '//Select
+                        MouseIcon = 1    '//Select
                     End If
                 End If
             End If
@@ -2849,15 +2862,27 @@ Dim DrawX As Long, DrawY As Long
         If .InDrag Then
             tmpX = CursorX - .OldMouseX
             tmpY = CursorY - .OldMouseY
-            
+
             '//Check if outbound
             If tmpX <= 0 Then tmpX = 0
             If tmpX >= Screen_Width - .Width Then tmpX = Screen_Width - .Width
             If tmpY <= 0 Then tmpY = 0
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
-            
+
             .X = tmpX
             .Y = tmpY
+        End If
+
+        '//Shop
+        i = IsShopItem(CursorX, CursorY)
+        If i > 0 Then
+            IsHovering = True
+            MouseIcon = 1 '//Select
+            If Not ShopItemDesc = i Then
+                ShopItemDesc = i
+                ShopItemDescTimer = GetTickCount + 400
+                ShopItemDescShow = False
+            End If
         End If
     End With
 End Sub
