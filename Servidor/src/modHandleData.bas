@@ -763,11 +763,11 @@ Dim RndNum As Long
     End If
     
     '//Desynced
-    If Not Player(Index, TempPlayer(Index).UseChar).X = tmpX Then
+    If Not Player(Index, TempPlayer(Index).UseChar).x = tmpX Then
         SendPlayerXY Index, True
         Exit Sub
     End If
-    If Not Player(Index, TempPlayer(Index).UseChar).Y = tmpY Then
+    If Not Player(Index, TempPlayer(Index).UseChar).y = tmpY Then
         SendPlayerXY Index, True
         Exit Sub
     End If
@@ -969,13 +969,13 @@ Dim MapNum As Long
         TextAdd frmServer.txtLog, Trim$(.Name) & " warped to map#" & MapNum
         AddLog Trim$(.Name) & " warped to map#" & MapNum
         
-        PlayerWarp Index, MapNum, .X, .Y, .Dir
+        PlayerWarp Index, MapNum, .x, .y, .Dir
     End With
 End Sub
 
 Private Sub HandleAdminWarp(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
 Dim buffer As clsBuffer
-Dim X As Long, Y As Long
+Dim x As Long, y As Long
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
@@ -985,18 +985,18 @@ Dim X As Long, Y As Long
     
         Set buffer = New clsBuffer
         buffer.WriteBytes Data()
-        X = buffer.ReadLong
-        Y = buffer.ReadByte
+        x = buffer.ReadLong
+        y = buffer.ReadByte
         Set buffer = Nothing
         
-        If X < 0 Then X = 0
-        If Y < 0 Then Y = 0
-        If X > Map(.Map).MaxX Then X = Map(.Map).MaxX
-        If Y > Map(.Map).MaxY Then Y = Map(.Map).MaxY
+        If x < 0 Then x = 0
+        If y < 0 Then y = 0
+        If x > Map(.Map).MaxX Then x = Map(.Map).MaxX
+        If y > Map(.Map).MaxY Then y = Map(.Map).MaxY
         
         '//Set
-        .X = X
-        .Y = Y
+        .x = x
+        .y = y
         
         SendPlayerXY Index, True
     End With
@@ -1022,9 +1022,9 @@ Dim InputName As String, i As Long
             If Not i = Index Then
                 If IsPlaying(i) Then
                     If TempPlayer(i).UseChar > 0 Then
-                        PlayerWarp i, .Map, .X, .Y, .Dir
+                        PlayerWarp i, .Map, .x, .y, .Dir
                         
-                        AddLog Trim$(Player(i, TempPlayer(i).UseChar).Name) & " warped to [" & .Map & " | " & .X & " | " & .Y & "]"
+                        AddLog Trim$(Player(i, TempPlayer(i).UseChar).Name) & " warped to [" & .Map & " | " & .x & " | " & .y & "]"
                     Else
                         SendPlayerMsg Index, "Player is not online!", BrightRed
                     End If
@@ -1060,9 +1060,9 @@ Dim InputName As String, i As Long
             If IsPlaying(i) Then
                 If TempPlayer(i).UseChar > 0 Then
                     With Player(i, TempPlayer(i).UseChar)
-                        PlayerWarp Index, .Map, .X, .Y, .Dir
+                        PlayerWarp Index, .Map, .x, .y, .Dir
                         
-                        AddLog Trim$(.Name) & " warped to [" & .Map & " | " & .X & " | " & .Y & "]"
+                        AddLog Trim$(.Name) & " warped to [" & .Map & " | " & .x & " | " & .y & "]"
                     End With
                 Else
                     SendPlayerMsg Index, "Player is not online!", BrightRed
@@ -1167,11 +1167,11 @@ Dim RndNum As Byte
     End If
     
     '//Desynced
-    If Not PlayerPokemon(Index).X = tmpX Then
+    If Not PlayerPokemon(Index).x = tmpX Then
         SendPlayerPokemonXY Index, True
         Exit Sub
     End If
-    If Not PlayerPokemon(Index).Y = tmpY Then
+    If Not PlayerPokemon(Index).y = tmpY Then
         SendPlayerPokemonXY Index, True
         Exit Sub
     End If
@@ -1183,14 +1183,14 @@ Dim RndNum As Byte
                 If PlayerPokemon(Index).StatusDamage >= PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP Then
                     '//Dead
                     PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP = 0
-                    SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "-" & PlayerPokemon(Index).StatusDamage, PlayerPokemon(Index).X * 32, PlayerPokemon(Index).Y * 32, Magenta
+                    SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "-" & PlayerPokemon(Index).StatusDamage, PlayerPokemon(Index).x * 32, PlayerPokemon(Index).y * 32, Magenta
                     SendPlayerPokemonVital Index
                     SendPlayerPokemonFaint Index
                     Exit Sub
                 Else
                     '//Reduce
                     PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP - PlayerPokemon(Index).StatusDamage
-                    SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "-" & PlayerPokemon(Index).StatusDamage, PlayerPokemon(Index).X * 32, PlayerPokemon(Index).Y * 32, Magenta
+                    SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "-" & PlayerPokemon(Index).StatusDamage, PlayerPokemon(Index).x * 32, PlayerPokemon(Index).y * 32, Magenta
                     '//Update
                     SendPlayerPokemonVital Index
                 End If
@@ -1538,7 +1538,7 @@ Dim itemSlot As Byte
                 .MaxHP = .Stat(StatEnum.HP).Value
                 
                 '//Send Animation
-                SendPlayAnimation Player(Index, TempPlayer(Index).UseChar).Map, 76, PlayerPokemon(Index).X, PlayerPokemon(Index).Y ' ToDo: Change to 76
+                SendPlayAnimation Player(Index, TempPlayer(Index).UseChar).Map, 76, PlayerPokemon(Index).x, PlayerPokemon(Index).y ' ToDo: Change to 76
                 
                 '//Update Map Poke
                 PlayerPokemon(Index).Num = .Num
@@ -1658,7 +1658,7 @@ Dim CatchValue As Long
                 If Not MapPokemon(Data1).Map = Player(Index, TempPlayer(Index).UseChar).Map Then GoTo Continue
                 
                 '//Check if inrange
-                If MapPokemon(Data1).X < Player(Index, TempPlayer(Index).UseChar).X - 4 Or MapPokemon(Data1).X > Player(Index, TempPlayer(Index).UseChar).X + 4 Or MapPokemon(Data1).Y < Player(Index, TempPlayer(Index).UseChar).Y - 4 Or MapPokemon(Data1).Y > Player(Index, TempPlayer(Index).UseChar).Y + 4 Then
+                If MapPokemon(Data1).x < Player(Index, TempPlayer(Index).UseChar).x - 4 Or MapPokemon(Data1).x > Player(Index, TempPlayer(Index).UseChar).x + 4 Or MapPokemon(Data1).y < Player(Index, TempPlayer(Index).UseChar).y - 4 Or MapPokemon(Data1).y > Player(Index, TempPlayer(Index).UseChar).y + 4 Then
                     Select Case TempPlayer(Index).CurLanguage
                         Case LANG_PT: AddAlert Index, "Out of range", White
                         Case LANG_EN: AddAlert Index, "Out of range", White
@@ -1698,7 +1698,7 @@ Dim CatchValue As Long
                         '//Success
                         '//Clear Map Pokemon
                         TempPlayer(Index).TmpCatchUseBall = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2
-                        SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).X, MapPokemon(Data1).Y, 2, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                        SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).y, 2, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                         ClearMapPokemon Data1
                             
                         TempPlayer(Index).TmpCatchPokeNum = 0
@@ -1711,7 +1711,7 @@ Dim CatchValue As Long
                         MapPokemon(Data1).InCatch = NO
                         MapPokemon(Data1).targetType = TARGET_TYPE_PLAYER
                         MapPokemon(Data1).TargetIndex = Index
-                        SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).X, MapPokemon(Data1).Y, 3, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                        SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).y, 3, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                         TempPlayer(Index).TmpCatchPokeNum = 0
                         TempPlayer(Index).TmpCatchTimer = 0
                         TempPlayer(Index).TmpCatchTries = 0
@@ -1748,7 +1748,7 @@ Dim CatchValue As Long
                                 '//Success
                                 '//Clear Map Pokemon
                                 TempPlayer(Index).TmpCatchUseBall = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2
-                                SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).X, MapPokemon(Data1).Y, 2, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).y, 2, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                 ClearMapPokemon Data1
                                 
                                 TempPlayer(Index).TmpCatchPokeNum = 0
@@ -1761,7 +1761,7 @@ Dim CatchValue As Long
                                 MapPokemon(Data1).InCatch = NO
                                 MapPokemon(Data1).targetType = TARGET_TYPE_PLAYER
                                 MapPokemon(Data1).TargetIndex = Index
-                                SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).X, MapPokemon(Data1).Y, 3, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).y, 3, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                 TempPlayer(Index).TmpCatchPokeNum = 0
                                 TempPlayer(Index).TmpCatchTimer = 0
                                 TempPlayer(Index).TmpCatchTries = 0
@@ -1780,7 +1780,7 @@ Dim CatchValue As Long
                             TempPlayer(Index).TmpCatchValue = CatchValue
                             TempPlayer(Index).TmpCatchUseBall = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2 '//ToDo: Pokeball
                             MapPokemon(Data1).InCatch = YES
-                            SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).X, MapPokemon(Data1).Y, 0, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                            SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).y, 0, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                         End If
                     End If
                 End If
@@ -3290,7 +3290,7 @@ Dim CurRevision As Long
             If TempPlayer(i).UseChar > 0 Then
                 With Player(i, TempPlayer(i).UseChar)
                     If .Map = destinationMap Then
-                        Call PlayerWarp(i, destinationMap, .X, .Y, .Dir)
+                        Call PlayerWarp(i, destinationMap, .x, .y, .Dir)
                     End If
                 End With
             End If
@@ -3558,7 +3558,7 @@ Private Sub HandleRelearnMove(ByVal Index As Long, ByRef Data() As Byte, ByVal S
 Dim buffer As clsBuffer
 Dim MoveSlot As Byte, PokeSlot As Byte, PokeNum As Long
 Dim MoveNum As Long, oSlot As Byte
-Dim X As Byte
+Dim x As Byte
 Dim invSlot As Long
 
     If Not IsPlaying(Index) Then Exit Sub
@@ -3579,8 +3579,8 @@ Dim invSlot As Long
     If PokeNum > 0 Then
         MoveNum = Pokemon(PokeNum).Moveset(MoveSlot).MoveNum
         If MoveNum > 0 Then
-            For X = 1 To MAX_MOVESET
-                If MoveNum = PlayerPokemons(Index).Data(PokeSlot).Moveset(X).Num Then
+            For x = 1 To MAX_MOVESET
+                If MoveNum = PlayerPokemons(Index).Data(PokeSlot).Moveset(x).Num Then
                     Exit Sub
                 End If
             Next
@@ -3911,7 +3911,7 @@ End Sub
 Private Sub HandleMap(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
 Dim buffer As clsBuffer
 Dim MapNum As Long
-Dim X As Long, Y As Long
+Dim x As Long, y As Long
 Dim i As Long, a As Byte
 
     If Not IsPlaying(Index) Then Exit Sub
@@ -3941,9 +3941,9 @@ Dim i As Long, a As Byte
     End With
     
     '//Tiles
-    For X = 0 To Map(MapNum).MaxX
-        For Y = 0 To Map(MapNum).MaxY
-            With Map(MapNum).Tile(X, Y)
+    For x = 0 To Map(MapNum).MaxX
+        For y = 0 To Map(MapNum).MaxY
+            With Map(MapNum).Tile(x, y)
                 '//Layer
                 For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                     For a = MapLayerType.Normal To MapLayerType.Animated
@@ -4007,7 +4007,7 @@ Dim i As Long, a As Byte
             If TempPlayer(i).UseChar > 0 Then
                 With Player(i, TempPlayer(i).UseChar)
                     If .Map = MapNum Then
-                        Call PlayerWarp(i, MapNum, .X, .Y, .Dir)
+                        Call PlayerWarp(i, MapNum, .x, .y, .Dir)
                     End If
                 End With
             End If
@@ -4379,6 +4379,8 @@ Dim buffer As clsBuffer
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     '//Check access
     If Player(Index, TempPlayer(Index).UseChar).Access < ACCESS_DEVELOPER Then Exit Sub
+    
+    Call SendConversations(Index)
 
     TextAdd frmServer.txtLog, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " requested to edit Conversation"
     AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " requested to edit Conversation"

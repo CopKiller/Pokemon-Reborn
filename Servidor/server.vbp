@@ -19,6 +19,7 @@ Module=modServer_HandleData; src\modServer_HandleData.bas
 Module=modServer_TCP; src\modServer_TCP.bas
 Module=modServer_Packet; src\modServer_Packet.bas
 Form=src\frmServer.frm
+Module=modConvert; src\modConvert.bas
 Startup="Sub Main"
 HelpFile=""
 Title="server"

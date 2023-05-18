@@ -489,9 +489,9 @@ Dim Text As String
 Dim i As Byte
 
     Select Case scrlLanguage.value
-        Case 1: Text = "Language - En" '//English
-        Case 2: Text = "Language - Sp" '//Argentina
-        Case Else: Text = "None"
+        Case 1: Text = "Language - Portuguese" '//Portugues
+        Case 2: Text = "Language - English" '//Ingles
+        Case Else: Text = "Language - Spanish" '//Spañol
     End Select
     fraLanguage.Caption = Text
     LanguageIndex = scrlLanguage.value

@@ -388,6 +388,10 @@ Private Sub cmdShutdown_Click()
     End If
 End Sub
 
+Private Sub Command1_Click()
+    ConversationConv
+End Sub
+
 Private Sub scrlExp_Change()
     Dim CurExp As String
     Dim CurLanguage As Byte

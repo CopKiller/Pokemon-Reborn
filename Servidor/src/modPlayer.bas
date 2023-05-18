@@ -11,37 +11,37 @@ End Function
 
 Private Function TotalPlayerOnMap(ByVal MapNum As Long) As Long
 Dim i As Long
-Dim Count As Long
+Dim count As Long
 
-    Count = 0
+    count = 0
     For i = 1 To Player_HighIndex
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
                 If Player(i, TempPlayer(i).UseChar).Map = MapNum Then
-                    Count = Count + 1
+                    count = count + 1
                 End If
             End If
         End If
     Next
-    TotalPlayerOnMap = Count
+    TotalPlayerOnMap = count
 End Function
 
 Public Function TotalPlayerOnline()
 Dim i As Long
-Dim Count As Long
+Dim count As Long
 
-    Count = 0
+    count = 0
     For i = 1 To Player_HighIndex
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End If
     Next
-    TotalPlayerOnline = Count
+    TotalPlayerOnline = count
 End Function
 
-Public Sub PlayerWarp(ByVal Index As Long, ByVal MapNum As Long, ByVal X As Long, ByVal Y As Long, ByVal Dir As Byte)
+Public Sub PlayerWarp(ByVal Index As Long, ByVal MapNum As Long, ByVal x As Long, ByVal y As Long, ByVal Dir As Byte)
 Dim OldMap As Long
 
     '//Exit out when error
@@ -50,18 +50,18 @@ Dim OldMap As Long
     If MapNum <= 0 Or MapNum > MAX_MAP Then Exit Sub
     
     '//Correct error position
-    If X <= 0 Then X = 0
-    If X > Map(MapNum).MaxX Then X = Map(MapNum).MaxX
-    If Y <= 0 Then Y = 0
-    If Y > Map(MapNum).MaxY Then Y = Map(MapNum).MaxY
+    If x <= 0 Then x = 0
+    If x > Map(MapNum).MaxX Then x = Map(MapNum).MaxX
+    If y <= 0 Then y = 0
+    If y > Map(MapNum).MaxY Then y = Map(MapNum).MaxY
     
     OldMap = Player(Index, TempPlayer(Index).UseChar).Map
     
     '//Update position
     With Player(Index, TempPlayer(Index).UseChar)
         .Map = MapNum
-        .X = X
-        .Y = Y
+        .x = x
+        .y = y
         .Dir = Dir
     End With
     
@@ -83,7 +83,7 @@ Dim OldMap As Long
     End If
     
     '//Add log
-    AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " has been warped on Map#" & MapNum & " x:" & X & " y:" & Y
+    AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " has been warped on Map#" & MapNum & " x:" & x & " y:" & y
     
     '//Update
     PlayerOnMap(MapNum) = YES
@@ -100,13 +100,13 @@ Public Sub ForcePlayerMove(ByVal Index As Long, ByVal Dir As Byte)
 
     Select Case Dir
         Case DIR_UP
-            If Player(Index, TempPlayer(Index).UseChar).Y = 0 Then Exit Sub
+            If Player(Index, TempPlayer(Index).UseChar).y = 0 Then Exit Sub
         Case DIR_LEFT
-            If Player(Index, TempPlayer(Index).UseChar).X = 0 Then Exit Sub
+            If Player(Index, TempPlayer(Index).UseChar).x = 0 Then Exit Sub
         Case DIR_DOWN
-            If Player(Index, TempPlayer(Index).UseChar).Y = Map(Player(Index, TempPlayer(Index).UseChar).Map).MaxY Then Exit Sub
+            If Player(Index, TempPlayer(Index).UseChar).y = Map(Player(Index, TempPlayer(Index).UseChar).Map).MaxY Then Exit Sub
         Case DIR_RIGHT
-            If Player(Index, TempPlayer(Index).UseChar).X = Map(Player(Index, TempPlayer(Index).UseChar).Map).MaxX Then Exit Sub
+            If Player(Index, TempPlayer(Index).UseChar).x = Map(Player(Index, TempPlayer(Index).UseChar).Map).MaxX Then Exit Sub
     End Select
     
     PlayerMove Index, Dir, True
@@ -116,7 +116,7 @@ Public Sub PlayerMove(ByVal Index As Long, ByVal Dir As Byte, Optional ByVal sen
 Dim DidMove As Boolean
 Dim OldX As Long, OldY As Long
 Dim gothealed As Boolean
-Dim i As Long, X As Byte
+Dim i As Long, x As Byte
 
     '//Exit out when error
     If Index <= 0 Or Index > MAX_PLAYER Then Exit Sub
@@ -128,23 +128,23 @@ Dim i As Long, X As Byte
     
     With Player(Index, TempPlayer(Index).UseChar)
         '//Store original location in case it got desync
-        OldX = .X
-        OldY = .Y
+        OldX = .x
+        OldY = .y
         
         Select Case Dir
             Case DIR_UP
                 .Dir = DIR_UP
                 
                 '//Check to make sure not outside of boundries
-                If .Y > 0 Then
-                    If Not CheckDirection(.Map, DIR_UP, .X, .Y) Then
-                        .Y = .Y - 1
+                If .y > 0 Then
+                    If Not CheckDirection(.Map, DIR_UP, .x, .y) Then
+                        .y = .y - 1
                         DidMove = True
                     End If
                 Else
                     '//Check Link
                     If Map(.Map).LinkUp > 0 Then
-                        PlayerWarp Index, Map(.Map).LinkUp, .X, Map(Map(.Map).LinkUp).MaxY, .Dir
+                        PlayerWarp Index, Map(.Map).LinkUp, .x, Map(Map(.Map).LinkUp).MaxY, .Dir
                         Exit Sub
                     End If
                 End If
@@ -152,15 +152,15 @@ Dim i As Long, X As Byte
                 .Dir = DIR_DOWN
                 
                 '//Check to make sure not outside of boundries
-                If .Y < Map(.Map).MaxY Then
-                    If Not CheckDirection(.Map, DIR_DOWN, .X, .Y) Then
-                        .Y = .Y + 1
+                If .y < Map(.Map).MaxY Then
+                    If Not CheckDirection(.Map, DIR_DOWN, .x, .y) Then
+                        .y = .y + 1
                         DidMove = True
                     End If
                 Else
                     '//Check Link
                     If Map(.Map).LinkDown > 0 Then
-                        PlayerWarp Index, Map(.Map).LinkDown, .X, 0, .Dir
+                        PlayerWarp Index, Map(.Map).LinkDown, .x, 0, .Dir
                         Exit Sub
                     End If
                 End If
@@ -168,15 +168,15 @@ Dim i As Long, X As Byte
                 .Dir = DIR_LEFT
                 
                 '//Check to make sure not outside of boundries
-                If .X > 0 Then
-                    If Not CheckDirection(.Map, DIR_LEFT, .X, .Y) Then
-                        .X = .X - 1
+                If .x > 0 Then
+                    If Not CheckDirection(.Map, DIR_LEFT, .x, .y) Then
+                        .x = .x - 1
                         DidMove = True
                     End If
                 Else
                     '//Check Link
                     If Map(.Map).LinkLeft > 0 Then
-                        PlayerWarp Index, Map(.Map).LinkLeft, Map(Map(.Map).LinkLeft).MaxX, .Y, .Dir
+                        PlayerWarp Index, Map(.Map).LinkLeft, Map(Map(.Map).LinkLeft).MaxX, .y, .Dir
                         Exit Sub
                     End If
                 End If
@@ -184,15 +184,15 @@ Dim i As Long, X As Byte
                 .Dir = DIR_RIGHT
                 
                 '//Check to make sure not outside of boundries
-                If .X < Map(.Map).MaxX Then
-                    If Not CheckDirection(.Map, DIR_RIGHT, .X, .Y) Then
-                        .X = .X + 1
+                If .x < Map(.Map).MaxX Then
+                    If Not CheckDirection(.Map, DIR_RIGHT, .x, .y) Then
+                        .x = .x + 1
                         DidMove = True
                     End If
                 Else
                     '//Check Link
                     If Map(.Map).LinkRight > 0 Then
-                        PlayerWarp Index, Map(.Map).LinkRight, 0, .Y, .Dir
+                        PlayerWarp Index, Map(.Map).LinkRight, 0, .y, .Dir
                         Exit Sub
                     End If
                 End If
@@ -200,8 +200,8 @@ Dim i As Long, X As Byte
     
         '//Got Desynced
         If Not DidMove Then
-            .X = OldX
-            .Y = OldY
+            .x = OldX
+            .y = OldY
             SendPlayerXY Index
             SendPlayerXY Index, True
             
@@ -215,11 +215,11 @@ Dim i As Long, X As Byte
             SendPlayerMove Index, sendToSelf
             
             '//Check tile attribute
-            Select Case Map(.Map).Tile(.X, .Y).Attribute
+            Select Case Map(.Map).Tile(.x, .y).Attribute
                 Case MapAttribute.Warp
                     '//Warp
-                    If Map(.Map).Tile(.X, .Y).Data1 > 0 Then
-                        PlayerWarp Index, Map(.Map).Tile(.X, .Y).Data1, Map(.Map).Tile(.X, .Y).Data2, Map(.Map).Tile(.X, .Y).Data3, Map(.Map).Tile(.X, .Y).Data4
+                    If Map(.Map).Tile(.x, .y).Data1 > 0 Then
+                        PlayerWarp Index, Map(.Map).Tile(.x, .y).Data1, Map(.Map).Tile(.x, .y).Data2, Map(.Map).Tile(.x, .y).Data3, Map(.Map).Tile(.x, .y).Data4
                     End If
                 Case MapAttribute.Slide
                     ' Slide
@@ -241,11 +241,11 @@ Dim i As Long, X As Byte
                                 PlayerPokemons(Index).Data(i).Status = 0
                                 gothealed = True
                             End If
-                            For X = 1 To MAX_MOVESET
-                                If PlayerPokemons(Index).Data(i).Moveset(X).Num > 0 Then
-                                    If PlayerPokemons(Index).Data(i).Moveset(X).CurPP < PlayerPokemons(Index).Data(i).Moveset(X).TotalPP Then
-                                        PlayerPokemons(Index).Data(i).Moveset(X).CurPP = PlayerPokemons(Index).Data(i).Moveset(X).TotalPP
-                                        PlayerPokemons(Index).Data(i).Moveset(X).CD = 0
+                            For x = 1 To MAX_MOVESET
+                                If PlayerPokemons(Index).Data(i).Moveset(x).Num > 0 Then
+                                    If PlayerPokemons(Index).Data(i).Moveset(x).CurPP < PlayerPokemons(Index).Data(i).Moveset(x).TotalPP Then
+                                        PlayerPokemons(Index).Data(i).Moveset(x).CurPP = PlayerPokemons(Index).Data(i).Moveset(x).TotalPP
+                                        PlayerPokemons(Index).Data(i).Moveset(x).CD = 0
                                         gothealed = True
                                     End If
                                 End If
@@ -273,10 +273,10 @@ Dim i As Long, X As Byte
                         SendPlayerStatus Index
                     End If
                 Case MapAttribute.Checkpoint
-                    .CheckMap = Map(.Map).Tile(.X, .Y).Data1
-                    .CheckX = Map(.Map).Tile(.X, .Y).Data2
-                    .CheckY = Map(.Map).Tile(.X, .Y).Data3
-                    .CheckDir = Map(.Map).Tile(.X, .Y).Data4
+                    .CheckMap = Map(.Map).Tile(.x, .y).Data1
+                    .CheckX = Map(.Map).Tile(.x, .y).Data2
+                    .CheckY = Map(.Map).Tile(.x, .y).Data3
+                    .CheckDir = Map(.Map).Tile(.x, .y).Data4
                 Case MapAttribute.WarpCheckpoint
                     If .CheckMap > 0 Then
                         PlayerWarp Index, .CheckMap, .CheckX, .CheckY, .CheckDir
@@ -290,7 +290,7 @@ Public Sub SpawnPlayerPokemon(ByVal Index As Long, ByVal PokeSlot As Byte)
 Dim MapNum As Long
 Dim statX As Byte
 Dim startPosX As Long, startPosY As Long
-Dim X As Long, Y As Long
+Dim x As Long, y As Long
 Dim canSpawn As Boolean
 Dim UsedBall As Byte
 
@@ -304,15 +304,15 @@ Dim UsedBall As Byte
     '//Update Position
     With PlayerPokemon(Index)
         canSpawn = False
-        For X = Player(Index, TempPlayer(Index).UseChar).X - 1 To Player(Index, TempPlayer(Index).UseChar).X + 1
-            For Y = Player(Index, TempPlayer(Index).UseChar).Y - 1 To Player(Index, TempPlayer(Index).UseChar).Y + 1
-                If X = Player(Index, TempPlayer(Index).UseChar).X And Y = Player(Index, TempPlayer(Index).UseChar).Y Then
+        For x = Player(Index, TempPlayer(Index).UseChar).x - 1 To Player(Index, TempPlayer(Index).UseChar).x + 1
+            For y = Player(Index, TempPlayer(Index).UseChar).y - 1 To Player(Index, TempPlayer(Index).UseChar).y + 1
+                If x = Player(Index, TempPlayer(Index).UseChar).x And y = Player(Index, TempPlayer(Index).UseChar).y Then
                     
                 Else
                     '//Check if OpenTile
-                    If CheckOpenTile(MapNum, X, Y) Then
-                        startPosX = X
-                        startPosY = Y
+                    If CheckOpenTile(MapNum, x, y) Then
+                        startPosX = x
+                        startPosY = y
                         canSpawn = True
                         Exit For
                     End If
@@ -322,8 +322,8 @@ Dim UsedBall As Byte
         
         If canSpawn Then
             .Num = PlayerPokemons(Index).Data(PokeSlot).Num
-            .X = startPosX
-            .Y = startPosY
+            .x = startPosX
+            .y = startPosY
             .Dir = DIR_DOWN
             
             .slot = PokeSlot
@@ -375,10 +375,10 @@ Dim BallUsed As Byte
         BallUsed = PlayerPokemons(Index).Data(.slot).BallUsed
         
         .Num = 0
-        endPosX = .X
-        endPosY = .Y
-        .X = 0
-        .Y = 0
+        endPosX = .x
+        endPosY = .y
+        .x = 0
+        .y = 0
         .Dir = 0
         
         .slot = 0
@@ -388,7 +388,7 @@ Dim BallUsed As Byte
     SendPlayerPokemonData Index, MapNum, , YES, 1, endPosX, endPosY, BallUsed
 End Sub
 
-Public Sub PlayerPokemonWarp(ByVal Index As Long, ByVal X As Long, ByVal Y As Long, ByVal Dir As Byte)
+Public Sub PlayerPokemonWarp(ByVal Index As Long, ByVal x As Long, ByVal y As Long, ByVal Dir As Byte)
 Dim MapNum As Long
 
     '//Exit out when error
@@ -398,22 +398,22 @@ Dim MapNum As Long
     If PlayerPokemon(Index).Num <= 0 Then Exit Sub
     
     '//Correct error position
-    If X <= 0 Then X = 0
-    If X > Map(MapNum).MaxX Then X = Map(MapNum).MaxX
-    If Y <= 0 Then Y = 0
-    If Y > Map(MapNum).MaxY Then Y = Map(MapNum).MaxY
+    If x <= 0 Then x = 0
+    If x > Map(MapNum).MaxX Then x = Map(MapNum).MaxX
+    If y <= 0 Then y = 0
+    If y > Map(MapNum).MaxY Then y = Map(MapNum).MaxY
     
     MapNum = Player(Index, TempPlayer(Index).UseChar).Map
     
     '//Update position
     With PlayerPokemon(Index)
-        .X = X
-        .Y = Y
+        .x = x
+        .y = y
         .Dir = Dir
     End With
     
     '//Add log
-    AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " pokemon has been warped on Map#" & MapNum & " x:" & X & " y:" & Y
+    AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " pokemon has been warped on Map#" & MapNum & " x:" & x & " y:" & y
 End Sub
 
 Public Sub PlayerPokemonMove(ByVal Index As Long, ByVal Dir As Byte, Optional ByVal sendToSelf As Boolean = False)
@@ -435,19 +435,19 @@ Dim dX As Long, dY As Long
     
     With PlayerPokemon(Index)
         '//Store original location in case it got desync
-        OldX = .X
-        OldY = .Y
+        OldX = .x
+        OldY = .y
         
         Select Case Dir
             Case DIR_UP
                 .Dir = DIR_UP
                 
                 '//Check to make sure not outside of boundries
-                If .Y > 0 Then
-                    If Not CheckDirection(MapNum, DIR_UP, .X, .Y) Then
+                If .y > 0 Then
+                    If Not CheckDirection(MapNum, DIR_UP, .x, .y) Then
                         '//Check Distance
-                        dX = .X - Player(Index, TempPlayer(Index).UseChar).X
-                        dY = (.Y - 1) - Player(Index, TempPlayer(Index).UseChar).Y
+                        dX = .x - Player(Index, TempPlayer(Index).UseChar).x
+                        dY = (.y - 1) - Player(Index, TempPlayer(Index).UseChar).y
                             
                         '//Make sure we get a positive value
                         If dX < 0 Then dX = dX * -1
@@ -456,7 +456,7 @@ Dim dX As Long, dY As Long
                         If Not (dX <= MAX_DISTANCE And dY <= MAX_DISTANCE) Then
                             DidMove = False
                         Else
-                            .Y = .Y - 1
+                            .y = .y - 1
                             DidMove = True
                         End If
                     End If
@@ -465,11 +465,11 @@ Dim dX As Long, dY As Long
                 .Dir = DIR_DOWN
                 
                 '//Check to make sure not outside of boundries
-                If .Y < Map(MapNum).MaxY Then
-                    If Not CheckDirection(MapNum, DIR_DOWN, .X, .Y) Then
+                If .y < Map(MapNum).MaxY Then
+                    If Not CheckDirection(MapNum, DIR_DOWN, .x, .y) Then
                         '//Check Distance
-                        dX = .X - Player(Index, TempPlayer(Index).UseChar).X
-                        dY = (.Y + 1) - Player(Index, TempPlayer(Index).UseChar).Y
+                        dX = .x - Player(Index, TempPlayer(Index).UseChar).x
+                        dY = (.y + 1) - Player(Index, TempPlayer(Index).UseChar).y
                             
                         '//Make sure we get a positive value
                         If dX < 0 Then dX = dX * -1
@@ -478,7 +478,7 @@ Dim dX As Long, dY As Long
                         If Not (dX <= MAX_DISTANCE And dY <= MAX_DISTANCE) Then
                             DidMove = False
                         Else
-                            .Y = .Y + 1
+                            .y = .y + 1
                             DidMove = True
                         End If
                     End If
@@ -487,11 +487,11 @@ Dim dX As Long, dY As Long
                 .Dir = DIR_LEFT
                 
                 '//Check to make sure not outside of boundries
-                If .X > 0 Then
-                    If Not CheckDirection(MapNum, DIR_LEFT, .X, .Y) Then
+                If .x > 0 Then
+                    If Not CheckDirection(MapNum, DIR_LEFT, .x, .y) Then
                         '//Check Distance
-                        dX = (.X - 1) - Player(Index, TempPlayer(Index).UseChar).X
-                        dY = .Y - Player(Index, TempPlayer(Index).UseChar).Y
+                        dX = (.x - 1) - Player(Index, TempPlayer(Index).UseChar).x
+                        dY = .y - Player(Index, TempPlayer(Index).UseChar).y
                             
                         '//Make sure we get a positive value
                         If dX < 0 Then dX = dX * -1
@@ -500,7 +500,7 @@ Dim dX As Long, dY As Long
                         If Not (dX <= MAX_DISTANCE And dY <= MAX_DISTANCE) Then
                             DidMove = False
                         Else
-                            .X = .X - 1
+                            .x = .x - 1
                             DidMove = True
                         End If
                     End If
@@ -509,11 +509,11 @@ Dim dX As Long, dY As Long
                 .Dir = DIR_RIGHT
                 
                 '//Check to make sure not outside of boundries
-                If .X < Map(MapNum).MaxX Then
-                    If Not CheckDirection(MapNum, DIR_RIGHT, .X, .Y) Then
+                If .x < Map(MapNum).MaxX Then
+                    If Not CheckDirection(MapNum, DIR_RIGHT, .x, .y) Then
                         '//Check Distance
-                        dX = (.X + 1) - Player(Index, TempPlayer(Index).UseChar).X
-                        dY = .Y - Player(Index, TempPlayer(Index).UseChar).Y
+                        dX = (.x + 1) - Player(Index, TempPlayer(Index).UseChar).x
+                        dY = .y - Player(Index, TempPlayer(Index).UseChar).y
                             
                         '//Make sure we get a positive value
                         If dX < 0 Then dX = dX * -1
@@ -522,7 +522,7 @@ Dim dX As Long, dY As Long
                         If Not (dX <= MAX_DISTANCE And dY <= MAX_DISTANCE) Then
                             DidMove = False
                         Else
-                            .X = .X + 1
+                            .x = .x + 1
                             DidMove = True
                         End If
                     End If
@@ -531,8 +531,8 @@ Dim dX As Long, dY As Long
     
         '//Got Desynced
         If Not DidMove Then
-            .X = OldX
-            .Y = OldY
+            .x = OldX
+            .y = OldY
             SendPlayerPokemonXY Index
             SendPlayerPokemonXY Index, True
         Else
@@ -620,7 +620,7 @@ Dim countOnline As Long
     
     '//Send data to position
     With Player(Index, TempPlayer(Index).UseChar)
-        PlayerWarp Index, .Map, .X, .Y, .Dir
+        PlayerWarp Index, .Map, .x, .y, .Dir
         
         '//Check online
         countOnline = TotalPlayerOnline
@@ -664,7 +664,7 @@ End Sub
 
 Public Sub LeftGame(ByVal Index As Long)
 Dim sIP As String
-Dim i As Long, X As Byte, Y As Byte
+Dim i As Long, x As Byte, y As Byte
 
     sIP = GetPlayerIP(Index)
     
@@ -687,7 +687,7 @@ Dim i As Long, X As Byte, Y As Byte
                         If TempPlayer(Index).RequestType = 1 Then  '//1 Duel
                             '//Check if already in duel
                             If TempPlayer(Index).InDuel > 0 Then
-                                SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Win!", Player(i, TempPlayer(i).UseChar).X * 32, Player(i, TempPlayer(i).UseChar).Y * 32, White
+                                SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Win!", Player(i, TempPlayer(i).UseChar).x * 32, Player(i, TempPlayer(i).UseChar).y * 32, White
                                 Player(i, TempPlayer(i).UseChar).Win = Player(i, TempPlayer(i).UseChar).Win + 1
                                 SendPlayerPvP (i)
                                 TempPlayer(i).InDuel = 0
@@ -712,8 +712,8 @@ Dim i As Long, X As Byte, Y As Byte
                             '//Check if already in trade
                             If TempPlayer(Index).InTrade > 0 Then
                                 TempPlayer(i).InTrade = 0
-                                For X = 1 To MAX_TRADE
-                                    Call ZeroMemory(ByVal VarPtr(TempPlayer(i).TradeItem(X)), LenB(TempPlayer(i).TradeItem(X)))
+                                For x = 1 To MAX_TRADE
+                                    Call ZeroMemory(ByVal VarPtr(TempPlayer(i).TradeItem(x)), LenB(TempPlayer(i).TradeItem(x)))
                                 Next
                                 TempPlayer(i).TradeMoney = 0
                                 TempPlayer(i).TradeSet = 0
@@ -766,8 +766,8 @@ Dim i As Long, X As Byte, Y As Byte
         TempPlayer(Index).PlayerRequest = 0
         TempPlayer(Index).RequestType = 0
         TempPlayer(Index).InTrade = 0
-        For X = 1 To MAX_TRADE
-            Call ZeroMemory(ByVal VarPtr(TempPlayer(Index).TradeItem(X)), LenB(TempPlayer(Index).TradeItem(X)))
+        For x = 1 To MAX_TRADE
+            Call ZeroMemory(ByVal VarPtr(TempPlayer(Index).TradeItem(x)), LenB(TempPlayer(Index).TradeItem(x)))
         Next
         TempPlayer(Index).TradeMoney = 0
         TempPlayer(Index).TradeSet = 0
@@ -909,10 +909,10 @@ Public Sub TryGivePlayerItem(ByVal Index As Long, ByVal ItemNum As Long, ByVal I
 End Sub
 
 Public Function CountFreeInvSlot(ByVal Index As Long) As Long
-Dim Count As Long, i As Long
+Dim count As Long, i As Long
 
     CountFreeInvSlot = 0
-    Count = 0
+    count = 0
     
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
@@ -920,12 +920,12 @@ Dim Count As Long, i As Long
     For i = 1 To MAX_PLAYER_INV
         With PlayerInv(Index).Data(i)
             If .Num = 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End With
     Next
     
-    CountFreeInvSlot = Count
+    CountFreeInvSlot = count
 End Function
 
 Public Function GiveItem(ByVal Index As Long, ByVal ItemNum As Long, ByVal ItemVal As Long) As Boolean
@@ -961,7 +961,7 @@ Dim i As Byte
 End Function
 
 Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal Level As Long, ByVal BallUsed As Byte)
-Dim i As Long, X As Byte, m As Long, s As Byte, slot As Byte
+Dim i As Long, x As Byte, m As Long, s As Byte, slot As Byte
 
     i = FindOpenPokeSlot(Index)
     
@@ -985,10 +985,10 @@ Dim i As Long, X As Byte, m As Long, s As Byte, slot As Byte
             End If
             
             '//Stat
-            For X = 1 To StatEnum.Stat_Count - 1
-                .Stat(X).EV = 0
-                .Stat(X).IV = 15 '//Default Stat
-                .Stat(X).Value = CalculatePokemonStat(X, .Num, .Level, .Stat(X).EV, .Stat(X).IV, .Nature)
+            For x = 1 To StatEnum.Stat_Count - 1
+                .Stat(x).EV = 0
+                .Stat(x).IV = 15 '//Default Stat
+                .Stat(x).Value = CalculatePokemonStat(x, .Num, .Level, .Stat(x).EV, .Stat(x).IV, .Nature)
             Next
             
             '//Vital
@@ -1054,34 +1054,34 @@ End Sub
 
 Public Function CountPlayerPokemon(ByVal Index As Long) As Byte
 Dim i As Byte
-Dim Count As Byte
+Dim count As Byte
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         With PlayerPokemons(Index).Data(i)
             If .Num > 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End With
     Next
-    CountPlayerPokemon = Count
+    CountPlayerPokemon = count
 End Function
 
 Public Function CountPlayerPokemonAlive(ByVal Index As Long) As Byte
 Dim i As Byte
-Dim Count As Byte
+Dim count As Byte
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         With PlayerPokemons(Index).Data(i)
             If .Num > 0 Then
                 If .CurHP > 0 Then
-                    Count = Count + 1
+                    count = count + 1
                 End If
             End If
         End With
     Next
-    CountPlayerPokemonAlive = Count
+    CountPlayerPokemonAlive = count
 End Function
 
 '//Exp
@@ -1107,7 +1107,7 @@ Public Sub GivePlayerPokemonExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByV
         '//ActionMsg
         If PlayerPokemon(Index).Num > 0 Then
             If PlayerPokemon(Index).slot = PokeSlot Then
-                SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "+" & Exp, PlayerPokemon(Index).X * 32, PlayerPokemon(Index).Y * 32, White
+                SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "+" & Exp, PlayerPokemon(Index).x * 32, PlayerPokemon(Index).y * 32, White
             End If
         End If
     End With
@@ -1115,11 +1115,11 @@ Public Sub GivePlayerPokemonExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByV
 End Sub
 
 Public Sub GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByVal evStat As StatEnum, ByVal Exp As Long)
-Dim CountStat As Long, X As Byte
+Dim CountStat As Long, x As Byte
 
     CountStat = 0
-    For X = 1 To StatEnum.Stat_Count - 1
-        CountStat = CountStat + PlayerPokemons(Index).Data(PokeSlot).Stat(X).EV
+    For x = 1 To StatEnum.Stat_Count - 1
+        CountStat = CountStat + PlayerPokemons(Index).Data(PokeSlot).Stat(x).EV
     Next
     
     If CountStat + Exp <= MAX_EV Then
@@ -1218,7 +1218,7 @@ Dim foundsameslot As Boolean
 End Function
 
 Public Sub CheckNewMove(ByVal Index As Long, ByVal PokeSlot As Byte, Optional ByVal StartIndex As Long = 1)
-Dim i As Byte, X As Byte
+Dim i As Byte, x As Byte
 Dim FoundMatch As Boolean
 Dim MoveSlot As Byte
 Dim Continue As Boolean
@@ -1239,8 +1239,8 @@ Dim Continue As Boolean
                 If Pokemon(.Num).Moveset(i).MoveLevel = .Level Then
                     Continue = False
                     '//Make sure move doesn't exist
-                    For X = 1 To MAX_MOVESET
-                        If .Moveset(X).Num = Pokemon(.Num).Moveset(i).MoveNum Then
+                    For x = 1 To MAX_MOVESET
+                        If .Moveset(x).Num = Pokemon(.Num).Moveset(i).MoveNum Then
                             Continue = True
                         End If
                     Next
@@ -1273,7 +1273,7 @@ End Sub
 Public Sub PlayerUseItem(ByVal Index As Long, ByVal invSlot As Byte)
 Dim ItemNum As Long
 Dim gothealed As Boolean
-Dim X As Long
+Dim x As Long
 Dim exproll As Long
 Dim Exp As Long
 Dim i As Long, CanLearn As Boolean
@@ -1341,14 +1341,14 @@ Dim i As Long, CanLearn As Boolean
                     gothealed = False
                     If PlayerPokemon(Index).Num > 0 Then
                         If PlayerPokemon(Index).slot > 0 Then
-                            For X = 1 To MAX_MOVESET
-                                If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).Num > 0 Then
-                                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).CurPP < PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).TotalPP Then
-                                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).CurPP + Item(ItemNum).Data2
-                                        If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).CurPP > PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).TotalPP Then
-                                            PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).TotalPP
+                            For x = 1 To MAX_MOVESET
+                                If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).Num > 0 Then
+                                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP < PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).TotalPP Then
+                                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP + Item(ItemNum).Data2
+                                        If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP > PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).TotalPP Then
+                                            PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).TotalPP
                                         End If
-                                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(X).CD = 0
+                                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CD = 0
                                         gothealed = True
                                     End If
                                 End If
@@ -1361,8 +1361,8 @@ Dim i As Long, CanLearn As Boolean
                             Case LANG_EN: AddAlert Index, "Pokemon PP restored", White
                             Case LANG_ES: AddAlert Index, "Pokemon PP restored", White
                         End Select
-                        For X = 1 To MAX_MOVESET
-                            SendPlayerPokemonPP Index, X
+                        For x = 1 To MAX_MOVESET
+                            SendPlayerPokemonPP Index, x
                         Next
                         '//Take Item
                         PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
@@ -1569,25 +1569,25 @@ End Sub
 
 '//Count Free Pokemno slot
 Public Function CountFreePokemonSlot(ByVal Index As Long) As Long
-Dim Count As Long
-Dim i As Byte, X As Byte
+Dim count As Long
+Dim i As Byte, x As Byte
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         If PlayerPokemons(Index).Data(i).Num = 0 Then
-            Count = Count + 1
+            count = count + 1
         End If
     Next
     For i = 1 To MAX_STORAGE_SLOT
         If PlayerPokemonStorage(Index).slot(i).Unlocked = YES Then
-            For X = 1 To MAX_STORAGE
-                If PlayerPokemonStorage(Index).slot(i).Data(X).Num = 0 Then
-                    Count = Count + 1
+            For x = 1 To MAX_STORAGE
+                If PlayerPokemonStorage(Index).slot(i).Data(x).Num = 0 Then
+                    count = count + 1
                 End If
             Next
         End If
     Next
-    CountFreePokemonSlot = Count
+    CountFreePokemonSlot = count
 End Function
 
 Public Function DepositItem(ByVal Index As Long, ByVal storageSlot As Byte, ByVal StorageData As Byte, ByVal invSlot As Byte, ByVal Value As Long) As Boolean
@@ -1716,7 +1716,7 @@ Dim i As Byte
 End Function
 
 Public Sub ProcessConversation(ByVal Index As Long, ByVal Convo As Long, ByVal ConvoData As Byte, Optional ByVal NpcNum As Long = 0, Optional ByVal tReply As Byte = 0)
-Dim i As Long, X As Long
+Dim i As Long, x As Long
 Dim fixData As Boolean
 
     fixData = False
@@ -1769,11 +1769,11 @@ startOver:
                             If PlayerPokemons(Index).Data(i).Status > 0 Then
                                 PlayerPokemons(Index).Data(i).Status = 0
                             End If
-                            For X = 1 To MAX_MOVESET
-                                If PlayerPokemons(Index).Data(i).Moveset(X).Num > 0 Then
-                                    If PlayerPokemons(Index).Data(i).Moveset(X).CurPP < PlayerPokemons(Index).Data(i).Moveset(X).TotalPP Then
-                                        PlayerPokemons(Index).Data(i).Moveset(X).CurPP = PlayerPokemons(Index).Data(i).Moveset(X).TotalPP
-                                        PlayerPokemons(Index).Data(i).Moveset(X).CD = 0
+                            For x = 1 To MAX_MOVESET
+                                If PlayerPokemons(Index).Data(i).Moveset(x).Num > 0 Then
+                                    If PlayerPokemons(Index).Data(i).Moveset(x).CurPP < PlayerPokemons(Index).Data(i).Moveset(x).TotalPP Then
+                                        PlayerPokemons(Index).Data(i).Moveset(x).CurPP = PlayerPokemons(Index).Data(i).Moveset(x).TotalPP
+                                        PlayerPokemons(Index).Data(i).Moveset(x).CD = 0
                                     End If
                                 End If
                             Next
@@ -2301,8 +2301,8 @@ Dim DuelIndex As Long
                 If CountPlayerPokemonAlive(Index) <= 0 Then
                     DuelIndex = TempPlayer(Index).InDuel
                     '//Player Lose
-                    SendActionMsg MapNum, "Lose!", Player(Index, TempPlayer(Index).UseChar).X * 32, Player(Index, TempPlayer(Index).UseChar).Y * 32, White
-                    SendActionMsg MapNum, "Win!", Player(DuelIndex, TempPlayer(DuelIndex).UseChar).X * 32, Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Y * 32, White
+                    SendActionMsg MapNum, "Lose!", Player(Index, TempPlayer(Index).UseChar).x * 32, Player(Index, TempPlayer(Index).UseChar).y * 32, White
+                    SendActionMsg MapNum, "Win!", Player(DuelIndex, TempPlayer(DuelIndex).UseChar).x * 32, Player(DuelIndex, TempPlayer(DuelIndex).UseChar).y * 32, White
                     Player(Index, TempPlayer(Index).UseChar).Lose = Player(Index, TempPlayer(Index).UseChar).Lose + 1
                     Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Win = Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Win + 1
                     SendPlayerPvP (DuelIndex)
@@ -2329,7 +2329,7 @@ Dim DuelIndex As Long
     End If
     If TempPlayer(Index).InNpcDuel > 0 Then
         If CountPlayerPokemonAlive(Index) <= 0 Then
-            SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "Lose!", Player(Index, TempPlayer(Index).UseChar).X * 32, Player(Index, TempPlayer(Index).UseChar).Y * 32, White
+            SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "Lose!", Player(Index, TempPlayer(Index).UseChar).x * 32, Player(Index, TempPlayer(Index).UseChar).y * 32, White
             MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).InNpcDuel).InBattle = 0
             NpcPokemonCallBack Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).InNpcDuel
             TempPlayer(Index).InNpcDuel = 0
@@ -2377,12 +2377,12 @@ Dim ExpRollover As Long
             SendPlayerData Index
             
             '//ActionMsg
-            SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "Level Up!", .X * 32, .Y * 32, Yellow
+            SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "Level Up!", .x * 32, .y * 32, Yellow
         End If
         SendPlayerExp Index
         
         '//ActionMsg
-        SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "+" & Exp, .X * 32, .Y * 32, White
+        SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "+" & Exp, .x * 32, .y * 32, White
     End With
 End Sub
 
@@ -2587,93 +2587,93 @@ Dim PartyRequest As Long
 End Sub
 
 Public Function PartyCount(ByVal Index As Long) As Byte
-Dim i As Long, Count As Long
+Dim i As Long, count As Long
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PARTY
         If TempPlayer(Index).PartyIndex(i) > 0 Then
-            Count = Count + 1
+            count = count + 1
         End If
     Next
-    PartyCount = Count
+    PartyCount = count
 End Function
 
 Public Function IsIPBanned(ByVal valIP As String) As Boolean
 Dim filename As String
-Dim F As Long
+Dim f As Long
 Dim s As String
     
     filename = App.Path & "\data\accounts\banlist.txt"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if the master banlist file exists for checking duplicate names, and if it doesnt make it
     If Not FileExist(filename) Then
-        Open App.Path & "\data\accounts\banlist.txt" For Output As #F
-        Close #F
+        Open App.Path & "\data\accounts\banlist.txt" For Output As #f
+        Close #f
         IsIPBanned = False
         Exit Function
     End If
     
-    Open filename For Input As #F
-        Do While Not EOF(F)
-            Input #F, s
+    Open filename For Input As #f
+        Do While Not EOF(f)
+            Input #f, s
     
             If Trim$(LCase$(s)) = Trim$(LCase$(valIP)) Then
                 IsIPBanned = True
-                Close #F
+                Close #f
                 Exit Function
             End If
         Loop
-    Close #F
+    Close #f
 End Function
 
 Public Sub BanIP(ByVal valIP As String)
-Dim F As Long
+Dim f As Long
 
     '//Append name to file
-    F = FreeFile
-    Open App.Path & "\data\accounts\banlist.txt" For Append As #F
-        Print #F, Trim$(valIP)
-    Close #F
+    f = FreeFile
+    Open App.Path & "\data\accounts\banlist.txt" For Append As #f
+        Print #f, Trim$(valIP)
+    Close #f
 End Sub
 
 Public Function IsCharacterBanned(ByVal char As String) As Boolean
 Dim filename As String
-Dim F As Long
+Dim f As Long
 Dim s As String
     
     filename = App.Path & "\data\accounts\charbanlist.txt"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if the master banlist file exists for checking duplicate names, and if it doesnt make it
     If Not FileExist(filename) Then
-        Open App.Path & "\data\accounts\charbanlist.txt" For Output As #F
-        Close #F
+        Open App.Path & "\data\accounts\charbanlist.txt" For Output As #f
+        Close #f
         IsCharacterBanned = False
         Exit Function
     End If
     
-    Open filename For Input As #F
-        Do While Not EOF(F)
-            Input #F, s
+    Open filename For Input As #f
+        Do While Not EOF(f)
+            Input #f, s
     
             If Trim$(LCase$(s)) = Trim$(LCase$(char)) Then
                 IsCharacterBanned = True
-                Close #F
+                Close #f
                 Exit Function
             End If
         Loop
-    Close #F
+    Close #f
 End Function
 
 Public Sub BanCharacter(ByVal char As String)
-Dim F As Long
+Dim f As Long
 
     '//Append name to file
-    F = FreeFile
-    Open App.Path & "\data\accounts\charbanlist.txt" For Append As #F
-        Print #F, Trim$(char)
-    Close #F
+    f = FreeFile
+    Open App.Path & "\data\accounts\charbanlist.txt" For Append As #f
+        Print #f, Trim$(char)
+    Close #f
 End Sub
 
 ' Obtem o ID do mapa
@@ -2688,14 +2688,14 @@ End Function
 Function GetPlayerX(ByVal Index As Long) As Long
 
     If Index > MAX_PLAYER Then Exit Function
-    GetPlayerX = Player(Index, TempPlayer(Index).UseChar).X
+    GetPlayerX = Player(Index, TempPlayer(Index).UseChar).x
 End Function
 
 ' Obtem o Y do jogador
 Function GetPlayerY(ByVal Index As Long) As Long
 
     If Index > MAX_PLAYER Then Exit Function
-    GetPlayerY = Player(Index, TempPlayer(Index).UseChar).Y
+    GetPlayerY = Player(Index, TempPlayer(Index).UseChar).y
 End Function
 
 Function GetPlayerDir(ByVal Index As Long) As Long

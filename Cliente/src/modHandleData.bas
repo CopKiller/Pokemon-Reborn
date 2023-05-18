@@ -1001,7 +1001,7 @@ Dim i As Byte
     For i = 1 To MAX_PLAYER_INV
         With PlayerInv(i)
             .Num = buffer.ReadLong
-            .Value = buffer.ReadLong
+            .value = buffer.ReadLong
         End With
     Next
     Set buffer = Nothing
@@ -1016,7 +1016,7 @@ Dim Slot As Byte
     Slot = buffer.ReadByte
     With PlayerInv(Slot)
         .Num = buffer.ReadLong
-        .Value = buffer.ReadLong
+        .value = buffer.ReadLong
     End With
     Set buffer = Nothing
 End Sub
@@ -1032,7 +1032,7 @@ Dim X As Byte, Y As Byte
         For Y = 1 To MAX_STORAGE
             With PlayerInvStorage(X)
                 .Data(Y).Num = buffer.ReadLong
-                .Data(Y).Value = buffer.ReadLong
+                .Data(Y).value = buffer.ReadLong
             End With
         Next
     Next
@@ -1049,7 +1049,7 @@ Dim Slot As Byte, sData As Byte
     sData = buffer.ReadByte
     With PlayerInvStorage(Slot)
         .Data(sData).Num = buffer.ReadLong
-        .Data(sData).Value = buffer.ReadLong
+        .Data(sData).value = buffer.ReadLong
     End With
     Set buffer = Nothing
 End Sub
@@ -1605,7 +1605,7 @@ Dim X As Byte
         .TradeType = buffer.ReadByte
         
         .Num = buffer.ReadLong
-        .Value = buffer.ReadLong
+        .value = buffer.ReadLong
         
         .Level = buffer.ReadByte
         
@@ -2183,6 +2183,8 @@ Dim n As Long
 Dim dSize As Long
 Dim dData() As Byte
 
+On Error Resume Next
+
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
     n = buffer.ReadLong
@@ -2287,16 +2289,16 @@ End Sub
 
 Private Sub HandleRequestCash(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
 Dim buffer As clsBuffer
-Dim Value As Long
+Dim value As Long
     
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
-    Value = buffer.ReadLong
+    value = buffer.ReadLong
     Set buffer = Nothing
     
     If frmAdmin.optCash Then
-        frmAdmin.lblCash = "Player Cash: " & Value
+        frmAdmin.lblCash = "Player Cash: " & value
     Else
-        frmAdmin.lblCash = "Player Money: " & Value
+        frmAdmin.lblCash = "Player Money: " & value
     End If
 End Sub
