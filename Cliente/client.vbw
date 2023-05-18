@@ -1,6 +1,6 @@
 frmMain = 150, 150, 869, 757, C, 125, 125, 828, 732, C
 modMain = 88, 30, 791, 637, C
-modDirectX8 = 582, 47, 1968, 835, 
+modDirectX8 = 0, 0, 1386, 788, 
 modGlobal = 898, -1, 1542, 787, C
 modConstant = 1102, 97, 1805, 704, 
 modLoop = 1244, 86, 2094, 874, 
@@ -35,5 +35,5 @@ Chat_Window = 1, 0, 898, 954, C
 modLanguage = 652, -1, 1366, 787, 
 Footer_Window = 1, 1, 1032, 951, C
 Credit_Window = 180, 80, 1488, 722, C
-GlobalMenu_Window = 5, 6, 1041, 945, C
+GlobalMenu_Window = 5, 6, 1041, 926, Z
 Inventory_Window = 78, 78, 1386, 720, C

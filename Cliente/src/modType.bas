@@ -255,6 +255,9 @@ Public Type PlayerRec
     Lose As Long
     Tie As Long
     
+    '//Cash
+    Cash As Long
+    
     '//Client Only
     Moving As Byte
     xOffset As Long

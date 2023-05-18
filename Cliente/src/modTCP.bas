@@ -1315,3 +1315,26 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
+
+Public Sub SendRequestPlayerValue(ByVal Name As String, Optional ByVal IsCash As Boolean = YES)
+Dim buffer As clsBuffer
+
+    Set buffer = New clsBuffer
+    buffer.WriteLong CRequestCash
+    buffer.WriteString Name
+    If IsCash Then buffer.WriteByte YES Else buffer.WriteByte NO
+    SendData buffer.ToArray()
+    Set buffer = Nothing
+End Sub
+
+Public Sub SendCashValueTo(ByVal Name As String, ByVal Value As Long, Optional ByVal IsCash As Boolean = YES)
+Dim buffer As clsBuffer
+
+    Set buffer = New clsBuffer
+    buffer.WriteLong CSetCash
+    buffer.WriteString Name
+    If IsCash Then buffer.WriteByte YES Else buffer.WriteByte NO
+    buffer.WriteLong Value
+    SendData buffer.ToArray()
+    Set buffer = Nothing
+End Sub

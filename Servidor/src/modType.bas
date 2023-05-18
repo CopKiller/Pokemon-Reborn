@@ -57,8 +57,8 @@ Private Type MapPokemonRec
     
     '//Location
     Map As Long
-    x As Long
-    y As Long
+    X As Long
+    Y As Long
     Dir As Byte
     
     '//Stats
@@ -128,8 +128,8 @@ Private Type MapNpcPokemonRec
     Num As Long     '//Index of the npc
     
     '//Location
-    x As Long
-    y As Long
+    X As Long
+    Y As Long
     Dir As Byte
     
     '//Stats
@@ -191,8 +191,8 @@ Private Type MapNpcRec
     Num As Long     '//Index of the npc
     
     '//Location
-    x As Long
-    y As Long
+    X As Long
+    Y As Long
     Dir As Byte
     
     '//Data
@@ -210,8 +210,8 @@ Public Type PlayerPokemonRec
     Num As Long
     
     '//Location
-    x As Long
-    y As Long
+    X As Long
+    Y As Long
     Dir As Byte
     
     '//Own index
@@ -253,8 +253,8 @@ Public Type PlayerRec
     
     '//Location
     Map As Long
-    x As Long
-    y As Long
+    X As Long
+    Y As Long
     Dir As Byte
     
     '//Vital
@@ -312,7 +312,9 @@ Public Type PlayerRec
     '//ServerSide
     DidStart As Byte
     MoveTmr As Long
-
+    
+    '//Cash
+    Cash As Long
 End Type
 
 ' *****************

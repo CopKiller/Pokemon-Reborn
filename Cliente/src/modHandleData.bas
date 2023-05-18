@@ -105,6 +105,8 @@ Public Sub InitMessages()
     HandleDataSub(SRank) = GetAddress(AddressOf HandleRank)
     HandleDataSub(SDataLimit) = GetAddress(AddressOf HandleDataLimit)
     HandleDataSub(SPlayerPvP) = GetAddress(AddressOf HandlePlayerPvP)
+    HandleDataSub(SPlayerCash) = GetAddress(AddressOf HandlePlayerCash)
+    HandleDataSub(SRequestCash) = GetAddress(AddressOf HandleRequestCash)
 End Sub
 
 Public Sub HandleData(ByRef Data() As Byte)
@@ -330,6 +332,7 @@ Dim isPvP As Byte
         .win = buffer.ReadLong
         .Lose = buffer.ReadLong
         .Tie = buffer.ReadLong
+        .Cash = buffer.ReadLong
         
         '//Prevent from moving
         .Moving = NO
@@ -997,7 +1000,7 @@ Dim i As Byte
     For i = 1 To MAX_PLAYER_INV
         With PlayerInv(i)
             .Num = buffer.ReadLong
-            .value = buffer.ReadLong
+            .Value = buffer.ReadLong
         End With
     Next
     Set buffer = Nothing
@@ -1012,7 +1015,7 @@ Dim Slot As Byte
     Slot = buffer.ReadByte
     With PlayerInv(Slot)
         .Num = buffer.ReadLong
-        .value = buffer.ReadLong
+        .Value = buffer.ReadLong
     End With
     Set buffer = Nothing
 End Sub
@@ -1028,7 +1031,7 @@ Dim X As Byte, Y As Byte
         For Y = 1 To MAX_STORAGE
             With PlayerInvStorage(X)
                 .Data(Y).Num = buffer.ReadLong
-                .Data(Y).value = buffer.ReadLong
+                .Data(Y).Value = buffer.ReadLong
             End With
         Next
     Next
@@ -1045,7 +1048,7 @@ Dim Slot As Byte, sData As Byte
     sData = buffer.ReadByte
     With PlayerInvStorage(Slot)
         .Data(sData).Num = buffer.ReadLong
-        .Data(sData).value = buffer.ReadLong
+        .Data(sData).Value = buffer.ReadLong
     End With
     Set buffer = Nothing
 End Sub
@@ -1601,7 +1604,7 @@ Dim X As Byte
         .TradeType = buffer.ReadByte
         
         .Num = buffer.ReadLong
-        .value = buffer.ReadLong
+        .Value = buffer.ReadLong
         
         .Level = buffer.ReadByte
         
@@ -2269,4 +2272,30 @@ Dim i As Long
     Player(MyIndex).Lose = buffer.ReadLong
     Player(MyIndex).Tie = buffer.ReadLong
     Set buffer = Nothing
+End Sub
+
+Private Sub HandlePlayerCash(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+Dim buffer As clsBuffer
+
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+    Player(MyIndex).Cash = buffer.ReadLong
+    Player(MyIndex).Money = buffer.ReadLong
+    Set buffer = Nothing
+End Sub
+
+Private Sub HandleRequestCash(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+Dim buffer As clsBuffer
+Dim Value As Long
+    
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+    Value = buffer.ReadLong
+    Set buffer = Nothing
+    
+    If frmAdmin.optCash Then
+        frmAdmin.lblCash = "Player Cash: " & Value
+    Else
+        frmAdmin.lblCash = "Player Money: " & Value
+    End If
 End Sub

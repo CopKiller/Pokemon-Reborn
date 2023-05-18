@@ -248,70 +248,81 @@ End Sub
 
 '//This handle the main form's key event
 Public Sub FormKeyUp(KeyCode As Integer, Shift As Integer)
-Dim i As Long, zs As Long
-Dim CanOpenMenu As Boolean
-Dim Slot As Byte
-Dim cIndex As Long
+    Dim i As Long, zs As Long
+    Dim CanOpenMenu As Boolean
+    Dim Slot As Byte
+    Dim cIndex As Long
 
     If Fade Then Exit Sub
-    
+
     '//SelMenu
     If SelMenu.Visible Then Exit Sub
-    
+
     Select Case KeyCode
-        Case vbKeyEscape
-            If Not GettingMap Then
-                CanOpenMenu = True
-                If GuiVisibleCount > 0 Then
-                    Select Case GuiZOrder(GuiVisibleCount)
-                        Case GuiEnum.GUI_INVENTORY
-                            If GUI(GuiEnum.GUI_INVENTORY).Visible = True Then
-                                GuiState GUI_INVENTORY, False
-                                Button(ButtonEnum.Game_Bag).State = 0
-                            End If
-                            CanOpenMenu = False
-                        Case GuiEnum.GUI_BADGE
-                            If GUI(GuiEnum.GUI_BADGE).Visible = True Then
-                                GuiState GUI_BADGE, False
-                            End If
-                            CanOpenMenu = False
-                        Case GuiEnum.GUI_OPTION
-                            If GUI(GuiEnum.GUI_OPTION).Visible = True Then
-                                GuiState GUI_OPTION, False
-                            End If
-                            CanOpenMenu = False
-                        Case GuiEnum.GUI_POKEDEX
-                            If GUI(GuiEnum.GUI_POKEDEX).Visible = True Then
-                                GuiState GUI_POKEDEX, False
-                                Button(ButtonEnum.Game_Pokedex).State = 0
-                            End If
-                            CanOpenMenu = False
-                        Case GuiEnum.GUI_TRAINER
-                            If GUI(GuiEnum.GUI_TRAINER).Visible = True Then
-                                GuiState GUI_TRAINER, False
-                                Button(ButtonEnum.Game_Card).State = 0
-                            End If
-                            CanOpenMenu = False
-                        Case GuiEnum.GUI_POKEMONSUMMARY
-                            If GUI(GuiEnum.GUI_POKEMONSUMMARY).Visible = True Then
-                                GuiState GUI_POKEMONSUMMARY, False
-                            End If
-                            CanOpenMenu = False
-                    End Select
-                End If
-                    
-                If CanOpenMenu Then
-                    If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible Then
-                        If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
-                            GuiState GUI_GLOBALMENU, False
-                        Else
-                            GuiState GUI_GLOBALMENU, True
-                        End If
+
+    Case vbKeyInsert
+        If Player(MyIndex).Access > 0 Then
+            If GameSetting.Fullscreen = YES Then
+                AddText "You cannot open any editor in fullscreen mode", BrightRed
+                Exit Sub
+            End If
+            
+            frmAdmin.Show
+            Exit Sub
+        End If
+    Case vbKeyEscape
+        If Not GettingMap Then
+            CanOpenMenu = True
+            If GuiVisibleCount > 0 Then
+                Select Case GuiZOrder(GuiVisibleCount)
+                Case GuiEnum.GUI_INVENTORY
+                    If GUI(GuiEnum.GUI_INVENTORY).Visible = True Then
+                        GuiState GUI_INVENTORY, False
+                        Button(ButtonEnum.Game_Bag).State = 0
+                    End If
+                    CanOpenMenu = False
+                Case GuiEnum.GUI_BADGE
+                    If GUI(GuiEnum.GUI_BADGE).Visible = True Then
+                        GuiState GUI_BADGE, False
+                    End If
+                    CanOpenMenu = False
+                Case GuiEnum.GUI_OPTION
+                    If GUI(GuiEnum.GUI_OPTION).Visible = True Then
+                        GuiState GUI_OPTION, False
+                    End If
+                    CanOpenMenu = False
+                Case GuiEnum.GUI_POKEDEX
+                    If GUI(GuiEnum.GUI_POKEDEX).Visible = True Then
+                        GuiState GUI_POKEDEX, False
+                        Button(ButtonEnum.Game_Pokedex).State = 0
+                    End If
+                    CanOpenMenu = False
+                Case GuiEnum.GUI_TRAINER
+                    If GUI(GuiEnum.GUI_TRAINER).Visible = True Then
+                        GuiState GUI_TRAINER, False
+                        Button(ButtonEnum.Game_Card).State = 0
+                    End If
+                    CanOpenMenu = False
+                Case GuiEnum.GUI_POKEMONSUMMARY
+                    If GUI(GuiEnum.GUI_POKEMONSUMMARY).Visible = True Then
+                        GuiState GUI_POKEMONSUMMARY, False
+                    End If
+                    CanOpenMenu = False
+                End Select
+            End If
+
+            If CanOpenMenu Then
+                If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible Then
+                    If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
+                        GuiState GUI_GLOBALMENU, False
+                    Else
+                        GuiState GUI_GLOBALMENU, True
                     End If
                 End If
             End If
+        End If
     End Select
-    
+
     If GameState = GameStateEnum.InGame Then
         For i = ControlEnum.KeyHotbarSlot1 To ControlEnum.KeyHotbarSlot5
             If KeyCode = ControlKey(i).cAsciiKey Then
@@ -323,12 +334,12 @@ Dim cIndex As Long
                 End If
             End If
         Next
-        
+
         If Not ChatOn Then
-        If Not EditTab Then
-            For i = ControlEnum.KeyInventory To ControlEnum.KeyConvo4
-                If KeyCode = ControlKey(i).cAsciiKey Then
-                    Select Case i
+            If Not EditTab Then
+                For i = ControlEnum.KeyInventory To ControlEnum.KeyConvo4
+                    If KeyCode = ControlKey(i).cAsciiKey Then
+                        Select Case i
                         Case ControlEnum.KeyInventory
                             If ShortKeyTimer <= GetTickCount Then
                                 If GUI(GuiEnum.GUI_INVENTORY).Visible = False Then
@@ -435,20 +446,20 @@ Dim cIndex As Long
                                     End If
                                 End If
                             End If
-                    End Select
-                End If
-            Next
+                        End Select
+                    End If
+                Next
+            End If
         End If
-        End If
-        
+
     End If
-    
+
     '//zOrdering of gui
     If Not IsLoading Then
         If GuiVisibleCount > 0 Then
             If CanShowGui(GuiZOrder(GuiVisibleCount)) Then
                 Select Case GuiZOrder(GuiVisibleCount)
-                    Case GuiEnum.GUI_OPTION: OptionKeyUp KeyCode, Shift
+                Case GuiEnum.GUI_OPTION: OptionKeyUp KeyCode, Shift
                 End Select
             End If
         End If

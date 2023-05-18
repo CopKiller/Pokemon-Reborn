@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "mswinsck.ocx"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "Mswinsck.ocx"
 Begin VB.Form frmServer 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   3375
@@ -272,7 +272,8 @@ Dim IdAccess As Long
                 Case 3
                     IdAccess = Index
                 Case 4
-                    IdAccess = Index
+                    'IdAccess = Index
+                    IdAccess = Index + 1
                     
             End Select
             

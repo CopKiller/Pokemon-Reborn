@@ -104,6 +104,8 @@ Public Enum ServerPackets
     SRank
     SDataLimit
     SPlayerPvP
+    SPlayerCash
+    SRequestCash
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -216,6 +218,8 @@ Public Enum ClientPackets
     CMutePlayer
     CUnmutePlayer
     CFlyToBadge
+    CRequestCash
+    CSetCash
     '//Make sure CMSG_COUNT is below everything else
     CMSG_Count
 End Enum
