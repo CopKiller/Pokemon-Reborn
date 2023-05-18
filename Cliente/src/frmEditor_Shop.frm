@@ -21,12 +21,22 @@ Begin VB.Form frmEditorShop
       TabIndex        =   2
       Top             =   0
       Width           =   6015
+      Begin VB.CheckBox Check1 
+         Caption         =   "Is Cash?"
+         Height          =   255
+         Left            =   2520
+         TabIndex        =   13
+         Top             =   3120
+         Visible         =   0   'False
+         Width           =   975
+      End
       Begin VB.TextBox txtPrice 
          Height          =   285
-         Left            =   2520
+         Left            =   2760
          TabIndex        =   12
          Text            =   "0"
-         Top             =   3120
+         Top             =   3360
+         Visible         =   0   'False
          Width           =   3255
       End
       Begin VB.HScrollBar scrlItemNum 
@@ -72,13 +82,14 @@ Begin VB.Form frmEditorShop
          Top             =   1440
          Width           =   135
       End
-      Begin VB.Label Label3 
-         Caption         =   "Price"
-         Height          =   255
+      Begin VB.Label lblMoney 
+         AutoSize        =   -1  'True
+         Caption         =   "Money"
+         Height          =   195
          Left            =   240
          TabIndex        =   11
          Top             =   3120
-         Width           =   5535
+         Width           =   480
       End
       Begin VB.Label lblItemNum 
          Caption         =   "Item: None"
@@ -153,8 +164,8 @@ Private Sub lstIndex_Click()
 End Sub
 
 Private Sub lstShopItem_Click()
-    scrlItemNum.value = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Num
-    txtPrice.Text = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Price
+    scrlItemNum.Value = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Num
+    'txtPrice.Text = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Price
 End Sub
 
 Private Sub mnuCancel_Click()
@@ -188,18 +199,29 @@ End Sub
 Private Sub scrlItemNum_Change()
 Dim tmpIndex As Long
 Dim shopIndex As Long
+Dim Nomenclatura As String
 
     shopIndex = lstShopItem.ListIndex + 1
     If shopIndex = 0 Then Exit Sub
     tmpIndex = lstShopItem.ListIndex
-    Shop(EditorIndex).ShopItem(shopIndex).Num = scrlItemNum.value
+    Shop(EditorIndex).ShopItem(shopIndex).Num = scrlItemNum.Value
     lstShopItem.RemoveItem shopIndex - 1
     If Shop(EditorIndex).ShopItem(shopIndex).Num > 0 Then
-        lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
+    
+        Nomenclatura = "Money:"
+        If Item(Shop(EditorIndex).ShopItem(shopIndex).Num).IsCash = YES Then Nomenclatura = "Cash:"
+        
+        lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - " & Nomenclatura & "$" & Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price, shopIndex - 1
         lblItemNum.Caption = "Item: " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name)
+        If Item(Shop(EditorIndex).ShopItem(shopIndex).Num).IsCash = YES Then
+            lblMoney.Caption = "Cash: " & Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price
+        Else
+            lblMoney.Caption = "Money: " & Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price
+        End If
     Else
-        lstShopItem.AddItem shopIndex & ": None - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
+        lstShopItem.AddItem shopIndex & ": None - Price: $ 0", shopIndex - 1
         lblItemNum.Caption = "Item: None"
+        lblMoney = "Money:"
     End If
     lstShopItem.ListIndex = tmpIndex
     EditorChange = True
@@ -218,23 +240,23 @@ Dim tmpIndex As Long
 End Sub
 
 Private Sub txtPrice_Change()
-Dim tmpIndex As Long
-Dim shopIndex As Long
+'Dim tmpIndex As Long
+'Dim shopIndex As Long
 
-    shopIndex = lstShopItem.ListIndex + 1
-    If shopIndex = 0 Then Exit Sub
-    tmpIndex = lstShopItem.ListIndex
-    If IsNumeric(txtPrice.Text) Then
-        Shop(EditorIndex).ShopItem(shopIndex).Price = Val(txtPrice.Text)
-    End If
-    lstShopItem.RemoveItem shopIndex - 1
-    If Shop(EditorIndex).ShopItem(shopIndex).Num > 0 Then
-        lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
-        lblItemNum.Caption = "Item: " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name)
-    Else
-        lstShopItem.AddItem shopIndex & ": None - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
-        lblItemNum.Caption = "Item: None"
-    End If
-    lstShopItem.ListIndex = tmpIndex
-    EditorChange = True
+'    shopIndex = lstShopItem.ListIndex + 1
+'    If shopIndex = 0 Then Exit Sub
+'    tmpIndex = lstShopItem.ListIndex
+'    If IsNumeric(txtPrice.Text) Then
+'        Shop(EditorIndex).ShopItem(shopIndex).Price = Val(txtPrice.Text)
+'    End If
+'    lstShopItem.RemoveItem shopIndex - 1
+'    If Shop(EditorIndex).ShopItem(shopIndex).Num > 0 Then
+'        lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
+'        lblItemNum.Caption = "Item: " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name)
+'    Else
+'        lstShopItem.AddItem shopIndex & ": None - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
+'        lblItemNum.Caption = "Item: None"
+'    End If
+'    lstShopItem.ListIndex = tmpIndex
+'    EditorChange = True
 End Sub

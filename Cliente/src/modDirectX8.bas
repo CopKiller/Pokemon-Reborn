@@ -3233,15 +3233,17 @@ Dim i As Long
         RenderText Font_Default, Trim$(Player(MyIndex).Name), .X + 85, .Y + 40 + 48, White
         '//Money
         RenderText Font_Default, "$" & (Player(MyIndex).Money), .X + 85, .Y + 64 + 47, White
+        '//Cash
+        RenderText Font_Default, (Player(MyIndex).Cash), .X + 85, .Y + 90 + 47, White
         
         '//Level
         RenderText Font_Default, "Lv " & Trim$(Player(MyIndex).Level), .X + 91 + (15 - (GetTextWidth(Font_Default, "Lv " & Trim$(Player(MyIndex).Level)) / 2)), .Y + 43, White
         RenderText Font_Default, Player(MyIndex).CurExp & "/" & GetLevelNextExp(Player(MyIndex).Level), .X + 2 + ((213 / 2) - (GetTextWidth(Font_Default, Player(MyIndex).CurExp & "/" & GetLevelNextExp(Player(MyIndex).Level)) / 2)), .Y + 65, White
         
         '//PvP
-        RenderText Font_Default, (Player(MyIndex).win), .X + 85, .Y + 173 - 3, White
-        RenderText Font_Default, (Player(MyIndex).Lose), .X + 85, .Y + 197 - 3, White
-        RenderText Font_Default, (Player(MyIndex).Tie), .X + 85, .Y + 221 - 3, White
+        RenderText Font_Default, (Player(MyIndex).win), .X + 85, .Y + 193 - 4, White
+        RenderText Font_Default, (Player(MyIndex).Lose), .X + 85, .Y + 212, White
+        RenderText Font_Default, (Player(MyIndex).Tie), .X + 85, .Y + 236, White
     End With
 End Sub
 
@@ -3307,8 +3309,8 @@ Dim DrawX As Long, DrawY As Long
                     RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
                     
                     '//Count
-                    If PlayerInvStorage(InvCurSlot).Data(i).value > 1 Then
-                        RenderText Font_Default, PlayerInvStorage(InvCurSlot).Data(i).value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInvStorage(InvCurSlot).Data(i).value)), DrawY + 14, White
+                    If PlayerInvStorage(InvCurSlot).Data(i).Value > 1 Then
+                        RenderText Font_Default, PlayerInvStorage(InvCurSlot).Data(i).Value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInvStorage(InvCurSlot).Data(i).Value)), DrawY + 14, White
                     End If
                 End If
             End If
@@ -3505,7 +3507,7 @@ Dim pricetext As String
         If Not .Visible Then Exit Sub
         
         '//Render the window
-        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
+        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height ', D3DColorRGBA(255, 255, 255, 255)
 
         '//Buttons
         For i = ButtonEnum.Shop_Close To ButtonEnum.Shop_ScrollDown
@@ -3534,13 +3536,17 @@ Dim pricetext As String
                     
                     '//Price
                     '//ToDo: Convert, 1k, 1m , etc.
-                    pricetext = "$" & Shop(ShopNum).ShopItem(i).Price
+                    If Item(Shop(ShopNum).ShopItem(i).Num).IsCash = YES Then
+                        pricetext = "@" & Item(Shop(ShopNum).ShopItem(i).Num).Price
+                    Else
+                        pricetext = "$" & Item(Shop(ShopNum).ShopItem(i).Num).Price
+                    End If
                     
                     '//Button
                     If ShopButtonHover = i Then
                         If ShopButtonState = 1 Then '//Hover
                             RenderTexture Tex_Gui(.Pic), .X + DrawX + 12, .Y + DrawY + 44, 33, 375, 103, 25, 103, 25
-                            RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.Y + DrawY + 44) + 1, D3DColorARGB(255, 229, 229, 229), False
+                            RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.Y + DrawY + 44) + 1, D3DColorARGB(255, 150, 150, 255), False
                         ElseIf ShopButtonState = 2 Then '//Click
                             RenderTexture Tex_Gui(.Pic), .X + DrawX + 12, .Y + DrawY + 44, 33, 400, 103, 25, 103, 25
                             RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.Y + DrawY + 44) + 3, White
@@ -3550,11 +3556,11 @@ Dim pricetext As String
                         End If
                     Else
                         RenderTexture Tex_Gui(.Pic), .X + DrawX + 12, .Y + DrawY + 44, 33, 350, 103, 25, 103, 25 '//Normal
-                        RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.Y + DrawY + 44) + 1, White
+                        RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.Y + DrawY + 44) + 1, D3DColorRGBA(100, 100, 100, 255), False
                     End If
                     
                     '//Item Name
-                    RenderText Font_Default, Trim$(Item(Shop(ShopNum).ShopItem(i).Num).Name), .X + DrawX + 44, .Y + DrawY + 10, White
+                    RenderText Font_Default, Trim$(Item(Shop(ShopNum).ShopItem(i).Num).Name), .X + DrawX + 44, .Y + DrawY + 10, D3DColorRGBA(100, 100, 100, 255), False
                 End If
             End If
         Next
@@ -3622,8 +3628,8 @@ Dim currencyText As String
                         End If
                         
                         '//Count
-                        If YourTrade.Data(i).value > 1 Then
-                            RenderText Font_Default, YourTrade.Data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, YourTrade.Data(i).value)), DrawY + 7 + 14, White
+                        If YourTrade.Data(i).Value > 1 Then
+                            RenderText Font_Default, YourTrade.Data(i).Value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, YourTrade.Data(i).Value)), DrawY + 7 + 14, White
                         End If
                     ElseIf YourTrade.Data(i).TradeType = 2 Then  '//Pokemon
                         Sprite = Pokemon(YourTrade.Data(i).Num).Sprite
@@ -3650,8 +3656,8 @@ Dim currencyText As String
                         End If
                         
                         '//Count
-                        If TheirTrade.Data(i).value > 1 Then
-                            RenderText Font_Default, TheirTrade.Data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, TheirTrade.Data(i).value)), DrawY + 7 + 14, White
+                        If TheirTrade.Data(i).Value > 1 Then
+                            RenderText Font_Default, TheirTrade.Data(i).Value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, TheirTrade.Data(i).Value)), DrawY + 7 + 14, White
                         End If
                     ElseIf TheirTrade.Data(i).TradeType = 2 Then '//Pokemon
                         Sprite = Pokemon(TheirTrade.Data(i).Num).Sprite
@@ -4358,7 +4364,7 @@ Dim ShouldRender As Boolean
         
         For i = 0 To 1
             '//Set index
-            AnimationNum = .scrlSprite(i).value
+            AnimationNum = .scrlSprite(i).Value
             If AnimationNum <= 0 Or AnimationNum > Count_Animation Then
                 .picSprite(i).Cls
                 GoTo continue
@@ -4372,8 +4378,8 @@ Dim ShouldRender As Boolean
             D3DDevice.BeginScene
 
             If AnimationNum > 0 And AnimationNum <= Count_Animation Then
-                looptime = .scrlLoopTime(i).value
-                FrameCount = .scrlFrameCount(i).value
+                looptime = .scrlLoopTime(i).Value
+                FrameCount = .scrlFrameCount(i).Value
     
                 If FrameCount > 0 Then
                     '//check if we need to render new frame
@@ -4388,7 +4394,7 @@ Dim ShouldRender As Boolean
                     End If
                 
                     '//total width divided by frame count
-                    Width = GetPicWidth(Tex_Animation(AnimationNum)) / frmEditor_Animation.scrlFrameCount(i).value 'AnimColumns 'GetPicWidth(Tex_Animation(AnimationNum)) '/ frmEditor_Animation.scrlFrameCount(i).value
+                    Width = GetPicWidth(Tex_Animation(AnimationNum)) / frmEditor_Animation.scrlFrameCount(i).Value 'AnimColumns 'GetPicWidth(Tex_Animation(AnimationNum)) '/ frmEditor_Animation.scrlFrameCount(i).value
                     Height = GetPicHeight(Tex_Animation(AnimationNum)) 'GetPicWidth(Tex_Animation(AnimationNum)) '/ AnimColumns 'GetPicHeight(Tex_Animation(AnimationNum))
         
                     sX = (AnimEditorFrame(i) - 1) * Width '(Width * (((AnimEditorFrame(i) - 1) Mod AnimColumns))) '(AnimEditorFrame(i) - 1) * Width

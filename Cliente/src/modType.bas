@@ -270,7 +270,7 @@ End Type
 ' *****************
 Private Type PlayerInvRec
     Num As Long
-    value As Long
+    Value As Long
 End Type
 
 Private Type PokemonMovesetRec
@@ -281,7 +281,7 @@ End Type
 
 Public Type PlayerInvStorageDataRec
     Num As Long
-    value As Long
+    Value As Long
 End Type
 
 Private Type PlayerInvStorageSlotRec
@@ -472,6 +472,7 @@ Private Type ItemRec
     Price As Long
     Data3 As Long
     Desc As String * 255
+    IsCash As Byte
 End Type
 
 Private Type MovesetRec
@@ -657,7 +658,7 @@ Private Type TradeDataRec
     TradeType As Byte
     
     Num As Long
-    value As Long
+    Value As Long
     
     '//Stats
     Level As Byte

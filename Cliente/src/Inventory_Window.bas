@@ -36,8 +36,8 @@ Dim Sprite As Long
                     RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
                     
                     '//Count
-                    If PlayerInv(i).value > 1 Then
-                        RenderText Font_Default, PlayerInv(i).value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInv(i).value)), DrawY + 14, White
+                    If PlayerInv(i).Value > 1 Then
+                        RenderText Font_Default, PlayerInv(i).Value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInv(i).Value)), DrawY + 14, White
                     End If
                 End If
             End If
@@ -211,7 +211,7 @@ Dim i As Long
             i = IsInvSlot(CursorX, CursorY)
             If i > 0 Then
                 '//Check if value is greater than 1
-                If PlayerInvStorage(InvCurSlot).Data(DragStorageSlot).value > 1 Then
+                If PlayerInvStorage(InvCurSlot).Data(DragStorageSlot).Value > 1 Then
                     If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible Then
                         OpenInputBox "Enter amount", IB_WITHDRAW, DragStorageSlot, i
                     End If
@@ -229,15 +229,16 @@ Dim i As Long
 End Sub
 
 Public Sub DrawInvItemDesc()
-Dim ItemName As String
-Dim ItemIcon As Long
-Dim DescString As String
-Dim LowBound As Long, UpBound As Long
-Dim ArrayText() As String
-Dim i As Integer
-Dim X As Long, Y As Long
-Dim yOffset As Long
-Dim SizeY As Long
+    Dim ItemName As String
+    Dim ItemIcon As Long
+    Dim DescString As String
+    Dim LowBound As Long, UpBound As Long
+    Dim ArrayText() As String
+    Dim i As Integer
+    Dim X As Long, Y As Long
+    Dim yOffset As Long
+    Dim SizeY As Long
+    Dim ItemPrice As String
 
     If SelMenu.Visible Or DragInvSlot > 0 Then
         InvItemDesc = 0
@@ -245,33 +246,41 @@ Dim SizeY As Long
         InvItemDescShow = False
         Exit Sub
     End If
-    
+
     If InvItemDesc <= 0 Or InvItemDesc > MAX_PLAYER_INV Then Exit Sub
     If InvItemDescTimer + 400 > GetTickCount Then Exit Sub
     If PlayerInv(InvItemDesc).Num <= 0 Or PlayerInv(InvItemDesc).Num > MAX_ITEM Then Exit Sub
     InvItemDescShow = True
-    
+
     ItemIcon = Item(PlayerInv(InvItemDesc).Num).Sprite
     ItemName = "~ " & Trim$(Item(PlayerInv(InvItemDesc).Num).Name) & " ~"
-    DescString = Trim$(Item(PlayerInv(InvItemDesc).Num).Desc) '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
-    
+    DescString = Trim$(Item(PlayerInv(InvItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
+
+    If Item(PlayerInv(InvItemDesc).Num).IsCash = NO Then
+        ItemPrice = "Price: " & Item(PlayerInv(InvItemDesc).Num).Price
+    Else
+        ItemPrice = "Price: Non Sellable"
+    End If
+
     '//Make sure that loading text have something to draw
     If Len(DescString) < 0 Then Exit Sub
-    
+
     '//Wrap the text
     WordWrap_Array Font_Default, DescString, 150, ArrayText
-    
+
     '//we need these often
     LowBound = LBound(ArrayText)
     UpBound = UBound(ArrayText)
-    
+
     SizeY = 25 + ((UpBound + 1) * 16)
-    
+
     RenderTexture Tex_System(gSystemEnum.UserInterface), GUI(GuiEnum.GUI_INVENTORY).X + 6, GUI(GuiEnum.GUI_INVENTORY).Y + 36, 0, 8, 182, 219, 1, 1, D3DColorARGB(180, 0, 0, 0)
-    
+
     RenderTexture Tex_Item(ItemIcon), GUI(GuiEnum.GUI_INVENTORY).X + GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetPicHeight(Tex_Item(ItemIcon)) / 2), GUI(GuiEnum.GUI_INVENTORY).Y + 8 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon)), GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon))
-    
+
     RenderText Font_Default, ItemName, GUI(GuiEnum.GUI_INVENTORY).X + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
+    
+    RenderText Font_Default, ItemPrice, GUI(GuiEnum.GUI_INVENTORY).X + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 150 + ((219 * 0.5) - (SizeY * 0.5)), White
 
     '//Reset
     yOffset = 25
@@ -281,10 +290,10 @@ Dim SizeY As Long
         '//Keep it centered
         X = GUI(GuiEnum.GUI_INVENTORY).X + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, Trim$(ArrayText(i))) * 0.5))
         Y = GUI(GuiEnum.GUI_INVENTORY).Y + 36 + ((219 * 0.5) - (SizeY * 0.5)) + yOffset
-                
+
         '//Render the text
         RenderText Font_Default, Trim$(ArrayText(i)), X, Y, White
-            
+
         '//Increase the location for each line
         yOffset = yOffset + 16
     Next

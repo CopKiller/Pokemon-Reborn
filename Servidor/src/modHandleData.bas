@@ -2222,79 +2222,114 @@ Private Sub HandleCloseShop(ByVal Index As Long, ByRef Data() As Byte, ByVal Sta
 End Sub
 
 Private Sub HandleBuyItem(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim buffer As clsBuffer
-Dim ShopSlot As Byte, ShopVal As Long
+    Dim buffer As clsBuffer
+    Dim ShopSlot As Byte, ShopVal As Long, MoneyValue As Long, IsCash As Byte, ShopValue As Long
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     If TempPlayer(Index).InShop <= 0 Then Exit Sub
-    
+
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
     ShopSlot = buffer.ReadByte
     ShopVal = buffer.ReadLong
     Set buffer = Nothing
-    
+
     If ShopSlot <= 0 Or ShopSlot > MAX_SHOP_ITEM Then Exit Sub
     If ShopVal <= 0 Then Exit Sub
-    
+
     '//Give Item
     With Player(Index, TempPlayer(Index).UseChar)
-        If .Money >= (Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Price * ShopVal) Then
-            If GiveItem(Index, Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
-                '//Take money
-                .Money = .Money - (Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Price * ShopVal)
-                SendPlayerData Index
-                Select Case TempPlayer(Index).CurLanguage
+        ShopValue = (Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Price * ShopVal)
+        IsCash = Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).IsCash
+
+        If IsCash = YES Then
+            If .Cash >= ShopValue Then
+                If GiveItem(Index, Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
+                    .Cash = .Cash - ShopValue
+                    Select Case TempPlayer(Index).CurLanguage
                     Case LANG_PT: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
                     Case LANG_EN: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
                     Case LANG_ES: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
-                End Select
-            Else
-                '//No slot left
-                Select Case TempPlayer(Index).CurLanguage
+                    End Select
+                    
+                    Call SendPlayerCash(Index)
+                Else
+                    '//No slot left
+                    Select Case TempPlayer(Index).CurLanguage
                     Case LANG_PT: AddAlert Index, "Inventory is full", White
                     Case LANG_EN: AddAlert Index, "Inventory is full", White
                     Case LANG_ES: AddAlert Index, "Inventory is full", White
-                End Select
+                    End Select
+                End If
+            End If
+        Else
+            If .Money >= ShopValue Then
+                If GiveItem(Index, Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
+                    .Money = .Money - ShopValue
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
+                    Case LANG_EN: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
+                    Case LANG_ES: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
+                    End Select
+                    
+                    Call SendPlayerCash(Index)
+                Else
+                    '//No slot left
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "Inventory is full", White
+                    Case LANG_EN: AddAlert Index, "Inventory is full", White
+                    Case LANG_ES: AddAlert Index, "Inventory is full", White
+                    End Select
+                End If
             End If
         End If
     End With
 End Sub
 
 Private Sub HandleSellItem(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim buffer As clsBuffer
-Dim invSlot As Byte, InvVal As Long
-Dim aPrice As Long
+    Dim buffer As clsBuffer
+    Dim invSlot As Byte, InvVal As Long
+    Dim aPrice As Long
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     If TempPlayer(Index).InShop <= 0 Then Exit Sub
-    
+
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
     invSlot = buffer.ReadByte
     InvVal = buffer.ReadLong
     Set buffer = Nothing
-    
+
     If invSlot <= 0 Or invSlot > MAX_PLAYER_INV Then Exit Sub
     If InvVal < 0 Then Exit Sub
-    
+
+    ' Não pode vender item de cash
+    If Item(PlayerInv(Index).Data(invSlot).Num).IsCash = YES Then
+        Select Case TempPlayer(Index).CurLanguage
+        Case LANG_PT: AddAlert Index, "Cash item not allowed to sell.", White
+        Case LANG_EN: AddAlert Index, "Cash item not allowed to sell.", White
+        Case LANG_ES: AddAlert Index, "Cash item not allowed to sell.", White
+        End Select
+        Exit Sub
+    End If
+
     '//Give Item
     With Player(Index, TempPlayer(Index).UseChar)
         If PlayerInv(Index).Data(invSlot).Value < InvVal Then
             Select Case TempPlayer(Index).CurLanguage
-                Case LANG_PT: AddAlert Index, "Invalid amount", White
-                Case LANG_EN: AddAlert Index, "Invalid amount", White
-                Case LANG_ES: AddAlert Index, "Invalid amount", White
+            Case LANG_PT: AddAlert Index, "Invalid amount", White
+            Case LANG_EN: AddAlert Index, "Invalid amount", White
+            Case LANG_ES: AddAlert Index, "Invalid amount", White
             End Select
         Else
             If PlayerInv(Index).Data(invSlot).Num > 0 Then
-                aPrice = Item(PlayerInv(Index).Data(invSlot).Num).Price * InvVal
+                aPrice = (Item(PlayerInv(Index).Data(invSlot).Num).Price / 2) * InvVal
                 Select Case TempPlayer(Index).CurLanguage
-                    Case LANG_PT: AddAlert Index, "You have successfully sold x" & InvVal & " " & Trim$(Item(PlayerInv(Index).Data(invSlot).Num).Name) & " for $" & aPrice, White
-                    Case LANG_EN: AddAlert Index, "You have successfully sold x" & InvVal & " " & Trim$(Item(PlayerInv(Index).Data(invSlot).Num).Name) & " for $" & aPrice, White
-                    Case LANG_ES: AddAlert Index, "You have successfully sold x" & InvVal & " " & Trim$(Item(PlayerInv(Index).Data(invSlot).Num).Name) & " for $" & aPrice, White
+                Case LANG_PT: AddAlert Index, "You have successfully sold x" & InvVal & " " & Trim$(Item(PlayerInv(Index).Data(invSlot).Num).Name) & " for $" & aPrice, White
+                Case LANG_EN: AddAlert Index, "You have successfully sold x" & InvVal & " " & Trim$(Item(PlayerInv(Index).Data(invSlot).Num).Name) & " for $" & aPrice, White
+                Case LANG_ES: AddAlert Index, "You have successfully sold x" & InvVal & " " & Trim$(Item(PlayerInv(Index).Data(invSlot).Num).Name) & " for $" & aPrice, White
                 End Select
                 PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - InvVal
                 If PlayerInv(Index).Data(invSlot).Value <= 0 Then
@@ -4679,7 +4714,11 @@ Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
     Set buffer = Nothing
 
     If FindP = 0 Then
-        SendPlayerMsg Index, "Jogador Offline!", BrightRed
+        Select Case TempPlayer(Index).CurLanguage
+        Case LANG_PT: AddAlert Index, "O jogador está offline.", BrightRed
+        Case LANG_EN: AddAlert Index, "O jogador está offline.", BrightRed
+        Case LANG_ES: AddAlert Index, "O jogador está offline.", BrightRed
+        End Select
         Exit Sub
     Else
 
@@ -4689,6 +4728,18 @@ Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
             Else
                 Player(FindP, TempPlayer(FindP).UseChar).Cash = Player(FindP, TempPlayer(FindP).UseChar).Cash + Value
             End If
+
+            Select Case TempPlayer(FindP).CurLanguage
+            Case LANG_PT: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Cash!", White
+            Case LANG_EN: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Cash!", White
+            Case LANG_ES: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Cash!", White
+            End Select
+            Select Case TempPlayer(Index).CurLanguage
+            Case LANG_PT: AddAlert Index, "O jogador recebeu " & Value & " Cash!", White
+            Case LANG_EN: AddAlert Index, "O jogador recebeu " & Value & " Cash!", White
+            Case LANG_ES: AddAlert Index, "O jogador recebeu " & Value & " Cash!", White
+            End Select
+
             Call SendRequestCash(Index, FindP, True)
         Else
             If Value >= MAX_MONEY Then
@@ -4696,9 +4747,21 @@ Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
             Else
                 Player(FindP, TempPlayer(FindP).UseChar).Money = Player(FindP, TempPlayer(FindP).UseChar).Money + Value
             End If
+            
+            Select Case TempPlayer(FindP).CurLanguage
+            Case LANG_PT: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Money!", White
+            Case LANG_EN: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Money!", White
+            Case LANG_ES: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Money!", White
+            End Select
+            Select Case TempPlayer(Index).CurLanguage
+            Case LANG_PT: AddAlert Index, "O jogador recebeu " & Value & " Money!", White
+            Case LANG_EN: AddAlert Index, "O jogador recebeu " & Value & " Money!", White
+            Case LANG_ES: AddAlert Index, "O jogador recebeu " & Value & " Money!", White
+            End Select
+            
             Call SendRequestCash(Index, FindP, False)
         End If
-        
+
         Call SendPlayerCash(Index)
     End If
 

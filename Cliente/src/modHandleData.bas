@@ -328,10 +328,11 @@ Dim isPvP As Byte
             .Hotbar(X) = buffer.ReadLong
         Next
         .StealthMode = buffer.ReadByte
-        isPvP = buffer.ReadByte
+        'isPvP = buffer.ReadByte
         .win = buffer.ReadLong
         .Lose = buffer.ReadLong
         .Tie = buffer.ReadLong
+        
         .Cash = buffer.ReadLong
         
         '//Prevent from moving

@@ -1379,143 +1379,144 @@ Dim i As Long
 End Sub
 
 Public Function SelMenuLogic(ByVal Button As Integer) As Boolean
-    '//Select button input
+'//Select button input
     If Button = vbLeftButton Then
         Select Case SelMenu.Type
-            Case SelMenuType.Inv
-                If SelMenu.Data1 > 0 Then
-                    Select Case SelMenu.CurPick
-                        Case 1 '//Use
-                            SendUseItem SelMenu.Data1
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 2 '//Add Held
-                            SenAddHeld SelMenu.Data1
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+        Case SelMenuType.Inv
+            If SelMenu.Data1 > 0 Then
+                Select Case SelMenu.CurPick
+                Case 1    '//Use
+                    SendUseItem SelMenu.Data1
+                    '//Clear
+                    ClearSelMenu
+                    SelMenuLogic = True
+                    Exit Function
+                Case 2    '//Add Held
+                    SenAddHeld SelMenu.Data1
 
-                        'Case 3 '//Remove
-                            
-                            '//Clear
-                            'ClearSelMenu
-                            'SelMenuLogic = True
-                            'Exit Function
-                        Case 4 '//Deposit
-                            '//Check
-                            If StorageType = 1 Then '//Inv
-                                If GUI(GuiEnum.GUI_INVSTORAGE).Visible Then
-                                    '//Deposit Selected Item
-                                    If Item(PlayerInv(SelMenu.Data1).Num).Stock = YES Then
-                                        OpenInputBox "Enter amount", IB_DEPOSIT, SelMenu.Data1, 0
-                                    Else
-                                        SendDepositItemTo InvCurSlot, 0, SelMenu.Data1
-                                    End If
-                                End If
-                            ElseIf ShopNum > 0 Then
-                                If GUI(GuiEnum.GUI_SHOP).Visible Then
-                                    '//Sell Selected Item
-                                    If Item(PlayerInv(SelMenu.Data1).Num).Stock = YES Then
-                                        OpenInputBox "Enter amount", IB_SELLITEM, SelMenu.Data1
-                                    Else
-                                        '//Sell Item
-                                        SendSellItem SelMenu.Data1
-                                    End If
-                                End If
-                            ElseIf TradeIndex > 0 Then '//Trade
-                                If GUI(GuiEnum.GUI_TRADE).Visible Then
-                                    '//Add Trade Selected Item
-                                    If Item(PlayerInv(SelMenu.Data1).Num).Stock = YES Then
-                                        OpenInputBox "Enter amount", IB_ADDTRADE, SelMenu.Data1
-                                    Else
-                                        '//Add Trade Item
-                                        SendAddTrade 1, SelMenu.Data1
-                                    End If
+                    '//Clear
+                    ClearSelMenu
+                    SelMenuLogic = True
+                    Exit Function
+
+                Case 3    '//Remove
+                    If ShopNum > 0 Then
+                        If GUI(GuiEnum.GUI_SHOP).Visible Then
+                            '//Sell Selected Item
+                            If Item(PlayerInv(SelMenu.Data1).Num).Stock = YES Then
+                                OpenInputBox "Enter amount", IB_SELLITEM, SelMenu.Data1
+                            Else
+                                '//Sell Item
+                                SendSellItem SelMenu.Data1
+                            End If
+                        End If
+                    End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 4    '//Deposit
+                        '//Check
+                        If StorageType = 1 Then    '//Inv
+                            If GUI(GuiEnum.GUI_INVSTORAGE).Visible Then
+                                '//Deposit Selected Item
+                                If Item(PlayerInv(SelMenu.Data1).Num).Stock = YES Then
+                                    OpenInputBox "Enter amount", IB_DEPOSIT, SelMenu.Data1, 0
+                                Else
+                                    SendDepositItemTo InvCurSlot, 0, SelMenu.Data1
                                 End If
                             End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                        ElseIf TradeIndex > 0 Then    '//Trade
+                            If GUI(GuiEnum.GUI_TRADE).Visible Then
+                                '//Add Trade Selected Item
+                                If Item(PlayerInv(SelMenu.Data1).Num).Stock = YES Then
+                                    OpenInputBox "Enter amount", IB_ADDTRADE, SelMenu.Data1
+                                Else
+                                    '//Add Trade Item
+                                    SendAddTrade 1, SelMenu.Data1
+                                End If
+                            End If
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.SpawnPokes
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Spawn
-                            If PlayerPokemons(SelPoke).CurHP > 0 Then
-                                SendPlayerPokemonState 1, SelPoke
+                    Case 1    '//Spawn
+                        If PlayerPokemons(SelPoke).CurHP > 0 Then
+                            SendPlayerPokemonState 1, SelPoke
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 2    '//Summary
+                        SummaryType = 1
+                        SummarySlot = SelPoke
+                        SummaryData = 0
+                        If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
+                            GuiState GUI_POKEMONSUMMARY, True
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 3    '//Remove Held
+                        SendRemoveHeld SelPoke
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 4    '//Deposit
+                        '//Check
+                        If StorageType = 2 Then    '//Pokemon
+                            If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                                '//Deposit Selected Pokemon
+                                SendDepositPokemon PokemonCurSlot, SelPoke
                             End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 2 '//Summary
-                            SummaryType = 1
-                            SummarySlot = SelPoke
-                            SummaryData = 0
-                            If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
-                                GuiState GUI_POKEMONSUMMARY, True
+                        ElseIf TradeIndex > 0 Then    '//Add Trade
+                            If GUI(GuiEnum.GUI_TRADE).Visible Then
+                                '//Add Trade Pokemon
+                                SendAddTrade 2, SelPoke
                             End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 3 '//Remove Held
-                            SendRemoveHeld SelPoke
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 4 '//Deposit
-                            '//Check
-                            If StorageType = 2 Then '//Pokemon
-                                If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                                    '//Deposit Selected Pokemon
-                                    SendDepositPokemon PokemonCurSlot, SelPoke
-                                End If
-                            ElseIf TradeIndex > 0 Then '//Add Trade
-                                If GUI(GuiEnum.GUI_TRADE).Visible Then
-                                    '//Add Trade Pokemon
-                                    SendAddTrade 2, SelPoke
-                                End If
-                            End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.PlayerPokes
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Call Back
-                            SendPlayerPokemonState 0, SelPoke
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 2 '//Summary
-                            SummaryType = 1
-                            SummarySlot = SelPoke
-                            SummaryData = 0
-                            If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
-                                GuiState GUI_POKEMONSUMMARY, True
-                            End If
+                    Case 1    '//Call Back
+                        SendPlayerPokemonState 0, SelPoke
 
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 2    '//Summary
+                        SummaryType = 1
+                        SummarySlot = SelPoke
+                        SummaryData = 0
+                        If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
+                            GuiState GUI_POKEMONSUMMARY, True
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.Evolve
@@ -1523,7 +1524,7 @@ Public Function SelMenuLogic(ByVal Button As Integer) As Boolean
                 If EvolveSelect > 0 Then
                     '//MsgBox
                     OpenChoiceBox "Do you want to evolve your pokemon?", CB_EVOLVE
-                    
+
                     '//Clear
                     ClearSelMenu
                     SelMenuLogic = True
@@ -1531,254 +1532,254 @@ Public Function SelMenuLogic(ByVal Button As Integer) As Boolean
                 End If
             Case SelMenuType.Storage
                 Select Case SelMenu.CurPick
-                    Case 1 '//Item Storage
-                        SendOpenStorage 1
+                Case 1    '//Item Storage
+                    SendOpenStorage 1
+
+                    '//Clear
+                    ClearSelMenu
+                    SelMenuLogic = True
+                    Exit Function
+                Case 2    '//Pokemon Storage
+                    SendOpenStorage 2
+
+                    '//Clear
+                    ClearSelMenu
+                    SelMenuLogic = True
+                    Exit Function
+                End Select
+            Case SelMenuType.NPCChat
+                If SelMenu.Data1 > 0 Then
+                    Select Case SelMenu.CurPick
+                    Case 1    '//Talk
+                        SendConvo 1, SelMenu.Data1
 
                         '//Clear
                         ClearSelMenu
                         SelMenuLogic = True
                         Exit Function
-                    Case 2 '//Pokemon Storage
-                        SendOpenStorage 2
-                        
-                        '//Clear
-                        ClearSelMenu
-                        SelMenuLogic = True
-                        Exit Function
-                End Select
-            Case SelMenuType.NPCChat
-                If SelMenu.Data1 > 0 Then
-                    Select Case SelMenu.CurPick
-                        Case 1 '//Talk
-                            SendConvo 1, SelMenu.Data1
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
                     End Select
                 End If
             Case SelMenuType.InvStorage
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Withdraw
-                            '//Check
-                            If StorageType = 1 Then '//Inv
-                                If GUI(GuiEnum.GUI_INVSTORAGE).Visible Then
-                                    '//Deposit Selected Item
-                                    If Item(PlayerInvStorage(InvCurSlot).Data(SelMenu.Data1).Num).Stock = YES Then
-                                        OpenInputBox "Enter amount", IB_WITHDRAW, SelMenu.Data1, 0
-                                    Else
-                                        SendWithdrawItemTo InvCurSlot, SelMenu.Data1, 0
-                                    End If
+                    Case 1    '//Withdraw
+                        '//Check
+                        If StorageType = 1 Then    '//Inv
+                            If GUI(GuiEnum.GUI_INVSTORAGE).Visible Then
+                                '//Deposit Selected Item
+                                If Item(PlayerInvStorage(InvCurSlot).Data(SelMenu.Data1).Num).Stock = YES Then
+                                    OpenInputBox "Enter amount", IB_WITHDRAW, SelMenu.Data1, 0
+                                Else
+                                    SendWithdrawItemTo InvCurSlot, SelMenu.Data1, 0
                                 End If
                             End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.PokeStorage
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Summary
-                            SummaryType = 2
-                            SummarySlot = SelMenu.Data1
-                            SummaryData = PokemonCurSlot
-                            If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
-                                GuiState GUI_POKEMONSUMMARY, True
+                    Case 1    '//Summary
+                        SummaryType = 2
+                        SummarySlot = SelMenu.Data1
+                        SummaryData = PokemonCurSlot
+                        If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
+                            GuiState GUI_POKEMONSUMMARY, True
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 2    '//Withdraw
+                        '//Check
+                        If StorageType = 2 Then    '//Pokemon
+                            If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                                '//Deposit Selected Item
+                                SendWithdrawPokemon PokemonCurSlot, SelMenu.Data1
                             End If
-                        
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 2 '//Withdraw
-                            '//Check
-                            If StorageType = 2 Then '//Pokemon
-                                If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                                    '//Deposit Selected Item
-                                    SendWithdrawPokemon PokemonCurSlot, SelMenu.Data1
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 3    '//Release
+                        If StorageType = 2 Then    '//Pokemon
+                            If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                                If PlayerPokemonStorage(PokemonCurSlot).Data(SelMenu.Data1).Num > 0 Then
+                                    ReleaseStorageData = SelMenu.Data1
+                                    ReleaseStorageSlot = PokemonCurSlot
+                                    OpenChoiceBox "Are you sure that you want to release this Pokemon?", CB_RELEASE
                                 End If
                             End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 3 '//Release
-                            If StorageType = 2 Then '//Pokemon
-                                If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                                    If PlayerPokemonStorage(PokemonCurSlot).Data(SelMenu.Data1).Num > 0 Then
-                                        ReleaseStorageData = SelMenu.Data1
-                                        ReleaseStorageSlot = PokemonCurSlot
-                                        OpenChoiceBox "Are you sure that you want to release this Pokemon?", CB_RELEASE
-                                    End If
-                                End If
-                            End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.PlayerMenu
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Player Info / Create Party
-                            If SelMenu.Data1 = MyIndex Then
-                                '//Create Party
-                                If InParty <= 0 Then
-                                    SendCreateParty
-                                End If
-                            Else
-                                '//Player Info
+                    Case 1    '//Player Info / Create Party
+                        If SelMenu.Data1 = MyIndex Then
+                            '//Create Party
+                            If InParty <= 0 Then
+                                SendCreateParty
                             End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 2 '//Duel / Leave Party
-                            If SelMenu.Data1 = MyIndex Then
-                                '//Leave Party
-                                If InParty > 0 Then
-                                    SendLeaveParty
-                                End If
-                            Else
-                                PlayerRequest = SelMenu.Data1
-                                RequestType = 1
-                                SendRequest SelMenu.Data1, 1 '//1 = Duel
-                                AddAlert "Request sent", White
-                            End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 3 '//Trade /  Cancel Request
-                            If SelMenu.Data1 = MyIndex Then
-                                SendRequestState 0
-                            Else
-                                PlayerRequest = SelMenu.Data1
-                                RequestType = 2
-                                SendRequest SelMenu.Data1, 2 '//2 = Trade
-                                AddAlert "Request sent", White
-                            End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 4 '//Whisper
-                            ChatTab = Trim$(Player(SelMenu.Data1).Name)
-                            ChatOn = True
-                            EditTab = False
-                            MyChat = vbNullString
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 5 '//Invite
+                        Else
+                            '//Player Info
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 2    '//Duel / Leave Party
+                        If SelMenu.Data1 = MyIndex Then
+                            '//Leave Party
                             If InParty > 0 Then
-                                PlayerRequest = SelMenu.Data1
-                                RequestType = 3
-                                SendRequest SelMenu.Data1, 3 '//2 = Trade
+                                SendLeaveParty
                             End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                        Else
+                            PlayerRequest = SelMenu.Data1
+                            RequestType = 1
+                            SendRequest SelMenu.Data1, 1    '//1 = Duel
+                            AddAlert "Request sent", White
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 3    '//Trade /  Cancel Request
+                        If SelMenu.Data1 = MyIndex Then
+                            SendRequestState 0
+                        Else
+                            PlayerRequest = SelMenu.Data1
+                            RequestType = 2
+                            SendRequest SelMenu.Data1, 2    '//2 = Trade
+                            AddAlert "Request sent", White
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 4    '//Whisper
+                        ChatTab = Trim$(Player(SelMenu.Data1).Name)
+                        ChatOn = True
+                        EditTab = False
+                        MyChat = vbNullString
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 5    '//Invite
+                        If InParty > 0 Then
+                            PlayerRequest = SelMenu.Data1
+                            RequestType = 3
+                            SendRequest SelMenu.Data1, 3    '//2 = Trade
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.TradeItem
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Remove
-                            If CheckingTrade = 1 Then
-                                SendRemoveTrade SelMenu.Data1
-                            End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                    Case 1    '//Remove
+                        If CheckingTrade = 1 Then
+                            SendRemoveTrade SelMenu.Data1
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.PokedexMapPokemon
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Scan
-                            SendScanPokedex 1, SelMenu.Data1
-                        
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                    Case 1    '//Scan
+                        SendScanPokedex 1, SelMenu.Data1
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.PokedexPlayerPokemon
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Scan
-                            SendScanPokedex 2, SelMenu.Data1
-                        
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                    Case 1    '//Scan
+                        SendScanPokedex 2, SelMenu.Data1
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.ConvoTileCheck
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Scan
-                            SendConvo 2, SelMenu.Data1
-                        
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                    Case 1    '//Scan
+                        SendConvo 2, SelMenu.Data1
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case SelMenuType.RevivePokes
                 If SelMenu.Data1 > 0 Then
                     Select Case SelMenu.CurPick
-                        Case 1 '//Summary
-                            SummaryType = 1
-                            SummarySlot = SelPoke
-                            SummaryData = 0
-                            If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
-                                GuiState GUI_POKEMONSUMMARY, True
+                    Case 1    '//Summary
+                        SummaryType = 1
+                        SummarySlot = SelPoke
+                        SummaryData = 0
+                        If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
+                            GuiState GUI_POKEMONSUMMARY, True
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
+                    Case 2    '//Deposit
+                        '//Check
+                        If StorageType = 2 Then    '//Pokemon
+                            If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                                '//Deposit Selected Pokemon
+                                SendDepositPokemon PokemonCurSlot, SelPoke
                             End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
-                        Case 2 '//Deposit
-                            '//Check
-                            If StorageType = 2 Then '//Pokemon
-                                If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                                    '//Deposit Selected Pokemon
-                                    SendDepositPokemon PokemonCurSlot, SelPoke
-                                End If
-                            ElseIf TradeIndex > 0 Then '//Add Trade
-                                If GUI(GuiEnum.GUI_TRADE).Visible Then
-                                    '//Add Trade Pokemon
-                                    SendAddTrade 2, SelPoke
-                                End If
+                        ElseIf TradeIndex > 0 Then    '//Add Trade
+                            If GUI(GuiEnum.GUI_TRADE).Visible Then
+                                '//Add Trade Pokemon
+                                SendAddTrade 2, SelPoke
                             End If
-                            
-                            '//Clear
-                            ClearSelMenu
-                            SelMenuLogic = True
-                            Exit Function
+                        End If
+
+                        '//Clear
+                        ClearSelMenu
+                        SelMenuLogic = True
+                        Exit Function
                     End Select
                 End If
             Case Else
@@ -1786,13 +1787,13 @@ Public Function SelMenuLogic(ByVal Button As Integer) As Boolean
                 ClearSelMenu
                 SelMenuLogic = False
                 Exit Function
-        End Select
-    End If
-    
-    '//Clear
-    ClearSelMenu
-    SelMenuLogic = False
-End Function
+            End Select
+        End If
+
+        '//Clear
+        ClearSelMenu
+        SelMenuLogic = False
+    End Function
 
 '//Action Msg
 Public Sub CreateActionMsg(ByVal Msg As String, ByVal Color As Long, ByVal X As Long, ByVal Y As Long)

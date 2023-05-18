@@ -529,6 +529,7 @@ Private Type ItemRec
     Price As Long
     Data3 As Long
     Desc As String * 255
+    IsCash As Byte
 End Type
 
 Private Type MovesetRec

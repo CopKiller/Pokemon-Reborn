@@ -88,6 +88,14 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   0
       Top             =   0
       Width           =   6015
+      Begin VB.CheckBox chkIsCash 
+         Caption         =   "Is Cash?"
+         Height          =   195
+         Left            =   4680
+         TabIndex        =   39
+         Top             =   1320
+         Width           =   1335
+      End
       Begin VB.TextBox txtDesc 
          Height          =   285
          Left            =   1200
@@ -147,11 +155,11 @@ Begin VB.Form frmEditor_Item
       End
       Begin VB.TextBox txtPrice 
          Height          =   285
-         Left            =   4320
+         Left            =   4680
          TabIndex        =   18
          Text            =   "0"
          Top             =   1080
-         Width           =   1335
+         Width           =   1215
       End
       Begin VB.Frame fraPokeball 
          Caption         =   "Pokeball Properties"
@@ -308,12 +316,13 @@ Begin VB.Form frmEditor_Item
          Width           =   1335
       End
       Begin VB.Label Label4 
+         AutoSize        =   -1  'True
          Caption         =   "Price:"
-         Height          =   255
-         Left            =   3480
+         Height          =   195
+         Left            =   3960
          TabIndex        =   17
-         Top             =   1080
-         Width           =   855
+         Top             =   1200
+         Width           =   405
       End
       Begin VB.Label Label2 
          Caption         =   "Type:"
@@ -364,22 +373,26 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub chkAutoCatch_Click()
-    Item(EditorIndex).Data3 = chkAutoCatch.value
+    Item(EditorIndex).Data3 = chkAutoCatch.Value
     EditorChange = True
 End Sub
 
+Private Sub chkIsCash_Click()
+    Item(EditorIndex).IsCash = chkIsCash
+End Sub
+
 Private Sub chkLevelUp_Click()
-    Item(EditorIndex).Data3 = chkLevelUp.value
+    Item(EditorIndex).Data3 = chkLevelUp.Value
     EditorChange = True
 End Sub
 
 Private Sub chkStock_Click()
-    Item(EditorIndex).Stock = chkStock.value
+    Item(EditorIndex).Stock = chkStock.Value
     EditorChange = True
 End Sub
 
 Private Sub chkTakeItem_Click()
-    Item(EditorIndex).Data2 = chkTakeItem.value
+    Item(EditorIndex).Data2 = chkTakeItem.Value
     EditorChange = True
 End Sub
 
@@ -496,19 +509,19 @@ Dim i As Long
 End Sub
 
 Private Sub scrlBallSprite_Change()
-    lblBallSprite.Caption = "Ball Sprite: " & scrlBallSprite.value
-    Item(EditorIndex).Data2 = scrlBallSprite.value
+    lblBallSprite.Caption = "Ball Sprite: " & scrlBallSprite.Value
+    Item(EditorIndex).Data2 = scrlBallSprite.Value
     EditorChange = True
 End Sub
 
 Private Sub scrlSprite_Change()
-    lblSprite.Caption = "Sprite: " & scrlSprite.value
-    Item(EditorIndex).Sprite = scrlSprite.value
+    lblSprite.Caption = "Sprite: " & scrlSprite.Value
+    Item(EditorIndex).Sprite = scrlSprite.Value
     EditorChange = True
 End Sub
 
 Private Sub scrlSpriteType_Change()
-    Select Case scrlSpriteType.value
+    Select Case scrlSpriteType.Value
         Case TEMP_SPRITE_GROUP_DIVE
             lblSpriteType.Caption = "Sprite Type: Dive"
         Case TEMP_SPRITE_GROUP_BIKE
@@ -518,7 +531,7 @@ Private Sub scrlSpriteType_Change()
         Case Else
             lblSpriteType.Caption = "Sprite Type: None"
     End Select
-    Item(EditorIndex).Data2 = scrlSpriteType.value
+    Item(EditorIndex).Data2 = scrlSpriteType.Value
     EditorChange = True
 End Sub
 
@@ -547,10 +560,10 @@ Dim tmpIndex As Long
 End Sub
 
 Private Sub txtPrice_Change()
-    If IsNumeric(txtPrice.Text) Then
-        Item(EditorIndex).Price = Val(txtPrice.Text)
-        EditorChange = True
-    End If
+   ' If IsNumeric(txtPrice.Text) Then
+   '     Item(EditorIndex).Price = Val(txtPrice.Text)
+   '     EditorChange = True
+   ' End If
 End Sub
 
 Private Sub txtValue_Change()

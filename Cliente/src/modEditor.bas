@@ -71,15 +71,15 @@ Public Sub InitEditor_Map()
     
         '//Reset
         CurTileset = 1
-        .scrlTileset.value = CurTileset
+        .scrlTileset.Value = CurTileset
         
         CurLayer = MapLayer.Ground
-        .optLayer(CurLayer).value = True
+        .optLayer(CurLayer).Value = True
         
         CurAttribute = MapAttribute.Blocked
-        .optAttribute(CurAttribute).value = True
+        .optAttribute(CurAttribute).Value = True
 
-        .optType(1).value = YES
+        .optType(1).Value = YES
         
         .fraLayers.Visible = True
         .fraAttributes.Visible = False
@@ -89,7 +89,7 @@ Public Sub InitEditor_Map()
         TileExpand = False
         
         IsAnimated = NO
-        .chkAnimated.value = IsAnimated
+        .chkAnimated.Value = IsAnimated
         
         ClearMapAttribute
 
@@ -124,8 +124,8 @@ Dim Width As Long, Height As Long
         Y = (Height \ TILE_Y) - (.picTileset.scaleHeight \ TILE_Y)
         If Y >= 0 Then .scrlTileY.max = Y
         
-        .scrlTileX.value = 0
-        .scrlTileY.value = 0
+        .scrlTileX.Value = 0
+        .scrlTileY.Value = 0
         EditorScrollX = 0
         EditorScrollY = 0
         '//horizontal scrolling
@@ -225,9 +225,9 @@ Dim TempFill As LayerRec
     If Not isInBounds Then Exit Sub
     
     If Button = vbLeftButton Then
-        If frmEditor_Map.optType(1).value = True Then   '//Layers
+        If frmEditor_Map.optType(1).Value = True Then   '//Layers
             MapEditorSetTile curTileX, curTileY
-        ElseIf frmEditor_Map.optType(2).value = True Then '//Attributes
+        ElseIf frmEditor_Map.optType(2).Value = True Then '//Attributes
             With Map.Tile(curTileX, curTileY)
                 .Attribute = CurAttribute
                 .Data1 = EditorData1
@@ -237,7 +237,7 @@ Dim TempFill As LayerRec
             End With
         End If
     ElseIf Button = vbRightButton Then
-        If frmEditor_Map.optType(1).value = True Then   '//Layers
+        If frmEditor_Map.optType(1).Value = True Then   '//Layers
             With Map.Tile(curTileX, curTileY)
                 '//clear layer
                 .Layer(CurLayer, IsAnimated).Tile = 0
@@ -245,7 +245,7 @@ Dim TempFill As LayerRec
                 .Layer(CurLayer, IsAnimated).TileY = 0
                 .Layer(CurLayer, IsAnimated).MapAnim = 0
             End With
-        ElseIf frmEditor_Map.optType(2).value = True Then '//Attributes
+        ElseIf frmEditor_Map.optType(2).Value = True Then '//Attributes
             With Map.Tile(curTileX, curTileY)
                 '//clear attribute data
                 .Attribute = 0
@@ -369,13 +369,13 @@ Dim i As Long
         Next
         
         .fraWarp.Visible = False
-        .scrlWarpMap.value = 0
-        .scrlWarpX.value = 0
-        .scrlWarpY.value = 0
-        .scrlWarpDir.value = 0
+        .scrlWarpMap.Value = 0
+        .scrlWarpX.Value = 0
+        .scrlWarpY.Value = 0
+        .scrlWarpDir.Value = 0
         
         .fraConvoTile.Visible = False
-        .scrlConvoTileNum.value = 0
+        .scrlConvoTileNum.Value = 0
 
         EditorData1 = 0
         EditorData2 = 0
@@ -614,9 +614,9 @@ Dim X As Byte
     With frmEditor_Npc
         '//General
         .txtName.Text = Trim$(Npc(xIndex).Name)
-        .scrlSprite.value = Npc(xIndex).Sprite
+        .scrlSprite.Value = Npc(xIndex).Sprite
         .cmbBehaviour.ListIndex = Npc(xIndex).Behaviour
-        .scrlConvo.value = Npc(xIndex).Convo
+        .scrlConvo.Value = Npc(xIndex).Convo
         
         .lstPokemon.Clear
         For X = 1 To MAX_PLAYER_POKEMON
@@ -644,7 +644,7 @@ Dim X As Byte
         
         .txtReward.Text = Npc(xIndex).Reward
         .txtRewardExp.Text = Npc(xIndex).RewardExp
-        .scrlWinConvo.value = Npc(xIndex).WinEvent
+        .scrlWinConvo.Value = Npc(xIndex).WinEvent
     End With
     
     NpcChange(xIndex) = True
@@ -712,9 +712,9 @@ Dim X As Byte
     With frmEditor_Pokemon
         '//General
         .txtName.Text = Trim$(Pokemon(xIndex).Name)
-        .scrlSprite.value = Pokemon(xIndex).Sprite
+        .scrlSprite.Value = Pokemon(xIndex).Sprite
         .cmbBehaviour.ListIndex = Pokemon(xIndex).Behaviour
-        .chkScale.value = Pokemon(xIndex).ScaleSprite
+        .chkScale.Value = Pokemon(xIndex).ScaleSprite
         
         '//Stats
         For X = 1 To StatEnum.Stat_Count - 1
@@ -740,11 +740,11 @@ Dim X As Byte
         .txtPokedexEntry.Text = Trim$(Pokemon(xIndex).PokeDexEntry)
         
         '//Evolution
-        .scrlEvolveIndex.value = 1
+        .scrlEvolveIndex.Value = 1
         
-        .scrlEvolve.value = Pokemon(xIndex).evolveNum(1)
+        .scrlEvolve.Value = Pokemon(xIndex).evolveNum(1)
         .txtEvolveLevel.Text = Pokemon(xIndex).EvolveLevel(1)
-        .scrlEvolveCondition.value = Pokemon(xIndex).EvolveCondition(1)
+        .scrlEvolveCondition.Value = Pokemon(xIndex).EvolveCondition(1)
         .txtEvolveConditionData.Text = Pokemon(xIndex).EvolveConditionData(1)
         
         '//Moveset
@@ -781,7 +781,7 @@ Dim X As Byte
         .cmbEggMoveNum.ListIndex = Pokemon(xIndex).EggMoveset(1)
         .cmbItemMove.ListIndex = Pokemon(xIndex).ItemMoveset(1)
         
-        .scrlRange.value = Pokemon(xIndex).Range
+        .scrlRange.Value = Pokemon(xIndex).Range
         '.scrlItemMove.value = Pokemon(xIndex).ItemMoveset(1)
         
         '//Drop
@@ -851,15 +851,15 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
     With frmEditor_Item
         '//General
         .txtName.Text = Trim$(Item(xIndex).Name)
-        .scrlSprite.value = Item(xIndex).Sprite
-        .chkStock.value = Item(xIndex).Stock
+        .scrlSprite.Value = Item(xIndex).Sprite
+        .chkStock.Value = Item(xIndex).Stock
         .cmbType.ListIndex = Item(xIndex).Type
         
         If Item(xIndex).Type = ItemTypeEnum.Pokeball Then
             .fraPokeball.Visible = True
             .txtCatchRate.Text = Item(xIndex).Data1
-            .scrlBallSprite.value = Item(xIndex).Data2
-            .chkAutoCatch.value = Item(xIndex).Data3
+            .scrlBallSprite.Value = Item(xIndex).Data2
+            .chkAutoCatch.Value = Item(xIndex).Data3
         Else
             .fraPokeball.Visible = False
         End If
@@ -868,7 +868,7 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
             .fraMedicine.Visible = True
             .cmbMedicineType.ListIndex = Item(xIndex).Data1
             .txtValue.Text = Item(xIndex).Data2
-            .chkLevelUp.value = Item(xIndex).Data3
+            .chkLevelUp.Value = Item(xIndex).Data3
         Else
             .fraMedicine.Visible = False
         End If
@@ -876,7 +876,7 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
         If Item(xIndex).Type = ItemTypeEnum.keyItems Then
             .fraKeyItem.Visible = True
             .cmbKeyItemType.ListIndex = Item(xIndex).Data1
-            .scrlSpriteType.value = Item(xIndex).Data2
+            .scrlSpriteType.Value = Item(xIndex).Data2
         Else
             .fraKeyItem.Visible = False
         End If
@@ -884,12 +884,14 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
         If Item(xIndex).Type = ItemTypeEnum.TM_HM Then
             .fraTMHM.Visible = True
             .cmbMoveList.ListIndex = Item(xIndex).Data1
-            .chkTakeItem.value = Item(xIndex).Data2
+            .chkTakeItem.Value = Item(xIndex).Data2
         Else
             .fraTMHM.Visible = False
         End If
         
         .txtPrice.Text = Item(xIndex).Price
+        
+        .chkIsCash = Item(xIndex).IsCash
         
         .txtDesc.Text = Trim$(Item(xIndex).Desc)
     End With
@@ -957,20 +959,20 @@ Dim i As Long
         .txtPP.Text = PokemonMove(xIndex).PP
         .txtMaxPP.Text = PokemonMove(xIndex).MaxPP
         .txtPower.Text = PokemonMove(xIndex).Power
-        .scrlRange.value = PokemonMove(xIndex).Range
+        .scrlRange.Value = PokemonMove(xIndex).Range
         .txtDescription.Text = PokemonMove(xIndex).Description
         For X = 1 To StatEnum.Stat_Count - 1
             .txtBuffDebuff(X).Text = PokemonMove(xIndex).dStat(X)
         Next
-        .optTargetType(PokemonMove(xIndex).targetType).value = True
+        .optTargetType(PokemonMove(xIndex).targetType).Value = True
         .txtInterval.Text = PokemonMove(xIndex).Interval
-        .scrlAnimation.value = PokemonMove(xIndex).Animation
+        .scrlAnimation.Value = PokemonMove(xIndex).Animation
         .cmbAttackType.ListIndex = PokemonMove(xIndex).AttackType
         .txtDuration.Text = PokemonMove(xIndex).Duration
         .txtCooldown.Text = PokemonMove(xIndex).Cooldown
         .txtCastTime.Text = PokemonMove(xIndex).CastTime
         .txtAmountOfAttack.Text = PokemonMove(xIndex).AmountOfAttack
-        .chkPlaySelf.value = PokemonMove(xIndex).SelfAnim
+        .chkPlaySelf.Value = PokemonMove(xIndex).SelfAnim
         
         '//find the music we have set
         If .cmbSound.ListCount >= 0 Then
@@ -997,9 +999,9 @@ Dim i As Long
         .cmbBoostWeather.ListIndex = PokemonMove(xIndex).BoostWeather
         .cmbStatusReq.ListIndex = PokemonMove(xIndex).StatusReq
         .cmbDecreaseWeather.ListIndex = PokemonMove(xIndex).DecreaseWeather
-        .chkStatusToSelf.value = PokemonMove(xIndex).StatusToSelf
+        .chkStatusToSelf.Value = PokemonMove(xIndex).StatusToSelf
         .cmbReflectType.ListIndex = PokemonMove(xIndex).ReflectType
-        .chkProtect.value = PokemonMove(xIndex).CastProtect
+        .chkProtect.Value = PokemonMove(xIndex).CastProtect
         .cmbSelfStatusReq.ListIndex = PokemonMove(xIndex).SelfStatusReq
     End With
     
@@ -1053,14 +1055,14 @@ Dim i As Long
         .txtName.Text = Trim$(Animation(xIndex).Name)
         
         For i = 0 To 1
-            .scrlSprite(i).value = Animation(xIndex).Sprite(i)
-            .scrlFrameCount(i).value = Animation(xIndex).Frames(i)
-            .scrlLoopCount(i).value = Animation(xIndex).LoopCount(i)
+            .scrlSprite(i).Value = Animation(xIndex).Sprite(i)
+            .scrlFrameCount(i).Value = Animation(xIndex).Frames(i)
+            .scrlLoopCount(i).Value = Animation(xIndex).LoopCount(i)
             
             If Animation(xIndex).looptime(i) > 0 Then
-                .scrlLoopTime(i).value = Animation(xIndex).looptime(i)
+                .scrlLoopTime(i).Value = Animation(xIndex).looptime(i)
             Else
-                .scrlLoopTime(i).value = 45
+                .scrlLoopTime(i).Value = 45
             End If
         Next
     End With
@@ -1135,14 +1137,14 @@ Dim i As Long
         .txtRarity.Text = Spawn(xIndex).Rarity
         
         '//location
-        .chkRandomMap.value = Spawn(xIndex).randomMap
-        .chkRandomXY.value = Spawn(xIndex).randomXY
+        .chkRandomMap.Value = Spawn(xIndex).randomMap
+        .chkRandomXY.Value = Spawn(xIndex).randomXY
         .txtMap.Text = Spawn(xIndex).MapNum
         .txtX.Text = Spawn(xIndex).MapX
         .txtY.Text = Spawn(xIndex).MapY
-        .chkCanCatch.value = Spawn(xIndex).CanCatch
-        .chkNoExp.value = Spawn(xIndex).NoExp
-        .scrlPokeBuff.value = Spawn(xIndex).PokeBuff
+        .chkCanCatch.Value = Spawn(xIndex).CanCatch
+        .chkNoExp.Value = Spawn(xIndex).NoExp
+        .scrlPokeBuff.Value = Spawn(xIndex).PokeBuff
     End With
     
     SpawnChange(xIndex) = True
@@ -1194,16 +1196,16 @@ Dim i As Byte
         '//General
         .txtName.Text = Trim$(Conversation(xIndex).Name)
         
-        .scrlData.value = 1
-        .scrlLanguage.value = 1
+        .scrlData.Value = 1
+        .scrlLanguage.Value = 1
         For i = 1 To 3
             .txtReply(i).Text = Trim$(Conversation(xIndex).ConvData(1).TextLang(1).tReply(i))
             .txtReplyMove(i).Text = (Conversation(xIndex).ConvData(1).tReplyMove(i))
         Next
         .txtText.Text = Trim$(Conversation(xIndex).ConvData(1).TextLang(1).Text)
-        .scrlCustomScript.value = Conversation(xIndex).ConvData(1).CustomScript
-        .chkNoText.value = Conversation(xIndex).ConvData(1).NoText
-        .chkNoReply.value = Conversation(xIndex).ConvData(1).NoReply
+        .scrlCustomScript.Value = Conversation(xIndex).ConvData(1).CustomScript
+        .chkNoText.Value = Conversation(xIndex).ConvData(1).NoText
+        .chkNoReply.Value = Conversation(xIndex).ConvData(1).NoReply
         .txtMoveTo.Text = Conversation(xIndex).ConvData(1).MoveNext
         .txtCustomScriptData.Text = Conversation(xIndex).ConvData(1).CustomScriptData
         .txtCustomScriptData2.Text = Conversation(xIndex).ConvData(1).CustomScriptData2
@@ -1252,6 +1254,7 @@ End Sub
 
 Public Sub ShopEditorLoadIndex(ByVal xIndex As Long)
 Dim i As Byte
+Dim Nomenclatura As String
 
     EditorIndex = xIndex
     
@@ -1263,15 +1266,19 @@ Dim i As Byte
         .lstShopItem.Clear
         For i = 1 To MAX_SHOP_ITEM
             If Shop(xIndex).ShopItem(i).Num > 0 Then
-                .lstShopItem.AddItem i & ": " & Trim$(Item(Shop(xIndex).ShopItem(i).Num).Name) & " - Price: $" & Shop(xIndex).ShopItem(i).Price
+            
+                Nomenclatura = "Money:"
+                If Item(Shop(xIndex).ShopItem(i).Num).IsCash = YES Then Nomenclatura = "Cash:"
+                
+                .lstShopItem.AddItem i & ": " & Trim$(Item(Shop(xIndex).ShopItem(i).Num).Name) & " - " & Nomenclatura & "$" & Shop(xIndex).ShopItem(i).Price
             Else
-                .lstShopItem.AddItem i & ": None - Price: $" & Shop(xIndex).ShopItem(i).Price
+                .lstShopItem.AddItem i & ": None - Price: $0"
             End If
         Next
         .lstShopItem.ListIndex = 0
         
-        .scrlItemNum.value = Shop(xIndex).ShopItem(1).Num
-        .txtPrice.Text = Shop(xIndex).ShopItem(1).Price
+        .scrlItemNum.Value = Shop(xIndex).ShopItem(1).Num
+        '.txtPrice.Text = Shop(xIndex).ShopItem(1).Price
     End With
     
     ShopChange(xIndex) = True
