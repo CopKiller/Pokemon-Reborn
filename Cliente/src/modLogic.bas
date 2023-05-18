@@ -1251,6 +1251,7 @@ Dim LeftSpawn As Boolean
                 .Data1 = Data1
                 
                 '//Add text
+                AddSelMenuText "Summary"
                 AddSelMenuText "Withdraw"
                 AddSelMenuText "Release"
                 
