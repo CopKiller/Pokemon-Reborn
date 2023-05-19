@@ -600,7 +600,7 @@ Private Sub CmdAnimation_Click()
 End Sub
 
 Private Sub cmdASpawn_Click()
-    If optGiveItem.Value Then
+    If optGiveItem.value Then
         If Player(MyIndex).Access >= ACCESS_CREATOR Then
             If txtBName = vbNullString Then
                 AddText "Adicione um nome.", BrightRed
@@ -1084,13 +1084,9 @@ Private Sub txtAPoke_Change()
         ElseIf txtAPoke <= 0 Then
             txtAPoke = 1
         End If
-        scrlAPoke = scrlAItem
+        scrlAPoke = txtAPoke
     End If
 End Sub
-
-Private Function FindPokeByNome()
-    
-End Function
 
 
 

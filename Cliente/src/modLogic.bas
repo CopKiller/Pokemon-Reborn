@@ -383,12 +383,12 @@ Public Function Rand(ByVal Low As Long, ByVal High As Long) As Long
     Rand = Int((High - Low + 1) * Rnd) + Low
 End Function
 
-Public Function ConvertMapX(ByVal X As Long) As Long
-    ConvertMapX = X - (TileView.Left * TILE_X) - Camera.Left
+Public Function ConvertMapX(ByVal x As Long) As Long
+    ConvertMapX = x - (TileView.Left * TILE_X) - Camera.Left
 End Function
 
-Public Function ConvertMapY(ByVal Y As Long) As Long
-    ConvertMapY = Y - (TileView.top * TILE_Y) - Camera.top
+Public Function ConvertMapY(ByVal y As Long) As Long
+    ConvertMapY = y - (TileView.top * TILE_Y) - Camera.top
 End Function
 
 '//Player Movement
@@ -399,7 +399,7 @@ Private Function IsTryingToMove() As Boolean
 End Function
 
 Private Function CheckDirection(ByVal direction As Byte) As Boolean
-Dim X As Long, Y As Long
+Dim x As Long, y As Long
 Dim i As Long
 
     CheckDirection = False
@@ -407,49 +407,49 @@ Dim i As Long
     If PlayerPokemon(MyIndex).Num > 0 Then
         Select Case direction
             Case DIR_UP
-                X = PlayerPokemon(MyIndex).X
-                Y = PlayerPokemon(MyIndex).Y - 1
+                x = PlayerPokemon(MyIndex).x
+                y = PlayerPokemon(MyIndex).y - 1
             Case DIR_DOWN
-                X = PlayerPokemon(MyIndex).X
-                Y = PlayerPokemon(MyIndex).Y + 1
+                x = PlayerPokemon(MyIndex).x
+                y = PlayerPokemon(MyIndex).y + 1
             Case DIR_LEFT
-                X = PlayerPokemon(MyIndex).X - 1
-                Y = PlayerPokemon(MyIndex).Y
+                x = PlayerPokemon(MyIndex).x - 1
+                y = PlayerPokemon(MyIndex).y
             Case DIR_RIGHT
-                X = PlayerPokemon(MyIndex).X + 1
-                Y = PlayerPokemon(MyIndex).Y
+                x = PlayerPokemon(MyIndex).x + 1
+                y = PlayerPokemon(MyIndex).y
         End Select
     Else
         Select Case direction
             Case DIR_UP
-                X = Player(MyIndex).X
-                Y = Player(MyIndex).Y - 1
+                x = Player(MyIndex).x
+                y = Player(MyIndex).y - 1
             Case DIR_DOWN
-                X = Player(MyIndex).X
-                Y = Player(MyIndex).Y + 1
+                x = Player(MyIndex).x
+                y = Player(MyIndex).y + 1
             Case DIR_LEFT
-                X = Player(MyIndex).X - 1
-                Y = Player(MyIndex).Y
+                x = Player(MyIndex).x - 1
+                y = Player(MyIndex).y
             Case DIR_RIGHT
-                X = Player(MyIndex).X + 1
-                Y = Player(MyIndex).Y
+                x = Player(MyIndex).x + 1
+                y = Player(MyIndex).y
         End Select
     End If
 
-    If X < 0 Or X > Map.MaxX Or Y < 0 Or Y > Map.MaxY Then
+    If x < 0 Or x > Map.MaxX Or y < 0 Or y > Map.MaxY Then
         CheckDirection = True
         Exit Function
     End If
     
-    If Map.Tile(X, Y).Attribute = MapAttribute.Blocked Then
+    If Map.Tile(x, y).Attribute = MapAttribute.Blocked Then
         CheckDirection = True
         Exit Function
     End If
-    If Map.Tile(X, Y).Attribute = MapAttribute.ConvoTile Then
+    If Map.Tile(x, y).Attribute = MapAttribute.ConvoTile Then
         CheckDirection = True
         Exit Function
     End If
-    If Map.Tile(X, Y).Attribute = MapAttribute.BothStorage Or Map.Tile(X, Y).Attribute = MapAttribute.InvStorage Or Map.Tile(X, Y).Attribute = MapAttribute.PokemonStorage Then
+    If Map.Tile(x, y).Attribute = MapAttribute.BothStorage Or Map.Tile(x, y).Attribute = MapAttribute.InvStorage Or Map.Tile(x, y).Attribute = MapAttribute.PokemonStorage Then
         CheckDirection = True
         Exit Function
     End If
@@ -457,13 +457,13 @@ Dim i As Long
     '//Check Npc
     For i = 1 To Npc_HighIndex
         If MapNpc(i).Num > 0 Then
-            If MapNpc(i).X = X And MapNpc(i).Y = Y Then
+            If MapNpc(i).x = x And MapNpc(i).y = y Then
                 CheckDirection = True
                 Exit Function
             End If
         End If
         If MapNpcPokemon(i).Num > 0 Then
-            If MapNpcPokemon(i).X = X And MapNpcPokemon(i).Y = Y Then
+            If MapNpcPokemon(i).x = x And MapNpcPokemon(i).y = y Then
                 CheckDirection = True
                 Exit Function
             End If
@@ -474,7 +474,7 @@ Dim i As Long
     For i = 1 To Pokemon_HighIndex
         If MapPokemon(i).Num > 0 Then
             If MapPokemon(i).Map = Player(MyIndex).Map Then
-                If MapPokemon(i).X = X And MapPokemon(i).Y = Y Then
+                If MapPokemon(i).x = x And MapPokemon(i).y = y Then
                     CheckDirection = True
                     Exit Function
                 End If
@@ -484,7 +484,7 @@ Dim i As Long
 End Function
 
 Private Function CanMove(Optional ByVal DirInput As Long = -1, Optional ByVal ForceMove As Boolean = False) As Boolean
-Dim X As Long, Y As Long, Dir As Byte
+Dim x As Long, y As Long, Dir As Byte
 Dim oldDir As Byte
 Dim dX As Long, dY As Long
 Dim setDir As Byte
@@ -566,12 +566,12 @@ Dim rndNum As Long
     
     '//Input data
     If PlayerPokemon(MyIndex).Num > 0 Then
-        X = PlayerPokemon(MyIndex).X
-        Y = PlayerPokemon(MyIndex).Y
+        x = PlayerPokemon(MyIndex).x
+        y = PlayerPokemon(MyIndex).y
         Dir = PlayerPokemon(MyIndex).Dir
     Else
-        X = Player(MyIndex).X
-        Y = Player(MyIndex).Y
+        x = Player(MyIndex).x
+        y = Player(MyIndex).y
         Dir = Player(MyIndex).Dir
     End If
     
@@ -606,7 +606,7 @@ Dim rndNum As Long
         End If
         
         '//Check to see if they are trying to go out of bounds
-        If Y > 0 Then
+        If y > 0 Then
             If CheckDirection(DIR_UP) Then
                 If Dir <> DIR_UP Then
                     If PlayerPokemon(MyIndex).Num > 0 Then
@@ -646,8 +646,8 @@ Dim rndNum As Long
         
         '//Check Distance
         If PlayerPokemon(MyIndex).Num > 0 Then
-            dX = PlayerPokemon(MyIndex).X - Player(MyIndex).X
-            dY = (PlayerPokemon(MyIndex).Y - 1) - Player(MyIndex).Y
+            dX = PlayerPokemon(MyIndex).x - Player(MyIndex).x
+            dY = (PlayerPokemon(MyIndex).y - 1) - Player(MyIndex).y
             
             '//Make sure we get a positive value
             If dX < 0 Then dX = dX * -1
@@ -671,7 +671,7 @@ Dim rndNum As Long
         End If
         
         '//Check to see if they are trying to go out of bounds
-        If Y < Map.MaxY Then
+        If y < Map.MaxY Then
             If CheckDirection(DIR_DOWN) Then
                 If Dir <> DIR_DOWN Then
                     If PlayerPokemon(MyIndex).Num > 0 Then
@@ -710,8 +710,8 @@ Dim rndNum As Long
         
         '//Check Distance
         If PlayerPokemon(MyIndex).Num > 0 Then
-            dX = PlayerPokemon(MyIndex).X - Player(MyIndex).X
-            dY = (PlayerPokemon(MyIndex).Y + 1) - Player(MyIndex).Y
+            dX = PlayerPokemon(MyIndex).x - Player(MyIndex).x
+            dY = (PlayerPokemon(MyIndex).y + 1) - Player(MyIndex).y
             
             '//Make sure we get a positive value
             If dX < 0 Then dX = dX * -1
@@ -735,7 +735,7 @@ Dim rndNum As Long
         End If
         
         '//Check to see if they are trying to go out of bounds
-        If X > 0 Then
+        If x > 0 Then
             If CheckDirection(DIR_LEFT) Then
                 If Dir <> DIR_LEFT Then
                     If PlayerPokemon(MyIndex).Num > 0 Then
@@ -774,8 +774,8 @@ Dim rndNum As Long
         
         '//Check Distance
         If PlayerPokemon(MyIndex).Num > 0 Then
-            dX = (PlayerPokemon(MyIndex).X - 1) - Player(MyIndex).X
-            dY = PlayerPokemon(MyIndex).Y - Player(MyIndex).Y
+            dX = (PlayerPokemon(MyIndex).x - 1) - Player(MyIndex).x
+            dY = PlayerPokemon(MyIndex).y - Player(MyIndex).y
             
             '//Make sure we get a positive value
             If dX < 0 Then dX = dX * -1
@@ -799,7 +799,7 @@ Dim rndNum As Long
         End If
         
         '//Check to see if they are trying to go out of bounds
-        If X < Map.MaxX Then
+        If x < Map.MaxX Then
             If CheckDirection(DIR_RIGHT) Then
                 If Dir <> DIR_RIGHT Then
                     If PlayerPokemon(MyIndex).Num > 0 Then
@@ -838,8 +838,8 @@ Dim rndNum As Long
         
         '//Check Distance
         If PlayerPokemon(MyIndex).Num > 0 Then
-            dX = (PlayerPokemon(MyIndex).X + 1) - Player(MyIndex).X
-            dY = PlayerPokemon(MyIndex).Y - Player(MyIndex).Y
+            dX = (PlayerPokemon(MyIndex).x + 1) - Player(MyIndex).x
+            dY = PlayerPokemon(MyIndex).y - Player(MyIndex).y
             
             '//Make sure we get a positive value
             If dX < 0 Then dX = dX * -1
@@ -865,22 +865,22 @@ Public Sub ForcePlayerMove(ByVal Dir As Byte)
                 Case DIR_UP
                     SendPlayerMove
                     Player(MyIndex).yOffset = TILE_Y
-                    Player(MyIndex).Y = Player(MyIndex).Y - 1
+                    Player(MyIndex).y = Player(MyIndex).y - 1
                 Case DIR_DOWN
                     SendPlayerMove
                     Player(MyIndex).yOffset = TILE_Y * -1
-                    Player(MyIndex).Y = Player(MyIndex).Y + 1
+                    Player(MyIndex).y = Player(MyIndex).y + 1
                 Case DIR_LEFT
                     SendPlayerMove
                     Player(MyIndex).xOffset = TILE_X
-                    Player(MyIndex).X = Player(MyIndex).X - 1
+                    Player(MyIndex).x = Player(MyIndex).x - 1
                 Case DIR_RIGHT
                     SendPlayerMove
                     Player(MyIndex).xOffset = TILE_X * -1
-                    Player(MyIndex).X = Player(MyIndex).X + 1
+                    Player(MyIndex).x = Player(MyIndex).x + 1
             End Select
             
-            Select Case Map.Tile(Player(MyIndex).X, Player(MyIndex).Y).Attribute
+            Select Case Map.Tile(Player(MyIndex).x, Player(MyIndex).y).Attribute
                 Case MapAttribute.Warp
                     GettingMap = True
                 Case MapAttribute.Slide
@@ -906,19 +906,19 @@ Dim rndNum As Byte
                     Case DIR_UP
                         SendPlayerPokemonMove
                         PlayerPokemon(MyIndex).yOffset = TILE_Y
-                        PlayerPokemon(MyIndex).Y = PlayerPokemon(MyIndex).Y - 1
+                        PlayerPokemon(MyIndex).y = PlayerPokemon(MyIndex).y - 1
                     Case DIR_DOWN
                         SendPlayerPokemonMove
                         PlayerPokemon(MyIndex).yOffset = TILE_Y * -1
-                        PlayerPokemon(MyIndex).Y = PlayerPokemon(MyIndex).Y + 1
+                        PlayerPokemon(MyIndex).y = PlayerPokemon(MyIndex).y + 1
                     Case DIR_LEFT
                         SendPlayerPokemonMove
                         PlayerPokemon(MyIndex).xOffset = TILE_X
-                        PlayerPokemon(MyIndex).X = PlayerPokemon(MyIndex).X - 1
+                        PlayerPokemon(MyIndex).x = PlayerPokemon(MyIndex).x - 1
                     Case DIR_RIGHT
                         SendPlayerPokemonMove
                         PlayerPokemon(MyIndex).xOffset = TILE_X * -1
-                        PlayerPokemon(MyIndex).X = PlayerPokemon(MyIndex).X + 1
+                        PlayerPokemon(MyIndex).x = PlayerPokemon(MyIndex).x + 1
                 End Select
             Else
                 Player(MyIndex).Moving = YES
@@ -927,22 +927,22 @@ Dim rndNum As Byte
                     Case DIR_UP
                         SendPlayerMove
                         Player(MyIndex).yOffset = TILE_Y
-                        Player(MyIndex).Y = Player(MyIndex).Y - 1
+                        Player(MyIndex).y = Player(MyIndex).y - 1
                     Case DIR_DOWN
                         SendPlayerMove
                         Player(MyIndex).yOffset = TILE_Y * -1
-                        Player(MyIndex).Y = Player(MyIndex).Y + 1
+                        Player(MyIndex).y = Player(MyIndex).y + 1
                     Case DIR_LEFT
                         SendPlayerMove
                         Player(MyIndex).xOffset = TILE_X
-                        Player(MyIndex).X = Player(MyIndex).X - 1
+                        Player(MyIndex).x = Player(MyIndex).x - 1
                     Case DIR_RIGHT
                         SendPlayerMove
                         Player(MyIndex).xOffset = TILE_X * -1
-                        Player(MyIndex).X = Player(MyIndex).X + 1
+                        Player(MyIndex).x = Player(MyIndex).x + 1
                 End Select
             
-                Select Case Map.Tile(Player(MyIndex).X, Player(MyIndex).Y).Attribute
+                Select Case Map.Tile(Player(MyIndex).x, Player(MyIndex).y).Attribute
                     Case MapAttribute.Warp
                         GettingMap = True
                     Case MapAttribute.Slide
@@ -1022,12 +1022,12 @@ Public Function isInBounds() As Boolean
     If curTileX >= 0 And curTileX <= Map.MaxX And curTileY >= 0 And curTileY <= Map.MaxY Then isInBounds = True
 End Function
 
-Public Function IsValidMapPoint(ByVal X As Long, ByVal Y As Long) As Boolean
+Public Function IsValidMapPoint(ByVal x As Long, ByVal y As Long) As Boolean
     IsValidMapPoint = False
-    If X < 0 Then Exit Function
-    If Y < 0 Then Exit Function
-    If X > Map.MaxX Then Exit Function
-    If Y > Map.MaxY Then Exit Function
+    If x < 0 Then Exit Function
+    If y < 0 Then Exit Function
+    If x > Map.MaxX Then Exit Function
+    If y > Map.MaxY Then Exit Function
     IsValidMapPoint = True
 End Function
 
@@ -1093,7 +1093,7 @@ Dim i As Long
 End Function
 
 '//Chatbubble
-Public Sub AddChatBubble(ByVal target As Long, ByVal targetType As Byte, ByVal Msg As String, ByVal colour As Long, Optional ByVal X As Long = -1, Optional ByVal Y As Long = -1)
+Public Sub AddChatBubble(ByVal target As Long, ByVal targetType As Byte, ByVal Msg As String, ByVal colour As Long, Optional ByVal x As Long = -1, Optional ByVal y As Long = -1)
 Dim i As Long, Index As Long
 
     '//set the global index
@@ -1122,8 +1122,8 @@ Dim i As Long, Index As Long
         .colour = colour
         .target = target
         .targetType = targetType
-        .X = X
-        .Y = Y
+        .x = x
+        .y = y
 
         .timer = GetTickCount
         .active = True
@@ -1343,11 +1343,11 @@ Dim LeftSpawn As Boolean
         '//Set Position
         If .Visible Then
             If LeftSpawn Then
-                .X = CursorX - .MaxWidth
+                .x = CursorX - .MaxWidth
             Else
-                .X = CursorX
+                .x = CursorX
             End If
-            .Y = CursorY
+            .y = CursorY
         End If
     End With
 End Sub
@@ -1798,7 +1798,7 @@ Public Function SelMenuLogic(ByVal Button As Integer) As Boolean
 End Function
 
 '//Action Msg
-Public Sub CreateActionMsg(ByVal Msg As String, ByVal Color As Long, ByVal X As Long, ByVal Y As Long)
+Public Sub CreateActionMsg(ByVal Msg As String, ByVal Color As Long, ByVal x As Long, ByVal y As Long)
 Dim i As Long
 
     ActionMsgIndex = ActionMsgIndex + 1
@@ -1809,13 +1809,13 @@ Dim i As Long
         .Color = Color
         .Created = GetTickCount
         .Scroll = 1
-        .X = X
-        .Y = Y
+        .x = x
+        .y = y
         .Alpha = 255
     End With
 
-    ActionMsg(ActionMsgIndex).Y = ActionMsg(ActionMsgIndex).Y + Rand(-2, 6)
-    ActionMsg(ActionMsgIndex).X = ActionMsg(ActionMsgIndex).X + Rand(-8, 8)
+    ActionMsg(ActionMsgIndex).y = ActionMsg(ActionMsgIndex).y + Rand(-2, 6)
+    ActionMsg(ActionMsgIndex).x = ActionMsg(ActionMsgIndex).x + Rand(-8, 8)
     
     '//find the new high index
     For i = 255 To 1 Step -1
@@ -1835,8 +1835,8 @@ Dim i As Long
     ActionMsg(Index).Created = 0
     ActionMsg(Index).Color = 0
     ActionMsg(Index).Scroll = 0
-    ActionMsg(Index).X = 0
-    ActionMsg(Index).Y = 0
+    ActionMsg(Index).x = 0
+    ActionMsg(Index).y = 0
     
     '//find the new high index
     For i = 255 To 1 Step -1
@@ -1926,8 +1926,8 @@ Dim i As Long
                 .MaxDrop = 100
                 ReDim Weather.Drop(1 To .MaxDrop)
                 For i = 1 To .MaxDrop
-                    .Drop(i).X = Rand(0, (Screen_Width * 2))
-                    .Drop(i).Y = Rand((-1 * Screen_Height), -32)
+                    .Drop(i).x = Rand(0, (Screen_Width * 2))
+                    .Drop(i).y = Rand((-1 * Screen_Height), -32)
                     .Drop(i).SpeedY = 6
                     .Drop(i).Pic = 1
                     .Drop(i).PicType = Rand(0, 3)
@@ -1939,8 +1939,8 @@ Dim i As Long
                 .MaxDrop = 255
                 ReDim Weather.Drop(1 To .MaxDrop)
                 For i = 1 To .MaxDrop
-                    .Drop(i).X = Rand(0, Screen_Width)
-                    .Drop(i).Y = Rand((-1 * Screen_Height), -32)
+                    .Drop(i).x = Rand(0, Screen_Width)
+                    .Drop(i).y = Rand((-1 * Screen_Height), -32)
                     .Drop(i).SpeedY = Rand(1, 4)
                     .Drop(i).Pic = 2
                     .Drop(i).PicType = Rand(0, 3)
@@ -1952,8 +1952,8 @@ Dim i As Long
                 .MaxDrop = 50
                 ReDim Weather.Drop(1 To .MaxDrop)
                 For i = 1 To .MaxDrop
-                    .Drop(i).X = Rand((-1 * Screen_Width), -32)
-                    .Drop(i).Y = Rand(0, Screen_Height)
+                    .Drop(i).x = Rand((-1 * Screen_Width), -32)
+                    .Drop(i).y = Rand(0, Screen_Height)
                     .Drop(i).SpeedY = Rand(6, 9)
                     .Drop(i).Pic = 3
                     .Drop(i).PicType = Rand(0, 3)
@@ -1965,8 +1965,8 @@ Dim i As Long
                 .MaxDrop = 150
                 ReDim Weather.Drop(1 To .MaxDrop)
                 For i = 1 To .MaxDrop
-                    .Drop(i).X = Rand(0, (Screen_Width * 2))
-                    .Drop(i).Y = Rand((-1 * Screen_Height), -32)
+                    .Drop(i).x = Rand(0, (Screen_Width * 2))
+                    .Drop(i).y = Rand((-1 * Screen_Height), -32)
                     .Drop(i).SpeedY = 6
                     .Drop(i).Pic = 4
                     .Drop(i).PicType = 0
@@ -1982,7 +1982,7 @@ Dim i As Long
     End With
 End Sub
 
-Public Function IsInvItem(ByVal X As Long, ByVal Y As Long) As Long
+Public Function IsInvItem(ByVal x As Long, ByVal y As Long) As Long
 Dim DrawX As Long, DrawY As Long
 Dim i As Long
 
@@ -1990,10 +1990,10 @@ Dim i As Long
 
     For i = 1 To MAX_PLAYER_INV
         If PlayerInv(i).Num > 0 Then
-            DrawX = GUI(GuiEnum.GUI_INVENTORY).X + (7 + ((5 + TILE_X) * (((i - 1) Mod 5))))
-            DrawY = GUI(GuiEnum.GUI_INVENTORY).Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
+            DrawX = GUI(GuiEnum.GUI_INVENTORY).x + (7 + ((5 + TILE_X) * (((i - 1) Mod 5))))
+            DrawY = GUI(GuiEnum.GUI_INVENTORY).y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
             
-            If X >= DrawX And X <= DrawX + TILE_X And Y >= DrawY And Y <= DrawY + TILE_Y Then
+            If x >= DrawX And x <= DrawX + TILE_X And y >= DrawY And y <= DrawY + TILE_Y Then
                 IsInvItem = i
                 Exit Function
             End If
@@ -2001,24 +2001,24 @@ Dim i As Long
     Next
 End Function
 
-Public Function IsInvSlot(ByVal X As Long, ByVal Y As Long) As Long
+Public Function IsInvSlot(ByVal x As Long, ByVal y As Long) As Long
 Dim DrawX As Long, DrawY As Long
 Dim i As Long
 
     IsInvSlot = 0
 
     For i = 1 To MAX_PLAYER_INV
-        DrawX = GUI(GuiEnum.GUI_INVENTORY).X + (7 + ((5 + TILE_X) * (((i - 1) Mod 5))))
-        DrawY = GUI(GuiEnum.GUI_INVENTORY).Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
+        DrawX = GUI(GuiEnum.GUI_INVENTORY).x + (7 + ((5 + TILE_X) * (((i - 1) Mod 5))))
+        DrawY = GUI(GuiEnum.GUI_INVENTORY).y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
             
-        If X >= DrawX And X <= DrawX + TILE_X And Y >= DrawY And Y <= DrawY + TILE_Y Then
+        If x >= DrawX And x <= DrawX + TILE_X And y >= DrawY And y <= DrawY + TILE_Y Then
             IsInvSlot = i
             Exit Function
         End If
     Next
 End Function
 
-Public Function IsInvStorageItem(ByVal X As Long, ByVal Y As Long) As Long
+Public Function IsInvStorageItem(ByVal x As Long, ByVal y As Long) As Long
 Dim DrawX As Long, DrawY As Long
 Dim i As Long
 
@@ -2026,10 +2026,10 @@ Dim i As Long
 
     For i = 1 To MAX_STORAGE
         If PlayerInvStorage(InvCurSlot).Data(i).Num > 0 Then
-            DrawX = GUI(GuiEnum.GUI_INVSTORAGE).X + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
-            DrawY = GUI(GuiEnum.GUI_INVSTORAGE).Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
+            DrawX = GUI(GuiEnum.GUI_INVSTORAGE).x + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
+            DrawY = GUI(GuiEnum.GUI_INVSTORAGE).y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
                 
-            If X >= DrawX And X <= DrawX + TILE_X And Y >= DrawY And Y <= DrawY + TILE_Y Then
+            If x >= DrawX And x <= DrawX + TILE_X And y >= DrawY And y <= DrawY + TILE_Y Then
                 IsInvStorageItem = i
                 Exit Function
             End If
@@ -2037,35 +2037,35 @@ Dim i As Long
     Next
 End Function
 
-Public Function IsInvStorageSlot(ByVal X As Long, ByVal Y As Long) As Long
+Public Function IsInvStorageSlot(ByVal x As Long, ByVal y As Long) As Long
 Dim DrawX As Long, DrawY As Long
 Dim i As Long
 
     IsInvStorageSlot = 0
 
     For i = 1 To MAX_STORAGE
-        DrawX = GUI(GuiEnum.GUI_INVSTORAGE).X + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
-        DrawY = GUI(GuiEnum.GUI_INVSTORAGE).Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
+        DrawX = GUI(GuiEnum.GUI_INVSTORAGE).x + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
+        DrawY = GUI(GuiEnum.GUI_INVSTORAGE).y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
             
-        If X >= DrawX And X <= DrawX + TILE_X And Y >= DrawY And Y <= DrawY + TILE_Y Then
+        If x >= DrawX And x <= DrawX + TILE_X And y >= DrawY And y <= DrawY + TILE_Y Then
             IsInvStorageSlot = i
             Exit Function
         End If
     Next
 End Function
 
-Public Function IsPokeStorage(ByVal X As Long, ByVal Y As Long) As Long
-Dim DrawX As Long, DrawY As Long
-Dim i As Long
+Public Function IsPokeStorage(ByVal x As Long, ByVal y As Long) As Long
+    Dim DrawX As Long, DrawY As Long
+    Dim i As Long
 
     IsPokeStorage = 0
 
     For i = 1 To MAX_STORAGE
         If PlayerPokemonStorage(PokemonCurSlot).Data(i).Num > 0 Then
-            DrawX = GUI(GuiEnum.GUI_POKEMONSTORAGE).X + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
-            DrawY = GUI(GuiEnum.GUI_POKEMONSTORAGE).Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
-                
-            If X >= DrawX And X <= DrawX + TILE_X And Y >= DrawY And Y <= DrawY + TILE_Y Then
+            DrawX = GUI(GuiEnum.GUI_POKEMONSTORAGE).x + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
+            DrawY = GUI(GuiEnum.GUI_POKEMONSTORAGE).y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
+
+            If x >= DrawX And x <= DrawX + TILE_X And y >= DrawY And y <= DrawY + TILE_Y Then
                 IsPokeStorage = i
                 Exit Function
             End If
@@ -2073,24 +2073,24 @@ Dim i As Long
     Next
 End Function
 
-Public Function IsPokeStorageSlot(ByVal X As Long, ByVal Y As Long) As Long
+Public Function IsPokeStorageSlot(ByVal x As Long, ByVal y As Long) As Long
 Dim DrawX As Long, DrawY As Long
 Dim i As Long
 
     IsPokeStorageSlot = 0
 
     For i = 1 To MAX_STORAGE
-        DrawX = GUI(GuiEnum.GUI_POKEMONSTORAGE).X + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
-        DrawY = GUI(GuiEnum.GUI_POKEMONSTORAGE).Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
+        DrawX = GUI(GuiEnum.GUI_POKEMONSTORAGE).x + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
+        DrawY = GUI(GuiEnum.GUI_POKEMONSTORAGE).y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
             
-        If X >= DrawX And X <= DrawX + TILE_X And Y >= DrawY And Y <= DrawY + TILE_Y Then
+        If x >= DrawX And x <= DrawX + TILE_X And y >= DrawY And y <= DrawY + TILE_Y Then
             IsPokeStorageSlot = i
             Exit Function
         End If
     Next
 End Function
 
-Public Function IsShopItem(ByVal X As Long, ByVal Y As Long) As Long
+Public Function IsShopItem(ByVal x As Long, ByVal y As Long) As Long
 Dim DrawX As Long, DrawY As Long
 Dim i As Long
 
@@ -2098,10 +2098,10 @@ Dim i As Long
     
     For i = ShopAddY To ShopAddY + 8
         If i > 0 And i <= MAX_SHOP_ITEM Then
-            DrawX = GUI(GuiEnum.GUI_SHOP).X + (31 + ((4 + 127) * (((((i + 1) - ShopAddY) - 1) Mod 3))))
-            DrawY = GUI(GuiEnum.GUI_SHOP).Y + (42 + ((4 + 78) * ((((i + 1) - ShopAddY) - 1) \ 3)))
+            DrawX = GUI(GuiEnum.GUI_SHOP).x + (31 + ((4 + 127) * (((((i + 1) - ShopAddY) - 1) Mod 3))))
+            DrawY = GUI(GuiEnum.GUI_SHOP).y + (42 + ((4 + 78) * ((((i + 1) - ShopAddY) - 1) \ 3)))
                 
-            If X >= DrawX And X <= DrawX + 127 And Y >= DrawY And Y <= DrawY + 78 Then
+            If x >= DrawX And x <= DrawX + 127 And y >= DrawY And y <= DrawY + 78 Then
                 IsShopItem = i
                 Exit Function
             End If
@@ -2109,17 +2109,17 @@ Dim i As Long
     Next
 End Function
 
-Public Function IsTradeYourItem(ByVal X As Long, ByVal Y As Long) As Long
+Public Function IsTradeYourItem(ByVal x As Long, ByVal y As Long) As Long
 Dim DrawX As Long, DrawY As Long
 Dim i As Long
 
     IsTradeYourItem = 0
     
     For i = 1 To MAX_TRADE
-        DrawX = GUI(GuiEnum.GUI_TRADE).X + (12 + ((3 + 44) * ((i - 1) Mod 4)))
-        DrawY = GUI(GuiEnum.GUI_TRADE).Y + (71 + ((3 + 46) * ((i - 1) \ 4)))
+        DrawX = GUI(GuiEnum.GUI_TRADE).x + (12 + ((3 + 44) * ((i - 1) Mod 4)))
+        DrawY = GUI(GuiEnum.GUI_TRADE).y + (71 + ((3 + 46) * ((i - 1) \ 4)))
                 
-        If X >= DrawX And X <= DrawX + 44 And Y >= DrawY And Y <= DrawY + 46 Then
+        If x >= DrawX And x <= DrawX + 44 And y >= DrawY And y <= DrawY + 46 Then
             If YourTrade.Data(i).TradeType > 0 Then
                 IsTradeYourItem = i
                 Exit Function
@@ -2128,17 +2128,17 @@ Dim i As Long
     Next
 End Function
 
-Public Function IsTradeTheirItem(ByVal X As Long, ByVal Y As Long) As Long
+Public Function IsTradeTheirItem(ByVal x As Long, ByVal y As Long) As Long
 Dim DrawX As Long, DrawY As Long
 Dim i As Long
 
     IsTradeTheirItem = 0
     
     For i = 1 To MAX_TRADE
-        DrawX = GUI(GuiEnum.GUI_TRADE).X + (222 + ((3 + 44) * ((i - 1) Mod 4)))
-        DrawY = GUI(GuiEnum.GUI_TRADE).Y + (71 + ((3 + 46) * ((i - 1) \ 4)))
+        DrawX = GUI(GuiEnum.GUI_TRADE).x + (222 + ((3 + 44) * ((i - 1) Mod 4)))
+        DrawY = GUI(GuiEnum.GUI_TRADE).y + (71 + ((3 + 46) * ((i - 1) \ 4)))
 
-        If X >= DrawX And X <= DrawX + 44 And Y >= DrawY And Y <= DrawY + 46 Then
+        If x >= DrawX And x <= DrawX + 44 And y >= DrawY And y <= DrawY + 46 Then
             If TheirTrade.Data(i).TradeType > 0 Then
                 IsTradeTheirItem = i
                 Exit Function
@@ -2147,7 +2147,7 @@ Dim i As Long
     Next
 End Function
 
-Public Function IsPokedexSlot(ByVal X As Long, ByVal Y As Long) As Long
+Public Function IsPokedexSlot(ByVal x As Long, ByVal y As Long) As Long
 Dim DrawX As Long, DrawY As Long
 Dim i As Long
 Dim pokeDexIndex As Long
@@ -2157,10 +2157,10 @@ Dim pokeDexIndex As Long
     For i = (PokedexViewCount * 8) To (PokedexViewCount * 8) + 31
         If i >= 0 And i <= PokedexHighIndex Then
             pokeDexIndex = i + 1
-            DrawX = GUI(GuiEnum.GUI_POKEDEX).X + (31 + ((4 + 44) * (((((i + 1) - (PokedexViewCount * 8)) - 1) Mod 8))))
-            DrawY = GUI(GuiEnum.GUI_POKEDEX).Y + (42 + ((4 + 46) * ((((i + 1) - (PokedexViewCount * 8)) - 1) \ 8)))
+            DrawX = GUI(GuiEnum.GUI_POKEDEX).x + (31 + ((4 + 44) * (((((i + 1) - (PokedexViewCount * 8)) - 1) Mod 8))))
+            DrawY = GUI(GuiEnum.GUI_POKEDEX).y + (42 + ((4 + 46) * ((((i + 1) - (PokedexViewCount * 8)) - 1) \ 8)))
             
-            If X >= DrawX And X <= DrawX + 44 And Y >= DrawY And Y <= DrawY + 46 Then
+            If x >= DrawX And x <= DrawX + 44 And y >= DrawY And y <= DrawY + 46 Then
                 IsPokedexSlot = i
                 Exit Function
             End If

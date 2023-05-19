@@ -192,15 +192,15 @@ Public Sub InitGameState(ByVal gState As GameStateEnum, Optional ByVal IsStart A
 End Sub
 
 Public Sub UpdateGuiCount(ByVal vGui As GuiEnum, ByVal gVisible As Boolean)
-Dim X As Byte
+Dim x As Byte
 
     '//Find gui position
-    X = findDataArray(vGui, GuiZOrder)
+    x = findDataArray(vGui, GuiZOrder)
     
     '//check for empty array
     If (Not GuiZOrder) = False Then
         '//Make sure gui doesn't exist
-        If X <= 0 Then Exit Sub
+        If x <= 0 Then Exit Sub
     End If
     
     If gVisible Then
@@ -211,8 +211,8 @@ Dim X As Byte
         GuiZOrder(GuiVisibleCount) = vGui
     Else
         '//Remove it
-        If X > 0 Then
-            byteArrRemoveData GuiZOrder, X
+        If x > 0 Then
+            byteArrRemoveData GuiZOrder, x
             GuiVisibleCount = GuiVisibleCount - 1
         End If
     End If
@@ -220,17 +220,17 @@ Dim X As Byte
 End Sub
 
 Public Sub UpdateGuiOrder(ByVal vGui As GuiEnum, Optional ByVal AddGui As Boolean = False)
-Dim i As Byte, X As Byte
+Dim i As Byte, x As Byte
 
     '//zOrdering of gui
     If AddGui Then
         GuiZOrder(GuiVisibleCount) = AddGui
     Else
         '//Find gui position
-        X = findDataArray(vGui, GuiZOrder)
+        x = findDataArray(vGui, GuiZOrder)
     
-        If X > 0 Then
-            For i = X To GuiVisibleCount - 1
+        If x > 0 Then
+            For i = x To GuiVisibleCount - 1
                 GuiZOrder(i) = GuiZOrder(i + 1)
             Next
             '//Set to top
@@ -428,6 +428,9 @@ Public Sub ClearGameData()
     DragPokeSlot = 0
     SetAttackMove = 0
     InParty = 0
+    
+    Erase PokemonsStorage_Select
+
     '//Clear Chat
     ClearChat
     ClearNpcs
