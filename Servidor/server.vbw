@@ -1,7 +1,7 @@
 modMain = 0, 0, 866, 788, C
 clsBuffer = 50, 50, 765, 657, C
 modTCP = 25, 25, 728, 632, 
-modHandleData = 149, 0, 852, 607, 
+modHandleData = 149, 0, 852, 607, Z
 modType = 50, 50, 753, 657, 
 modDatabase = 75, 75, 778, 682, 
 modLoop = 73, 67, 920, 578, 

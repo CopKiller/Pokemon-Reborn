@@ -43,6 +43,7 @@ Public Sub InitMessages()
     HandleDataSub(CDepositPokemon) = GetAddress(AddressOf HandleDepositPokemon)
     HandleDataSub(CWithdrawPokemon) = GetAddress(AddressOf HandleWithdrawPokemon)
     HandleDataSub(CSwitchStoragePokeSlot) = GetAddress(AddressOf HandleSwitchStoragePokeSlot)
+    HandleDataSub(CSwitchStoragePoke) = GetAddress(AddressOf HandleSwitchStoragePoke)
     HandleDataSub(CCloseShop) = GetAddress(AddressOf HandleCloseShop)
     HandleDataSub(CBuyItem) = GetAddress(AddressOf HandleBuyItem)
     HandleDataSub(CSellItem) = GetAddress(AddressOf HandleSellItem)
@@ -2214,6 +2215,49 @@ Dim OldStorageData As PlayerPokemonStorageDataRec, NewStorageData As PlayerPokem
     '//Update
     SendPlayerPokemonStorageSlot Index, storageSlot, OldSlot
     SendPlayerPokemonStorageSlot Index, storageSlot, NewSlot
+End Sub
+
+Private Sub HandleSwitchStoragePoke(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+Dim buffer As clsBuffer
+Dim OldSlot As Byte, OldPokeStorage As Byte, NewPokeStorage As Byte
+
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+    OldSlot = buffer.ReadByte
+    OldPokeStorage = buffer.ReadByte
+    NewPokeStorage = buffer.ReadByte
+    Set buffer = Nothing
+    
+    If NewPokeStorage < 0 Or NewPokeStorage > MAX_STORAGE_SLOT Or NewPokeStorage = OldPokeStorage Then Exit Sub
+    If OldPokeStorage < 0 Or OldPokeStorage > MAX_STORAGE_SLOT Then Exit Sub
+    If PlayerPokemonStorage(Index).slot(NewPokeStorage).Unlocked = False Then Exit Sub
+
+    SetNewStorageSlotTo Index, OldSlot, OldPokeStorage, NewPokeStorage
+End Sub
+
+Private Sub SetNewStorageSlotTo(ByVal Index As Long, ByVal OldPokeSlot, ByVal OldPokeStorage As Byte, ByVal NewPokeStorage As Byte)
+    Dim OldStorageData As PlayerPokemonStorageDataRec, NewStorageData As PlayerPokemonStorageDataRec
+    Dim i As Byte
+
+    If PlayerPokemonStorage(Index).slot(NewPokeStorage).Unlocked = YES Then
+        For i = 1 To MAX_STORAGE
+            If PlayerPokemonStorage(Index).slot(NewPokeStorage).Data(i).Num = 0 Then
+                '//Store Data
+                OldStorageData = PlayerPokemonStorage(Index).slot(OldPokeStorage).Data(OldPokeSlot)
+                NewStorageData = PlayerPokemonStorage(Index).slot(NewPokeStorage).Data(i)
+
+                '//Replace Data
+                PlayerPokemonStorage(Index).slot(OldPokeStorage).Data(OldPokeSlot) = NewStorageData
+                PlayerPokemonStorage(Index).slot(NewPokeStorage).Data(i) = OldStorageData
+
+                '//Update
+                SendPlayerPokemonStorageSlot Index, OldPokeStorage, OldPokeSlot
+                SendPlayerPokemonStorageSlot Index, NewPokeStorage, i
+                
+                Exit Sub
+            End If
+        Next i
+    End If
 End Sub
 
 Private Sub HandleCloseShop(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)

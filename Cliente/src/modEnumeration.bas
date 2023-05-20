@@ -149,6 +149,7 @@ Public Enum ClientPackets
     CDepositPokemon
     CWithdrawPokemon
     CSwitchStoragePokeSlot
+    CSwitchStoragePoke
     CCloseShop
     CBuyItem
     CSellItem

@@ -176,7 +176,7 @@ Dim buffer As clsBuffer
     Set buffer = New clsBuffer
     buffer.WriteLong CPlayerMove
     buffer.WriteByte Player(MyIndex).Dir
-    buffer.WriteLong Player(MyIndex).X
+    buffer.WriteLong Player(MyIndex).x
     buffer.WriteLong Player(MyIndex).Y
     SendData buffer.ToArray()
     Set buffer = Nothing
@@ -234,12 +234,12 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
-Public Sub AdminWarp(ByVal X As Long, ByVal Y As Long)
+Public Sub AdminWarp(ByVal x As Long, ByVal Y As Long)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong CAdminWarp
-    buffer.WriteLong X
+    buffer.WriteLong x
     buffer.WriteLong Y
     SendData buffer.ToArray()
     Set buffer = Nothing
@@ -282,7 +282,7 @@ Dim buffer As clsBuffer
     Set buffer = New clsBuffer
     buffer.WriteLong CPlayerPokemonMove
     buffer.WriteByte PlayerPokemon(MyIndex).Dir
-    buffer.WriteLong PlayerPokemon(MyIndex).X
+    buffer.WriteLong PlayerPokemon(MyIndex).x
     buffer.WriteLong PlayerPokemon(MyIndex).Y
     SendData buffer.ToArray()
     Set buffer = Nothing
@@ -492,6 +492,20 @@ Dim buffer As clsBuffer
     buffer.WriteByte StorageSlot
     buffer.WriteByte OldSlot
     buffer.WriteByte NewSlot
+    SendData buffer.ToArray()
+    Set buffer = Nothing
+End Sub
+
+Public Sub SendSwitchStoragePoke(ByVal OldPokeSlot As Byte, ByVal PokemonNewStorage As Byte)
+Dim buffer As clsBuffer
+
+    If PokemonCurSlot = PokemonNewStorage Then Exit Sub
+
+    Set buffer = New clsBuffer
+    buffer.WriteLong CSwitchStoragePoke
+    buffer.WriteByte OldPokeSlot        ' last poke slot
+    buffer.WriteByte PokemonCurSlot     ' storage
+    buffer.WriteByte PokemonNewStorage  ' storage
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -835,7 +849,7 @@ End Sub
 
 Public Sub SendMap()
 Dim buffer As clsBuffer
-Dim X As Long, Y As Long
+Dim x As Long, Y As Long
 Dim i As Long, a As Byte
 
     If Player(MyIndex).Access < ACCESS_MAPPER Then Exit Sub
@@ -855,9 +869,9 @@ Dim i As Long, a As Byte
     End With
     
     '//Tiles
-    For X = 0 To Map.MaxX
+    For x = 0 To Map.MaxX
         For Y = 0 To Map.MaxY
-            With Map.Tile(X, Y)
+            With Map.Tile(x, Y)
                 '//Layer
                 For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                     For a = MapLayerType.Normal To MapLayerType.Animated
@@ -1327,14 +1341,14 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
-Public Sub SendCashValueTo(ByVal Name As String, ByVal Value As Long, Optional ByVal IsCash As Boolean = YES)
+Public Sub SendCashValueTo(ByVal Name As String, ByVal value As Long, Optional ByVal IsCash As Boolean = YES)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong CSetCash
     buffer.WriteString Name
     If IsCash Then buffer.WriteByte YES Else buffer.WriteByte NO
-    buffer.WriteLong Value
+    buffer.WriteLong value
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub
