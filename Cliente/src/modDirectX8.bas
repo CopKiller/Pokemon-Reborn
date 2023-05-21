@@ -3550,11 +3550,16 @@ Dim pricetext As String
                     
                     '//Price
                     '//ToDo: Convert, 1k, 1m , etc.
+                    pricetext = Item(Shop(ShopNum).ShopItem(i).Num).Price
+                    '//ID CASH ICON 527
+                    '//ID MONEY ICON 526
+                    Dim IDValue As Integer
                     If Item(Shop(ShopNum).ShopItem(i).Num).IsCash = YES Then
-                        pricetext = "@" & Item(Shop(ShopNum).ShopItem(i).Num).Price
+                        IDValue = 527
                     Else
-                        pricetext = "$" & Item(Shop(ShopNum).ShopItem(i).Num).Price
+                        IDValue = 526
                     End If
+                    
                     
                     '//Button
                     If ShopButtonHover = i Then
@@ -3575,6 +3580,8 @@ Dim pricetext As String
                     
                     '//Item Name
                     RenderText Font_Default, Trim$(Item(Shop(ShopNum).ShopItem(i).Num).Name), .X + DrawX + 44, .Y + DrawY + 10, D3DColorRGBA(100, 100, 100, 255), False
+                     ' Render Money or Cash Icon
+                    RenderTexture Tex_Item(IDValue), (.X + DrawX) + ((70 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.Y + DrawY + 44) + 1, 0, 0, 20, 20, 24, 24
                 End If
             End If
         Next

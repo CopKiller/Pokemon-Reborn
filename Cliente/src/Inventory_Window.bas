@@ -256,10 +256,16 @@ Public Sub DrawInvItemDesc()
     ItemName = "~ " & Trim$(Item(PlayerInv(InvItemDesc).Num).Name) & " ~"
     DescString = Trim$(Item(PlayerInv(InvItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
 
+    '//ID CASH ICON 527
+    '//ID MONEY ICON 526
+    Dim IDValue As Integer
+    
     If Item(PlayerInv(InvItemDesc).Num).IsCash = NO Then
         ItemPrice = "Price: " & Int(Item(PlayerInv(InvItemDesc).Num).Price / 2)
+        IDValue = 526
     Else
         ItemPrice = "Price: Non Sellable"
+        IDValue = 527
     End If
 
     '//Make sure that loading text have something to draw
@@ -279,8 +285,9 @@ Public Sub DrawInvItemDesc()
     RenderTexture Tex_Item(ItemIcon), GUI(GuiEnum.GUI_INVENTORY).X + GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetPicHeight(Tex_Item(ItemIcon)) / 2), GUI(GuiEnum.GUI_INVENTORY).Y + 8 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon)), GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon))
 
     RenderText Font_Default, ItemName, GUI(GuiEnum.GUI_INVENTORY).X + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
-    
+
     RenderText Font_Default, ItemPrice, GUI(GuiEnum.GUI_INVENTORY).X + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 150 + ((219 * 0.5) - (SizeY * 0.5)), White
+    RenderTexture Tex_Item(IDValue), GUI(GuiEnum.GUI_INVENTORY).X + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 150 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDValue)), GetPicHeight(Tex_Item(IDValue))
 
     '//Reset
     yOffset = 25
