@@ -1605,16 +1605,16 @@ Dim i As Byte
                         If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
                             '//Deposit Selected Item
                             
-                            Dim HasSelected As Boolean
+                            Dim hasSelected As Boolean
                             For i = 1 To MAX_STORAGE
                                 If IsPokemonSelected(i) Then
                                     SendWithdrawPokemon PokemonCurSlot, i
                                     ClearPokemonSelected i
-                                    HasSelected = True
+                                    hasSelected = True
                                 End If
                             Next i
                             
-                            If Not HasSelected Then
+                            If Not hasSelected Then
                                 SendWithdrawPokemon PokemonCurSlot, SelMenu.Data1
                             End If
                         End If
@@ -2048,6 +2048,32 @@ Dim i As Long
             End If
         End If
     Next
+End Function
+
+Public Function IsStorage_Poke() As Byte
+    Dim i As Integer, Count As Byte
+    
+    IsStorage_Poke = 0
+    For i = ButtonEnum.PokemonStorage_Slot1 To ButtonEnum.PokemonStorage_Slot5
+        Count = Count + 1
+        If Button(i).State = ButtonState.StateHover Then
+            IsStorage_Poke = Count
+            Exit Function
+        End If
+    Next i
+End Function
+
+Public Function IsStorage_Item() As Byte
+    Dim i As Integer, Count As Byte
+    
+    IsStorage_Item = 0
+    For i = ButtonEnum.InvStorage_Slot1 To ButtonEnum.InvStorage_Slot5
+        Count = Count + 1
+        If Button(i).State = ButtonState.StateHover Then
+            IsStorage_Item = Count
+            Exit Function
+        End If
+    Next i
 End Function
 
 Public Function IsInvStorageSlot(ByVal X As Long, ByVal Y As Long) As Long

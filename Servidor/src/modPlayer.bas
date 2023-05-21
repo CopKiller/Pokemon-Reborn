@@ -960,7 +960,8 @@ Dim i As Byte
     Next
 End Function
 
-Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal Level As Long, ByVal BallUsed As Byte)
+Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal Level As Long, ByVal BallUsed As Byte, Optional ByVal IsShiny As Byte = NO, _
+                            Optional ByVal IVFull As Byte = NO, Optional ByVal TheNature As Byte = NO)
 Dim i As Long, x As Byte, m As Long, s As Byte, slot As Byte
 
     i = FindOpenPokeSlot(Index)
@@ -974,20 +975,25 @@ Dim i As Long, x As Byte, m As Long, s As Byte, slot As Byte
             
             '//Nature
             .Nature = Random(0, PokemonNature.NatureQuirky)
-            .isShiny = NO
+            .IsShiny = IsShiny 'Peronalização do painel admin
             .Status = 0
             If .Nature <= 0 Then .Nature = 0
             If .Nature >= PokemonNature.NatureQuirky Then .Nature = PokemonNature.NatureQuirky
+            
+            
             .Happiness = 0
             .Gender = Random(GENDER_MALE, GENDER_FEMALE)
             If Not .Gender = GENDER_MALE And Not .Gender = GENDER_FEMALE Then
                 .Gender = GENDER_MALE
             End If
             
+            If TheNature > 0 Then .Nature = TheNature 'Peronalização do painel admin
+            
             '//Stat
             For x = 1 To StatEnum.Stat_Count - 1
                 .Stat(x).EV = 0
                 .Stat(x).IV = 15 '//Default Stat
+                If IVFull > 0 Then .Stat(x).IV = 31 'Peronalização do painel admin
                 .Stat(x).Value = CalculatePokemonStat(x, .Num, .Level, .Stat(x).EV, .Stat(x).IV, .Nature)
             Next
             
@@ -2074,7 +2080,7 @@ Dim i As Long
             .Nature = MapPokemon(MapPokeNum).Nature
             
             '//Shiny
-            .isShiny = MapPokemon(MapPokeNum).isShiny
+            .IsShiny = MapPokemon(MapPokeNum).IsShiny
         
             '//Happiness
             .Happiness = MapPokemon(MapPokeNum).Happiness
@@ -2138,7 +2144,7 @@ Dim i As Long
                     .Nature = MapPokemon(MapPokeNum).Nature
                     
                     '//Shiny
-                    .isShiny = MapPokemon(MapPokeNum).isShiny
+                    .IsShiny = MapPokemon(MapPokeNum).IsShiny
                     
                     '//Happiness
                     .Happiness = MapPokemon(MapPokeNum).Happiness

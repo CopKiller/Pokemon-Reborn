@@ -36,8 +36,8 @@ Dim Sprite As Long
                     RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
                     
                     '//Count
-                    If PlayerInv(i).Value > 1 Then
-                        RenderText Font_Default, PlayerInv(i).Value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInv(i).Value)), DrawY + 14, White
+                    If PlayerInv(i).value > 1 Then
+                        RenderText Font_Default, PlayerInv(i).value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInv(i).value)), DrawY + 14, White
                     End If
                 End If
             End If
@@ -211,7 +211,7 @@ Dim i As Long
             i = IsInvSlot(CursorX, CursorY)
             If i > 0 Then
                 '//Check if value is greater than 1
-                If PlayerInvStorage(InvCurSlot).Data(DragStorageSlot).Value > 1 Then
+                If PlayerInvStorage(InvCurSlot).Data(DragStorageSlot).value > 1 Then
                     If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible Then
                         OpenInputBox "Enter amount", IB_WITHDRAW, DragStorageSlot, i
                     End If
@@ -257,7 +257,7 @@ Public Sub DrawInvItemDesc()
     DescString = Trim$(Item(PlayerInv(InvItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
 
     If Item(PlayerInv(InvItemDesc).Num).IsCash = NO Then
-        ItemPrice = "Price: " & Item(PlayerInv(InvItemDesc).Num).Price
+        ItemPrice = "Price: " & Int(Item(PlayerInv(InvItemDesc).Num).Price / 2)
     Else
         ItemPrice = "Price: Non Sellable"
     End If

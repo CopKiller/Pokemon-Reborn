@@ -176,7 +176,7 @@ Dim buffer As clsBuffer
     Set buffer = New clsBuffer
     buffer.WriteLong CPlayerMove
     buffer.WriteByte Player(MyIndex).Dir
-    buffer.WriteLong Player(MyIndex).x
+    buffer.WriteLong Player(MyIndex).X
     buffer.WriteLong Player(MyIndex).Y
     SendData buffer.ToArray()
     Set buffer = Nothing
@@ -234,12 +234,12 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
-Public Sub AdminWarp(ByVal x As Long, ByVal Y As Long)
+Public Sub AdminWarp(ByVal X As Long, ByVal Y As Long)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong CAdminWarp
-    buffer.WriteLong x
+    buffer.WriteLong X
     buffer.WriteLong Y
     SendData buffer.ToArray()
     Set buffer = Nothing
@@ -282,7 +282,7 @@ Dim buffer As clsBuffer
     Set buffer = New clsBuffer
     buffer.WriteLong CPlayerPokemonMove
     buffer.WriteByte PlayerPokemon(MyIndex).Dir
-    buffer.WriteLong PlayerPokemon(MyIndex).x
+    buffer.WriteLong PlayerPokemon(MyIndex).X
     buffer.WriteLong PlayerPokemon(MyIndex).Y
     SendData buffer.ToArray()
     Set buffer = Nothing
@@ -510,6 +510,20 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
+Public Sub SendSwitchStorageItem(ByVal OldItemSlot As Byte, ByVal ItemNewStorage As Byte)
+Dim buffer As clsBuffer
+
+    If InvCurSlot = ItemNewStorage Then Exit Sub
+
+    Set buffer = New clsBuffer
+    buffer.WriteLong CSwitchStorageItem
+    buffer.WriteByte OldItemSlot        ' last poke slot
+    buffer.WriteByte InvCurSlot     ' storage
+    buffer.WriteByte ItemNewStorage  ' storage
+    SendData buffer.ToArray()
+    Set buffer = Nothing
+End Sub
+
 Public Sub SendBuyItem(ByVal ShopSlot As Byte, Optional ByVal ShopVal As Long = 1)
 Dim buffer As clsBuffer
 
@@ -669,7 +683,7 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
-Public Sub SendGivePokemonTo(ByVal PlayerName As String, ByVal PokeNum As Long, ByVal Level As Long)
+Public Sub SendGivePokemonTo(ByVal PlayerName As String, ByVal PokeNum As Long, ByVal Level As Long, Optional ByVal IsShiny As Byte = NO, Optional IVFull As Byte = NO, Optional Nature As Byte = NO)  'SendGivePokemonTo
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
@@ -677,6 +691,9 @@ Dim buffer As clsBuffer
     buffer.WriteString PlayerName
     buffer.WriteLong PokeNum
     buffer.WriteLong Level
+    buffer.WriteByte IsShiny
+    buffer.WriteByte IVFull
+    buffer.WriteByte Nature
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -849,7 +866,7 @@ End Sub
 
 Public Sub SendMap()
 Dim buffer As clsBuffer
-Dim x As Long, Y As Long
+Dim X As Long, Y As Long
 Dim i As Long, a As Byte
 
     If Player(MyIndex).Access < ACCESS_MAPPER Then Exit Sub
@@ -869,9 +886,9 @@ Dim i As Long, a As Byte
     End With
     
     '//Tiles
-    For x = 0 To Map.MaxX
+    For X = 0 To Map.MaxX
         For Y = 0 To Map.MaxY
-            With Map.Tile(x, Y)
+            With Map.Tile(X, Y)
                 '//Layer
                 For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                     For a = MapLayerType.Normal To MapLayerType.Animated

@@ -17,7 +17,7 @@ Dim SetWidth As Long
     CurServerList = 1
     
     ServerName(1) = "Pokenew SA"
-    ServerIP(1) = "localhost"
+    ServerIP(1) = "pokerpg.ddns.net"
     ServerPort(1) = 8001
     
     ServerName(2) = "Pokenew NA"
@@ -192,15 +192,15 @@ Public Sub InitGameState(ByVal gState As GameStateEnum, Optional ByVal IsStart A
 End Sub
 
 Public Sub UpdateGuiCount(ByVal vGui As GuiEnum, ByVal gVisible As Boolean)
-Dim x As Byte
+Dim X As Byte
 
     '//Find gui position
-    x = findDataArray(vGui, GuiZOrder)
+    X = findDataArray(vGui, GuiZOrder)
     
     '//check for empty array
     If (Not GuiZOrder) = False Then
         '//Make sure gui doesn't exist
-        If x <= 0 Then Exit Sub
+        If X <= 0 Then Exit Sub
     End If
     
     If gVisible Then
@@ -211,8 +211,8 @@ Dim x As Byte
         GuiZOrder(GuiVisibleCount) = vGui
     Else
         '//Remove it
-        If x > 0 Then
-            byteArrRemoveData GuiZOrder, x
+        If X > 0 Then
+            byteArrRemoveData GuiZOrder, X
             GuiVisibleCount = GuiVisibleCount - 1
         End If
     End If
@@ -220,17 +220,17 @@ Dim x As Byte
 End Sub
 
 Public Sub UpdateGuiOrder(ByVal vGui As GuiEnum, Optional ByVal AddGui As Boolean = False)
-Dim i As Byte, x As Byte
+Dim i As Byte, X As Byte
 
     '//zOrdering of gui
     If AddGui Then
         GuiZOrder(GuiVisibleCount) = AddGui
     Else
         '//Find gui position
-        x = findDataArray(vGui, GuiZOrder)
+        X = findDataArray(vGui, GuiZOrder)
     
-        If x > 0 Then
-            For i = x To GuiVisibleCount - 1
+        If X > 0 Then
+            For i = X To GuiVisibleCount - 1
                 GuiZOrder(i) = GuiZOrder(i + 1)
             Next
             '//Set to top

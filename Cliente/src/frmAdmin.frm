@@ -114,6 +114,30 @@ Begin VB.Form frmAdmin
       TabIndex        =   9
       Top             =   0
       Width           =   4095
+      Begin VB.TextBox txtANature 
+         Alignment       =   2  'Center
+         Height          =   285
+         Left            =   2400
+         TabIndex        =   63
+         Top             =   3840
+         Width           =   1575
+      End
+      Begin VB.CheckBox chkAIv 
+         Caption         =   "IVFull"
+         Height          =   255
+         Left            =   3000
+         TabIndex        =   61
+         Top             =   3360
+         Width           =   855
+      End
+      Begin VB.CheckBox chkAShiny 
+         Caption         =   "IsShiny"
+         Height          =   255
+         Left            =   3000
+         TabIndex        =   60
+         Top             =   3120
+         Width           =   855
+      End
       Begin VB.Frame Frame4 
          Caption         =   "Money e Cash"
          Height          =   1335
@@ -158,9 +182,9 @@ Begin VB.Form frmAdmin
          Begin VB.CommandButton Command8 
             Caption         =   "Request"
             Height          =   255
-            Left            =   2760
+            Left            =   2640
             TabIndex        =   53
-            Top             =   120
+            Top             =   360
             Width           =   975
          End
          Begin VB.TextBox txtCName 
@@ -179,7 +203,7 @@ Begin VB.Form frmAdmin
             Width           =   375
          End
          Begin VB.Label lblCash 
-            Alignment       =   1  'Right Justify
+            Alignment       =   2  'Center
             AutoSize        =   -1  'True
             Caption         =   "Player Cash: 0"
             Height          =   195
@@ -300,11 +324,11 @@ Begin VB.Form frmAdmin
       End
       Begin VB.CommandButton cmdASpawn 
          Caption         =   "Entregar"
-         Height          =   375
-         Left            =   240
+         Height          =   255
+         Left            =   120
          TabIndex        =   16
-         Top             =   3600
-         Width           =   1695
+         Top             =   3480
+         Width           =   2055
       End
       Begin VB.TextBox txtAmount 
          Alignment       =   2  'Center
@@ -321,16 +345,16 @@ Begin VB.Form frmAdmin
          Left            =   3000
          TabIndex        =   15
          Text            =   "1"
-         Top             =   2880
+         Top             =   2760
          Width           =   975
       End
       Begin VB.CommandButton cmdAtt 
          Caption         =   "Obter"
-         Height          =   375
-         Left            =   2160
+         Height          =   255
+         Left            =   120
          TabIndex        =   14
-         Top             =   3600
-         Width           =   1695
+         Top             =   3840
+         Width           =   2055
       End
       Begin VB.CommandButton cmdAWarpMe2 
          Caption         =   "Ir"
@@ -363,6 +387,15 @@ Begin VB.Form frmAdmin
          TabIndex        =   10
          Top             =   720
          Width           =   975
+      End
+      Begin VB.Label lblANature 
+         AutoSize        =   -1  'True
+         Caption         =   "Nature:"
+         Height          =   195
+         Left            =   2400
+         TabIndex        =   62
+         Top             =   3600
+         Width           =   525
       End
       Begin VB.Label Label7 
          AutoSize        =   -1  'True
@@ -459,7 +492,7 @@ Begin VB.Form frmAdmin
          Height          =   195
          Left            =   3000
          TabIndex        =   18
-         Top             =   2640
+         Top             =   2520
          Width           =   915
       End
    End
@@ -634,7 +667,7 @@ Private Sub cmdASpawn_Click()
                 Exit Sub
             End If
 
-            SendGivePokemonTo txtBName, scrlAPoke, txtAmount
+            SendGivePokemonTo txtBName, scrlAPoke, txtAmount, chkAShiny, chkAIv, txtANature
         Else
             AddText "Invalid command!", BrightRed
             Exit Sub
@@ -673,7 +706,7 @@ Private Sub cmdAtt_Click()
                 Exit Sub
             End If
 
-            SendGivePokemonTo Player(MyIndex).Name, scrlAPoke, txtAmount
+            SendGivePokemonTo Player(MyIndex).Name, scrlAPoke, txtAmount, chkAShiny, chkAIv, txtANature
         Else
             AddText "Invalid command!", BrightRed
             Exit Sub
@@ -869,7 +902,7 @@ Private Sub Command2_Click()
 
         If Not IsNumeric(txtAccess) Then
             AddText "Utilize numeros no acesso.", BrightRed
-            GoTo continue
+            Exit Sub
         End If
 
         If txtAName = vbNullString Then
@@ -1057,6 +1090,20 @@ Private Sub txtAItem_Change()
         End If
         scrlAItem = txtAItem
     End If
+End Sub
+
+Private Sub txtANature_Change()
+    If Not IsNumeric(txtANature) Then
+        Call AddText("Adicione apenas numeros", BrightRed)
+        Exit Sub
+    End If
+    
+    If txtANature > 0 And txtANature <= PokemonNature_Count Then
+        lblANature = "Nature: " & CheckNatureString(txtANature)
+    End If
+    
+    
+
 End Sub
 
 Private Sub txtAPoke_Change()

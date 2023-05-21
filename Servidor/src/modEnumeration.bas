@@ -143,6 +143,7 @@ Public Enum ClientPackets
     COpenStorage
     CDepositItemTo
     CSwitchStorageSlot
+    CSwitchStorageItem
     CWithdrawItemTo
     CConvo
     CProcessConvo

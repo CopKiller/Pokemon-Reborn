@@ -37,6 +37,7 @@ Public Sub InitMessages()
     HandleDataSub(COpenStorage) = GetAddress(AddressOf HandleOpenStorage)
     HandleDataSub(CDepositItemTo) = GetAddress(AddressOf HandleDepositItemTo)
     HandleDataSub(CSwitchStorageSlot) = GetAddress(AddressOf HandleSwitchStorageSlot)
+    HandleDataSub(CSwitchStorageItem) = GetAddress(AddressOf HandleSwitchStorageItem)
     HandleDataSub(CWithdrawItemTo) = GetAddress(AddressOf HandleWithdrawItemTo)
     HandleDataSub(CConvo) = GetAddress(AddressOf HandleConvo)
     HandleDataSub(CProcessConvo) = GetAddress(AddressOf HandleProcessConvo)
@@ -2232,10 +2233,10 @@ Dim OldSlot As Byte, OldPokeStorage As Byte, NewPokeStorage As Byte
     If OldPokeStorage < 0 Or OldPokeStorage > MAX_STORAGE_SLOT Then Exit Sub
     If PlayerPokemonStorage(Index).slot(NewPokeStorage).Unlocked = False Then Exit Sub
 
-    SetNewStorageSlotTo Index, OldSlot, OldPokeStorage, NewPokeStorage
+    SetNewPokeStorageSlotTo Index, OldSlot, OldPokeStorage, NewPokeStorage
 End Sub
 
-Private Sub SetNewStorageSlotTo(ByVal Index As Long, ByVal OldPokeSlot, ByVal OldPokeStorage As Byte, ByVal NewPokeStorage As Byte)
+Private Sub SetNewPokeStorageSlotTo(ByVal Index As Long, ByVal OldPokeSlot, ByVal OldPokeStorage As Byte, ByVal NewPokeStorage As Byte)
     Dim OldStorageData As PlayerPokemonStorageDataRec, NewStorageData As PlayerPokemonStorageDataRec
     Dim i As Byte
 
@@ -2253,6 +2254,49 @@ Private Sub SetNewStorageSlotTo(ByVal Index As Long, ByVal OldPokeSlot, ByVal Ol
                 '//Update
                 SendPlayerPokemonStorageSlot Index, OldPokeStorage, OldPokeSlot
                 SendPlayerPokemonStorageSlot Index, NewPokeStorage, i
+                
+                Exit Sub
+            End If
+        Next i
+    End If
+End Sub
+
+Private Sub HandleSwitchStorageItem(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+Dim buffer As clsBuffer
+Dim OldSlot As Byte, OldItemStorage As Byte, NewItemStorage As Byte
+
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+    OldSlot = buffer.ReadByte
+    OldItemStorage = buffer.ReadByte
+    NewItemStorage = buffer.ReadByte
+    Set buffer = Nothing
+    
+    If NewItemStorage < 0 Or NewItemStorage > MAX_STORAGE_SLOT Or NewItemStorage = OldItemStorage Then Exit Sub
+    If OldItemStorage < 0 Or OldItemStorage > MAX_STORAGE_SLOT Then Exit Sub
+    If PlayerInvStorage(Index).slot(NewItemStorage).Unlocked = False Then Exit Sub
+
+    SetNewItemStorageSlotTo Index, OldSlot, OldItemStorage, NewItemStorage
+End Sub
+
+Private Sub SetNewItemStorageSlotTo(ByVal Index As Long, ByVal OldItemSlot, ByVal OldItemStorage As Byte, ByVal NewItemStorage As Byte)
+    Dim OldStorageData As PlayerInvStorageDataRec, NewStorageData As PlayerInvStorageDataRec
+    Dim i As Byte
+
+    If PlayerInvStorage(Index).slot(NewItemStorage).Unlocked = YES Then
+        For i = 1 To MAX_STORAGE
+            If PlayerInvStorage(Index).slot(NewItemStorage).Data(i).Num = 0 Then
+                '//Store Data
+                OldStorageData = PlayerInvStorage(Index).slot(OldItemStorage).Data(OldItemSlot)
+                NewStorageData = PlayerInvStorage(Index).slot(NewItemStorage).Data(i)
+
+                '//Replace Data
+                PlayerInvStorage(Index).slot(OldItemStorage).Data(OldItemSlot) = NewStorageData
+                PlayerInvStorage(Index).slot(NewItemStorage).Data(i) = OldStorageData
+
+                '//Update
+                SendPlayerInvStorageSlot Index, OldItemStorage, OldItemSlot
+                SendPlayerInvStorageSlot Index, NewItemStorage, i
                 
                 Exit Sub
             End If
@@ -2748,7 +2792,7 @@ Dim i As Long
                     .CurHP = 0
                     .MaxHP = 0
                     .Nature = 0
-                    .isShiny = 0
+                    .IsShiny = 0
                     .Happiness = 0
                     .Gender = 0
                     .Status = 0
@@ -2776,7 +2820,7 @@ Dim i As Long
                     .CurHP = PlayerPokemons(Index).Data(TradeSlot).CurHP
                     .MaxHP = PlayerPokemons(Index).Data(TradeSlot).MaxHP
                     .Nature = PlayerPokemons(Index).Data(TradeSlot).Nature
-                    .isShiny = PlayerPokemons(Index).Data(TradeSlot).isShiny
+                    .IsShiny = PlayerPokemons(Index).Data(TradeSlot).IsShiny
                     .Happiness = PlayerPokemons(Index).Data(TradeSlot).Happiness
                     .Gender = PlayerPokemons(Index).Data(TradeSlot).Gender
                     .Status = PlayerPokemons(Index).Data(TradeSlot).Status
@@ -3443,6 +3487,7 @@ Dim buffer As clsBuffer
 Dim PokeNum As Long, Level As Long
 Dim playerName As String
 Dim i As Long
+Dim IsShiny As Byte, IVFull As Byte, TheNature As Byte
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
@@ -3453,6 +3498,9 @@ Dim i As Long
     playerName = Trim$(buffer.ReadString)
     PokeNum = buffer.ReadLong
     Level = buffer.ReadLong
+    IsShiny = buffer.ReadByte
+    IVFull = buffer.ReadByte
+    TheNature = buffer.ReadByte
     Set buffer = Nothing
     If UCase$(playerName) <> "ALL" Then
         i = FindPlayer(playerName)
@@ -3463,7 +3511,7 @@ Dim i As Long
         AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " , Admin Presenteou a todos: Give Poke#" & PokeNum & " Lvl:" & Level
 
         For i = 1 To Player_HighIndex
-            GivePlayerPokemon i, PokeNum, Level, BallEnum.b_Pokeball
+            GivePlayerPokemon i, PokeNum, Level, BallEnum.b_Pokeball, IsShiny, IVFull, TheNature
             
             Select Case TempPlayer(i).CurLanguage
             Case LANG_PT: AddAlert i, "You receive a item gift from " & Trim$(Player(Index, TempPlayer(Index).UseChar).Name), White
@@ -3493,12 +3541,12 @@ Dim i As Long
     If Level <= 0 Or Level > MAX_LEVEL Then Exit Sub
     
     AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " , Admin Rights: Give Pokemon To " & Trim$(Player(i, TempPlayer(i).UseChar).Name) & ", Pokemon#" & PokeNum & " Level" & Level
-    GivePlayerPokemon i, PokeNum, Level, BallEnum.b_Pokeball
+    GivePlayerPokemon i, PokeNum, Level, BallEnum.b_Pokeball, IsShiny, IVFull, TheNature
 End Sub
 
 Private Sub HandleSpawnPokemon(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
 Dim buffer As clsBuffer
-Dim MapPokeSlot As Long, isShiny As Byte
+Dim MapPokeSlot As Long, IsShiny As Byte
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
@@ -3507,12 +3555,12 @@ Dim MapPokeSlot As Long, isShiny As Byte
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
     MapPokeSlot = buffer.ReadLong
-    isShiny = buffer.ReadByte
+    IsShiny = buffer.ReadByte
     Set buffer = Nothing
     If MapPokeSlot <= 0 Or MapPokeSlot > MAX_GAME_POKEMON Then Exit Sub
     
     ClearMapPokemon MapPokeSlot
-    If isShiny = YES Then
+    If IsShiny = YES Then
         SpawnMapPokemon MapPokeSlot, True, YES
     Else
         SpawnMapPokemon MapPokeSlot, True

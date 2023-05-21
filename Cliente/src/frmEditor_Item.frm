@@ -373,7 +373,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub chkAutoCatch_Click()
-    Item(EditorIndex).Data3 = chkAutoCatch.Value
+    Item(EditorIndex).Data3 = chkAutoCatch.value
     EditorChange = True
 End Sub
 
@@ -382,17 +382,17 @@ Private Sub chkIsCash_Click()
 End Sub
 
 Private Sub chkLevelUp_Click()
-    Item(EditorIndex).Data3 = chkLevelUp.Value
+    Item(EditorIndex).Data3 = chkLevelUp.value
     EditorChange = True
 End Sub
 
 Private Sub chkStock_Click()
-    Item(EditorIndex).Stock = chkStock.Value
+    Item(EditorIndex).Stock = chkStock.value
     EditorChange = True
 End Sub
 
 Private Sub chkTakeItem_Click()
-    Item(EditorIndex).Data2 = chkTakeItem.Value
+    Item(EditorIndex).Data2 = chkTakeItem.value
     EditorChange = True
 End Sub
 
@@ -509,19 +509,19 @@ Dim i As Long
 End Sub
 
 Private Sub scrlBallSprite_Change()
-    lblBallSprite.Caption = "Ball Sprite: " & scrlBallSprite.Value
-    Item(EditorIndex).Data2 = scrlBallSprite.Value
+    lblBallSprite.Caption = "Ball Sprite: " & scrlBallSprite.value
+    Item(EditorIndex).Data2 = scrlBallSprite.value
     EditorChange = True
 End Sub
 
 Private Sub scrlSprite_Change()
-    lblSprite.Caption = "Sprite: " & scrlSprite.Value
-    Item(EditorIndex).Sprite = scrlSprite.Value
+    lblSprite.Caption = "Sprite: " & scrlSprite.value
+    Item(EditorIndex).Sprite = scrlSprite.value
     EditorChange = True
 End Sub
 
 Private Sub scrlSpriteType_Change()
-    Select Case scrlSpriteType.Value
+    Select Case scrlSpriteType.value
         Case TEMP_SPRITE_GROUP_DIVE
             lblSpriteType.Caption = "Sprite Type: Dive"
         Case TEMP_SPRITE_GROUP_BIKE
@@ -531,7 +531,7 @@ Private Sub scrlSpriteType_Change()
         Case Else
             lblSpriteType.Caption = "Sprite Type: None"
     End Select
-    Item(EditorIndex).Data2 = scrlSpriteType.Value
+    Item(EditorIndex).Data2 = scrlSpriteType.value
     EditorChange = True
 End Sub
 
