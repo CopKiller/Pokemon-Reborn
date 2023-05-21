@@ -4101,29 +4101,37 @@ Dim CanLearn As Boolean
 End Sub
 
 Private Sub DrawRank()
-Dim i As Long
-Dim RankIndex As Long
+    Dim i As Long
+    Dim RankIndex As Long
 
     With GUI(GuiEnum.GUI_RANK)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         '//Render the window
         RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
-        
+
         '//Buttons
         For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_Check
             If CanShowButton(i) Then
                 RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
-        
+
         '//ShowRank
+        '//ID Icons Top 1, 2 and 3.
+        '// 1º = 528 => 2º = 529 => 3º = 530
         For i = 1 To 10
             If i > 0 And i <= MAX_RANK Then
                 RenderTexture Tex_Gui(.Pic), .X + 30, .Y + 41 + (31 * (i - 1)), 28, 328, 212, 28, 212, 28
                 ' Draw Index
-                RenderText Font_Default, i & ": " & Trim$(Rank(i).Name) & " Lv" & Rank(i).Level, .X + 35, .Y + 45 + (31 * (i - 1)), Dark
+                ' Icon in 1º at 3º position
+                If i >= 1 And i <= 3 Then
+                    RenderTexture Tex_Item(528 - 1 + i), .X + 30, .Y + 41 + (31 * (i - 1)), 0, 0, 24, 24, 24, 24
+                    RenderText Font_Default, Trim$(Rank(i).Name) & " Lv" & Rank(i).Level, .X + 55, .Y + 45 + (31 * (i - 1)), Dark
+                Else
+                    RenderText Font_Default, i & ": " & Trim$(Rank(i).Name) & " Lv" & Rank(i).Level, .X + 35, .Y + 45 + (31 * (i - 1)), Dark
+                End If
             End If
         Next
     End With
@@ -4518,8 +4526,12 @@ Public Sub DrawStorageItemDesc()
     ItemName = "~ " & Trim$(Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Name) & " ~"
     DescString = Trim$(Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
 
+    '//ID CASH ICON 527
+    '//ID MONEY ICON 526
+    Dim IDValue As Integer
     If Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).IsCash = NO Then
         ItemPrice = "Price: " & Int((Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Price / 2))
+        IDValue = 526
     Else
         ItemPrice = "Price: Non Sellable"
     End If
@@ -4542,8 +4554,13 @@ Public Sub DrawStorageItemDesc()
 
     RenderText Font_Default, ItemName, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
     
-    RenderText Font_Default, ItemPrice, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), White
+    RenderText Font_Default, ItemPrice, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), White
 
+    ' Renderizar apenas se puder vendê-lo!
+    If IDValue > 0 Then
+        RenderTexture Tex_Item(IDValue), CursorX + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDValue)), GetPicHeight(Tex_Item(IDValue))
+    End If
+    
     '//Reset
     yOffset = 25
     '//Loop to all items
