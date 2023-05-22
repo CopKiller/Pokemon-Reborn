@@ -20,7 +20,7 @@ Begin VB.Form frmEditor_Item
       Height          =   1215
       Left            =   3360
       TabIndex        =   33
-      Top             =   1920
+      Top             =   2040
       Width           =   4695
       Begin VB.ComboBox cmbMoveList 
          Height          =   315
@@ -108,7 +108,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1455
          Left            =   240
          TabIndex        =   19
-         Top             =   1920
+         Top             =   2040
          Width           =   4695
          Begin VB.CheckBox chkLevelUp 
             Caption         =   "Level Up"
@@ -166,7 +166,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1695
          Left            =   240
          TabIndex        =   12
-         Top             =   1920
+         Top             =   2040
          Visible         =   0   'False
          Width           =   5535
          Begin VB.CheckBox chkAutoCatch 
@@ -269,7 +269,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1215
          Left            =   240
          TabIndex        =   28
-         Top             =   1920
+         Top             =   2040
          Visible         =   0   'False
          Width           =   5535
          Begin VB.ComboBox cmbKeyItemType 

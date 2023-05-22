@@ -256,17 +256,6 @@ Public Sub DrawInvItemDesc()
     ItemName = "~ " & Trim$(Item(PlayerInv(InvItemDesc).Num).Name) & " ~"
     DescString = Trim$(Item(PlayerInv(InvItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
 
-    '//ID CASH ICON 527
-    '//ID MONEY ICON 526
-    Dim IDValue As Integer
-
-    If Item(PlayerInv(InvItemDesc).Num).IsCash = NO Then
-        ItemPrice = "Price: " & Int(Item(PlayerInv(InvItemDesc).Num).Price / 2)
-        IDValue = 526
-    Else
-        ItemPrice = "Price: Non Sellable"
-    End If
-
     '//Make sure that loading text have something to draw
     If Len(DescString) < 0 Then Exit Sub
 
@@ -285,12 +274,15 @@ Public Sub DrawInvItemDesc()
 
     RenderText Font_Default, ItemName, GUI(GuiEnum.GUI_INVENTORY).X + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
 
+    If Item(PlayerInv(InvItemDesc).Num).IsCash = NO Then
+        ItemPrice = "Price: " & Int(Item(PlayerInv(InvItemDesc).Num).Price / 2)
+        RenderTexture Tex_Item(IDMoney), GUI(GuiEnum.GUI_INVENTORY).X - 20 + (GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 150 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDMoney)), GetPicHeight(Tex_Item(IDMoney))
+    Else
+        ItemPrice = "Price: Non Sellable"
+    End If
+    
     RenderText Font_Default, ItemPrice, GUI(GuiEnum.GUI_INVENTORY).X + (GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 150 + ((219 * 0.5) - (SizeY * 0.5)), White
     
-    ' Renderizar apenas se puder vendê-lo!
-    If IDValue > 0 Then
-        RenderTexture Tex_Item(IDValue), GUI(GuiEnum.GUI_INVENTORY).X - 20 + (GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 150 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDValue)), GetPicHeight(Tex_Item(IDValue))
-    End If
     '//Reset
     yOffset = 25
     '//Loop to all items

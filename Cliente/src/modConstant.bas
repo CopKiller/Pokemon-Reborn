@@ -272,3 +272,9 @@ Public Const ControlScrollEndY As Byte = 156
 ' Quantidade da lista de resolução
 Public Const MAX_RESOLUTION_LIST As Integer = 6
 
+'//Items texture ID
+Public Const IDMoney As Integer = 526
+Public Const IDCash As Integer = 527
+
+'//Poke using a Item Texture
+Public Const PokeUseHeld As Integer = 531

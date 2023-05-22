@@ -3075,6 +3075,10 @@ Dim AddY As Long
             '//Icon
             If Pokemon(PlayerPokemons(i).Num).Sprite > 0 And Pokemon(PlayerPokemons(i).Num).Sprite <= Count_PokemonIcon Then
                 RenderTexture Tex_PokemonIcon(Pokemon(PlayerPokemons(i).Num).Sprite), X + 1, Y + 1, initAnim * 32, 0, 32, 32, 32, 32, D3DColorARGB(Alpha, 255, 255, 255)
+            '//Poke Using item texture
+                If PlayerPokemons(i).HeldItem > 0 And PlayerPokemons(i).HeldItem <= MAX_ITEM Then
+                    RenderTexture Tex_Item(PokeUseHeld), X - 2, Y - 2, 0, 0, 18, 18, 24, 24, D3DColorARGB(Alpha, 255, 255, 255)
+                End If
             End If
         End If
     Next
@@ -3551,13 +3555,11 @@ Dim pricetext As String
                     '//Price
                     '//ToDo: Convert, 1k, 1m , etc.
                     pricetext = Item(Shop(ShopNum).ShopItem(i).Num).Price
-                    '//ID CASH ICON 527
-                    '//ID MONEY ICON 526
-                    Dim IDValue As Integer
+  
                     If Item(Shop(ShopNum).ShopItem(i).Num).IsCash = YES Then
-                        IDValue = 527
+                        IDValue = IDCash
                     Else
-                        IDValue = 526
+                        IDValue = IDMoney
                     End If
                     
                     
@@ -3867,7 +3869,8 @@ Dim i As Long, setStat As Byte
                         
                         ' Held Item
                         If PlayerPokemons(SummarySlot).HeldItem > 0 Then
-                            RenderText Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name), .X + 5 + ((104 / 2) - (GetTextWidth(Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, White
+                            RenderText Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, DarkBrown
+                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 2) - (GetTextWidth(Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
                         End If
                     End If
                 Case 2
@@ -4526,16 +4529,6 @@ Public Sub DrawStorageItemDesc()
     ItemName = "~ " & Trim$(Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Name) & " ~"
     DescString = Trim$(Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
 
-    '//ID CASH ICON 527
-    '//ID MONEY ICON 526
-    Dim IDValue As Integer
-    If Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).IsCash = NO Then
-        ItemPrice = "Price: " & Int((Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Price / 2))
-        IDValue = 526
-    Else
-        ItemPrice = "Price: Non Sellable"
-    End If
-
     '//Make sure that loading text have something to draw
     If Len(DescString) < 0 Then Exit Sub
 
@@ -4554,12 +4547,14 @@ Public Sub DrawStorageItemDesc()
 
     RenderText Font_Default, ItemName, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
     
-    RenderText Font_Default, ItemPrice, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), White
-
-    ' Renderizar apenas se puder vendê-lo!
-    If IDValue > 0 Then
-        RenderTexture Tex_Item(IDValue), CursorX + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDValue)), GetPicHeight(Tex_Item(IDValue))
+    If Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).IsCash = NO Then
+        ItemPrice = "Price: " & Int((Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Price / 2))
+        RenderTexture Tex_Item(IDMoney), CursorX + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDMoney)), GetPicHeight(Tex_Item(IDMoney))
+    Else
+        ItemPrice = "Price: Non Sellable"
     End If
+    
+    RenderText Font_Default, ItemPrice, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), White
     
     '//Reset
     yOffset = 25
