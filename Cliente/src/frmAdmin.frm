@@ -119,6 +119,7 @@ Begin VB.Form frmAdmin
          Height          =   285
          Left            =   2400
          TabIndex        =   63
+         Text            =   "0"
          Top             =   3840
          Width           =   1575
       End
@@ -705,8 +706,9 @@ Private Sub cmdAtt_Click()
                 AddText "Adicione um ID maior que zero.", brighred
                 Exit Sub
             End If
-
-            SendGivePokemonTo Player(MyIndex).Name, scrlAPoke, txtAmount, chkAShiny, chkAIv, txtANature
+            
+            
+            SendGivePokemonTo Trim$(Player(MyIndex).Name), scrlAPoke, CLng(txtAmount), chkAShiny, chkAIv, CLng(txtANature.Text)
         Else
             AddText "Invalid command!", BrightRed
             Exit Sub
@@ -1093,6 +1095,11 @@ Private Sub txtAItem_Change()
 End Sub
 
 Private Sub txtANature_Change()
+    
+    If txtANature = vbNullString Then
+        txtANature = 0
+    End If
+    
     If Not IsNumeric(txtANature) Then
         Call AddText("Adicione apenas numeros", BrightRed)
         Exit Sub

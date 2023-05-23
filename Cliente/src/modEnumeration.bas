@@ -277,7 +277,7 @@ Public Enum StatEnum
     Stat_Count
 End Enum
 
-'//Types
+'//Types of Database
 Public Enum PokemonType
     typeNone = 0
     typeNormal

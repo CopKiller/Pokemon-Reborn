@@ -74,6 +74,7 @@ Public Tex_Animation() As Long
 Public Tex_Weather() As Long
 Public Tex_PokemonPortrait() As Long
 Public Tex_ShinyPokemonPortrait() As Long
+Public Tex_PokemonTypes() As Long
 
 '//Texture Count
 Public Count_System As Long
@@ -94,6 +95,7 @@ Public Count_Animation As Long
 Public Count_Weather As Long
 Public Count_PokemonPortrait As Long
 Public Count_ShinyPokemonPortrait As Long
+Public Count_PokemonTypes As Long
 
 '//Texture Path
 Public Const Texture_Path As String = "\data\themes\"
@@ -111,6 +113,7 @@ Public Const PokemonIcon_Path As String = "\data\resources\pokemon\"
 Public Const Animation_Path As String = "\data\resources\animation\"
 Public Const Weather_Path As String = "\data\resources\weather\"
 Public Const PokemonPortrait_Path As String = "\data\resources\pokemon\portrait\"
+Public Const PokemonTypes_Path As String = "\data\resources\poke-types\"
 
 '//Global
 Private Const MenuUi_Texture As Byte = 1
@@ -838,6 +841,27 @@ Dim TextureName As String
         For i = 1 To Count_ShinyPokemonPortrait
             Tex_ShinyPokemonPortrait(i) = SetTexturePath(App.Path & PokemonPortrait_Path & i & "s" & GFX_EXT)
         Next
+    End If
+    
+    ' *********************
+    ' ** PokemonTypes *****
+    ' *********************
+    '//Let's start counting at 1
+    Count_PokemonTypes = 0
+    Do While FileExist(App.Path & PokemonTypes_Path & Count_PokemonTypes & GFX_EXT)
+        '//If file exist, let's check the other count
+        Count_PokemonTypes = Count_PokemonTypes + 1
+    Loop
+    '//If it reach at this point, it means that the file on the certain count is missing so we must remove it
+    Count_PokemonTypes = Count_PokemonTypes
+    '//Make sure that we have texture to set
+    If Count_PokemonTypes >= 0 Then
+        '//Set texture range
+        ReDim Tex_PokemonTypes(0 To Count_PokemonTypes - 1)
+        '//Set the path range to GlobalTexture
+        For i = 0 To Count_PokemonTypes - 1
+            Tex_PokemonTypes(i) = SetTexturePath(App.Path & PokemonTypes_Path & i & GFX_EXT)
+        Next i
     End If
 End Sub
 
@@ -3028,14 +3052,14 @@ End Sub
 
 '//Hud
 Private Sub DrawHud()
-Dim X As Long, Y As Long
-Dim i As Byte
-Dim Alpha As Byte
-Dim bWidth As Long
-Dim expWidth As Long
-Dim initAnim As Byte
-Dim Sprite As Long
-Dim AddY As Long
+    Dim X As Long, Y As Long
+    Dim i As Byte
+    Dim Alpha As Byte
+    Dim bWidth As Long
+    Dim expWidth As Long
+    Dim initAnim As Byte
+    Dim Sprite As Long
+    Dim AddY As Long
 
     If Editor = EDITOR_MAP Then Exit Sub
 
@@ -3044,8 +3068,8 @@ Dim AddY As Long
     For i = 1 To MAX_PLAYER_POKEMON
         If PlayerPokemons(i).Num > 0 Then
             X = Screen_Width - 34 - 5 - ((i - 1) * 40)
-            Y = 62 '+ 52 + ((i - 1) * 40)
-            
+            Y = 62    '+ 52 + ((i - 1) * 40)
+
             If PlayerPokemons(i).CurHP <= 0 Then
                 Alpha = 150
                 initAnim = 0
@@ -3058,56 +3082,64 @@ Dim AddY As Long
                     Else
                         If CursorX >= X And CursorX <= X + 34 And CursorY >= Y And CursorY <= Y + 37 Then
                             IsHovering = True
-                            MouseIcon = 1 '//Select
+                            MouseIcon = 1    '//Select
                         End If
                     End If
                 Else
                     If CursorX >= X And CursorX <= X + 34 And CursorY >= Y And CursorY <= Y + 37 Then
                         IsHovering = True
-                        MouseIcon = 1 '//Select
+                        MouseIcon = 1    '//Select
                     End If
                 End If
             End If
-            
+
             '//Draw box
             RenderTexture Tex_Gui(Hud), X, Y, 203, 38, 34, 37, 34, 37, D3DColorARGB(Alpha, 255, 255, 255)
-            
+
             '//Icon
             If Pokemon(PlayerPokemons(i).Num).Sprite > 0 And Pokemon(PlayerPokemons(i).Num).Sprite <= Count_PokemonIcon Then
                 RenderTexture Tex_PokemonIcon(Pokemon(PlayerPokemons(i).Num).Sprite), X + 1, Y + 1, initAnim * 32, 0, 32, 32, 32, 32, D3DColorARGB(Alpha, 255, 255, 255)
-            '//Poke Using item texture
+                '//Poke Using item texture
                 If PlayerPokemons(i).HeldItem > 0 And PlayerPokemons(i).HeldItem <= MAX_ITEM Then
-                    RenderTexture Tex_Item(PokeUseHeld), X - 2, Y - 2, 0, 0, 18, 18, 24, 24, D3DColorARGB(Alpha, 255, 255, 255)
+                    RenderTexture Tex_Item(PokeUseHeld), X - 2, Y - 2, 0, 0, 14, 14, 24, 24, D3DColorARGB(Alpha, 255, 255, 255)
+                End If
+                '//Poke Type texture
+                If Pokemon(PlayerPokemons(i).Num).PrimaryType > 0 Then
+                    RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(i).Num).PrimaryType), X + 2, Y + 30, 0, 0, 14, 14, 22, 23, D3DColorARGB(Alpha, 255, 255, 255)
+                    
+                    If Pokemon(PlayerPokemons(i).Num).SecondaryType > 0 Then
+                        RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(i).Num).SecondaryType), X + 17, Y + 30, 0, 0, 14, 14, 22, 23, D3DColorARGB(Alpha, 255, 255, 255)
+                    End If
                 End If
             End If
         End If
     Next
-    
+
     For i = 1 To MAX_HOTBAR
         X = Screen_Width - 42 - 170 - ((i - 1) * 45)
-        Y = 5 '62 + 37 + 5
+        Y = 5    '62 + 37 + 5
         RenderTexture Tex_Gui(Hud), X, Y, 5, 204, 42, 45, 42, 45
-        
+
         If Player(MyIndex).Hotbar(i) > 0 Then
             '//Draw Icon
             Sprite = Item(Player(MyIndex).Hotbar(i)).Sprite
-            
+
             If Sprite > 0 And Sprite <= Count_Item Then
                 RenderTexture Tex_Item(Sprite), X + 9, Y + 9, 0, 0, 24, 24, 24, 24
             End If
         End If
-            
+
         '//Key Preview
         RenderText Font_Default, GetKeyCodeName(ControlKey(ControlEnum.KeyHotbarSlot1 + (i - 1)).cAsciiKey), X + 5, Y + 18, White
     Next
-    
+
     '//Time Stamp
     RenderTexture Tex_Gui(Hud), Screen_Width - 161 - 5, 5, 44, 134, 161, 52, 161, 52
     '//Map Name
     RenderText Ui_Default, Trim$(Map.Name), Screen_Width - 161 - 5 + 5, 8, White
     '//Server Time
     RenderText Ui_Default, KeepTwoDigit(GameHour) & ":" & KeepTwoDigit(GameMinute) & ":" & KeepTwoDigit(GameSecond), Screen_Width - 161 - 5 + 5, 16 + 8, White
-    
+
     '//Icon
     If GameHour >= 5 And GameHour <= 11 Then
         '//Morning
@@ -3119,31 +3151,31 @@ Dim AddY As Long
         '//Night
         RenderTexture Tex_Gui(Hud), Screen_Width - 161 - 5 + 115, 5 + 2, 212, 85, 44, 44, 44, 44
     End If
-    
+
     '//Pokemon Vital
     If PlayerPokemon(MyIndex).Num > 0 Then
         '//Draw Window
         RenderTexture Tex_Gui(Hud), 5, 5, 0, 3, 171, 82, 171, 82
-        
+
         '//Icon
         If Pokemon(PlayerPokemon(MyIndex).Num).Sprite > 0 And Pokemon(PlayerPokemon(MyIndex).Num).Sprite < Count_PokemonIcon Then
             RenderTexture Tex_PokemonIcon(Pokemon(PlayerPokemon(MyIndex).Num).Sprite), 6, 3, MapAnim * 32, 0, 32, 32, 32, 32
         End If
-        
+
         '//Name
         RenderText Font_Default, Trim$(Pokemon(PlayerPokemon(MyIndex).Num).Name), 48, 25, White
-        
+
         '//Level
         If PlayerPokemon(MyIndex).Slot > 0 Then
             RenderText Font_Default, "Lv" & (PlayerPokemons(PlayerPokemon(MyIndex).Slot).Level), 135, 25, White
         End If
-        
+
         '//HP
         If PlayerPokemons(PlayerPokemon(MyIndex).Slot).MaxHP > 0 Then
             bWidth = ((PlayerPokemons(PlayerPokemon(MyIndex).Slot).CurHP / 135) / (PlayerPokemons(PlayerPokemon(MyIndex).Slot).MaxHP / 135)) * 135
             RenderTexture Tex_Gui(Hud), 5 + 25, 5 + 44, 7, 97, bWidth, 13, 135, 13, D3DColorARGB(255, 31, 161, 69)
         End If
-            
+
         '//Exp
         If PlayerPokemons(PlayerPokemon(MyIndex).Slot).NextExp > 0 Then
             bWidth = ((PlayerPokemons(PlayerPokemon(MyIndex).Slot).CurExp / 142) / (PlayerPokemons(PlayerPokemon(MyIndex).Slot).NextExp / 142)) * 142
@@ -3151,7 +3183,7 @@ Dim AddY As Long
             RenderTexture Tex_Gui(Hud), 5 + 18, 5 + 60, 7, 111, 142 - expWidth, 7, 142 - expWidth, 7
         End If
     End If
-    
+
     '//Party
     If InParty > 0 Then
         '//Party Member
@@ -3388,15 +3420,18 @@ Private Sub DrawPokemonStorage()
                     '//Icon
                     If Sprite > 0 And Sprite < Count_PokemonIcon Then
                         RenderTexture Tex_PokemonIcon(Sprite), DrawX, DrawY, MapAnim * 32, 0, 32, 32, 32, 32
+
+                        If PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem > 0 And PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem <= MAX_ITEM Then
+                            RenderTexture Tex_Item(PokeUseHeld), DrawX + 20, DrawY - 2, 0, 0, 14, 14, 24, 24
+                        End If
                     End If
 
                     RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
                 End If
             End If
-            
+
             ' Using in PokeStorage to select Pokes.
             If IsPokemonSelected(i) Then
-                'RenderTexture Tex_System(gSystemEnum.CursorLoad), GetPokemonSelectedX(i), GetPokemonSelectedY(i), 0, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
                 RenderTexture Tex_Misc(Misc_PokeSelect), GetPokemonSelectedX(i), GetPokemonSelectedY(i) - 7, 0, 0, 26, 20, 26, 20
             End If
         Next
@@ -3871,6 +3906,13 @@ Dim i As Long, setStat As Byte
                         If PlayerPokemons(SummarySlot).HeldItem > 0 Then
                             RenderText Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, DarkBrown
                             RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 2) - (GetTextWidth(Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
+                        End If
+                        
+                        If Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType > 0 Then
+                            RenderTexture Tex_PokemonTypes(0), .X + ((35 / 2)), .Y + 125, ((32) * (((Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType - 1) Mod 4))), ((14) * ((Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType) \ 5)), 32, 14, 32, 14
+                            If Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType > 0 Then
+                                RenderTexture Tex_PokemonTypes(0), .X + ((135 / 2)), .Y + 125, ((32) * (((Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType - 1) Mod 4))), ((14) * ((Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType) \ 5)), 32, 14, 32, 14
+                            End If
                         End If
                     End If
                 Case 2
