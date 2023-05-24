@@ -493,6 +493,7 @@ Dim z As Long
     PingVisible = GameSetting.ShowPing
     tSkipBootUp = GameSetting.SkipBootUp
     Namevisible = GameSetting.ShowName
+    PPBarvisible = GameSetting.ShowPP
     GuiPath = Trim$(GameSetting.ThemePath)
     tmpCurLanguage = GameSetting.CurLanguage
     
@@ -553,6 +554,9 @@ Dim restartToChange As Boolean
     
     '//Name
     GameSetting.ShowName = Namevisible
+    
+    '//PP Bar
+    GameSetting.ShowPP = PPBarvisible
     
     '//Language
     If tmpCurLanguage <> GameSetting.CurLanguage Then

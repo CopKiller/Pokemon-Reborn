@@ -63,6 +63,7 @@ Public Sub Language()
             TextUIOptionsPing = "Mostra o ping"
             TextUIOptionsFast = "Início Rápido"
             TextUIOptionName = "Mostrar Nome"
+            TextUIOptionPP = "Mostrar PP Bar ao atacar"
             TextUIOptionLanguage = "Tradução: "
             TextUIOptionUp = "Subir"
             TextUIOptionDown = "Abaixo"

@@ -154,6 +154,7 @@ Public FPSvisible As Byte
 Public PingVisible As Byte
 Public tSkipBootUp As Byte
 Public Namevisible As Byte
+Public PPBarvisible As Byte
 Public GuiPath As String
 Public GuiPathEdit As Boolean
 Public BGVolume As Byte
@@ -405,6 +406,7 @@ Public TextUIOptionName As String
 Public TextUIOptionLanguage As String
 Public TextUIOptionMusic As String
 Public TextUIOptionSound As String
+Public TextUIOptionPP As String
 ' Controles
 Public TextUIOptionUp As String
 Public TextUIOptionDown As String

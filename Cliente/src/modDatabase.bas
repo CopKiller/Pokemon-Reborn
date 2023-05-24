@@ -75,6 +75,7 @@ Dim FileName As String
         .ShowFPS = GetVar(FileName, "Other", "ShowFPS")
         .ShowPing = GetVar(FileName, "Other", "ShowPing")
         .ShowName = GetVar(FileName, "Other", "ShowName")
+        .ShowPP = GetVar(FileName, "Other", "ShowPP")
 
         '//Account
         .Username = Trim$(GetVar(FileName, "Account", "Username"))
@@ -127,6 +128,7 @@ Dim FileName As String
         Call PutVar(FileName, "Other", "ShowFPS", Str(.ShowFPS))
         Call PutVar(FileName, "Other", "ShowPing", Str(.ShowPing))
         Call PutVar(FileName, "Other", "ShowName", Str(.ShowName))
+        Call PutVar(FileName, "Other", "ShowPP", Str(.ShowPP))
         
         '//Account
         Call PutVar(FileName, "Account", "Username", Trim$(.Username))

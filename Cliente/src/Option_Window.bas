@@ -162,13 +162,22 @@ Dim X As Long
                 End If
                 If Namevisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 130, 52, 403 + 34, 17, 17, 17, 17
                 
+                ' Desenha o PPBar
+                RenderText Font_Default, TextUIOptionPP, .X + PaddingLeft + 25, .Y + 150, D3DColorARGB(255, 229, 229, 229), False
+                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 150 And CursorY <= .Y + 150 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
+                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 150, 52, 403 + 17, 17, 17, 17, 17
+                Else
+                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 150, 52, 403, 17, 17, 17, 17
+                End If
+                If PPBarvisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 150, 52, 403 + 34, 17, 17, 17, 17
+                
                 ' Desenha a tradução
-                RenderText Font_Default, TextUIOptionLanguage, .X + PaddingLeft, .Y + 160 + 4, D3DColorARGB(255, 229, 229, 229), False
+                RenderText Font_Default, TextUIOptionLanguage, .X + PaddingLeft, .Y + 190 + 4, D3DColorARGB(255, 229, 229, 229), False
                 For i = 1 To MAX_LANGUAGE
                     If (tmpCurLanguage + 1) = i Then
-                        RenderTexture Tex_Misc(Misc_Language), .X + 80 + PaddingLeft + ((i - 1) * 55), .Y + 160, 0, 25 * (i - 1), 45, 25, 45, 25, D3DColorARGB(255, 255, 255, 255)
+                        RenderTexture Tex_Misc(Misc_Language), .X + 80 + PaddingLeft + ((i - 1) * 55), .Y + 190, 0, 25 * (i - 1), 45, 25, 45, 25, D3DColorARGB(255, 255, 255, 255)
                     Else
-                        RenderTexture Tex_Misc(Misc_Language), .X + 80 + PaddingLeft + ((i - 1) * 55), .Y + 160, 0, 25 * (i - 1), 45, 25, 45, 25, D3DColorARGB(100, 255, 255, 255)
+                        RenderTexture Tex_Misc(Misc_Language), .X + 80 + PaddingLeft + ((i - 1) * 55), .Y + 190, 0, 25 * (i - 1), 45, 25, 45, 25, D3DColorARGB(100, 255, 255, 255)
                     End If
                 Next
             
@@ -379,6 +388,17 @@ Dim curResolution As Long
                     setDidChange = True
                 End If
                 
+                '//PP Bar
+                tmpX = 105: tmpY = 150
+                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
+                    If PPBarvisible = YES Then
+                        PPBarvisible = NO
+                    Else
+                        PPBarvisible = YES
+                    End If
+                    setDidChange = True
+                End If
+                
             Case ButtonEnum.Option_Control
                 
                 For i = 1 To MAX_CONTROL_PREV
@@ -504,6 +524,13 @@ Dim Count As Long
                 
                 '//Show Name
                 tmpX = 105: tmpY = 130
+                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
+                    IsHovering = True
+                    MouseIcon = 1 '//Select
+                End If
+                
+                '//Show PP
+                tmpX = 105: tmpY = 150
                 If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
                     IsHovering = True
                     MouseIcon = 1 '//Select
