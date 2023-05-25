@@ -17,7 +17,7 @@ Dim SetWidth As Long
     CurServerList = 1
     
     ServerName(1) = "Pokenew SA"
-    ServerIP(1) = "pokerpg.ddns.net"
+    ServerIP(1) = "localhost"
     ServerPort(1) = 8001
     
     ServerName(2) = "Pokenew NA"

@@ -251,6 +251,11 @@ Dim TickFPS As Long, FPS As Long
                 MapFrameAnim = 0
             End If
                 
+            ShinySummaryStep = ShinySummaryStep + 1
+            If ShinySummaryStep > 2 Then
+                ShinySummaryStep = 0
+            End If
+            
             Tmr250 = Tick + 200
         End If
         

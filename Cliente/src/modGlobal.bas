@@ -175,6 +175,10 @@ Public TmpKey(1 To ControlEnum.Control_Count - 1) As Long
 '//Menu
 Public WaitTimer As Long
 
+'//Shiny-Summary
+Public ShinySummaryStep As Byte
+Public ShinySummaryTmr As Long
+
 '//Map
 Public MapAnim As Byte
 Public MapFrameAnim As Long
