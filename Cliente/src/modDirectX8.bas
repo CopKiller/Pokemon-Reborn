@@ -4046,7 +4046,7 @@ Private Sub DrawPokemonSummary()
 
                         ' Moves Name tab
                         For i = 1 To 4
-                            MoveNum = PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num
+                            MoveNum = PlayerPokemonStorage(SummaryData).Data(SummarySlot).Moveset(i).Num
                             If MoveNum > 0 Then
                                 ' Degrade
                                 RenderTexture Tex_Gui(Hud), .X + 8, .Y + 195 + (i * 30 - 32), 59, 241, 105, 28, 165, 1
@@ -4144,7 +4144,7 @@ Private Sub DrawPokemonSummary()
 
                         ' Moves Name tab
                         For i = 1 To 4
-                            MoveNum = YourTrade.Data(SummarySlot).Num
+                            MoveNum = YourTrade.Data(SummarySlot).Moveset(i).Num
                             If MoveNum > 0 Then
                                 ' Degrade
                                 RenderTexture Tex_Gui(Hud), .X + 8, .Y + 195 + (i * 30 - 32), 59, 241, 105, 28, 165, 1
@@ -4241,7 +4241,7 @@ Private Sub DrawPokemonSummary()
 
                         ' Moves Name tab
                         For i = 1 To 4
-                            MoveNum = TheirTrade.Data(SummarySlot).Num
+                            MoveNum = TheirTrade.Data(SummarySlot).Moveset(i).Num
                             If MoveNum > 0 Then
                                 ' Degrade
                                 RenderTexture Tex_Gui(Hud), .X + 8, .Y + 195 + (i * 30 - 32), 59, 241, 105, 28, 165, 1

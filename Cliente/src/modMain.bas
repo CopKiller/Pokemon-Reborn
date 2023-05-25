@@ -127,9 +127,21 @@ Dim SetWidth As Long
     User = vbNullString: Pass = vbNullString '//Reset
     GuiState GUI_LOGIN, True
     
+    CentralizeWindow frmMain
+    
     ForceExit = False
     AppRunning = True   '//Make sure that our application is actually running
     AppLoop             '//Start the loop
+End Sub
+
+Private Sub CentralizeWindow(ByRef Form As Form)
+    Form.Left = (Screen.Width / 2) - (Form.Width / 2)
+    
+    If GameSetting.Width > 800 Then
+        Form.top = 0
+    Else
+        Form.top = (Screen.Height / 2) - (Form.Height / 2)
+    End If
 End Sub
 
 Sub UnloadMain()
