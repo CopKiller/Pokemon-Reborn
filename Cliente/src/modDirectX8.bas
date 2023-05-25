@@ -1483,9 +1483,9 @@ Dim AddY As Long
                             Button(i).State = ButtonState.StateClick
                         End If
                     Case ButtonEnum.Game_Clan
-                        If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
-                            Button(i).State = ButtonState.StateClick
-                        End If
+                        'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
+                        '    Button(i).State = ButtonState.StateClick
+                        'End If
                     Case ButtonEnum.Game_Task
                         If GUI(GuiEnum.GUI_RANK).Visible Then
                             Button(i).State = ButtonState.StateClick
@@ -1518,7 +1518,7 @@ Dim AddY As Long
                             Case GuiEnum.GUI_POKEMONSUMMARY: DrawPokemonSummary
                             Case GuiEnum.GUI_RELEARN: DrawRelearn
                             Case GuiEnum.GUI_BADGE: DrawBadge
-                            Case GuiEnum.GUI_SLOTMACHINE: DrawSlotMachine
+                            'Case GuiEnum.GUI_SLOTMACHINE: DrawSlotMachine
                             Case GuiEnum.GUI_RANK: DrawRank
                         End Select
                     End If
@@ -3134,10 +3134,11 @@ Private Sub DrawHud()
         End If
     Next
 
+    Alpha = 100
     For i = 1 To MAX_HOTBAR
         X = Screen_Width - 42 - 170 - ((i - 1) * 45)
         Y = 5    '62 + 37 + 5
-        RenderTexture Tex_Gui(Hud), X, Y, 5, 204, 42, 45, 42, 45
+        RenderTexture Tex_Gui(Hud), X, Y, 5, 204, 42, 45, 42, 45, D3DColorARGB(Alpha, 255, 255, 255)
 
         If Player(MyIndex).Hotbar(i) > 0 Then
             '//Draw Icon
@@ -3149,7 +3150,7 @@ Private Sub DrawHud()
         End If
 
         '//Key Preview
-        RenderText Font_Default, GetKeyCodeName(ControlKey(ControlEnum.KeyHotbarSlot1 + (i - 1)).cAsciiKey), X + 5, Y + 18, White
+        RenderText Font_Default, GetKeyCodeName(ControlKey(ControlEnum.KeyHotbarSlot1 + (i - 1)).cAsciiKey), X + 5, Y + 25, White
     Next
 
     '//Time Stamp

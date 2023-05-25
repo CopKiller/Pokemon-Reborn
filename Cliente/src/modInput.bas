@@ -652,11 +652,11 @@ Dim Column As Long
                                                 Exit For
                                             End If
                                         Case GuiEnum.GUI_SLOTMACHINE
-                                            If Not DidClick Then
-                                                SlotMachineMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
+                                            'If Not DidClick Then
+                                                'SlotMachineMouseDown Buttons, Shift, X, Y
+                                                'DidClick = True
+                                               ' Exit For
+                                            'End If
                                         Case GuiEnum.GUI_RANK
                                             If Not DidClick Then
                                                 RankMouseDown Buttons, Shift, X, Y
@@ -823,9 +823,9 @@ Dim Column As Long
                                                 PreventAction = True
                                             End If
                                         Case ButtonEnum.Game_Clan
-                                            If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
-                                                PreventAction = True
-                                            End If
+                                            'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
+                                            '    PreventAction = True
+                                           ' End If
                                         Case ButtonEnum.Game_Task
                                             If GUI(GuiEnum.GUI_RANK).Visible Then
                                                 PreventAction = True
@@ -972,7 +972,7 @@ Dim PreventAction As Boolean
                             Case GuiEnum.GUI_POKEMONSUMMARY:    PokemonSummaryMouseMove Buttons, Shift, X, Y
                             Case GuiEnum.GUI_RELEARN:           RelearnMouseMove Buttons, Shift, X, Y
                             Case GuiEnum.GUI_BADGE:             BadgeMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_SLOTMACHINE:       SlotMachineMouseMove Buttons, Shift, X, Y
+                            'Case GuiEnum.GUI_SLOTMACHINE:       SlotMachineMouseMove Buttons, Shift, X, Y
                             Case GuiEnum.GUI_RANK:              RankMouseMove Buttons, Shift, X, Y
                         End Select
                     End If
@@ -1016,9 +1016,9 @@ Dim PreventAction As Boolean
                                             PreventAction = True
                                         End If
                                     Case ButtonEnum.Game_Clan
-                                        If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
-                                            PreventAction = True
-                                        End If
+                                        'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
+                                        '    PreventAction = True
+                                        'End If
                                     Case ButtonEnum.Game_Task
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
                                             PreventAction = True
@@ -1110,7 +1110,7 @@ Dim x2 As Long, Y2 As Long
                                 Case GuiEnum.GUI_POKEMONSUMMARY:    PokemonSummaryMouseUp Buttons, Shift, X, Y
                                 Case GuiEnum.GUI_RELEARN:           RelearnMouseUp Buttons, Shift, X, Y
                                 Case GuiEnum.GUI_BADGE:             BadgeMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_SLOTMACHINE:       SlotMachineMouseUp Buttons, Shift, X, Y
+                                'Case GuiEnum.GUI_SLOTMACHINE:       SlotMachineMouseUp Buttons, Shift, X, Y
                                 Case GuiEnum.GUI_RANK:              RankMouseUp Buttons, Shift, X, Y
                             End Select
                         End If
@@ -1149,9 +1149,9 @@ Dim x2 As Long, Y2 As Long
                                             PreventAction = True
                                         End If
                                     Case ButtonEnum.Game_Clan
-                                        If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
-                                            PreventAction = True
-                                        End If
+                                        'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
+                                        '    PreventAction = True
+                                        'End If
                                     Case ButtonEnum.Game_Task
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
                                             PreventAction = True
@@ -1180,9 +1180,9 @@ Dim x2 As Long, Y2 As Long
                                                     GuiState GUI_TRAINER, True
                                                 End If
                                             Case ButtonEnum.Game_Task
-                                                If GUI(GuiEnum.GUI_SLOTMACHINE).Visible = False Then
-                                                    GuiState GUI_SLOTMACHINE, True
-                                                End If
+                                                'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible = False Then
+                                                '    GuiState GUI_SLOTMACHINE, True
+                                                'End If
                                             Case ButtonEnum.Game_Clan
                                                 If GUI(GuiEnum.GUI_RANK).Visible = False Then
                                                     SendRequestRank
