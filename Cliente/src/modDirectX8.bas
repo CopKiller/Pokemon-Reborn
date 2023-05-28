@@ -1196,7 +1196,7 @@ Public Sub Render_Screen()
     '//Check for Game State
     Select Case GameState
         Case GameStateEnum.InMenu: Render_Menu
-        Case GameStateEnum.InGame: Render_Game
+        Case GameStateEnum.ingame: Render_Game
     End Select
     
     RenderText Font_Default, PingToDraw, 10, 10, White
@@ -1221,7 +1221,12 @@ Public Sub Render_Screen()
     
     '//FPS
     If GameSetting.ShowFPS = YES Then
-        RenderText Font_Default, "FPS: " & GameFps, 10, 10, White
+        RenderText Font_Default, "FPS: " & GameFps, 10, 80, White
+    End If
+    
+    '//EventExp
+    If ExpMultiply > 0 Then
+        
     End If
     
     '//Cursor
@@ -1259,19 +1264,19 @@ End Sub
 
 '//This render all graphics in-game
 Private Sub Render_Game()
-Dim X As Long, Y As Long
-Dim i As Long
-Dim AddY As Long
+    Dim X As Long, Y As Long
+    Dim i As Long
+    Dim Addy As Long
 
     '//Optional: If GettingMap, Show a getting map screen, Other: Just pure black
     'If GettingMap Then Exit Sub '//PURE BLACK
     If Not GettingMap Then
         '//Updating ViewPort
         UpdateCamera
-        
+
         '//reset
-        AddY = 0
-        
+        Addy = 0
+
         '//Lower Tiles
         For X = TileView.Left To TileView.Right
             For Y = TileView.top To TileView.bottom
@@ -1288,16 +1293,16 @@ Dim AddY As Long
                 End If
             Next
         Next
-        
+
         '//Lower Animation
         If Count_Animation > 0 Then
             For i = 1 To 255
                 If AnimInstance(i).Used(0) Then
-                    DrawAnimation i, 0 ' 0 = Lower Layer
+                    DrawAnimation i, 0    ' 0 = Lower Layer
                 End If
             Next
         End If
-        
+
         '//Sprite/Objects
         For Y = 0 To Map.MaxY
             If Player_HighIndex > 0 Then
@@ -1355,7 +1360,7 @@ Dim AddY As Long
                 Next
             End If
         Next
-        
+
         '//Upper Tiles
         For X = TileView.Left To TileView.Right
             For Y = TileView.top To TileView.bottom
@@ -1364,22 +1369,22 @@ Dim AddY As Long
                 Next
             Next
         Next
-        
+
         '//Upper Animation
         If Count_Animation > 0 Then
             For i = 1 To 255
                 If AnimInstance(i).Used(1) Then
-                    DrawAnimation i, 1 ' 1 = Upper Layer
+                    DrawAnimation i, 1    ' 1 = Upper Layer
                 End If
             Next
         End If
-        
+
         '//Upper Tiles
         '//Night Lights
         If Map.Sheltered = 0 Then
             '//Day And Night
             If Editor <> EDITOR_MAP Then RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, DayAndNightARGB
-            
+
             If ShowLights Or (Editor = EDITOR_MAP And CurLayer = MapLayer.Lights) Then
                 If Editor = EDITOR_MAP Then
                     If CurLayer = MapLayer.Lights Then
@@ -1387,21 +1392,21 @@ Dim AddY As Long
                         LightAlpha = 255
                     End If
                 End If
-                
+
                 For X = TileView.Left To TileView.Right
                     For Y = TileView.top To TileView.bottom
                         DrawMapTile MapLayer.Lights, X, Y, LightAlpha
                     Next
                 Next
             End If
-            
+
             '//Weather
             DrawWeather
         End If
-        
+
         '//Bar
         DrawVitalBar
-        
+
         '//Name
         If GameSetting.ShowName = YES Then
             For i = 1 To Player_HighIndex
@@ -1432,73 +1437,79 @@ Dim AddY As Long
                 End If
             Next
         End If
-        
+
         '//Chatbubble
         For i = 1 To 255
             If chatBubble(i).active Then
                 DrawChatBubble i
             End If
-            
+
             DrawActionMsg i
         Next
-    
+
         '//Editor
         If Editor = EDITOR_MAP Then
             DrawMapAttributes
         End If
-        
+
         '//Loc
         If ShowLoc Then
-            If GameSetting.ShowFPS = YES Then AddY = AddY + 15
-            If GameSetting.ShowPing = YES Then AddY = AddY + 15
-            
-            RenderText Font_Default, "[Player Position]", 10, AddY + 10, White
-            RenderText Font_Default, "Map#: " & Player(MyIndex).Map, 10, AddY + 25, White
-            RenderText Font_Default, "X: " & Player(MyIndex).X & " Y: " & Player(MyIndex).Y, 10, AddY + 40, White
-            RenderText Font_Default, "[Cursor Position]", 10, AddY + 55, White
-            RenderText Font_Default, "Cursor X: " & CursorX & " Cursor Y: " & CursorY, 10, AddY + 70, White
-            RenderText Font_Default, "Tile X: " & curTileX & " Tile Y: " & curTileY, 10, AddY + 85, White
+            If GameSetting.ShowFPS = YES And GameSetting.ShowPing = YES Then
+                Addy = Addy + 110
+            ElseIf GameSetting.ShowFPS = YES Or GameSetting.ShowPing = YES Then
+                Addy = Addy + 95
+            Else
+                Addy = Addy + 65
+            End If
+            'If GameSetting.ShowPing = YES Then AddY = AddY + 65
+
+            RenderText Font_Default, "[Player Position]", 10, Addy + 10, White
+            RenderText Font_Default, "Map#: " & Player(MyIndex).Map, 10, Addy + 25, White
+            RenderText Font_Default, "X: " & Player(MyIndex).X & " Y: " & Player(MyIndex).Y, 10, Addy + 40, White
+            RenderText Font_Default, "[Cursor Position]", 10, Addy + 55, White
+            RenderText Font_Default, "Cursor X: " & CursorX & " Cursor Y: " & CursorY, 10, Addy + 70, White
+            RenderText Font_Default, "Tile X: " & curTileX & " Tile Y: " & curTileY, 10, Addy + 85, White
         End If
-        
+
         '//Move Selector
         DrawMoveSelector
-        
+
         '//Hud
         DrawHud
-        
+
         '//Buttons
         For i = ButtonEnum.Game_Pokedex To ButtonEnum.Game_Evolve
             If CanShowButton(i) Then
                 Select Case i
-                    Case ButtonEnum.Game_Pokedex
-                        If GUI(GuiEnum.GUI_POKEDEX).Visible Then
-                            Button(i).State = ButtonState.StateClick
-                        End If
-                    Case ButtonEnum.Game_Bag
-                        If GUI(GuiEnum.GUI_INVENTORY).Visible Then
-                            Button(i).State = ButtonState.StateClick
-                        End If
-                    Case ButtonEnum.Game_Card
-                        If GUI(GuiEnum.GUI_TRAINER).Visible Then
-                            Button(i).State = ButtonState.StateClick
-                        End If
-                    Case ButtonEnum.Game_Clan
-                        'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
-                        '    Button(i).State = ButtonState.StateClick
-                        'End If
-                    Case ButtonEnum.Game_Task
-                        If GUI(GuiEnum.GUI_RANK).Visible Then
-                            Button(i).State = ButtonState.StateClick
-                        End If
-                    Case ButtonEnum.Game_Menu
-                        If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
-                            Button(i).State = ButtonState.StateClick
-                        End If
+                Case ButtonEnum.Game_Pokedex
+                    If GUI(GuiEnum.GUI_POKEDEX).Visible Then
+                        Button(i).State = ButtonState.StateClick
+                    End If
+                Case ButtonEnum.Game_Bag
+                    If GUI(GuiEnum.GUI_INVENTORY).Visible Then
+                        Button(i).State = ButtonState.StateClick
+                    End If
+                Case ButtonEnum.Game_Card
+                    If GUI(GuiEnum.GUI_TRAINER).Visible Then
+                        Button(i).State = ButtonState.StateClick
+                    End If
+                Case ButtonEnum.Game_Clan
+                    'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
+                    '    Button(i).State = ButtonState.StateClick
+                    'End If
+                Case ButtonEnum.Game_Task
+                    If GUI(GuiEnum.GUI_RANK).Visible Then
+                        Button(i).State = ButtonState.StateClick
+                    End If
+                Case ButtonEnum.Game_Menu
+                    If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
+                        Button(i).State = ButtonState.StateClick
+                    End If
                 End Select
                 RenderTexture Tex_Gui(GameUi_Texture), Button(i).X, Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
-        
+
         '//zOrdering of gui
         If Not IsLoading Then
             If GuiVisibleCount > 0 Then
@@ -1506,71 +1517,87 @@ Dim AddY As Long
                     If CanShowGui(GuiZOrder(i)) Then
                         '//The first one will be rendered first
                         Select Case GuiZOrder(i)
-                            Case GuiEnum.GUI_CHATBOX: DrawChatbox
-                            Case GuiEnum.GUI_INVENTORY: DrawInventory
-                            Case GuiEnum.GUI_MOVEREPLACE: DrawMoveReplace
-                            Case GuiEnum.GUI_TRAINER: DrawTrainer
-                            Case GuiEnum.GUI_INVSTORAGE: DrawInvStorage
-                            Case GuiEnum.GUI_POKEMONSTORAGE: DrawPokemonStorage
-                            Case GuiEnum.GUI_SHOP: DrawShop
-                            Case GuiEnum.GUI_TRADE: DrawTrade
-                            Case GuiEnum.GUI_POKEDEX: DrawPokedex
-                            Case GuiEnum.GUI_POKEMONSUMMARY: DrawPokemonSummary
-                            Case GuiEnum.GUI_RELEARN: DrawRelearn
-                            Case GuiEnum.GUI_BADGE: DrawBadge
+                        Case GuiEnum.GUI_CHATBOX: DrawChatbox
+                        Case GuiEnum.GUI_INVENTORY: DrawInventory
+                        Case GuiEnum.GUI_MOVEREPLACE: DrawMoveReplace
+                        Case GuiEnum.GUI_TRAINER: DrawTrainer
+                        Case GuiEnum.GUI_INVSTORAGE: DrawInvStorage
+                        Case GuiEnum.GUI_POKEMONSTORAGE: DrawPokemonStorage
+                        Case GuiEnum.GUI_SHOP: DrawShop
+                        Case GuiEnum.GUI_TRADE: DrawTrade
+                        Case GuiEnum.GUI_POKEDEX: DrawPokedex
+                        Case GuiEnum.GUI_POKEMONSUMMARY: DrawPokemonSummary
+                        Case GuiEnum.GUI_RELEARN: DrawRelearn
+                        Case GuiEnum.GUI_BADGE: DrawBadge
                             'Case GuiEnum.GUI_SLOTMACHINE: DrawSlotMachine
-                            Case GuiEnum.GUI_RANK: DrawRank
+                        Case GuiEnum.GUI_RANK: DrawRank
                         End Select
                     End If
                 Next
             End If
         End If
-        
+
         '//Convo
         DrawConvo
-        
+
         '//Icon
         DrawDragIcon
-        
+
         '//SelMenu
         DrawSelMenu
+        
+        '//Events
+        DrawEvents
     Else
         RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, D3DColorARGB(255, 10, 10, 10)
         RenderText Font_Default, "Loading...", Screen_Width - GetTextWidth(Font_Default, "Loading...") - 35, Screen_Height - 25, White
         RenderTexture Tex_System(gSystemEnum.CursorLoad), Screen_Width - 25, Screen_Height - 25, 15 * CursorLoadAnim, 0, 15, 15, 15, 15
     End If
-    
+
     '//reset
-    AddY = 0
-    If GameSetting.ShowFPS = YES Then AddY = AddY + 15
-    
+    Addy = 0
+    If GameSetting.ShowFPS = YES Then Addy = Addy + 15
+
     '//Ping
     If GameSetting.ShowPing = YES Then
-        RenderText Font_Default, "Ping: ", 10, AddY + 10, White
+        RenderText Font_Default, "Ping: ", 10, Addy + 85, White
         If Ping <= 255 Then
-            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, AddY + 10, BrightGreen
+            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, Addy + 85, BrightGreen
         ElseIf Ping >= 256 And Ping <= 600 Then
-            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, AddY + 10, Yellow
+            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, Addy + 85, Yellow
         Else
-            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, AddY + 10, Red
+            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, Addy + 85, Red
         End If
     End If
-    
+
     '//Usage of Item
     If InvUseSlot > 0 Then
         If PlayerInv(InvUseSlot).Num > 0 Then
             i = Item(PlayerInv(InvUseSlot).Num).Sprite
-                
+
             '//Draw Icon
             If i > 0 And i <= Count_Item Then
                 RenderTexture Tex_Item(i), CursorX - (GetPicWidth(Tex_Item(i)) / 2), CursorY - (GetPicHeight(Tex_Item(i)) / 2), 0, 0, GetPicWidth(Tex_Item(i)), GetPicHeight(Tex_Item(i)), GetPicWidth(Tex_Item(i)), GetPicHeight(Tex_Item(i))
             End If
         End If
     End If
-    
+
     DrawInvItemDesc
     DrawShopItemDesc
     DrawStorageItemDesc
+End Sub
+
+Private Sub DrawEvents()
+    Dim Addy As Integer
+    If ExpMultiply > 0 Then
+        Addy = 2
+        RenderTexture Tex_Gui(Hud), 180, Addy, 59, 241, 165, 20, 165, 1
+        RenderText Font_Default, "Evento Exp Mult: " & ExpMultiply & "x", 190, Addy, Yellow
+        Addy = 21
+        
+        RenderTexture Tex_Gui(Hud), 180, Addy, 59, 241, 165, 20, 165, 1, D3DColorARGB(150, 255, 255, 255)
+        RenderText Font_Default, "Timer: " & SecondsToHMS(ExpSecs), 190, Addy, White
+    End If
 End Sub
 
 '//This render all graphics of Menu
@@ -2656,7 +2683,7 @@ Private Sub DrawMoveSelector()
     If Editor = EDITOR_MAP Then Exit Sub
     If PlayerPokemon(MyIndex).Num <= 0 Then Exit Sub
     If PlayerPokemon(MyIndex).Slot <= 0 Then Exit Sub
-    If Not GameState = GameStateEnum.InGame Then Exit Sub
+    If Not GameState = GameStateEnum.ingame Then Exit Sub
     If GettingMap Then Exit Sub
 
     '//Base Location
@@ -2691,12 +2718,25 @@ Private Sub DrawMoveSelector()
                 guiAlpha = 100
             End If
 
-                If SetAttackMove = MoveSlot And GameSetting.ShowPP = YES Or Ctrl_Press Then
-                    RenderTexture Tex_Misc(Misc_MoveSelector), ConvertMapX(mX), ConvertMapY(mY), 24, 152, 136, 32, 136, 32, D3DColorARGB(guiAlpha, 255, 255, 255)
-                    barWidth = ((PlayerPokemons(PlayerPokemon(MyIndex).Slot).Moveset(MoveSlot).CurPP / 115) / (PlayerPokemons(PlayerPokemon(MyIndex).Slot).Moveset(MoveSlot).TotalPP / 115)) * 115
-                    RenderTexture Tex_Misc(Misc_MoveSelector), ConvertMapX(mX) + 9, ConvertMapY(mY), 24, 199, barWidth, 27, 115, 27, D3DColorARGB(guiAlpha, 255, 255, 255)
-                    RenderText Font_Default, Trim$(PokemonMove(MoveNum).Name), ConvertMapX(mX + 17), ConvertMapY(mY + 6), White, , guiAlpha
+            If SetAttackMove = MoveSlot And GameSetting.ShowPP = YES Or Ctrl_Press Then
+
+                RenderTexture Tex_Misc(Misc_MoveSelector), ConvertMapX(mX), ConvertMapY(mY), 24, 152, 136, 32, 136, 32, D3DColorARGB(guiAlpha, 255, 255, 255)
+                barWidth = ((PlayerPokemons(PlayerPokemon(MyIndex).Slot).Moveset(MoveSlot).CurPP / 115) / (PlayerPokemons(PlayerPokemon(MyIndex).Slot).Moveset(MoveSlot).TotalPP / 115)) * 115
+                RenderTexture Tex_Misc(Misc_MoveSelector), ConvertMapX(mX) + 9, ConvertMapY(mY), 24, 199, barWidth, 27, 115, 27, D3DColorARGB(guiAlpha, 255, 255, 255)
+                RenderText Font_Default, Trim$(PokemonMove(MoveNum).Name), ConvertMapX(mX + 17), ConvertMapY(mY + 6), White, , guiAlpha
+                
+                 If Ctrl_Press Then
+                    ' Poke Type texture
+                    If PokemonMove(MoveNum).Type > 0 Then
+                        RenderTexture Tex_PokemonTypes(PokemonMove(MoveNum).Type), ConvertMapX(mX - 5), ConvertMapY(mY + 6), 0, 0, 14, 14, 22, 23
+                    End If
+
+                    ' Poke Category texture
+                    If PokemonMove(MoveNum).Category > 0 Then
+                        RenderTexture Tex_Misc(Misc_CategoryTypes), ConvertMapX(mX + 125), ConvertMapY(mY + 6), PokemonMove(MoveNum).Category * 20 - 20, 0, 16, 16, 20, 16
+                    End If
                 End If
+            End If
         End If
     Next
 
@@ -3078,7 +3118,7 @@ Private Sub DrawHud()
     Dim expWidth As Long
     Dim initAnim As Byte
     Dim Sprite As Long
-    Dim AddY As Long
+    Dim Addy As Long
 
     If Editor = EDITOR_MAP Then Exit Sub
 
@@ -3210,12 +3250,12 @@ Private Sub DrawHud()
         '//Render your name first
         RenderTexture Tex_Gui(Hud), 0, 159, 59, 241, 165, 20, 165, 1
         RenderText Font_Default, "Party Member", 10, 160, Yellow
-        AddY = 21
+        Addy = 21
         For i = 1 To MAX_PARTY
             If Len(Trim$(PartyName(i))) > 0 Then
-                RenderTexture Tex_Gui(Hud), 0, 159 + AddY, 59, 241, 165, 20, 165, 1, D3DColorARGB(150, 255, 255, 255)
-                RenderText Font_Default, Trim$(PartyName(i)), 10, 160 + AddY, White
-                AddY = AddY + 21
+                RenderTexture Tex_Gui(Hud), 0, 159 + Addy, 59, 241, 165, 20, 165, 1, D3DColorARGB(150, 255, 255, 255)
+                RenderText Font_Default, Trim$(PartyName(i)), 10, 160 + Addy, White
+                Addy = Addy + 21
             End If
         Next
     End If
@@ -3291,20 +3331,23 @@ Dim i As Long
         Next
         
         '//Name
-        RenderText Font_Default, Trim$(Player(MyIndex).Name), .X + 85, .Y + 40 + 48, White
-        '//Money
-        RenderText Font_Default, "$" & (Player(MyIndex).Money), .X + 85, .Y + 64 + 47, White
-        '//Cash
-        RenderText Font_Default, (Player(MyIndex).Cash), .X + 85, .Y + 90 + 47, White
-        
+        RenderText Font_Default, Trim$(Player(MyIndex).Name), .X + 70, .Y + 35, Black
         '//Level
-        RenderText Font_Default, "Lv " & Trim$(Player(MyIndex).Level), .X + 91 + (15 - (GetTextWidth(Font_Default, "Lv " & Trim$(Player(MyIndex).Level)) / 2)), .Y + 43, White
-        RenderText Font_Default, Player(MyIndex).CurExp & "/" & GetLevelNextExp(Player(MyIndex).Level), .X + 2 + ((213 / 2) - (GetTextWidth(Font_Default, Player(MyIndex).CurExp & "/" & GetLevelNextExp(Player(MyIndex).Level)) / 2)), .Y + 65, White
+        RenderText Font_Default, "Lv " & Trim$(Player(MyIndex).Level), .X + 70 + (15 - (GetTextWidth(Font_Default, "Lv " & Trim$(Player(MyIndex).Level)) / 2)), .Y + 60, Black
+        RenderText Font_Default, Player(MyIndex).CurExp & "/" & GetLevelNextExp(Player(MyIndex).Level), .X + 2 + ((213 / 2) - (GetTextWidth(Font_Default, Player(MyIndex).CurExp & "/" & GetLevelNextExp(Player(MyIndex).Level)))), .Y + 85, Black
+        '//Money
+        RenderText Font_Default, (Player(MyIndex).Money), .X + 70, .Y + 110, Black
+        '//Cash
+        RenderText Font_Default, (Player(MyIndex).Cash), .X + 70, .Y + 135, Black
+        '//Jornada Iniciada
+        RenderText Font_Default, (Player(MyIndex).Started), .X + 155, .Y + 160, Black
+        '//Tempo Jogado
+        RenderText Font_Default, SecondsToHMS(Player(MyIndex).TimePlay), .X + 110, .Y + 185, Black
         
         '//PvP
-        RenderText Font_Default, (Player(MyIndex).win), .X + 85, .Y + 193 - 4, White
-        RenderText Font_Default, (Player(MyIndex).Lose), .X + 85, .Y + 212, White
-        RenderText Font_Default, (Player(MyIndex).Tie), .X + 85, .Y + 236, White
+        RenderText Font_Default, (Player(MyIndex).win), .X + 70, .Y + 232, BrightGreen
+        RenderText Font_Default, (Player(MyIndex).Lose), .X + 70, .Y + 252, BrightRed
+        RenderText Font_Default, (Player(MyIndex).Tie), .X + 70, .Y + 273, DarkBrown
     End With
 End Sub
 
@@ -3618,7 +3661,7 @@ Dim pricetext As String
                     '//Price
                     '//ToDo: Convert, 1k, 1m , etc.
                     pricetext = Item(Shop(ShopNum).ShopItem(i).Num).Price
-  
+                    Dim IDValue As Integer
                     If Item(Shop(ShopNum).ShopItem(i).Num).IsCash = YES Then
                         IDValue = IDCash
                     Else
@@ -4340,7 +4383,8 @@ End Sub
 
 Private Sub DrawRank()
     Dim i As Long
-    Dim RankIndex As Long
+    Dim rankIndex As Long
+    Dim DrawX As Integer, DrawY As Integer
 
     With GUI(GuiEnum.GUI_RANK)
         '//Make sure it's visible
@@ -4350,25 +4394,35 @@ Private Sub DrawRank()
         RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
 
         '//Buttons
-        For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_Check
+        For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_ScrollDown
             If CanShowButton(i) Then
                 RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
-
+        
+        '//Scroll
+        If RankingHighIndex > RankingViewLine Then
+            RenderTexture Tex_Gui(.Pic), .X + 7, .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY), 28, 373, 19, 35, 19, 35
+        End If
+        
         '//ShowRank
         '//ID Icons Top 1, 2 and 3.
         '// 1º = 528 => 2º = 529 => 3º = 530
-        For i = 1 To 10
-            If i > 0 And i <= MAX_RANK Then
-                RenderTexture Tex_Gui(.Pic), .X + 30, .Y + 41 + (31 * (i - 1)), 28, 328, 212, 28, 212, 28
+        For i = RankingViewCount To (RankingViewCount) + (RankingViewLine - 1)
+            If i >= 0 And i < RankingHighIndex Then
+                rankIndex = i + 1
+                
+                DrawX = .X + 30
+                DrawY = .Y + (40 + (31 * ((((rankIndex) - (RankingViewCount)) - 1))))
+                
+                RenderTexture Tex_Gui(.Pic), DrawX, DrawY, 28, 328, 212, 28, 212, 28
                 ' Draw Index
                 ' Icon in 1º at 3º position
-                If i >= 1 And i <= 3 Then
-                    RenderTexture Tex_Item(528 - 1 + i), .X + 30, .Y + 41 + (31 * (i - 1)), 0, 0, 24, 24, 24, 24
-                    RenderText Font_Default, Trim$(Rank(i).Name) & " Lv" & Rank(i).Level, .X + 55, .Y + 45 + (31 * (i - 1)), Dark
+                If rankIndex >= 1 And rankIndex <= 3 Then
+                    RenderTexture Tex_Item(528 - 1 + rankIndex), DrawX, DrawY, 0, 0, 24, 24, 24, 24
+                    RenderText Font_Default, Trim$(Rank(rankIndex).Name) & " Lv" & Rank(rankIndex).Level, DrawX + 15, DrawY, Dark
                 Else
-                    RenderText Font_Default, i & ": " & Trim$(Rank(i).Name) & " Lv" & Rank(i).Level, .X + 35, .Y + 45 + (31 * (i - 1)), Dark
+                    RenderText Font_Default, rankIndex & ": " & Trim$(Rank(rankIndex).Name) & " Lv" & Rank(rankIndex).Level, DrawX + 5, DrawY, Dark
                 End If
             End If
         Next

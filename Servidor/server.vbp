@@ -20,6 +20,7 @@ Module=modServer_TCP; src\modServer_TCP.bas
 Module=modServer_Packet; src\modServer_Packet.bas
 Form=src\frmServer.frm
 Module=modConvert; src\modConvert.bas
+Object={BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0; tabctl32.ocx
 Startup="Sub Main"
 HelpFile=""
 Title="server"

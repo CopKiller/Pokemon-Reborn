@@ -189,6 +189,10 @@ Dim i As Byte
     PokedexScrollUp = False
     PokedexScrollDown = False
     
+    '//Ranking Scroll
+    RankingScrollUp = False
+    RankingScrollDown = False
+    
     ' Controle Scroll
     ControlScrollUp = False
     ControlScrollDown = False
@@ -231,7 +235,7 @@ Dim Slot As Long
     End If
     
     If Not ChatOn Then
-        If GameState = GameStateEnum.InGame Then
+        If GameState = GameStateEnum.ingame Then
             For i = ControlEnum.KeyPokeSlot1 To ControlEnum.KeyPokeSlot6
                 If KeyAscii = ControlKey(i).cAsciiKey Then
                     Slot = i - (ControlEnum.KeyPokeSlot1 - 1)
@@ -337,7 +341,7 @@ Public Sub FormKeyUp(KeyCode As Integer, Shift As Integer)
         End If
     End Select
 
-    If GameState = GameStateEnum.InGame Then
+    If GameState = GameStateEnum.ingame Then
         For i = ControlEnum.KeyHotbarSlot1 To ControlEnum.KeyHotbarSlot5
             If KeyCode = ControlKey(i).cAsciiKey Then
                 Slot = i - (ControlEnum.KeyHotbarSlot1 - 1)
@@ -726,7 +730,7 @@ Dim Column As Long
                 End If
                 
             End If
-        Case GameStateEnum.InGame
+        Case GameStateEnum.ingame
             If Not DidClick And Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible And Not GUI(GuiEnum.GUI_CONVO).Visible Then
                 If Buttons = vbRightButton Then
                     If Editor <> EDITOR_MAP Then
@@ -985,7 +989,7 @@ Dim PreventAction As Boolean
         Case GameStateEnum.InMenu
             IsHovering = False
             
-        Case GameStateEnum.InGame
+        Case GameStateEnum.ingame
             IsHovering = False
             
             '//Editor Map
@@ -1062,7 +1066,7 @@ Dim x2 As Long, Y2 As Long
     '//SelMenu
     If SelMenu.Visible Then Exit Sub
     
-    If GameState = GameStateEnum.InGame Then
+    If GameState = GameStateEnum.ingame Then
         If DragInvSlot > 0 Then
             For i = 1 To MAX_HOTBAR
                 x2 = Screen_Width - 42 - 170 - ((i - 1) * 45)
@@ -1127,7 +1131,7 @@ Dim x2 As Long, Y2 As Long
     Select Case GameState
         Case GameStateEnum.InMenu
             '
-        Case GameStateEnum.InGame
+        Case GameStateEnum.ingame
             If Not Editor = EDITOR_MAP Then
                 If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible And Not GUI(GuiEnum.GUI_CONVO).Visible Then
                     '//Loop through all items
@@ -1299,7 +1303,7 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                                     '//Exit
                                     CloseChoiceBox
                                     UnloadMain
-                                ElseIf GameState = GameStateEnum.InGame Then
+                                ElseIf GameState = GameStateEnum.ingame Then
                                     GettingMap = True
                                     CloseChoiceBox
                                     InitFade 0, FadeIn, 5
@@ -1311,7 +1315,7 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                                 If GameState = GameStateEnum.InMenu Then
                                     CloseChoiceBox
                                     ResetMenu
-                                ElseIf GameState = GameStateEnum.InGame Then
+                                ElseIf GameState = GameStateEnum.ingame Then
                                     GettingMap = True
                                     CloseChoiceBox
                                     InitFade 0, FadeIn, 6
@@ -1409,18 +1413,20 @@ End Sub
 ' ** ChatBox **
 ' *********************
 Private Sub ChatboxKeyPress(KeyAscii As Integer)
-Dim i As Long
-Dim cacheMsg As String
+    Dim i As Long
+    Dim cacheMsg As String
 
     '//Make sure it's visible
     If Not GUI(GuiEnum.GUI_CHATBOX).Visible Then Exit Sub
-    
+
     If GuiVisibleCount <= 0 Then Exit Sub
     If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_CHATBOX Then Exit Sub
 
     If KeyAscii = vbKeyReturn Then
         If Not ChatOn Then
+            Language
             ChatOn = True
+            ChatMinimize = False
             EditTab = False
             MyChat = vbNullString
         Else
@@ -1435,23 +1441,26 @@ Dim cacheMsg As String
             End If
         End If
     ElseIf KeyAscii = vbKeyTab Then
-        If Not EditTab Then
-            EditTab = True
-            ChatOn = False
-            MyChat = vbNullString
-        Else
-            EditTab = False
-            ChatOn = True
-            MyChat = vbNullString
+        If Not ChatMinimize Then
+            If Not EditTab Then
+                EditTab = True
+                ChatOn = False
+                MyChat = vbNullString
+            Else
+                EditTab = False
+                Language
+                ChatOn = True
+                MyChat = vbNullString
+            End If
         End If
     End If
-    
+
     If ChatOn Then
         If KeyAscii = vbKeySpace Then
             If Left$(MyChat, 1) = "@" Then
                 MyChat = Mid$(MyChat, 2, Len(MyChat) - 1)
                 ChatTab = vbNullString
-        
+
                 ' Get the desired player from the user text
                 For i = 1 To Len(MyChat)
                     If Mid$(MyChat, i, 1) <> Space(1) Then
@@ -1460,35 +1469,35 @@ Dim cacheMsg As String
                         Exit For
                     End If
                 Next
-            
+
                 ' Make sure they are actually sending something
                 If Len(MyChat) - i > 0 Then
                     MyChat = Mid$(MyChat, i + 1, Len(MyChat) - i)
                 Else
                     MyChat = vbNullString
                 End If
-                
+
                 Exit Sub
             End If
-            
+
             If Left$(MyChat, 1) = "/" Then
                 cacheMsg = LCase(MyChat)
-                
+
                 Select Case cacheMsg
-                    Case "/map"
-                        ChatTab = "/map"
-                        MyChat = vbNullString
-                        cacheMsg = vbNullString
-                        Exit Sub
-                    Case "/all"
-                        ChatTab = "/all"
-                        MyChat = vbNullString
-                        cacheMsg = vbNullString
-                        Exit Sub
+                Case "/map"
+                    ChatTab = "/map"
+                    MyChat = vbNullString
+                    cacheMsg = vbNullString
+                    Exit Sub
+                Case "/all"
+                    ChatTab = "/all"
+                    MyChat = vbNullString
+                    cacheMsg = vbNullString
+                    Exit Sub
                 End Select
             End If
         End If
-        
+
         If Len(MyChat) < MAX_CHAT_TEXT Or KeyAscii = vbKeyBack Then MyChat = InputText(MyChat, KeyAscii)
     ElseIf EditTab Then
         If Len(ChatTab) < (NAME_LENGTH - 1) Or KeyAscii = vbKeyBack Then ChatTab = InputText(ChatTab, KeyAscii)
@@ -1502,11 +1511,15 @@ Dim i As Long
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
         
+    '    If Not ChatOn Then Exit Sub
+        
+        If ChatMinimize Then Exit Sub
+        
         '//Set to top most
         UpdateGuiOrder GUI_CHATBOX
         
         '//Loop through all items
-        For i = ButtonEnum.Chatbox_ScrollUp To ButtonEnum.Chatbox_ScrollDown
+        For i = ButtonEnum.Chatbox_ScrollUp To ButtonEnum.Chatbox_Minimize
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
@@ -1521,12 +1534,15 @@ Dim i As Long
                             ChatScrollUp = False
                             ChatScrollDown = True
                             'ChatScrollTimer = GetTickCount
+                        Case ButtonEnum.Chatbox_Minimize
+                            ChatMinimize = True
                     End Select
                 End If
             End If
         Next
         
         If CursorX >= .X + 59 And CursorX <= .X + 59 + 314 And CursorY >= .Y + 144 And CursorY <= .Y + 144 + 19 Then
+            Language
             ChatOn = True
             EditTab = False
         End If
@@ -1562,13 +1578,15 @@ Dim tmpX As Long, tmpY As Long
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
         
+        If ChatMinimize Then Exit Sub
+        
         If GuiVisibleCount <= 0 Then Exit Sub
         If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_CHATBOX Then Exit Sub
         
         IsHovering = False
         
         '//Loop through all items
-        For i = ButtonEnum.Chatbox_ScrollUp To ButtonEnum.Chatbox_ScrollDown
+        For i = ButtonEnum.Chatbox_ScrollUp To ButtonEnum.Chatbox_Minimize
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
@@ -1656,11 +1674,13 @@ Dim FoundError As Boolean
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
         
+        If ChatMinimize Then Exit Sub
+        
         If GuiVisibleCount <= 0 Then Exit Sub
         If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_CHATBOX Then Exit Sub
         
         '//Loop through all items
-        For i = ButtonEnum.Chatbox_ScrollUp To ButtonEnum.Chatbox_ScrollDown
+        For i = ButtonEnum.Chatbox_ScrollUp To ButtonEnum.Chatbox_Minimize
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
@@ -2367,12 +2387,6 @@ Dim i As Long
             .InDrag = True
         End If
     End With
-End Sub
-
-Public Sub SetNewStorage_Item(ByVal StorageSlot As Integer)
-    If Not hasSelected Then
-        SendSwitchStorageItem DragPokeSlot, StorageSlot
-    End If
 End Sub
 
 Private Sub InvStorageMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
@@ -4437,28 +4451,44 @@ End Sub
 ' ** Rank **
 ' **********
 Private Sub RankMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim i As Long
-Dim CanHover As Boolean, MoveNum As Long, MN As Long
-Dim x2 As Long
+    Dim i As Long
+    Dim CanHover As Boolean, MoveNum As Long, MN As Long
+    Dim x2 As Long
 
     With GUI(GuiEnum.GUI_RANK)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         '//Set to top most
         UpdateGuiOrder GUI_RANK
-        
+
         '//Loop through all items
-        For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_Check
+        For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_ScrollDown
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
+
+                        Select Case i
+                        Case ButtonEnum.Rank_ScrollUp
+                            RankingScrollUp = True
+                            RankingScrollDown = False
+                            RankingScrollTimer = GetTickCount
+                        Case ButtonEnum.Rank_ScrollDown
+                            RankingScrollUp = False
+                            RankingScrollDown = True
+                            RankingScrollTimer = GetTickCount
+                        End Select
                     End If
                 End If
             End If
         Next
-        
+
+        '//Check for scroll
+        If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) And CursorY <= .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + RankingScrollSize Then
+            RankingScrollHold = True
+        End If
+
         '//Check for dragging
         .OldMouseX = CursorX - .X
         .OldMouseY = CursorY - .Y
@@ -4469,44 +4499,73 @@ Dim x2 As Long
 End Sub
 
 Private Sub RankMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim tmpX As Long, tmpY As Long
-Dim i As Long
-Dim CanHover As Boolean, MoveNum As Long, MN As Long
+    Dim tmpX As Long, tmpY As Long
+    Dim i As Long
+    Dim CanHover As Boolean, MoveNum As Long, MN As Long
 
     With GUI(GuiEnum.GUI_RANK)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         If GuiVisibleCount <= 0 Then Exit Sub
         If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_RANK Then Exit Sub
-        
+
         IsHovering = False
-        
+
         '//Loop through all items
-        For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_Check
+        For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_ScrollDown
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
-            
+
                         IsHovering = True
-                        MouseIcon = 1 '//Select
+                        MouseIcon = 1    '//Select
                     End If
                 End If
             End If
         Next
 
+        '//Check for scroll
+        If RankingHighIndex > RankingViewLine Then
+            If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) And CursorY <= .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + RankingScrollSize Then
+                IsHovering = True
+                MouseIcon = 1    '//Select
+            End If
+
+            '//Scroll moving
+            If RankingScrollHold Then
+                '//Upward
+                If CursorY < .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + (RankingScrollSize / 2) Then
+                    If RankingScrollY < RankingScrollEndY - RankingScrollSize Then
+                        RankingScrollY = (CursorY - (.Y + RankingScrollStartY + (RankingScrollEndY - RankingScrollSize)) - (RankingScrollSize / 2)) * -1
+                        If RankingScrollY >= RankingScrollEndY - RankingScrollSize Then RankingScrollY = RankingScrollEndY - RankingScrollSize
+                    End If
+                End If
+                '//Downward
+                If CursorY > .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + RankingScrollSize - (RankingScrollSize / 2) Then
+                    If RankingScrollY > 0 Then
+                        RankingScrollY = (CursorY - (.Y + RankingScrollStartY + (RankingScrollEndY - RankingScrollSize)) - RankingScrollSize + (RankingScrollSize / 2)) * -1
+                        If RankingScrollY <= 0 Then RankingScrollY = 0
+                    End If
+                End If
+
+                RankingScrollCount = (RankingScrollLength - RankingScrollY)
+                RankingViewCount = ((RankingScrollCount / MaxRankingViewLine) / (RankingScrollLength / MaxRankingViewLine)) * MaxRankingViewLine
+            End If
+        End If
+
         '//Check for dragging
         If .InDrag Then
             tmpX = CursorX - .OldMouseX
             tmpY = CursorY - .OldMouseY
-            
+
             '//Check if outbound
             If tmpX <= 0 Then tmpX = 0
             If tmpX >= Screen_Width - .Width Then tmpX = Screen_Width - .Width
             If tmpY <= 0 Then tmpY = 0
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
-            
+
             .X = tmpX
             .Y = tmpY
         End If
@@ -4524,7 +4583,7 @@ Dim i As Long
         If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_RANK Then Exit Sub
         
         '//Loop through all items
-        For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_Check
+        For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_ScrollDown
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
@@ -4534,13 +4593,14 @@ Dim i As Long
                                 If GUI(GuiEnum.GUI_RANK).Visible Then
                                     GuiState GUI_RANK, False
                                 End If
-                            Case ButtonEnum.Rank_Check
-                                SendRequestRank
                         End Select
                     End If
                 End If
             End If
         Next
+        
+        '//Ranking Scroll
+        RankingScrollHold = False
 
         '//Check for dragging
         .InDrag = False

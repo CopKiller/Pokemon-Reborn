@@ -380,6 +380,7 @@ Dim FileName As String
                 Case ButtonEnum.Option_sSoundDown: FileTitle = "Option_sSoundDown"
                 Case ButtonEnum.Chatbox_ScrollUp: FileTitle = "Chatbox_ScrollUp"
                 Case ButtonEnum.Chatbox_ScrollDown: FileTitle = "Chatbox_ScrollDown"
+                Case ButtonEnum.Chatbox_Minimize: FileTitle = "Chatbox_Minimize"
                 Case ButtonEnum.Game_Pokedex: FileTitle = "Game_Pokedex"
                 Case ButtonEnum.Game_Bag: FileTitle = "Game_Bag"
                 Case ButtonEnum.Game_Card: FileTitle = "Game_Card"
@@ -429,8 +430,10 @@ Dim FileName As String
                 Case ButtonEnum.Relearn_ScrollUp: FileTitle = "Relearn_ScrollUp"
                 Case ButtonEnum.Badge_Close: FileTitle = "Badge_Close"
                 Case ButtonEnum.Rank_Close: FileTitle = "Rank_Close"
-                Case ButtonEnum.Rank_Check: FileTitle = "Rank_Check"
+                Case ButtonEnum.Rank_ScrollUp: FileTitle = "Rank_ScrollUp"
+                Case ButtonEnum.Rank_ScrollDown: FileTitle = "Rank_ScrollDown"
             End Select
+            
             With Button(i)
                 For X = ButtonState.StateNormal To ButtonState.StateClick
                     .StartX(X) = Val(GetVar(FileName, FileTitle, "StartX_" & X))

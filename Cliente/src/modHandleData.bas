@@ -107,6 +107,7 @@ Public Sub InitMessages()
     HandleDataSub(SPlayerPvP) = GetAddress(AddressOf HandlePlayerPvP)
     HandleDataSub(SPlayerCash) = GetAddress(AddressOf HandlePlayerCash)
     HandleDataSub(SRequestCash) = GetAddress(AddressOf HandleRequestCash)
+    HandleDataSub(SEventInfo) = GetAddress(AddressOf HandleEventInfo)
 End Sub
 
 Public Sub HandleData(ByRef Data() As Byte)
@@ -295,6 +296,14 @@ Dim i As Long
             MaxPokedexViewLine = MaxPokedexViewLine - 3
         End If
     Next
+    
+    For i = 1 To MAX_RANK
+        If Len(Trim$(Rank(i).Name)) > 0 Then
+            RankingHighIndex = i
+            MaxRankingViewLine = RankingHighIndex
+            MaxRankingViewLine = MaxRankingViewLine - RankingViewLine
+        End If
+    Next
 End Sub
 
 Private Sub HandlePlayerData(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
@@ -334,6 +343,9 @@ Dim isPvP As Byte
         .Tie = buffer.ReadLong
         
         .Cash = buffer.ReadLong
+        
+        .Started = CDate(buffer.ReadString)
+        .TimePlay = buffer.ReadLong
         
         '//Prevent from moving
         .Moving = NO
@@ -2301,4 +2313,15 @@ Dim value As Long
     Else
         frmAdmin.lblCash = "Player Money: " & value
     End If
+End Sub
+
+Private Sub HandleEventInfo(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+    Dim buffer As clsBuffer
+    Dim value As Long
+
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+    ExpMultiply = buffer.ReadByte
+    ExpSecs = buffer.ReadLong
+    Set buffer = Nothing
 End Sub

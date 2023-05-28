@@ -166,6 +166,7 @@ Public ChatOn As Boolean
 Public EditTab As Boolean
 Public MyChat As String
 Public ChatTab As String
+Public ChatMinimize As Boolean
 
 '//ControlKey
 Public CurControlKey As Long
@@ -284,6 +285,18 @@ Public PokedexScrollUp As Boolean
 Public PokedexScrollDown As Boolean
 Public PokedexScrollTimer As Long
 Public PokedexHighIndex As Long
+
+'//Ranking Scrolling
+Public RankingScrollHold As Boolean
+Public RankingScroll As Long
+Public RankingScrollY As Long
+Public RankingScrollCount As Long
+Public RankingViewCount As Long
+Public MaxRankingViewLine As Long
+Public RankingScrollUp As Boolean
+Public RankingScrollDown As Boolean
+Public RankingScrollTimer As Long
+Public RankingHighIndex As Long
 
 ' Controle Scrooling
 Public ControlScrollHold As Boolean
@@ -449,3 +462,7 @@ Public TextUICharactersDelete As String
 
 ' Chat
 Public TextEnterToChat As String
+
+'// Evento XP
+Public ExpMultiply As Byte
+Public ExpSecs As Long

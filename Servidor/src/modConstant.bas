@@ -73,7 +73,7 @@ Public Const MAX_HOTBAR As Byte = 5
 Public Const MAX_QUEST As String = 100
 Public Const MAX_PARTY As Byte = 4
 Public Const MAX_PLAYER_LEVEL As Byte = 250
-Public Const MAX_RANK As Byte = 10
+Public Const MAX_RANK As Byte = 20
 
 '//String constants
 Public Const NAME_LENGTH As Byte = 25

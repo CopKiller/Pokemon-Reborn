@@ -95,7 +95,7 @@ Public Const MAX_BADGE As Byte = 32
 Public Const MAX_HOTBAR As Byte = 5
 Public Const MAX_QUEST As String = 100
 Public Const MAX_PARTY As Byte = 4
-Public Const MAX_RANK As Byte = 10
+Public Const MAX_RANK As Byte = 20
 
 '//String constants
 Public Const NAME_LENGTH As Byte = 25
@@ -263,8 +263,15 @@ Public Const PokedexScrollSize As Byte = 35
 Public Const PokedexScrollStartY As Byte = 55
 Public Const PokedexScrollEndY As Byte = 167
 
+'//Ranking Scrolling
+Public Const RankingViewLine As Byte = 8
+Public Const RankingScrollLength As Byte = 185
+Public Const RankingScrollSize As Byte = 35
+Public Const RankingScrollStartY As Byte = 55
+Public Const RankingScrollEndY As Byte = 220
+
 ' Controles Scrool
-Public Const ControlScrollLength As Byte = 158
+Public Const ControlScrollLength As Byte = 100
 Public Const ControlScrollSize As Byte = 35
 Public Const ControlScrollStartY As Byte = 68
 Public Const ControlScrollEndY As Byte = 156

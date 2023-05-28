@@ -57,7 +57,7 @@ Private Type MapPokemonRec
     
     '//Location
     Map As Long
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -73,7 +73,7 @@ Private Type MapPokemonRec
     Nature As Byte
     
     '//Shiny
-    isShiny As Byte
+    IsShiny As Byte
     
     '//Happiness
     Happiness As Byte
@@ -128,7 +128,7 @@ Private Type MapNpcPokemonRec
     Num As Long     '//Index of the npc
     
     '//Location
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -144,7 +144,7 @@ Private Type MapNpcPokemonRec
     Nature As Byte
     
     '//Shiny
-    isShiny As Byte
+    IsShiny As Byte
     
     '//Happiness
     Happiness As Byte
@@ -191,7 +191,7 @@ Private Type MapNpcRec
     Num As Long     '//Index of the npc
     
     '//Location
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -210,7 +210,7 @@ Public Type PlayerPokemonRec
     Num As Long
     
     '//Location
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -253,7 +253,7 @@ Public Type PlayerRec
     
     '//Location
     Map As Long
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -315,6 +315,10 @@ Public Type PlayerRec
     
     '//Cash
     Cash As Long
+    
+    '//Jour Init
+    Started As Date
+    TimePlay As Long
 End Type
 
 ' *****************
@@ -359,7 +363,7 @@ Public Type PlayerPokemonStorageDataRec
     Nature As Byte
     
     '//Shiny
-    isShiny As Byte
+    IsShiny As Byte
     
     '//Happiness
     Happiness As Byte
@@ -408,7 +412,7 @@ Private Type PlayerPokemonsDataRec
     Nature As Byte
     
     '//Shiny
-    isShiny As Byte
+    IsShiny As Byte
     
     '//Happiness
     Happiness As Byte
@@ -748,7 +752,7 @@ Private Type TradeDataRec
     Nature As Byte
     
     '//Shiny
-    isShiny As Byte
+    IsShiny As Byte
     
     '//Happiness
     Happiness As Byte

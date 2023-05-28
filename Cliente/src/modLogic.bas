@@ -258,7 +258,7 @@ Dim FadeComplete As Boolean
                             StopMusic True
                         End If
                     Case 4 ' Entering Game
-                        InitGameState InGame
+                        InitGameState ingame
                         InitFade 0, FadeOut
                     Case 5 ' exit game
                         UnloadMain
@@ -1691,7 +1691,9 @@ Dim i As Byte
                     Exit Function
                 Case 4    '//Whisper
                     ChatTab = Trim$(Player(SelMenu.Data1).Name)
+                    Language
                     ChatOn = True
+                    ChatMinimize = False
                     EditTab = False
                     MyChat = vbNullString
 
@@ -2207,6 +2209,28 @@ Dim pokeDexIndex As Long
     Next
 End Function
 
+'Public Function IsRankingSlot(ByVal X As Long, ByVal Y As Long) As Long
+'Dim DrawX As Long, DrawY As Long
+'Dim i As Long
+'Dim RankingIndex As Long
+
+'    IsRankingSlot = -1
+'RenderTexture Tex_Gui(.Pic), .X + 30, .Y + 41 + (31 * (i - 1)), 28, 328, 212, 28, 212, 28
+'    For i = (RankingCount * 8) To (RankingViewCount * 8) + 31
+'        If i >= 0 And i <= RankingHighIndex Then
+'            RankingIndex = i + 1
+'
+'            DrawX = GUI(GuiEnum.GUI_RANK).X + 30
+'            DrawY = GUI(GuiEnum.GUI_RANK).Y + 41 + (31 * (i - 1))
+'
+'            If X >= DrawX And X <= DrawX + 212 And Y >= DrawY And Y <= DrawY + 28 Then
+'                IsRankingSlot = i
+'                Exit Function
+'            End If
+'        End If
+'    Next
+'End Function
+
 '//Stat
 Public Function GetStatBuff(ByVal Stat As Long, ByVal StatBuff As Long) As Long
     On Error GoTo errorHandler
@@ -2303,4 +2327,141 @@ End Function
 
 Public Function RandomNumBetween(ByVal LowerLimit As Long, ByVal UpperLimit As Long) As Long
   RandomNumBetween = Rnd * (UpperLimit - LowerLimit) + LowerLimit
+End Function
+
+Function SecondsToHMS(ByRef Segundos As Long) As String
+    Dim HR As Long, MS As Long, SS As Long, MM As Long, DD As Long, MES As Long, YY As Long
+    Dim Total As Long, Count As Long
+
+    If Segundos = 0 Then Exit Function
+    YY = (Segundos \ 31104000)
+    MES = (Segundos \ 2592000)
+    DD = (Segundos \ 86400)
+    HR = (Segundos \ 3600)
+    MM = (Segundos \ 60)
+    SS = Segundos
+    'ms = (Segundos * 10)
+
+    ' Pega o total de segundos pra trabalharmos melhor na variavel!
+    Total = Segundos
+
+    ' Verifica se tem mais de 1 hora em segundos!
+    'If YY > 0 Then
+        '// Year
+    '    Do While (Total >= 31104000)
+    '        Total = Total - 31104000
+    '        Count = Count + 1
+    '    Loop
+    '    If Count > 0 Then
+    '        SecondsToHMS = SecondsToHMS & Count & "Y "
+    '        Count = 0
+    '    End If
+    '    '// Mes
+    '    Do While (Total >= 2592000)
+    '        Total = Total - 2592000
+    '        Count = Count + 1
+    '    Loop
+    '    If Count > 0 Then
+    '        SecondsToHMS = SecondsToHMS & Count & "M "
+    '        Count = 0
+    '    End If
+    '    '// Dia
+    '    Do While (Total >= 86400)
+    '        Total = Total - 86400
+    '        Count = Count + 1
+    '    Loop
+    '    If Count > 0 Then
+    '        SecondsToHMS = SecondsToHMS & Count & "D "
+    '        Count = 0
+    '    End If
+    'ElseIf MES > 0 Then
+     '   '// Mes
+    '    Do While (Total >= 2592000)
+    '        Total = Total - 2592000
+    '        Count = Count + 1
+    '    Loop
+    '    If Count > 0 Then
+    '        SecondsToHMS = SecondsToHMS & Count & "M "
+    '        Count = 0
+    '    End If
+    '    '// Dias
+    '    Do While (Total >= 86400)
+    '        Total = Total - 86400
+    '        Count = Count + 1
+    '    Loop
+    '    If Count > 0 Then
+    '        SecondsToHMS = SecondsToHMS & Count & "D "
+    '        Count = 0
+    '    End If
+    'ElseIf DD > 0 Then
+    '    '// Dias
+    '    Do While (Total >= 86400)
+    '        Total = Total - 86400
+    '        Count = Count + 1
+    '    Loop
+    '    If Count > 0 Then
+    '        SecondsToHMS = SecondsToHMS & Count & "D "
+    '        Count = 0
+    '    End If
+    '    '// Horas
+    '    Do While (Total >= 3600)
+    '        Total = Total - 3600
+    '        Count = Count + 1
+    '    Loop
+    '    If Count > 0 Then
+    '        SecondsToHMS = SecondsToHMS & Count & "H "
+    '        Count = 0
+    '    End If
+    If HR > 0 Then
+        '// Horas
+        Do While (Total >= 3600)
+            Total = Total - 3600
+            Count = Count + 1
+        Loop
+        If Count > 0 Then
+            SecondsToHMS = Count & "H "
+            Count = 0
+        End If
+        '// Minutos
+        Do While (Total >= 60)
+            Total = Total - 60
+            Count = Count + 1
+        Loop
+        If Count > 0 Then
+            SecondsToHMS = SecondsToHMS & Count & "M "
+            Count = 0
+        End If
+        '// Segundos
+        Do While (Total > 0)
+            Total = Total - 1
+            Count = Count + 1
+        Loop
+        If Count > 0 Then
+            SecondsToHMS = SecondsToHMS & Count & "S "
+            Count = 0
+        End If
+    ElseIf MM > 0 Then
+        '// Minutos
+        Do While (Total >= 60)
+            Total = Total - 60
+            Count = Count + 1
+        Loop
+        If Count > 0 Then
+            SecondsToHMS = SecondsToHMS & Count & "M "
+            Count = 0
+        End If
+        '// Segundos
+        Do While (Total > 0)
+            Total = Total - 1
+            Count = Count + 1
+        Loop
+        If Count > 0 Then
+            SecondsToHMS = SecondsToHMS & Count & "S "
+            Count = 0
+        End If
+    ElseIf SS > 0 Then
+        ' Joga na função esse segundo.
+        SecondsToHMS = SS & "S "
+        Total = Total - SS
+    End If
 End Function

@@ -153,11 +153,11 @@ End Sub
 ' ***********************
 ' ** Player Properties **
 ' ***********************
-Public Sub ClearTempPlayer(ByVal index As Long)
+Public Sub ClearTempPlayer(ByVal Index As Long)
     ' Temp Player Data
-    Call ZeroMemory(ByVal VarPtr(TempPlayer(index)), LenB(TempPlayer(index)))
-    Set TempPlayer(index).buffer = New clsBuffer
-    TempPlayer(index).DataTimer = GetTickCount
+    Call ZeroMemory(ByVal VarPtr(TempPlayer(Index)), LenB(TempPlayer(Index)))
+    Set TempPlayer(Index).buffer = New clsBuffer
+    TempPlayer(Index).DataTimer = GetTickCount
 End Sub
 
 Public Function AccountExist(ByVal User As String) As Boolean
@@ -199,65 +199,67 @@ Dim Pass2 As String * NAME_LENGTH
     End If
 End Function
 
-Public Function LoadAccount(ByVal index As Long, ByVal User As String) As Boolean
+Public Function LoadAccount(ByVal Index As Long, ByVal User As String) As Boolean
 Dim filename As String
 
     '//Clear
-    Call ZeroMemory(ByVal VarPtr(Account(index)), LenB(Account(index)))
+    Call ZeroMemory(ByVal VarPtr(Account(Index)), LenB(Account(Index)))
     
     '//Create account file
     filename = App.Path & "\data\accounts\" & Trim$(User) & "\account.ini"
-    With Account(index)
+    With Account(Index)
         .Username = Trim$(GetVar(filename, "Account", "Username"))
         .Password = Trim$(GetVar(filename, "Account", "Password"))
         .Email = Trim$(GetVar(filename, "Account", "Email"))
     End With
     
-    LoadPlayerDatas index
+    LoadPlayerDatas Index
     
     '//Success
     LoadAccount = True
 End Function
 
-Public Sub ClearAccount(ByVal index As Long)
+Public Sub ClearAccount(ByVal Index As Long)
     '//Clear
-    Call ZeroMemory(ByVal VarPtr(Account(index)), LenB(Account(index)))
-    Account(index).Username = vbNullString
-    Account(index).Password = vbNullString
-    Account(index).Email = vbNullString
+    Call ZeroMemory(ByVal VarPtr(Account(Index)), LenB(Account(Index)))
+    Account(Index).Username = vbNullString
+    Account(Index).Password = vbNullString
+    Account(Index).Email = vbNullString
 End Sub
 
-Public Sub ClearPlayer(ByVal index As Long)
+Public Sub ClearPlayer(ByVal Index As Long)
 Dim i As Long
 
     For i = 1 To MAX_PLAYERCHAR
         '//Clear
-        Call ZeroMemory(ByVal VarPtr(Player(index, i)), LenB(Player(index, i)))
-        Call ZeroMemory(ByVal VarPtr(PlayerPokemon(index)), LenB(PlayerPokemon(index)))
-        Player(index, i).Name = vbNullString
-        frmServer.lbPlayers.List(index - 1) = vbNullString
+        Call ZeroMemory(ByVal VarPtr(Player(Index, i)), LenB(Player(Index, i)))
+        Call ZeroMemory(ByVal VarPtr(PlayerPokemon(Index)), LenB(PlayerPokemon(Index)))
+        Player(Index, i).Name = vbNullString
+        frmServer.lbPlayers.List(Index - 1) = vbNullString
     Next
 End Sub
 
-Public Sub AddPlayerData(ByVal index As Long, ByVal CharSlot As Byte, ByVal Name As String, ByVal Sprite As Long)
+Public Sub AddPlayerData(ByVal Index As Long, ByVal CharSlot As Byte, ByVal Name As String, ByVal Sprite As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     '//Determine the file location
     'FileName = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & ".ini"
     
-    With Player(index, CharSlot)
+    With Player(Index, CharSlot)
         .Name = Trim$(Name)
         .Sprite = Sprite
         .Access = 0
         .Map = Options.StartMap
-        .X = Options.startX
+        .x = Options.startX
         .Y = Options.startY
         .Dir = Options.StartDir
         .CurHP = 255
         .Money = 3000
         .Muted = 0
         .DidStart = YES
+        .Started = CStr(Date)
+        .TimePlay = 0
     End With
     
     'Call PutVar(FileName, "General", "Name", Trim$(Name))
@@ -274,44 +276,44 @@ Dim F As Long
     '// For tutorial mode
     'Call PutVar(FileName, "Tutorial", "DidStart", YES)
     
-    SavePlayerData index, CharSlot
+    SavePlayerData Index, CharSlot
 
     '//Append name to file
-    F = FreeFile
-    Open App.Path & "\data\accounts\charlist.txt" For Append As #F
-        Print #F, Trim$(Name)
-    Close #F
+    f = FreeFile
+    Open App.Path & "\data\accounts\charlist.txt" For Append As #f
+        Print #f, Trim$(Name)
+    Close #f
 End Sub
 
-Public Sub DeletePlayerData(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub DeletePlayerData(ByVal Index As Long, ByVal CharSlot As Byte)
     '//Make sure data in used
-    If Len(Player(index, CharSlot).Name) <= 0 Then Exit Sub
+    If Len(Player(Index, CharSlot).Name) <= 0 Then Exit Sub
     
-    DeleteName Trim$(Player(index, CharSlot).Name)
+    DeleteName Trim$(Player(Index, CharSlot).Name)
     '//Clear data
-    Call ZeroMemory(ByVal VarPtr(Player(index, CharSlot)), LenB(Player(index, CharSlot)))
-    Player(index, CharSlot).Name = vbNullString
+    Call ZeroMemory(ByVal VarPtr(Player(Index, CharSlot)), LenB(Player(Index, CharSlot)))
+    Player(Index, CharSlot).Name = vbNullString
     
     '//Delete file
-    Call DeleteFile(App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & ".ini")
-    Call DeleteFile(App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_inv.ini")
-    Call DeleteFile(App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_pokemon.ini")
+    Call DeleteFile(App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & ".ini")
+    Call DeleteFile(App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_inv.ini")
+    Call DeleteFile(App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_pokemon.ini")
 End Sub
 
-Public Sub SavePlayerData(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub SavePlayerData(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & ".ini"
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & ".ini"
 
-    F = FreeFile
+    f = FreeFile
     
-    Open filename For Binary As #F
-        Put #F, , Player(index, CharSlot)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , Player(Index, CharSlot)
+    Close #f
     
-    Debug.Print Player(index, CharSlot).Name & " [Save]"
+    Debug.Print Player(Index, CharSlot).Name & " [Save]"
     
     'With Player(Index, CharSlot)
     '    Call PutVar(FileName, "General", "Name", Trim$(.Name))
@@ -346,35 +348,35 @@ Dim F As Long
     'End With
 End Sub
 
-Public Sub SavePlayerDatas(ByVal index As Long)
-    If TempPlayer(index).UseChar > 0 Then
-        SavePlayerData index, TempPlayer(index).UseChar
-        SavePlayerInv index, TempPlayer(index).UseChar
-        SavePlayerPokemons index, TempPlayer(index).UseChar
-        SavePlayerInvStorage index, TempPlayer(index).UseChar
-        SavePlayerPokemonStorage index, TempPlayer(index).UseChar
+Public Sub SavePlayerDatas(ByVal Index As Long)
+    If TempPlayer(Index).UseChar > 0 Then
+        SavePlayerData Index, TempPlayer(Index).UseChar
+        SavePlayerInv Index, TempPlayer(Index).UseChar
+        SavePlayerPokemons Index, TempPlayer(Index).UseChar
+        SavePlayerInvStorage Index, TempPlayer(Index).UseChar
+        SavePlayerPokemonStorage Index, TempPlayer(Index).UseChar
         'SavePlayerSwitch Index, TempPlayer(Index).UseChar
-        SavePlayerPokedex index, TempPlayer(index).UseChar
+        SavePlayerPokedex Index, TempPlayer(Index).UseChar
         DoEvents
     End If
 End Sub
 
-Public Sub LoadPlayerData(ByVal index As Long, ByVal CharSlot As Long)
+Public Sub LoadPlayerData(ByVal Index As Long, ByVal CharSlot As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 Dim i As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & ".ini"
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & ".ini"
     
     If Not FileExist(filename) Then Exit Sub
-    F = FreeFile
+    f = FreeFile
     
-    Open filename For Binary As #F
-        Get #F, , Player(index, CharSlot)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , Player(Index, CharSlot)
+    Close #f
     
-    Debug.Print Player(index, CharSlot).Name & " [Load]"
+    Debug.Print Player(Index, CharSlot).Name & " [Load]"
     
     'With Player(Index, CharSlot)
     '    .Name = Trim$(GetVar(FileName, "General", "Name"))
@@ -408,52 +410,52 @@ Dim i As Long
     '    Next
         
         '//Check for error
-        If Player(index, CharSlot).Level <= 0 Then
-            Player(index, CharSlot).Level = 1
-            Player(index, CharSlot).CurExp = 0
-            Player(index, CharSlot).CurHP = GetPlayerHP(Player(index, CharSlot).Level)
+        If Player(Index, CharSlot).Level <= 0 Then
+            Player(Index, CharSlot).Level = 1
+            Player(Index, CharSlot).CurExp = 0
+            Player(Index, CharSlot).CurHP = GetPlayerHP(Player(Index, CharSlot).Level)
         End If
     'End With
 End Sub
 
-Public Sub LoadPlayerDatas(ByVal index As Long)
+Public Sub LoadPlayerDatas(ByVal Index As Long)
 Dim i As Long
 
     '//Clear data first
-    Call ClearPlayer(index)
+    Call ClearPlayer(Index)
     
     For i = 1 To MAX_PLAYERCHAR
-        LoadPlayerData index, i
+        LoadPlayerData Index, i
     Next
 End Sub
 
 Public Function CheckSameName(ByVal Name As String) As Boolean
 Dim filename As String
-Dim F As Long
+Dim f As Long
 Dim s As String
     
     filename = App.Path & "\data\accounts\charlist.txt"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if the master charlist file exists for checking duplicate names, and if it doesnt make it
     If Not FileExist(filename) Then
-        Open App.Path & "\data\accounts\charlist.txt" For Output As #F
-        Close #F
+        Open App.Path & "\data\accounts\charlist.txt" For Output As #f
+        Close #f
         CheckSameName = False
         Exit Function
     End If
     
-    Open filename For Input As #F
-        Do While Not EOF(F)
-            Input #F, s
+    Open filename For Input As #f
+        Do While Not EOF(f)
+            Input #f, s
     
             If Trim$(LCase$(s)) = Trim$(LCase$(Name)) Then
                 CheckSameName = True
-                Close #F
+                Close #f
                 Exit Function
             End If
         Loop
-    Close #F
+    Close #f
 End Function
 
 Public Sub DeleteName(ByVal Name As String)
@@ -481,29 +483,29 @@ Dim s As String
     Call DeleteFile(App.Path & "\data\accounts\chartemp.txt")
 End Sub
 
-Public Sub ClearPlayerInv(ByVal index As Long)
-    Call ZeroMemory(ByVal VarPtr(PlayerInv(index)), LenB(PlayerInv(index)))
+Public Sub ClearPlayerInv(ByVal Index As Long)
+    Call ZeroMemory(ByVal VarPtr(PlayerInv(Index)), LenB(PlayerInv(Index)))
 End Sub
 
-Public Sub LoadPlayerInv(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub LoadPlayerInv(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
 Dim i As Byte
-Dim F As Long
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_inv.ini"
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_inv.ini"
     
     If Not FileExist(filename) Then
-        ClearPlayerInv index
-        SavePlayerInv index, CharSlot
+        ClearPlayerInv Index
+        SavePlayerInv Index, CharSlot
         Exit Sub
     End If
     
-    F = FreeFile
+    f = FreeFile
     
-    Open filename For Binary As #F
-        Get #F, , PlayerInv(index)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , PlayerInv(Index)
+    Close #f
     
     'With PlayerInv(Index)
     '    For i = 1 To MAX_PLAYER_INV
@@ -513,19 +515,19 @@ Dim F As Long
     'End With
 End Sub
 
-Public Sub SavePlayerInv(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub SavePlayerInv(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
 Dim i As Byte
-Dim F As Long
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_inv.ini"
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_inv.ini"
     
-    F = FreeFile
+    f = FreeFile
     
-    Open filename For Binary As #F
-        Put #F, , PlayerInv(index)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , PlayerInv(Index)
+    Close #f
     
     'With PlayerInv(Index)
     '    For i = 1 To MAX_PLAYER_INV
@@ -535,29 +537,29 @@ Dim F As Long
     'End With
 End Sub
 
-Public Sub ClearPlayerPokemons(ByVal index As Long)
-    Call ZeroMemory(ByVal VarPtr(PlayerPokemons(index)), LenB(PlayerPokemons(index)))
+Public Sub ClearPlayerPokemons(ByVal Index As Long)
+    Call ZeroMemory(ByVal VarPtr(PlayerPokemons(Index)), LenB(PlayerPokemons(Index)))
 End Sub
 
-Public Sub LoadPlayerPokemons(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub LoadPlayerPokemons(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte, X As Byte
-Dim F As Long
+Dim i As Byte, x As Byte
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_pokemon.ini"
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_pokemon.ini"
     
     If Not FileExist(filename) Then
-        ClearPlayerPokemons index
-        SavePlayerPokemons index, CharSlot
+        ClearPlayerPokemons Index
+        SavePlayerPokemons Index, CharSlot
         Exit Sub
     End If
     
-    F = FreeFile
+    f = FreeFile
     
-    Open filename For Binary As #F
-        Get #F, , PlayerPokemons(index)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , PlayerPokemons(Index)
+    Close #f
     
     'With PlayerPokemons(Index)
     '    For i = 1 To MAX_PLAYER_POKEMON
@@ -604,19 +606,19 @@ Dim F As Long
     'End With
 End Sub
 
-Public Sub SavePlayerPokemons(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub SavePlayerPokemons(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte, X As Byte
-Dim F As Long
+Dim i As Byte, x As Byte
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_pokemon.ini"
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_pokemon.ini"
     
-    F = FreeFile
+    f = FreeFile
     
-    Open filename For Binary As #F
-        Put #F, , PlayerPokemons(index)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , PlayerPokemons(Index)
+    Close #f
     
     'With PlayerPokemons(Index)
     '    For i = 1 To MAX_PLAYER_POKEMON
@@ -663,118 +665,118 @@ Dim F As Long
     'End With
 End Sub
 
-Public Sub ClearPlayerInvStorage(ByVal index As Long)
-    Call ZeroMemory(ByVal VarPtr(PlayerInvStorage(index)), LenB(PlayerInvStorage(index)))
-    PlayerInvStorage(index).slot(1).Unlocked = YES
-    PlayerInvStorage(index).slot(2).Unlocked = YES
+Public Sub ClearPlayerInvStorage(ByVal Index As Long)
+    Call ZeroMemory(ByVal VarPtr(PlayerInvStorage(Index)), LenB(PlayerInvStorage(Index)))
+    PlayerInvStorage(Index).slot(1).Unlocked = YES
+    PlayerInvStorage(Index).slot(2).Unlocked = YES
 End Sub
 
-Public Sub LoadPlayerInvStorage(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub LoadPlayerInvStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim X As Byte, Y As Byte
-Dim F As Long
+Dim x As Byte, Y As Byte
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_invstorage.dat"
-    F = FreeFile
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_invstorage.dat"
+    f = FreeFile
     
     If Not FileExist(filename) Then
-        ClearPlayerInvStorage index
-        SavePlayerInvStorage index, CharSlot
+        ClearPlayerInvStorage Index
+        SavePlayerInvStorage Index, CharSlot
         Exit Sub
     End If
     
-    Open filename For Binary As #F
-        Get #F, , PlayerInvStorage(index)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , PlayerInvStorage(Index)
+    Close #f
 End Sub
 
-Public Sub SavePlayerInvStorage(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub SavePlayerInvStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim X As Byte, Y As Byte
-Dim F As Long
+Dim x As Byte, Y As Byte
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_invstorage.dat"
-    F = FreeFile
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_invstorage.dat"
+    f = FreeFile
     
-    Open filename For Binary As #F
-        Put #F, , PlayerInvStorage(index)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , PlayerInvStorage(Index)
+    Close #f
 End Sub
 
-Public Sub ClearPlayerPokemonStorage(ByVal index As Long)
-    Call ZeroMemory(ByVal VarPtr(PlayerPokemonStorage(index)), LenB(PlayerPokemonStorage(index)))
-    PlayerPokemonStorage(index).slot(1).Unlocked = YES
-    PlayerPokemonStorage(index).slot(2).Unlocked = YES
+Public Sub ClearPlayerPokemonStorage(ByVal Index As Long)
+    Call ZeroMemory(ByVal VarPtr(PlayerPokemonStorage(Index)), LenB(PlayerPokemonStorage(Index)))
+    PlayerPokemonStorage(Index).slot(1).Unlocked = YES
+    PlayerPokemonStorage(Index).slot(2).Unlocked = YES
 End Sub
 
-Public Sub LoadPlayerPokemonStorage(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub LoadPlayerPokemonStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_pokemonstorage.dat"
-    F = FreeFile
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_pokemonstorage.dat"
+    f = FreeFile
     
     If Not FileExist(filename) Then
-        ClearPlayerPokemonStorage index
-        SavePlayerPokemonStorage index, CharSlot
+        ClearPlayerPokemonStorage Index
+        SavePlayerPokemonStorage Index, CharSlot
         Exit Sub
     End If
     
-    Open filename For Binary As #F
-        Get #F, , PlayerPokemonStorage(index)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , PlayerPokemonStorage(Index)
+    Close #f
 End Sub
 
-Public Sub SavePlayerPokemonStorage(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub SavePlayerPokemonStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_pokemonstorage.dat"
-    F = FreeFile
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_pokemonstorage.dat"
+    f = FreeFile
     
-    Open filename For Binary As #F
-        Put #F, , PlayerPokemonStorage(index)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , PlayerPokemonStorage(Index)
+    Close #f
 End Sub
 
-Public Sub ClearPlayerPokedex(ByVal index As Long)
-    Call ZeroMemory(ByVal VarPtr(PlayerPokedex(index)), LenB(PlayerPokedex(index)))
+Public Sub ClearPlayerPokedex(ByVal Index As Long)
+    Call ZeroMemory(ByVal VarPtr(PlayerPokedex(Index)), LenB(PlayerPokedex(Index)))
 End Sub
 
-Public Sub LoadPlayerPokedex(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub LoadPlayerPokedex(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_pokedex.dat"
-    F = FreeFile
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_pokedex.dat"
+    f = FreeFile
     
     If Not FileExist(filename) Then
-        ClearPlayerPokedex index
-        SavePlayerPokedex index, CharSlot
+        ClearPlayerPokedex Index
+        SavePlayerPokedex Index, CharSlot
         Exit Sub
     End If
     
-    Open filename For Binary As #F
-        Get #F, , PlayerPokedex(index)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , PlayerPokedex(Index)
+    Close #f
 End Sub
 
-Public Sub SavePlayerPokedex(ByVal index As Long, ByVal CharSlot As Byte)
+Public Sub SavePlayerPokedex(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     '//Determine the file location
-    filename = App.Path & "\data\accounts\" & Trim$(Account(index).Username) & "\character_slot_" & CharSlot & "_pokedex.dat"
-    F = FreeFile
+    filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_pokedex.dat"
+    f = FreeFile
     
-    Open filename For Binary As #F
-        Put #F, , PlayerPokedex(index)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , PlayerPokedex(Index)
+    Close #f
 End Sub
 
 ' ********************
@@ -798,14 +800,14 @@ Dim i As Long
 End Sub
 
 Public Sub LoadMap(ByVal MapNum As Long)
-Dim X As Long, Y As Long
+Dim x As Long, Y As Long
 Dim filename As String
-Dim F As Long
+Dim f As Long
 Dim i As Long
 Dim a As Byte
 
     filename = App.Path & "\data\maps\mapdata_" & MapNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -814,16 +816,16 @@ Dim a As Byte
         Exit Sub
     End If
         
-    Open filename For Binary As #F
+    Open filename For Binary As #f
         With Map(MapNum)
             '//General
-            Get #F, , .Revision
-            Get #F, , .Name
-            Get #F, , .Moral
+            Get #f, , .Revision
+            Get #f, , .Name
+            Get #f, , .Moral
             
             '//Size
-            Get #F, , .MaxX
-            Get #F, , .MaxY
+            Get #f, , .MaxX
+            Get #f, , .MaxY
             
             '//Redim the size
             If .MaxX < MAX_MAPX Then .MaxX = MAX_MAPX
@@ -832,52 +834,52 @@ Dim a As Byte
         End With
         
         '//Tiles
-        For X = 0 To Map(MapNum).MaxX
+        For x = 0 To Map(MapNum).MaxX
             For Y = 0 To Map(MapNum).MaxY
-                With Map(MapNum).Tile(X, Y)
+                With Map(MapNum).Tile(x, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
-                            Get #F, , .Layer(i, a).Tile
-                            Get #F, , .Layer(i, a).TileX
-                            Get #F, , .Layer(i, a).TileY
+                            Get #f, , .Layer(i, a).Tile
+                            Get #f, , .Layer(i, a).TileX
+                            Get #f, , .Layer(i, a).TileY
                             '//Map Anim
-                            Get #F, , .Layer(i, a).MapAnim
+                            Get #f, , .Layer(i, a).MapAnim
                         Next
                     Next
                     '//Tile Data
-                    Get #F, , .Attribute
-                    Get #F, , .Data1
-                    Get #F, , .Data2
-                    Get #F, , .Data3
-                    Get #F, , .Data4
+                    Get #f, , .Attribute
+                    Get #f, , .Data1
+                    Get #f, , .Data2
+                    Get #f, , .Data3
+                    Get #f, , .Data4
                 End With
             Next
         Next
         
         With Map(MapNum)
             '//Map Link
-            Get #F, , .LinkUp
-            Get #F, , .LinkDown
-            Get #F, , .LinkLeft
-            Get #F, , .LinkRight
+            Get #f, , .LinkUp
+            Get #f, , .LinkDown
+            Get #f, , .LinkLeft
+            Get #f, , .LinkRight
             
             '//Map Data
-            Get #F, , .Music
+            Get #f, , .Music
             
             '//Npc
             For i = 1 To MAX_MAP_NPC
-                Get #F, , .Npc(i)
+                Get #f, , .Npc(i)
             Next
             
             '//Moral
-            Get #F, , .Sheltered
-            Get #F, , .IsCave
-            Get #F, , .CaveLight
-            Get #F, , .SpriteType
-            Get #F, , .StartWeather
+            Get #f, , .Sheltered
+            Get #f, , .IsCave
+            Get #f, , .CaveLight
+            Get #f, , .SpriteType
+            Get #f, , .StartWeather
         End With
-    Close #F
+    Close #f
     frmServer.Caption = "Loading Map#" & MapNum & ".."
     DoEvents
 End Sub
@@ -891,9 +893,9 @@ Dim i As Long
 End Sub
 
 Public Sub SaveMap(ByVal MapNum As Long)
-Dim X As Long, Y As Long
+Dim x As Long, Y As Long
 Dim filename As String
-Dim F As Long
+Dim f As Long
 Dim i As Long
 Dim a As Byte
 
@@ -901,67 +903,67 @@ Dim a As Byte
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
+    Open filename For Binary As #f
         With Map(MapNum)
             '//General
-            Put #F, , .Revision
-            Put #F, , .Name
-            Put #F, , .Moral
+            Put #f, , .Revision
+            Put #f, , .Name
+            Put #f, , .Moral
             
             '//Size
-            Put #F, , .MaxX
-            Put #F, , .MaxY
+            Put #f, , .MaxX
+            Put #f, , .MaxY
         End With
         
         '//Tiles
-        For X = 0 To Map(MapNum).MaxX
+        For x = 0 To Map(MapNum).MaxX
             For Y = 0 To Map(MapNum).MaxY
-                With Map(MapNum).Tile(X, Y)
+                With Map(MapNum).Tile(x, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
-                            Put #F, , .Layer(i, a).Tile
-                            Put #F, , .Layer(i, a).TileX
-                            Put #F, , .Layer(i, a).TileY
+                            Put #f, , .Layer(i, a).Tile
+                            Put #f, , .Layer(i, a).TileX
+                            Put #f, , .Layer(i, a).TileY
                             '//Map Anim
-                            Put #F, , .Layer(i, a).MapAnim
+                            Put #f, , .Layer(i, a).MapAnim
                         Next
                     Next
                     '//Tile Data
-                    Put #F, , .Attribute
-                    Put #F, , .Data1
-                    Put #F, , .Data2
-                    Put #F, , .Data3
-                    Put #F, , .Data4
+                    Put #f, , .Attribute
+                    Put #f, , .Data1
+                    Put #f, , .Data2
+                    Put #f, , .Data3
+                    Put #f, , .Data4
                 End With
             Next
         Next
         
         With Map(MapNum)
             '//Map Link
-            Put #F, , .LinkUp
-            Put #F, , .LinkDown
-            Put #F, , .LinkLeft
-            Put #F, , .LinkRight
+            Put #f, , .LinkUp
+            Put #f, , .LinkDown
+            Put #f, , .LinkLeft
+            Put #f, , .LinkRight
             
             '//Map Data
-            Put #F, , .Music
+            Put #f, , .Music
             
             '//Npc
             For i = 1 To MAX_MAP_NPC
-                Put #F, , .Npc(i)
+                Put #f, , .Npc(i)
             Next
             
             '//Moral
-            Put #F, , .Sheltered
-            Put #F, , .IsCave
-            Put #F, , .CaveLight
-            Put #F, , .SpriteType
-            Put #F, , .StartWeather
+            Put #f, , .Sheltered
+            Put #f, , .IsCave
+            Put #f, , .CaveLight
+            Put #f, , .SpriteType
+            Put #f, , .StartWeather
         End With
-    Close #F
+    Close #f
     DoEvents
 End Sub
 
@@ -991,10 +993,10 @@ End Sub
 
 Public Sub LoadNpc(ByVal NpcNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\npcs\npcdata_" & NpcNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -1003,9 +1005,9 @@ Dim F As Long
         Exit Sub
     End If
         
-    Open filename For Binary As #F
-        Get #F, , Npc(NpcNum)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , Npc(NpcNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1019,17 +1021,17 @@ End Sub
 
 Public Sub SaveNpc(ByVal NpcNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\npcs\npcdata_" & NpcNum & ".dat"
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
-        Put #F, , Npc(NpcNum)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , Npc(NpcNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1061,10 +1063,10 @@ End Sub
 
 Public Sub LoadPokemon(ByVal PokemonNum As Long)
 Dim filename As String
-Dim F As Long, X As Byte
+Dim f As Long, x As Byte
 
     filename = App.Path & "\data\pokemons\pokemondata_" & PokemonNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -1073,9 +1075,9 @@ Dim F As Long, X As Byte
         Exit Sub
     End If
         
-    Open filename For Binary As #F
-        Get #F, , Pokemon(PokemonNum)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , Pokemon(PokemonNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1089,17 +1091,17 @@ End Sub
 
 Public Sub SavePokemon(ByVal PokemonNum As Long)
 Dim filename As String
-Dim F As Long, X As Byte
+Dim f As Long, x As Byte
 
     filename = App.Path & "\data\pokemons\pokemondata_" & PokemonNum & ".dat"
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
-        Put #F, , Pokemon(PokemonNum)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , Pokemon(PokemonNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1129,10 +1131,10 @@ End Sub
 
 Public Sub LoadItem(ByVal ItemNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\items\itemdata_" & ItemNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -1141,9 +1143,9 @@ Dim F As Long
         Exit Sub
     End If
         
-    Open filename For Binary As #F
-        Get #F, , Item(ItemNum)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , Item(ItemNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1157,17 +1159,17 @@ End Sub
 
 Public Sub SaveItem(ByVal ItemNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\items\itemdata_" & ItemNum & ".dat"
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
-        Put #F, , Item(ItemNum)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , Item(ItemNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1198,10 +1200,10 @@ End Sub
 
 Public Sub LoadPokemonMove(ByVal PokemonMoveNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\moves\movedata_" & PokemonMoveNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -1210,9 +1212,9 @@ Dim F As Long
         Exit Sub
     End If
         
-    Open filename For Binary As #F
-        Get #F, , PokemonMove(PokemonMoveNum)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , PokemonMove(PokemonMoveNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1226,17 +1228,17 @@ End Sub
 
 Public Sub SavePokemonMove(ByVal PokemonMoveNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\moves\movedata_" & PokemonMoveNum & ".dat"
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
-        Put #F, , PokemonMove(PokemonMoveNum)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , PokemonMove(PokemonMoveNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1266,10 +1268,10 @@ End Sub
 
 Public Sub LoadAnimation(ByVal AnimationNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\animations\animationdata_" & AnimationNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -1278,9 +1280,9 @@ Dim F As Long
         Exit Sub
     End If
         
-    Open filename For Binary As #F
-        Get #F, , Animation(AnimationNum)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , Animation(AnimationNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1294,17 +1296,17 @@ End Sub
 
 Public Sub SaveAnimation(ByVal AnimationNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\animations\animationdata_" & AnimationNum & ".dat"
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
-        Put #F, , Animation(AnimationNum)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , Animation(AnimationNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1334,10 +1336,10 @@ End Sub
 
 Public Sub LoadSpawn(ByVal SpawnNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\mappokemon\spawndata_" & SpawnNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -1346,9 +1348,9 @@ Dim F As Long
         Exit Sub
     End If
         
-    Open filename For Binary As #F
-        Get #F, , Spawn(SpawnNum)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , Spawn(SpawnNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1362,17 +1364,17 @@ End Sub
 
 Public Sub SaveSpawn(ByVal SpawnNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\mappokemon\spawndata_" & SpawnNum & ".dat"
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
-        Put #F, , Spawn(SpawnNum)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , Spawn(SpawnNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1388,14 +1390,14 @@ End Sub
 ' ** Conversation Properties **
 ' ********************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim x As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
-    For X = 1 To MAX_CONV_DATA
+    For x = 1 To MAX_CONV_DATA
         For Y = 1 To MAX_LANGUAGE
-            Conversation(ConversationNum).ConvData(X).TextLang(Y).Text = vbNullString
+            Conversation(ConversationNum).ConvData(x).TextLang(Y).Text = vbNullString
             For z = 1 To 3
-                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(z) = vbNullString
+                Conversation(ConversationNum).ConvData(x).TextLang(Y).tReply(z) = vbNullString
             Next
         Next
     Next
@@ -1411,10 +1413,10 @@ End Sub
 
 Public Sub LoadConversation(ByVal ConversationNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\conversation\conversationdata_" & ConversationNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -1423,9 +1425,9 @@ Dim F As Long
         Exit Sub
     End If
         
-    Open filename For Binary As #F
-        Get #F, , Conversation(ConversationNum)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , Conversation(ConversationNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1439,17 +1441,17 @@ End Sub
 
 Public Sub SaveConversation(ByVal ConversationNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\conversation\conversationdata_" & ConversationNum & ".dat"
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
-        Put #F, , Conversation(ConversationNum)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , Conversation(ConversationNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1478,10 +1480,10 @@ End Sub
 
 Public Sub LoadQuest(ByVal QuestNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\quest\Questdata_" & QuestNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -1490,9 +1492,9 @@ Dim F As Long
         Exit Sub
     End If
         
-    Open filename For Binary As #F
-        Get #F, , Quest(QuestNum)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , Quest(QuestNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1506,17 +1508,17 @@ End Sub
 
 Public Sub SaveQuest(ByVal QuestNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\quest\Questdata_" & QuestNum & ".dat"
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
-        Put #F, , Quest(QuestNum)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , Quest(QuestNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1545,10 +1547,10 @@ End Sub
 
 Public Sub LoadShop(ByVal ShopNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\shop\shopdata_" & ShopNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     '//Check if file exist, if not, create new
     If Not FileExist(filename) Then
@@ -1557,9 +1559,9 @@ Dim F As Long
         Exit Sub
     End If
         
-    Open filename For Binary As #F
-        Get #F, , Shop(ShopNum)
-    Close #F
+    Open filename For Binary As #f
+        Get #f, , Shop(ShopNum)
+    Close #f
     DoEvents
 End Sub
 
@@ -1573,17 +1575,17 @@ End Sub
 
 Public Sub SaveShop(ByVal ShopNum As Long)
 Dim filename As String
-Dim F As Long
+Dim f As Long
 
     filename = App.Path & "\data\shop\shopdata_" & ShopNum & ".dat"
     If FileExist(filename) Then
         Kill filename
     End If
-    F = FreeFile
+    f = FreeFile
 
-    Open filename For Binary As #F
-        Put #F, , Shop(ShopNum)
-    Close #F
+    Open filename For Binary As #f
+        Put #f, , Shop(ShopNum)
+    Close #f
     DoEvents
 End Sub
 

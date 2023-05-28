@@ -115,8 +115,6 @@ Dim filename As String
     AddLog "Server started up"
     TextAdd frmServer.txtLog, "Initialization Complete..."
     
-    frmServer.tmrTotalOnline.Enabled = True
-    
     '//Obter data e hora do sistema, OBS: O client trabalha com esses horários
     GameHour = Hour(Now)
     GameMinute = Minute(Now)

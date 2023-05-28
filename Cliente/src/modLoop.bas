@@ -6,18 +6,18 @@ Private Declare Sub Sleep Lib "Kernel32" (ByVal dwMilliseconds As Long) '//halts
 
 '//Handle all looping/time procedure of the application
 Public Sub AppLoop()
-Dim i As Long
-Dim Tick As Long
-Dim Tmr25 As Long, Tmr100 As Long, Tmr500 As Long, Tmr250 As Long, Tmr1000 As Long, Tmr3000 As Long
-Dim WalkTmr As Long, ChatTmr As Long
-Dim TickFPS As Long, FPS As Long
+    Dim i As Long
+    Dim Tick As Long
+    Dim Tmr25 As Long, Tmr100 As Long, Tmr500 As Long, Tmr250 As Long, Tmr1000 As Long, Tmr3000 As Long
+    Dim WalkTmr As Long, ChatTmr As Long
+    Dim TickFPS As Long, FPS As Long
 
     Do While AppRunning
         Tick = GetTickCount     '//Set the inital tick
-        
+
         ' 0.03 milli/second
         If WalkTmr < Tick Then
-            If GameState = GameStateEnum.InGame Then
+            If GameState = GameStateEnum.ingame Then
                 If Player_HighIndex > 0 Then
                     For i = 1 To Player_HighIndex
                         If IsPlaying(i) Then
@@ -59,19 +59,19 @@ Dim TickFPS As Long, FPS As Long
                 End If
             End If
             ProcessMyLogic
-            
+
             If CursorLoadAnim > 7 Then
                 CursorLoadAnim = 0
             Else
                 CursorLoadAnim = CursorLoadAnim + 1
             End If
-            
+
             WalkTmr = Tick + 30
         End If
-        
+
         ' 0.05 milli/second
         If ChatTmr < Tick Then
-            If GameState = GameStateEnum.InGame Then
+            If GameState = GameStateEnum.ingame Then
                 If ChatScrollTimer + 150 < Tick Then
                     If ChatScrollUp Then
                         ScrollChatBox 0
@@ -82,6 +82,8 @@ Dim TickFPS As Long, FPS As Long
                         ChatScrollTimer = GetTickCount
                     End If
                 End If
+
+                ' Pokedex
                 If PokedexScrollTimer + 150 < Tick Then
                     If PokedexScrollUp Then
                         If PokedexViewCount > 0 Then
@@ -100,7 +102,27 @@ Dim TickFPS As Long, FPS As Long
                         End If
                     End If
                 End If
-                
+
+                ' Ranking
+                If RankingScrollTimer + 150 < Tick Then
+                    If RankingScrollUp Then
+                        If RankingViewCount > 0 Then
+                            RankingViewCount = RankingViewCount - 1
+                            RankingScrollY = (RankingViewCount * RankingScrollLength) / MaxRankingViewLine
+                            RankingScrollY = (RankingScrollLength - RankingScrollY)
+                            RankingScrollTimer = GetTickCount
+                        End If
+                    End If
+                    If RankingScrollDown Then
+                        If RankingViewCount < MaxRankingViewLine Then
+                            RankingViewCount = RankingViewCount + 1
+                            RankingScrollY = (RankingViewCount * RankingScrollLength) / MaxRankingViewLine
+                            RankingScrollY = (RankingScrollLength - RankingScrollY)
+                            RankingScrollTimer = GetTickCount
+                        End If
+                    End If
+                End If
+
                 If ControlScrollTimer + 150 < Tick Then
                     If ControlScrollUp Then
                         If ControlViewCount > 0 Then
@@ -123,14 +145,14 @@ Dim TickFPS As Long, FPS As Long
 
             ChatTmr = Tick + 50
         End If
-        
+
         If Tmr100 < Tick Then
             If CreditVisible Then
                 If CreditState = 0 Then
                     CreditOffset = CreditOffset + 16
                     If CreditOffset >= (Screen_Height - 40) Then
                         CreditOffset = (Screen_Height - 40)
-                        
+
                         If CreditTextCount > 0 Then
                             For i = 0 To CreditTextCount
                                 If Credit(i).Y > -32 Then
@@ -154,38 +176,38 @@ Dim TickFPS As Long, FPS As Long
                     End If
                 End If
             End If
-            
+
             Tmr100 = Tick + 10
         End If
-        
+
         If Tmr25 < Tick Then
             '//Fade
             FadeLogic
-            
+
             '//Make sure that background is visible
             If GameState = GameStateEnum.InMenu Then
                 If MenuState = MenuStateEnum.StateNormal Or MenuState = MenuStateEnum.StateTitleScreen Then
                     BackgroundXOffset = BackgroundXOffset - 1
                     If BackgroundXOffset <= 0 Then
-                        BackgroundXOffset = 640 '//Size of the background texture (Need to change if size changed)
+                        BackgroundXOffset = 640    '//Size of the background texture (Need to change if size changed)
                     End If
                 End If
-            ElseIf GameState = GameStateEnum.InGame Then
+            ElseIf GameState = GameStateEnum.ingame Then
                 Call CheckKeys
                 If GetForegroundWindow() = frmMain.hwnd Then
                     Call CheckInputKeys
                 End If
-                
+
                 '//Action
                 If CanMoveNow Then
                     Call CheckMovement
                     Call CheckAttack
                 End If
-                
+
                 For i = 1 To 255
                     CheckAnimInstance i
                 Next
-                
+
                 If ConvoNum > 0 Then
                     If Len(ConvoText) > ConvoDrawTextLen Then
                         ConvoDrawTextLen = ConvoDrawTextLen + 1
@@ -196,10 +218,10 @@ Dim TickFPS As Long, FPS As Long
                     End If
                 End If
             End If
-            
+
             Tmr25 = Tick + 25
         End If
-        
+
         If Tmr1000 < Tick Then
             GameSecond = GameSecond + GameSecond_Velocity
             If GameSecond >= 60 Then
@@ -213,7 +235,7 @@ Dim TickFPS As Long, FPS As Long
                     End If
                 End If
             End If
-            
+
             If GameHour >= 0 And GameHour <= 5 Then     '// Dawn: 1am - 5am
                 DayAndNightARGB = D3DColorARGB(200, 0, 0, 0)
                 ShowLights = True
@@ -230,45 +252,57 @@ Dim TickFPS As Long, FPS As Long
                 DayAndNightARGB = D3DColorARGB(50, 0, 0, 0)
                 ShowLights = True
                 LightAlpha = 100
-            Else '// Night: 9pm - 12am
+            Else    '// Night: 9pm - 12am
                 DayAndNightARGB = D3DColorARGB(150, 0, 0, 0)
                 ShowLights = True
                 LightAlpha = 255
             End If
-            
+
+            ' Jornada do jogador, tempo jogado
+            If GameState = GameStateEnum.ingame Then
+                Player(MyIndex).TimePlay = Player(MyIndex).TimePlay + 1
+            End If
+
+            ' Evento exp
+            If ExpMultiply > 0 Then
+                If ExpSecs > 0 Then
+                    ExpSecs = ExpSecs - 1
+                End If
+            End If
+
             Tmr1000 = Tick + 1000
         End If
-        
+
         If Tmr250 < Tick Then
             If GenderAnim = 0 Then
                 GenderAnim = 2
             Else
                 GenderAnim = 0
             End If
-            
+
             MapFrameAnim = MapFrameAnim + 1
             If MapFrameAnim > MAX_MAP_FRAME Then
                 MapFrameAnim = 0
             End If
-                
+
             ShinySummaryStep = ShinySummaryStep + 1
             If ShinySummaryStep > 2 Then
                 ShinySummaryStep = 0
             End If
-            
+
             Tmr250 = Tick + 200
         End If
-        
+
         ' 0.5 milli/second
         If Tick > Tmr500 Then
             '//Check for disconnection
-            
+
             If TextLine = "|" Then
                 TextLine = ""
             Else
                 TextLine = "|"
             End If
-            
+
             If MapAnim = YES Then
                 MapAnim = NO
             Else
@@ -277,55 +311,55 @@ Dim TickFPS As Long, FPS As Long
 
             Tmr500 = Tick + 500
         End If
-        
+
         ' 3 Seconds
         If Tick > Tmr3000 Then
             Select Case GameState
-                Case GameStateEnum.InMenu
-                    If IsLoggedIn Then
+            Case GameStateEnum.InMenu
+                If IsLoggedIn Then
+                    Connected = IsConnected
+
+                    '//Update Ping every second
+                    If Connected Then
+                        If GameSetting.ShowPing Then
+                            CheckPing
+                        End If
+                    Else
+                        AddAlert "You got disconnected from the server", White
+                        ResetMenu
+                    End If
+                End If
+            Case GameStateEnum.ingame
+                If IsLoggedIn Then
+                    If IsPlaying(MyIndex) Then
                         Connected = IsConnected
-                        
+
                         '//Update Ping every second
                         If Connected Then
-                            If GameSetting.ShowPing Then
-                                CheckPing
-                            End If
+                            CheckPing
                         Else
                             AddAlert "You got disconnected from the server", White
                             ResetMenu
                         End If
                     End If
-                Case GameStateEnum.InGame
-                    If IsLoggedIn Then
-                        If IsPlaying(MyIndex) Then
-                            Connected = IsConnected
-                            
-                            '//Update Ping every second
-                            If Connected Then
-                                CheckPing
-                            Else
-                                AddAlert "You got disconnected from the server", White
-                                ResetMenu
-                            End If
-                        End If
-                    End If
+                End If
             End Select
-            
+
             Tmr3000 = Tick + 3000
         End If
-        
+
         '//Make sure that it doesn't need to update frame if the screen is minimized or hidden
         If Not frmMain.WindowState = vbMinimized Then
             Render_Screen           '//Update Frame
         End If
         DoEvents                '//Allow windows time to think; otherwise you'll get into a really tight (and bad) loop...
-        
+
         '//Prevent from overusing memory
         Do While GetTickCount < Tick + 10
             DoEvents
             Sleep 1
         Loop
-        
+
         '//Count FPS
         If TickFPS < Tick Then
             TickFPS = Tick + 1000

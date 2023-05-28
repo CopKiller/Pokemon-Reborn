@@ -91,16 +91,16 @@ Public Function Random(ByVal Low As Long, ByVal High As Long) As Long
     Random = Int((High - Low + 1) * Rnd) + Low
 End Function
 
-Public Function isValidMapPoint(ByVal MapNum As Long, ByVal x As Long, ByVal y As Long) As Boolean
+Public Function isValidMapPoint(ByVal MapNum As Long, ByVal x As Long, ByVal Y As Long) As Boolean
     isValidMapPoint = False
     If x < 0 Then Exit Function
-    If y < 0 Then Exit Function
+    If Y < 0 Then Exit Function
     If x > Map(MapNum).MaxX Then Exit Function
-    If y > Map(MapNum).MaxY Then Exit Function
+    If Y > Map(MapNum).MaxY Then Exit Function
     isValidMapPoint = True
 End Function
 
-Public Function CheckDirection(ByVal MapNum As Long, ByVal Direction As Byte, ByVal x As Long, ByVal y As Long, Optional ByVal NpcChecking As Boolean = False) As Boolean
+Public Function CheckDirection(ByVal MapNum As Long, ByVal Direction As Byte, ByVal x As Long, ByVal Y As Long, Optional ByVal NpcChecking As Boolean = False) As Boolean
 Dim wX As Long, wY As Long
 Dim i As Long
 Dim xIndex As Long
@@ -110,16 +110,16 @@ Dim xIndex As Long
     Select Case Direction
         Case DIR_UP
             wX = x
-            wY = y - 1
+            wY = Y - 1
         Case DIR_DOWN
             wX = x
-            wY = y + 1
+            wY = Y + 1
         Case DIR_LEFT
             wX = x - 1
-            wY = y
+            wY = Y
         Case DIR_RIGHT
             wX = x + 1
-            wY = y
+            wY = Y
     End Select
 
     If wX < 0 Or wX > Map(MapNum).MaxX Or wY < 0 Or wY > Map(MapNum).MaxY Then
@@ -144,13 +144,13 @@ Dim xIndex As Long
         For i = 1 To MAX_MAP_NPC
             '//Check Npc
             If MapNpc(MapNum, i).Num > 0 Then
-                If MapNpc(MapNum, i).x = wX And MapNpc(MapNum, i).y = wY Then
+                If MapNpc(MapNum, i).x = wX And MapNpc(MapNum, i).Y = wY Then
                     CheckDirection = True
                     Exit Function
                 End If
             End If
             If MapNpcPokemon(MapNum, i).Num > 0 Then
-                If MapNpcPokemon(MapNum, i).x = wX And MapNpcPokemon(MapNum, i).y = wY Then
+                If MapNpcPokemon(MapNum, i).x = wX And MapNpcPokemon(MapNum, i).Y = wY Then
                     CheckDirection = True
                     Exit Function
                 End If
@@ -162,13 +162,13 @@ Dim xIndex As Long
             If IsPlaying(i) Then
                 If TempPlayer(i).UseChar > 0 Then
                     If Player(i, TempPlayer(i).UseChar).Map = MapNum Then
-                        If Player(i, TempPlayer(i).UseChar).x = wX And Player(i, TempPlayer(i).UseChar).y = wY Then
+                        If Player(i, TempPlayer(i).UseChar).x = wX And Player(i, TempPlayer(i).UseChar).Y = wY Then
                             CheckDirection = True
                             Exit Function
                         End If
                         '//Player Pokemon
                         If PlayerPokemon(i).Num > 0 Then
-                            If PlayerPokemon(i).x = wX And PlayerPokemon(i).y = wY Then
+                            If PlayerPokemon(i).x = wX And PlayerPokemon(i).Y = wY Then
                                 CheckDirection = True
                                 Exit Function
                             End If
@@ -182,7 +182,7 @@ Dim xIndex As Long
         For i = 1 To Pokemon_HighIndex
             If MapPokemon(i).Num > 0 Then
                 If MapPokemon(i).Map = MapNum Then
-                    If MapPokemon(i).x = wX And MapPokemon(i).y = wY Then
+                    If MapPokemon(i).x = wX And MapPokemon(i).Y = wY Then
                         CheckDirection = True
                         Exit Function
                     End If
@@ -215,27 +215,27 @@ Public Sub ClearMapNpc(ByVal MapNum As Long, ByVal MapNpcNum As Byte)
 End Sub
 
 Public Sub ClearMapNpcs()
-Dim x As Long, y As Long
+Dim x As Long, Y As Long
     
     For x = 1 To MAX_MAP
-        For y = 1 To MAX_MAP_NPC
-            Call ClearMapNpc(x, y)
+        For Y = 1 To MAX_MAP_NPC
+            Call ClearMapNpc(x, Y)
         Next
     Next
 End Sub
 
-Public Function NpcTileOpen(ByVal MapNum As Long, ByVal x As Long, ByVal y As Long) As Boolean
+Public Function NpcTileOpen(ByVal MapNum As Long, ByVal x As Long, ByVal Y As Long) As Boolean
     NpcTileOpen = True
     
     '//Check if npc can step on the tile
-    If Not Map(MapNum).Tile(x, y).Attribute = MapAttribute.Walkable Then
+    If Not Map(MapNum).Tile(x, Y).Attribute = MapAttribute.Walkable Then
         NpcTileOpen = False
         Exit Function
     End If
 End Function
 
 Public Sub SpawnNpc(ByVal MapNum As Long, ByVal MapNpcNum As Long)
-Dim x As Long, y As Long
+Dim x As Long, Y As Long
 Dim i As Long
 Dim DidSpawn As Boolean
 
@@ -252,12 +252,12 @@ Dim DidSpawn As Boolean
             '//check on tiles if it have a specific location
             If Not DidSpawn Then
                 For x = 0 To Map(MapNum).MaxX
-                    For y = 0 To Map(MapNum).MaxY
-                        If Map(MapNum).Tile(x, y).Attribute = MapAttribute.NpcSpawn Then
-                            If Map(MapNum).Tile(x, y).Data1 = MapNpcNum Then
+                    For Y = 0 To Map(MapNum).MaxY
+                        If Map(MapNum).Tile(x, Y).Attribute = MapAttribute.NpcSpawn Then
+                            If Map(MapNum).Tile(x, Y).Data1 = MapNpcNum Then
                                 .x = x
-                                .y = y
-                                .Dir = Map(MapNum).Tile(x, y).Data2
+                                .Y = Y
+                                .Dir = Map(MapNum).Tile(x, Y).Data2
                                 DidSpawn = True
                                 GoTo Continue
                             End If
@@ -272,11 +272,11 @@ Continue:
             If Not DidSpawn Then
                 For i = 1 To 100
                     x = Random(0, Map(MapNum).MaxX)
-                    y = Random(0, Map(MapNum).MaxY)
+                    Y = Random(0, Map(MapNum).MaxY)
                     
-                    If NpcTileOpen(MapNum, x, y) Then
+                    If NpcTileOpen(MapNum, x, Y) Then
                         .x = x
-                        .y = y
+                        .Y = Y
                         .Dir = Random(0, 3)
                         DidSpawn = True
                         Exit For
@@ -287,10 +287,10 @@ Continue:
             '//spawn on the free tile
             If Not DidSpawn Then
                 For x = 0 To Map(MapNum).MaxX
-                    For y = 0 To Map(MapNum).MaxY
-                        If NpcTileOpen(MapNum, x, y) Then
+                    For Y = 0 To Map(MapNum).MaxY
+                        If NpcTileOpen(MapNum, x, Y) Then
                             .x = x
-                            .y = y
+                            .Y = Y
                             .Dir = Random(0, 3)
                             DidSpawn = True
                         End If
@@ -343,9 +343,9 @@ Dim DidMove As Boolean
                 .Dir = DIR_UP
                 
                 '//Check to make sure not outside of boundries
-                If .y > 0 Then
-                    If Not CheckDirection(MapNum, DIR_UP, .x, .y, True) Then
-                        .y = .y - 1
+                If .Y > 0 Then
+                    If Not CheckDirection(MapNum, DIR_UP, .x, .Y, True) Then
+                        .Y = .Y - 1
                         DidMove = True
                     End If
                 End If
@@ -353,9 +353,9 @@ Dim DidMove As Boolean
                 .Dir = DIR_DOWN
                 
                 '//Check to make sure not outside of boundries
-                If .y < Map(MapNum).MaxY Then
-                    If Not CheckDirection(MapNum, DIR_DOWN, .x, .y, True) Then
-                        .y = .y + 1
+                If .Y < Map(MapNum).MaxY Then
+                    If Not CheckDirection(MapNum, DIR_DOWN, .x, .Y, True) Then
+                        .Y = .Y + 1
                         DidMove = True
                     End If
                 End If
@@ -364,7 +364,7 @@ Dim DidMove As Boolean
                 
                 '//Check to make sure not outside of boundries
                 If .x > 0 Then
-                    If Not CheckDirection(MapNum, DIR_LEFT, .x, .y, True) Then
+                    If Not CheckDirection(MapNum, DIR_LEFT, .x, .Y, True) Then
                         .x = .x - 1
                         DidMove = True
                     End If
@@ -374,7 +374,7 @@ Dim DidMove As Boolean
                 
                 '//Check to make sure not outside of boundries
                 If .x < Map(MapNum).MaxX Then
-                    If Not CheckDirection(MapNum, DIR_RIGHT, .x, .y, True) Then
+                    If Not CheckDirection(MapNum, DIR_RIGHT, .x, .Y, True) Then
                         .x = .x + 1
                         DidMove = True
                     End If
@@ -390,33 +390,33 @@ Dim DidMove As Boolean
     End With
 End Sub
 
-Public Function CheckOpenTile(ByVal MapNum As Long, ByVal x As Long, ByVal y As Long) As Boolean
+Public Function CheckOpenTile(ByVal MapNum As Long, ByVal x As Long, ByVal Y As Long) As Boolean
 Dim i As Long
 
     CheckOpenTile = True
     
-    If x < 0 Or y < 0 Or x > Map(MapNum).MaxX Or y > Map(MapNum).MaxY Then
+    If x < 0 Or Y < 0 Or x > Map(MapNum).MaxX Or Y > Map(MapNum).MaxY Then
         CheckOpenTile = False
         Exit Function
     End If
     '//Check if npc can step on the tile
-    If Map(MapNum).Tile(x, y).Attribute = MapAttribute.Blocked Then
+    If Map(MapNum).Tile(x, Y).Attribute = MapAttribute.Blocked Then
         CheckOpenTile = False
         Exit Function
     End If
-    If Map(MapNum).Tile(x, y).Attribute = MapAttribute.ConvoTile Then
+    If Map(MapNum).Tile(x, Y).Attribute = MapAttribute.ConvoTile Then
         CheckOpenTile = False
         Exit Function
     End If
-    If Map(MapNum).Tile(x, y).Attribute = MapAttribute.BothStorage Or Map(MapNum).Tile(x, y).Attribute = MapAttribute.InvStorage Or Map(MapNum).Tile(x, y).Attribute = MapAttribute.PokemonStorage Then
+    If Map(MapNum).Tile(x, Y).Attribute = MapAttribute.BothStorage Or Map(MapNum).Tile(x, Y).Attribute = MapAttribute.InvStorage Or Map(MapNum).Tile(x, Y).Attribute = MapAttribute.PokemonStorage Then
         CheckOpenTile = False
         Exit Function
     End If
-    If Map(MapNum).Tile(x, y).Attribute = MapAttribute.Warp Then
+    If Map(MapNum).Tile(x, Y).Attribute = MapAttribute.Warp Then
         CheckOpenTile = False
         Exit Function
     End If
-    If Map(MapNum).Tile(x, y).Attribute = MapAttribute.WarpCheckpoint Then
+    If Map(MapNum).Tile(x, Y).Attribute = MapAttribute.WarpCheckpoint Then
         CheckOpenTile = False
         Exit Function
     End If
@@ -424,7 +424,7 @@ Dim i As Long
     For i = 1 To MAX_MAP_NPC
         '//Check Npc
         If MapNpc(MapNum, i).Num > 0 Then
-            If MapNpc(MapNum, i).x = x And MapNpc(MapNum, i).y = y Then
+            If MapNpc(MapNum, i).x = x And MapNpc(MapNum, i).Y = Y Then
                 CheckOpenTile = False
                 Exit Function
             End If
@@ -436,13 +436,13 @@ Dim i As Long
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
                 If Player(i, TempPlayer(i).UseChar).Map = MapNum Then
-                    If Player(i, TempPlayer(i).UseChar).x = x And Player(i, TempPlayer(i).UseChar).y = y Then
+                    If Player(i, TempPlayer(i).UseChar).x = x And Player(i, TempPlayer(i).UseChar).Y = Y Then
                         CheckOpenTile = False
                         Exit Function
                     End If
                     '//Player Pokemon
                     If PlayerPokemon(i).Num > 0 Then
-                        If PlayerPokemon(i).x = x And PlayerPokemon(i).y = y Then
+                        If PlayerPokemon(i).x = x And PlayerPokemon(i).Y = Y Then
                             CheckOpenTile = False
                             Exit Function
                         End If
@@ -456,7 +456,7 @@ Dim i As Long
     For i = 1 To Pokemon_HighIndex
         If MapPokemon(i).Num > 0 Then
             If MapPokemon(i).Map = MapNum Then
-                If MapPokemon(i).x = x And MapPokemon(i).y = y Then
+                If MapPokemon(i).x = x And MapPokemon(i).Y = Y Then
                     CheckOpenTile = False
                     Exit Function
                 End If
@@ -471,7 +471,7 @@ End Function
 Public Sub SpawnNpcPokemon(ByVal MapNum As Long, ByVal NpcIndex As Long, ByVal NpcPokeSlot As Byte)
 Dim i As Byte, startPosX As Long, startPosY As Long
 Dim foundPosition As Boolean
-Dim x As Long, y As Long
+Dim x As Long, Y As Long
 
     '//Check for error
     If NpcIndex <= 0 Or NpcIndex > MAX_MAP_NPC Then Exit Sub
@@ -486,14 +486,14 @@ Dim x As Long, y As Long
         
         foundPosition = False
         For x = MapNpc(MapNum, NpcIndex).x - 1 To MapNpc(MapNum, NpcIndex).x + 1
-            For y = MapNpc(MapNum, NpcIndex).y - 1 To MapNpc(MapNum, NpcIndex).y + 1
-                If x = MapNpc(MapNum, NpcIndex).x And y = MapNpc(MapNum, NpcIndex).y Then
+            For Y = MapNpc(MapNum, NpcIndex).Y - 1 To MapNpc(MapNum, NpcIndex).Y + 1
+                If x = MapNpc(MapNum, NpcIndex).x And Y = MapNpc(MapNum, NpcIndex).Y Then
                     
                 Else
                     '//Check if OpenTile
-                    If CheckOpenTile(MapNum, x, y) Then
+                    If CheckOpenTile(MapNum, x, Y) Then
                         startPosX = x
-                        startPosY = y
+                        startPosY = Y
                         foundPosition = True
                         Exit For
                     End If
@@ -504,11 +504,11 @@ Dim x As Long, y As Long
         If foundPosition Then
             '//Location
             .x = startPosX
-            .y = startPosY
+            .Y = startPosY
         Else
             '//Location
             .x = MapNpc(MapNum, NpcIndex).x
-            .y = MapNpc(MapNum, NpcIndex).y
+            .Y = MapNpc(MapNum, NpcIndex).Y
         End If
         .Dir = DIR_DOWN
             
@@ -517,7 +517,7 @@ Dim x As Long, y As Long
         If .Nature <= 0 Then .Nature = 0
         If .Nature >= (PokemonNature.PokemonNature_Count - 1) Then .Nature = PokemonNature.PokemonNature_Count - 1
         
-        .isShiny = NO
+        .IsShiny = NO
         .Gender = GENDER_MALE
         
         '//Status
@@ -551,7 +551,7 @@ Dim x As Long, y As Long
         Next
         
         '//Update Data to map
-        SendNpcPokemonData MapNum, NpcIndex, YES, 0, .x, .y
+        SendNpcPokemonData MapNum, NpcIndex, YES, 0, .x, .Y
         
         .MoveTmr = GetTickCount + 1000
     End With
@@ -611,9 +611,9 @@ Dim MoveSpeed As Long
                 .Dir = DIR_UP
                 
                 '//Check to make sure not outside of boundries
-                If .y > 0 Then
-                    If Not CheckDirection(MapNum, DIR_UP, .x, .y, True) Then
-                        .y = .y - 1
+                If .Y > 0 Then
+                    If Not CheckDirection(MapNum, DIR_UP, .x, .Y, True) Then
+                        .Y = .Y - 1
                         DidMove = True
                     End If
                 End If
@@ -621,9 +621,9 @@ Dim MoveSpeed As Long
                 .Dir = DIR_DOWN
                 
                 '//Check to make sure not outside of boundries
-                If .y < Map(MapNum).MaxY Then
-                    If Not CheckDirection(MapNum, DIR_DOWN, .x, .y, True) Then
-                        .y = .y + 1
+                If .Y < Map(MapNum).MaxY Then
+                    If Not CheckDirection(MapNum, DIR_DOWN, .x, .Y, True) Then
+                        .Y = .Y + 1
                         DidMove = True
                     End If
                 End If
@@ -632,7 +632,7 @@ Dim MoveSpeed As Long
                 
                 '//Check to make sure not outside of boundries
                 If .x > 0 Then
-                    If Not CheckDirection(MapNum, DIR_LEFT, .x, .y, True) Then
+                    If Not CheckDirection(MapNum, DIR_LEFT, .x, .Y, True) Then
                         .x = .x - 1
                         DidMove = True
                     End If
@@ -642,7 +642,7 @@ Dim MoveSpeed As Long
                 
                 '//Check to make sure not outside of boundries
                 If .x < Map(MapNum).MaxX Then
-                    If Not CheckDirection(MapNum, DIR_RIGHT, .x, .y, True) Then
+                    If Not CheckDirection(MapNum, DIR_RIGHT, .x, .Y, True) Then
                         .x = .x + 1
                         DidMove = True
                     End If
@@ -656,14 +656,14 @@ Dim MoveSpeed As Long
                     If .StatusDamage > 0 Then
                         If .StatusDamage >= .CurHP Then
                             .CurHP = 0
-                            SendActionMsg MapNum, "-" & .StatusDamage, .x * 32, .y * 32, Magenta
+                            SendActionMsg MapNum, "-" & .StatusDamage, .x * 32, .Y * 32, Magenta
                             
                             MapNpc(MapNum, NpcIndex).PokemonAlive(MapNpc(MapNum, NpcIndex).CurPokemon) = NO
                             NpcPokemonCallBack MapNum, NpcIndex
                             Exit Function
                         Else
                             .CurHP = .CurHP - .StatusDamage
-                            SendActionMsg MapNum, "-" & .StatusDamage, .x * 32, .y * 32, Magenta
+                            SendActionMsg MapNum, "-" & .StatusDamage, .x * 32, .Y * 32, Magenta
                             '//Update
                             'SendPokemonVital MapPokemonNum
                         End If
@@ -718,7 +718,7 @@ Public Sub NpcPokemonCallBack(ByVal MapNum As Long, ByVal MapNpcNum As Long, Opt
     If MapNpcNum <= 0 Or MapNpcNum > MAX_MAP_NPC Then Exit Sub
     If MapNpcPokemon(MapNum, MapNpcNum).Num <= 0 Then Exit Sub
     
-    SendNpcPokemonData MapNum, MapNpcNum, YES, 1, MapNpcPokemon(MapNum, MapNpcNum).x, MapNpcPokemon(MapNum, MapNpcNum).y
+    SendNpcPokemonData MapNum, MapNpcNum, YES, 1, MapNpcPokemon(MapNum, MapNpcNum).x, MapNpcPokemon(MapNum, MapNpcNum).Y
     Call ClearMapNpcPokemon(MapNum, MapNpcNum)
     If DidFaint Then
         MapNpc(MapNum, MapNpcNum).FaintWaitTimer = GetTickCount + 1500

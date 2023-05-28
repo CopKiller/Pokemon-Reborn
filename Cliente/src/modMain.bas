@@ -198,7 +198,7 @@ Public Sub InitGameState(ByVal gState As GameStateEnum, Optional ByVal IsStart A
             End If
             
             BackgroundXOffset = 640 '//Size of the background texture (Need to change if size changed)
-        Case GameStateEnum.InGame
+        Case GameStateEnum.ingame
             
     End Select
 End Sub
@@ -321,6 +321,8 @@ Public Sub GuiState(ByVal vGui As GuiEnum, ByVal vState As Boolean, Optional ByV
             ShowPass = NO
         Case GuiEnum.GUI_POKEDEX
             PokedexScrollY = 132
+        Case GuiEnum.GUI_RANK
+            RankingScrollY = RankingScrollLength
         Case GuiEnum.GUI_OPTION
             ControlScrollY = 121
     End Select
@@ -336,7 +338,7 @@ Public Function CanShowButton(ByVal ButtonNum As ButtonEnum) As Boolean
         If GettingMap Then CanShowButton = False
         If CreditVisible Then CanShowButton = False
     End If
-    If GameState = GameStateEnum.InGame And Editor = EDITOR_MAP Then CanShowButton = False
+    If GameState = GameStateEnum.ingame And Editor = EDITOR_MAP Then CanShowButton = False
     
     Select Case ButtonNum
         Case ButtonEnum.Game_Pokedex To ButtonEnum.Game_Menu
@@ -387,7 +389,7 @@ Public Function CanShowGui(ByVal GuiNum As GuiEnum) As Boolean
 
     If Not MenuState = MenuStateEnum.StateNormal Then CanShowGui = False
     If IsLoading Then CanShowGui = False
-    If GameState = GameStateEnum.InGame And Editor = EDITOR_MAP Then CanShowGui = False
+    If GameState = GameStateEnum.ingame And Editor = EDITOR_MAP Then CanShowGui = False
     If GettingMap Then CanShowGui = False
     If CreditVisible Then CanShowGui = False
     If CreditVisible Then GUI(GuiEnum.GUI_GLOBALMENU).Visible = False
@@ -440,6 +442,9 @@ Public Sub ClearGameData()
     DragPokeSlot = 0
     SetAttackMove = 0
     InParty = 0
+    '// Evento XP
+    ExpMultiply = 0
+    ExpSecs = 0
     
     Erase PokemonsStorage_Select
 

@@ -60,6 +60,22 @@ Dim LastUpdateSavePlayers As Long
                 End If
             End If
             
+            ' Contabiliza o tempo do jogador jogado.
+            For i = 1 To Player_HighIndex
+                If IsPlaying(i) Then
+                    Player(i, TempPlayer(i).UseChar).TimePlay = Player(i, TempPlayer(i).UseChar).TimePlay + 1
+                End If
+            Next i
+            
+            ' Evento exp por tempo
+            If ExpEvent Then
+                If ExpSecs > 0 Then
+                    ExpSecs = ExpSecs - 1
+                Else
+                    ExpEvent = False
+                End If
+            End If
+
             Tmr1000 = GetTickCount + 1000
         End If
         
@@ -149,7 +165,7 @@ Dim RandomNumber As Long
                                     MapPokemon(TempPlayer(i).TmpCatchPokeNum).InCatch = NO
                                     MapPokemon(TempPlayer(i).TmpCatchPokeNum).targetType = TARGET_TYPE_PLAYER
                                     MapPokemon(TempPlayer(i).TmpCatchPokeNum).TargetIndex = i
-                                    SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).x, MapPokemon(TempPlayer(i).TmpCatchPokeNum).y, 3, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                    SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 3, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                     TempPlayer(i).TmpCatchPokeNum = 0
                                     TempPlayer(i).TmpCatchTimer = 0
                                     TempPlayer(i).TmpCatchTries = 0
@@ -165,7 +181,7 @@ Dim RandomNumber As Long
                                     TempPlayer(i).TmpCatchTries = TempPlayer(i).TmpCatchTries + 1
                                     TempPlayer(i).TmpCatchTimer = GetTickCount + 500
                                     '//Do Animation
-                                    SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).x, MapPokemon(TempPlayer(i).TmpCatchPokeNum).y, 1, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                    SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 1, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                     Select Case TempPlayer(i).CurLanguage
                                         Case LANG_PT: AddAlert i, "The pokeball shaked...", White
                                         Case LANG_EN: AddAlert i, "The pokeball shaked...", White
@@ -177,7 +193,7 @@ Dim RandomNumber As Long
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).InCatch = NO
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).targetType = TARGET_TYPE_PLAYER
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).TargetIndex = i
-                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).x, MapPokemon(TempPlayer(i).TmpCatchPokeNum).y, 3, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 3, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                 TempPlayer(i).TmpCatchPokeNum = 0
                                 TempPlayer(i).TmpCatchTimer = 0
                                 TempPlayer(i).TmpCatchTries = 0
@@ -203,7 +219,7 @@ Dim RandomNumber As Long
                             If CatchMapPokemonData(i, TempPlayer(i).TmpCatchPokeNum, TempPlayer(i).TmpCatchUseBall) Then
                                 '//Success
                                 '//Clear map pokemon
-                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).x, MapPokemon(TempPlayer(i).TmpCatchPokeNum).y, 2, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 2, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                 Select Case TempPlayer(i).CurLanguage
                                     Case LANG_PT: AddAlert i, "Congratiolations! You have captured the pokemon...", White
                                     Case LANG_EN: AddAlert i, "Congratiolations! You have captured the pokemon...", White
@@ -221,7 +237,7 @@ Dim RandomNumber As Long
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).InCatch = NO
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).targetType = TARGET_TYPE_PLAYER
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).TargetIndex = i
-                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).x, MapPokemon(TempPlayer(i).TmpCatchPokeNum).y, 3, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 3, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                 TempPlayer(i).TmpCatchPokeNum = 0
                                 TempPlayer(i).TmpCatchTimer = 0
                                 TempPlayer(i).TmpCatchTries = 0
@@ -245,12 +261,12 @@ Dim RandomNumber As Long
                             TempPlayer(i).DuelTime = TempPlayer(i).DuelTime - 1
                             With Player(i, TempPlayer(i).UseChar)
                                 If TempPlayer(i).DuelTime > 0 Then
-                                    SendActionMsg .Map, TempPlayer(i).DuelTime, .x * 32, .y * 32, White
+                                    SendActionMsg .Map, TempPlayer(i).DuelTime, .X * 32, .Y * 32, White
                                 End If
                                 
                                 If TempPlayer(i).DuelTime <= 0 Then
                                     '//Init Battle
-                                    SendActionMsg .Map, "Start!", .x * 32, .y * 32, White
+                                    SendActionMsg .Map, "Start!", .X * 32, .Y * 32, White
                                     TempPlayer(i).DuelTimeTmr = GetTickCount + 25000
                                     TempPlayer(i).WarningTimer = GetTickCount + 5000
                                     If PlayerPokemon(i).Num <= 0 Then
@@ -276,16 +292,16 @@ Dim RandomNumber As Long
                                                 '//Check result
                                                 If PlayerPokemon(TempPlayer(i).InDuel).Num > 0 Then
                                                     '//Lose
-                                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Lose!", Player(i, TempPlayer(i).UseChar).x * 32, Player(i, TempPlayer(i).UseChar).y * 32, White
-                                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Win!", Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).x * 32, Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).y * 32, White
+                                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Lose!", Player(i, TempPlayer(i).UseChar).X * 32, Player(i, TempPlayer(i).UseChar).Y * 32, White
+                                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Win!", Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).X * 32, Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).Y * 32, White
                                                     Player(i, TempPlayer(i).UseChar).Lose = Player(i, TempPlayer(i).UseChar).Lose + 1
                                                     Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).Win = Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).Win + 1
                                                     SendPlayerPvP (i)
                                                     SendPlayerPvP (TempPlayer(i).InDuel)
                                                 Else
                                                     '//Draw
-                                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Tie!", Player(i, TempPlayer(i).UseChar).x * 32, Player(i, TempPlayer(i).UseChar).y * 32, White
-                                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Tie!", Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).x * 32, Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).y * 32, White
+                                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Tie!", Player(i, TempPlayer(i).UseChar).X * 32, Player(i, TempPlayer(i).UseChar).Y * 32, White
+                                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Tie!", Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).X * 32, Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).Y * 32, White
                                                     Player(i, TempPlayer(i).UseChar).Tie = Player(i, TempPlayer(i).UseChar).Tie + 1
                                                     Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).Tie = Player(TempPlayer(i).InDuel, TempPlayer(TempPlayer(i).InDuel).UseChar).Tie + 1
                                                     SendPlayerPvP (i)
@@ -312,7 +328,7 @@ Dim RandomNumber As Long
                                 If TempPlayer(i).InNpcDuel > 0 Then
                                     MapNpc(Player(i, TempPlayer(i).UseChar).Map, TempPlayer(i).InNpcDuel).InBattle = 0
                                     NpcPokemonCallBack Player(i, TempPlayer(i).UseChar).Map, TempPlayer(i).InNpcDuel
-                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Lose!", Player(i, TempPlayer(i).UseChar).x * 32, Player(i, TempPlayer(i).UseChar).y * 32, White
+                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Lose!", Player(i, TempPlayer(i).UseChar).X * 32, Player(i, TempPlayer(i).UseChar).Y * 32, White
                                     TempPlayer(i).InNpcDuel = 0
                                     TempPlayer(i).DuelTime = 0
                                     TempPlayer(i).DuelTimeTmr = 0
@@ -384,7 +400,7 @@ Dim randNum As Long
 Dim DidWalk As Boolean
 Dim Target As Long, TargetX As Long, TargetY As Long
 Dim NearTarget As Boolean
-Dim x As Byte, DidSpawn As Boolean
+Dim X As Byte, DidSpawn As Boolean
 Dim DuelIndex As Long
 Dim Exiting As Boolean
 Dim QueueMove As Long
@@ -428,11 +444,11 @@ Dim QueueMove As Long
                         Else
                             If MapNpc(MapNum, MapNpcNum).FaintWaitTimer <= GetTickCount Then
                                 '//Try To Spawn Another Pokemon
-                                For x = 1 To MAX_PLAYER_POKEMON
-                                    If MapNpc(MapNum, MapNpcNum).PokemonAlive(x) = YES Then
-                                        If Npc(MapNpc(MapNum, MapNpcNum).Num).PokemonNum(x) > 0 Then
-                                            MapNpc(MapNum, MapNpcNum).CurPokemon = x
-                                            SpawnNpcPokemon MapNum, MapNpcNum, x
+                                For X = 1 To MAX_PLAYER_POKEMON
+                                    If MapNpc(MapNum, MapNpcNum).PokemonAlive(X) = YES Then
+                                        If Npc(MapNpc(MapNum, MapNpcNum).Num).PokemonNum(X) > 0 Then
+                                            MapNpc(MapNum, MapNpcNum).CurPokemon = X
+                                            SpawnNpcPokemon MapNum, MapNpcNum, X
                                             DidSpawn = True
                                         End If
                                     End If
@@ -442,7 +458,7 @@ Dim QueueMove As Long
                                     DuelIndex = MapNpc(MapNum, MapNpcNum).InBattle
                                     If IsPlaying(DuelIndex) Then
                                         If TempPlayer(DuelIndex).UseChar > 0 Then
-                                            SendActionMsg MapNum, "Win!", Player(DuelIndex, TempPlayer(DuelIndex).UseChar).x * 32, Player(DuelIndex, TempPlayer(DuelIndex).UseChar).y * 32, White
+                                            SendActionMsg MapNum, "Win!", Player(DuelIndex, TempPlayer(DuelIndex).UseChar).X * 32, Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Y * 32, White
                                             Select Case TempPlayer(DuelIndex).CurLanguage
                                                 Case LANG_PT: AddAlert DuelIndex, "You win on a duel!", White
                                                 Case LANG_EN: AddAlert DuelIndex, "You win on a duel!", White
@@ -485,8 +501,8 @@ Dim QueueMove As Long
                             If TempPlayer(Target).UseChar > 0 Then
                                 If TempPlayer(Target).DuelTime <= 0 Then
                                     If PlayerPokemon(Target).Num > 0 Then
-                                        TargetX = PlayerPokemon(Target).x
-                                        TargetY = PlayerPokemon(Target).y
+                                        TargetX = PlayerPokemon(Target).X
+                                        TargetY = PlayerPokemon(Target).Y
                                     Else
                                         Target = 0
                                         TargetX = 0
@@ -529,7 +545,7 @@ Dim QueueMove As Long
                                 '    Case DIR_DOWN: If MapPokemon(MapPokeNum).x = TargetX And MapPokemon(MapPokeNum).y + 1 = TargetY Then NearTarget = True
                                 'End Select
                                 NearTarget = False
-                                If IsOnAoERange(4, MapNpcPokemon(MapNum, MapNpcNum).x, MapNpcPokemon(MapNum, MapNpcNum).y, TargetX, TargetY) Then NearTarget = True
+                                If IsOnAoERange(4, MapNpcPokemon(MapNum, MapNpcNum).X, MapNpcPokemon(MapNum, MapNpcNum).Y, TargetX, TargetY) Then NearTarget = True
                                 
                                 If NearTarget Then
                                     '//Check Random use of move
@@ -604,74 +620,74 @@ Dim QueueMove As Long
                                         '//CheckMovement
                                         Select Case randNum
                                             Case 0
-                                                If .y > TargetY And Not DidWalk Then
+                                                If .Y > TargetY And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_UP) Then DidWalk = True
                                                 End If
-                                                If .y < TargetY And Not DidWalk Then
+                                                If .Y < TargetY And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_DOWN) Then DidWalk = True
                                                 End If
-                                                If .x > TargetX And Not DidWalk Then
+                                                If .X > TargetX And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_LEFT) Then DidWalk = True
                                                 End If
-                                                If .x < TargetX And Not DidWalk Then
+                                                If .X < TargetX And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_RIGHT) Then DidWalk = True
                                                 End If
                                             Case 1
-                                                If .x < TargetX And Not DidWalk Then
+                                                If .X < TargetX And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_RIGHT) Then DidWalk = True
                                                 End If
-                                                If .x > TargetX And Not DidWalk Then
+                                                If .X > TargetX And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_LEFT) Then DidWalk = True
                                                 End If
-                                                If .y < TargetY And Not DidWalk Then
+                                                If .Y < TargetY And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_DOWN) Then DidWalk = True
                                                 End If
-                                                If .y > TargetY And Not DidWalk Then
+                                                If .Y > TargetY And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_UP) Then DidWalk = True
                                                 End If
                                             Case 2
-                                                If .y < TargetY And Not DidWalk Then
+                                                If .Y < TargetY And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_DOWN) Then DidWalk = True
                                                 End If
-                                                If .y > TargetY And Not DidWalk Then
+                                                If .Y > TargetY And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_UP) Then DidWalk = True
                                                 End If
-                                                If .x < TargetX And Not DidWalk Then
+                                                If .X < TargetX And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_RIGHT) Then DidWalk = True
                                                 End If
-                                                If .x > TargetX And Not DidWalk Then
+                                                If .X > TargetX And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_LEFT) Then DidWalk = True
                                                 End If
                                             Case 3
-                                                If .x > TargetX And Not DidWalk Then
+                                                If .X > TargetX And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_LEFT) Then DidWalk = True
                                                 End If
-                                                If .x < TargetX And Not DidWalk Then
+                                                If .X < TargetX And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_RIGHT) Then DidWalk = True
                                                 End If
-                                                If .y > TargetY And Not DidWalk Then
+                                                If .Y > TargetY And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_UP) Then DidWalk = True
                                                 End If
-                                                If .y < TargetY And Not DidWalk Then
+                                                If .Y < TargetY And Not DidWalk Then
                                                     If NpcPokemonMove(MapNum, MapNpcNum, DIR_DOWN) Then DidWalk = True
                                                 End If
                                         End Select
                                                     
                                         '//Check Direction
                                         If Not DidWalk Then
-                                            If .x - 1 = TargetX And .y = TargetY Then
+                                            If .X - 1 = TargetX And .Y = TargetY Then
                                                 If Not .Dir = DIR_LEFT Then Call NpcPokemonDir(MapNum, MapNpcNum, DIR_LEFT)
                                                 DidWalk = True
                                             End If
-                                            If .x + 1 = TargetX And .y = TargetY Then
+                                            If .X + 1 = TargetX And .Y = TargetY Then
                                                 If Not .Dir = DIR_RIGHT Then Call NpcPokemonDir(MapNum, MapNpcNum, DIR_RIGHT)
                                                 DidWalk = True
                                             End If
-                                            If .x = TargetX And .y - 1 = TargetY Then
+                                            If .X = TargetX And .Y - 1 = TargetY Then
                                                 If Not .Dir = DIR_UP Then Call NpcPokemonDir(MapNum, MapNpcNum, DIR_UP)
                                                 DidWalk = True
                                             End If
-                                            If .x = TargetX And .y + 1 = TargetY Then
+                                            If .X = TargetX And .Y + 1 = TargetY Then
                                                 If Not .Dir = DIR_DOWN Then Call NpcPokemonDir(MapNum, MapNpcNum, DIR_DOWN)
                                                 DidWalk = True
                                             End If
@@ -753,8 +769,8 @@ Dim QueueMove As Long
                 If MapPokemon(MapPokeNum).TargetIndex > 0 Then
                     targetType = MapPokemon(MapPokeNum).targetType
                     Target = MapPokemon(MapPokeNum).TargetIndex
-                    TargetX = MapPokemon(MapPokeNum).x
-                    TargetY = MapPokemon(MapPokeNum).y
+                    TargetX = MapPokemon(MapPokeNum).X
+                    TargetY = MapPokemon(MapPokeNum).Y
 
                     '//Check Target
                     Select Case targetType
@@ -769,11 +785,11 @@ Dim QueueMove As Long
                                             MapPokemon(MapPokeNum).targetType = TARGET_TYPE_PLAYERPOKEMON
                                         Else
                                             '//Follow
-                                            TargetX = Player(Target, TempPlayer(Target).UseChar).x
-                                            TargetY = Player(Target, TempPlayer(Target).UseChar).y
+                                            TargetX = Player(Target, TempPlayer(Target).UseChar).X
+                                            TargetY = Player(Target, TempPlayer(Target).UseChar).Y
                                             onSightRange = Pokemon(MapPokemon(MapPokeNum).Num).Range + 4
-                                            onSightDistanceX = MapPokemon(MapPokeNum).x - TargetX
-                                            onSightDistanceY = MapPokemon(MapPokeNum).y - TargetY
+                                            onSightDistanceX = MapPokemon(MapPokeNum).X - TargetX
+                                            onSightDistanceY = MapPokemon(MapPokeNum).Y - TargetY
                                             If onSightDistanceX <= onSightRange And onSightDistanceY <= onSightRange Then
 
                                             Else
@@ -817,11 +833,11 @@ Dim QueueMove As Long
                             '//Check if it have pokemon
                             If PlayerPokemon(Target).Num > 0 Then
                                 '//Follow
-                                TargetX = PlayerPokemon(Target).x
-                                TargetY = PlayerPokemon(Target).y
+                                TargetX = PlayerPokemon(Target).X
+                                TargetY = PlayerPokemon(Target).Y
                                 onSightRange = Pokemon(MapPokemon(MapPokeNum).Num).Range + 4
-                                onSightDistanceX = MapPokemon(MapPokeNum).x - TargetX
-                                onSightDistanceY = MapPokemon(MapPokeNum).y - TargetY
+                                onSightDistanceX = MapPokemon(MapPokeNum).X - TargetX
+                                onSightDistanceY = MapPokemon(MapPokeNum).Y - TargetY
                                 If onSightDistanceX <= onSightRange And onSightDistanceY <= onSightRange Then
                                 
                                 Else
@@ -852,8 +868,8 @@ Dim QueueMove As Long
                                                     'onSightDistanceX = MapPokemon(MapPokeNum).x - PlayerPokemon(i).x
                                                     'onSightDistanceY = MapPokemon(MapPokeNum).y - PlayerPokemon(i).y
                                                 'Else
-                                                    onSightDistanceX = MapPokemon(MapPokeNum).x - Player(i, TempPlayer(i).UseChar).x
-                                                    onSightDistanceY = MapPokemon(MapPokeNum).y - Player(i, TempPlayer(i).UseChar).y
+                                                    onSightDistanceX = MapPokemon(MapPokeNum).X - Player(i, TempPlayer(i).UseChar).X
+                                                    onSightDistanceY = MapPokemon(MapPokeNum).Y - Player(i, TempPlayer(i).UseChar).Y
                                                 'End If
                                                 '//Make sure we get a positive value
                                                 If onSightDistanceX < 0 Then onSightDistanceX = onSightDistanceX * -1
@@ -887,7 +903,7 @@ Dim QueueMove As Long
                             '    Case DIR_DOWN: If MapPokemon(MapPokeNum).x = TargetX And MapPokemon(MapPokeNum).y + 1 = TargetY Then NearTarget = True
                             'End Select
                             NearTarget = False
-                            If IsOnAoERange(4, MapPokemon(MapPokeNum).x, MapPokemon(MapPokeNum).y, TargetX, TargetY) Then NearTarget = True
+                            If IsOnAoERange(4, MapPokemon(MapPokeNum).X, MapPokemon(MapPokeNum).Y, TargetX, TargetY) Then NearTarget = True
                             
                             If NearTarget Then
                                 '//Check Random use of move
@@ -960,74 +976,74 @@ Dim QueueMove As Long
                             '//CheckMovement
                             Select Case randNum
                                 Case 0
-                                    If MapPokemon(MapPokeNum).y > TargetY And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).Y > TargetY And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_UP) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).y < TargetY And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).Y < TargetY And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_DOWN) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).x > TargetX And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).X > TargetX And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_LEFT) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).x < TargetX And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).X < TargetX And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_RIGHT) Then DidWalk = True
                                     End If
                                 Case 1
-                                    If MapPokemon(MapPokeNum).x < TargetX And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).X < TargetX And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_RIGHT) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).x > TargetX And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).X > TargetX And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_LEFT) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).y < TargetY And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).Y < TargetY And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_DOWN) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).y > TargetY And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).Y > TargetY And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_UP) Then DidWalk = True
                                     End If
                                 Case 2
-                                    If MapPokemon(MapPokeNum).y < TargetY And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).Y < TargetY And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_DOWN) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).y > TargetY And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).Y > TargetY And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_UP) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).x < TargetX And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).X < TargetX And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_RIGHT) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).x > TargetX And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).X > TargetX And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_LEFT) Then DidWalk = True
                                     End If
                                 Case 3
-                                    If MapPokemon(MapPokeNum).x > TargetX And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).X > TargetX And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_LEFT) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).x < TargetX And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).X < TargetX And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_RIGHT) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).y > TargetY And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).Y > TargetY And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_UP) Then DidWalk = True
                                     End If
-                                    If MapPokemon(MapPokeNum).y < TargetY And Not DidWalk Then
+                                    If MapPokemon(MapPokeNum).Y < TargetY And Not DidWalk Then
                                         If PokemonProcessMove(MapPokeNum, DIR_DOWN) Then DidWalk = True
                                     End If
                             End Select
                                         
                             '//Check Direction
                             If Not DidWalk Then
-                                If MapPokemon(MapPokeNum).x - 1 = TargetX And MapPokemon(MapPokeNum).y = TargetY Then
+                                If MapPokemon(MapPokeNum).X - 1 = TargetX And MapPokemon(MapPokeNum).Y = TargetY Then
                                     If Not MapPokemon(MapPokeNum).Dir = DIR_LEFT Then Call PokemonDir(MapPokeNum, DIR_LEFT)
                                     DidWalk = True
                                 End If
-                                If MapPokemon(MapPokeNum).x + 1 = TargetX And MapPokemon(MapPokeNum).y = TargetY Then
+                                If MapPokemon(MapPokeNum).X + 1 = TargetX And MapPokemon(MapPokeNum).Y = TargetY Then
                                     If Not MapPokemon(MapPokeNum).Dir = DIR_RIGHT Then Call PokemonDir(MapPokeNum, DIR_RIGHT)
                                     DidWalk = True
                                 End If
-                                If MapPokemon(MapPokeNum).x = TargetX And MapPokemon(MapPokeNum).y - 1 = TargetY Then
+                                If MapPokemon(MapPokeNum).X = TargetX And MapPokemon(MapPokeNum).Y - 1 = TargetY Then
                                     If Not MapPokemon(MapPokeNum).Dir = DIR_UP Then Call PokemonDir(MapPokeNum, DIR_UP)
                                     DidWalk = True
                                 End If
-                                If MapPokemon(MapPokeNum).x = TargetX And MapPokemon(MapPokeNum).y + 1 = TargetY Then
+                                If MapPokemon(MapPokeNum).X = TargetX And MapPokemon(MapPokeNum).Y + 1 = TargetY Then
                                     If Not MapPokemon(MapPokeNum).Dir = DIR_DOWN Then Call PokemonDir(MapPokeNum, DIR_DOWN)
                                     DidWalk = True
                                 End If

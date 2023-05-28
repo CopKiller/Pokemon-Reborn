@@ -106,6 +106,7 @@ Public Enum ServerPackets
     SPlayerPvP
     SPlayerCash
     SRequestCash
+    SEventInfo
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -421,7 +422,7 @@ End Enum
 '//Game State
 Public Enum GameStateEnum
     InMenu = 1
-    InGame
+    ingame
 End Enum
 
 '//Menu State
@@ -500,6 +501,7 @@ Public Enum ButtonEnum
     Option_sSoundDown
     Chatbox_ScrollUp
     Chatbox_ScrollDown
+    Chatbox_Minimize
     Game_Pokedex
     Game_Bag
     Game_Card
@@ -550,7 +552,8 @@ Public Enum ButtonEnum
     Badge_Close
     SlotMachine_Close
     Rank_Close
-    Rank_Check
+    Rank_ScrollUp
+    Rank_ScrollDown
     '//Make sure that Gui_Count is below everything else
     Button_Count
 End Enum

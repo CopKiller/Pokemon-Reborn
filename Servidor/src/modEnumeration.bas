@@ -106,6 +106,7 @@ Public Enum ServerPackets
     SPlayerPvP
     SPlayerCash
     SRequestCash
+    SEventInfo
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum

@@ -258,6 +258,9 @@ Public Type PlayerRec
     '//Cash
     Cash As Long
     
+    Started As Date
+    TimePlay As Long
+    
     '//Client Only
     Moving As Byte
     xOffset As Long

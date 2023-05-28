@@ -29,3 +29,8 @@ Public GameHour As Byte
 Public GameMinute As Byte
 Public GameSecs As Byte
 Public GameSecs_Velocity As Byte
+
+'// Evento XP
+Public ExpMultiply As Byte
+Public ExpEvent As Boolean
+Public ExpSecs As Long
