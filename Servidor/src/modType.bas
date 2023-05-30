@@ -25,8 +25,15 @@ Public Spawn(1 To MAX_GAME_POKEMON) As SpawnRec
 Public Conversation(1 To MAX_CONVERSATION) As ConversationRec
 Public Shop(1 To MAX_SHOP) As ShopRec
 Public Quest(1 To MAX_QUEST) As QuestRec
-
 Public Rank(1 To MAX_RANK) As RankRec
+'//Event Xp
+Public EventExp As EventExpRec
+
+Private Type EventExpRec
+    ExpEvent As Boolean
+    ExpMultiply As Byte
+    ExpSecs As Long
+End Type
 
 Private Type RankRec
     Name As String

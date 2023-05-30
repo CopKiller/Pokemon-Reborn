@@ -23,53 +23,46 @@ Begin VB.Form frmServer
       _ExtentX        =   12303
       _ExtentY        =   5953
       _Version        =   393216
-      Tab             =   1
+      Tab             =   2
       TabHeight       =   520
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtLog"
-      Tab(0).Control(1)=   "txtCommand"
+      Tab(0).Control(0)=   "txtCommand"
+      Tab(0).Control(1)=   "txtLog"
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
       TabPicture(1)   =   "frmServer.frx":001C
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "btnDisconnect"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "lbPlayers"
-      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "btnAcess(4)"
-      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "btnAcess(3)"
-      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "btnAcess(2)"
-      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "btnAcess(1)"
-      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "btnAcess(0)"
-      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "Administrativo"
       TabPicture(2)   =   "frmServer.frx":0038
-      Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "chkStaffOnly"
+      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).Control(0)=   "lblGameTime"
       Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "frmInfo"
       Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "lblGameTime"
+      Tab(2).Control(2)=   "chkStaffOnly"
       Tab(2).Control(2).Enabled=   0   'False
       Tab(2).ControlCount=   3
       Begin VB.CheckBox chkStaffOnly 
          Caption         =   "Modo Desenvolvedor"
          Height          =   255
-         Left            =   -70440
+         Left            =   4560
          TabIndex        =   19
          Top             =   480
          Width           =   2175
       End
       Begin VB.Frame frmInfo 
          Height          =   2535
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   11
          Top             =   720
          Width           =   6735
@@ -193,7 +186,7 @@ Begin VB.Form frmServer
          Caption         =   "Remover"
          Height          =   375
          Index           =   0
-         Left            =   4920
+         Left            =   -70080
          TabIndex        =   9
          Top             =   480
          Width           =   1815
@@ -202,7 +195,7 @@ Begin VB.Form frmServer
          Caption         =   "Moderador"
          Height          =   375
          Index           =   1
-         Left            =   4920
+         Left            =   -70080
          TabIndex        =   8
          Top             =   900
          Width           =   1815
@@ -211,7 +204,7 @@ Begin VB.Form frmServer
          Caption         =   "Mapper"
          Height          =   375
          Index           =   2
-         Left            =   4920
+         Left            =   -70080
          TabIndex        =   7
          Top             =   1305
          Width           =   1815
@@ -220,7 +213,7 @@ Begin VB.Form frmServer
          Caption         =   "Dev"
          Height          =   375
          Index           =   3
-         Left            =   4920
+         Left            =   -70080
          TabIndex        =   6
          Top             =   1710
          Width           =   1815
@@ -229,14 +222,14 @@ Begin VB.Form frmServer
          Caption         =   "Dono"
          Height          =   375
          Index           =   4
-         Left            =   4920
+         Left            =   -70080
          TabIndex        =   5
          Top             =   2160
          Width           =   1815
       End
       Begin VB.ListBox lbPlayers 
          Height          =   2205
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   4
          Top             =   480
          Width           =   4695
@@ -244,7 +237,7 @@ Begin VB.Form frmServer
       Begin VB.CommandButton btnDisconnect 
          Caption         =   "Desconectar"
          Height          =   375
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   3
          Top             =   2760
          Width           =   4335
@@ -269,7 +262,7 @@ Begin VB.Form frmServer
          AutoSize        =   -1  'True
          Caption         =   "Time:"
          Height          =   195
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   10
          Top             =   480
          Width           =   390
@@ -417,60 +410,62 @@ End Sub
 Private Sub cmdExp_Click()
     Dim i As Integer
 
-    If Not ExpEvent Then
-        ExpMultiply = scrlExp
-        ExpSecs = (txtExpHour * 3600)
+    With EventExp
+        If Not ExpEvent Then
+            .ExpEvent = True
+            .ExpMultiply = scrlExp
+            .ExpSecs = (txtExpHour * 3600)
 
-        cmdExp.Caption = "Desativar"
-        scrlExp.Enabled = False
-        txtExpHour.Enabled = False
-        ExpEvent = True
+            cmdExp.Caption = "Desativar"
+            scrlExp.Enabled = False
+            txtExpHour.Enabled = False
 
-        If Player_HighIndex > 0 Then
-            For i = 1 To Player_HighIndex
-                If IsPlaying(i) Then
-                    If TempPlayer(i).UseChar > 0 Then
-                        If Player(i, TempPlayer(i).UseChar).Access <= 0 Then
-                            Select Case TempPlayer(i).CurLanguage
-                            Case LANG_PT: AddAlert i, "Event Exp Activated.", White
-                            Case LANG_EN: AddAlert i, "Event Exp Activated.", White
-                            Case LANG_ES: AddAlert i, "Event Exp Activated.", White
-                            End Select
-                            
-                            SendEventInfo i
+            If Player_HighIndex > 0 Then
+                For i = 1 To Player_HighIndex
+                    If IsPlaying(i) Then
+                        If TempPlayer(i).UseChar > 0 Then
+                            If Player(i, TempPlayer(i).UseChar).Access <= 0 Then
+                                Select Case TempPlayer(i).CurLanguage
+                                Case LANG_PT: AddAlert i, "Event Exp Activated.", White
+                                Case LANG_EN: AddAlert i, "Event Exp Activated.", White
+                                Case LANG_ES: AddAlert i, "Event Exp Activated.", White
+                                End Select
+
+                                SendEventInfo i
+                            End If
                         End If
                     End If
-                End If
-            Next
-        End If
-        
-    Else
-        ExpMultiply = 0
-        ExpSecs = 0
+                Next
+            End If
 
-        cmdExp.Caption = "Ativar"
-        scrlExp.Enabled = True
-        txtExpHour.Enabled = True
-        ExpEvent = False
+        Else
+            .ExpEvent = False
+            .ExpMultiply = 0
+            .ExpSecs = 0
 
-        If Player_HighIndex > 0 Then
-            For i = 1 To Player_HighIndex
-                If IsPlaying(i) Then
-                    If TempPlayer(i).UseChar > 0 Then
-                        If Player(i, TempPlayer(i).UseChar).Access <= 0 Then
-                            Select Case TempPlayer(i).CurLanguage
-                            Case LANG_PT: AddAlert i, "Event Exp Desactivated.", BrightRed
-                            Case LANG_EN: AddAlert i, "Event Exp Desactivated.", BrightRed
-                            Case LANG_ES: AddAlert i, "Event Exp Desactivated.", BrightRed
-                            End Select
-                            
-                            SendEventInfo i
+            cmdExp.Caption = "Ativar"
+            scrlExp.Enabled = True
+            txtExpHour.Enabled = True
+
+            If Player_HighIndex > 0 Then
+                For i = 1 To Player_HighIndex
+                    If IsPlaying(i) Then
+                        If TempPlayer(i).UseChar > 0 Then
+                            If Player(i, TempPlayer(i).UseChar).Access <= 0 Then
+                                Select Case TempPlayer(i).CurLanguage
+                                Case LANG_PT: AddAlert i, "Event Exp Desactivated.", BrightRed
+                                Case LANG_EN: AddAlert i, "Event Exp Desactivated.", BrightRed
+                                Case LANG_ES: AddAlert i, "Event Exp Desactivated.", BrightRed
+                                End Select
+
+                                SendEventInfo i
+                            End If
                         End If
                     End If
-                End If
-            Next
+                Next
+            End If
         End If
-    End If
+    End With
 End Sub
 
 Private Sub cmdShutdown_Click()
@@ -501,16 +496,16 @@ End Sub
 ' ** Winsock object **
 ' ********************
 Private Sub Socket_ConnectionRequest(Index As Integer, ByVal requestID As Long)
-Dim Count As Byte
+Dim count As Byte
 Dim i As Long
 
     ' Check connection
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER
         If IsConnected(i) Then
             If GetPlayerIP(i) = Socket(Index).RemoteHostIP Then
-                Count = Count + 1
-                If Count >= 5 Then Exit Sub
+                count = count + 1
+                If count >= 5 Then Exit Sub
             End If
         End If
     Next
@@ -519,16 +514,16 @@ Dim i As Long
 End Sub
 
 Private Sub Socket_Accept(Index As Integer, SocketId As Integer)
-Dim Count As Byte
+Dim count As Byte
 Dim i As Long
 
     ' Check connection
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER
         If IsConnected(i) Then
             If GetPlayerIP(i) = Socket(Index).RemoteHostIP Then
-                Count = Count + 1
-                If Count >= 5 Then Exit Sub
+                count = count + 1
+                If count >= 5 Then Exit Sub
             End If
         End If
     Next

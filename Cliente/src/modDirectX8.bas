@@ -3314,7 +3314,7 @@ Dim MoveNum As Long
 End Sub
 
 Private Sub DrawTrainer()
-Dim i As Long
+Dim i As Long, YPos As Long
 
     With GUI(GuiEnum.GUI_TRAINER)
         '//Make sure it's visible
@@ -3331,25 +3331,46 @@ Dim i As Long
         Next
         
         '//Name
-        RenderText Font_Default, Trim$(Player(MyIndex).Name), .X + 70, .Y + 35, Black
+        YPos = .Y + 70
+        RenderText Font_Default, Trim$(Player(MyIndex).Name), .X + 85, YPos, White
         '//Level
-        RenderText Font_Default, "Lv " & Trim$(Player(MyIndex).Level), .X + 70 + (15 - (GetTextWidth(Font_Default, "Lv " & Trim$(Player(MyIndex).Level)) / 2)), .Y + 60, Black
-        RenderText Font_Default, Player(MyIndex).CurExp & "/" & GetLevelNextExp(Player(MyIndex).Level), .X + 2 + ((213 / 2) - (GetTextWidth(Font_Default, Player(MyIndex).CurExp & "/" & GetLevelNextExp(Player(MyIndex).Level)))), .Y + 85, Black
+        YPos = YPos + 23
+        RenderText Font_Default, "Lv " & Trim$(Player(MyIndex).Level), .X + 85 + (15 - (GetTextWidth(Font_Default, "Lv " & Trim$(Player(MyIndex).Level)) / 2)), YPos, White
+        '//Exp
+        YPos = YPos + 23
+        RenderText Font_Default, Player(MyIndex).CurExp & "/" & GetLevelNextExp(Player(MyIndex).Level), .X + 85, YPos, White
         '//Money
-        RenderText Font_Default, (Player(MyIndex).Money), .X + 70, .Y + 110, Black
+        YPos = YPos + 23
+        RenderTexture Tex_Item(IDMoney), .X + 60, YPos, 0, 0, 17, 17, 24, 24
+        RenderText Font_Default, (FormatarValor(Player(MyIndex).Money)), .X + 85, YPos, White
         '//Cash
-        RenderText Font_Default, (Player(MyIndex).Cash), .X + 70, .Y + 135, Black
+        YPos = YPos + 23
+        RenderTexture Tex_Item(IDCash), .X + 60, YPos, 0, 0, 17, 17, 24, 24
+        RenderText Font_Default, (FormatarValor(Player(MyIndex).Cash)), .X + 85, YPos, White
         '//Jornada Iniciada
-        RenderText Font_Default, (Player(MyIndex).Started), .X + 155, .Y + 160, Black
+        YPos = YPos + 23
+        RenderText Font_Default, (Player(MyIndex).Started), .X + 85, YPos, White
         '//Tempo Jogado
-        RenderText Font_Default, SecondsToHMS(Player(MyIndex).TimePlay), .X + 110, .Y + 185, Black
+        YPos = YPos + 23
+        RenderText Font_Default, SecondsToHMS(Player(MyIndex).TimePlay), .X + 85, YPos, White
         
         '//PvP
-        RenderText Font_Default, (Player(MyIndex).win), .X + 70, .Y + 232, BrightGreen
-        RenderText Font_Default, (Player(MyIndex).Lose), .X + 70, .Y + 252, BrightRed
-        RenderText Font_Default, (Player(MyIndex).Tie), .X + 70, .Y + 273, DarkBrown
+        YPos = YPos + 53
+        RenderText Font_Default, (Player(MyIndex).win), .X + 85, YPos, White
+        YPos = YPos + 24
+        RenderText Font_Default, (Player(MyIndex).Lose), .X + 85, YPos, White
+        YPos = YPos + 24
+        RenderText Font_Default, (Player(MyIndex).Tie), .X + 85, YPos, White
     End With
 End Sub
+
+Function FormatarValor(ByVal valor As Long) As String
+    If Len(CStr(valor)) > 3 Then
+        FormatarValor = Format(valor, "0,###")
+    Else
+        FormatarValor = CStr(valor)
+    End If
+End Function
 
 Private Sub DrawInvStorage()
 Dim i As Long

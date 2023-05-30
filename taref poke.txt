@@ -1,80 +1,79 @@
 
 
-*** OK -Crítico - arrumar o conversation editor
+30 *** OK -Crítico - arrumar o conversation editor
 
-*** OK -ao retirar o poke depositado, withdraw ta mostrando as info do poke, release ta retirando ele do banco
+15 *** OK -ao retirar o poke depositado, withdraw ta mostrando as info do poke, release ta retirando ele do banco
 	2 withdraw = retirar o poke
 	3 release = apagar o poke
 	1 adicionar um botão Summary pra ver a info dele também.
 
-*** OK -adicionar pra poder selecionar varios poke, pra realizar uma ação pra todos eles
-*** OK -botão deposit do item no banco não deposita, apenas arrastando, ao retirar o botão funciona
-*** OK -poder arrastar o pokemon do slot1 pro slot2 ao colocar o drag do poke em cima do slot2, abrir ele e mostrar o poke
+35 *** OK -adicionar pra poder selecionar varios poke, pra realizar uma ação pra todos eles
+10 *** OK -botão deposit do item no banco não deposita, apenas arrastando, ao retirar o botão funciona
+15 *** OK -poder arrastar o pokemon do slot1 pro slot2 ao colocar o drag do poke em cima do slot2, abrir ele e mostrar o poke
 	no novo slot ainda em drag, até selecionar o slot que ele vai ficar
-*** OK -mostrar a descrição do item do mesmo jeito que no inventário, mas no Storage
-*** OK -poder arrastar o item pra outro slot, e mudar de slot.
-*** OK -isshiny, IVFull, Nature ao presentear no painel admin
-*** OK -adicionar o icone de certo do lado esquerdo no topo, ao selecionar o poke no storage
-*** OK -Adicionar icone de cash e money, no shop e em locais que mostram.
-*** OK -adicionar painel admin com todas as opções
-*** OK -Criar a mecanica do cash no jogo.
-*** OK -adicionar pra editar o cash do jogador pelo painel admin e editar o dinheiro do jogador.
-*** OK -adicionar informação do cash na janela onde mostra o dinheiro também.
-*** OK -adicionar metodologia do cash na loja do jogo.
+10 *** OK -poder arrastar o item pra outro slot, e mudar de slot.
+05 *** OK -mostrar a descrição do item do mesmo jeito que no inventário, mas no Storage
+05 *** OK -isshiny, IVFull, Nature ao presentear no painel admin
+05 *** OK -adicionar o icone de certo do lado esquerdo no topo, ao selecionar o poke no storage
+20 *** OK -Adicionar icone de cash e money, no shop e em locais que mostram.
+30 *** OK -adicionar painel admin com todas as opções
+10 *** OK -Criar a mecanica do cash no jogo.
+10 *** OK -adicionar pra editar o cash do jogador pelo painel admin e editar o dinheiro do jogador.
+05 *** OK -adicionar informação do cash na janela onde mostra o dinheiro também.
+05 *** OK -adicionar metodologia do cash na loja do jogo.
 
-*** OK -retrair a posição dos nomes dos items no shop
-*** OK -mostrar a descrição dos item do shop ao passar o mouse
-*** OK -adicionar funcionalidade ao clikar com o segundo botão no item,
+05 *** OK -retrair a posição dos nomes dos items no shop
+05 *** OK -mostrar a descrição dos item do shop ao passar o mouse
+10 *** OK -adicionar funcionalidade ao clikar com o segundo botão no item,
 	o sell funcionar.
-*** OK -remover o price do shopedditor, e puxar automaticamente ao adicionar item no shop,do editor do item,
+08 *** OK -remover o price do shopedditor, e puxar automaticamente ao adicionar item no shop,do editor do item,
 	ao vender o item vender pela metade do valor que está no editor de item.
-*** OK -adicionado preço do item na descrição.
+05 *** OK -adicionado preço do item na descrição.
 
-*** OK -adicionar icones do 1º ao 3º do ranking
+10 *** OK -adicionar icones do 1º ao 3º do ranking
 
-*** OK -item que o pokemon está equipado, aparecer no ícone dele
-*** OK -item que o poke usa aparecer no summary
+05 *** OK -item que o pokemon está equipado, aparecer no ícone dele
+05 *** OK -item que o poke usa aparecer no summary
 
-*** OK -adicionar alteração no envio de pokemon ao jogador pelo painel admin, caso o jogador não receba, adicionar no banco
+05 *** OK -adicionar alteração no envio de pokemon ao jogador pelo painel admin, caso o jogador não receba, adicionar no banco
 
-*** OK -adicionar o tipo dele se é grass + poison no summary do poke + Icon na hud, do storage e strade
+15 *** OK -adicionar o tipo dele se é grass + poison no summary do poke + Icon na hud, do storage e trade
 
-*** OK -Move Selector ao usar WASD com opção de mostrar a PPbar em options + removido a hud toda que mostrava ao usar a tecnica, pra ver
+20 *** OK -Move Selector ao usar WASD com opção de mostrar a PPbar em options + removido a hud toda que mostrava ao usar a tecnica, pra ver
 	tudo agora só segurando Ctrl.
 
-*** OK -adicionar no summary pra mostrar a quantidade de PP na tecnica + mostrar o tipo de elemento na tecnica + mostrar se é fisico ou mágico, etc...
+10 *** OK -adicionar no summary pra mostrar a quantidade de PP na tecnica + mostrar o tipo de elemento na tecnica + mostrar se é fisico ou mágico, etc...
 
-*** OK -adicionar o nome das tecnicas do pokemon no espaço que tem no summary
+10 *** OK -adicionar o nome das tecnicas do pokemon no espaço que tem no summary
 
-*** OK -arrumar a resolução, acima da 800 subir pro topo da tela a janela e centralizar as laterais, e 800 centraliza top e left
+05 *** OK -arrumar a resolução, acima da 800 subir pro topo da tela a janela e centralizar as laterais, e 800 centraliza top e left
 
-*** OK -alterar o icone pra abrir o menu do ranking
+05 *** OK -alterar o icone pra abrir o menu do ranking
 
-*** OK -adicionar opacidade no fundo dos atalhos na tela, f1,f2,f3...
+05 *** OK -adicionar opacidade no fundo dos atalhos na tela, f1,f2,f3...
 
-*** OK -desativar a terceira opção do menu do jogador, não serve pra nada por enquanto.
+05 *** OK -desativar a terceira opção do menu do jogador, não serve pra nada por enquanto.
 
-*** OK -adicionar nome na janela do inventário, Bag
+05 *** OK -adicionar nome na janela do inventário, Bag
 
-*** OK -Revisar a função GetTypeBoost no servidor.
+05 *** OK -Revisar a função GetTypeBoost no servidor.
 
-*** OK -Alterar posição do ping e fps na tela
+05 *** OK -Alterar posição do ping e fps na tela
 
-*** OK -arrumar o ranking ja criado, aumentar pra 20 posições no ranking, e adicionar barra de rolagem.
+20 *** OK -arrumar o ranking ja criado, aumentar pra 20 posições no ranking, e adicionar barra de rolagem.
 
-*** OK -admin não entra no ranking
+05 *** OK -admin não entra no ranking
 
-*** OK -nome e icone na janela de ranking
+05 *** OK -nome e icone na janela de ranking
 
-*** OK -adicionar opção de minimizar o chat da tela, ao apertar enter aparecer novamente.
+10 *** OK -adicionar opção de minimizar o chat da tela, ao apertar enter aparecer novamente.
 
-*** OK -Trainercard, adicionar jornada iniciada em: 00/00/0000, Tempo de jogo:.
+20 *** OK -Trainercard, adicionar jornada iniciada em: 00/00/0000, Tempo de jogo:.
 
-*** OK -adicionar os elementos no ctrl pra mostrar nas tecnicas
+10 *** OK -adicionar os elementos no ctrl pra mostrar nas tecnicas
 
-*** OK -adicionar eventoxp por horas pra acabar, mostrando na tela dos jogadores
+15 *** OK -adicionar eventoxp por horas pra acabar, mostrando na tela dos jogadores
 
-*** OK -remover a perca de dinheiro ao morrer pra um poke. Obs.: ao morrer os poke, não perde, apenas se os poke matar o jogador.
+10*** OK -Arrumar a janela do servidor, que está toda zoada e alinhar
 
-*** OK -Arrumar a janela do servidor, que está toda zoada e alinhar, adicionar pra mostrar msg do sv no topo da tela
-	e mensagem global ao iniciar o evento xp e tals, evento xp inicia tal horario e finaliza tal horario.
+Total 455
