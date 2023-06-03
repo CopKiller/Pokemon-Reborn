@@ -258,7 +258,7 @@ Dim FadeComplete As Boolean
                             StopMusic True
                         End If
                     Case 4 ' Entering Game
-                        InitGameState ingame
+                        InitGameState InGame
                         InitFade 0, FadeOut
                     Case 5 ' exit game
                         UnloadMain
@@ -1287,6 +1287,11 @@ Dim LeftSpawn As Boolean
                 If CheckingTrade = 1 Then
                     If YourTrade.TradeSet = NO Then
                         AddSelMenuText "Remove"
+                        AddSelMenuText "Summary"
+                    End If
+                ElseIf CheckingTrade = 2 Then
+                    If TheirTrade.TradeSet = NO Then
+                        AddSelMenuText "Summary"
                     End If
                 End If
                 
@@ -1380,8 +1385,8 @@ Dim i As Long
 End Sub
 
 Public Function SelMenuLogic(ByVal Button As Integer) As Boolean
-Dim i As Byte
-'//Select button input
+    Dim i As Byte
+    '//Select button input
     If Button = vbLeftButton Then
         Select Case SelMenu.Type
         Case SelMenuType.Inv
@@ -1412,7 +1417,7 @@ Dim i As Byte
                                 SendSellItem SelMenu.Data1
                             End If
                         End If
-                    Else ' Is ItemStorage
+                    Else    ' Is ItemStorage
                         '//Check
                         If StorageType = 1 Then    '//Inv
                             If GUI(GuiEnum.GUI_INVSTORAGE).Visible Then
@@ -1604,7 +1609,7 @@ Dim i As Byte
                     If StorageType = 2 Then    '//Pokemon
                         If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
                             '//Deposit Selected Item
-                            
+
                             Dim hasSelected As Boolean
                             For i = 1 To MAX_STORAGE
                                 If IsPokemonSelected(i) Then
@@ -1613,7 +1618,7 @@ Dim i As Byte
                                     hasSelected = True
                                 End If
                             Next i
-                            
+
                             If Not hasSelected Then
                                 SendWithdrawPokemon PokemonCurSlot, SelMenu.Data1
                             End If
@@ -1718,8 +1723,24 @@ Dim i As Byte
             If SelMenu.Data1 > 0 Then
                 Select Case SelMenu.CurPick
                 Case 1    '//Remove
-                    If CheckingTrade = 1 Then
+                    If CheckingTrade = 1 Then    ' their trade
                         SendRemoveTrade SelMenu.Data1
+                    ElseIf CheckingTrade = 2 Then    ' your trade
+                        SummaryType = 4
+                        SummarySlot = SelMenu.Data1
+                        SummaryData = 0
+                        If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
+                            GuiState GUI_POKEMONSUMMARY, True
+                        End If
+                    End If
+                Case 2
+                    If CheckingTrade = 1 Then    ' their trade
+                        SummaryType = 3
+                        SummarySlot = SelMenu.Data1
+                        SummaryData = 0
+                        If (GUI(GUI_POKEMONSUMMARY).Visible = False) Then
+                            GuiState GUI_POKEMONSUMMARY, True
+                        End If
                     End If
 
                     '//Clear

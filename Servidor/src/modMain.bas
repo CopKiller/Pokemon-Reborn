@@ -131,5 +131,6 @@ Sub DestroyServer()
     UpdateSavePlayers
     DestroyTCP
     Unload frmServer
+    SaveRank
     End
 End Sub

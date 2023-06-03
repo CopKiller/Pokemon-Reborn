@@ -16,15 +16,15 @@ Dim SetWidth As Long
     ' // SERVER SETUP
     CurServerList = 1
     
-    ServerName(1) = "Pokenew SA"
+    ServerName(1) = "Pc"
     ServerIP(1) = "localhost"
     ServerPort(1) = 8001
     
-    ServerName(2) = "Pokenew NA"
-    ServerIP(2) = "167.114.51.119"
-    ServerPort(2) = 8009
+    ServerName(2) = "Philip"
+    ServerIP(2) = "pokerpg.ddns.net"
+    ServerPort(2) = 8001
     
-    ServerName(3) = "Localhost"
+    ServerName(3) = "Nada"
     ServerIP(3) = "localhost"
     ServerPort(3) = 8001
 
@@ -198,7 +198,7 @@ Public Sub InitGameState(ByVal gState As GameStateEnum, Optional ByVal IsStart A
             End If
             
             BackgroundXOffset = 640 '//Size of the background texture (Need to change if size changed)
-        Case GameStateEnum.ingame
+        Case GameStateEnum.InGame
             
     End Select
 End Sub
@@ -338,7 +338,7 @@ Public Function CanShowButton(ByVal ButtonNum As ButtonEnum) As Boolean
         If GettingMap Then CanShowButton = False
         If CreditVisible Then CanShowButton = False
     End If
-    If GameState = GameStateEnum.ingame And Editor = EDITOR_MAP Then CanShowButton = False
+    If GameState = GameStateEnum.InGame And Editor = EDITOR_MAP Then CanShowButton = False
     
     Select Case ButtonNum
         Case ButtonEnum.Game_Pokedex To ButtonEnum.Game_Menu
@@ -389,7 +389,7 @@ Public Function CanShowGui(ByVal GuiNum As GuiEnum) As Boolean
 
     If Not MenuState = MenuStateEnum.StateNormal Then CanShowGui = False
     If IsLoading Then CanShowGui = False
-    If GameState = GameStateEnum.ingame And Editor = EDITOR_MAP Then CanShowGui = False
+    If GameState = GameStateEnum.InGame And Editor = EDITOR_MAP Then CanShowGui = False
     If GettingMap Then CanShowGui = False
     If CreditVisible Then CanShowGui = False
     If CreditVisible Then GUI(GuiEnum.GUI_GLOBALMENU).Visible = False

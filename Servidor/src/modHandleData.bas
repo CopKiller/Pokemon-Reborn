@@ -3908,7 +3908,7 @@ End Sub
 Private Sub HandleRequestRank(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
     SendRankTo Index
     
-    'UpdateRank Trim$(Player(Index, TempPlayer(Index).UseChar).Name), Player(Index, TempPlayer(Index).UseChar).Level, Player(Index, TempPlayer(Index).UseChar).CurExp
+    UpdateRank Trim$(Player(Index, TempPlayer(Index).UseChar).Name), Player(Index, TempPlayer(Index).UseChar).Level, Player(Index, TempPlayer(Index).UseChar).CurExp
 End Sub
 
 Private Sub HandleHotbarUpdate(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)

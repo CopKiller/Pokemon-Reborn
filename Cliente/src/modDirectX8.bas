@@ -1196,7 +1196,7 @@ Public Sub Render_Screen()
     '//Check for Game State
     Select Case GameState
         Case GameStateEnum.InMenu: Render_Menu
-        Case GameStateEnum.ingame: Render_Game
+        Case GameStateEnum.InGame: Render_Game
     End Select
     
     RenderText Font_Default, PingToDraw, 10, 10, White
@@ -1222,11 +1222,6 @@ Public Sub Render_Screen()
     '//FPS
     If GameSetting.ShowFPS = YES Then
         RenderText Font_Default, "FPS: " & GameFps, 10, 80, White
-    End If
-    
-    '//EventExp
-    If ExpMultiply > 0 Then
-        
     End If
     
     '//Cursor
@@ -2683,7 +2678,7 @@ Private Sub DrawMoveSelector()
     If Editor = EDITOR_MAP Then Exit Sub
     If PlayerPokemon(MyIndex).Num <= 0 Then Exit Sub
     If PlayerPokemon(MyIndex).Slot <= 0 Then Exit Sub
-    If Not GameState = GameStateEnum.ingame Then Exit Sub
+    If Not GameState = GameStateEnum.InGame Then Exit Sub
     If GettingMap Then Exit Sub
 
     '//Base Location
@@ -4021,7 +4016,7 @@ Private Sub DrawPokemonSummary()
                             ' Move Name
                             RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .Y + 190 + (i * 30 - 32), White
                             ' PP
-                            RenderText Ui_Default, "PP: " & PokemonMove(MoveNum).PP & "/" & PokemonMove(MoveNum).MaxPP, .X + 45, .Y + 205 + (i * 30 - 32), White
+                            RenderText Ui_Default, "PP: " & PlayerPokemons(SummarySlot).Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .Y + 205 + (i * 30 - 32), White
 
                             ' Poke Type texture
                             If PokemonMove(MoveNum).Type > 0 Then
@@ -4118,7 +4113,7 @@ Private Sub DrawPokemonSummary()
                                 ' Move Name
                                 RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .Y + 190 + (i * 30 - 32), White
                                 ' PP
-                                RenderText Ui_Default, "PP: " & PokemonMove(MoveNum).PP & "/" & PokemonMove(MoveNum).MaxPP, .X + 45, .Y + 205 + (i * 30 - 32), White
+                                RenderText Ui_Default, "PP: " & PlayerPokemonStorage(SummaryData).Data(SummarySlot).Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .Y + 205 + (i * 30 - 32), White
 
                                 ' Poke Type texture
                                 If PokemonMove(MoveNum).Type > 0 Then
@@ -4216,7 +4211,7 @@ Private Sub DrawPokemonSummary()
                                 ' Move Name
                                 RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .Y + 190 + (i * 30 - 32), White
                                 ' PP
-                                RenderText Ui_Default, "PP: " & PokemonMove(MoveNum).PP & "/" & PokemonMove(MoveNum).MaxPP, .X + 45, .Y + 205 + (i * 30 - 32), White
+                                RenderText Ui_Default, "PP: " & YourTrade.Data(SummarySlot).Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .Y + 205 + (i * 30 - 32), White
 
                                 ' Poke Type texture
                                 If PokemonMove(MoveNum).Type > 0 Then
@@ -4313,7 +4308,7 @@ Private Sub DrawPokemonSummary()
                                 ' Move Name
                                 RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .Y + 190 + (i * 30 - 32), White
                                 ' PP
-                                RenderText Ui_Default, "PP: " & PokemonMove(MoveNum).PP & "/" & PokemonMove(MoveNum).MaxPP, .X + 45, .Y + 205 + (i * 30 - 32), White
+                                RenderText Ui_Default, "PP: " & TheirTrade.Data(SummarySlot).Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .Y + 205 + (i * 30 - 32), White
 
                                 ' Poke Type texture
                                 If PokemonMove(MoveNum).Type > 0 Then

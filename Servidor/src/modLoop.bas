@@ -129,11 +129,12 @@ Private Sub EventsLoop()
                                 End Select
                             End If
                         End If
-                    Next i
-                End If
+                    End If
+                Next i
             End If
-        End With
-    End Sub
+        End If
+    End With
+End Sub
 
 
 Private Sub UpdatePlayerLogic()

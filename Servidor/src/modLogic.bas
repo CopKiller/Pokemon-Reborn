@@ -746,7 +746,7 @@ Dim i As Long
             Rank(i).Name = Name
             Rank(i).Level = Level
             Rank(i).Exp = Exp
-            SaveRank
+            'SaveRank
             Exit Sub
         ElseIf Level = Rank(i).Level Then
             If Exp > Rank(i).Exp Then

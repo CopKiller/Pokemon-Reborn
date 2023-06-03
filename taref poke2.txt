@@ -1,3 +1,23 @@
-Correções no cartão do treinador, alterações em design e posições, etc...
+/\/\/\/\/\/\
+> Correções <
+VVVVVVVVVVVVV
 
-Adicionado formatação de milhares nos valores de Money & Cash. Exemplo: ("1.000.000")
+OK*** -Correções no cartão do treinador, alterações em design e posições, etc...
+
+OK*** -Adicionado formatação de milhares nos valores de Money & Cash. Exemplo: ("1.000.000")
+
+OK*** -Correção no IV, que ao pegar um poke com muito IV e ultrapassase do valor máximo do stat, ele não adicionava nada, nem o valor maximo.
+
+OK*** -Adicionado funcionalidade pra abrir o summary seu e de quem você está em troca, pra ver os pokemons.
+
+OK*** -Adicionar o pp atual do pokemon no summary e não puxar do editor igual esta: PP/MAXPP
+
+OK*** -fixar cor do nome do ranking, colocar o padrão da engine
+
+
+
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+>Futuramente, após finalizar correções básicas.<
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+
+-Check-in diário de 7 dias consecutívos.

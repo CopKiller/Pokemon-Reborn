@@ -345,6 +345,10 @@ Public PartyName(1 To MAX_PARTY) As String
 '//Rank
 Public RankScroll As Byte
 
+'// Evento XP
+Public ExpMultiply As Byte
+Public ExpSecs As Long
+
 '// Inv Desc
 Public InvItemDescTimer As Long
 Public InvItemDesc As Integer
@@ -462,7 +466,3 @@ Public TextUICharactersDelete As String
 
 ' Chat
 Public TextEnterToChat As String
-
-'// Evento XP
-Public ExpMultiply As Byte
-Public ExpSecs As Long

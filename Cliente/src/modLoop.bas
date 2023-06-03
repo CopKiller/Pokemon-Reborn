@@ -17,7 +17,7 @@ Public Sub AppLoop()
 
         ' 0.03 milli/second
         If WalkTmr < Tick Then
-            If GameState = GameStateEnum.ingame Then
+            If GameState = GameStateEnum.InGame Then
                 If Player_HighIndex > 0 Then
                     For i = 1 To Player_HighIndex
                         If IsPlaying(i) Then
@@ -71,7 +71,7 @@ Public Sub AppLoop()
 
         ' 0.05 milli/second
         If ChatTmr < Tick Then
-            If GameState = GameStateEnum.ingame Then
+            If GameState = GameStateEnum.InGame Then
                 If ChatScrollTimer + 150 < Tick Then
                     If ChatScrollUp Then
                         ScrollChatBox 0
@@ -192,7 +192,7 @@ Public Sub AppLoop()
                         BackgroundXOffset = 640    '//Size of the background texture (Need to change if size changed)
                     End If
                 End If
-            ElseIf GameState = GameStateEnum.ingame Then
+            ElseIf GameState = GameStateEnum.InGame Then
                 Call CheckKeys
                 If GetForegroundWindow() = frmMain.hwnd Then
                     Call CheckInputKeys
@@ -259,11 +259,11 @@ Public Sub AppLoop()
             End If
 
             ' Jornada do jogador, tempo jogado
-            If GameState = GameStateEnum.ingame Then
+            If GameState = GameStateEnum.InGame Then
                 Player(MyIndex).TimePlay = Player(MyIndex).TimePlay + 1
             End If
 
-            ' Evento exp
+            ' Evento exp window
             If ExpMultiply > 0 Then
                 If ExpSecs > 0 Then
                     ExpSecs = ExpSecs - 1
@@ -329,7 +329,7 @@ Public Sub AppLoop()
                         ResetMenu
                     End If
                 End If
-            Case GameStateEnum.ingame
+            Case GameStateEnum.InGame
                 If IsLoggedIn Then
                     If IsPlaying(MyIndex) Then
                         Connected = IsConnected
