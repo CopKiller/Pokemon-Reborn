@@ -114,6 +114,7 @@ Public Sub InitMessages()
     HandleDataSub(CFlyToBadge) = GetAddress(AddressOf HandleFlyToBadge)
     HandleDataSub(CRequestCash) = GetAddress(AddressOf HandleRequestCash)
     HandleDataSub(CSetCash) = GetAddress(AddressOf HandleSetCash)
+    HandleDataSub(CRequestServerInfo) = GetAddress(AddressOf HandleRequestServerInfo)
 End Sub
 
 Public Sub HandleData(ByVal Index As Long, ByRef Data() As Byte)
@@ -4861,3 +4862,15 @@ Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
 
 
 End Sub
+
+Private Sub HandleRequestServerInfo(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+    Dim buffer As clsBuffer
+
+    If IsPlaying(Index) Then Exit Sub
+    'If IsConnected(Index) Then Exit Sub
+
+    Call SendRequestServerInfo(Index)
+    
+    'Call CloseSocket(Index)
+End Sub
+

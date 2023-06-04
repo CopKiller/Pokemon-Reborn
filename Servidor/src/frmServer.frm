@@ -28,19 +28,19 @@ Begin VB.Form frmServer
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtCommand"
-      Tab(0).Control(1)=   "txtLog"
+      Tab(0).Control(0)=   "txtLog"
+      Tab(0).Control(1)=   "txtCommand"
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
       TabPicture(1)   =   "frmServer.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "btnDisconnect"
-      Tab(1).Control(1)=   "lbPlayers"
-      Tab(1).Control(2)=   "btnAcess(4)"
+      Tab(1).Control(0)=   "btnAcess(0)"
+      Tab(1).Control(1)=   "btnAcess(1)"
+      Tab(1).Control(2)=   "btnAcess(2)"
       Tab(1).Control(3)=   "btnAcess(3)"
-      Tab(1).Control(4)=   "btnAcess(2)"
-      Tab(1).Control(5)=   "btnAcess(1)"
-      Tab(1).Control(6)=   "btnAcess(0)"
+      Tab(1).Control(4)=   "btnAcess(4)"
+      Tab(1).Control(5)=   "lbPlayers"
+      Tab(1).Control(6)=   "btnDisconnect"
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "Administrativo"
       TabPicture(2)   =   "frmServer.frx":0038
@@ -411,7 +411,7 @@ Private Sub cmdExp_Click()
     Dim i As Integer
 
     With EventExp
-        If Not ExpEvent Then
+        If Not .ExpEvent Then
             .ExpEvent = True
             .ExpMultiply = scrlExp
             .ExpSecs = (txtExpHour * 3600)

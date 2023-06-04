@@ -537,7 +537,7 @@ Dim Count As Long
                 End If
                 
                 '//Language
-                tmpY = 160
+                tmpY = 190
                 For i = 1 To MAX_LANGUAGE
                     If CursorX >= .X + PaddingLeft + 80 + ((i - 1) * 55) And CursorX <= .X + PaddingLeft + 80 + ((i - 1) * 55) + 45 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 25 Then
                         IsHovering = True
@@ -703,7 +703,7 @@ Dim i As Long, z As Long
                 
                 '//Language
                 For i = 1 To MAX_LANGUAGE
-                    If CursorX >= .X + PaddingLeft + 80 + ((i - 1) * 55) And CursorX <= .X + PaddingLeft + 80 + ((i - 1) * 55) + 45 And CursorY >= .Y + 160 And CursorY <= .Y + 160 + 25 Then
+                    If CursorX >= .X + PaddingLeft + 80 + ((i - 1) * 55) And CursorX <= .X + PaddingLeft + 80 + ((i - 1) * 55) + 45 And CursorY >= .Y + 190 And CursorY <= .Y + 190 + 25 Then
                         tmpCurLanguage = (i - 1)
                         setDidChange = True
                     End If

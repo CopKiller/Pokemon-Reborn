@@ -1093,7 +1093,7 @@ Dim i As Long
 End Function
 
 '//Chatbubble
-Public Sub AddChatBubble(ByVal target As Long, ByVal targetType As Byte, ByVal Msg As String, ByVal colour As Long, Optional ByVal X As Long = -1, Optional ByVal Y As Long = -1)
+Public Sub AddChatBubble(ByVal target As Long, ByVal targetType As Byte, ByVal Msg As String, ByVal Colour As Long, Optional ByVal X As Long = -1, Optional ByVal Y As Long = -1)
 Dim i As Long, Index As Long
 
     '//set the global index
@@ -1119,7 +1119,7 @@ Dim i As Long, Index As Long
     '//set the bubble up
     With chatBubble(Index)
         .Msg = Msg
-        .colour = colour
+        .Colour = Colour
         .target = target
         .targetType = targetType
         .X = X
@@ -2484,5 +2484,23 @@ Function SecondsToHMS(ByRef Segundos As Long) As String
         ' Joga na função esse segundo.
         SecondsToHMS = SS & "S "
         Total = Total - SS
+    End If
+End Function
+
+Public Sub ResetServerInfo()
+    Dim i As Byte
+
+    For i = 1 To MAX_SERVER_LIST
+        ServerInfo(i).Status = "Offline"
+        ServerInfo(i).Player = 0
+        ServerInfo(i).Colour = BrightRed
+    Next i
+End Sub
+
+Function GetColStr(Colour As Integer)
+    If Colour < 10 Then
+        GetColStr = "0" & Colour
+    Else
+        GetColStr = Colour
     End If
 End Function

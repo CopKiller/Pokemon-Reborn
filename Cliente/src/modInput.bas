@@ -235,7 +235,7 @@ Dim Slot As Long
     End If
     
     If Not ChatOn Then
-        If GameState = GameStateEnum.ingame Then
+        If GameState = GameStateEnum.InGame Then
             For i = ControlEnum.KeyPokeSlot1 To ControlEnum.KeyPokeSlot6
                 If KeyAscii = ControlKey(i).cAsciiKey Then
                     Slot = i - (ControlEnum.KeyPokeSlot1 - 1)
@@ -326,6 +326,12 @@ Public Sub FormKeyUp(KeyCode As Integer, Shift As Integer)
                         GuiState GUI_POKEMONSUMMARY, False
                     End If
                     CanOpenMenu = False
+                Case GuiEnum.GUI_RANK
+                    If GUI(GuiEnum.GUI_RANK).Visible = True Then
+                        GuiState GUI_RANK, False
+                        Button(ButtonEnum.Game_Rank).State = 0
+                    End If
+                    CanOpenMenu = False
                 End Select
             End If
 
@@ -341,7 +347,7 @@ Public Sub FormKeyUp(KeyCode As Integer, Shift As Integer)
         End If
     End Select
 
-    If GameState = GameStateEnum.ingame Then
+    If GameState = GameStateEnum.InGame Then
         For i = ControlEnum.KeyHotbarSlot1 To ControlEnum.KeyHotbarSlot5
             If KeyCode = ControlKey(i).cAsciiKey Then
                 Slot = i - (ControlEnum.KeyHotbarSlot1 - 1)
@@ -730,7 +736,7 @@ Dim Column As Long
                 End If
                 
             End If
-        Case GameStateEnum.ingame
+        Case GameStateEnum.InGame
             If Not DidClick And Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible And Not GUI(GuiEnum.GUI_CONVO).Visible Then
                 If Buttons = vbRightButton Then
                     If Editor <> EDITOR_MAP Then
@@ -826,11 +832,11 @@ Dim Column As Long
                                             If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                                 PreventAction = True
                                             End If
-                                        Case ButtonEnum.Game_Clan
-                                            'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
-                                            '    PreventAction = True
-                                           ' End If
                                         Case ButtonEnum.Game_Task
+                                            'If GUI(GuiEnum.GUI_RANK).Visible Then
+                                            '    PreventAction = True
+                                            'End If
+                                        Case ButtonEnum.Game_Rank
                                             If GUI(GuiEnum.GUI_RANK).Visible Then
                                                 PreventAction = True
                                             End If
@@ -989,7 +995,7 @@ Dim PreventAction As Boolean
         Case GameStateEnum.InMenu
             IsHovering = False
             
-        Case GameStateEnum.ingame
+        Case GameStateEnum.InGame
             IsHovering = False
             
             '//Editor Map
@@ -1019,11 +1025,11 @@ Dim PreventAction As Boolean
                                         If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                             PreventAction = True
                                         End If
-                                    Case ButtonEnum.Game_Clan
-                                        'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
+                                    Case ButtonEnum.Game_Task
+                                        'If GUI(GuiEnum.GUI_RANK).Visible Then
                                         '    PreventAction = True
                                         'End If
-                                    Case ButtonEnum.Game_Task
+                                    Case ButtonEnum.Game_Rank
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
                                             PreventAction = True
                                         End If
@@ -1066,7 +1072,7 @@ Dim x2 As Long, Y2 As Long
     '//SelMenu
     If SelMenu.Visible Then Exit Sub
     
-    If GameState = GameStateEnum.ingame Then
+    If GameState = GameStateEnum.InGame Then
         If DragInvSlot > 0 Then
             For i = 1 To MAX_HOTBAR
                 x2 = Screen_Width - 42 - 170 - ((i - 1) * 45)
@@ -1131,7 +1137,7 @@ Dim x2 As Long, Y2 As Long
     Select Case GameState
         Case GameStateEnum.InMenu
             '
-        Case GameStateEnum.ingame
+        Case GameStateEnum.InGame
             If Not Editor = EDITOR_MAP Then
                 If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible And Not GUI(GuiEnum.GUI_CONVO).Visible Then
                     '//Loop through all items
@@ -1152,11 +1158,11 @@ Dim x2 As Long, Y2 As Long
                                         If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                             PreventAction = True
                                         End If
-                                    Case ButtonEnum.Game_Clan
-                                        'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
+                                    Case ButtonEnum.Game_Task
+                                        'If GUI(GuiEnum.GUI_RANK).Visible Then
                                         '    PreventAction = True
                                         'End If
-                                    Case ButtonEnum.Game_Task
+                                    Case ButtonEnum.Game_Rank
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
                                             PreventAction = True
                                         End If
@@ -1187,7 +1193,7 @@ Dim x2 As Long, Y2 As Long
                                                 'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible = False Then
                                                 '    GuiState GUI_SLOTMACHINE, True
                                                 'End If
-                                            Case ButtonEnum.Game_Clan
+                                            Case ButtonEnum.Game_Rank
                                                 If GUI(GuiEnum.GUI_RANK).Visible = False Then
                                                     SendRequestRank
                                                     GuiState GUI_RANK, True
@@ -1303,7 +1309,7 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                                     '//Exit
                                     CloseChoiceBox
                                     UnloadMain
-                                ElseIf GameState = GameStateEnum.ingame Then
+                                ElseIf GameState = GameStateEnum.InGame Then
                                     GettingMap = True
                                     CloseChoiceBox
                                     InitFade 0, FadeIn, 5
@@ -1315,7 +1321,7 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                                 If GameState = GameStateEnum.InMenu Then
                                     CloseChoiceBox
                                     ResetMenu
-                                ElseIf GameState = GameStateEnum.ingame Then
+                                ElseIf GameState = GameStateEnum.InGame Then
                                     GettingMap = True
                                     CloseChoiceBox
                                     InitFade 0, FadeIn, 6

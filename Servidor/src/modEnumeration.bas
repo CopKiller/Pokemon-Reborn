@@ -101,12 +101,15 @@ Public Enum ServerPackets
     SShop
     SInitQuest
     SQuest
+    
+    ' Não editores
     SRank
     SDataLimit
     SPlayerPvP
     SPlayerCash
     SRequestCash
     SEventInfo
+    SRequestServerInfo
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -221,6 +224,7 @@ Public Enum ClientPackets
     CFlyToBadge
     CRequestCash
     CSetCash
+    CRequestServerInfo
     '//Make sure CMSG_COUNT is below everything else
     CMSG_Count
 End Enum

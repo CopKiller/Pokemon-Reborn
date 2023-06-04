@@ -72,13 +72,13 @@ End Function
 
 Public Sub AcceptConnection(ByVal Index As Long, ByVal SocketId As Long)
 Dim i As Long
-Dim count As Long
+Dim Count As Long
 
     ' Prevent spamming
     For i = 1 To MAX_PLAYER
         If GetPlayerIP(i) = Trim$(frmServer.Socket(Index).RemoteHostIP) Then
-            count = count + 1
-            If count > 3 Then Exit Sub
+            Count = Count + 1
+            If Count > 3 Then Exit Sub
         End If
     Next
     
@@ -2313,4 +2313,26 @@ Public Sub SendEventInfo(ByVal Index As Long)
     buffer.WriteLong EventExp.ExpSecs
     SendDataTo Index, buffer.ToArray()
     Set buffer = Nothing
+End Sub
+
+Public Sub SendRequestServerInfo(ByVal Index As Long)
+    Dim buffer As clsBuffer
+    Dim SString As String, Colour As Integer
+
+    If frmServer.chkStaffOnly.Value = YES Then
+        SString = "Staff"
+        Colour = Magenta
+    Else
+        SString = "Online"
+        Colour = BrightGreen
+    End If
+
+    Set buffer = New clsBuffer
+    buffer.WriteLong SRequestServerInfo
+    buffer.WriteString SString
+    buffer.WriteInteger TotalPlayerOnline
+    buffer.WriteInteger Colour
+    SendDataTo Index, buffer.ToArray()
+    Set buffer = Nothing
+
 End Sub

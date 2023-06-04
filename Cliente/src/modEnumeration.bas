@@ -107,6 +107,7 @@ Public Enum ServerPackets
     SPlayerCash
     SRequestCash
     SEventInfo
+    SRequestServerInfo
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -223,6 +224,7 @@ Public Enum ClientPackets
     CFlyToBadge
     CRequestCash
     CSetCash
+    CRequestServerInfo
     '//Make sure CMSG_COUNT is below everything else
     CMSG_Count
 End Enum
@@ -422,7 +424,7 @@ End Enum
 '//Game State
 Public Enum GameStateEnum
     InMenu = 1
-    ingame
+    InGame
 End Enum
 
 '//Menu State
@@ -506,7 +508,7 @@ Public Enum ButtonEnum
     Game_Bag
     Game_Card
     Game_Task
-    Game_Clan
+    Game_Rank
     Game_Menu
     Game_Evolve
     Inventory_Close

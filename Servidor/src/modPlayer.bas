@@ -1226,7 +1226,7 @@ Public Sub GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As Byte, B
 
         ' O EV total ja está no limite? Então não executa.
         If CountStat >= MAX_EV Then Exit Sub
-        
+
         ' Verifica o Atributo EV recebido, se já está cheio em 252
         If .Stat(evStat).EV >= statMaxEv Then Exit Sub
 
@@ -1243,7 +1243,7 @@ Public Sub GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As Byte, B
         Else
             ' Obtem na variável o que falta pra chegar no MAX_EV
             Sobra = MAX_EV - CountStat
-            
+
             If .Stat(evStat).EV + Sobra <= statMaxEv Then
                 .Stat(evStat).EV = .Stat(evStat).EV + Sobra
                 .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
@@ -1253,19 +1253,21 @@ Public Sub GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As Byte, B
                 AtualizarAtributos = True
             End If
         End If
-        
-        
-        
+
+
+
         ' Atualização de atributos, pra não reescrever códigos.
         If AtualizarAtributos Then
-            If Not .Stat(evStat).Value = .MaxHP Then
+            If evStat = HP Then
+                If Not .Stat(evStat).Value = .MaxHP Then
                     .MaxHP = .Stat(evStat).Value
                     SendPlayerPokemonSlot Index, PokeSlot
                 End If
                 SendPlayerPokemonsStat Index, PokeSlot
+            End If
         End If
 
-End With
+    End With
 End Sub
 
 Private Sub CheckPlayerPokemonLevelUp(ByVal Index As Long, ByVal PokeSlot As Byte)
@@ -1310,6 +1312,8 @@ Dim DidLevel As Boolean
             SendPlayerPokemonVital Index
             CheckNewMove Index, PokeSlot
         End If
+        
+        'SendPlayerPokemonVital Index
     End With
 End Sub
 

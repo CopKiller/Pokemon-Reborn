@@ -116,6 +116,9 @@ Private Sub EventsLoop()
                 .ExpSecs = .ExpSecs - 1
             Else
                 .ExpEvent = False
+                frmServer.cmdExp.Caption = "Ativar"
+                frmServer.scrlExp.Enabled = True
+                frmServer.txtExpHour.Enabled = True
 
                 For i = 1 To Player_HighIndex
                     If IsPlaying(i) Then

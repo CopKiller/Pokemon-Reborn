@@ -28,10 +28,18 @@ Public Quest(1 To MAX_QUEST) As QuestRec
 
 Public Rank(1 To MAX_RANK) As RankRec
 
+
 Private Type RankRec
     Name As String
     Level As Long
     Exp As Long
+End Type
+
+'//Server info
+Public Type ServerInfoRec
+    Player As Integer
+    Status As String
+    Colour As Integer
 End Type
 
 ' **************
@@ -855,7 +863,7 @@ End Type
 
 Public Type ChatBubbleRec
     Msg As String
-    colour As Long
+    Colour As Long
     target As Long
     targetType As Byte
     X As Long

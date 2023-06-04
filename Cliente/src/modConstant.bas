@@ -185,7 +185,7 @@ Public Const ACTION_SLIDE As Byte = 1
 ' ** Client Only **
 ' *****************
 '//Client Data
-Public Const GAME_NAME As String = "PokeNew"
+Public Const GAME_NAME As String = "PokeReborn"
 
 '//Default Resolution Screen
 Public Const Default_ScreenWidth As Long = 1280
@@ -285,3 +285,5 @@ Public Const IDCash As Integer = 527
 
 '//Poke using a Item Texture
 Public Const PokeUseHeld As Integer = 531
+
+Public Const ColourChar As String * 1 = "½"

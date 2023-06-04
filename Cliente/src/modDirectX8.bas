@@ -75,6 +75,7 @@ Public Tex_Weather() As Long
 Public Tex_PokemonPortrait() As Long
 Public Tex_ShinyPokemonPortrait() As Long
 Public Tex_PokemonTypes() As Long
+Public Tex_PokemonTypesSymbol() As Long
 
 '//Texture Count
 Public Count_System As Long
@@ -96,6 +97,7 @@ Public Count_Weather As Long
 Public Count_PokemonPortrait As Long
 Public Count_ShinyPokemonPortrait As Long
 Public Count_PokemonTypes As Long
+Public Count_PokemonTypesSymbol As Long
 
 '//Texture Path
 Public Const Texture_Path As String = "\data\themes\"
@@ -114,6 +116,7 @@ Public Const Animation_Path As String = "\data\resources\animation\"
 Public Const Weather_Path As String = "\data\resources\weather\"
 Public Const PokemonPortrait_Path As String = "\data\resources\pokemon\portrait\"
 Public Const PokemonTypes_Path As String = "\data\resources\poke-types\"
+Public Const PokemonTypesSymbol_Path As String = "\data\resources\poke-types\icons\"
 
 '//Global
 Private Const MenuUi_Texture As Byte = 1
@@ -853,20 +856,39 @@ Dim TextureName As String
     ' ** PokemonTypes *****
     ' *********************
     '//Let's start counting at 1
-    Count_PokemonTypes = 0
+    Count_PokemonTypes = 1
     Do While FileExist(App.Path & PokemonTypes_Path & Count_PokemonTypes & GFX_EXT)
         '//If file exist, let's check the other count
         Count_PokemonTypes = Count_PokemonTypes + 1
     Loop
     '//If it reach at this point, it means that the file on the certain count is missing so we must remove it
-    Count_PokemonTypes = Count_PokemonTypes
+    Count_PokemonTypes = Count_PokemonTypes - 1
     '//Make sure that we have texture to set
-    If Count_PokemonTypes >= 0 Then
+    If Count_PokemonTypes > 0 Then
         '//Set texture range
-        ReDim Tex_PokemonTypes(0 To Count_PokemonTypes - 1)
+        ReDim Tex_PokemonTypes(1 To Count_PokemonTypes)
         '//Set the path range to GlobalTexture
-        For i = 0 To Count_PokemonTypes - 1
+        For i = 1 To Count_PokemonTypes
             Tex_PokemonTypes(i) = SetTexturePath(App.Path & PokemonTypes_Path & i & GFX_EXT)
+        Next i
+    End If
+    
+    '//Symbol
+    '//Let's start counting at 1
+    Count_PokemonTypesSymbol = 1
+    Do While FileExist(App.Path & PokemonTypesSymbol_Path & Count_PokemonTypesSymbol & GFX_EXT)
+        '//If file exist, let's check the other count
+        Count_PokemonTypesSymbol = Count_PokemonTypesSymbol + 1
+    Loop
+    '//If it reach at this point, it means that the file on the certain count is missing so we must remove it
+    Count_PokemonTypesSymbol = Count_PokemonTypesSymbol - 1
+    '//Make sure that we have texture to set
+    If Count_PokemonTypesSymbol > 0 Then
+        '//Set texture range
+        ReDim Tex_PokemonTypesSymbol(0 To Count_PokemonTypesSymbol)
+        '//Set the path range to GlobalTexture
+        For i = 1 To Count_PokemonTypesSymbol
+            Tex_PokemonTypesSymbol(i) = SetTexturePath(App.Path & PokemonTypesSymbol_Path & i & GFX_EXT)
         Next i
     End If
 End Sub
@@ -1488,14 +1510,15 @@ Private Sub Render_Game()
                     If GUI(GuiEnum.GUI_TRAINER).Visible Then
                         Button(i).State = ButtonState.StateClick
                     End If
-                Case ButtonEnum.Game_Clan
-                    'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible Then
+                Case ButtonEnum.Game_Task
+                    'If GUI(GuiEnum.GUI_RANK).Visible Then
                     '    Button(i).State = ButtonState.StateClick
                     'End If
-                Case ButtonEnum.Game_Task
+                Case ButtonEnum.Game_Rank
                     If GUI(GuiEnum.GUI_RANK).Visible Then
                         Button(i).State = ButtonState.StateClick
                     End If
+                
                 Case ButtonEnum.Game_Menu
                     If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
                         Button(i).State = ButtonState.StateClick
@@ -2723,7 +2746,7 @@ Private Sub DrawMoveSelector()
                  If Ctrl_Press Then
                     ' Poke Type texture
                     If PokemonMove(MoveNum).Type > 0 Then
-                        RenderTexture Tex_PokemonTypes(PokemonMove(MoveNum).Type), ConvertMapX(mX - 5), ConvertMapY(mY + 6), 0, 0, 14, 14, 22, 23
+                        RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), ConvertMapX(mX - 5), ConvertMapY(mY + 6), 0, 0, 15, 15, 20, 20
                     End If
 
                     ' Poke Category texture
@@ -3159,10 +3182,10 @@ Private Sub DrawHud()
                 End If
                 '//Poke Type texture
                 If Pokemon(PlayerPokemons(i).Num).PrimaryType > 0 Then
-                    RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(i).Num).PrimaryType), X + 2, Y + 30, 0, 0, 14, 14, 22, 23, D3DColorARGB(Alpha, 255, 255, 255)
+                    RenderTexture Tex_PokemonTypesSymbol(Pokemon(PlayerPokemons(i).Num).PrimaryType), X + 2, Y + 30, 0, 0, 15, 15, 20, 20, D3DColorARGB(Alpha, 255, 255, 255)
                     
                     If Pokemon(PlayerPokemons(i).Num).SecondaryType > 0 Then
-                        RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(i).Num).SecondaryType), X + 17, Y + 30, 0, 0, 14, 14, 22, 23, D3DColorARGB(Alpha, 255, 255, 255)
+                        RenderTexture Tex_PokemonTypesSymbol(Pokemon(PlayerPokemons(i).Num).SecondaryType), X + 17, Y + 30, 0, 0, 15, 15, 20, 20, D3DColorARGB(Alpha, 255, 255, 255)
                     End If
                 End If
             End If
@@ -4000,9 +4023,9 @@ Private Sub DrawPokemonSummary()
 
                     ' Type Texture
                     If Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType > 0 Then
-                        RenderTexture Tex_PokemonTypes(0), .X + 189, .Y + 64, ((32) * (((Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType - 1) Mod 4))), ((14) * ((Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType + 1) \ 5)), 55, 19, 32, 14
+                        RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
                         If Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType > 0 Then
-                            RenderTexture Tex_PokemonTypes(0), .X + 241, .Y + 64, ((32) * (((Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType - 1) Mod 4))), ((14) * ((Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType) \ 5)), 55, 19, 32, 14
+                            RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
                         End If
                     End If
 
@@ -4020,7 +4043,7 @@ Private Sub DrawPokemonSummary()
 
                             ' Poke Type texture
                             If PokemonMove(MoveNum).Type > 0 Then
-                                RenderTexture Tex_PokemonTypes(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 14, 14, 22, 23
+                                RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20
                             End If
 
                             ' Poke Category texture
@@ -4097,9 +4120,9 @@ Private Sub DrawPokemonSummary()
 
                         ' Type Texture
                         If Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).PrimaryType > 0 Then
-                            RenderTexture Tex_PokemonTypes(0), .X + 189, .Y + 64, ((32) * (((Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).PrimaryType - 1) Mod 4))), ((14) * ((Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).PrimaryType + 1) \ 5)), 55, 19, 32, 14
+                            RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
                             If Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).SecondaryType > 0 Then
-                                RenderTexture Tex_PokemonTypes(0), .X + 241, .Y + 64, ((32) * (((Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).SecondaryType - 1) Mod 4))), ((14) * ((Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).SecondaryType) \ 5)), 55, 19, 32, 14
+                                RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
                             End If
                         End If
 
@@ -4117,7 +4140,7 @@ Private Sub DrawPokemonSummary()
 
                                 ' Poke Type texture
                                 If PokemonMove(MoveNum).Type > 0 Then
-                                    RenderTexture Tex_PokemonTypes(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 14, 14, 22, 23
+                                    RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20
                                 End If
 
                                 ' Poke Category texture
@@ -4195,9 +4218,9 @@ Private Sub DrawPokemonSummary()
 
                         ' Type Texture
                         If Pokemon(YourTrade.Data(SummarySlot).Num).PrimaryType > 0 Then
-                            RenderTexture Tex_PokemonTypes(0), .X + 189, .Y + 64, ((32) * (((Pokemon(YourTrade.Data(SummarySlot).Num).PrimaryType - 1) Mod 4))), ((14) * ((Pokemon(YourTrade.Data(SummarySlot).Num).PrimaryType + 1) \ 5)), 55, 19, 32, 14
+                            RenderTexture Tex_PokemonTypes(Pokemon(YourTrade.Data(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
                             If Pokemon(YourTrade.Data(SummarySlot).Num).SecondaryType > 0 Then
-                                RenderTexture Tex_PokemonTypes(0), .X + 241, .Y + 64, ((32) * (((Pokemon(YourTrade.Data(SummarySlot).Num).SecondaryType - 1) Mod 4))), ((14) * ((Pokemon(YourTrade.Data(SummarySlot).Num).SecondaryType) \ 5)), 55, 19, 32, 14
+                                RenderTexture Tex_PokemonTypes(Pokemon(YourTrade.Data(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
                             End If
                         End If
 
@@ -4215,7 +4238,7 @@ Private Sub DrawPokemonSummary()
 
                                 ' Poke Type texture
                                 If PokemonMove(MoveNum).Type > 0 Then
-                                    RenderTexture Tex_PokemonTypes(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 14, 14, 22, 23
+                                    RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20
                                 End If
 
                                 ' Poke Category texture
@@ -4292,9 +4315,9 @@ Private Sub DrawPokemonSummary()
 
                         ' Type Texture
                         If Pokemon(TheirTrade.Data(SummarySlot).Num).PrimaryType > 0 Then
-                            RenderTexture Tex_PokemonTypes(0), .X + 189, .Y + 64, ((32) * (((Pokemon(TheirTrade.Data(SummarySlot).Num).PrimaryType - 1) Mod 4))), ((14) * ((Pokemon(TheirTrade.Data(SummarySlot).Num).PrimaryType + 1) \ 5)), 55, 19, 32, 14
+                            RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
                             If Pokemon(TheirTrade.Data(SummarySlot).Num).SecondaryType > 0 Then
-                                RenderTexture Tex_PokemonTypes(0), .X + 241, .Y + 64, ((32) * (((Pokemon(TheirTrade.Data(SummarySlot).Num).SecondaryType - 1) Mod 4))), ((14) * ((Pokemon(TheirTrade.Data(SummarySlot).Num).SecondaryType) \ 5)), 55, 19, 32, 14
+                                RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
                             End If
                         End If
 
@@ -4312,7 +4335,7 @@ Private Sub DrawPokemonSummary()
 
                                 ' Poke Type texture
                                 If PokemonMove(MoveNum).Type > 0 Then
-                                    RenderTexture Tex_PokemonTypes(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 14, 14, 22, 23
+                                    RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20
                                 End If
 
                                 ' Poke Category texture

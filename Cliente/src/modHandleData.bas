@@ -108,6 +108,7 @@ Public Sub InitMessages()
     HandleDataSub(SPlayerCash) = GetAddress(AddressOf HandlePlayerCash)
     HandleDataSub(SRequestCash) = GetAddress(AddressOf HandleRequestCash)
     HandleDataSub(SEventInfo) = GetAddress(AddressOf HandleEventInfo)
+    HandleDataSub(SRequestServerInfo) = GetAddress(AddressOf HandleRequestServerInfo)
 End Sub
 
 Public Sub HandleData(ByRef Data() As Byte)
@@ -2324,4 +2325,21 @@ Private Sub HandleEventInfo(ByVal Index As Long, ByRef Data() As Byte, ByVal Sta
     ExpMultiply = buffer.ReadByte
     ExpSecs = buffer.ReadLong
     Set buffer = Nothing
+End Sub
+
+Private Sub HandleRequestServerInfo(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+    Dim buffer As clsBuffer
+    
+    If CurServerList = 0 Then Exit Sub
+    
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+    
+    ServerInfo(CurServerList).Status = buffer.ReadString
+    ServerInfo(CurServerList).Player = buffer.ReadInteger
+    ServerInfo(CurServerList).Colour = buffer.ReadInteger
+    Set buffer = Nothing
+    
+    '//Close Socket
+    DestroyTCP
 End Sub

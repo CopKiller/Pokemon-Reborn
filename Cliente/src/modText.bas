@@ -233,42 +233,43 @@ End Function
 
 '//This render the given text on screen
 Public Sub RenderText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X As Long, ByVal Y As Long, ByVal Color As Long, Optional ByVal isColorSet As Boolean = True, Optional ByVal Alpha As Long = 255, Optional ByVal Effect As Boolean)
-Dim TempVA(0 To 3)  As TLVERTEX, TempVAS(0 To 3) As TLVERTEX
-Dim TempColor As Long, ResetColor As Byte
-Dim v2 As D3DVECTOR2, v3 As D3DVECTOR2
-Dim u As Single, v As Single
-Dim i As Long, j As Long
-Dim TempStr() As String
-Dim Count As Integer
-Dim Ascii() As Byte
-Dim Row As Integer
-Dim KeyPhrase As Byte
-Dim srcRect As RECT
-Dim yOffset As Single
+    Dim TempVA(0 To 3) As TLVERTEX, TempVAS(0 To 3) As TLVERTEX
+    Dim TempColor As Long, ResetColor As Byte
+    Dim v2 As D3DVECTOR2, v3 As D3DVECTOR2
+    Dim u As Single, v As Single
+    Dim i As Long, j As Long
+    Dim TempStr() As String
+    Dim Count As Integer
+    Dim Ascii() As Byte
+    Dim Row As Integer
+    Dim KeyPhrase As Byte
+    Dim srcRect As RECT
+    Dim yOffset As Single
+    Dim ignoreChar As Long
 
     '//set the color
     If isColorSet Then Color = dx8Colour(Color, Alpha)
-    
+
     '//Check for valid text to render
     If LenB(Text) = 0 Then Exit Sub
-    
+
     '//Get the text into arrays (split by vbCrLf)
     TempStr = Split(Text, vbCrLf)
 
     '//Set the temp color (or else the first character has no color)
     TempColor = Color
-    
+
     'Fazer a Sombra
     If Effect = True Then RenderText theFont, Text, X + 1, Y + 1, Black
-    
+
     '//Set the texture
     D3DDevice.SetTexture 0, theFont.Texture
     CurrentTexture = -1
-    
+
     '//Set Default Position
     X = X + 2
     Y = Y + 2
-    
+
     '//Loop through each line if there are line breaks (vbCrLf)
     For i = 0 To UBound(TempStr)
         If Len(TempStr(i)) > 0 Then
@@ -276,38 +277,55 @@ Dim yOffset As Single
             Count = 0
             '//Convert the characters to the ascii value
             Ascii() = StrConv(TempStr(i), vbFromUnicode)
-            
+
             '//Loop through the characters
             For j = 1 To Len(TempStr(i))
-                '//Copy from the cached vertex array to the temp vertex array
-                CopyMemory TempVA(0), theFont.HeaderInfo.CharVA(Ascii(j - 1)).Vertex(0), FVF_Size * 4
-                
-                '//Set up the verticies
-                TempVA(0).X = X + Count
-                TempVA(0).Y = Y + yOffset
-                TempVA(1).X = TempVA(1).X + X + Count
-                TempVA(1).Y = TempVA(0).Y
-                TempVA(2).X = TempVA(0).X
-                TempVA(2).Y = TempVA(2).Y + TempVA(0).Y
-                TempVA(3).X = TempVA(1).X
-                TempVA(3).Y = TempVA(2).Y
-                
-                '//Set the colors
-                TempVA(0).Color = TempColor
-                TempVA(1).Color = TempColor
-                TempVA(2).Color = TempColor
-                TempVA(3).Color = TempColor
+                ' check for colour change
+                If Mid$(TempStr(i), j, 1) = ColourChar Then
+                    Color = Val(Mid$(TempStr(i), j + 1, 2))
+                    ' make sure the colour exists
+                    If Color = -1 Then
+                        TempColor = ResetColor
+                    Else
+                        TempColor = dx8Colour(Color, Alpha)
+                    End If
+                    ignoreChar = 3
+                End If
 
-                '//Draw the verticies
-                D3DDevice.DrawPrimitiveUP D3DPT_TRIANGLESTRIP, 2, TempVA(0), FVF_Size
-                
-                '//Shift over the the position to render the next character
-                Count = Count + theFont.HeaderInfo.CharWidth(Ascii(j - 1))
-                
-                '//Check to reset the color
-                If ResetColor Then
-                    ResetColor = 0
-                    TempColor = Color
+                ' check if we're ignoring this character
+                If ignoreChar > 0 Then
+                    ignoreChar = ignoreChar - 1
+                Else
+                    '//Copy from the cached vertex array to the temp vertex array
+                    CopyMemory TempVA(0), theFont.HeaderInfo.CharVA(Ascii(j - 1)).Vertex(0), FVF_Size * 4
+
+                    '//Set up the verticies
+                    TempVA(0).X = X + Count
+                    TempVA(0).Y = Y + yOffset
+                    TempVA(1).X = TempVA(1).X + X + Count
+                    TempVA(1).Y = TempVA(0).Y
+                    TempVA(2).X = TempVA(0).X
+                    TempVA(2).Y = TempVA(2).Y + TempVA(0).Y
+                    TempVA(3).X = TempVA(1).X
+                    TempVA(3).Y = TempVA(2).Y
+
+                    '//Set the colors
+                    TempVA(0).Color = TempColor
+                    TempVA(1).Color = TempColor
+                    TempVA(2).Color = TempColor
+                    TempVA(3).Color = TempColor
+
+                    '//Draw the verticies
+                    D3DDevice.DrawPrimitiveUP D3DPT_TRIANGLESTRIP, 2, TempVA(0), FVF_Size
+
+                    '//Shift over the the position to render the next character
+                    Count = Count + theFont.HeaderInfo.CharWidth(Ascii(j - 1))
+
+                    '//Check to reset the color
+                    If ResetColor Then
+                        ResetColor = 0
+                        TempColor = Color
+                    End If
                 End If
             Next j
         End If
@@ -420,8 +438,8 @@ Dim i As Long, X As Long
     End If
 End Function
 
-Public Function CensorWord(ByVal sString As String) As String
-    CensorWord = String(Len(sString), "*")
+Public Function CensorWord(ByVal SString As String) As String
+    CensorWord = String(Len(SString), "*")
 End Function
 
 '//This function input the keyascii to the string variable
@@ -496,7 +514,7 @@ Dim i As Long, n As Long
     CheckNameInput = True
 End Function
 
-Public Sub RenderArrayText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X As Long, ByVal Y As Long, ByVal MaxLineLen As Long, ByVal colour As Long, Optional ByVal Alpha As Byte = 255, Optional ByVal KeepCentered As Boolean = False)
+Public Sub RenderArrayText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X As Long, ByVal Y As Long, ByVal MaxLineLen As Long, ByVal Colour As Long, Optional ByVal Alpha As Byte = 255, Optional ByVal KeepCentered As Boolean = False)
 Dim theArray() As String, i As Long, MaxLine As Long
 Dim DrawX As Long
 
@@ -512,7 +530,7 @@ Dim DrawX As Long
             Else
                 DrawX = X
             End If
-            RenderText theFont, theArray(i), DrawX, Y, colour, Alpha
+            RenderText theFont, theArray(i), DrawX, Y, Colour, Alpha
             ' increase the y position by height of the font
             Y = Y + 16
         Next
@@ -523,7 +541,7 @@ Dim DrawX As Long
             DrawX = X
         End If
         ' if line have one then render the text
-        RenderText theFont, Text, DrawX, Y, colour, Alpha
+        RenderText theFont, Text, DrawX, Y, Colour, Alpha
     End If
 End Sub
 
@@ -1179,7 +1197,7 @@ Dim i As Long
         
         '//render each line centralised
         For i = 1 To UBound(theArray)
-            RenderText Font_Default, theArray(i), X - (GetTextWidth(Font_Default, theArray(i)) / 2) - 2, Y2 - 3, .colour
+            RenderText Font_Default, theArray(i), X - (GetTextWidth(Font_Default, theArray(i)) / 2) - 2, Y2 - 3, .Colour
             Y2 = Y2 + 12
         Next
         '//check if it's timed out - close it if so

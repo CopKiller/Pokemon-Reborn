@@ -273,7 +273,7 @@ Public Sub ResetGui()
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
         .Y = Screen_Height - .Height - 10
     End With
-    With Button(ButtonEnum.Game_Clan)
+    With Button(ButtonEnum.Game_Rank)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
         .Y = Screen_Height - .Height - 10
     End With
@@ -385,7 +385,7 @@ Dim FileName As String
                 Case ButtonEnum.Game_Bag: FileTitle = "Game_Bag"
                 Case ButtonEnum.Game_Card: FileTitle = "Game_Card"
                 Case ButtonEnum.Game_Task: FileTitle = "Game_Task"
-                Case ButtonEnum.Game_Clan: FileTitle = "Game_Clan"
+                Case ButtonEnum.Game_Rank: FileTitle = "Game_Rank"
                 Case ButtonEnum.Game_Menu: FileTitle = "Game_Menu"
                 Case ButtonEnum.Game_Evolve: FileTitle = "Game_Evolve"
                 Case ButtonEnum.Inventory_Close: FileTitle = "Inventory_Close"
@@ -1104,7 +1104,7 @@ Dim i As Long
     '    Close #1
     'End If
     '//Static
-    tmpCreditText = "#h PokeNew Team//#h Owner/Leahos//#h Head Programmer/Leahos, Dragonick//#h Moderators/Flares///#h Special Thanks/xxxx/xxxx"
+    tmpCreditText = "#h PokeReborn Team//#h Owner/Philips//#h Head Programmer/Leahos, Dragonick//#h Moderators/Flares///#h Special Thanks/xxxx/xxxx"
     
     ' Split Text
     CreditText() = Split(tmpCreditText, "/")

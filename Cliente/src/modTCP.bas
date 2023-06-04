@@ -12,6 +12,9 @@ Public Sub TcpInit()
     Set PlayerBuffer = New clsBuffer
     '//Set the connection settings
     LoadServerList CurServerList
+    
+    Call ResetServerInfo
+    Call RequestServerInfo
 End Sub
 
 Public Sub LoadServerList(ByVal ServerSlot As Integer)
@@ -1368,4 +1371,19 @@ Dim buffer As clsBuffer
     buffer.WriteLong value
     SendData buffer.ToArray()
     Set buffer = Nothing
+End Sub
+
+Public Sub RequestServerInfo()
+    Dim buffer As clsBuffer
+
+    ' Resetar antes.
+    Call ResetServerInfo
+    
+    ' Realizar solicitação de informações de jogadores online!
+    If ConnectToServer Then
+        Set buffer = New clsBuffer
+        buffer.WriteLong CRequestServerInfo
+        SendData buffer.ToArray()
+        Set buffer = Nothing
+    End If
 End Sub

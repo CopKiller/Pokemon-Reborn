@@ -10,41 +10,42 @@ Dim TextUIBoxSize As Long
 
 ' Método que desenha a janela
 Public Sub DrawLogin()
-Dim i As Long
-Dim X As Long
+    Dim i As Long
+    Dim X As Long
+    Dim SString As String
 
     With GUI(GuiEnum.GUI_LOGIN)
-        
+
         ' Certifica que está visível
         If Not .Visible Then Exit Sub
-        
+
         ' Importa a tradução
         Language
-        
+
         ' Incia o valor do padding lateral
         PaddingLeft = 23
-        
+
         ' Incia o valor do padding superior
         PaddingTop = 32
-        
+
         ' Inicia o valor do texto na caixa
         TextUIBoxSize = 104
-        
+
         ' Desenha a janela
         RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
 
         ' Desenha o texto do username
         RenderText Font_Default, TextUILoginUsername, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUILoginUsername) / 2) - 2, (.Y + PaddingTop) + 13, White, , 255
-        
+
         ' Desenha o texto da password
         RenderText Font_Default, TextUILoginPassword, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUILoginPassword) / 2) - 2, (.Y + PaddingTop) + 46, White, , 255
-        
+
         ' Desenha o texto do server list
         RenderText Font_Default, TextUILoginServerList, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUILoginServerList) / 2) - 2, (.Y + PaddingTop) + 79, White
-        
+
         ' Desenha o texto da checkbox
         RenderText Font_Default, TextUILoginCheckBox, .X + (PaddingLeft + 19), (.Y + PaddingTop) + 106, White
-        
+
         ' Desenha os botões
         For i = ButtonEnum.Login_Confirm To ButtonEnum.Login_Confirm
             If CanShowButton(i) Then
@@ -52,33 +53,33 @@ Dim X As Long
                 RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
-        
+
         ' Desenha o texto do botão
         RenderText Font_Default, TextUILoginEntryButton, .X + 23 + (254 / 2) - (GetTextWidth(Font_Default, TextUILoginEntryButton) / 2) - 2, (.Y + 161) + 34 / 2 - 11, White, , 255
-        
+
         ' Desenha as textbox
         Select Case CurTextbox
-            Case 1 ' User
-                RenderText Font_Default, UpdateChatText(Font_Default, User, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 13), Dark
-                RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 46), Dark
-            Case 2 ' Pass
-                RenderText Font_Default, UpdateChatText(Font_Default, User, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 13), Dark
-                RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 46), Dark
+        Case 1    ' User
+            RenderText Font_Default, UpdateChatText(Font_Default, User, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 13), Dark
+            RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 46), Dark
+        Case 2    ' Pass
+            RenderText Font_Default, UpdateChatText(Font_Default, User, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 13), Dark
+            RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 46), Dark
         End Select
-        
+
         ' Desenha a checkbox
         If CursorX >= .X + PaddingLeft And CursorX <= .X + (PaddingLeft + 17) And CursorY >= .Y + (PaddingTop + 107) And CursorY <= .Y + (PaddingTop + 107) + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_LOGIN Then
             RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + (PaddingTop + 107), 319, 125 + 17, 17, 17, 17, 17
         Else
             RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + (PaddingTop + 107), 319, 125, 17, 17, 17, 17
         End If
-        
+
         ' Desenha a lista de servidores
         If ShowServerList Then
             If CurServerList > 0 Then
                 RenderText Font_Default, ServerName(CurServerList), (.X + PaddingLeft) + TextUIBoxSize + 2, .Y + (PaddingTop + 79), Dark
             End If
-                
+
             If ServerList Then
                 For X = 1 To MAX_SERVER_LIST
                     If CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 140 And CursorY >= .Y + 98 + ((20 * MAX_SERVER_LIST) + ((X - 2) * 20)) And CursorY <= .Y + 98 + ((20 * MAX_SERVER_LIST) + ((X - 2) * 20)) + 20 Then
@@ -89,8 +90,17 @@ Dim X As Long
                     RenderText Font_Default, ServerName(X), .X + (PaddingLeft + TextUIBoxSize) + 4, .Y + 98 + ((20 * MAX_SERVER_LIST) + ((X - 2) * 20)) + 2, White
                 Next
             End If
+
+            ' Desenha a quantidade de jogadores neste servidor!
+            'SString = Replace$(SString, ColourChar, vbNullString)
+            SString = "Status:" & ColourChar & ServerInfo(CurServerList).Colour & Space(1) & ServerInfo(CurServerList).Status
+            SString = SString & ColourChar & Yellow & " Online Players:" & ColourChar & ServerInfo(CurServerList).Colour & Space(1) & ServerInfo(CurServerList).Player
+            ' Degrade
+            RenderTexture Tex_Gui(12), 0, 5, 59, 241, (GetTextWidth(Font_Default, SString)) - 70, 20, 165, 1
+            RenderText Font_Default, SString, 0, 5, Yellow
         End If
-        
+
+
         ' Deseenha a checkbox
         If GameSetting.SavePass = YES Then
             RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + (PaddingTop + 107), 319, 125 + 34, 17, 17, 17, 17
@@ -145,6 +155,8 @@ Dim i As Byte
                 If CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 140 And CursorY >= .Y + 98 + ((20 * MAX_SERVER_LIST) + ((i - 2) * 20)) And CursorY <= .Y + 98 + ((20 * MAX_SERVER_LIST) + ((i - 2) * 20)) + 20 Then
                     CurServerList = i
                     LoadServerList CurServerList
+                    '//Solicitação de informações de jogadores!
+                    RequestServerInfo
                     Exit For
                 End If
             Next

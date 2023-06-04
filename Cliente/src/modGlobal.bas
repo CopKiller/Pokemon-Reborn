@@ -10,6 +10,8 @@ Public ServerName(1 To MAX_SERVER_LIST) As String
 Public ServerIP(1 To MAX_SERVER_LIST) As String
 Public ServerPort(1 To MAX_SERVER_LIST) As Long
 
+Public ServerInfo(1 To MAX_SERVER_LIST) As ServerInfoRec
+
 Public MAX_PLAYER As Integer
 
 Public PokedexShowInfo As Boolean

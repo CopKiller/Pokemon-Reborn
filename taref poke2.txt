@@ -6,15 +6,25 @@ OK*** -Correções no cartão do treinador, alterações em design e posições,
 
 OK*** -Adicionado formatação de milhares nos valores de Money & Cash. Exemplo: ("1.000.000")
 
-OK*** -Correção no IV, que ao pegar um poke com muito IV e ultrapassase do valor máximo do stat, ele não adicionava nada, nem o valor maximo.
+OK*** -Correção no EV, que ao pegar um poke com muito EV e ultrapassase do valor máximo do stat, ele não adicionava nada, nem o valor maximo.
 
-OK*** -Adicionado funcionalidade pra abrir o summary seu e de quem você está em troca, pra ver os pokemons.
+OK*** -Adicionado funcionalidade pra abrir o summary seu e de quem você está em trade, pra ver os pokemons.
 
 OK*** -Adicionar o pp atual do pokemon no summary e não puxar do editor igual esta: PP/MAXPP
 
 OK*** -fixar cor do nome do ranking, colocar o padrão da engine
 
+OK*** -Teste feito no pokémon inicial que já começar level 5 e quando abatem um pokémon selvagem, a barra do HP ultrapassa o limite da mesma conforme mostra a imagem acima.
 
+OK*** -Adicionando novos poketypes, adaptando novos calculos e adicionando nova pasta no carregamento da textura, alterando a janela do summary e posições.
+
+OK*** -Corrigido interação com os botões do menu ingame, funcionalidades no botão do rank.
+
+OK*** -Mostrar quantidade de jogadores online na tela de login e se o servidor está online ou offline com traduções
+
+OK*** -Adicionado sistema de colorir uma string em mais de uma cor, utilizando ColourChar
+
+-Ajustar painel de aprender a tecnica, melhorar o posicionamento da frase, etc...
 
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 >Futuramente, após finalizar correções básicas.<

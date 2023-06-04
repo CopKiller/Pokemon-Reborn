@@ -11,7 +11,7 @@ Public Sub Language()
             TextUILoginPassword = "Senha"
             TextUILoginServerList = "Servidor"
             TextUILoginCheckBox = "Lembrar-me da senha?"
-            TextUILoginEntryButton = "Entrar no Pokenew"
+            TextUILoginEntryButton = "Entrar no PokeReborn"
             TextUILoginInvalidUsername = "Usuário inválido!"
             TextUILoginInvalidPassword = "Senha inválida!"
             
@@ -41,7 +41,7 @@ Public Sub Language()
             Else
                 TextUIFooterCredits = "Créditos"
             End If
-            TextUIFooterDeveloper = "© Matheus R de Oliveira - 2022 ~ 2023. Todos os direitos reservados."
+            TextUIFooterDeveloper = "© PokeReborn - Todos os direitos reservados 2023."
             TextUIFooterChangePassword = "Mudar a senha"
             
             ' Menu global
@@ -111,7 +111,7 @@ Public Sub Language()
             TextUILoginPassword = "Password"
             TextUILoginServerList = "Server List"
             TextUILoginCheckBox = "Remember me password?"
-            TextUILoginEntryButton = "Log in to Pokenew"
+            TextUILoginEntryButton = "Log in to PokeReborn"
             TextUILoginInvalidUsername = "Invalid username!"
             TextUILoginInvalidPassword = "Invalid password!"
             
@@ -141,7 +141,7 @@ Public Sub Language()
             Else
                 TextUIFooterCredits = "Credits"
             End If
-            TextUIFooterDeveloper = "© Matheus R de Oliveira - 2022 ~ 2023. All rights reserved."
+            TextUIFooterDeveloper = "© PokeReborn - Todos os direitos reservados 2023."
             TextUIFooterChangePassword = "Change password"
             
         ' Espanhol
@@ -152,7 +152,7 @@ Public Sub Language()
             TextUILoginPassword = "Contraseña"
             TextUILoginServerList = "Servidor"
             TextUILoginCheckBox = "Olvidé mi contraseña?"
-            TextUILoginEntryButton = "Entrar a Pokenew"
+            TextUILoginEntryButton = "Entrar a PokeReborn"
             TextUILoginInvalidUsername = "Usuario incorrecto!"
             TextUILoginInvalidPassword = "Contraseña incorrecta!"
             
@@ -183,7 +183,7 @@ Public Sub Language()
             Else
                 TextUIFooterCredits = "Créditos"
             End If
-            TextUIFooterDeveloper = "© Matheus R de Oliveira - 2022 ~ 2023. Todos los derechos reservados."
+            TextUIFooterDeveloper = "© PokeReborn - Todos os direitos reservados 2023."
             TextUIFooterChangePassword = "Cambiar contraseña"
     End Select
 
