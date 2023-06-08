@@ -7,6 +7,7 @@ Begin VB.Form frmEditor_Animation
    ClientTop       =   795
    ClientWidth     =   9510
    ControlBox      =   0   'False
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -275,7 +276,7 @@ Begin VB.Form frmEditor_Animation
          Caption         =   "-"
       End
       Begin VB.Menu mnuExit 
-         Caption         =   "Exit"
+         Caption         =   "Exit(Esc)"
       End
    End
 End
@@ -285,6 +286,12 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyEscape Then
+        CloseAnimationEditor
+    End If
+End Sub
 
 Private Sub Form_Load()
 Dim i As Long

@@ -980,7 +980,7 @@ Public Function GetPicHeight(ByVal TextureNum As Long) As Long
 End Function
 
 '//This make rendering of a texture more easier than doing it manually
-Public Sub RenderTexture(ByVal Texture As Long, ByVal X As Long, ByVal Y As Long, ByVal pX As Long, ByVal pY As Long, ByVal sW As Long, ByVal sH As Long, ByVal rW As Long, ByVal rH As Long, Optional ByVal colour As Long = -1, Optional ByVal Degrees As Single = 0)
+Public Sub RenderTexture(ByVal Texture As Long, ByVal X As Long, ByVal Y As Long, ByVal pX As Long, ByVal pY As Long, ByVal sW As Long, ByVal sH As Long, ByVal rW As Long, ByVal rH As Long, Optional ByVal Colour As Long = -1, Optional ByVal Degrees As Single = 0)
 Dim Box(0 To 3) As TLVERTEX
 Dim Width As Long, Height As Long
 Dim Des As Single
@@ -1006,10 +1006,10 @@ Dim NewX As Single, NewY As Single
     pY = pY '+ 0.5
     Des = 0.000003
     '//Create the vertex of a box
-    Box(0) = CreateTLVertex(X, Y, 0, 1, colour, (pX / Width) + Des, (pY / Height) + Des)
-    Box(1) = CreateTLVertex(X + sW, Y, 0, 1, colour, ((pX + rW) / Width) + Des, (pY / Height) + Des)
-    Box(2) = CreateTLVertex(X, Y + sH, 0, 1, colour, (pX / Width) + Des, ((pY + rH) / Height) + Des)
-    Box(3) = CreateTLVertex(X + sW, Y + sH, 0, 1, colour, ((pX + rW) / Width) + Des, ((pY + rH) / Height) + Des)
+    Box(0) = CreateTLVertex(X, Y, 0, 1, Colour, (pX / Width) + Des, (pY / Height) + Des)
+    Box(1) = CreateTLVertex(X + sW, Y, 0, 1, Colour, ((pX + rW) / Width) + Des, (pY / Height) + Des)
+    Box(2) = CreateTLVertex(X, Y + sH, 0, 1, Colour, (pX / Width) + Des, ((pY + rH) / Height) + Des)
+    Box(3) = CreateTLVertex(X + sW, Y + sH, 0, 1, Colour, ((pX + rW) / Width) + Des, ((pY + rH) / Height) + Des)
 
     '//Check if a rotation is required
     If Degrees <> 0 And Degrees <> 360 Then
@@ -3327,7 +3327,7 @@ Dim MoveNum As Long
         
         '//Draw Text
         moveText = Trim$(Pokemon(PlayerPokemons(MoveLearnPokeSlot).Num).Name) & " is trying to learn " & Trim$(PokemonMove(MoveLearnNum).Name) & ", Select a move to replace for this move"
-        RenderArrayText Font_Default, moveText, .X + 16, .Y + 20, 200, White
+        RenderArrayText Font_Default, moveText, .X + 16, .Y + 11, 200, White
     End With
 End Sub
 

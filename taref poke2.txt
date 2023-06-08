@@ -24,7 +24,27 @@ OK*** -Mostrar quantidade de jogadores online na tela de login e se o servidor e
 
 OK*** -Adicionado sistema de colorir uma string em mais de uma cor, utilizando ColourChar
 
--Ajustar painel de aprender a tecnica, melhorar o posicionamento da frase, etc...
+OK*** -Ajustar painel de aprender a tecnica, melhorar o posicionamento da frase, etc...
+
+OK*** -Entendendo o Drop do Npc, corrigir o drop do npc, estava randomizando entre slots vazios pra selecionar
+	qual item ia dropar, agora randomiza apenas nos que estão cadastrados e melhora o drop.
+
+OK*** -Não permitir adicionar mais que 100% de chance de dropar money do pokemon no editor.
+
+OK*** -Traduzir o Behavior do pokemon editor.
+
+OK*** -Esc pra sair dos editores, pra facilitar
+
+OK*** -Adicionar checkbox no item editor, Não deixar pokemon equipar o item.
+
+OK*** -Adicionar checkbox no item editor, com o nome "Vinculado" e não pode se desfazer do item,
+	nem por trade, nem vendendo, o item fica vinculado ao jogador eternamente.
+
+OK*** -Implementar os Berries Items: Barrie Type, Value
+Usar as nomenclaturas do Status do pokemon do Summary pra extrair os atributos
+
+OK*** -Adicionar novo atributo item editor, Proteinas, criar type com os atributos(utilizar o mesmo layout da medicina)
+	Obs: Foi implementado junto com o barrie
 
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 >Futuramente, após finalizar correções básicas.<

@@ -2444,6 +2444,7 @@ Dim expEarn As Long
 Dim Level As Long
 Dim checkItem As Long
 Dim ChanceNum As Long
+Dim slotHaveItem As Byte
 
     '//Check Error
     If Not IsPlaying(Index) Then Exit Sub
@@ -2458,48 +2459,70 @@ Dim ChanceNum As Long
     MapPokemon(TargetIndex).LastAttacker = Index
     
     If Damage >= MapPokemon(TargetIndex).CurHP Then
-        '//Defeat
-        MapPokemon(TargetIndex).CurHP = 0
-        SendActionMsg MapNum, "-" & Damage, MapPokemon(TargetIndex).x * 32, MapPokemon(TargetIndex).Y * 32, BrightRed
-        
-        RndNum = Random(0, 6)
-        If RndNum >= 1 And RndNum <= 5 Then
-            If Pokemon(MapPokemon(TargetIndex).Num).DropNum(RndNum) > 0 Then
-                checkItem = FindFreeInvSlot(Index, Pokemon(MapPokemon(TargetIndex).Num).DropNum(RndNum))
-                If checkItem > 0 Then
-                    ChanceNum = Random(0, 100)
-                    If ChanceNum <= Pokemon(MapPokemon(TargetIndex).Num).DropRate(RndNum) Then
-                        '//Get Item
-                        GiveItem Index, Pokemon(MapPokemon(TargetIndex).Num).DropNum(RndNum), 1
-                        AddAlert Index, "Pokemon drop a " & Trim$(Item(Pokemon(MapPokemon(TargetIndex).Num).DropNum(RndNum)).Name), White
-                    End If
-                End If
-            End If
-        Else
-            '//Try to give money
-            RndNum = Random(0, 2)
-            If RndNum = 1 Then
-                checkItem = Random(1, MapPokemon(TargetIndex).Level * 2)
-                If checkItem > 0 Then
-                    Player(Index, TempPlayer(Index).UseChar).Money = Player(Index, TempPlayer(Index).UseChar).Money + checkItem
-                    If Player(Index, TempPlayer(Index).UseChar).Money > MAX_MONEY Then
-                        Player(Index, TempPlayer(Index).UseChar).Money = MAX_MONEY
-                    End If
-                    SendPlayerData Index
-                    AddAlert Index, "Pokemon drop $" & checkItem, White
+    ' Define a vida atual do Pokémon como 0
+    MapPokemon(TargetIndex).CurHP = 0
+    ' Envia uma mensagem de ação para exibir o dano na tela
+    SendActionMsg MapNum, "-" & Damage, MapPokemon(TargetIndex).x * 32, MapPokemon(TargetIndex).Y * 32, BrightRed
+    
+    ' Gera um número aleatório entre 0 e 6
+    RndNum = Random(0, 6)
+    
+    ' Obtém o número do slot que possui um item do NPC
+    slotHaveItem = FindNpcDropSlotHaveItem
+    
+    ' Verifica se não há item em nenhum slot, caso contrário, define RndNum como 0 e procede pro money
+    If slotHaveItem = 0 Then RndNum = 0
+    
+    ' Verifica se RndNum está entre 1 e slotHaveItem
+    If RndNum >= 1 And RndNum <= slotHaveItem Then
+        ' Verifica se o Pokémon atual tem um item na posição RndNum na lista de itens
+        If Pokemon(MapPokemon(TargetIndex).Num).DropNum(RndNum) > 0 Then
+            ' Encontra um espaço vazio no inventário do jogador para o item
+            checkItem = FindFreeInvSlot(Index, Pokemon(MapPokemon(TargetIndex).Num).DropNum(RndNum))
+            If checkItem > 0 Then
+                ' Geração de um número aleatório entre 0 e 100 para determinar a chance de queda do item
+                ChanceNum = Random(0, 100)
+                If ChanceNum <= Pokemon(MapPokemon(TargetIndex).Num).DropRate(RndNum) Then
+                    ' Dá o item ao jogador
+                    GiveItem Index, Pokemon(MapPokemon(TargetIndex).Num).DropNum(RndNum), 1
+                    AddAlert Index, "Pokemon drop a " & Trim$(Item(Pokemon(MapPokemon(TargetIndex).Num).DropNum(RndNum)).Name), White
                 End If
             End If
         End If
-        
-        '//Give Exp
-        '// ToDo: First 1 = If trade pokemon is 1.5 normal is 1
-        '// ToDo: Second 2 = If trainer pokemon is 1.5 normal is 1
-        If Spawn(TargetIndex).NoExp = NO Then
-            DefeatMapPokemon TargetIndex
-            GivePlayerPokemonEVExp Index, PlayerPokemon(Index).slot, (Pokemon(MapPokemon(TargetIndex).Num).EvYeildType + 1), Pokemon(MapPokemon(TargetIndex).Num).EvYeildVal
+    Else
+        ' Gera um número aleatório entre 0 e 2
+        RndNum = Random(0, 2)
+        If RndNum = 1 Then
+            ' Geração de um número aleatório entre 1 e o dobro do nível do Pokémon
+            checkItem = Random(1, MapPokemon(TargetIndex).Level * 2)
+            If checkItem > 0 Then
+                ' Adiciona a quantidade de dinheiro ao jogador
+                Player(Index, TempPlayer(Index).UseChar).Money = Player(Index, TempPlayer(Index).UseChar).Money + checkItem
+                If Player(Index, TempPlayer(Index).UseChar).Money > MAX_MONEY Then
+                    Player(Index, TempPlayer(Index).UseChar).Money = MAX_MONEY
+                End If
+                ' Atualiza os dados do jogador
+                SendPlayerData Index
+                AddAlert Index, "Pokemon drop $" & checkItem, White
+            End If
         End If
+    End If
+    
+    '//Give Exp
+    '// ToDo: First 1 = If trade pokemon is 1.5 normal is 1
+    '// ToDo: Second 2 = If trainer pokemon is 1.5 normal is 1
+    ' Verifica se o Pokémon derrotado pode ganhar experiência
+    If Spawn(TargetIndex).NoExp = NO Then
+        ' Derrota o Pokémon do mapa
+        DefeatMapPokemon TargetIndex
+        ' Adiciona a experiência do Pokémon derrotado ao Pokémon do jogador
+        GivePlayerPokemonEVExp Index, PlayerPokemon(Index).slot, (Pokemon(MapPokemon(TargetIndex).Num).EvYeildType + 1), Pokemon(MapPokemon(TargetIndex).Num).EvYeildVal
+    End If
 
-        ClearMapPokemon TargetIndex
+    ' Limpa o Pokémon do mapa
+    ClearMapPokemon TargetIndex
+End If
+
     Else
         MapPokemon(TargetIndex).CurHP = MapPokemon(TargetIndex).CurHP - Damage
         SendActionMsg MapNum, "-" & Damage, MapPokemon(TargetIndex).x * 32, MapPokemon(TargetIndex).Y * 32, BrightRed

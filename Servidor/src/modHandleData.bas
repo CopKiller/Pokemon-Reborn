@@ -2397,9 +2397,19 @@ Private Sub HandleSellItem(ByVal Index As Long, ByRef Data() As Byte, ByVal Star
     ' Não pode vender item de cash
     If Item(PlayerInv(Index).Data(invSlot).Num).IsCash = YES Then
         Select Case TempPlayer(Index).CurLanguage
-        Case LANG_PT: AddAlert Index, "Cash item not allowed to sell.", White
-        Case LANG_EN: AddAlert Index, "Cash item not allowed to sell.", White
-        Case LANG_ES: AddAlert Index, "Cash item not allowed to sell.", White
+        Case LANG_PT: AddAlert Index, "Item não permitido para vender.", White
+        Case LANG_EN: AddAlert Index, "Item not allowed to sell.", White
+        Case LANG_ES: AddAlert Index, "Artículo no permitido para vender.", White
+        End Select
+        Exit Sub
+    End If
+    
+    ' Não pode vender item Linked
+    If Item(PlayerInv(Index).Data(invSlot).Num).Linked = YES Then
+        Select Case TempPlayer(Index).CurLanguage
+        Case LANG_PT: AddAlert Index, "Este item não pode ser negociado.", White
+        Case LANG_EN: AddAlert Index, "This item cannot be traded.", White
+        Case LANG_ES: AddAlert Index, "Este artículo no se puede intercambiar.", White
         End Select
         Exit Sub
     End If
@@ -2739,114 +2749,156 @@ Dim i As Long
 End Sub
 
 Private Sub HandleAddTrade(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim buffer As clsBuffer
-Dim TradeType As Byte, TradeSlot As Long, TradeData As Long
-Dim slot As Long
-Dim i As Long
+    Dim buffer As clsBuffer
+    Dim TradeType As Byte, TradeSlot As Long, TradeData As Long
+    Dim slot As Long
+    Dim i As Long
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     If TempPlayer(Index).InTrade <= 0 Then Exit Sub
     If TempPlayer(Index).TradeSet = YES Then Exit Sub
-    
+
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
     TradeType = buffer.ReadByte
     TradeSlot = buffer.ReadLong
     TradeData = buffer.ReadLong
     Set buffer = Nothing
-    
+
     '//Make sure you can't use the same slot
     For i = 1 To MAX_TRADE
         If TempPlayer(Index).TradeItem(i).TradeSlot = TradeSlot Then
             Select Case TempPlayer(Index).CurLanguage
-                Case LANG_PT: AddAlert Index, "Trade slot already in used", White
-                Case LANG_EN: AddAlert Index, "Trade slot already in used", White
-                Case LANG_ES: AddAlert Index, "Trade slot already in used", White
+            Case LANG_PT: AddAlert Index, "Trade slot already in used", White
+            Case LANG_EN: AddAlert Index, "Trade slot already in used", White
+            Case LANG_ES: AddAlert Index, "Trade slot already in used", White
             End Select
             Exit Sub
         End If
     Next
-    
+
     '//Check available trade slot
     slot = FindOpenTradeSlot(Index)
     If slot > 0 Then
         With TempPlayer(Index).TradeItem(slot)
             Select Case TradeType
-                Case 1 '//Item
-                    If TradeSlot <= 0 Or TradeSlot > MAX_PLAYER_INV Then Exit Sub
-                    If TradeData <= 0 Then Exit Sub
-                    
-                    .Num = PlayerInv(Index).Data(TradeSlot).Num
-                    If TradeData > PlayerInv(Index).Data(TradeSlot).Value Then
-                        .Value = PlayerInv(Index).Data(TradeSlot).Value
-                    Else
-                        .Value = TradeData
-                    End If
-                    
-                    .Level = 0
-                    For i = 1 To StatEnum.Stat_Count - 1
-                        .Stat(i) = 0
-                        .StatIV(i) = 0
-                        .StatEV(i) = 0
-                    Next
-                    .CurHP = 0
-                    .MaxHP = 0
-                    .Nature = 0
-                    .IsShiny = 0
-                    .Happiness = 0
-                    .Gender = 0
-                    .Status = 0
-                    .CurExp = 0
-                    .nextExp = 0
-                    For i = 1 To MAX_MOVESET
-                        .Moveset(i).Num = 0
-                        .Moveset(i).CurPP = 0
-                        .Moveset(i).TotalPP = 0
-                    Next
-                    .BallUsed = 0
-                    .HeldItem = 0
-                Case 2 '//Pokemon
-                    If TradeSlot <= 0 Or TradeSlot > MAX_PLAYER_POKEMON Then Exit Sub
-                    
-                    .Num = PlayerPokemons(Index).Data(TradeSlot).Num
-                    .Value = 0
-                    
-                    .Level = PlayerPokemons(Index).Data(TradeSlot).Level
-                    For i = 1 To StatEnum.Stat_Count - 1
-                        .Stat(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).Value
-                        .StatIV(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).IV
-                        .StatEV(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).EV
-                    Next
-                    .CurHP = PlayerPokemons(Index).Data(TradeSlot).CurHP
-                    .MaxHP = PlayerPokemons(Index).Data(TradeSlot).MaxHP
-                    .Nature = PlayerPokemons(Index).Data(TradeSlot).Nature
-                    .IsShiny = PlayerPokemons(Index).Data(TradeSlot).IsShiny
-                    .Happiness = PlayerPokemons(Index).Data(TradeSlot).Happiness
-                    .Gender = PlayerPokemons(Index).Data(TradeSlot).Gender
-                    .Status = PlayerPokemons(Index).Data(TradeSlot).Status
-                    .CurExp = PlayerPokemons(Index).Data(TradeSlot).CurExp
-                    If .Num > 0 Then
-                        .nextExp = GetPokemonNextExp(.Level, Pokemon(.Num).GrowthRate)
-                    Else
-                        .nextExp = 0
-                    End If
-                    For i = 1 To MAX_MOVESET
-                        .Moveset(i).Num = PlayerPokemons(Index).Data(TradeSlot).Moveset(i).Num
-                        .Moveset(i).CurPP = PlayerPokemons(Index).Data(TradeSlot).Moveset(i).CurPP
-                        .Moveset(i).TotalPP = PlayerPokemons(Index).Data(TradeSlot).Moveset(i).TotalPP
-                    Next
-                    .BallUsed = PlayerPokemons(Index).Data(TradeSlot).BallUsed
-                    .HeldItem = PlayerPokemons(Index).Data(TradeSlot).HeldItem
-                Case Else
-                    '//Error
+            Case 1    '//Item
+                If TradeSlot <= 0 Or TradeSlot > MAX_PLAYER_INV Then Exit Sub
+                If TradeData <= 0 Then Exit Sub
+
+                ' Não pode negociar item de cash
+                If Item(PlayerInv(Index).Data(TradeSlot).Num).IsCash = YES Then
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "Item não permitido para vender.", White
+                    Case LANG_EN: AddAlert Index, "Item not allowed to sell.", White
+                    Case LANG_ES: AddAlert Index, "Artículo no permitido para vender.", White
+                    End Select
                     Exit Sub
+                End If
+
+                ' Não pode negociar item Linked
+                If Item(PlayerInv(Index).Data(TradeSlot).Num).Linked = YES Then
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "Este item não pode ser negociado.", White
+                    Case LANG_EN: AddAlert Index, "This item cannot be traded.", White
+                    Case LANG_ES: AddAlert Index, "Este artículo no se puede intercambiar.", White
+                    End Select
+                    Exit Sub
+                End If
+
+                .Num = PlayerInv(Index).Data(TradeSlot).Num
+                If TradeData > PlayerInv(Index).Data(TradeSlot).Value Then
+                    .Value = PlayerInv(Index).Data(TradeSlot).Value
+                Else
+                    .Value = TradeData
+                End If
+
+                .Level = 0
+                For i = 1 To StatEnum.Stat_Count - 1
+                    .Stat(i) = 0
+                    .StatIV(i) = 0
+                    .StatEV(i) = 0
+                Next
+                .CurHP = 0
+                .MaxHP = 0
+                .Nature = 0
+                .IsShiny = 0
+                .Happiness = 0
+                .Gender = 0
+                .Status = 0
+                .CurExp = 0
+                .nextExp = 0
+                For i = 1 To MAX_MOVESET
+                    .Moveset(i).Num = 0
+                    .Moveset(i).CurPP = 0
+                    .Moveset(i).TotalPP = 0
+                Next
+                .BallUsed = 0
+                .HeldItem = 0
+            Case 2    '//Pokemon
+                If TradeSlot <= 0 Or TradeSlot > MAX_PLAYER_POKEMON Then Exit Sub
+
+                ' Não pode negociar item de cash
+                If PlayerPokemons(Index).Data(TradeSlot).HeldItem > 0 Then
+                    If Item(PlayerPokemons(Index).Data(TradeSlot).HeldItem).IsCash = YES Then
+                        Select Case TempPlayer(Index).CurLanguage
+                        Case LANG_PT: AddAlert Index, "Pokemon usa um item não permitido para vender.", White
+                        Case LANG_EN: AddAlert Index, "Pokemon use item not allowed to sell.", White
+                        Case LANG_ES: AddAlert Index, "Pokemon usa artículo no permitido para vender.", White
+                        End Select
+                        Exit Sub
+                    End If
+
+                    ' Não pode negociar item Linked
+                    If Item(PlayerPokemons(Index).Data(TradeSlot).HeldItem).Linked = YES Then
+                        Select Case TempPlayer(Index).CurLanguage
+                        Case LANG_PT: AddAlert Index, "Pokemon usa item que não pode ser negociado.", White
+                        Case LANG_EN: AddAlert Index, "This pokemon equip item cannot be traded.", White
+                        Case LANG_ES: AddAlert Index, "Este pokemon equip artículo no se puede intercambiar.", White
+                        End Select
+                        Exit Sub
+                    End If
+                End If
+
+                .Num = PlayerPokemons(Index).Data(TradeSlot).Num
+                .Value = 0
+
+                .Level = PlayerPokemons(Index).Data(TradeSlot).Level
+                For i = 1 To StatEnum.Stat_Count - 1
+                    .Stat(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).Value
+                    .StatIV(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).IV
+                    .StatEV(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).EV
+                Next
+                .CurHP = PlayerPokemons(Index).Data(TradeSlot).CurHP
+                .MaxHP = PlayerPokemons(Index).Data(TradeSlot).MaxHP
+                .Nature = PlayerPokemons(Index).Data(TradeSlot).Nature
+                .IsShiny = PlayerPokemons(Index).Data(TradeSlot).IsShiny
+                .Happiness = PlayerPokemons(Index).Data(TradeSlot).Happiness
+                .Gender = PlayerPokemons(Index).Data(TradeSlot).Gender
+                .Status = PlayerPokemons(Index).Data(TradeSlot).Status
+                .CurExp = PlayerPokemons(Index).Data(TradeSlot).CurExp
+                If .Num > 0 Then
+                    .nextExp = GetPokemonNextExp(.Level, Pokemon(.Num).GrowthRate)
+                Else
+                    .nextExp = 0
+                End If
+                For i = 1 To MAX_MOVESET
+                    .Moveset(i).Num = PlayerPokemons(Index).Data(TradeSlot).Moveset(i).Num
+                    .Moveset(i).CurPP = PlayerPokemons(Index).Data(TradeSlot).Moveset(i).CurPP
+                    .Moveset(i).TotalPP = PlayerPokemons(Index).Data(TradeSlot).Moveset(i).TotalPP
+                Next
+                .BallUsed = PlayerPokemons(Index).Data(TradeSlot).BallUsed
+                .HeldItem = PlayerPokemons(Index).Data(TradeSlot).HeldItem
+            Case Else
+                '//Error
+                Exit Sub
             End Select
-            
+
             .TradeSlot = TradeSlot
             .Type = TradeType
         End With
-        
+
         '//Update
         SendUpdateTradeItem Index, Index, slot
         SendUpdateTradeItem TempPlayer(Index).InTrade, Index, slot
@@ -3814,6 +3866,15 @@ Dim invSlot As Long
     If PlayerInv(Index).Data(invSlot).Num <= 0 Then Exit Sub
     If PlayerInv(Index).Data(invSlot).Value < 1 Then Exit Sub
     
+    ' Item não pode ser um held para o pokemon
+    If Item(PlayerInv(Index).Data(invSlot).Num).NotEquipable = YES Then
+        Select Case TempPlayer(Index).CurLanguage
+            Case LANG_PT: AddAlert Index, "Não equipável pelo seu pokémon", White
+            Case LANG_EN: AddAlert Index, "Not equippable by your pokemon", White
+            Case LANG_ES: AddAlert Index, "No equipable por tu pokemon", White
+        End Select
+        Exit Sub
+    End If
     If PlayerPokemon(Index).Num <= 0 Then
         Select Case TempPlayer(Index).CurLanguage
             Case LANG_PT: AddAlert Index, "Spawn your pokemon first", White

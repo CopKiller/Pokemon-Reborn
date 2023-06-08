@@ -779,3 +779,24 @@ Dim i As Long
         Rank(i) = Rank(i + 1)
     Next
 End Sub
+
+Public Function FindNpcDropSlotHaveItem(ByVal Index As Long, ByVal TargetIndex As Long) As Byte
+    Dim i As Byte
+    
+    For i = 1 To MAX_DROP
+        If Pokemon(MapPokemon(TargetIndex).Num).DropNum(i) > 0 Then
+            FindNpcDropSlotHaveItem = FindNpcDropSlotHaveItem + 1
+        End If
+    Next i
+End Function
+
+Public Function GetAtributeName(Atributte As StatEnum) As String
+    Select Case Atributte
+    Case StatEnum.HP: GetAtributeName = "HP"
+    Case StatEnum.Atk: GetAtributeName = "Atk"
+    Case StatEnum.Def: GetAtributeName = "Def"
+    Case StatEnum.SpAtk: GetAtributeName = "SpAtk"
+    Case StatEnum.SpDef: GetAtributeName = "SpDef"
+    Case StatEnum.Spd: GetAtributeName = "Spd"
+    End Select
+End Function

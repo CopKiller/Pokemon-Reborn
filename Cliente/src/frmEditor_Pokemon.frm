@@ -7,6 +7,7 @@ Begin VB.Form frmEditor_Pokemon
    ClientTop       =   795
    ClientWidth     =   14055
    ControlBox      =   0   'False
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -799,7 +800,7 @@ Begin VB.Form frmEditor_Pokemon
          Caption         =   "-"
       End
       Begin VB.Menu mnuExit 
-         Caption         =   "Exit"
+         Caption         =   "Exit(Esc)"
       End
    End
 End
@@ -1041,6 +1042,12 @@ Dim stringLength As Long
     End If
 End Sub
 
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyEscape Then
+        ClosePokemonEditor
+    End If
+End Sub
+
 Private Sub Form_Load()
     scrlSprite.max = Count_Pokemon
     scrlEvolve.max = MAX_POKEMON
@@ -1233,6 +1240,10 @@ Dim tmpIndex As Long
 
     If ItemDropIndex = 0 Then Exit Sub
     If Not IsNumeric(txtItemDropRate.Text) Then Exit Sub
+    If txtItemDropRate > 100 Or txtItemDropRate < 0 Then
+        txtItemDropRate = 0
+    End If
+    
     tmpIndex = lstItemDrop.ListIndex
     lstItemDrop.RemoveItem ItemDropIndex - 1
     Pokemon(EditorIndex).DropRate(ItemDropIndex) = Val(txtItemDropRate.Text)

@@ -7,6 +7,7 @@ Begin VB.Form frmEditorShop
    ClientTop       =   795
    ClientWidth     =   9270
    ControlBox      =   0   'False
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -143,7 +144,7 @@ Begin VB.Form frmEditorShop
          Caption         =   "-"
       End
       Begin VB.Menu mnuExit 
-         Caption         =   "Exit"
+         Caption         =   "Exit(Esc)"
       End
    End
 End
@@ -153,6 +154,12 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyEscape Then
+        CloseShopEditor
+    End If
+End Sub
 
 Private Sub Form_Load()
     txtName.MaxLength = NAME_LENGTH
@@ -164,7 +171,7 @@ Private Sub lstIndex_Click()
 End Sub
 
 Private Sub lstShopItem_Click()
-    scrlItemNum.Value = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Num
+    scrlItemNum.value = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Num
     'txtPrice.Text = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Price
 End Sub
 
@@ -204,7 +211,7 @@ Dim Nomenclatura As String
     shopIndex = lstShopItem.ListIndex + 1
     If shopIndex = 0 Then Exit Sub
     tmpIndex = lstShopItem.ListIndex
-    Shop(EditorIndex).ShopItem(shopIndex).Num = scrlItemNum.Value
+    Shop(EditorIndex).ShopItem(shopIndex).Num = scrlItemNum.value
     lstShopItem.RemoveItem shopIndex - 1
     If Shop(EditorIndex).ShopItem(shopIndex).Num > 0 Then
     

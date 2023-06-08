@@ -1208,8 +1208,12 @@ Public Sub GivePlayerPokemonExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByV
     CheckPlayerPokemonLevelUp Index, PokeSlot
 End Sub
 
-Public Sub GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByVal evStat As StatEnum, ByVal Exp As Long)
-    Dim CountStat As Long, x As Byte, statMaxEv As Integer, AtualizarAtributos As Boolean, Sobra As Integer
+Public Function GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByVal evStat As StatEnum, ByVal Exp As Long) As Integer
+    Dim CountStat As Long, x As Byte, statMaxEv As Integer, Sobra As Integer
+
+    '// Função implementada pra utilizar => Recebendo ao matar um poke,
+    '                                       Ao utilizar items Barries
+    '                                       Ao utilizar items Protein.
 
     With PlayerPokemons(Index).Data(PokeSlot)
         ' Máximo de EV Total
@@ -1224,51 +1228,72 @@ Public Sub GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As Byte, B
             CountStat = CountStat + PlayerPokemons(Index).Data(PokeSlot).Stat(x).EV
         Next
 
-        ' O EV total ja está no limite? Então não executa.
-        If CountStat >= MAX_EV Then Exit Sub
+        ' O EV total já está no limite? Então não executa.
+        ' If CountStat >= MAX_EV Then Exit Sub
 
         ' Verifica o Atributo EV recebido, se já está cheio em 252
-        If .Stat(evStat).EV >= statMaxEv Then Exit Sub
+        ' If .Stat(evStat).EV >= statMaxEv Then Exit Sub
 
         ' Verifica se tem a possibilidade de adicionar a exp, sem passar o máximo de EV.
-        If CountStat + Exp <= MAX_EV Then
-            If .Stat(evStat).EV + Exp <= statMaxEv Then
-                .Stat(evStat).EV = .Stat(evStat).EV + Exp
+        If CountStat + Exp <= MAX_EV And CountStat + Exp >= 0 Then
+            If Exp > 0 Then    ' Valor Positivo
+                If .Stat(evStat).EV + Exp <= statMaxEv Then
+                    .Stat(evStat).EV = .Stat(evStat).EV + Exp
+                    .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                    GivePlayerPokemonEVExp = Exp
+                Else
+                    Sobra = statMaxEv - .Stat(evStat).EV
+                    .Stat(evStat).EV = statMaxEv
+                    .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                    GivePlayerPokemonEVExp = Sobra
+                End If
+            ElseIf Exp < 0 Then    ' Valor Negativo
+                If .Stat(evStat).EV + Exp >= 0 Then
+                    .Stat(evStat).EV = .Stat(evStat).EV + Exp
+                    Sobra = -Exp ' Sobra é a quantidade retirada como um número positivo
+                Else
+                    Sobra = .Stat(evStat).EV
+                    .Stat(evStat).EV = 0
+                End If
+                
                 .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
-                AtualizarAtributos = True
-            Else
-                .Stat(evStat).EV = statMaxEv
-                AtualizarAtributos = True
+                GivePlayerPokemonEVExp = -Sobra
             End If
         Else
-            ' Obtem na variável o que falta pra chegar no MAX_EV
-            Sobra = MAX_EV - CountStat
+            If Exp > 0 Then    ' Valor Positivo
+                ' Obtem na variável o que falta pra chegar no MAX_EV
+                Sobra = MAX_EV - CountStat
 
-            If .Stat(evStat).EV + Sobra <= statMaxEv Then
-                .Stat(evStat).EV = .Stat(evStat).EV + Sobra
-                .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
-                AtualizarAtributos = True
-            Else
-                .Stat(evStat).EV = statMaxEv
-                AtualizarAtributos = True
-            End If
-        End If
-
-
-
-        ' Atualização de atributos, pra não reescrever códigos.
-        If AtualizarAtributos Then
-            If evStat = HP Then
-                If Not .Stat(evStat).Value = .MaxHP Then
-                    .MaxHP = .Stat(evStat).Value
-                    SendPlayerPokemonSlot Index, PokeSlot
+                If .Stat(evStat).EV + Sobra <= statMaxEv Then
+                    .Stat(evStat).EV = .Stat(evStat).EV + Sobra
+                    .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                    GivePlayerPokemonEVExp = Sobra
+                Else
+                    .Stat(evStat).EV = statMaxEv
+                    .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                    GivePlayerPokemonEVExp = Sobra
                 End If
-                SendPlayerPokemonsStat Index, PokeSlot
+            ElseIf Exp < 0 Then    ' Valor Negativo
+                Sobra = .Stat(evStat).EV
+                .Stat(evStat).EV = 0
+                
+                .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                GivePlayerPokemonEVExp = -Sobra
             End If
         End If
+
+        ' Atualizações se for EV tipo HP
+        If evStat = HP Then
+            If Not .Stat(evStat).Value = .MaxHP Then
+                .MaxHP = .Stat(evStat).Value
+                SendPlayerPokemonSlot Index, PokeSlot
+            End If
+        End If
+
+        SendPlayerPokemonsStat Index, PokeSlot
 
     End With
-End Sub
+End Function
 
 Private Sub CheckPlayerPokemonLevelUp(ByVal Index As Long, ByVal PokeSlot As Byte)
 Dim ExpRollover As Long
@@ -1404,12 +1429,13 @@ Dim Continue As Boolean
 End Sub
 
 Public Sub PlayerUseItem(ByVal Index As Long, ByVal invSlot As Byte)
-Dim ItemNum As Long
-Dim gothealed As Boolean
-Dim x As Long
-Dim exproll As Long
-Dim Exp As Long
-Dim i As Long, CanLearn As Boolean
+    Dim ItemNum As Long
+    Dim gothealed As Boolean
+    Dim x As Long
+    Dim exproll As Long
+    Dim Exp As Long
+    Dim i As Long, CanLearn As Boolean
+    Dim BerriesFunc As Integer, PokeName As String
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
@@ -1418,285 +1444,342 @@ Dim i As Long, CanLearn As Boolean
     If PlayerInv(Index).Data(invSlot).Value <= 0 Then Exit Sub
     If TempPlayer(Index).InDuel > 0 Then Exit Sub
     If TempPlayer(Index).InNpcDuel > 0 Then Exit Sub
-    
+
     ItemNum = PlayerInv(Index).Data(invSlot).Num
-    
+
     Select Case Item(ItemNum).Type
-        Case ItemTypeEnum.Pokeball
-            '//Catching
-            If Map(Player(Index, TempPlayer(Index).UseChar).Map).Moral = 3 Then
-                If Not ItemNum = 12 Then
-                    AddAlert Index, "You cannot use this type of Pokeball here", White
-                    Exit Sub
-                End If
-            Else
-                If ItemNum = 12 Then
-                    AddAlert Index, "You cannot use this type of Pokeball here", White
-                    Exit Sub
-                End If
+    Case ItemTypeEnum.Pokeball
+        '//Catching
+        If Map(Player(Index, TempPlayer(Index).UseChar).Map).Moral = 3 Then
+            If Not ItemNum = 12 Then
+                AddAlert Index, "You cannot use this type of Pokeball here", White
+                Exit Sub
             End If
-            TempPlayer(Index).TmpUseInvSlot = invSlot
-            SendGetData Index, ItemTypeEnum.Pokeball, invSlot
-        Case ItemTypeEnum.Medicine
-            Select Case Item(ItemNum).Data1 '//Type
-                Case 1 '// Heal HP
-                    gothealed = False
-                    If PlayerPokemon(Index).Num > 0 Then
-                        If PlayerPokemon(Index).slot > 0 Then
-                            If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP < PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHP Then
-                                PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP + Item(ItemNum).Data2
-                                If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP > PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHP Then
-                                    PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHP
-                                End If
-                                gothealed = True
-                            End If
-                        End If
-                    End If
-                    If gothealed Then
-                        Select Case TempPlayer(Index).CurLanguage
-                            Case LANG_PT: AddAlert Index, "Pokemon HP restored", White
-                            Case LANG_EN: AddAlert Index, "Pokemon HP restored", White
-                            Case LANG_ES: AddAlert Index, "Pokemon HP restored", White
-                        End Select
-                        SendPlayerPokemonVital Index
-                        
-                        '//Take Item
-                        PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
-                        If PlayerInv(Index).Data(invSlot).Value <= 0 Then
-                            '//Clear Item
-                            PlayerInv(Index).Data(invSlot).Num = 0
-                            PlayerInv(Index).Data(invSlot).Value = 0
-                        End If
-                        SendPlayerInvSlot Index, invSlot
-                    End If
-                Case 2 '// Give Exp
-                Case 3 '// Heal PP
-                    gothealed = False
-                    If PlayerPokemon(Index).Num > 0 Then
-                        If PlayerPokemon(Index).slot > 0 Then
-                            For x = 1 To MAX_MOVESET
-                                If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).Num > 0 Then
-                                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP < PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).TotalPP Then
-                                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP + Item(ItemNum).Data2
-                                        If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP > PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).TotalPP Then
-                                            PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).TotalPP
-                                        End If
-                                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CD = 0
-                                        gothealed = True
-                                    End If
-                                End If
-                            Next
-                        End If
-                    End If
-                    If gothealed Then
-                        Select Case TempPlayer(Index).CurLanguage
-                            Case LANG_PT: AddAlert Index, "Pokemon PP restored", White
-                            Case LANG_EN: AddAlert Index, "Pokemon PP restored", White
-                            Case LANG_ES: AddAlert Index, "Pokemon PP restored", White
-                        End Select
-                        For x = 1 To MAX_MOVESET
-                            SendPlayerPokemonPP Index, x
-                        Next
-                        '//Take Item
-                        PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
-                        If PlayerInv(Index).Data(invSlot).Value <= 0 Then
-                            '//Clear Item
-                            PlayerInv(Index).Data(invSlot).Num = 0
-                            PlayerInv(Index).Data(invSlot).Value = 0
-                        End If
-                        SendPlayerInvSlot Index, invSlot
-                    End If
-                Case 4 '// Revive
-                    TempPlayer(Index).TmpUseInvSlot = invSlot
-                    SendGetData Index, ItemTypeEnum.Medicine, invSlot
-                Case 5 '// Cure Status
-                    gothealed = False
-                    If Item(ItemNum).Data2 > 0 Then
-                        If PlayerPokemon(Index).Num > 0 Then
-                            If PlayerPokemon(Index).slot > 0 Then
-                                If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Status = Item(ItemNum).Data2 Then
-                                    PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Status = 0
-                                    gothealed = True
-                                End If
-                            End If
-                        End If
-                    Else
-                        If PlayerPokemon(Index).slot > 0 Then
-                            If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Status > 0 Then
-                                PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Status = 0
-                                gothealed = True
-                            End If
-                        End If
-                    End If
-                    If gothealed Then
-                        Select Case TempPlayer(Index).CurLanguage
-                            Case LANG_PT: AddAlert Index, "Pokemon Status removed", White
-                            Case LANG_EN: AddAlert Index, "Pokemon Status removed", White
-                            Case LANG_ES: AddAlert Index, "Pokemon Status removed", White
-                        End Select
-                        SendPlayerPokemonStatus Index
-                        '//Take Item
-                        PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
-                        If PlayerInv(Index).Data(invSlot).Value <= 0 Then
-                            '//Clear Item
-                            PlayerInv(Index).Data(invSlot).Num = 0
-                            PlayerInv(Index).Data(invSlot).Value = 0
-                        End If
-                        SendPlayerInvSlot Index, invSlot
-                    End If
-                Case 6 '// Heal Trainer
-                    gothealed = False
-                    If Player(Index, TempPlayer(Index).UseChar).CurHP < GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level) Then
-                        Player(Index, TempPlayer(Index).UseChar).CurHP = Player(Index, TempPlayer(Index).UseChar).CurHP + Item(PlayerInv(Index).Data(invSlot).Num).Data2
-                        If Player(Index, TempPlayer(Index).UseChar).CurHP > GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level) Then
-                            Player(Index, TempPlayer(Index).UseChar).CurHP = GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level)
+        Else
+            If ItemNum = 12 Then
+                AddAlert Index, "You cannot use this type of Pokeball here", White
+                Exit Sub
+            End If
+        End If
+        TempPlayer(Index).TmpUseInvSlot = invSlot
+        SendGetData Index, ItemTypeEnum.Pokeball, invSlot
+    Case ItemTypeEnum.Medicine
+        Select Case Item(ItemNum).Data1    '//Type
+        Case 1    '// Heal HP
+            gothealed = False
+            If PlayerPokemon(Index).Num > 0 Then
+                If PlayerPokemon(Index).slot > 0 Then
+                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP < PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHP Then
+                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP + Item(ItemNum).Data2
+                        If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP > PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHP Then
+                            PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHP
                         End If
                         gothealed = True
                     End If
-                    
-                    If gothealed Then
-                        Select Case TempPlayer(Index).CurLanguage
-                            Case LANG_PT: AddAlert Index, "HP restored", White
-                            Case LANG_EN: AddAlert Index, "HP restored", White
-                            Case LANG_ES: AddAlert Index, "HP restored", White
-                        End Select
-                        SendPlayerVital Index
-                        '//Take Item
-                        PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
-                        If PlayerInv(Index).Data(invSlot).Value <= 0 Then
-                            '//Clear Item
-                            PlayerInv(Index).Data(invSlot).Num = 0
-                            PlayerInv(Index).Data(invSlot).Value = 0
-                        End If
-                        SendPlayerInvSlot Index, invSlot
-                    End If
-                Case 7 '// Cure Trainer
-                    gothealed = False
-                    If Item(ItemNum).Data2 > 0 Then
-                        If Player(Index, TempPlayer(Index).UseChar).Status = Item(ItemNum).Data2 Then
-                            Player(Index, TempPlayer(Index).UseChar).Status = 0
-                            gothealed = True
-                        End If
-                    Else
-                        If Player(Index, TempPlayer(Index).UseChar).Status > 0 Then
-                            Player(Index, TempPlayer(Index).UseChar).Status = 0
-                            gothealed = True
-                        End If
-                    End If
-                    If gothealed Then
-                        Select Case TempPlayer(Index).CurLanguage
-                            Case LANG_PT: AddAlert Index, "Status was removed", White
-                            Case LANG_EN: AddAlert Index, "Status was removed", White
-                            Case LANG_ES: AddAlert Index, "Status was removed", White
-                        End Select
-                        SendPlayerStatus Index
-                        '//Take Item
-                        PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
-                        If PlayerInv(Index).Data(invSlot).Value <= 0 Then
-                            '//Clear Item
-                            PlayerInv(Index).Data(invSlot).Num = 0
-                            PlayerInv(Index).Data(invSlot).Value = 0
-                        End If
-                        SendPlayerInvSlot Index, invSlot
-                    End If
-            End Select
-            
-            If Item(ItemNum).Data3 > 0 Then
-                '//Level Up
-                If PlayerPokemon(Index).Num > 0 Then
-                    If PlayerPokemon(Index).slot > 0 Then
-                        exproll = GetPokemonNextExp(PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Level, Pokemon(PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Num).GrowthRate)
-                        Exp = exproll - PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurExp
-                        
-                        If Exp > 0 Then
-                            GivePlayerPokemonExp Index, PlayerPokemon(Index).slot, Exp
-                        End If
-                        
-                        '//Take Item
-                        PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
-                        If PlayerInv(Index).Data(invSlot).Value <= 0 Then
-                            '//Clear Item
-                            PlayerInv(Index).Data(invSlot).Num = 0
-                            PlayerInv(Index).Data(invSlot).Value = 0
-                        End If
-                        SendPlayerInvSlot Index, invSlot
-                    End If
                 End If
             End If
-        Case ItemTypeEnum.Berries
-            
-        Case ItemTypeEnum.keyItems
-            Select Case Item(ItemNum).Data1
-                Case 1 '//Sprite Type
-                    If Item(ItemNum).Data2 > 0 Then
-                        If Map(Player(Index, TempPlayer(Index).UseChar).Map).SpriteType <= TEMP_SPRITE_GROUP_NONE Then
-                            ChangeTempSprite Index, Item(ItemNum).Data2
-                        End If
-                    End If
-            End Select
-        Case ItemTypeEnum.TM_HM
-            If PlayerPokemon(Index).Num > 0 And PlayerPokemon(Index).slot > 0 Then
-                If Item(ItemNum).Data1 > 0 Then
-                    CanLearn = False
-                    For i = 1 To 110
-                        If Pokemon(PlayerPokemon(Index).Num).ItemMoveset(i) = Item(ItemNum).Data1 Then
-                            CanLearn = True
-                            Exit For
-                        End If
-                    Next
-                    '//Make sure move doesn't exist
-                    For i = 1 To MAX_MOVESET
-                        If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).Num = Item(ItemNum).Data1 Then
-                            CanLearn = False
-                        End If
-                    Next
-                    
-                    If CanLearn Then
-                        '//Continue
-                        i = FindFreeMoveSlot(Index, PlayerPokemon(Index).slot)
-                        If i > 0 Then
-                            PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).Num = Item(ItemNum).Data1
-                            PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).TotalPP = PokemonMove(Item(ItemNum).Data1).PP
-                            PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).TotalPP
-                            SendPlayerPokemonSlot Index, PlayerPokemon(Index).slot
-                            '//Send Msg
-                            SendPlayerMsg Index, Trim$(Pokemon(PlayerPokemon(Index).Num).Name) & " learned the move " & Trim$(PokemonMove(Item(ItemNum).Data1).Name), White
-                        Else
-                            '//Proceed to ask
-                            TempPlayer(Index).MoveLearnPokeSlot = PlayerPokemon(Index).slot
-                            TempPlayer(Index).MoveLearnNum = Item(ItemNum).Data1
-                            TempPlayer(Index).MoveLearnIndex = 0
-                            SendNewMove Index
-                        End If
-                        
-                        If Item(ItemNum).Data2 > 0 Then
-                            '//Take Item
-                            PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
-                            If PlayerInv(Index).Data(invSlot).Value <= 0 Then
-                                '//Clear Item
-                                PlayerInv(Index).Data(invSlot).Num = 0
-                                PlayerInv(Index).Data(invSlot).Value = 0
+            If gothealed Then
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Pokemon HP restored", White
+                Case LANG_EN: AddAlert Index, "Pokemon HP restored", White
+                Case LANG_ES: AddAlert Index, "Pokemon HP restored", White
+                End Select
+                SendPlayerPokemonVital Index
+
+                '//Take Item
+                PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
+                If PlayerInv(Index).Data(invSlot).Value <= 0 Then
+                    '//Clear Item
+                    PlayerInv(Index).Data(invSlot).Num = 0
+                    PlayerInv(Index).Data(invSlot).Value = 0
+                End If
+                SendPlayerInvSlot Index, invSlot
+            End If
+        Case 2    '// Give Exp
+        Case 3    '// Heal PP
+            gothealed = False
+            If PlayerPokemon(Index).Num > 0 Then
+                If PlayerPokemon(Index).slot > 0 Then
+                    For x = 1 To MAX_MOVESET
+                        If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).Num > 0 Then
+                            If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP < PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).TotalPP Then
+                                PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP + Item(ItemNum).Data2
+                                If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP > PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).TotalPP Then
+                                    PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).TotalPP
+                                End If
+                                PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(x).CD = 0
+                                gothealed = True
                             End If
-                            SendPlayerInvSlot Index, invSlot
                         End If
-                    Else
-                        AddAlert Index, "This pokemon cannot learn this move", White
-                        Exit Sub
+                    Next
+                End If
+            End If
+            If gothealed Then
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Pokemon PP restored", White
+                Case LANG_EN: AddAlert Index, "Pokemon PP restored", White
+                Case LANG_ES: AddAlert Index, "Pokemon PP restored", White
+                End Select
+                For x = 1 To MAX_MOVESET
+                    SendPlayerPokemonPP Index, x
+                Next
+                '//Take Item
+                PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
+                If PlayerInv(Index).Data(invSlot).Value <= 0 Then
+                    '//Clear Item
+                    PlayerInv(Index).Data(invSlot).Num = 0
+                    PlayerInv(Index).Data(invSlot).Value = 0
+                End If
+                SendPlayerInvSlot Index, invSlot
+            End If
+        Case 4    '// Revive
+            TempPlayer(Index).TmpUseInvSlot = invSlot
+            SendGetData Index, ItemTypeEnum.Medicine, invSlot
+        Case 5    '// Cure Status
+            gothealed = False
+            If Item(ItemNum).Data2 > 0 Then
+                If PlayerPokemon(Index).Num > 0 Then
+                    If PlayerPokemon(Index).slot > 0 Then
+                        If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Status = Item(ItemNum).Data2 Then
+                            PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Status = 0
+                            gothealed = True
+                        End If
                     End If
                 End If
             Else
-                AddAlert Index, "Please spawn your pokemon first", White
-                Exit Sub
+                If PlayerPokemon(Index).slot > 0 Then
+                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Status > 0 Then
+                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Status = 0
+                        gothealed = True
+                    End If
+                End If
             End If
-        Case ItemTypeEnum.BattleItems
-        
-        Case ItemTypeEnum.Items
-        
-        Case Else
-            '//Not usable
+            If gothealed Then
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Pokemon Status removed", White
+                Case LANG_EN: AddAlert Index, "Pokemon Status removed", White
+                Case LANG_ES: AddAlert Index, "Pokemon Status removed", White
+                End Select
+                SendPlayerPokemonStatus Index
+                '//Take Item
+                PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
+                If PlayerInv(Index).Data(invSlot).Value <= 0 Then
+                    '//Clear Item
+                    PlayerInv(Index).Data(invSlot).Num = 0
+                    PlayerInv(Index).Data(invSlot).Value = 0
+                End If
+                SendPlayerInvSlot Index, invSlot
+            End If
+        Case 6    '// Heal Trainer
+            gothealed = False
+            If Player(Index, TempPlayer(Index).UseChar).CurHP < GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level) Then
+                Player(Index, TempPlayer(Index).UseChar).CurHP = Player(Index, TempPlayer(Index).UseChar).CurHP + Item(PlayerInv(Index).Data(invSlot).Num).Data2
+                If Player(Index, TempPlayer(Index).UseChar).CurHP > GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level) Then
+                    Player(Index, TempPlayer(Index).UseChar).CurHP = GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level)
+                End If
+                gothealed = True
+            End If
+
+            If gothealed Then
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "HP restored", White
+                Case LANG_EN: AddAlert Index, "HP restored", White
+                Case LANG_ES: AddAlert Index, "HP restored", White
+                End Select
+                SendPlayerVital Index
+                '//Take Item
+                PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
+                If PlayerInv(Index).Data(invSlot).Value <= 0 Then
+                    '//Clear Item
+                    PlayerInv(Index).Data(invSlot).Num = 0
+                    PlayerInv(Index).Data(invSlot).Value = 0
+                End If
+                SendPlayerInvSlot Index, invSlot
+            End If
+        Case 7    '// Cure Trainer
+            gothealed = False
+            If Item(ItemNum).Data2 > 0 Then
+                If Player(Index, TempPlayer(Index).UseChar).Status = Item(ItemNum).Data2 Then
+                    Player(Index, TempPlayer(Index).UseChar).Status = 0
+                    gothealed = True
+                End If
+            Else
+                If Player(Index, TempPlayer(Index).UseChar).Status > 0 Then
+                    Player(Index, TempPlayer(Index).UseChar).Status = 0
+                    gothealed = True
+                End If
+            End If
+            If gothealed Then
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Status was removed", White
+                Case LANG_EN: AddAlert Index, "Status was removed", White
+                Case LANG_ES: AddAlert Index, "Status was removed", White
+                End Select
+                SendPlayerStatus Index
+                '//Take Item
+                PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
+                If PlayerInv(Index).Data(invSlot).Value <= 0 Then
+                    '//Clear Item
+                    PlayerInv(Index).Data(invSlot).Num = 0
+                    PlayerInv(Index).Data(invSlot).Value = 0
+                End If
+                SendPlayerInvSlot Index, invSlot
+            End If
+        End Select
+
+        If Item(ItemNum).Data3 > 0 Then
+            '//Level Up
+            If PlayerPokemon(Index).Num > 0 Then
+                If PlayerPokemon(Index).slot > 0 Then
+                    exproll = GetPokemonNextExp(PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Level, Pokemon(PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Num).GrowthRate)
+                    Exp = exproll - PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurExp
+
+                    If Exp > 0 Then
+                        GivePlayerPokemonExp Index, PlayerPokemon(Index).slot, Exp
+                    End If
+
+                    '//Take Item
+                    PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
+                    If PlayerInv(Index).Data(invSlot).Value <= 0 Then
+                        '//Clear Item
+                        PlayerInv(Index).Data(invSlot).Num = 0
+                        PlayerInv(Index).Data(invSlot).Value = 0
+                    End If
+                    SendPlayerInvSlot Index, invSlot
+                End If
+            End If
+        End If
+    Case ItemTypeEnum.Berries
+
+        If Item(ItemNum).Data1 > 0 Then
+            If PlayerPokemon(Index).Num > 0 Then
+                If PlayerPokemon(Index).slot > 0 Then
+                    For i = 1 To StatEnum.Stat_Count - 1
+                        If Item(ItemNum).Data1 = i Then
+                            ' Adiciona ou remove a experiência (Berries/Proteins)
+                            BerriesFunc = GivePlayerPokemonEVExp(Index, PlayerPokemon(Index).slot, Item(ItemNum).Data1, Item(ItemNum).Data2)
+                            If BerriesFunc <> 0 Then
+                                '//Take Item
+                                PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
+                                If PlayerInv(Index).Data(invSlot).Value <= 0 Then
+                                    '//Clear Item
+                                    PlayerInv(Index).Data(invSlot).Num = 0
+                                    PlayerInv(Index).Data(invSlot).Value = 0
+                                End If
+                                SendPlayerInvSlot Index, invSlot
+
+                                PokeName = Trim$(Pokemon(PlayerPokemon(Index).Num).Name)
+                                If BerriesFunc > 0 Then
+                                    Select Case TempPlayer(Index).CurLanguage
+                                    Case LANG_PT: AddAlert Index, PokeName & " aumentou " & BerriesFunc & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Green
+                                    Case LANG_EN: AddAlert Index, PokeName & " aumentou " & BerriesFunc & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Green
+                                    Case LANG_ES: AddAlert Index, PokeName & " aumentou " & BerriesFunc & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Green
+                                    End Select
+                                ElseIf BerriesFunc < 0 Then
+                                    Select Case TempPlayer(Index).CurLanguage
+                                    Case LANG_PT: AddAlert Index, PokeName & " reduziu " & BerriesFunc & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Grey
+                                    Case LANG_EN: AddAlert Index, PokeName & " reduziu " & BerriesFunc & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Grey
+                                    Case LANG_ES: AddAlert Index, PokeName & " reduziu " & BerriesFunc & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Grey
+                                    End Select
+                                End If
+                            Else
+                                Select Case TempPlayer(Index).CurLanguage
+                                Case LANG_PT: AddAlert Index, PokeName & " chegou ao limite Min/Max de EV neste atributo " & GetAtributeName(Item(ItemNum).Data1) & " " & PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Stat(Item(ItemNum).Data1).EV, Grey
+                                Case LANG_EN: AddAlert Index, PokeName & " chegou ao limite Min/Max de EV neste atributo " & GetAtributeName(Item(ItemNum).Data1) & " " & PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Stat(Item(ItemNum).Data1).EV, Grey
+                                Case LANG_ES: AddAlert Index, PokeName & " chegou ao limite Min/Max de EV neste atributo " & GetAtributeName(Item(ItemNum).Data1) & " " & PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Stat(Item(ItemNum).Data1).EV, Grey
+                                End Select
+                            End If
+                            Exit For
+                        End If
+                    Next i
+                Else
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "Você não está em um pokemon", White
+                    Case LANG_EN: AddAlert Index, "You are not in a pokemon", White
+                    Case LANG_ES: AddAlert Index, "No estas en un pokemon", White
+                    End Select
+                End If
+            Else
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Você não está em um pokemon", White
+                Case LANG_EN: AddAlert Index, "You are not in a pokemon", White
+                Case LANG_ES: AddAlert Index, "No estas en un pokemon", White
+                End Select
+            End If
+        End If
+
+    Case ItemTypeEnum.keyItems
+        Select Case Item(ItemNum).Data1
+        Case 1    '//Sprite Type
+            If Item(ItemNum).Data2 > 0 Then
+                If Map(Player(Index, TempPlayer(Index).UseChar).Map).SpriteType <= TEMP_SPRITE_GROUP_NONE Then
+                    ChangeTempSprite Index, Item(ItemNum).Data2
+                End If
+            End If
+        End Select
+    Case ItemTypeEnum.TM_HM
+        If PlayerPokemon(Index).Num > 0 And PlayerPokemon(Index).slot > 0 Then
+            If Item(ItemNum).Data1 > 0 Then
+                CanLearn = False
+                For i = 1 To 110
+                    If Pokemon(PlayerPokemon(Index).Num).ItemMoveset(i) = Item(ItemNum).Data1 Then
+                        CanLearn = True
+                        Exit For
+                    End If
+                Next
+                '//Make sure move doesn't exist
+                For i = 1 To MAX_MOVESET
+                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).Num = Item(ItemNum).Data1 Then
+                        CanLearn = False
+                    End If
+                Next
+
+                If CanLearn Then
+                    '//Continue
+                    i = FindFreeMoveSlot(Index, PlayerPokemon(Index).slot)
+                    If i > 0 Then
+                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).Num = Item(ItemNum).Data1
+                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).TotalPP = PokemonMove(Item(ItemNum).Data1).PP
+                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).TotalPP
+                        SendPlayerPokemonSlot Index, PlayerPokemon(Index).slot
+                        '//Send Msg
+                        SendPlayerMsg Index, Trim$(Pokemon(PlayerPokemon(Index).Num).Name) & " learned the move " & Trim$(PokemonMove(Item(ItemNum).Data1).Name), White
+                    Else
+                        '//Proceed to ask
+                        TempPlayer(Index).MoveLearnPokeSlot = PlayerPokemon(Index).slot
+                        TempPlayer(Index).MoveLearnNum = Item(ItemNum).Data1
+                        TempPlayer(Index).MoveLearnIndex = 0
+                        SendNewMove Index
+                    End If
+
+                    If Item(ItemNum).Data2 > 0 Then
+                        '//Take Item
+                        PlayerInv(Index).Data(invSlot).Value = PlayerInv(Index).Data(invSlot).Value - 1
+                        If PlayerInv(Index).Data(invSlot).Value <= 0 Then
+                            '//Clear Item
+                            PlayerInv(Index).Data(invSlot).Num = 0
+                            PlayerInv(Index).Data(invSlot).Value = 0
+                        End If
+                        SendPlayerInvSlot Index, invSlot
+                    End If
+                Else
+                    AddAlert Index, "This pokemon cannot learn this move", White
+                    Exit Sub
+                End If
+            End If
+        Else
+            AddAlert Index, "Please spawn your pokemon first", White
             Exit Sub
+        End If
+    Case ItemTypeEnum.BattleItems
+
+    Case ItemTypeEnum.Items
+
+    Case Else
+        '//Not usable
+        Exit Sub
     End Select
-    
+
     AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " use item " & Trim$(Item(ItemNum).Name)
 End Sub
 

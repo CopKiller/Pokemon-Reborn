@@ -541,6 +541,8 @@ Private Type ItemRec
     Data3 As Long
     Desc As String * 255
     IsCash As Byte
+    Linked As Byte
+    NotEquipable As Byte
 End Type
 
 Private Type MovesetRec

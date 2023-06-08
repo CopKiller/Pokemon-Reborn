@@ -7,6 +7,7 @@ Begin VB.Form frmEditor_Spawn
    ClientTop       =   795
    ClientWidth     =   8295
    ControlBox      =   0   'False
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -276,7 +277,7 @@ Begin VB.Form frmEditor_Spawn
          Caption         =   "Save"
       End
       Begin VB.Menu mnuCancel 
-         Caption         =   "Cancel"
+         Caption         =   "Cancel(Esc)"
       End
    End
 End
@@ -317,6 +318,12 @@ Dim tmpIndex As Long
     End If
     lstMapPokemon.ListIndex = tmpIndex
     EditorChange = True
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyEscape Then
+        CloseSpawnEditor
+    End If
 End Sub
 
 Private Sub lstMapPokemon_Click()

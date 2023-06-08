@@ -7,6 +7,7 @@ Begin VB.Form frmEditor_Map
    ClientTop       =   795
    ClientWidth     =   14910
    ControlBox      =   0   'False
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -914,7 +915,7 @@ Begin VB.Form frmEditor_Map
          Caption         =   "Save"
       End
       Begin VB.Menu mnuCancel 
-         Caption         =   "Cancel"
+         Caption         =   "Cancel(Esc)"
       End
       Begin VB.Menu mnuLine 
          Caption         =   "-"
@@ -971,6 +972,12 @@ End Sub
 
 Private Sub cmdRandom_Click()
     RandomPlaceLayer scrlFreq.value
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyEscape Then
+        CloseMapEditor True
+    End If
 End Sub
 
 Private Sub lstMapNpc_Click()

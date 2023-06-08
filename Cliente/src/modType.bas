@@ -128,6 +128,7 @@ Private Type MapNpcPokemonRec
     BallX As Long
     BallY As Long
     MoveSpeed As Long
+    
 End Type
 
 Private Type MapNpcRec
@@ -483,7 +484,9 @@ Private Type ItemRec
     Price As Long
     Data3 As Long
     Desc As String * 255
-    IsCash As Byte
+    IsCash As Byte          'Novo método de cash no shop!
+    Linked As Byte          'Vinculado ao jogador!
+    NotEquipable As Byte    'Não equipavel ao poke.
 End Type
 
 Private Type MovesetRec

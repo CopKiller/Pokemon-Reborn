@@ -889,9 +889,21 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
             .fraTMHM.Visible = False
         End If
         
+        If Item(xIndex).Type = ItemTypeEnum.Berries Then
+            .fraBerrie.Visible = True
+            .cmbBerrieType.ListIndex = Item(xIndex).Data1
+            .txtBerrieValue.Text = Item(xIndex).Data2
+        Else
+            .fraBerrie.Visible = False
+        End If
+        
         .txtPrice.Text = Item(xIndex).Price
         
         .chkIsCash = Item(xIndex).IsCash
+        
+        .chkLinked = Item(xIndex).Linked
+        
+        .chkNEquipable = Item(xIndex).NotEquipable
         
         .txtDesc.Text = Trim$(Item(xIndex).Desc)
     End With

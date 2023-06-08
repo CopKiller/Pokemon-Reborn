@@ -2,53 +2,20 @@ VERSION 5.00
 Begin VB.Form frmEditor_Item 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Item Editor"
-   ClientHeight    =   4365
+   ClientHeight    =   4260
    ClientLeft      =   150
    ClientTop       =   795
-   ClientWidth     =   9240
+   ClientWidth     =   9165
    ControlBox      =   0   'False
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   291
+   ScaleHeight     =   284
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   616
+   ScaleWidth      =   611
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
-   Begin VB.Frame fraTMHM 
-      Caption         =   "TM/HM"
-      Height          =   1215
-      Left            =   3360
-      TabIndex        =   33
-      Top             =   2040
-      Width           =   4695
-      Begin VB.ComboBox cmbMoveList 
-         Height          =   315
-         ItemData        =   "frmEditor_Item.frx":0000
-         Left            =   1440
-         List            =   "frmEditor_Item.frx":0002
-         Style           =   2  'Dropdown List
-         TabIndex        =   35
-         Top             =   360
-         Width           =   3015
-      End
-      Begin VB.CheckBox chkTakeItem 
-         Caption         =   "Take Item?"
-         Height          =   255
-         Left            =   1440
-         TabIndex        =   34
-         Top             =   720
-         Width           =   1815
-      End
-      Begin VB.Label Label9 
-         Caption         =   "Move List"
-         Height          =   255
-         Left            =   240
-         TabIndex        =   36
-         Top             =   360
-         Width           =   1095
-      End
-   End
    Begin VB.Frame Frame1 
       Caption         =   "Index"
       Height          =   4215
@@ -73,9 +40,9 @@ Begin VB.Form frmEditor_Item
       End
       Begin VB.ListBox lstIndex 
          Height          =   3375
-         ItemData        =   "frmEditor_Item.frx":0004
+         ItemData        =   "frmEditor_Item.frx":0000
          Left            =   120
-         List            =   "frmEditor_Item.frx":0006
+         List            =   "frmEditor_Item.frx":0002
          TabIndex        =   6
          Top             =   600
          Width           =   2655
@@ -88,85 +55,89 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   0
       Top             =   0
       Width           =   6015
-      Begin VB.CheckBox chkIsCash 
-         Caption         =   "Is Cash?"
-         Height          =   195
-         Left            =   4680
-         TabIndex        =   39
-         Top             =   1320
-         Width           =   1335
-      End
-      Begin VB.TextBox txtDesc 
-         Height          =   285
-         Left            =   1200
-         TabIndex        =   38
-         Top             =   1560
-         Width           =   4455
-      End
-      Begin VB.Frame fraMedicine 
-         Caption         =   "Medicine"
+      Begin VB.Frame fraBerrie 
+         Caption         =   "Berries/Proteins"
          Height          =   1455
          Left            =   240
-         TabIndex        =   19
-         Top             =   2040
+         TabIndex        =   42
+         Top             =   2160
          Width           =   4695
-         Begin VB.CheckBox chkLevelUp 
-            Caption         =   "Level Up"
-            Height          =   255
+         Begin VB.ComboBox cmbBerrieType 
+            Height          =   315
+            ItemData        =   "frmEditor_Item.frx":0004
             Left            =   1440
-            TabIndex        =   26
-            Top             =   1080
-            Width           =   1815
+            List            =   "frmEditor_Item.frx":001D
+            Style           =   2  'Dropdown List
+            TabIndex        =   44
+            Top             =   360
+            Width           =   3015
          End
-         Begin VB.TextBox txtValue 
+         Begin VB.TextBox txtBerrieValue 
             Height          =   285
             Left            =   1440
-            TabIndex        =   23
+            TabIndex        =   43
             Text            =   "0"
             Top             =   720
             Width           =   3015
          End
-         Begin VB.ComboBox cmbMedicineType 
-            Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0008
-            Left            =   1440
-            List            =   "frmEditor_Item.frx":0024
-            Style           =   2  'Dropdown List
-            TabIndex        =   20
+         Begin VB.Label Label11 
+            AutoSize        =   -1  'True
+            Caption         =   "Berr./Prot. Type:"
+            Height          =   195
+            Left            =   120
+            TabIndex        =   46
             Top             =   360
-            Width           =   3015
+            Width           =   1185
          End
-         Begin VB.Label Label7 
+         Begin VB.Label Label10 
             Caption         =   "Value:"
             Height          =   255
             Left            =   240
-            TabIndex        =   22
+            TabIndex        =   45
             Top             =   720
             Width           =   1095
          End
-         Begin VB.Label Label5 
-            Caption         =   "Medicine Type:"
+      End
+      Begin VB.Frame fraTMHM 
+         Caption         =   "TM/HM"
+         Height          =   1215
+         Left            =   240
+         TabIndex        =   38
+         Top             =   2160
+         Width           =   4695
+         Begin VB.CheckBox chkTakeItem 
+            Caption         =   "Take Item?"
+            Height          =   255
+            Left            =   1440
+            TabIndex        =   40
+            Top             =   720
+            Width           =   1815
+         End
+         Begin VB.ComboBox cmbMoveList 
+            Height          =   315
+            ItemData        =   "frmEditor_Item.frx":0048
+            Left            =   1440
+            List            =   "frmEditor_Item.frx":004A
+            Style           =   2  'Dropdown List
+            TabIndex        =   39
+            Top             =   360
+            Width           =   3015
+         End
+         Begin VB.Label Label9 
+            Caption         =   "Move List"
             Height          =   255
             Left            =   240
-            TabIndex        =   21
+            TabIndex        =   41
             Top             =   360
             Width           =   1095
          End
-      End
-      Begin VB.TextBox txtPrice 
-         Height          =   285
-         Left            =   4680
-         TabIndex        =   18
-         Text            =   "0"
-         Top             =   1080
-         Width           =   1215
       End
       Begin VB.Frame fraPokeball 
          Caption         =   "Pokeball Properties"
          Height          =   1695
          Left            =   240
          TabIndex        =   12
-         Top             =   2040
+         Top             =   2160
          Visible         =   0   'False
          Width           =   5535
          Begin VB.CheckBox chkAutoCatch 
@@ -210,6 +181,95 @@ Begin VB.Form frmEditor_Item
             Width           =   1215
          End
       End
+      Begin VB.CheckBox chkNEquipable 
+         Caption         =   "No Poke Equip"
+         Height          =   375
+         Left            =   4440
+         TabIndex        =   37
+         Top             =   480
+         Width           =   1455
+      End
+      Begin VB.CheckBox chkLinked 
+         Caption         =   "Vinculado"
+         Height          =   255
+         Left            =   4440
+         TabIndex        =   36
+         Top             =   240
+         Width           =   1215
+      End
+      Begin VB.CheckBox chkIsCash 
+         Caption         =   "Is Cash?"
+         Height          =   195
+         Left            =   4680
+         TabIndex        =   35
+         Top             =   1440
+         Width           =   1095
+      End
+      Begin VB.TextBox txtDesc 
+         Height          =   285
+         Left            =   1200
+         TabIndex        =   34
+         Top             =   1680
+         Width           =   4455
+      End
+      Begin VB.Frame fraMedicine 
+         Caption         =   "Medicine"
+         Height          =   1455
+         Left            =   240
+         TabIndex        =   19
+         Top             =   2160
+         Width           =   4695
+         Begin VB.CheckBox chkLevelUp 
+            Caption         =   "Level Up"
+            Height          =   255
+            Left            =   1440
+            TabIndex        =   26
+            Top             =   1080
+            Width           =   1815
+         End
+         Begin VB.TextBox txtValue 
+            Height          =   285
+            Left            =   1440
+            TabIndex        =   23
+            Text            =   "0"
+            Top             =   720
+            Width           =   3015
+         End
+         Begin VB.ComboBox cmbMedicineType 
+            Height          =   315
+            ItemData        =   "frmEditor_Item.frx":004C
+            Left            =   1440
+            List            =   "frmEditor_Item.frx":0068
+            Style           =   2  'Dropdown List
+            TabIndex        =   20
+            Top             =   360
+            Width           =   3015
+         End
+         Begin VB.Label Label7 
+            Caption         =   "Value:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   22
+            Top             =   720
+            Width           =   1095
+         End
+         Begin VB.Label Label5 
+            Caption         =   "Medicine Type:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   21
+            Top             =   360
+            Width           =   1095
+         End
+      End
+      Begin VB.TextBox txtPrice 
+         Height          =   285
+         Left            =   4680
+         TabIndex        =   18
+         Text            =   "0"
+         Top             =   1200
+         Width           =   1215
+      End
       Begin VB.Frame Frame3 
          Caption         =   "Frame3"
          Height          =   15
@@ -220,16 +280,16 @@ Begin VB.Form frmEditor_Item
       End
       Begin VB.ComboBox cmbType 
          Height          =   315
-         ItemData        =   "frmEditor_Item.frx":0082
+         ItemData        =   "frmEditor_Item.frx":00C6
          Left            =   1200
-         List            =   "frmEditor_Item.frx":009E
+         List            =   "frmEditor_Item.frx":00E2
          Style           =   2  'Dropdown List
          TabIndex        =   9
-         Top             =   1080
+         Top             =   1200
          Width           =   2175
       End
       Begin VB.CheckBox chkStock 
-         Caption         =   "Stock?"
+         Caption         =   "Acumular?"
          Height          =   255
          Left            =   3120
          TabIndex        =   8
@@ -261,7 +321,7 @@ Begin VB.Form frmEditor_Item
          Left            =   1200
          Max             =   0
          TabIndex        =   1
-         Top             =   720
+         Top             =   840
          Width           =   3855
       End
       Begin VB.Frame fraKeyItem 
@@ -269,14 +329,14 @@ Begin VB.Form frmEditor_Item
          Height          =   1215
          Left            =   240
          TabIndex        =   28
-         Top             =   2040
+         Top             =   2160
          Visible         =   0   'False
          Width           =   5535
          Begin VB.ComboBox cmbKeyItemType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":00ED
+            ItemData        =   "frmEditor_Item.frx":013A
             Left            =   2280
-            List            =   "frmEditor_Item.frx":00F7
+            List            =   "frmEditor_Item.frx":0144
             Style           =   2  'Dropdown List
             TabIndex        =   32
             Top             =   360
@@ -311,8 +371,8 @@ Begin VB.Form frmEditor_Item
          Caption         =   "Description"
          Height          =   255
          Left            =   240
-         TabIndex        =   37
-         Top             =   1560
+         TabIndex        =   33
+         Top             =   1680
          Width           =   1335
       End
       Begin VB.Label Label4 
@@ -321,7 +381,7 @@ Begin VB.Form frmEditor_Item
          Height          =   195
          Left            =   3960
          TabIndex        =   17
-         Top             =   1200
+         Top             =   1320
          Width           =   405
       End
       Begin VB.Label Label2 
@@ -329,7 +389,7 @@ Begin VB.Form frmEditor_Item
          Height          =   255
          Left            =   240
          TabIndex        =   10
-         Top             =   1080
+         Top             =   1200
          Width           =   975
       End
       Begin VB.Label Label1 
@@ -345,7 +405,7 @@ Begin VB.Form frmEditor_Item
          Height          =   255
          Left            =   240
          TabIndex        =   3
-         Top             =   720
+         Top             =   840
          Width           =   1455
       End
    End
@@ -361,7 +421,7 @@ Begin VB.Form frmEditor_Item
          Caption         =   "-"
       End
       Begin VB.Menu mnuExit 
-         Caption         =   "Exit"
+         Caption         =   "Exit(Esc)"
       End
    End
 End
@@ -386,6 +446,14 @@ Private Sub chkLevelUp_Click()
     EditorChange = True
 End Sub
 
+Private Sub chkLinked_Click()
+    Item(EditorIndex).Linked = chkLinked
+End Sub
+
+Private Sub chkNEquipable_Click()
+    Item(EditorIndex).NotEquipable = chkNEquipable.value
+End Sub
+
 Private Sub chkStock_Click()
     Item(EditorIndex).Stock = chkStock.value
     EditorChange = True
@@ -393,6 +461,11 @@ End Sub
 
 Private Sub chkTakeItem_Click()
     Item(EditorIndex).Data2 = chkTakeItem.value
+    EditorChange = True
+End Sub
+
+Private Sub cmbBerrieType_Click()
+    Item(EditorIndex).Data1 = cmbBerrieType.ListIndex
     EditorChange = True
 End Sub
 
@@ -438,6 +511,12 @@ Private Sub cmbType_Click()
         fraTMHM.Visible = False
     End If
     
+    If Item(EditorIndex).Type = ItemTypeEnum.Berries Then
+        fraBerrie.Visible = True
+    Else
+        fraBerrie.Visible = False
+    End If
+    
     EditorChange = True
 End Sub
 
@@ -468,6 +547,12 @@ Dim stringLength As Long
         Next
         
         MsgBox "Index not found", vbCritical
+    End If
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyEscape Then
+        CloseItemEditor
     End If
 End Sub
 
@@ -535,6 +620,13 @@ Private Sub scrlSpriteType_Change()
     EditorChange = True
 End Sub
 
+Private Sub txtBerrieValue_Change()
+    If IsNumeric(txtBerrieValue) Then
+        Item(EditorIndex).Data2 = Val(txtBerrieValue)
+        EditorChange = True
+    End If
+End Sub
+
 Private Sub txtCatchRate_Change()
     If IsNumeric(txtCatchRate.Text) Then
         Item(EditorIndex).Data1 = Val(txtCatchRate.Text)
@@ -560,10 +652,10 @@ Dim tmpIndex As Long
 End Sub
 
 Private Sub txtPrice_Change()
-   ' If IsNumeric(txtPrice.Text) Then
-   '     Item(EditorIndex).Price = Val(txtPrice.Text)
-   '     EditorChange = True
-   ' End If
+    If IsNumeric(txtPrice.Text) Then
+        Item(EditorIndex).Price = Val(txtPrice.Text)
+        EditorChange = True
+    End If
 End Sub
 
 Private Sub txtValue_Change()

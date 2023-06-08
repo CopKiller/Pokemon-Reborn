@@ -7,6 +7,7 @@ Begin VB.Form frmEditor_Npc
    ClientTop       =   795
    ClientWidth     =   9240
    ControlBox      =   0   'False
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -286,7 +287,7 @@ Begin VB.Form frmEditor_Npc
          Caption         =   "-"
       End
       Begin VB.Menu mnuExit 
-         Caption         =   "Exit"
+         Caption         =   "Exit(Esc)"
       End
    End
 End
@@ -397,6 +398,12 @@ Dim stringLength As Long
         Next
         
         MsgBox "Index not found", vbCritical
+    End If
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyEscape Then
+        CloseNpcEditor
     End If
 End Sub
 
