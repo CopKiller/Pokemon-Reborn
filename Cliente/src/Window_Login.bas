@@ -94,7 +94,7 @@ Public Sub DrawLogin()
             ' Desenha a quantidade de jogadores neste servidor!
             'SString = Replace$(SString, ColourChar, vbNullString)
             SString = "Status:" & ColourChar & ServerInfo(CurServerList).Colour & Space(1) & ServerInfo(CurServerList).Status
-            SString = SString & ColourChar & Yellow & " Online Players:" & ColourChar & ServerInfo(CurServerList).Colour & Space(1) & ServerInfo(CurServerList).Player
+            SString = SString & ColourChar & Yellow & " Players:" & ColourChar & ServerInfo(CurServerList).Colour & Space(1) & ServerInfo(CurServerList).Player
             ' Degrade
             RenderTexture Tex_Gui(12), 0, 5, 59, 241, (GetTextWidth(Font_Default, SString)) - 70, 20, 165, 1
             RenderText Font_Default, SString, 0, 5, Yellow

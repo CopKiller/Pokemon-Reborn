@@ -3094,7 +3094,7 @@ Dim i As Long
         Next
 
         '//Render Text
-        RenderArrayText Font_Default, ChoiceBoxText, .X + 10, .Y + 10, 250, White
+        RenderArrayText Font_Default, ChoiceBoxText, .X + 10, .Y + 10, 250, DarkGrey
     End With
 End Sub
 
@@ -3770,8 +3770,8 @@ Dim currencyText As String
                 End Select
                 If DrawText Then
                     Select Case Button(i).State
-                        Case ButtonState.StateNormal: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.Y + Button(i).Y) + ((Button(i).Height / 2) - (8)) - 4, D3DColorARGB(255, 229, 229, 229), False
-                        Case ButtonState.StateHover: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.Y + Button(i).Y) + ((Button(i).Height / 2) - (8)) - 4, D3DColorARGB(255, 255, 255, 255), False
+                        Case ButtonState.StateNormal: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.Y + Button(i).Y) + ((Button(i).Height / 2) - (8)) - 4, D3DColorARGB(255, 100, 100, 100), False
+                        Case ButtonState.StateHover: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.Y + Button(i).Y) + ((Button(i).Height / 2) - (8)) - 4, D3DColorARGB(255, 100, 200, 100), False
                         Case ButtonState.StateClick: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.Y + Button(i).Y) + ((Button(i).Height / 2) - (8)) - 4 + 3, D3DColorARGB(255, 255, 255, 255), False
                     End Select
                 End If

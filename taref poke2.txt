@@ -46,6 +46,25 @@ Usar as nomenclaturas do Status do pokemon do Summary pra extrair os atributos
 OK*** -Adicionar novo atributo item editor, Proteinas, criar type com os atributos(utilizar o mesmo layout da medicina)
 	Obs: Foi implementado junto com o barrie
 
+-InGame \/
+OK*** -Alterar a cor do botão set no trade, está da cor do fundo.
+-Pokemons maiores que 32x32 o nome fica em cima da sprite, adicionar pra subir.
+-Alteração da cor do texto de invite.
+
+-PokemonEditor \/
+-scrl Evolve do pokemon, adicionar um find pra procurar pelo nome ou pelo ID.
+-scrl da sprite do pokemon, pra procurar o número da sprite.
+-adicionar um find(nome ou id) ao lado da lista de procura de item pra dropar do poke.
+
+-ItemEditor \/
+-Adicionar os Power Bracelets no lugar do Battle Items, Os tipos são dos Stats EV, acrescido
+	do nome Power antes do nome do atributo no editor, adicionar Value.
+	(Vai funcionar da seguinte forma, ao adicionar Power Hp, e value for 8,
+	e ao equipar este item no pokemon e ir matar algum, se ele der 2 de sp attack,
+	o bracelete power hp vai dar os 8 de hp e mais 2 de sp attack.)
+
+
+
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 >Futuramente, após finalizar correções básicas.<
 VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV

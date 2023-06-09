@@ -1677,16 +1677,16 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal invSlot As Byte)
                                     End Select
                                 ElseIf BerriesFunc < 0 Then
                                     Select Case TempPlayer(Index).CurLanguage
-                                    Case LANG_PT: AddAlert Index, PokeName & " reduziu " & BerriesFunc & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Grey
-                                    Case LANG_EN: AddAlert Index, PokeName & " reduziu " & BerriesFunc & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Grey
-                                    Case LANG_ES: AddAlert Index, PokeName & " reduziu " & BerriesFunc & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Grey
+                                    Case LANG_PT: AddAlert Index, PokeName & " reduziu " & Math.Abs(BerriesFunc) & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Grey
+                                    Case LANG_EN: AddAlert Index, PokeName & " reduziu " & Math.Abs(BerriesFunc) & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Grey
+                                    Case LANG_ES: AddAlert Index, PokeName & " reduziu " & Math.Abs(BerriesFunc) & " pontos de EV em " & GetAtributeName(Item(ItemNum).Data1), Grey
                                     End Select
                                 End If
                             Else
                                 Select Case TempPlayer(Index).CurLanguage
-                                Case LANG_PT: AddAlert Index, PokeName & " chegou ao limite Min/Max de EV neste atributo " & GetAtributeName(Item(ItemNum).Data1) & " " & PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Stat(Item(ItemNum).Data1).EV, Grey
-                                Case LANG_EN: AddAlert Index, PokeName & " chegou ao limite Min/Max de EV neste atributo " & GetAtributeName(Item(ItemNum).Data1) & " " & PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Stat(Item(ItemNum).Data1).EV, Grey
-                                Case LANG_ES: AddAlert Index, PokeName & " chegou ao limite Min/Max de EV neste atributo " & GetAtributeName(Item(ItemNum).Data1) & " " & PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Stat(Item(ItemNum).Data1).EV, Grey
+                                Case LANG_PT: AddAlert Index, PokeName & " está no limite Min/Max de EV em " & GetAtributeName(Item(ItemNum).Data1) & " " & PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Stat(Item(ItemNum).Data1).EV, Grey
+                                Case LANG_EN: AddAlert Index, PokeName & " está no limite Min/Max de EV em " & GetAtributeName(Item(ItemNum).Data1) & " " & PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Stat(Item(ItemNum).Data1).EV, Grey
+                                Case LANG_ES: AddAlert Index, PokeName & " está no limite Min/Max de EV em " & GetAtributeName(Item(ItemNum).Data1) & " " & PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Stat(Item(ItemNum).Data1).EV, Grey
                                 End Select
                             End If
                             Exit For
