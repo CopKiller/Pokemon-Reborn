@@ -349,6 +349,9 @@ End Function
 Public Sub WordWrap_Array(ByRef theFont As CustomFont, ByVal Text As String, ByVal MaxLineLen As Long, ByRef theArray() As String)
 Dim lineCount As Long, i As Long, Size As Long, lastSpace As Long, B As Long
 
+    On Error Resume Next
+    
+
     '//Too small of text
     If Len(Text) < 2 Then
         ReDim theArray(1 To 1) As String
@@ -684,7 +687,7 @@ Dim Color As Long, Name As String
             textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4) * 2)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 1.3))
             Else
                 textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4)
             End If

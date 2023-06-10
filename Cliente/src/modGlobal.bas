@@ -366,6 +366,12 @@ Public StorageItemDescTimer As Long
 Public StorageItemDesc As Integer
 Public StorageItemDescShow As Boolean
 
+'// Trade Item Desc
+Public TradeItemDescTimer As Long
+Public TradeItemDesc As Integer
+Public TradeItemDescShow As Boolean
+Public TradeItemDescType As Byte
+
 ' Variáveis globais da lista de resolução
 Public ShowResolutionList As Boolean
 Public ResolutionList As Boolean

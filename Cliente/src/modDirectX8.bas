@@ -1603,6 +1603,7 @@ Private Sub Render_Game()
     DrawInvItemDesc
     DrawShopItemDesc
     DrawStorageItemDesc
+    DrawTradeItemDesc
 End Sub
 
 Private Sub DrawEvents()
@@ -4618,10 +4619,7 @@ End Sub
 Private Sub GDIPokemon()
 Dim desRect As D3DRECT              '//Rendering Area
 Dim Sprite As Long
-Dim oWidth As Long, oHeight As Long
-Dim sWidth As Long, sHeight As Long
-Dim Width As Long, Height As Long
-Dim picX As Long, picY As Long
+Dim sWidth As Integer, sHeight As Integer
 
     With frmEditor_Pokemon
         '//Exit if form is not open
@@ -4633,46 +4631,17 @@ Dim picX As Long, picY As Long
             Exit Sub
         End If
         
-        'oWidth = GetPicWidth(Tex_Pokemon(Sprite))
-        'oHeight = GetPicHeight(Tex_Pokemon(Sprite))
-        
-        oWidth = GetPicWidth(Tex_Pokemon(Sprite))
-        oHeight = GetPicHeight(Tex_Pokemon(Sprite)) / 2
-        'Width = oWidth * 2: Height = oHeight * 2
-        
         desRect.x2 = .picSprite.scaleWidth
         desRect.Y2 = .picSprite.scaleHeight
+        sWidth = GetPicWidth(Tex_Pokemon(Sprite))
+        sHeight = GetPicHeight(Tex_Pokemon(Sprite))
         
-        'RenderTexture Tex_Pokemon(Sprite), ConvertMapX(X), ConvertMapY(Y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight
         
         '//Start rendering
         D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, D3DColorARGB(255, 240, 240, 240), 1#, 0
         D3DDevice.BeginScene
         
-        Width = (oWidth / 3) * 2
-        Height = (oHeight) * 2
-        
-        picX = (desRect.x2 / 2) - (Width / 2)
-        picY = (desRect.Y2 / 2) - (Height / 2) + 16
-        RenderTexture Tex_Pokemon(Sprite), picX, picY, oWidth / 3, 0, Width, Height, oWidth / 3, oHeight
-        
-        'If .chkScale.value = YES Then
-        '    Width = (oWidth / 3) * 2
-        '    Height = (oHeight) * 2
-            
-        '    picX = (desRect.x2 / 2) - (Width / 2)
-        '    picY = (desRect.Y2 / 2) - (Height / 2)
-
-        '    RenderTexture Tex_Pokemon(Sprite), picX, picY, oWidth / 34, 0, Width, Height, oWidth / 34, oHeight
-        'Else
-        '    Width = (oWidth / 3)
-        '    Height = (oHeight)
-            
-        '    picX = (desRect.x2 / 2) - (Width / 2)
-        '    picY = (desRect.Y2 / 2) - (Height / 2)
-
-        '    RenderTexture Tex_Pokemon(Sprite), picX, picY, oWidth / 34, 0, Width, Height, oWidth / 34, oHeight
-        'End If
+        RenderTexture Tex_Pokemon(Sprite), 0, 0, (sWidth / 34) * 3, 0, sWidth / 34, 64, sWidth / 34, sHeight
         
         '//End the rendering
         D3DDevice.EndScene
@@ -4900,3 +4869,88 @@ Public Sub DrawStorageItemDesc()
         yOffset = yOffset + 16
     Next
 End Sub
+
+Public Sub DrawTradeItemDesc()
+    Dim ItemName As String
+    Dim ItemIcon As Long
+    Dim DescString As String
+    Dim LowBound As Long, UpBound As Long
+    Dim ArrayText() As String
+    Dim i As Integer
+    Dim X As Long, Y As Long
+    Dim yOffset As Long
+    Dim SizeY As Long
+    Dim ItemPrice As String
+
+    If TradeItemDesc <= 0 Or TradeItemDesc > MAX_TRADE Then Exit Sub
+    If TradeItemDescTimer + 400 > GetTickCount Then Exit Sub
+    TradeItemDescShow = True
+
+    If TradeItemDescType = 1 Then
+        ItemIcon = Item(TheirTrade.Data(TradeItemDesc).Num).Sprite
+        ItemName = "~ " & Trim$(Item(TheirTrade.Data(TradeItemDesc).Num).Name) & " ~"
+        DescString = Trim$(Item(TheirTrade.Data(TradeItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
+    ElseIf TradeItemDescType = 2 Then
+        ItemIcon = Item(YourTrade.Data(TradeItemDesc).Num).Sprite
+        ItemName = "~ " & Trim$(Item(YourTrade.Data(TradeItemDesc).Num).Name) & " ~"
+        DescString = Trim$(Item(YourTrade.Data(TradeItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
+    Else
+        Exit Sub
+    End If
+    If ItemIcon <= 0 Or ItemIcon >= Count_Item Then
+        Exit Sub
+    End If
+
+    '//Make sure that loading text have something to draw
+    If Len(DescString) < 0 Then Exit Sub
+
+    '//Wrap the text
+    WordWrap_Array Font_Default, DescString, 150, ArrayText
+
+    '//we need these often
+    LowBound = LBound(ArrayText)
+    UpBound = UBound(ArrayText)
+
+    SizeY = 45 + ((UpBound + 1) * 16)
+
+    RenderTexture Tex_System(gSystemEnum.UserInterface), CursorX, CursorY, 0, 8, 182, 219, 1, 1, D3DColorARGB(180, 0, 0, 0)
+
+    RenderTexture Tex_Item(ItemIcon), CursorX + GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetPicHeight(Tex_Item(ItemIcon)) / 2), CursorY + 8 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon)), GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon))
+
+    RenderText Font_Default, ItemName, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
+
+    If TradeItemDescType = 1 Then
+        If Item(TheirTrade.Data(TradeItemDesc).Num).IsCash = NO Then
+            ItemPrice = "Price: " & Int((Item(TheirTrade.Data(TradeItemDesc).Num).Price / 2))
+            RenderTexture Tex_Item(IDMoney), CursorX + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDMoney)), GetPicHeight(Tex_Item(IDMoney))
+        Else
+            ItemPrice = "Price: Non Sellable"
+        End If
+    ElseIf TradeItemDescType = 2 Then
+        If Item(YourTrade.Data(TradeItemDesc).Num).IsCash = NO Then
+            ItemPrice = "Price: " & Int((Item(YourTrade.Data(TradeItemDesc).Num).Price / 2))
+            RenderTexture Tex_Item(IDMoney), CursorX + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDMoney)), GetPicHeight(Tex_Item(IDMoney))
+        Else
+            ItemPrice = "Price: Non Sellable"
+        End If
+    End If
+
+    RenderText Font_Default, ItemPrice, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), White
+
+    '//Reset
+    yOffset = 25
+    '//Loop to all items
+    For i = LowBound To UpBound
+        '//Set Location
+        '//Keep it centered
+        X = CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, Trim$(ArrayText(i))) * 0.5))
+        Y = CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)) + yOffset
+
+        '//Render the text
+        RenderText Font_Default, Trim$(ArrayText(i)), X, Y, White
+
+        '//Increase the location for each line
+        yOffset = yOffset + 16
+    Next
+End Sub
+

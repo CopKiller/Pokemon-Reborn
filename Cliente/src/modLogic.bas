@@ -1134,217 +1134,221 @@ End Sub
 ' ** SelMenu **
 ' *************
 Public Sub OpenSelMenu(ByVal menuType As Byte, Optional ByVal Data1 As Long = 0)
-Dim i As Long
-Dim LeftSpawn As Boolean
+    Dim i As Long
+    Dim LeftSpawn As Boolean
 
     '//Reset datas
     ClearSelMenu
-    
+
     With SelMenu
         '//General
         .Type = menuType
-        
+
         '//Select data
         Select Case menuType
-            Case SelMenuType.Inv
-                '//Remember slot
-                .Data1 = Data1
-                
-                '//Add text
-                AddSelMenuText "Use"
-                AddSelMenuText "Add Held"
-                'AddSelMenuText "Remove"
-                If GUI(GuiEnum.GUI_INVSTORAGE).Visible Then
-                    AddSelMenuText "Deposit"
-                ElseIf GUI(GuiEnum.GUI_SHOP).Visible Then
-                    AddSelMenuText "Sell"
-                ElseIf GUI(GuiEnum.GUI_TRADE).Visible Then
-                    AddSelMenuText "Add Trade"
-                End If
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = True
-            Case SelMenuType.SpawnPokes
-                '//Remember slot
-                .Data1 = SelPoke
-    
-                '//Add text
-                AddSelMenuText "Spawn"
-                AddSelMenuText "Summary"
-                AddSelMenuText "Remove Held"
-                If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                    AddSelMenuText "Deposit"
-                ElseIf GUI(GuiEnum.GUI_TRADE).Visible Then
-                    AddSelMenuText "Add Trade"
-                End If
-                    
-                '//Set visible
-                .Visible = True
-                LeftSpawn = True
-            Case SelMenuType.PlayerPokes
-                '//Remember slot
-                .Data1 = SelPoke
-    
-                '//Add text
-                AddSelMenuText "Call Back"
-                AddSelMenuText "Summary"
+        Case SelMenuType.Inv
+            '//Remember slot
+            .Data1 = Data1
 
-                '//Set visible
-                .Visible = True
-                LeftSpawn = True
-            Case SelMenuType.Evolve
-                '//Check Error
-                If MyIndex <= 0 Then
-                    ClearSelMenu
-                    Exit Sub
+            '//Add text
+            AddSelMenuText "Use"
+            AddSelMenuText "Add Held"
+            'AddSelMenuText "Remove"
+            If GUI(GuiEnum.GUI_INVSTORAGE).Visible Then
+                AddSelMenuText "Deposit"
+            ElseIf GUI(GuiEnum.GUI_SHOP).Visible Then
+                AddSelMenuText "Sell"
+            ElseIf GUI(GuiEnum.GUI_TRADE).Visible Then
+                AddSelMenuText "Add Trade"
+            End If
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = True
+        Case SelMenuType.SpawnPokes
+            '//Remember slot
+            .Data1 = SelPoke
+
+            '//Add text
+            AddSelMenuText "Spawn"
+            AddSelMenuText "Summary"
+            AddSelMenuText "Remove Held"
+            If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                AddSelMenuText "Deposit"
+            ElseIf GUI(GuiEnum.GUI_TRADE).Visible Then
+                AddSelMenuText "Add Trade"
+            End If
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = True
+        Case SelMenuType.PlayerPokes
+            '//Remember slot
+            .Data1 = SelPoke
+
+            '//Add text
+            AddSelMenuText "Call Back"
+            AddSelMenuText "Summary"
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = True
+        Case SelMenuType.Evolve
+            '//Check Error
+            If MyIndex <= 0 Then
+                ClearSelMenu
+                Exit Sub
+            End If
+            If PlayerPokemon(MyIndex).Num <= 0 Then
+                ClearSelMenu
+                Exit Sub
+            End If
+            If PlayerPokemon(MyIndex).Slot <= 0 Then
+                ClearSelMenu
+                Exit Sub
+            End If
+
+            '//Check Evolve
+            For i = 1 To MAX_EVOLVE
+                If Pokemon(PlayerPokemon(MyIndex).Num).evolveNum(i) > 0 Then
+                    AddSelMenuText Trim$(Pokemon(Pokemon(PlayerPokemon(MyIndex).Num).evolveNum(i)).Name)
                 End If
-                If PlayerPokemon(MyIndex).Num <= 0 Then
-                    ClearSelMenu
-                    Exit Sub
+            Next
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = False
+        Case SelMenuType.Storage
+            '//Add text
+            AddSelMenuText "Item Storage"
+            AddSelMenuText "Pokemon Storage"
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = True
+        Case SelMenuType.NPCChat
+            '//Add data
+            .Data1 = Data1
+
+            '//Add text
+            AddSelMenuText "Talk"
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = True
+        Case SelMenuType.InvStorage
+            '//Remember slot
+            .Data1 = Data1
+
+            '//Add text
+            AddSelMenuText "Withdraw"
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = True
+        Case SelMenuType.PokeStorage
+            '//Remember slot
+            .Data1 = Data1
+
+            '//Add text
+            AddSelMenuText "Summary"
+            AddSelMenuText "Withdraw"
+            AddSelMenuText "Release"
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = True
+        Case SelMenuType.PlayerMenu
+            '//Remember Index
+            .Data1 = Data1
+
+            '//Add text
+            If Data1 = MyIndex Then
+                AddSelMenuText "Create Party"
+                AddSelMenuText "Leave Party"
+                If PlayerRequest > 0 Then
+                    AddSelMenuText "Cancel Request"
                 End If
-                If PlayerPokemon(MyIndex).Slot <= 0 Then
-                    ClearSelMenu
-                    Exit Sub
-                End If
-                
-                '//Check Evolve
-                For i = 1 To MAX_EVOLVE
-                    If Pokemon(PlayerPokemon(MyIndex).Num).evolveNum(i) > 0 Then
-                        AddSelMenuText Trim$(Pokemon(Pokemon(PlayerPokemon(MyIndex).Num).evolveNum(i)).Name)
-                    End If
-                Next
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = False
-            Case SelMenuType.Storage
-                '//Add text
-                AddSelMenuText "Item Storage"
-                AddSelMenuText "Pokemon Storage"
-                    
-                '//Set visible
-                .Visible = True
-                LeftSpawn = True
-            Case SelMenuType.NPCChat
-                '//Add data
-                .Data1 = Data1
-                
-                '//Add text
-                AddSelMenuText "Talk"
-                    
-                '//Set visible
-                .Visible = True
-                LeftSpawn = True
-            Case SelMenuType.InvStorage
-                '//Remember slot
-                .Data1 = Data1
-                
-                '//Add text
-                AddSelMenuText "Withdraw"
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = True
-            Case SelMenuType.PokeStorage
-                '//Remember slot
-                .Data1 = Data1
-                
-                '//Add text
-                AddSelMenuText "Summary"
-                AddSelMenuText "Withdraw"
-                AddSelMenuText "Release"
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = True
-            Case SelMenuType.PlayerMenu
-                '//Remember Index
-                .Data1 = Data1
-                
-                '//Add text
-                If Data1 = MyIndex Then
-                    AddSelMenuText "Create Party"
-                    AddSelMenuText "Leave Party"
-                    If PlayerRequest > 0 Then
-                        AddSelMenuText "Cancel Request"
-                    End If
-                Else
-                    AddSelMenuText Trim$(Player(Data1).Name)
-                    AddSelMenuText "Duel"
-                    AddSelMenuText "Trade"
-                    AddSelMenuText "Whisper"
-                    AddSelMenuText "Invite"
-                End If
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = True
-            Case SelMenuType.TradeItem
-                '//Remember slot
-                .Data1 = Data1
-                
-                If CheckingTrade = 1 Then
-                    If YourTrade.TradeSet = NO Then
-                        AddSelMenuText "Remove"
+            Else
+                AddSelMenuText Trim$(Player(Data1).Name)
+                AddSelMenuText "Duel"
+                AddSelMenuText "Trade"
+                AddSelMenuText "Whisper"
+                AddSelMenuText "Invite"
+            End If
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = True
+        Case SelMenuType.TradeItem
+            '//Remember slot
+            .Data1 = Data1
+
+            If CheckingTrade = 1 Then    ' Their
+                If YourTrade.TradeSet = NO Then
+                    AddSelMenuText "Remove"
+                    If YourTrade.Data(Data1).TradeType = 2 Then    ' Type Poke
                         AddSelMenuText "Summary"
                     End If
-                ElseIf CheckingTrade = 2 Then
-                    If TheirTrade.TradeSet = NO Then
+                End If
+            ElseIf CheckingTrade = 2 Then    ' Your
+                If TheirTrade.TradeSet = NO Then
+                    If TheirTrade.Data(Data1).TradeType = 2 Then    ' Type Poke
                         AddSelMenuText "Summary"
                     End If
                 End If
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = False
-            Case SelMenuType.PokedexMapPokemon
-                '//Remember slot
-                .Data1 = Data1
-                
-                '//Add text
-                AddSelMenuText "Scan"
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = False
-            Case SelMenuType.PokedexPlayerPokemon
-                '//Remember slot
-                .Data1 = Data1
-                
-                '//Add text
-                AddSelMenuText "Scan"
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = False
-            Case SelMenuType.ConvoTileCheck
-                '//Remember slot
-                .Data1 = Data1
-                
-                '//Add text
-                AddSelMenuText "Check"
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = False
-            Case SelMenuType.RevivePokes
-                '//Remember slot
-                .Data1 = SelPoke
-    
-                '//Add text
-                AddSelMenuText "Summary"
-                If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                    AddSelMenuText "Deposit"
-                ElseIf GUI(GuiEnum.GUI_TRADE).Visible Then
-                    AddSelMenuText "Add Trade"
-                End If
-                
-                '//Set visible
-                .Visible = True
-                LeftSpawn = True
+            End If
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = False
+        Case SelMenuType.PokedexMapPokemon
+            '//Remember slot
+            .Data1 = Data1
+
+            '//Add text
+            AddSelMenuText "Scan"
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = False
+        Case SelMenuType.PokedexPlayerPokemon
+            '//Remember slot
+            .Data1 = Data1
+
+            '//Add text
+            AddSelMenuText "Scan"
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = False
+        Case SelMenuType.ConvoTileCheck
+            '//Remember slot
+            .Data1 = Data1
+
+            '//Add text
+            AddSelMenuText "Check"
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = False
+        Case SelMenuType.RevivePokes
+            '//Remember slot
+            .Data1 = SelPoke
+
+            '//Add text
+            AddSelMenuText "Summary"
+            If GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                AddSelMenuText "Deposit"
+            ElseIf GUI(GuiEnum.GUI_TRADE).Visible Then
+                AddSelMenuText "Add Trade"
+            End If
+
+            '//Set visible
+            .Visible = True
+            LeftSpawn = True
         End Select
-        
+
         '//Set Position
         If .Visible Then
             If LeftSpawn Then

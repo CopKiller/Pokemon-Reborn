@@ -41,22 +41,27 @@ OK*** -Adicionar checkbox no item editor, com o nome "Vinculado" e não pode se 
 	nem por trade, nem vendendo, o item fica vinculado ao jogador eternamente.
 
 OK*** -Implementar os Berries Items: Barrie Type, Value
-Usar as nomenclaturas do Status do pokemon do Summary pra extrair os atributos
+	Usar as nomenclaturas do Status do pokemon do Summary pra extrair os atributos
 
 OK*** -Adicionar novo atributo item editor, Proteinas, criar type com os atributos(utilizar o mesmo layout da medicina)
 	Obs: Foi implementado junto com o barrie
 
 -InGame \/
 OK*** -Alterar a cor do botão set no trade, está da cor do fundo.
--Pokemons maiores que 32x32 o nome fica em cima da sprite, adicionar pra subir.
--Alteração da cor do texto de invite.
+OK*** -Pokemons maiores que 32x32 o nome fica em cima da sprite, adicionar pra subir.
+OK*** -Alteração da cor do texto de invite.
+OK*** -Corrigir erro, ao selecionar item no trade, aparecia o summary
+OK*** -adicionar descrição do item no summary ao passar o mouse
+-adicionar pra não poder trocar no trade com o mesmo ip e level acima de X pra poder dar trade
 
 -PokemonEditor \/
--scrl Evolve do pokemon, adicionar um find pra procurar pelo nome ou pelo ID.
--scrl da sprite do pokemon, pra procurar o número da sprite.
--adicionar um find(nome ou id) ao lado da lista de procura de item pra dropar do poke.
+OK*** -scrl Evolve do pokemon, adicionar um find pra procurar pelo nome ou pelo ID.
+OK*** -scrl da sprite do pokemon, pra procurar o número da sprite.
+OK*** -adicionar um find(nome ou id) ao lado da lista de procura de item pra dropar do poke.
+OK*** -adicionar foto do pokemon no editor de pokemon
 
 -ItemEditor \/
+OK*** -Adicionar txt pra procurar pelo ID do item
 -Adicionar os Power Bracelets no lugar do Battle Items, Os tipos são dos Stats EV, acrescido
 	do nome Power antes do nome do atributo no editor, adicionar Value.
 	(Vai funcionar da seguinte forma, ao adicionar Power Hp, e value for 8,

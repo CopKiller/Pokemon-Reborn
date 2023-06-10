@@ -55,6 +55,14 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   0
       Top             =   0
       Width           =   6015
+      Begin VB.TextBox txtID 
+         Alignment       =   2  'Center
+         Height          =   285
+         Left            =   3480
+         TabIndex        =   47
+         Top             =   840
+         Width           =   1215
+      End
       Begin VB.Frame fraBerrie 
          Caption         =   "Berries/Proteins"
          Height          =   1455
@@ -183,27 +191,27 @@ Begin VB.Form frmEditor_Item
       End
       Begin VB.CheckBox chkNEquipable 
          Caption         =   "No Poke Equip"
-         Height          =   375
-         Left            =   4440
+         Height          =   255
+         Left            =   3120
          TabIndex        =   37
-         Top             =   480
+         Top             =   600
          Width           =   1455
       End
       Begin VB.CheckBox chkLinked 
          Caption         =   "Vinculado"
          Height          =   255
-         Left            =   4440
+         Left            =   3120
          TabIndex        =   36
-         Top             =   240
+         Top             =   360
          Width           =   1215
       End
       Begin VB.CheckBox chkIsCash 
          Caption         =   "Is Cash?"
          Height          =   195
-         Left            =   4680
+         Left            =   4920
          TabIndex        =   35
-         Top             =   1440
-         Width           =   1095
+         Top             =   1200
+         Width           =   975
       End
       Begin VB.TextBox txtDesc 
          Height          =   285
@@ -264,11 +272,11 @@ Begin VB.Form frmEditor_Item
       End
       Begin VB.TextBox txtPrice 
          Height          =   285
-         Left            =   4680
+         Left            =   3960
          TabIndex        =   18
          Text            =   "0"
-         Top             =   1200
-         Width           =   1215
+         Top             =   1150
+         Width           =   975
       End
       Begin VB.Frame Frame3 
          Caption         =   "Frame3"
@@ -293,7 +301,7 @@ Begin VB.Form frmEditor_Item
          Height          =   255
          Left            =   3120
          TabIndex        =   8
-         Top             =   360
+         Top             =   120
          Width           =   1215
       End
       Begin VB.PictureBox picSprite 
@@ -301,12 +309,12 @@ Begin VB.Form frmEditor_Item
          BorderStyle     =   0  'None
          ForeColor       =   &H80000008&
          Height          =   480
-         Left            =   5280
+         Left            =   5400
          ScaleHeight     =   32
          ScaleMode       =   0  'User
          ScaleWidth      =   32
          TabIndex        =   7
-         Top             =   360
+         Top             =   120
          Width           =   480
       End
       Begin VB.TextBox txtName 
@@ -322,7 +330,7 @@ Begin VB.Form frmEditor_Item
          Max             =   0
          TabIndex        =   1
          Top             =   840
-         Width           =   3855
+         Width           =   1935
       End
       Begin VB.Frame fraKeyItem 
          Caption         =   "Key Item Properties"
@@ -367,6 +375,14 @@ Begin VB.Form frmEditor_Item
             Width           =   5055
          End
       End
+      Begin VB.Label Label12 
+         Caption         =   "ID:"
+         Height          =   255
+         Left            =   3240
+         TabIndex        =   48
+         Top             =   840
+         Width           =   495
+      End
       Begin VB.Label Label6 
          Caption         =   "Description"
          Height          =   255
@@ -379,9 +395,9 @@ Begin VB.Form frmEditor_Item
          AutoSize        =   -1  'True
          Caption         =   "Price:"
          Height          =   195
-         Left            =   3960
+         Left            =   3480
          TabIndex        =   17
-         Top             =   1320
+         Top             =   1200
          Width           =   405
       End
       Begin VB.Label Label2 
@@ -637,6 +653,22 @@ End Sub
 Private Sub txtDesc_Change()
     Item(EditorIndex).Desc = Trim$(txtDesc.Text)
     EditorChange = True
+End Sub
+
+Private Sub txtID_Change()
+    If Not IsNumeric(txtID) Then
+        txtID = 0
+    End If
+    
+    If txtID < 0 Then
+        txtID = 0
+    End If
+    
+    If txtID > Count_Item Then
+        txtID = Count_Item - 1
+    End If
+    
+    scrlSprite.value = CInt(txtID)
 End Sub
 
 Private Sub txtName_Validate(Cancel As Boolean)

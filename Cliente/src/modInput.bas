@@ -925,6 +925,25 @@ Dim PreventAction As Boolean
         StorageItemDescTimer = GetTickCount + 400
     End If
     
+    '//Trade Item
+    If TradeItemDesc > 0 Then
+        
+        i = IsTradeYourItem(CursorX, CursorY)
+        If Not i = TradeItemDesc Then
+            TradeItemDesc = 0
+            TradeItemDescTimer = 0
+            TradeItemDescShow = False
+            TradeItemDescType = 0
+        ElseIf Not IsTradeTheirItem(CursorX, CursorY) = TradeItemDesc Then
+            TradeItemDesc = 0
+            TradeItemDescTimer = 0
+            TradeItemDescShow = False
+            TradeItemDescType = 0
+        End If
+        
+        TradeItemDescTimer = GetTickCount + 400
+    End If
+    
     WindowPriority = 0
     
     If Fade Then Exit Sub
@@ -3206,6 +3225,30 @@ Dim i As Long
             
             .X = tmpX
             .Y = tmpY
+        End If
+        
+        '//Trade Item
+        i = IsTradeYourItem(CursorX, CursorY)
+        If i > 0 Then
+            IsHovering = True
+            MouseIcon = 1 '//Select
+            If Not TradeItemDesc = i Then
+                TradeItemDesc = i
+                TradeItemDescType = 2
+                TradeItemDescTimer = GetTickCount + 400
+                TradeItemDescShow = False
+            End If
+        End If
+        i = IsTradeTheirItem(CursorX, CursorY)
+        If i > 0 Then
+            IsHovering = True
+            MouseIcon = 1 '//Select
+            If Not TradeItemDesc = i Then
+                TradeItemDesc = i
+                TradeItemDescType = 1
+                TradeItemDescTimer = GetTickCount + 400
+                TradeItemDescShow = False
+            End If
         End If
     End With
 End Sub

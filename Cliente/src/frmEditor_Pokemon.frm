@@ -55,6 +55,13 @@ Begin VB.Form frmEditor_Pokemon
       TabIndex        =   0
       Top             =   0
       Width           =   10815
+      Begin VB.TextBox txtID 
+         Height          =   285
+         Left            =   2880
+         TabIndex        =   92
+         Top             =   720
+         Width           =   735
+      End
       Begin VB.Frame Frame8 
          Caption         =   "Item Moveset"
          Height          =   2055
@@ -110,6 +117,13 @@ Begin VB.Form frmEditor_Pokemon
          TabIndex        =   80
          Top             =   6840
          Width           =   4575
+         Begin VB.TextBox txtItemSearch 
+            Height          =   285
+            Left            =   1200
+            TabIndex        =   94
+            Top             =   1080
+            Width           =   615
+         End
          Begin VB.TextBox txtItemDropRate 
             Height          =   285
             Left            =   1800
@@ -157,6 +171,13 @@ Begin VB.Form frmEditor_Pokemon
          TabIndex        =   62
          Top             =   5160
          Width           =   5775
+         Begin VB.TextBox txtSearch 
+            Height          =   285
+            Left            =   4680
+            TabIndex        =   93
+            Top             =   720
+            Width           =   855
+         End
          Begin VB.HScrollBar scrlEvolveCondition 
             Height          =   255
             Left            =   3000
@@ -187,7 +208,7 @@ Begin VB.Form frmEditor_Pokemon
             Max             =   0
             TabIndex        =   64
             Top             =   720
-            Width           =   3255
+            Width           =   2175
          End
          Begin VB.HScrollBar scrlEvolveIndex 
             Height          =   255
@@ -608,12 +629,12 @@ Begin VB.Form frmEditor_Pokemon
          End
       End
       Begin VB.CheckBox chkScale 
-         Caption         =   "Scale Sprite"
+         Caption         =   "Scale"
          Height          =   255
-         Left            =   3000
+         Left            =   3720
          TabIndex        =   10
          Top             =   720
-         Width           =   1695
+         Width           =   855
       End
       Begin VB.PictureBox picSprite 
          Appearance      =   0  'Flat
@@ -1235,6 +1256,20 @@ Private Sub txtHeight_Change()
     End If
 End Sub
 
+Private Sub txtID_Change()
+    If Not IsNumeric(txtID) Then
+        txtID = 0
+    End If
+    If txtID < 0 Then
+        txtID = 0
+    End If
+    If txtID > Count_Pokemon Then
+        txtID = Count_Pokemon
+    End If
+    
+    scrlSprite = txtID
+End Sub
+
 Private Sub txtItemDropRate_Change()
 Dim tmpIndex As Long
 
@@ -1254,6 +1289,34 @@ Dim tmpIndex As Long
     End If
     lstItemDrop.ListIndex = tmpIndex
     EditorChange = True
+End Sub
+
+Private Sub txtItemSearch_Change()
+    Dim Find As String, i As Long
+
+    If Not IsNumeric(txtItemSearch) Then
+        Find = UCase$(Trim$(txtItemSearch.Text))
+        If Len(Find) <= 2 And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_ITEM
+            If Not Find = "" Then
+                If InStr(1, UCase$(Trim$(Item(i).Name)), Find) > 0 Then
+                    cmbItemNum.ListIndex = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        If txtItemSearch > MAX_ITEM Then
+            txtItemSearch = MAX_ITEM
+        ElseIf txtItemSearch <= 0 Then
+            txtItemSearch = 1
+        End If
+        cmbItemNum.ListIndex = txtItemSearch
+    End If
 End Sub
 
 Private Sub txtMoveLevel_Change()
@@ -1288,6 +1351,34 @@ End Sub
 Private Sub txtPokedexEntry_Change()
     Pokemon(EditorIndex).PokeDexEntry = txtPokedexEntry.Text
     EditorChange = True
+End Sub
+
+Private Sub txtSearch_Change()
+    Dim Find As String, i As Long
+
+    If Not IsNumeric(txtSearch) Then
+        Find = UCase$(Trim$(txtSearch.Text))
+        If Len(Find) <= 2 And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_POKEMON
+            If Not Find = "" Then
+                If InStr(1, UCase$(Trim$(Pokemon(i).Name)), Find) > 0 Then
+                    scrlEvolve = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        If txtSearch > MAX_POKEMON Then
+            txtSearch = MAX_POKEMON
+        ElseIf txtSearch <= 0 Then
+            txtSearch = 1
+        End If
+        scrlEvolve = txtSearch
+    End If
 End Sub
 
 Private Sub txtSpecies_Change()
