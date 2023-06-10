@@ -227,7 +227,7 @@ Dim Slot As Long
                         Case GuiEnum.GUI_CHARACTERCREATE: CharacterCreateKeyPress KeyAscii
                         Case GuiEnum.GUI_OPTION: OptionKeyPress KeyAscii
                         Case GuiEnum.GUI_CHATBOX: ChatboxKeyPress KeyAscii
-                        Case GuiEnum.GUI_TRADE: TradeKeyPress KeyAscii
+                        Case GuiEnum.GUI_TRADE: TradeKeyPress KeyAscii: Exit Sub
                     End Select
                 End If
             End If
@@ -864,7 +864,7 @@ End Sub
 
 '//This handle the main form's key event
 Public Sub FormMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim i As Long
+Dim i As Long, j As Long
 Dim PreventAction As Boolean
 
     '//Get Cursor Location
@@ -927,18 +927,14 @@ Dim PreventAction As Boolean
     
     '//Trade Item
     If TradeItemDesc > 0 Then
-        
         i = IsTradeYourItem(CursorX, CursorY)
-        If Not i = TradeItemDesc Then
+        j = IsTradeTheirItem(CursorX, CursorY)
+        If Not i = TradeItemDesc And Not j = TradeItemDesc Then
             TradeItemDesc = 0
             TradeItemDescTimer = 0
             TradeItemDescShow = False
             TradeItemDescType = 0
-        ElseIf Not IsTradeTheirItem(CursorX, CursorY) = TradeItemDesc Then
-            TradeItemDesc = 0
-            TradeItemDescTimer = 0
-            TradeItemDescShow = False
-            TradeItemDescType = 0
+            TradeItemDescOwner = 0
         End If
         
         TradeItemDescTimer = GetTickCount + 400
@@ -3234,9 +3230,10 @@ Dim i As Long
             MouseIcon = 1 '//Select
             If Not TradeItemDesc = i Then
                 TradeItemDesc = i
-                TradeItemDescType = 2
+                TradeItemDescType = YourTrade.Data(TradeItemDesc).TradeType
                 TradeItemDescTimer = GetTickCount + 400
                 TradeItemDescShow = False
+                TradeItemDescOwner = 2
             End If
         End If
         i = IsTradeTheirItem(CursorX, CursorY)
@@ -3245,9 +3242,10 @@ Dim i As Long
             MouseIcon = 1 '//Select
             If Not TradeItemDesc = i Then
                 TradeItemDesc = i
-                TradeItemDescType = 1
+                TradeItemDescType = TheirTrade.Data(TradeItemDesc).TradeType
                 TradeItemDescTimer = GetTickCount + 400
                 TradeItemDescShow = False
+                TradeItemDescOwner = 1
             End If
         End If
     End With

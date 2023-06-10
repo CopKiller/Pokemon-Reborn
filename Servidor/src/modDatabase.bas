@@ -1119,6 +1119,7 @@ End Sub
 Public Sub ClearItem(ByVal ItemNum As Long)
     Call ZeroMemory(ByVal VarPtr(Item(ItemNum)), LenB(Item(ItemNum)))
     Item(ItemNum).Name = vbNullString
+    Item(ItemNum).Desc = vbNullString
 End Sub
 
 Public Sub ClearItems()
@@ -1146,6 +1147,7 @@ Dim f As Long
     Open filename For Binary As #f
         Get #f, , Item(ItemNum)
     Close #f
+
     DoEvents
 End Sub
 

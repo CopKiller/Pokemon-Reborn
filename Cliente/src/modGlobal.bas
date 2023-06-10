@@ -371,6 +371,7 @@ Public TradeItemDescTimer As Long
 Public TradeItemDesc As Integer
 Public TradeItemDescShow As Boolean
 Public TradeItemDescType As Byte
+Public TradeItemDescOwner As Byte '1= Me(Their) 2= You(Your)
 
 ' Variáveis globais da lista de resolução
 Public ShowResolutionList As Boolean

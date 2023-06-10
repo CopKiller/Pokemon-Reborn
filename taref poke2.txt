@@ -53,6 +53,7 @@ OK*** -Alteração da cor do texto de invite.
 OK*** -Corrigir erro, ao selecionar item no trade, aparecia o summary
 OK*** -adicionar descrição do item no summary ao passar o mouse
 -adicionar pra não poder trocar no trade com o mesmo ip e level acima de X pra poder dar trade
+OK*** -ao digitar na box do money no trade, chamava o pokemon pra batalha
 
 -PokemonEditor \/
 OK*** -scrl Evolve do pokemon, adicionar um find pra procurar pelo nome ou pelo ID.
@@ -62,12 +63,18 @@ OK*** -adicionar foto do pokemon no editor de pokemon
 
 -ItemEditor \/
 OK*** -Adicionar txt pra procurar pelo ID do item
--Adicionar os Power Bracelets no lugar do Battle Items, Os tipos são dos Stats EV, acrescido
+OK*** -Adicionar os Power Bracelets no lugar do Battle Items, Os tipos são dos Stats EV, acrescido
 	do nome Power antes do nome do atributo no editor, adicionar Value.
 	(Vai funcionar da seguinte forma, ao adicionar Power Hp, e value for 8,
 	e ao equipar este item no pokemon e ir matar algum, se ele der 2 de sp attack,
 	o bracelete power hp vai dar os 8 de hp e mais 2 de sp attack.)
 
+-DataBase \/
+OK*** -Adicionado: Item(ItemNum).Desc = vbNullString na limpeza do item, estava dando erro em item sem descrição,
+	e corrigido o draw na renderização pra renderizar se não tiver descrição.
+OK*** -Tinha 3 subs pra renderização da descrição do item, uma pro trade, uma pro storage, uma pro shop, inv, etc..
+	agora centralizei todas em apenas uma pra não reescrever código e facilitar manutenção.
+	Obs: Foi removido todas as descrições de items, pra utilizar a nova adaptação.
 
 
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\

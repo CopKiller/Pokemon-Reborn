@@ -1208,12 +1208,29 @@ Public Sub GivePlayerPokemonExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByV
     CheckPlayerPokemonLevelUp Index, PokeSlot
 End Sub
 
+Public Function GivePlayerEvPowerBracer(ByVal Index As Long, ByVal PokeSlot As Byte) As Boolean
+    Dim CallBack As Integer
+    GivePlayerEvPowerBracer = False
+
+    With PlayerPokemons(Index).Data(PokeSlot)
+        If .HeldItem > 0 Then
+            If Item(.HeldItem).Type = ItemTypeEnum.PowerBracer Then
+                If Item(.HeldItem).Data1 >= StatEnum.HP And Item(.HeldItem).Data1 <= StatEnum.Spd Then
+                    GivePlayerEvPowerBracer = True
+                    CallBack = GivePlayerPokemonEVExp(Index, PokeSlot, Item(.HeldItem).Data1, Item(.HeldItem).Data2)
+                End If
+            End If
+        End If
+    End With
+End Function
+
 Public Function GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByVal evStat As StatEnum, ByVal Exp As Long) As Integer
     Dim CountStat As Long, x As Byte, statMaxEv As Integer, Sobra As Integer
 
     '// Função implementada pra utilizar => Recebendo ao matar um poke,
     '                                       Ao utilizar items Barries
-    '                                       Ao utilizar items Protein.
+    '                                       Ao utilizar items Protein
+    '                                       Ao utilizar Power Bracer no pokemon.
 
     With PlayerPokemons(Index).Data(PokeSlot)
         ' Máximo de EV Total
@@ -1227,12 +1244,6 @@ Public Function GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As By
         For x = 1 To StatEnum.Stat_Count - 1
             CountStat = CountStat + PlayerPokemons(Index).Data(PokeSlot).Stat(x).EV
         Next
-
-        ' O EV total já está no limite? Então não executa.
-        ' If CountStat >= MAX_EV Then Exit Sub
-
-        ' Verifica o Atributo EV recebido, se já está cheio em 252
-        ' If .Stat(evStat).EV >= statMaxEv Then Exit Sub
 
         ' Verifica se tem a possibilidade de adicionar a exp, sem passar o máximo de EV.
         If CountStat + Exp <= MAX_EV And CountStat + Exp >= 0 Then
@@ -1771,7 +1782,7 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal invSlot As Byte)
             AddAlert Index, "Please spawn your pokemon first", White
             Exit Sub
         End If
-    Case ItemTypeEnum.BattleItems
+    Case ItemTypeEnum.PowerBracer
 
     Case ItemTypeEnum.Items
 

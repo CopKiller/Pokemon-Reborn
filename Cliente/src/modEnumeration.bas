@@ -395,7 +395,7 @@ Public Enum ItemTypeEnum
     Berries
     keyItems
     TM_HM
-    BattleItems
+    PowerBracer
     Items
 End Enum
 

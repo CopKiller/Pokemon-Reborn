@@ -55,6 +55,49 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   0
       Top             =   0
       Width           =   6015
+      Begin VB.Frame fraPowerBracer 
+         Caption         =   "Power Bracer"
+         Height          =   1455
+         Left            =   240
+         TabIndex        =   49
+         Top             =   2160
+         Width           =   4695
+         Begin VB.TextBox txtPowerValue 
+            Height          =   285
+            Left            =   1440
+            TabIndex        =   51
+            Text            =   "0"
+            Top             =   720
+            Width           =   3015
+         End
+         Begin VB.ComboBox cmbPowerType 
+            Height          =   315
+            ItemData        =   "frmEditor_Item.frx":0004
+            Left            =   1440
+            List            =   "frmEditor_Item.frx":001D
+            Style           =   2  'Dropdown List
+            TabIndex        =   50
+            Top             =   360
+            Width           =   3015
+         End
+         Begin VB.Label Label14 
+            Caption         =   "Value:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   53
+            Top             =   720
+            Width           =   1095
+         End
+         Begin VB.Label Label13 
+            AutoSize        =   -1  'True
+            Caption         =   "Type:"
+            Height          =   195
+            Left            =   240
+            TabIndex        =   52
+            Top             =   360
+            Width           =   405
+         End
+      End
       Begin VB.TextBox txtID 
          Alignment       =   2  'Center
          Height          =   285
@@ -72,9 +115,9 @@ Begin VB.Form frmEditor_Item
          Width           =   4695
          Begin VB.ComboBox cmbBerrieType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0004
+            ItemData        =   "frmEditor_Item.frx":006C
             Left            =   1440
-            List            =   "frmEditor_Item.frx":001D
+            List            =   "frmEditor_Item.frx":0085
             Style           =   2  'Dropdown List
             TabIndex        =   44
             Top             =   360
@@ -123,9 +166,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbMoveList 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0048
+            ItemData        =   "frmEditor_Item.frx":00B0
             Left            =   1440
-            List            =   "frmEditor_Item.frx":004A
+            List            =   "frmEditor_Item.frx":00B2
             Style           =   2  'Dropdown List
             TabIndex        =   39
             Top             =   360
@@ -245,9 +288,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbMedicineType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":004C
+            ItemData        =   "frmEditor_Item.frx":00B4
             Left            =   1440
-            List            =   "frmEditor_Item.frx":0068
+            List            =   "frmEditor_Item.frx":00D0
             Style           =   2  'Dropdown List
             TabIndex        =   20
             Top             =   360
@@ -288,9 +331,9 @@ Begin VB.Form frmEditor_Item
       End
       Begin VB.ComboBox cmbType 
          Height          =   315
-         ItemData        =   "frmEditor_Item.frx":00C6
+         ItemData        =   "frmEditor_Item.frx":012E
          Left            =   1200
-         List            =   "frmEditor_Item.frx":00E2
+         List            =   "frmEditor_Item.frx":014A
          Style           =   2  'Dropdown List
          TabIndex        =   9
          Top             =   1200
@@ -342,9 +385,9 @@ Begin VB.Form frmEditor_Item
          Width           =   5535
          Begin VB.ComboBox cmbKeyItemType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":013A
+            ItemData        =   "frmEditor_Item.frx":01A2
             Left            =   2280
-            List            =   "frmEditor_Item.frx":0144
+            List            =   "frmEditor_Item.frx":01AC
             Style           =   2  'Dropdown List
             TabIndex        =   32
             Top             =   360
@@ -500,6 +543,11 @@ Private Sub cmbMoveList_Click()
     EditorChange = True
 End Sub
 
+Private Sub cmbPowerType_Click()
+    Item(EditorIndex).Data1 = cmbPowerType.ListIndex
+    EditorChange = True
+End Sub
+
 Private Sub cmbType_Click()
     Item(EditorIndex).Type = cmbType.ListIndex
     
@@ -531,6 +579,12 @@ Private Sub cmbType_Click()
         fraBerrie.Visible = True
     Else
         fraBerrie.Visible = False
+    End If
+    
+    If Item(EditorIndex).Type = ItemTypeEnum.PowerBracer Then
+        fraPowerBracer.Visible = True
+    Else
+        fraPowerBracer.Visible = False
     End If
     
     EditorChange = True
@@ -681,6 +735,13 @@ Dim tmpIndex As Long
     lstIndex.AddItem EditorIndex & ": " & Item(EditorIndex).Name, EditorIndex - 1
     lstIndex.ListIndex = tmpIndex
     EditorChange = True
+End Sub
+
+Private Sub txtPowerValue_Change()
+    If IsNumeric(txtPowerValue) Then
+        Item(EditorIndex).Data2 = Val(txtPowerValue)
+        EditorChange = True
+    End If
 End Sub
 
 Private Sub txtPrice_Change()

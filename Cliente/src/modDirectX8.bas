@@ -1600,10 +1600,7 @@ Private Sub Render_Game()
         End If
     End If
 
-    DrawInvItemDesc
-    DrawShopItemDesc
-    DrawStorageItemDesc
-    DrawTradeItemDesc
+    DrawItemDesc
 End Sub
 
 Private Sub DrawEvents()
@@ -4316,9 +4313,9 @@ Private Sub DrawPokemonSummary()
 
                         ' Type Texture
                         If Pokemon(TheirTrade.Data(SummarySlot).Num).PrimaryType > 0 Then
-                            RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
+                            RenderTexture Tex_PokemonTypes(Pokemon(TheirTrade.Data(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
                             If Pokemon(TheirTrade.Data(SummarySlot).Num).SecondaryType > 0 Then
-                                RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
+                                RenderTexture Tex_PokemonTypes(Pokemon(TheirTrade.Data(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
                             End If
                         End If
 
@@ -4741,93 +4738,76 @@ continue:
     End With
 End Sub
 
-Public Sub DrawShopItemDesc()
+Public Sub DrawItemDesc()
+    Dim ItemID As Integer
     Dim ItemName As String
     Dim ItemIcon As Long
     Dim DescString As String
     Dim LowBound As Long, UpBound As Long
     Dim ArrayText() As String
     Dim i As Integer
-    Dim X As Long, Y As Long
+    Dim X As Long, Y As Long, StartX As Integer, StartY As Integer
     Dim yOffset As Long
     Dim SizeY As Long
     Dim ItemPrice As String
-    
-    If ShopNum = 0 Then Exit Sub
-    If ShopItemDesc <= 0 Or ShopItemDesc > MAX_SHOP_ITEM Then Exit Sub
-    If ShopItemDescTimer + 400 > GetTickCount Then Exit Sub
-    ShopItemDescShow = True
 
-    ItemIcon = Item(Shop(ShopNum).ShopItem(ShopItemDesc).Num).Sprite
-    ItemName = "~ " & Trim$(Item(Shop(ShopNum).ShopItem(ShopItemDesc).Num).Name) & " ~"
-    DescString = Trim$(Item(Shop(ShopNum).ShopItem(ShopItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
+    If InvItemDesc > 0 Then    ' Inventory
+        If SelMenu.Visible Or DragInvSlot > 0 Then
+            InvItemDesc = 0
+            InvItemDescTimer = 0
+            InvItemDescShow = False
+            Exit Sub
+        End If
+        If InvItemDesc <= 0 Or InvItemDesc > MAX_PLAYER_INV Then Exit Sub
+        If InvItemDescTimer + 400 > GetTickCount Then Exit Sub
+        If PlayerInv(InvItemDesc).Num <= 0 Or PlayerInv(InvItemDesc).Num > MAX_ITEM Then Exit Sub
+        InvItemDescShow = True
+        ItemID = PlayerInv(InvItemDesc).Num
+        StartX = GUI(GuiEnum.GUI_INVENTORY).X + 6
+        StartY = GUI(GuiEnum.GUI_INVENTORY).Y + 36
+    ElseIf ShopItemDesc > 0 Then    ' Shop
+        If ShopNum = 0 Then Exit Sub
+        If ShopItemDesc <= 0 Or ShopItemDesc > MAX_SHOP_ITEM Then Exit Sub
+        If ShopItemDescTimer + 400 > GetTickCount Then Exit Sub
+        ShopItemDescShow = True
+        ItemID = Shop(ShopNum).ShopItem(ShopItemDesc).Num
+        StartX = CursorX
+        StartY = CursorY
+    ElseIf StorageItemDesc > 0 Then    ' Storage
+        If SelMenu.Visible Or DragStorageSlot > 0 Then
+            StorageItemDesc = 0
+            StorageItemDescTimer = 0
+            StorageItemDescShow = False
+            Exit Sub
+        End If
+        If StorageType <> 1 Then Exit Sub
+        If StorageItemDesc <= 0 Or StorageItemDesc > MAX_STORAGE Then Exit Sub
+        If StorageItemDescTimer + 400 > GetTickCount Then Exit Sub
+        StorageItemDescShow = True
+        ItemID = PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num
+        StartX = CursorX
+        StartY = CursorY
+    ElseIf TradeItemDesc > 0 Then    ' Trade
+        If TradeItemDesc <= 0 Or TradeItemDesc > MAX_TRADE Then Exit Sub
+        If TradeItemDescTimer + 400 > GetTickCount Then Exit Sub
+        TradeItemDescShow = True
+        If TradeItemDescType = 1 Then    ' Item
+            If TradeItemDescOwner = 1 Then 'ME
+                ItemID = TheirTrade.Data(TradeItemDesc).Num
+            ElseIf TradeItemDescOwner = 2 Then 'YOUR
+                ItemID = YourTrade.Data(TradeItemDesc).Num
+            End If
+        End If
+        StartX = CursorX
+        StartY = CursorY
+    End If
 
-    'If Item(Shop(ShopNum).ShopItem(ShopItemDesc).Num).IsCash = NO Then
-    '    ItemPrice = "Price: " & Item(PlayerInv(InvItemDesc).Num).Price
-    'Else
-    '    ItemPrice = "Price: Non Sellable"
-    'End If
+    ' Sair de não houver um ID
+    If ItemID = 0 Then Exit Sub
 
-    '//Make sure that loading text have something to draw
-    If Len(DescString) < 0 Then Exit Sub
-
-    '//Wrap the text
-    WordWrap_Array Font_Default, DescString, 150, ArrayText
-
-    '//we need these often
-    LowBound = LBound(ArrayText)
-    UpBound = UBound(ArrayText)
-
-    SizeY = 25 + ((UpBound + 1) * 16)
-
-    RenderTexture Tex_System(gSystemEnum.UserInterface), CursorX, CursorY, 0, 8, 182, 219, 1, 1, D3DColorARGB(180, 0, 0, 0)
-
-    RenderTexture Tex_Item(ItemIcon), CursorX + GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetPicHeight(Tex_Item(ItemIcon)) / 2), CursorY + 8 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon)), GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon))
-
-    RenderText Font_Default, ItemName, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
-    
-    'RenderText Font_Default, ItemPrice, GUI(GuiEnum.GUI_INVENTORY).X + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), GUI(GuiEnum.GUI_INVENTORY).Y + 150 + ((219 * 0.5) - (SizeY * 0.5)), White
-
-    '//Reset
-    yOffset = 25
-    '//Loop to all items
-    For i = LowBound To UpBound
-        '//Set Location
-        '//Keep it centered
-        X = CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, Trim$(ArrayText(i))) * 0.5))
-        Y = CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)) + yOffset
-
-        '//Render the text
-        RenderText Font_Default, Trim$(ArrayText(i)), X, Y, White
-
-        '//Increase the location for each line
-        yOffset = yOffset + 16
-    Next
-End Sub
-
-Public Sub DrawStorageItemDesc()
-    Dim ItemName As String
-    Dim ItemIcon As Long
-    Dim DescString As String
-    Dim LowBound As Long, UpBound As Long
-    Dim ArrayText() As String
-    Dim i As Integer
-    Dim X As Long, Y As Long
-    Dim yOffset As Long
-    Dim SizeY As Long
-    Dim ItemPrice As String
-    
-    If StorageType <> 1 Then Exit Sub
-    If StorageItemDesc <= 0 Or StorageItemDesc > MAX_STORAGE Then Exit Sub
-    If StorageItemDescTimer + 400 > GetTickCount Then Exit Sub
-    StorageItemDescShow = True
-
-    ItemIcon = Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Sprite
-    ItemName = "~ " & Trim$(Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Name) & " ~"
-    DescString = Trim$(Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
-
-    '//Make sure that loading text have something to draw
-    If Len(DescString) < 0 Then Exit Sub
+    ItemIcon = Item(ItemID).Sprite
+    ItemName = "~ " & Trim$(Item(ItemID).Name) & " ~"
+    DescString = Trim$(Item(ItemID).Desc)
 
     '//Wrap the text
     WordWrap_Array Font_Default, DescString, 150, ArrayText
@@ -4838,104 +4818,20 @@ Public Sub DrawStorageItemDesc()
 
     SizeY = 45 + ((UpBound + 1) * 16)
 
-    RenderTexture Tex_System(gSystemEnum.UserInterface), CursorX, CursorY, 0, 8, 182, 219, 1, 1, D3DColorARGB(180, 0, 0, 0)
+    RenderTexture Tex_System(gSystemEnum.UserInterface), StartX, StartY, 0, 8, 182, 219, 1, 1, D3DColorARGB(180, 0, 0, 0)
 
-    RenderTexture Tex_Item(ItemIcon), CursorX + GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetPicHeight(Tex_Item(ItemIcon)) / 2), CursorY + 8 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon)), GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon))
+    RenderTexture Tex_Item(ItemIcon), StartX + GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetPicHeight(Tex_Item(ItemIcon)) / 2), StartY + 8 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon)), GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon))
 
-    RenderText Font_Default, ItemName, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
-    
-    If Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).IsCash = NO Then
-        ItemPrice = "Price: " & Int((Item(PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num).Price / 2))
-        RenderTexture Tex_Item(IDMoney), CursorX + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDMoney)), GetPicHeight(Tex_Item(IDMoney))
+    RenderText Font_Default, ItemName, StartX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), StartY + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
+
+    If Item(ItemID).IsCash = NO Then
+        ItemPrice = "Price: " & Int((Item(ItemID).Price / 2))
+        RenderTexture Tex_Item(IDMoney), StartX + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), StartY + 120 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDMoney)), GetPicHeight(Tex_Item(IDMoney))
     Else
         ItemPrice = "Price: Non Sellable"
     End If
-    
-    RenderText Font_Default, ItemPrice, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), White
-    
-    '//Reset
-    yOffset = 25
-    '//Loop to all items
-    For i = LowBound To UpBound
-        '//Set Location
-        '//Keep it centered
-        X = CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, Trim$(ArrayText(i))) * 0.5))
-        Y = CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)) + yOffset
 
-        '//Render the text
-        RenderText Font_Default, Trim$(ArrayText(i)), X, Y, White
-
-        '//Increase the location for each line
-        yOffset = yOffset + 16
-    Next
-End Sub
-
-Public Sub DrawTradeItemDesc()
-    Dim ItemName As String
-    Dim ItemIcon As Long
-    Dim DescString As String
-    Dim LowBound As Long, UpBound As Long
-    Dim ArrayText() As String
-    Dim i As Integer
-    Dim X As Long, Y As Long
-    Dim yOffset As Long
-    Dim SizeY As Long
-    Dim ItemPrice As String
-
-    If TradeItemDesc <= 0 Or TradeItemDesc > MAX_TRADE Then Exit Sub
-    If TradeItemDescTimer + 400 > GetTickCount Then Exit Sub
-    TradeItemDescShow = True
-
-    If TradeItemDescType = 1 Then
-        ItemIcon = Item(TheirTrade.Data(TradeItemDesc).Num).Sprite
-        ItemName = "~ " & Trim$(Item(TheirTrade.Data(TradeItemDesc).Num).Name) & " ~"
-        DescString = Trim$(Item(TheirTrade.Data(TradeItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
-    ElseIf TradeItemDescType = 2 Then
-        ItemIcon = Item(YourTrade.Data(TradeItemDesc).Num).Sprite
-        ItemName = "~ " & Trim$(Item(YourTrade.Data(TradeItemDesc).Num).Name) & " ~"
-        DescString = Trim$(Item(YourTrade.Data(TradeItemDesc).Num).Desc)    '"A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system"
-    Else
-        Exit Sub
-    End If
-    If ItemIcon <= 0 Or ItemIcon >= Count_Item Then
-        Exit Sub
-    End If
-
-    '//Make sure that loading text have something to draw
-    If Len(DescString) < 0 Then Exit Sub
-
-    '//Wrap the text
-    WordWrap_Array Font_Default, DescString, 150, ArrayText
-
-    '//we need these often
-    LowBound = LBound(ArrayText)
-    UpBound = UBound(ArrayText)
-
-    SizeY = 45 + ((UpBound + 1) * 16)
-
-    RenderTexture Tex_System(gSystemEnum.UserInterface), CursorX, CursorY, 0, 8, 182, 219, 1, 1, D3DColorARGB(180, 0, 0, 0)
-
-    RenderTexture Tex_Item(ItemIcon), CursorX + GUI(GuiEnum.GUI_INVENTORY).Width / 2 - (GetPicHeight(Tex_Item(ItemIcon)) / 2), CursorY + 8 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon)), GetPicWidth(Tex_Item(ItemIcon)), GetPicHeight(Tex_Item(ItemIcon))
-
-    RenderText Font_Default, ItemName, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemName) * 0.5)), CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)), White
-
-    If TradeItemDescType = 1 Then
-        If Item(TheirTrade.Data(TradeItemDesc).Num).IsCash = NO Then
-            ItemPrice = "Price: " & Int((Item(TheirTrade.Data(TradeItemDesc).Num).Price / 2))
-            RenderTexture Tex_Item(IDMoney), CursorX + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDMoney)), GetPicHeight(Tex_Item(IDMoney))
-        Else
-            ItemPrice = "Price: Non Sellable"
-        End If
-    ElseIf TradeItemDescType = 2 Then
-        If Item(YourTrade.Data(TradeItemDesc).Num).IsCash = NO Then
-            ItemPrice = "Price: " & Int((Item(YourTrade.Data(TradeItemDesc).Num).Price / 2))
-            RenderTexture Tex_Item(IDMoney), CursorX + ((150 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), 0, 0, 20, 20, GetPicWidth(Tex_Item(IDMoney)), GetPicHeight(Tex_Item(IDMoney))
-        Else
-            ItemPrice = "Price: Non Sellable"
-        End If
-    End If
-
-    RenderText Font_Default, ItemPrice, CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), CursorY + 120 + ((219 * 0.5) - (SizeY * 0.5)), White
+    RenderText Font_Default, ItemPrice, StartX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, ItemPrice) * 0.5)), StartY + 120 + ((219 * 0.5) - (SizeY * 0.5)), White
 
     '//Reset
     yOffset = 25
@@ -4943,8 +4839,8 @@ Public Sub DrawTradeItemDesc()
     For i = LowBound To UpBound
         '//Set Location
         '//Keep it centered
-        X = CursorX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, Trim$(ArrayText(i))) * 0.5))
-        Y = CursorY + 36 + ((219 * 0.5) - (SizeY * 0.5)) + yOffset
+        X = StartX + 6 + ((182 * 0.5) - (GetTextWidth(Font_Default, Trim$(ArrayText(i))) * 0.5))
+        Y = StartY + 36 + ((219 * 0.5) - (SizeY * 0.5)) + yOffset
 
         '//Render the text
         RenderText Font_Default, Trim$(ArrayText(i)), X, Y, White

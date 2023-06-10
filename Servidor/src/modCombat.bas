@@ -2515,6 +2515,8 @@ Public Sub PlayerAttackNpc(ByVal Index As Long, ByVal TargetIndex As Long, ByVal
         If Spawn(TargetIndex).NoExp = NO Then
             ' Derrota o Pokémon do mapa
             DefeatMapPokemon TargetIndex
+            ' Verifica se o pokemon está usando um Power Bracer e envia o EV
+            GivePlayerEvPowerBracer Index, PlayerPokemon(Index).slot
             ' Adiciona a experiência do Pokémon derrotado ao Pokémon do jogador
             GivePlayerPokemonEVExp Index, PlayerPokemon(Index).slot, (Pokemon(MapPokemon(TargetIndex).Num).EvYeildType + 1), Pokemon(MapPokemon(TargetIndex).Num).EvYeildVal
         End If

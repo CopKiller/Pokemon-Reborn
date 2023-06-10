@@ -797,6 +797,10 @@ Dim X As Byte
         
         .cmbItemNum.ListIndex = Pokemon(xIndex).DropNum(1)
         .txtItemDropRate.Text = Pokemon(xIndex).DropRate(1)
+        
+        .txtSearch = scrlEvolve
+        .txtID = scrlSprite
+        .txtItemSearch = vbNullString
     End With
     
     PokemonChange(xIndex) = True
@@ -897,6 +901,14 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
             .fraBerrie.Visible = False
         End If
         
+        If Item(xIndex).Type = ItemTypeEnum.PowerBracer Then
+            .fraPowerBracer.Visible = True
+            .cmbPowerType.ListIndex = Item(xIndex).Data1
+            .txtPowerValue.Text = Item(xIndex).Data2
+        Else
+            .fraPowerBracer.Visible = False
+        End If
+        
         .txtPrice.Text = Item(xIndex).Price
         
         .chkIsCash = Item(xIndex).IsCash
@@ -906,6 +918,8 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
         .chkNEquipable = Item(xIndex).NotEquipable
         
         .txtDesc.Text = Trim$(Item(xIndex).Desc)
+        
+        .txtID = scrlSprite
     End With
     
     ItemChange(xIndex) = True
