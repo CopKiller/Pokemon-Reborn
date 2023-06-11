@@ -742,10 +742,10 @@ Dim X As Byte
         '//Evolution
         .scrlEvolveIndex.value = 1
         
-        .scrlEvolve.value = Pokemon(xIndex).evolveNum(1)
-        .txtEvolveLevel.Text = Pokemon(xIndex).EvolveLevel(1)
-        .scrlEvolveCondition.value = Pokemon(xIndex).EvolveCondition(1)
-        .txtEvolveConditionData.Text = Pokemon(xIndex).EvolveConditionData(1)
+        .scrlEvolve.value = Pokemon(xIndex).evolveNum(.scrlEvolveIndex)
+        .txtEvolveLevel.Text = Pokemon(xIndex).EvolveLevel(.scrlEvolveIndex)
+        .scrlEvolveCondition.value = Pokemon(xIndex).EvolveCondition(.scrlEvolveIndex)
+        .txtEvolveConditionData.Text = Pokemon(xIndex).EvolveConditionData(.scrlEvolveIndex)
         
         '//Moveset
         .lstMoveset.Clear
@@ -798,9 +798,11 @@ Dim X As Byte
         .cmbItemNum.ListIndex = Pokemon(xIndex).DropNum(1)
         .txtItemDropRate.Text = Pokemon(xIndex).DropRate(1)
         
-        .txtSearch = scrlEvolve
-        .txtID = scrlSprite
+        .txtSearch = .scrlEvolve
+        .txtID = .scrlSprite
         .txtItemSearch = vbNullString
+        
+        .scrlOffSetY = Pokemon(xIndex).NameOffSetY
     End With
     
     PokemonChange(xIndex) = True
@@ -919,7 +921,7 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
         
         .txtDesc.Text = Trim$(Item(xIndex).Desc)
         
-        .txtID = scrlSprite
+        .txtID = .scrlSprite
     End With
     
     ItemChange(xIndex) = True

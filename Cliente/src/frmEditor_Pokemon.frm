@@ -55,6 +55,15 @@ Begin VB.Form frmEditor_Pokemon
       TabIndex        =   0
       Top             =   0
       Width           =   10815
+      Begin VB.VScrollBar scrlOffSetY 
+         Height          =   1215
+         Left            =   4680
+         Max             =   200
+         Min             =   -200
+         TabIndex        =   96
+         Top             =   120
+         Width           =   135
+      End
       Begin VB.TextBox txtID 
          Height          =   285
          Left            =   2880
@@ -646,7 +655,7 @@ Begin VB.Form frmEditor_Pokemon
          ScaleMode       =   0  'User
          ScaleWidth      =   68.266
          TabIndex        =   9
-         Top             =   360
+         Top             =   480
          Width           =   960
       End
       Begin VB.TextBox txtName 
@@ -673,6 +682,14 @@ Begin VB.Form frmEditor_Pokemon
          TabIndex        =   1
          Top             =   1080
          Width           =   3495
+      End
+      Begin VB.Label lblOffSetY 
+         Caption         =   "Name OffSetY: 0"
+         Height          =   255
+         Left            =   3120
+         TabIndex        =   95
+         Top             =   120
+         Width           =   1095
       End
       Begin VB.Label lblRange 
          Caption         =   "Range: 0"
@@ -1181,6 +1198,12 @@ Private Sub scrlEvolveIndex_Change()
     scrlEvolveCondition.value = Pokemon(EditorIndex).EvolveCondition(EvolveIndex)
 End Sub
 
+Private Sub scrlOffSetY_Change()
+    Pokemon(EditorIndex).NameOffSetY = scrlOffSetY
+    lblOffSetY = "Name OffSetY: " & scrlOffSetY
+    EditorChange = True
+End Sub
+
 Private Sub scrlRange_Change()
     lblRange.Caption = "Range: " & scrlRange.value
     Pokemon(EditorIndex).Range = scrlRange.value
@@ -1374,8 +1397,8 @@ Private Sub txtSearch_Change()
     Else
         If txtSearch > MAX_POKEMON Then
             txtSearch = MAX_POKEMON
-        ElseIf txtSearch <= 0 Then
-            txtSearch = 1
+        ElseIf txtSearch < 0 Then
+            txtSearch = 0
         End If
         scrlEvolve = txtSearch
     End If

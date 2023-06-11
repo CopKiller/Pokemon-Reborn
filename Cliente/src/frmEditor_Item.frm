@@ -498,6 +498,7 @@ End Sub
 
 Private Sub chkIsCash_Click()
     Item(EditorIndex).IsCash = chkIsCash
+    EditorChange = True
 End Sub
 
 Private Sub chkLevelUp_Click()
@@ -507,10 +508,12 @@ End Sub
 
 Private Sub chkLinked_Click()
     Item(EditorIndex).Linked = chkLinked
+    EditorChange = True
 End Sub
 
 Private Sub chkNEquipable_Click()
     Item(EditorIndex).NotEquipable = chkNEquipable.value
+    EditorChange = True
 End Sub
 
 Private Sub chkStock_Click()

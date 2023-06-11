@@ -3844,8 +3844,8 @@ Dim currencyText As String
         End If
         
         '//Name
-        RenderText Font_Default, Trim$(Player(MyIndex).Name) & "'s Trade", .X + 15, .Y + 39, White
-        RenderText Font_Default, Trim$(Player(TradeIndex).Name) & "'s Trade", .X + 400 - (GetTextWidth(Font_Default, Trim$(Player(TradeIndex).Name) & "'s Trade")) - 4, .Y + 39, White
+        RenderText Font_Default, Trim$(Player(MyIndex).Name) & "'s Trade", .X + 15, .Y + 39, DarkGrey
+        RenderText Font_Default, Trim$(Player(TradeIndex).Name) & "'s Trade", .X + 400 - (GetTextWidth(Font_Default, Trim$(Player(TradeIndex).Name) & "'s Trade")) - 4, .Y + 39, DarkGrey
         
         '//Text
         If EditInputMoney Then
@@ -4015,8 +4015,8 @@ Private Sub DrawPokemonSummary()
 
                     ' Held Item
                     If PlayerPokemons(SummarySlot).HeldItem > 0 Then
-                        RenderText Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, DarkBrown
-                        RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 2) - (GetTextWidth(Font_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
+                        RenderText Ui_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Ui_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, White
+                        RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 1.8) - (GetTextWidth(Ui_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
                     End If
 
                     ' Type Texture
@@ -4112,8 +4112,8 @@ Private Sub DrawPokemonSummary()
 
                         ' Held Item
                         If PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem > 0 Then
-                            RenderText Font_Default, Trim$(Item(PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Font_Default, Trim$(Item(PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, DarkBrown
-                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 2) - (GetTextWidth(Font_Default, Trim$(Item(PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
+                            RenderText Ui_Default, Trim$(Item(PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Ui_Default, Trim$(Item(PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, Black
+                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 1.8) - (GetTextWidth(Ui_Default, Trim$(Item(PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
                         End If
 
                         ' Type Texture
@@ -4210,8 +4210,8 @@ Private Sub DrawPokemonSummary()
 
                         ' Held Item
                         If YourTrade.Data(SummarySlot).HeldItem > 0 Then
-                            RenderText Font_Default, Trim$(Item(YourTrade.Data(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Font_Default, Trim$(Item(YourTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, DarkBrown
-                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 2) - (GetTextWidth(Font_Default, Trim$(Item(YourTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
+                            RenderText Ui_Default, Trim$(Item(YourTrade.Data(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Ui_Default, Trim$(Item(YourTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, Black
+                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 1.8) - (GetTextWidth(Ui_Default, Trim$(Item(YourTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
                         End If
 
                         ' Type Texture
@@ -4307,8 +4307,8 @@ Private Sub DrawPokemonSummary()
 
                         ' Held Item
                         If TheirTrade.Data(SummarySlot).HeldItem > 0 Then
-                            RenderText Font_Default, Trim$(Item(TheirTrade.Data(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Font_Default, Trim$(Item(TheirTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, DarkBrown
-                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 2) - (GetTextWidth(Font_Default, Trim$(Item(TheirTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
+                            RenderText Ui_Default, Trim$(Item(TheirTrade.Data(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Ui_Default, Trim$(Item(TheirTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, Black
+                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 1.8) - (GetTextWidth(Ui_Default, Trim$(Item(TheirTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
                         End If
 
                         ' Type Texture

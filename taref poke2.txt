@@ -54,12 +54,17 @@ OK*** -Corrigir erro, ao selecionar item no trade, aparecia o summary
 OK*** -adicionar descrição do item no summary ao passar o mouse
 -adicionar pra não poder trocar no trade com o mesmo ip e level acima de X pra poder dar trade
 OK*** -ao digitar na box do money no trade, chamava o pokemon pra batalha
+OK*** -Alterar a cor dos nomes no trade
+OK*** -Correção nos editores, pra salvar ao alterar, sem precisar selecionar outro item abaixo ou acima
+OK*** -Alterar o tamanho da fonte do item held que aparece no summary pra caber no espaço
 
 -PokemonEditor \/
 OK*** -scrl Evolve do pokemon, adicionar um find pra procurar pelo nome ou pelo ID.
 OK*** -scrl da sprite do pokemon, pra procurar o número da sprite.
 OK*** -adicionar um find(nome ou id) ao lado da lista de procura de item pra dropar do poke.
 OK*** -adicionar foto do pokemon no editor de pokemon
+OK*** -Adicionar OffSetY no nome do pokemon, pra se encaixar
+OK*** -Correção de bug que carregava todos pokemon na evolução de índice 1
 
 -ItemEditor \/
 OK*** -Adicionar txt pra procurar pelo ID do item

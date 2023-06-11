@@ -651,9 +651,9 @@ Dim Color As Long, Name As String
             textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4) * 2)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + Pokemon(.Num).NameOffSetY))
             Else
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + Pokemon(.Num).NameOffSetY)
             End If
         End If
         
@@ -687,9 +687,9 @@ Dim Color As Long, Name As String
             textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 1.3))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + Pokemon(.Num).NameOffSetY))
             Else
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + Pokemon(.Num).NameOffSetY)
             End If
         End If
         
@@ -725,9 +725,9 @@ Dim Color As Long, Name As String
             textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4) * 2)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + Pokemon(.Num).NameOffSetY))
             Else
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + Pokemon(.Num).NameOffSetY)
             End If
         End If
         

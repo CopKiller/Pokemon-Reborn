@@ -1,9 +1,9 @@
-modMain = 0, 0, 866, 788, C
+modMain = 0, 0, 866, 788, 
 clsBuffer = 50, 50, 765, 657, C
 modTCP = 25, 25, 728, 632, C
-modHandleData = 149, 0, 852, 607, C
-modType = 14, 65, 717, 672, C
-modDatabase = 75, 75, 778, 682, C
+modHandleData = 149, 0, 852, 607, 
+modType = 14, 65, 717, 672, 
+modDatabase = 75, 75, 778, 682, 
 modLoop = 73, 67, 920, 578, C
 modLogic = 347, 172, 1195, 683, 
 modConstant = 25, 25, 873, 536, C

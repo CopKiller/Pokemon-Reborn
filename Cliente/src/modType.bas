@@ -535,6 +535,8 @@ Private Type PokemonRec
     DropNum(1 To MAX_DROP) As Long
     DropRate(1 To MAX_DROP) As Byte
     ItemMoveset(1 To 110) As Long
+    '//Offset
+    NameOffSetY As Integer
 End Type
 
 Private Type PokemonMoveRec
