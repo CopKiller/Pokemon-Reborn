@@ -667,11 +667,11 @@ Dim Color As Long, Name As String
     End With
 End Sub
 
-Private Function ConvertInverse(ByVal Value As Integer) As Integer
-    If Value > 0 Then
-        ConvertInverse = -Value
-    Else
-        ConvertInverse = Value
+Private Function ConvertInverse(ByVal value As Integer) As Integer
+    If value > 0 Then
+        ConvertInverse = -value
+    ElseIf value < 0 Then
+        ConvertInverse = Math.Abs(value)
     End If
 End Function
 
@@ -1067,7 +1067,7 @@ Public Function DrawMapAttributes()
 Dim X As Long, Y As Long
 Dim tx As Long, ty As Long
 
-    If frmEditor_Map.optType(2).Value = True Then
+    If frmEditor_Map.optType(2).value = True Then
         '//Render Dark Alpha color on screen to easily notice the attribute tags
         RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, D3DColorARGB(160, 0, 0, 0)
         

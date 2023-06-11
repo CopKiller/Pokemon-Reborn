@@ -1,6 +1,6 @@
 frmMain = 150, 150, 869, 757, C, 125, 125, 828, 732, C
 modMain = 346, 110, 1049, 717, C
-modDirectX8 = -371, 19, 1015, 807, 
+modDirectX8 = 3, 1, 1389, 789, 
 modGlobal = 113, 11, 757, 799, C
 modConstant = 338, 275, 1041, 882, C
 modLoop = 1, 26, 851, 807, C
