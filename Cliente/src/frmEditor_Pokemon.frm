@@ -57,7 +57,7 @@ Begin VB.Form frmEditor_Pokemon
       Width           =   10815
       Begin VB.VScrollBar scrlOffSetY 
          Height          =   1215
-         Left            =   4680
+         Left            =   4800
          Max             =   200
          Min             =   -200
          TabIndex        =   96
@@ -650,7 +650,7 @@ Begin VB.Form frmEditor_Pokemon
          BorderStyle     =   0  'None
          ForeColor       =   &H80000008&
          Height          =   960
-         Left            =   4800
+         Left            =   5040
          ScaleHeight     =   66.065
          ScaleMode       =   0  'User
          ScaleWidth      =   68.266
@@ -689,7 +689,7 @@ Begin VB.Form frmEditor_Pokemon
          Left            =   3120
          TabIndex        =   95
          Top             =   120
-         Width           =   1095
+         Width           =   1455
       End
       Begin VB.Label lblRange 
          Caption         =   "Range: 0"

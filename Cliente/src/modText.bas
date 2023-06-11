@@ -651,9 +651,9 @@ Dim Color As Long, Name As String
             textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + Pokemon(.Num).NameOffSetY))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + ConvertInverse(Pokemon(.Num).NameOffSetY)))
             Else
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + Pokemon(.Num).NameOffSetY)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + ConvertInverse(Pokemon(.Num).NameOffSetY))
             End If
         End If
         
@@ -666,6 +666,14 @@ Dim Color As Long, Name As String
         End If
     End With
 End Sub
+
+Private Function ConvertInverse(ByVal Value As Integer) As Integer
+    If Value > 0 Then
+        ConvertInverse = -Value
+    Else
+        ConvertInverse = Value
+    End If
+End Function
 
 Public Sub DrawPlayerPokemonName(ByVal Index As Long)
 Dim textX As Long, textY As Long
@@ -687,9 +695,9 @@ Dim Color As Long, Name As String
             textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + Pokemon(.Num).NameOffSetY))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + ConvertInverse(Pokemon(.Num).NameOffSetY)))
             Else
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + Pokemon(.Num).NameOffSetY)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + ConvertInverse(Pokemon(.Num).NameOffSetY))
             End If
         End If
         
@@ -725,9 +733,9 @@ Dim Color As Long, Name As String
             textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + Pokemon(.Num).NameOffSetY))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + ConvertInverse(Pokemon(.Num).NameOffSetY)))
             Else
-                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + Pokemon(.Num).NameOffSetY)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + ConvertInverse(Pokemon(.Num).NameOffSetY))
             End If
         End If
         
@@ -1059,7 +1067,7 @@ Public Function DrawMapAttributes()
 Dim X As Long, Y As Long
 Dim tx As Long, ty As Long
 
-    If frmEditor_Map.optType(2).value = True Then
+    If frmEditor_Map.optType(2).Value = True Then
         '//Render Dark Alpha color on screen to easily notice the attribute tags
         RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, D3DColorARGB(160, 0, 0, 0)
         
