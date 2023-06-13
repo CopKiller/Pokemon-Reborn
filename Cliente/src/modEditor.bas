@@ -670,7 +670,16 @@ Dim i As Long
     If Editor <> EDITOR_NONE Then Exit Sub
     Editor = EDITOR_POKEMON
     
+    EditorStart = True
+    
     With frmEditor_Pokemon
+        '//Sound
+        .cmbSound.Clear
+        .cmbSound.AddItem "None."
+        For i = 1 To UBound(criesCache)
+            .cmbSound.AddItem Trim$(criesCache(i))
+        Next
+        
         .cmbMoveNum.Clear
         .cmbEggMoveNum.Clear
         .cmbMoveNum.AddItem "None"
@@ -702,6 +711,8 @@ Dim i As Long
         
         .Show
     End With
+    
+    EditorStart = False
 End Sub
 
 Public Sub PokemonEditorLoadIndex(ByVal xIndex As Long)
@@ -715,6 +726,20 @@ Dim X As Byte
         .scrlSprite.value = Pokemon(xIndex).Sprite
         .cmbBehaviour.ListIndex = Pokemon(xIndex).Behaviour
         .chkScale.value = Pokemon(xIndex).ScaleSprite
+        .chkLendary.value = Pokemon(xIndex).Lendary
+        
+        '//find the sound cries we have set
+        If .cmbSound.ListCount >= 0 Then
+            For X = 0 To .cmbSound.ListCount
+                If Trim$(.cmbSound.List(X)) = Trim$(Pokemon(xIndex).Sound) Then
+                    .cmbSound.ListIndex = X
+                    Exit For
+                End If
+            Next
+            If .cmbSound.ListIndex <= 0 Then
+                .cmbSound.ListIndex = 0
+            End If
+        End If
         
         '//Stats
         For X = 1 To StatEnum.Stat_Count - 1

@@ -928,7 +928,7 @@ Dim i As Long, a As Byte
         Next
         
         '//Moral
-        buffer.WriteByte .Sheltered
+        buffer.WriteByte .KillPlayer
         buffer.WriteByte .IsCave
         buffer.WriteByte .CaveLight
         buffer.WriteByte .SpriteType

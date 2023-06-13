@@ -423,7 +423,7 @@ Dim i As Long, a As Byte
         Next
         
         '//Moral
-        .Sheltered = buffer.ReadByte
+        .KillPlayer = buffer.ReadByte
         .IsCave = buffer.ReadByte
         .CaveLight = buffer.ReadByte
         .SpriteType = buffer.ReadByte
@@ -821,10 +821,10 @@ Dim buffer As clsBuffer
 End Sub
 
 Private Sub HandlePlayerPokemonData(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim buffer As clsBuffer
-Dim thePlayer As Long
-Dim initState As Byte
-Dim i As Long
+    Dim buffer As clsBuffer
+    Dim thePlayer As Long
+    Dim initState As Byte
+    Dim i As Long
 
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
@@ -832,52 +832,52 @@ Dim i As Long
     With PlayerPokemon(thePlayer)
         .Init = buffer.ReadByte
         .State = buffer.ReadByte
-        
+
         .Num = buffer.ReadLong
         .X = buffer.ReadLong
         .Y = buffer.ReadLong
         .Dir = buffer.ReadByte
-            
+
         .Slot = buffer.ReadByte
-        
+
         '//Stat
         For i = 1 To StatEnum.Stat_Count - 1
             .Stat(i) = buffer.ReadLong
             .StatIV(i) = buffer.ReadLong
             .StatEV(i) = buffer.ReadLong
         Next
-            
+
         '//Vital
         .CurHP = buffer.ReadLong
         .MaxHP = buffer.ReadLong
-        
+
         '//Shiny
         .IsShiny = buffer.ReadByte
-        
+
         '//Happiness
         .Happiness = buffer.ReadByte
-        
+
         '//Gender
         .Gender = buffer.ReadByte
-        
+
         '//Status
         .Status = buffer.ReadByte
-        
+
         '//Held Item
         .HeldItem = buffer.ReadLong
-            
+
         '//Ball Used
         .BallUsed = buffer.ReadByte
-        
+
         '//Clear moving attributes
         .xOffset = 0
         .yOffset = 0
         .Moving = YES
-        
+
         '//Ball Location
         .BallX = buffer.ReadLong
         .BallY = buffer.ReadLong
-        
+
         '//Init
         If .Init = YES Then
             If .State = 0 Then
@@ -888,13 +888,24 @@ Dim i As Long
             .FrameState = 0
             .FrameTimer = GetTickCount + 100
         End If
+        Set buffer = Nothing
+
+        If thePlayer = MyIndex Then
+            '//Reset Set Move
+            SetAttackMove = 0
+
+            '//Cries Sound Apenas pro MyIndex
+            If .Num > 0 Then
+                If .Init = YES Then
+                    '//Play
+                    If Trim$(Pokemon(.Num).Sound) <> "None." Then
+                        PlayMusic Trim$(Pokemon(.Num).Sound), True, False
+                    End If
+                End If
+            End If
+        End If
+
     End With
-    Set buffer = Nothing
-    
-    If thePlayer = MyIndex Then
-        '//Reset Set Move
-        SetAttackMove = 0
-    End If
 End Sub
 
 Private Sub HandlePlayerPokemonMove(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)

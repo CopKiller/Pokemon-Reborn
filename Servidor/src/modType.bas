@@ -64,7 +64,7 @@ Private Type MapPokemonRec
     
     '//Location
     Map As Long
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
@@ -73,8 +73,8 @@ Private Type MapPokemonRec
     Stat(1 To StatEnum.Stat_Count - 1) As StatDataRec
     
     '//Vital
-    CurHP As Long
-    MaxHP As Long
+    CurHp As Long
+    MaxHp As Long
     
     '//Nature
     Nature As Byte
@@ -135,7 +135,7 @@ Private Type MapNpcPokemonRec
     Num As Long     '//Index of the npc
     
     '//Location
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
@@ -144,8 +144,8 @@ Private Type MapNpcPokemonRec
     Stat(1 To StatEnum.Stat_Count - 1) As StatDataRec
     
     '//Vital
-    CurHP As Long
-    MaxHP As Long
+    CurHp As Long
+    MaxHp As Long
     
     '//Nature
     Nature As Byte
@@ -198,7 +198,7 @@ Private Type MapNpcRec
     Num As Long     '//Index of the npc
     
     '//Location
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
@@ -217,7 +217,7 @@ Public Type PlayerPokemonRec
     Num As Long
     
     '//Location
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
@@ -260,12 +260,12 @@ Public Type PlayerRec
     
     '//Location
     Map As Long
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
     '//Vital
-    CurHP As Long
+    CurHp As Long
     
     '//Level
     Level As Long
@@ -363,8 +363,8 @@ Public Type PlayerPokemonStorageDataRec
     Stat(1 To StatEnum.Stat_Count - 1) As StatDataRec
     
     '//Vital
-    CurHP As Long
-    MaxHP As Long
+    CurHp As Long
+    MaxHp As Long
     
     '//Nature
     Nature As Byte
@@ -412,8 +412,8 @@ Private Type PlayerPokemonsDataRec
     Stat(1 To StatEnum.Stat_Count - 1) As StatDataRec
     
     '//Vital
-    CurHP As Long
-    MaxHP As Long
+    CurHp As Long
+    MaxHp As Long
     
     '//Nature
     Nature As Byte
@@ -504,7 +504,7 @@ Private Type MapRec
     Npc(1 To MAX_MAP_NPC) As Long
     
     '//Moral
-    Sheltered As Byte
+    KillPlayer As Byte
     IsCave As Byte
     CaveLight As Byte
     SpriteType As Byte
@@ -594,6 +594,12 @@ Private Type PokemonRec
     
     '//OffSet
     NameOffSetY As Integer
+    
+    '//Cries
+    Sound As String * NAME_LENGTH
+    
+    '//Lendary
+    Lendary As Byte
 End Type
 
 Private Type PokemonMoveRec
@@ -757,8 +763,8 @@ Private Type TradeDataRec
     StatEV(1 To StatEnum.Stat_Count - 1) As Long
     
     '//Vital
-    CurHP As Long
-    MaxHP As Long
+    CurHp As Long
+    MaxHp As Long
     
     '//Nature
     Nature As Byte

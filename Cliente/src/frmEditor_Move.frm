@@ -291,7 +291,9 @@ Begin VB.Form frmEditor_Move
       End
       Begin VB.ComboBox cmbSound 
          Height          =   315
+         ItemData        =   "frmEditor_Move.frx":01F8
          Left            =   1560
+         List            =   "frmEditor_Move.frx":01FA
          Style           =   2  'Dropdown List
          TabIndex        =   39
          Top             =   7560
@@ -392,9 +394,9 @@ Begin VB.Form frmEditor_Move
       End
       Begin VB.ComboBox cmbAttackType 
          Height          =   315
-         ItemData        =   "frmEditor_Move.frx":01F8
+         ItemData        =   "frmEditor_Move.frx":01FC
          Left            =   1560
-         List            =   "frmEditor_Move.frx":0208
+         List            =   "frmEditor_Move.frx":020C
          Style           =   2  'Dropdown List
          TabIndex        =   20
          Top             =   4080
@@ -442,9 +444,9 @@ Begin VB.Form frmEditor_Move
       End
       Begin VB.ComboBox cmbCategory 
          Height          =   315
-         ItemData        =   "frmEditor_Move.frx":022D
+         ItemData        =   "frmEditor_Move.frx":0231
          Left            =   1560
-         List            =   "frmEditor_Move.frx":023D
+         List            =   "frmEditor_Move.frx":0241
          Style           =   2  'Dropdown List
          TabIndex        =   8
          Top             =   1080
@@ -452,9 +454,9 @@ Begin VB.Form frmEditor_Move
       End
       Begin VB.ComboBox cmbType 
          Height          =   315
-         ItemData        =   "frmEditor_Move.frx":0265
+         ItemData        =   "frmEditor_Move.frx":0269
          Left            =   1560
-         List            =   "frmEditor_Move.frx":02A2
+         List            =   "frmEditor_Move.frx":02A6
          Style           =   2  'Dropdown List
          TabIndex        =   6
          Top             =   720

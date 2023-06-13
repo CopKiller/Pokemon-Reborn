@@ -565,7 +565,7 @@ Dim i As Long, a As Byte
             Next
             
             '//Moral
-            Get #F, , .Sheltered
+            Get #F, , .KillPlayer
             Get #F, , .IsCave
             Get #F, , .CaveLight
             Get #F, , .SpriteType
@@ -639,7 +639,7 @@ Dim i As Long, a As Long
             Next
             
             '//Moral
-            Put #F, , .Sheltered
+            Put #F, , .KillPlayer
             Put #F, , .IsCave
             Put #F, , .CaveLight
             Put #F, , .SpriteType
@@ -864,6 +864,7 @@ Public Sub ClearPokemon(ByVal PokemonNum As Long)
     Pokemon(PokemonNum).Name = vbNullString
     Pokemon(PokemonNum).Species = vbNullString
     Pokemon(PokemonNum).PokeDexEntry = vbNullString
+    Pokemon(PokemonNum).Sound = "None."
 End Sub
 
 Public Sub ClearPokemons()

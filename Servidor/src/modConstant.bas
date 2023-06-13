@@ -174,3 +174,10 @@ Public Const START_X As Byte = 11
 Public Const START_Y As Byte = 7
 
 Public Const MAX_EV As Long = 510
+
+'//Map Constants
+Public Const MAP_MORAL_DANGER = 0
+Public Const MAP_MORAL_SAFE = 1
+Public Const MAP_MORAL_ARENA = 2
+Public Const MAP_MORAL_SAFARI = 3
+Public Const MAP_MORAL_PVP = 4

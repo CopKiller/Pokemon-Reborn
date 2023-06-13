@@ -285,7 +285,7 @@ Private Type PlayerInvRec
     value As Long
 End Type
 
-Private Type PokemonMovesetRec
+Public Type PokemonMovesetRec
     Num As Long
     CurPP As Byte
     TotalPP As Byte
@@ -301,7 +301,7 @@ Private Type PlayerInvStorageSlotRec
     Data(1 To MAX_STORAGE) As PlayerInvStorageDataRec
 End Type
 
-Public Type PlayerPokemonStorageDataRec
+Public Type PlayerPokemonsRec
     Num As Long
     
     '//Stats
@@ -345,49 +345,7 @@ End Type
 
 Private Type PlayerPokemonStorageSlotRec
     Unlocked As Byte
-    Data(1 To MAX_STORAGE) As PlayerPokemonStorageDataRec
-End Type
-
-Private Type PlayerPokemonsRec
-    Num As Long
-    
-    '//Stats
-    Level As Byte
-    Stat(1 To StatEnum.Stat_Count - 1) As Long
-    StatIV(1 To StatEnum.Stat_Count - 1) As Long
-    StatEV(1 To StatEnum.Stat_Count - 1) As Long
-    
-    '//Vital
-    CurHP As Long
-    MaxHP As Long
-    
-    '//Nature
-    Nature As Byte
-    
-    '//Shiny
-    IsShiny As Byte
-    
-    '//Happiness
-    Happiness As Byte
-    
-    '//Gender
-    Gender As Byte
-    
-    '//Status
-    Status As Byte
-    
-    '//Exp
-    CurExp As Long
-    NextExp As Long
-    
-    '//Moveset
-    Moveset(1 To MAX_MOVESET) As PokemonMovesetRec
-    
-    '//Ball Used
-    BallUsed As Byte
-    
-    '//Held Item
-    HeldItem As Long
+    Data(1 To MAX_STORAGE) As PlayerPokemonsRec
 End Type
 
 Private Type PlayerPokedexRec
@@ -443,7 +401,7 @@ Private Type MapRec
     Npc(1 To MAX_MAP_NPC) As Long
     
     '//Moral
-    Sheltered As Byte
+    KillPlayer As Byte
     IsCave As Byte
     CaveLight As Byte
     SpriteType As Byte
@@ -537,6 +495,10 @@ Private Type PokemonRec
     ItemMoveset(1 To 110) As Long
     '//Offset
     NameOffSetY As Integer
+    '//Cries
+    Sound As String * NAME_LENGTH
+    '//Lendary
+    Lendary As Byte
 End Type
 
 Private Type PokemonMoveRec
@@ -670,7 +632,7 @@ Public Weather As WeatherRec
 Public CatchBall(1 To MAX_GAME_POKEMON) As CatchBallRec
 '//Trade
 
-Private Type TradeDataRec
+Public Type TradeDataRec
     TradeType As Byte
     
     Num As Long

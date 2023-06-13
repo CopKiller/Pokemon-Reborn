@@ -36,7 +36,7 @@ Public Sub DeleteFile(ByVal filename As String)
     Kill filename
 End Sub
 
-Public Sub AddLog(ByVal sString As String)
+Public Sub AddLog(ByVal SString As String)
 Dim filename As String
 
     '//Write error on logs
@@ -46,11 +46,11 @@ Dim filename As String
         Close #1
     End If
     Open filename For Append As #1
-        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & sString
+        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & SString
     Close #1
 End Sub
 
-Public Sub AddIPLog(ByVal sString As String)
+Public Sub AddIPLog(ByVal SString As String)
 Dim filename As String
 
     '//Write error on logs
@@ -61,7 +61,7 @@ Dim filename As String
         Close #1
     End If
     Open filename For Append As #1
-        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & sString
+        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & SString
     Close #1
 End Sub
 
@@ -228,13 +228,13 @@ Public Sub ClearAccount(ByVal Index As Long)
 End Sub
 
 Public Sub ClearPlayer(ByVal Index As Long)
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_PLAYERCHAR
+    For I = 1 To MAX_PLAYERCHAR
         '//Clear
-        Call ZeroMemory(ByVal VarPtr(Player(Index, i)), LenB(Player(Index, i)))
+        Call ZeroMemory(ByVal VarPtr(Player(Index, I)), LenB(Player(Index, I)))
         Call ZeroMemory(ByVal VarPtr(PlayerPokemon(Index)), LenB(PlayerPokemon(Index)))
-        Player(Index, i).Name = vbNullString
+        Player(Index, I).Name = vbNullString
         frmServer.lbPlayers.List(Index - 1) = vbNullString
     Next
 End Sub
@@ -251,10 +251,10 @@ Dim f As Long
         .Sprite = Sprite
         .Access = 0
         .Map = Options.StartMap
-        .x = Options.startX
+        .X = Options.startX
         .Y = Options.startY
         .Dir = Options.StartDir
-        .CurHP = 255
+        .CurHp = 255
         .Money = 3000
         .Muted = 0
         .DidStart = YES
@@ -364,7 +364,7 @@ End Sub
 Public Sub LoadPlayerData(ByVal Index As Long, ByVal CharSlot As Long)
 Dim filename As String
 Dim f As Long
-Dim i As Long
+Dim I As Long
 
     '//Determine the file location
     filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & ".ini"
@@ -413,19 +413,19 @@ Dim i As Long
         If Player(Index, CharSlot).Level <= 0 Then
             Player(Index, CharSlot).Level = 1
             Player(Index, CharSlot).CurExp = 0
-            Player(Index, CharSlot).CurHP = GetPlayerHP(Player(Index, CharSlot).Level)
+            Player(Index, CharSlot).CurHp = GetPlayerHP(Player(Index, CharSlot).Level)
         End If
     'End With
 End Sub
 
 Public Sub LoadPlayerDatas(ByVal Index As Long)
-Dim i As Long
+Dim I As Long
 
     '//Clear data first
     Call ClearPlayer(Index)
     
-    For i = 1 To MAX_PLAYERCHAR
-        LoadPlayerData Index, i
+    For I = 1 To MAX_PLAYERCHAR
+        LoadPlayerData Index, I
     Next
 End Sub
 
@@ -489,7 +489,7 @@ End Sub
 
 Public Sub LoadPlayerInv(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte
+Dim I As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -517,7 +517,7 @@ End Sub
 
 Public Sub SavePlayerInv(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte
+Dim I As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -543,7 +543,7 @@ End Sub
 
 Public Sub LoadPlayerPokemons(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte, x As Byte
+Dim I As Byte, X As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -608,7 +608,7 @@ End Sub
 
 Public Sub SavePlayerPokemons(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte, x As Byte
+Dim I As Byte, X As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -673,7 +673,7 @@ End Sub
 
 Public Sub LoadPlayerInvStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim x As Byte, Y As Byte
+Dim X As Byte, Y As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -693,7 +693,7 @@ End Sub
 
 Public Sub SavePlayerInvStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim x As Byte, Y As Byte
+Dim X As Byte, Y As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -792,18 +792,18 @@ Public Sub ClearMap(ByVal MapNum As Long)
 End Sub
 
 Public Sub ClearMaps()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_MAP
-        ClearMap i
+    For I = 1 To MAX_MAP
+        ClearMap I
     Next
 End Sub
 
 Public Sub LoadMap(ByVal MapNum As Long)
-Dim x As Long, Y As Long
+Dim X As Long, Y As Long
 Dim filename As String
 Dim f As Long
-Dim i As Long
+Dim I As Long
 Dim a As Byte
 
     filename = App.Path & "\data\maps\mapdata_" & MapNum & ".dat"
@@ -834,17 +834,17 @@ Dim a As Byte
         End With
         
         '//Tiles
-        For x = 0 To Map(MapNum).MaxX
+        For X = 0 To Map(MapNum).MaxX
             For Y = 0 To Map(MapNum).MaxY
-                With Map(MapNum).Tile(x, Y)
+                With Map(MapNum).Tile(X, Y)
                     '//Layer
-                    For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
+                    For I = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
-                            Get #f, , .Layer(i, a).Tile
-                            Get #f, , .Layer(i, a).TileX
-                            Get #f, , .Layer(i, a).TileY
+                            Get #f, , .Layer(I, a).Tile
+                            Get #f, , .Layer(I, a).TileX
+                            Get #f, , .Layer(I, a).TileY
                             '//Map Anim
-                            Get #f, , .Layer(i, a).MapAnim
+                            Get #f, , .Layer(I, a).MapAnim
                         Next
                     Next
                     '//Tile Data
@@ -868,12 +868,12 @@ Dim a As Byte
             Get #f, , .Music
             
             '//Npc
-            For i = 1 To MAX_MAP_NPC
-                Get #f, , .Npc(i)
+            For I = 1 To MAX_MAP_NPC
+                Get #f, , .Npc(I)
             Next
             
             '//Moral
-            Get #f, , .Sheltered
+            Get #f, , .KillPlayer
             Get #f, , .IsCave
             Get #f, , .CaveLight
             Get #f, , .SpriteType
@@ -885,18 +885,18 @@ Dim a As Byte
 End Sub
 
 Public Sub LoadMaps()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_MAP
-        LoadMap i
+    For I = 1 To MAX_MAP
+        LoadMap I
     Next
 End Sub
 
 Public Sub SaveMap(ByVal MapNum As Long)
-Dim x As Long, Y As Long
+Dim X As Long, Y As Long
 Dim filename As String
 Dim f As Long
-Dim i As Long
+Dim I As Long
 Dim a As Byte
 
     filename = App.Path & "\data\maps\mapdata_" & MapNum & ".dat"
@@ -918,17 +918,17 @@ Dim a As Byte
         End With
         
         '//Tiles
-        For x = 0 To Map(MapNum).MaxX
+        For X = 0 To Map(MapNum).MaxX
             For Y = 0 To Map(MapNum).MaxY
-                With Map(MapNum).Tile(x, Y)
+                With Map(MapNum).Tile(X, Y)
                     '//Layer
-                    For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
+                    For I = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
-                            Put #f, , .Layer(i, a).Tile
-                            Put #f, , .Layer(i, a).TileX
-                            Put #f, , .Layer(i, a).TileY
+                            Put #f, , .Layer(I, a).Tile
+                            Put #f, , .Layer(I, a).TileX
+                            Put #f, , .Layer(I, a).TileY
                             '//Map Anim
-                            Put #f, , .Layer(i, a).MapAnim
+                            Put #f, , .Layer(I, a).MapAnim
                         Next
                     Next
                     '//Tile Data
@@ -952,12 +952,12 @@ Dim a As Byte
             Put #f, , .Music
             
             '//Npc
-            For i = 1 To MAX_MAP_NPC
-                Put #f, , .Npc(i)
+            For I = 1 To MAX_MAP_NPC
+                Put #f, , .Npc(I)
             Next
             
             '//Moral
-            Put #f, , .Sheltered
+            Put #f, , .KillPlayer
             Put #f, , .IsCave
             Put #f, , .CaveLight
             Put #f, , .SpriteType
@@ -968,10 +968,10 @@ Dim a As Byte
 End Sub
 
 Public Sub SaveMaps()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_MAP
-        SaveMap i
+    For I = 1 To MAX_MAP
+        SaveMap I
     Next
 End Sub
 
@@ -984,10 +984,10 @@ Public Sub ClearNpc(ByVal NpcNum As Long)
 End Sub
 
 Public Sub ClearNpcs()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_NPC
-        ClearNpc i
+    For I = 1 To MAX_NPC
+        ClearNpc I
     Next
 End Sub
 
@@ -1012,10 +1012,10 @@ Dim f As Long
 End Sub
 
 Public Sub LoadNpcs()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_NPC
-        LoadNpc i
+    For I = 1 To MAX_NPC
+        LoadNpc I
     Next
 End Sub
 
@@ -1036,10 +1036,10 @@ Dim f As Long
 End Sub
 
 Public Sub SaveNpcs()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_NPC
-        SaveNpc i
+    For I = 1 To MAX_NPC
+        SaveNpc I
     Next
 End Sub
 
@@ -1051,19 +1051,20 @@ Public Sub ClearPokemon(ByVal PokemonNum As Long)
     Pokemon(PokemonNum).Name = vbNullString
     Pokemon(PokemonNum).Species = vbNullString
     Pokemon(PokemonNum).PokeDexEntry = vbNullString
+    Pokemon(PokemonNum).Sound = "None."
 End Sub
 
 Public Sub ClearPokemons()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_POKEMON
-        ClearPokemon i
+    For I = 1 To MAX_POKEMON
+        ClearPokemon I
     Next
 End Sub
 
 Public Sub LoadPokemon(ByVal PokemonNum As Long)
 Dim filename As String
-Dim f As Long, x As Byte
+Dim f As Long, X As Byte
 
     filename = App.Path & "\data\pokemons\pokemondata_" & PokemonNum & ".dat"
     f = FreeFile
@@ -1082,16 +1083,16 @@ Dim f As Long, x As Byte
 End Sub
 
 Public Sub LoadPokemons()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_POKEMON
-        LoadPokemon i
+    For I = 1 To MAX_POKEMON
+        LoadPokemon I
     Next
 End Sub
 
 Public Sub SavePokemon(ByVal PokemonNum As Long)
 Dim filename As String
-Dim f As Long, x As Byte
+Dim f As Long, X As Byte
 
     filename = App.Path & "\data\pokemons\pokemondata_" & PokemonNum & ".dat"
     If FileExist(filename) Then
@@ -1106,10 +1107,10 @@ Dim f As Long, x As Byte
 End Sub
 
 Public Sub SavePokemons()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_POKEMON
-        SavePokemon i
+    For I = 1 To MAX_POKEMON
+        SavePokemon I
     Next
 End Sub
 
@@ -1123,10 +1124,10 @@ Public Sub ClearItem(ByVal ItemNum As Long)
 End Sub
 
 Public Sub ClearItems()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_ITEM
-        ClearItem i
+    For I = 1 To MAX_ITEM
+        ClearItem I
     Next
 End Sub
 
@@ -1152,10 +1153,10 @@ Dim f As Long
 End Sub
 
 Public Sub LoadItems()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_ITEM
-        LoadItem i
+    For I = 1 To MAX_ITEM
+        LoadItem I
     Next
 End Sub
 
@@ -1176,10 +1177,10 @@ Dim f As Long
 End Sub
 
 Public Sub SaveItems()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_ITEM
-        SaveItem i
+    For I = 1 To MAX_ITEM
+        SaveItem I
     Next
 End Sub
 
@@ -1193,10 +1194,10 @@ Public Sub ClearPokemonMove(ByVal PokemonMoveNum As Long)
 End Sub
 
 Public Sub ClearPokemonMoves()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_POKEMON_MOVE
-        ClearPokemonMove i
+    For I = 1 To MAX_POKEMON_MOVE
+        ClearPokemonMove I
     Next
 End Sub
 
@@ -1221,10 +1222,10 @@ Dim f As Long
 End Sub
 
 Public Sub LoadPokemonMoves()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_POKEMON_MOVE
-        LoadPokemonMove i
+    For I = 1 To MAX_POKEMON_MOVE
+        LoadPokemonMove I
     Next
 End Sub
 
@@ -1245,10 +1246,10 @@ Dim f As Long
 End Sub
 
 Public Sub SavePokemonMoves()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_POKEMON_MOVE
-        SavePokemonMove i
+    For I = 1 To MAX_POKEMON_MOVE
+        SavePokemonMove I
     Next
 End Sub
 
@@ -1261,10 +1262,10 @@ Public Sub ClearAnimation(ByVal AnimationNum As Long)
 End Sub
 
 Public Sub ClearAnimations()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_ANIMATION
-        ClearAnimation i
+    For I = 1 To MAX_ANIMATION
+        ClearAnimation I
     Next
 End Sub
 
@@ -1289,10 +1290,10 @@ Dim f As Long
 End Sub
 
 Public Sub LoadAnimations()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_ANIMATION
-        LoadAnimation i
+    For I = 1 To MAX_ANIMATION
+        LoadAnimation I
     Next
 End Sub
 
@@ -1313,10 +1314,10 @@ Dim f As Long
 End Sub
 
 Public Sub SaveAnimations()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_ANIMATION
-        SaveAnimation i
+    For I = 1 To MAX_ANIMATION
+        SaveAnimation I
     Next
 End Sub
 
@@ -1329,10 +1330,10 @@ Public Sub ClearSpawn(ByVal SpawnNum As Long)
 End Sub
 
 Public Sub ClearSpawns()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_GAME_POKEMON
-        ClearSpawn i
+    For I = 1 To MAX_GAME_POKEMON
+        ClearSpawn I
     Next
 End Sub
 
@@ -1357,10 +1358,10 @@ Dim f As Long
 End Sub
 
 Public Sub LoadSpawns()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_GAME_POKEMON
-        LoadSpawn i
+    For I = 1 To MAX_GAME_POKEMON
+        LoadSpawn I
     Next
 End Sub
 
@@ -1381,10 +1382,10 @@ Dim f As Long
 End Sub
 
 Public Sub SaveSpawns()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_GAME_POKEMON
-        SaveSpawn i
+    For I = 1 To MAX_GAME_POKEMON
+        SaveSpawn I
     Next
 End Sub
 
@@ -1392,24 +1393,24 @@ End Sub
 ' ** Conversation Properties **
 ' ********************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim x As Byte, Y As Byte, z As Byte
+Dim X As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
-    For x = 1 To MAX_CONV_DATA
+    For X = 1 To MAX_CONV_DATA
         For Y = 1 To MAX_LANGUAGE
-            Conversation(ConversationNum).ConvData(x).TextLang(Y).Text = vbNullString
+            Conversation(ConversationNum).ConvData(X).TextLang(Y).Text = vbNullString
             For z = 1 To 3
-                Conversation(ConversationNum).ConvData(x).TextLang(Y).tReply(z) = vbNullString
+                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(z) = vbNullString
             Next
         Next
     Next
 End Sub
 
 Public Sub ClearConversations()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_CONVERSATION
-        ClearConversation i
+    For I = 1 To MAX_CONVERSATION
+        ClearConversation I
     Next
 End Sub
 
@@ -1434,10 +1435,10 @@ Dim f As Long
 End Sub
 
 Public Sub LoadConversations()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_CONVERSATION
-        LoadConversation i
+    For I = 1 To MAX_CONVERSATION
+        LoadConversation I
     Next
 End Sub
 
@@ -1458,10 +1459,10 @@ Dim f As Long
 End Sub
 
 Public Sub SaveConversations()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_CONVERSATION
-        SaveConversation i
+    For I = 1 To MAX_CONVERSATION
+        SaveConversation I
     Next
 End Sub
 
@@ -1473,10 +1474,10 @@ Public Sub ClearQuest(ByVal QuestNum As Long)
 End Sub
 
 Public Sub ClearQuests()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_QUEST
-        ClearQuest i
+    For I = 1 To MAX_QUEST
+        ClearQuest I
     Next
 End Sub
 
@@ -1501,10 +1502,10 @@ Dim f As Long
 End Sub
 
 Public Sub LoadQuests()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_QUEST
-        LoadQuest i
+    For I = 1 To MAX_QUEST
+        LoadQuest I
     Next
 End Sub
 
@@ -1525,10 +1526,10 @@ Dim f As Long
 End Sub
 
 Public Sub SaveQuests()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_QUEST
-        SaveQuest i
+    For I = 1 To MAX_QUEST
+        SaveQuest I
     Next
 End Sub
 
@@ -1540,10 +1541,10 @@ Public Sub ClearShop(ByVal ShopNum As Long)
 End Sub
 
 Public Sub ClearShops()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_SHOP
-        ClearShop i
+    For I = 1 To MAX_SHOP
+        ClearShop I
     Next
 End Sub
 
@@ -1568,10 +1569,10 @@ Dim f As Long
 End Sub
 
 Public Sub LoadShops()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_SHOP
-        LoadShop i
+    For I = 1 To MAX_SHOP
+        LoadShop I
     Next
 End Sub
 
@@ -1592,35 +1593,35 @@ Dim f As Long
 End Sub
 
 Public Sub SaveShops()
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_SHOP
-        SaveShop i
+    For I = 1 To MAX_SHOP
+        SaveShop I
     Next
 End Sub
 
 Public Sub SaveRank()
-Dim filename As String, i As Byte
+Dim filename As String, I As Byte
 
     filename = App.Path & "\data\rank.ini"
     
-    For i = 1 To MAX_RANK
-        PutVar filename, "RANK", "Name" & i, Trim$(Rank(i).Name)
-        PutVar filename, "RANK", "Level" & i, Trim$(Rank(i).Level)
+    For I = 1 To MAX_RANK
+        PutVar filename, "RANK", "Name" & I, Trim$(Rank(I).Name)
+        PutVar filename, "RANK", "Level" & I, Trim$(Rank(I).Level)
     Next
 
 End Sub
 
 Public Sub LoadRank()
 Dim filename As String
-Dim i As Byte
+Dim I As Byte
 
     filename = App.Path & "\data\rank.ini"
     
     If Not FileExist(filename) Then Exit Sub
     
-    For i = 1 To MAX_RANK
-        Rank(i).Name = GetVar(filename, "RANK", "Name" & i)
-        Rank(i).Level = Val(GetVar(filename, "RANK", "Level" & i))
+    For I = 1 To MAX_RANK
+        Rank(I).Name = GetVar(filename, "RANK", "Name" & I)
+        Rank(I).Level = Val(GetVar(filename, "RANK", "Level" & I))
     Next
 End Sub

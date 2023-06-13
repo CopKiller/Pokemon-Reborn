@@ -287,3 +287,10 @@ Public Const IDCash As Integer = 527
 Public Const PokeUseHeld As Integer = 531
 
 Public Const ColourChar As String * 1 = "½"
+
+'//Map Constants
+Public Const MAP_MORAL_DANGER = 0
+Public Const MAP_MORAL_SAFE = 1
+Public Const MAP_MORAL_ARENA = 2
+Public Const MAP_MORAL_SAFARI = 3
+Public Const MAP_MORAL_PVP = 4

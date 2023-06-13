@@ -7,10 +7,12 @@ Public EnableMusic As Boolean
 '//Path
 Public Const Music_Path As String = "\data\music\"
 Public Const Sound_Path As String = "\data\sfx\"
+Public Const Cries_Path As String = "\data\sfx\cries\"
 
 '//list cache
 Public musicCache() As String
 Public soundCache() As String
+Public criesCache() As String
 
 '//index
 Public SoundIndex As Long
@@ -85,12 +87,22 @@ Dim strLoad As String, i As Long
         i = i + 1
     Loop
     
-    '//Cache music list
+    '//Cache sound list
     strLoad = Dir(App.Path & Sound_Path & "*.*")
     i = 1
     Do While strLoad > vbNullString
         ReDim Preserve soundCache(1 To i) As String
         soundCache(i) = strLoad
+        strLoad = Dir
+        i = i + 1
+    Loop
+    
+    '//Cache cries list
+    strLoad = Dir(App.Path & Cries_Path & "*.*")
+    i = 1
+    Do While strLoad > vbNullString
+        ReDim Preserve criesCache(1 To i) As String
+        criesCache(i) = strLoad
         strLoad = Dir
         i = i + 1
     Loop
@@ -109,21 +121,21 @@ Public Sub StopMusic(ByVal BG As Boolean)
 End Sub
 
 Public Sub PlayMusic(ByVal FileName As String, ByVal ResetMusic As Boolean, ByVal CanLoop As Boolean)
-Dim sPlay As Boolean
+    Dim sPlay As Boolean
 
     '//check if sound system is working
     If EnableMusic = False Then Exit Sub
-    
+
     If CanLoop Then
         '//check if filename exist
         If Not FileExist(App.Path & Music_Path & FileName) Then Exit Sub
         '//Can loop means, it's a background music
         '//Check if current music is the same and check if it's not changing volume
         If CurMusic = FileName And Not ResetMusic Then Exit Sub
-        
+
         '//stop current music
         StopMusic True
-        
+
         sPlay = False
         If ResetMusic Then
             If MusicIndex = 0 Then Exit Sub
@@ -133,23 +145,34 @@ Dim sPlay As Boolean
             If MusicIndex = 0 Then Exit Sub
             sPlay = True
         End If
-        
+
         If sPlay Then
             Call BASS_ChannelSetAttribute(MusicIndex, BASS_ATTRIB_VOL, VolumeRange(CurMusicVolume))
             Call BASS_ChannelPlay(MusicIndex, False)
-            
+
             '//set current music
             CurMusic = FileName
         End If
     Else
         '//check if filename exist
-        If Not FileExist(App.Path & Sound_Path & FileName) Then Exit Sub
         '//Sound
-        SoundIndex = BASS_StreamCreateFile(BASSFALSE, StrPtr(App.Path & Sound_Path & FileName), 0, 0, 0)
-        If SoundIndex = 0 Then Exit Sub
-        
-        Call BASS_ChannelSetAttribute(SoundIndex, BASS_ATTRIB_VOL, VolumeRange(CurSoundVolume))
-        Call BASS_ChannelPlay(SoundIndex, False)
+        If FileExist(App.Path & Sound_Path & FileName) Then
+            SoundIndex = BASS_StreamCreateFile(BASSFALSE, StrPtr(App.Path & Sound_Path & FileName), 0, 0, 0)
+            If SoundIndex = 0 Then Exit Sub
+
+            Call BASS_ChannelSetAttribute(SoundIndex, BASS_ATTRIB_VOL, VolumeRange(CurSoundVolume))
+            Call BASS_ChannelPlay(SoundIndex, False)
+            '//Cries
+        ElseIf FileExist(App.Path & Cries_Path & FileName) Then
+            SoundIndex = BASS_StreamCreateFile(BASSFALSE, StrPtr(App.Path & Cries_Path & FileName), 0, 0, 0)
+            If SoundIndex = 0 Then Exit Sub
+
+            Call BASS_ChannelSetAttribute(SoundIndex, BASS_ATTRIB_VOL, VolumeRange(CurSoundVolume))
+            Call BASS_ChannelPlay(SoundIndex, False)
+        Else
+            Exit Sub
+        End If
+
     End If
 End Sub
 

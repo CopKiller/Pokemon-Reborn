@@ -53,13 +53,13 @@ Begin VB.Form frmEditor_Map
       Begin VB.CheckBox chkCave 
          Caption         =   "Cave?"
          Height          =   255
-         Left            =   5400
+         Left            =   5640
          TabIndex        =   75
          Top             =   1560
-         Width           =   1575
+         Width           =   1335
       End
-      Begin VB.CheckBox chkSheltered 
-         Caption         =   "Sheltered?"
+      Begin VB.CheckBox chkKillPlayer 
+         Caption         =   "Kill Player?"
          Height          =   255
          Left            =   3720
          TabIndex        =   74
@@ -70,7 +70,7 @@ Begin VB.Form frmEditor_Map
          Height          =   315
          ItemData        =   "frmEditor_Map.frx":004C
          Left            =   3720
-         List            =   "frmEditor_Map.frx":005C
+         List            =   "frmEditor_Map.frx":005F
          Style           =   2  'Dropdown List
          TabIndex        =   73
          Top             =   1200
@@ -505,9 +505,9 @@ Begin VB.Form frmEditor_Map
          Width           =   3855
          Begin VB.ComboBox cmbNpcSpawnDir 
             Height          =   315
-            ItemData        =   "frmEditor_Map.frx":007D
+            ItemData        =   "frmEditor_Map.frx":0085
             Left            =   1080
-            List            =   "frmEditor_Map.frx":008D
+            List            =   "frmEditor_Map.frx":0095
             Style           =   2  'Dropdown List
             TabIndex        =   48
             Top             =   720
@@ -1111,7 +1111,7 @@ Dim i As Long
     
     '//Moral
     Map.Moral = cmbMoral.ListIndex
-    Map.Sheltered = chkSheltered.value
+    Map.KillPlayer = chkKillPlayer.value
     Map.IsCave = chkCave.value
     Map.CaveLight = scrlCaveLight.value
     Map.SpriteType = scrlSpriteType.value
@@ -1203,7 +1203,7 @@ Dim i As Long
     
     '//Moral
     cmbMoral.ListIndex = Map.Moral
-    chkSheltered.value = Map.Sheltered
+    chkKillPlayer.value = Map.KillPlayer
     chkCave.value = Map.IsCave
     scrlCaveLight.value = Map.CaveLight
     scrlSpriteType.value = Map.SpriteType

@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form frmEditor_Pokemon 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Pokemon Editor"
-   ClientHeight    =   9045
+   ClientHeight    =   9120
    ClientLeft      =   150
    ClientTop       =   795
    ClientWidth     =   14055
@@ -11,14 +11,14 @@ Begin VB.Form frmEditor_Pokemon
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   603
+   ScaleHeight     =   608
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   937
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
    Begin VB.Frame Frame1 
       Caption         =   "Index"
-      Height          =   8895
+      Height          =   9015
       Left            =   120
       TabIndex        =   7
       Top             =   0
@@ -39,7 +39,7 @@ Begin VB.Form frmEditor_Pokemon
          Width           =   1815
       End
       Begin VB.ListBox lstIndex 
-         Height          =   8055
+         Height          =   8250
          ItemData        =   "frmEditor_Pokemon.frx":0000
          Left            =   120
          List            =   "frmEditor_Pokemon.frx":0002
@@ -50,11 +50,27 @@ Begin VB.Form frmEditor_Pokemon
    End
    Begin VB.Frame Frame2 
       Caption         =   "Properties"
-      Height          =   8895
+      Height          =   9015
       Left            =   3120
       TabIndex        =   0
       Top             =   0
       Width           =   10815
+      Begin VB.CheckBox chkLendary 
+         Caption         =   "Lendary?"
+         Height          =   255
+         Left            =   4920
+         TabIndex        =   99
+         Top             =   1560
+         Width           =   975
+      End
+      Begin VB.ComboBox cmbSound 
+         Height          =   315
+         Left            =   1200
+         Style           =   2  'Dropdown List
+         TabIndex        =   98
+         Top             =   1440
+         Width           =   3495
+      End
       Begin VB.VScrollBar scrlOffSetY 
          Height          =   1215
          Left            =   4800
@@ -76,7 +92,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   2055
          Left            =   6120
          TabIndex        =   86
-         Top             =   4680
+         Top             =   4800
          Width           =   4575
          Begin VB.ListBox lstItemMoveset 
             Height          =   840
@@ -124,7 +140,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   1815
          Left            =   6120
          TabIndex        =   80
-         Top             =   6840
+         Top             =   7080
          Width           =   4575
          Begin VB.TextBox txtItemSearch 
             Height          =   285
@@ -178,7 +194,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   1815
          Left            =   120
          TabIndex        =   62
-         Top             =   5160
+         Top             =   5400
          Width           =   5775
          Begin VB.TextBox txtSearch 
             Height          =   285
@@ -273,14 +289,14 @@ Begin VB.Form frmEditor_Pokemon
          Left            =   1560
          Max             =   10
          TabIndex        =   60
-         Top             =   8400
+         Top             =   8640
          Width           =   4335
       End
       Begin VB.TextBox txtSpecies 
          Height          =   285
          Left            =   1560
          TabIndex        =   58
-         Top             =   8040
+         Top             =   8280
          Width           =   4335
       End
       Begin VB.TextBox txtPokedexEntry 
@@ -290,7 +306,7 @@ Begin VB.Form frmEditor_Pokemon
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   57
-         Top             =   7080
+         Top             =   7320
          Width           =   4335
       End
       Begin VB.Frame Frame6 
@@ -402,7 +418,7 @@ Begin VB.Form frmEditor_Pokemon
          Left            =   4440
          TabIndex        =   48
          Text            =   "0"
-         Top             =   4800
+         Top             =   5040
          Width           =   1455
       End
       Begin VB.TextBox txtHeight 
@@ -410,7 +426,7 @@ Begin VB.Form frmEditor_Pokemon
          Left            =   4440
          TabIndex        =   45
          Text            =   "0"
-         Top             =   4440
+         Top             =   4680
          Width           =   1455
       End
       Begin VB.ComboBox cmbGrowthRate 
@@ -420,7 +436,7 @@ Begin VB.Form frmEditor_Pokemon
          List            =   "frmEditor_Pokemon.frx":0026
          Style           =   2  'Dropdown List
          TabIndex        =   43
-         Top             =   4440
+         Top             =   4680
          Width           =   1455
       End
       Begin VB.TextBox txtBaseExp 
@@ -428,7 +444,7 @@ Begin VB.Form frmEditor_Pokemon
          Left            =   1440
          TabIndex        =   42
          Text            =   "0"
-         Top             =   4800
+         Top             =   5040
          Width           =   1455
       End
       Begin VB.TextBox txtEVYeildVal 
@@ -436,7 +452,7 @@ Begin VB.Form frmEditor_Pokemon
          Left            =   4440
          TabIndex        =   40
          Text            =   "0"
-         Top             =   4080
+         Top             =   4320
          Width           =   1455
       End
       Begin VB.ComboBox cmbEVYeildType 
@@ -446,7 +462,7 @@ Begin VB.Form frmEditor_Pokemon
          List            =   "frmEditor_Pokemon.frx":007A
          Style           =   2  'Dropdown List
          TabIndex        =   38
-         Top             =   3720
+         Top             =   3960
          Width           =   1455
       End
       Begin VB.ComboBox cmbEggGroup 
@@ -456,7 +472,7 @@ Begin VB.Form frmEditor_Pokemon
          List            =   "frmEditor_Pokemon.frx":00D0
          Style           =   2  'Dropdown List
          TabIndex        =   36
-         Top             =   3720
+         Top             =   3960
          Width           =   1455
       End
       Begin VB.TextBox txtEggCycle 
@@ -464,23 +480,23 @@ Begin VB.Form frmEditor_Pokemon
          Left            =   1440
          TabIndex        =   33
          Text            =   "0"
-         Top             =   4080
+         Top             =   4320
          Width           =   1455
       End
       Begin VB.TextBox txtFemaleRate 
          Height          =   285
-         Left            =   4440
+         Left            =   4320
          TabIndex        =   32
          Text            =   "0"
-         Top             =   3000
+         Top             =   3480
          Width           =   1455
       End
       Begin VB.TextBox txtCatchRate 
          Height          =   285
-         Left            =   4440
+         Left            =   4320
          TabIndex        =   29
          Text            =   "0"
-         Top             =   2640
+         Top             =   3120
          Width           =   1455
       End
       Begin VB.Frame Frame4 
@@ -488,7 +504,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   1095
          Left            =   120
          TabIndex        =   24
-         Top             =   2520
+         Top             =   2760
          Width           =   2775
          Begin VB.ComboBox cmbSecondaryType 
             Height          =   315
@@ -532,7 +548,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   975
          Left            =   120
          TabIndex        =   11
-         Top             =   1440
+         Top             =   1800
          Width           =   5775
          Begin VB.TextBox txtBaseStat 
             Height          =   285
@@ -683,6 +699,14 @@ Begin VB.Form frmEditor_Pokemon
          Top             =   1080
          Width           =   3495
       End
+      Begin VB.Label Label23 
+         Caption         =   "Cries:"
+         Height          =   255
+         Left            =   240
+         TabIndex        =   97
+         Top             =   1440
+         Width           =   735
+      End
       Begin VB.Label lblOffSetY 
          Caption         =   "Name OffSetY: 0"
          Height          =   255
@@ -696,7 +720,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   61
-         Top             =   8400
+         Top             =   8640
          Width           =   1695
       End
       Begin VB.Label Label25 
@@ -704,7 +728,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   59
-         Top             =   8040
+         Top             =   8280
          Width           =   1455
       End
       Begin VB.Label Label24 
@@ -712,13 +736,13 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   56
-         Top             =   7080
+         Top             =   7320
          Width           =   1695
       End
       Begin VB.Line Line2 
          X1              =   6000
          X2              =   6000
-         Y1              =   8640
+         Y1              =   8880
          Y2              =   240
       End
       Begin VB.Label Label20 
@@ -726,7 +750,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   3120
          TabIndex        =   47
-         Top             =   4800
+         Top             =   5040
          Width           =   1455
       End
       Begin VB.Label Label19 
@@ -734,7 +758,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   3120
          TabIndex        =   46
-         Top             =   4440
+         Top             =   4680
          Width           =   1455
       End
       Begin VB.Label Label18 
@@ -742,7 +766,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   44
-         Top             =   4440
+         Top             =   4680
          Width           =   1215
       End
       Begin VB.Label Label17 
@@ -750,7 +774,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   41
-         Top             =   4800
+         Top             =   5040
          Width           =   1215
       End
       Begin VB.Label Label16 
@@ -758,7 +782,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   3120
          TabIndex        =   39
-         Top             =   4080
+         Top             =   4320
          Width           =   1215
       End
       Begin VB.Label Label15 
@@ -766,7 +790,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   3120
          TabIndex        =   37
-         Top             =   3720
+         Top             =   3960
          Width           =   1215
       End
       Begin VB.Label Label14 
@@ -774,7 +798,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   35
-         Top             =   3720
+         Top             =   3960
          Width           =   1455
       End
       Begin VB.Label Label13 
@@ -782,23 +806,23 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   34
-         Top             =   4080
+         Top             =   4320
          Width           =   1455
       End
       Begin VB.Label Label12 
          Caption         =   "Female Rate:"
          Height          =   255
-         Left            =   3120
+         Left            =   3000
          TabIndex        =   31
-         Top             =   3000
+         Top             =   3480
          Width           =   1455
       End
       Begin VB.Label Label11 
          Caption         =   "Catch Rate:"
          Height          =   255
-         Left            =   3120
+         Left            =   3000
          TabIndex        =   30
-         Top             =   2640
+         Top             =   3120
          Width           =   1455
       End
       Begin VB.Label Label1 
@@ -854,6 +878,11 @@ Private EggMoveIndex As Long
 Private ItemMoveIndex As Long
 Private EvolveIndex As Long
 Private ItemDropIndex As Long
+
+Private Sub chkLendary_Click()
+    Pokemon(EditorIndex).Lendary = chkLendary
+    EditorChange = True
+End Sub
 
 Private Sub chkScale_Click()
     Pokemon(EditorIndex).ScaleSprite = chkScale.value
@@ -951,6 +980,17 @@ End Sub
 
 Private Sub cmbSecondaryType_Click()
     Pokemon(EditorIndex).SecondaryType = cmbSecondaryType.ListIndex
+    EditorChange = True
+End Sub
+
+Private Sub cmbSound_Click()
+    If EditorStart = True Then Exit Sub
+    '//Sound
+    If cmbSound.ListIndex >= 0 Then
+        Pokemon(EditorIndex).Sound = Trim$(cmbSound.List(cmbSound.ListIndex))
+    Else
+        Pokemon(EditorIndex).Sound = "None."
+    End If
     EditorChange = True
 End Sub
 
@@ -1078,6 +1118,14 @@ Dim stringLength As Long
         
         MsgBox "Index not found", vbCritical
     End If
+End Sub
+
+Private Sub Command1_Click()
+    Dim i As Integer
+    
+    For i = 1 To MAX_POKEMON
+        
+    Next i
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)

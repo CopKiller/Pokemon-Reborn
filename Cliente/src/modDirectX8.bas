@@ -133,6 +133,7 @@ Public Const Misc_Status As Byte = 6
 Public Const Misc_PokeSelect As Byte = 7
 Public Const Misc_ShinySummary As Byte = 8
 Public Const Misc_CategoryTypes As Byte = 9
+Public Const Misc_Gender As Byte = 10
 
 ' ********************
 ' ** Initialization **
@@ -719,6 +720,7 @@ Dim TextureName As String
             Case 7: TextureName = "poke-select"
             Case 8: TextureName = "shiny-summary"
             Case 9: TextureName = "category-types"
+            Case 10: TextureName = "gender"
             Case Else: TextureName = Count_Misc
         End Select
     Loop
@@ -740,7 +742,8 @@ Dim TextureName As String
                 Case 6: TextureName = "status"
                 Case 7: TextureName = "poke-select"
                 Case 8: TextureName = "shiny-summary"
-                 Case 9: TextureName = "category-types"
+                Case 9: TextureName = "category-types"
+                Case 10: TextureName = "gender"
                 Case Else: TextureName = i
             End Select
             Tex_Misc(i) = SetTexturePath(App.Path & Misc_Path & TextureName & GFX_EXT)
@@ -1398,28 +1401,28 @@ Private Sub Render_Game()
 
         '//Upper Tiles
         '//Night Lights
-        If Map.Sheltered = 0 Then
-            '//Day And Night
-            If Editor <> EDITOR_MAP Then RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, DayAndNightARGB
+        ' If Map.Sheltered = 0 Then
+        '//Day And Night
+        If Editor <> EDITOR_MAP Then RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, DayAndNightARGB
 
-            If ShowLights Or (Editor = EDITOR_MAP And CurLayer = MapLayer.Lights) Then
-                If Editor = EDITOR_MAP Then
-                    If CurLayer = MapLayer.Lights Then
-                        RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, D3DColorARGB(100, 0, 0, 0)
-                        LightAlpha = 255
-                    End If
+        If ShowLights Or (Editor = EDITOR_MAP And CurLayer = MapLayer.Lights) Then
+            If Editor = EDITOR_MAP Then
+                If CurLayer = MapLayer.Lights Then
+                    RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, D3DColorARGB(100, 0, 0, 0)
+                    LightAlpha = 255
                 End If
-
-                For X = TileView.Left To TileView.Right
-                    For Y = TileView.top To TileView.bottom
-                        DrawMapTile MapLayer.Lights, X, Y, LightAlpha
-                    Next
-                Next
             End If
 
-            '//Weather
-            DrawWeather
+            For X = TileView.Left To TileView.Right
+                For Y = TileView.top To TileView.bottom
+                    DrawMapTile MapLayer.Lights, X, Y, LightAlpha
+                Next
+            Next
         End If
+
+        '//Weather
+        DrawWeather
+        'End If
 
         '//Bar
         DrawVitalBar
@@ -1518,7 +1521,7 @@ Private Sub Render_Game()
                     If GUI(GuiEnum.GUI_RANK).Visible Then
                         Button(i).State = ButtonState.StateClick
                     End If
-                
+
                 Case ButtonEnum.Game_Menu
                     If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
                         Button(i).State = ButtonState.StateClick
@@ -1563,7 +1566,7 @@ Private Sub Render_Game()
 
         '//SelMenu
         DrawSelMenu
-        
+
         '//Events
         DrawEvents
     Else
@@ -2812,7 +2815,7 @@ Dim i As Long
 Dim chc As Long
 Dim Width As Long
 
-    If Map.Sheltered > 0 Then Exit Sub
+    'If Map.Sheltered > 0 Then Exit Sub
 
     If Weather.Type > WeatherEnum.None Then
         '//Check which weather it is
@@ -3181,10 +3184,15 @@ Private Sub DrawHud()
                 '//Poke Type texture
                 If Pokemon(PlayerPokemons(i).Num).PrimaryType > 0 Then
                     RenderTexture Tex_PokemonTypesSymbol(Pokemon(PlayerPokemons(i).Num).PrimaryType), X + 2, Y + 30, 0, 0, 15, 15, 20, 20, D3DColorARGB(Alpha, 255, 255, 255)
-                    
+
                     If Pokemon(PlayerPokemons(i).Num).SecondaryType > 0 Then
                         RenderTexture Tex_PokemonTypesSymbol(Pokemon(PlayerPokemons(i).Num).SecondaryType), X + 17, Y + 30, 0, 0, 15, 15, 20, 20, D3DColorARGB(Alpha, 255, 255, 255)
                     End If
+                End If
+
+                ' Poke Gender - Female Rate = 0 -> Is Lendary -> Not Render Sex
+                If Pokemon(PlayerPokemons(i).Num).Lendary = NO Then
+                    DrawGender X + 25, Y, PlayerPokemons(i).Gender, 0
                 End If
             End If
         End If
@@ -3212,7 +3220,7 @@ Private Sub DrawHud()
     '//Time Stamp
     RenderTexture Tex_Gui(Hud), Screen_Width - 161 - 5, 5, 44, 134, 161, 52, 161, 52
     '//Map Name
-    RenderText Ui_Default, Trim$(Map.Name), Screen_Width - 161 - 5 + 5, 8, White
+    RenderText Ui_Default, Trim$(Map.Name), Screen_Width - 161 - 5 + 5, 8, GetMapNameColour
     '//Server Time
     RenderText Ui_Default, KeepTwoDigit(GameHour) & ":" & KeepTwoDigit(GameMinute) & ":" & KeepTwoDigit(GameSecond), Screen_Width - 161 - 5 + 5, 16 + 8, White
 
@@ -3724,7 +3732,7 @@ Dim pricetext As String
                     End If
                     
                     '//Item Name
-                    RenderText Font_Default, Trim$(Item(Shop(ShopNum).ShopItem(i).Num).Name), .X + DrawX + 44, .Y + DrawY + 10, D3DColorRGBA(100, 100, 100, 255), False
+                    RenderText Font_Default, Trim$(Item(Shop(ShopNum).ShopItem(i).Num).Name), .X + DrawX + 44, .Y + DrawY + 10, DarkGrey, True
                      ' Render Money or Cash Icon
                     RenderTexture Tex_Item(IDValue), (.X + DrawX) + ((70 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.Y + DrawY + 44) + 1, 0, 0, 20, 20, 24, 24
                 End If
@@ -3938,6 +3946,7 @@ End Sub
 
 Private Sub DrawPokemonSummary()
     Dim i As Long, setStat As Byte, MoveNum As Integer
+    Dim Y As Integer, PokeDate As PlayerPokemonsRec
 
     With GUI(GuiEnum.GUI_POKEMONSUMMARY)
         '//Make sure it's visible
@@ -3956,397 +3965,142 @@ Private Sub DrawPokemonSummary()
         '//Summary
         If SummarySlot > 0 Then
             Select Case SummaryType
-            Case 1
+            Case 1    ' MyPokes
                 If PlayerPokemons(SummarySlot).Num > 0 Then
-                    RenderText Font_Default, Trim$(Pokemon(PlayerPokemons(SummarySlot).Num).Name), .X + 191, .Y + 40, D3DColorARGB(180, 255, 255, 255), False
-                    'If PlayerPokemons(SummarySlot).IsShiny = YES Then
-                    '    RenderText Font_Default, "Yes", .X + 191, .Y + 63, D3DColorARGB(180, 255, 255, 255), False
-                    'Else
-                    '    RenderText Font_Default, "No", .X + 191, .Y + 63, D3DColorARGB(180, 255, 255, 255), False
-                    'End If
-                    RenderText Font_Default, Trim$(CheckNatureString(PlayerPokemons(SummarySlot).Nature)), .X + 191, .Y + 86, D3DColorARGB(180, 255, 255, 255), False
-                    RenderText Font_Default, PlayerPokemons(SummarySlot).Level, .X + 191, .Y + 109, D3DColorARGB(180, 255, 255, 255), False
-                    'RenderText Font_Default, PlayerPokemons(SummarySlot).CurHP & "/" & PlayerPokemons(SummarySlot).MaxHP, .X + 191, .Y + 143, D3DColorARGB(180, 255, 255, 255), False
-                    RenderText Font_Default, PlayerPokemons(SummarySlot).CurExp & "/" & PlayerPokemons(SummarySlot).NextExp, .X + 191, .Y + 134, D3DColorARGB(180, 255, 255, 255), False
-
-                    setStat = StatEnum.HP
-                    RenderText Font_Default, PlayerPokemons(SummarySlot).Stat(setStat), .X + 191, .Y + 166, D3DColorARGB(180, 255, 255, 255), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)), .Y + 166, D3DColorARGB(180, 237, 233, 141), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")"), .Y + 166, D3DColorARGB(180, 169, 241, 163), False
-
-                    setStat = StatEnum.Atk
-                    RenderText Font_Default, PlayerPokemons(SummarySlot).Stat(setStat), .X + 191, .Y + 189, D3DColorARGB(180, 255, 255, 255), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)), .Y + 189, D3DColorARGB(180, 237, 233, 141), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")"), .Y + 189, D3DColorARGB(180, 169, 241, 163), False
-
-                    setStat = StatEnum.Def
-                    RenderText Font_Default, PlayerPokemons(SummarySlot).Stat(setStat), .X + 191, .Y + 212, D3DColorARGB(180, 255, 255, 255), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)), .Y + 212, D3DColorARGB(180, 237, 233, 141), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")"), .Y + 212, D3DColorARGB(180, 169, 241, 163), False
-
-                    setStat = StatEnum.SpAtk
-                    RenderText Font_Default, PlayerPokemons(SummarySlot).Stat(setStat), .X + 191, .Y + 235, D3DColorARGB(180, 255, 255, 255), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)), .Y + 235, D3DColorARGB(180, 237, 233, 141), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")"), .Y + 235, D3DColorARGB(180, 169, 241, 163), False
-
-                    setStat = StatEnum.SpDef
-                    RenderText Font_Default, PlayerPokemons(SummarySlot).Stat(setStat), .X + 191, .Y + 258, D3DColorARGB(180, 255, 255, 255), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)), .Y + 258, D3DColorARGB(180, 237, 233, 141), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")"), .Y + 258, D3DColorARGB(180, 169, 241, 163), False
-
-                    setStat = StatEnum.Spd
-                    RenderText Font_Default, PlayerPokemons(SummarySlot).Stat(setStat), .X + 191, .Y + 281, D3DColorARGB(180, 255, 255, 255), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)), .Y + 281, D3DColorARGB(180, 237, 233, 141), False
-                    RenderText Font_Default, " (" & PlayerPokemons(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemons(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemons(SummarySlot).StatIV(setStat) & ")"), .Y + 281, D3DColorARGB(180, 169, 241, 163), False
-
-                    '//Icon
-                    If PlayerPokemons(SummarySlot).IsShiny = YES Then
-                        If Pokemon(PlayerPokemons(SummarySlot).Num).Sprite > 0 And Pokemon(PlayerPokemons(SummarySlot).Num).Sprite <= Count_ShinyPokemonPortrait Then
-                            RenderTexture Tex_ShinyPokemonPortrait(Pokemon(PlayerPokemons(SummarySlot).Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
-
-                            DrawShinyStar_Summary
-
-                        End If
-                    Else
-                        If Pokemon(PlayerPokemons(SummarySlot).Num).Sprite > 0 And Pokemon(PlayerPokemons(SummarySlot).Num).Sprite <= Count_PokemonPortrait Then
-                            RenderTexture Tex_PokemonPortrait(Pokemon(PlayerPokemons(SummarySlot).Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
-                        End If
-                    End If
-
-                    ' Held Item
-                    If PlayerPokemons(SummarySlot).HeldItem > 0 Then
-                        RenderText Ui_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Ui_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, White
-                        RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 1.8) - (GetTextWidth(Ui_Default, Trim$(Item(PlayerPokemons(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
-                    End If
-
-                    ' Type Texture
-                    If Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType > 0 Then
-                        RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
-                        If Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType > 0 Then
-                            RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemons(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
-                        End If
-                    End If
-
-
-                    ' Moves Name tab
-                    For i = 1 To 4
-                        MoveNum = PlayerPokemons(SummarySlot).Moveset(i).Num
-                        If MoveNum > 0 Then
-                            ' Degrade
-                            RenderTexture Tex_Gui(Hud), .X + 8, .Y + 195 + (i * 30 - 32), 59, 241, 105, 28, 165, 1
-                            ' Move Name
-                            RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .Y + 190 + (i * 30 - 32), White
-                            ' PP
-                            RenderText Ui_Default, "PP: " & PlayerPokemons(SummarySlot).Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .Y + 205 + (i * 30 - 32), White
-
-                            ' Poke Type texture
-                            If PokemonMove(MoveNum).Type > 0 Then
-                                RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20
-                            End If
-
-                            ' Poke Category texture
-                            If PokemonMove(MoveNum).Category > 0 Then
-                                RenderTexture Tex_Misc(Misc_CategoryTypes), .X + 8, .Y + 208 + (i * 30 - 32), PokemonMove(MoveNum).Category * 20 - 20, 0, 20, 16, 20, 16
-                            End If
-                        End If
-                    Next i
+                    PokeDate = PlayerPokemons(SummarySlot)
+                    Debug.Print PlayerPokemons(SummarySlot).BallUsed
+                Else
+                    Exit Sub
                 End If
-
-            Case 2
+            Case 2    ' MyStorage
                 If SummaryData > 0 Then
-                    If PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num > 0 Then
-                        RenderText Font_Default, Trim$(Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).Name), .X + 191, .Y + 40, D3DColorARGB(180, 255, 255, 255), False
-                        'If PlayerPokemonStorage(SummaryData).Data(SummarySlot).IsShiny = YES Then
-                        '    RenderText Font_Default, "Yes", .X + 191, .Y + 63, D3DColorARGB(180, 255, 255, 255), False
-                        'Else
-                        '    RenderText Font_Default, "No", .X + 191, .Y + 63, D3DColorARGB(180, 255, 255, 255), False
-                        'End If
-                        RenderText Font_Default, Trim$(CheckNatureString(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Nature)), .X + 191, .Y + 86, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Level, .X + 191, .Y + 109, D3DColorARGB(180, 255, 255, 255), False
-                        'RenderText Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).CurHP & "/" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).MaxHP, .X + 191, .Y + 143, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).CurExp & "/" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).NextExp, .X + 191, .Y + 134, D3DColorARGB(180, 255, 255, 255), False
+                    PokeDate = PlayerPokemonStorage(SummaryData).Data(SummarySlot)
+                Else
+                    Exit Sub
+                End If
+            Case 3, 4    ' YouTrade & TheirTrade //Utilizam estruturas diferentes, não da pra utilizar um type diretamente
+                Dim PokeTrade As TradeDataRec
 
-                        setStat = StatEnum.HP
-                        RenderText Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat), .X + 191, .Y + 166, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)), .Y + 166, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")"), .Y + 166, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.Atk
-                        RenderText Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat), .X + 191, .Y + 189, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)), .Y + 189, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")"), .Y + 189, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.Def
-                        RenderText Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat), .X + 191, .Y + 212, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)), .Y + 212, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")"), .Y + 212, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.SpAtk
-                        RenderText Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat), .X + 191, .Y + 235, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)), .Y + 235, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")"), .Y + 235, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.SpDef
-                        RenderText Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat), .X + 191, .Y + 258, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)), .Y + 258, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")"), .Y + 258, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.Spd
-                        RenderText Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat), .X + 191, .Y + 281, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)), .Y + 281, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, PlayerPokemonStorage(SummaryData).Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & PlayerPokemonStorage(SummaryData).Data(SummarySlot).StatIV(setStat) & ")"), .Y + 281, D3DColorARGB(180, 169, 241, 163), False
-
-                        '//Icon
-                        If PlayerPokemonStorage(SummaryData).Data(SummarySlot).IsShiny = YES Then
-                            If Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).Sprite > 0 And Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).Sprite <= Count_ShinyPokemonPortrait Then
-                                RenderTexture Tex_ShinyPokemonPortrait(Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
-
-                                DrawShinyStar_Summary
-
-                            End If
-                        Else
-                            If Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).Sprite > 0 And Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).Sprite <= Count_PokemonPortrait Then
-                                RenderTexture Tex_PokemonPortrait(Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
-                            End If
-                        End If
-
-                        ' Held Item
-                        If PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem > 0 Then
-                            RenderText Ui_Default, Trim$(Item(PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Ui_Default, Trim$(Item(PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, Black
-                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 1.8) - (GetTextWidth(Ui_Default, Trim$(Item(PlayerPokemonStorage(SummaryData).Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
-                        End If
-
-                        ' Type Texture
-                        If Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).PrimaryType > 0 Then
-                            RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
-                            If Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).SecondaryType > 0 Then
-                                RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemonStorage(SummaryData).Data(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
-                            End If
-                        End If
-
-
-                        ' Moves Name tab
-                        For i = 1 To 4
-                            MoveNum = PlayerPokemonStorage(SummaryData).Data(SummarySlot).Moveset(i).Num
-                            If MoveNum > 0 Then
-                                ' Degrade
-                                RenderTexture Tex_Gui(Hud), .X + 8, .Y + 195 + (i * 30 - 32), 59, 241, 105, 28, 165, 1
-                                ' Move Name
-                                RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .Y + 190 + (i * 30 - 32), White
-                                ' PP
-                                RenderText Ui_Default, "PP: " & PlayerPokemonStorage(SummaryData).Data(SummarySlot).Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .Y + 205 + (i * 30 - 32), White
-
-                                ' Poke Type texture
-                                If PokemonMove(MoveNum).Type > 0 Then
-                                    RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20
-                                End If
-
-                                ' Poke Category texture
-                                If PokemonMove(MoveNum).Category > 0 Then
-                                    RenderTexture Tex_Misc(Misc_CategoryTypes), .X + 8, .Y + 208 + (i * 30 - 32), PokemonMove(MoveNum).Category * 20 - 20, 0, 20, 16, 20, 16
-                                End If
-                            End If
-                        Next i
-                    End If
+                If CheckingTrade = 1 Then    ' Their
+                    If TheirTrade.Data(SummarySlot).TradeType <> 2 Then Exit Sub
+                    PokeTrade = TheirTrade.Data(SummarySlot)
+                ElseIf CheckingTrade = 2 Then    ' Your
+                    If YourTrade.Data(SummarySlot).TradeType <> 2 Then Exit Sub
+                    PokeTrade = YourTrade.Data(SummarySlot)
+                Else
+                    Exit Sub
                 End If
 
-            Case 3
-                If YourTrade.Data(SummarySlot).TradeType = 2 Then    '//Pokemon
-                    If YourTrade.Data(SummarySlot).Num > 0 Then
-                        RenderText Font_Default, Trim$(Pokemon(YourTrade.Data(SummarySlot).Num).Name), .X + 191, .Y + 40, D3DColorARGB(180, 255, 255, 255), False
-                        'If YourTrade.Data(SummarySlot).IsShiny = YES Then
-                        '    RenderText Font_Default, "Yes", .X + 191, .Y + 63, D3DColorARGB(180, 255, 255, 255), False
-                        'Else
-                        '    RenderText Font_Default, "No", .X + 191, .Y + 63, D3DColorARGB(180, 255, 255, 255), False
-                        'End If
-                        RenderText Font_Default, Trim$(CheckNatureString(YourTrade.Data(SummarySlot).Nature)), .X + 191, .Y + 86, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, YourTrade.Data(SummarySlot).Level, .X + 191, .Y + 109, D3DColorARGB(180, 255, 255, 255), False
-                        'RenderText Font_Default, YourTrade.Data(SummarySlot).CurHP & "/" & YourTrade.Data(SummarySlot).MaxHP, .X + 191, .Y + 143, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, YourTrade.Data(SummarySlot).CurExp & "/" & YourTrade.Data(SummarySlot).NextExp, .X + 191, .Y + 134, D3DColorARGB(180, 255, 255, 255), False
+                PokeDate.Num = PokeTrade.Num
+                PokeDate.Level = PokeTrade.Level
+                For i = 1 To StatEnum.Stat_Count - 1
+                    PokeDate.Stat(i) = PokeTrade.Stat(i)
+                    PokeDate.StatIV(i) = PokeTrade.StatIV(i)
+                    PokeDate.StatEV(i) = PokeTrade.StatEV(i)
+                Next i
+                PokeDate.CurHP = PokeTrade.CurHP
+                PokeDate.MaxHP = PokeTrade.MaxHP
+                PokeDate.Nature = PokeTrade.Nature
+                PokeDate.IsShiny = PokeTrade.IsShiny
+                PokeDate.Happiness = PokeTrade.Happiness
+                PokeDate.Gender = PokeTrade.Gender
+                PokeDate.Status = PokeTrade.Status
+                PokeDate.CurExp = PokeTrade.CurExp
+                PokeDate.NextExp = PokeTrade.NextExp
+                For i = 1 To MAX_MOVESET
+                    PokeDate.Moveset(i) = PokeTrade.Moveset(i)
+                Next i
+                PokeDate.BallUsed = PokeTrade.BallUsed
 
-                        setStat = StatEnum.HP
-                        RenderText Font_Default, YourTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 166, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)), .Y + 166, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 166, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.Atk
-                        RenderText Font_Default, YourTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 189, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)), .Y + 189, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 189, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.Def
-                        RenderText Font_Default, YourTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 212, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)), .Y + 212, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 212, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.SpAtk
-                        RenderText Font_Default, YourTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 235, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)), .Y + 235, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 235, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.SpDef
-                        RenderText Font_Default, YourTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 258, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)), .Y + 258, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 258, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.Spd
-                        RenderText Font_Default, YourTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 281, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)), .Y + 281, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & YourTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, YourTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & YourTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 281, D3DColorARGB(180, 169, 241, 163), False
-
-                        '//Icon
-                        If YourTrade.Data(SummarySlot).IsShiny = YES Then
-                            If Pokemon(YourTrade.Data(SummarySlot).Num).Sprite > 0 And Pokemon(YourTrade.Data(SummarySlot).Num).Sprite <= Count_ShinyPokemonPortrait Then
-                                RenderTexture Tex_ShinyPokemonPortrait(Pokemon(YourTrade.Data(SummarySlot).Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
-
-                                DrawShinyStar_Summary
-
-                            End If
-                        Else
-                            If Pokemon(YourTrade.Data(SummarySlot).Num).Sprite > 0 And Pokemon(YourTrade.Data(SummarySlot).Num).Sprite <= Count_PokemonPortrait Then
-                                RenderTexture Tex_PokemonPortrait(Pokemon(YourTrade.Data(SummarySlot).Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
-                            End If
-                        End If
-
-                        ' Held Item
-                        If YourTrade.Data(SummarySlot).HeldItem > 0 Then
-                            RenderText Ui_Default, Trim$(Item(YourTrade.Data(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Ui_Default, Trim$(Item(YourTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, Black
-                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 1.8) - (GetTextWidth(Ui_Default, Trim$(Item(YourTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
-                        End If
-
-                        ' Type Texture
-                        If Pokemon(YourTrade.Data(SummarySlot).Num).PrimaryType > 0 Then
-                            RenderTexture Tex_PokemonTypes(Pokemon(YourTrade.Data(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
-                            If Pokemon(YourTrade.Data(SummarySlot).Num).SecondaryType > 0 Then
-                                RenderTexture Tex_PokemonTypes(Pokemon(YourTrade.Data(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
-                            End If
-                        End If
-
-
-                        ' Moves Name tab
-                        For i = 1 To 4
-                            MoveNum = YourTrade.Data(SummarySlot).Moveset(i).Num
-                            If MoveNum > 0 Then
-                                ' Degrade
-                                RenderTexture Tex_Gui(Hud), .X + 8, .Y + 195 + (i * 30 - 32), 59, 241, 105, 28, 165, 1
-                                ' Move Name
-                                RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .Y + 190 + (i * 30 - 32), White
-                                ' PP
-                                RenderText Ui_Default, "PP: " & YourTrade.Data(SummarySlot).Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .Y + 205 + (i * 30 - 32), White
-
-                                ' Poke Type texture
-                                If PokemonMove(MoveNum).Type > 0 Then
-                                    RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20
-                                End If
-
-                                ' Poke Category texture
-                                If PokemonMove(MoveNum).Category > 0 Then
-                                    RenderTexture Tex_Misc(Misc_CategoryTypes), .X + 8, .Y + 208 + (i * 30 - 32), PokemonMove(MoveNum).Category * 20 - 20, 0, 20, 16, 20, 16
-                                End If
-                            End If
-                        Next i
-                    End If
-                End If
-            Case 4
-                If TheirTrade.Data(SummarySlot).TradeType = 2 Then    '//Pokemon
-                    If TheirTrade.Data(SummarySlot).Num > 0 Then
-                        RenderText Font_Default, Trim$(Pokemon(TheirTrade.Data(SummarySlot).Num).Name), .X + 191, .Y + 40, D3DColorARGB(180, 255, 255, 255), False
-                        'If TheirTrade.Data(SummarySlot).IsShiny = YES Then
-                        '    RenderText Font_Default, "Yes", .X + 191, .Y + 63, D3DColorARGB(180, 255, 255, 255), False
-                        'Else
-                        '    RenderText Font_Default, "No", .X + 191, .Y + 63, D3DColorARGB(180, 255, 255, 255), False
-                        'End If
-                        RenderText Font_Default, Trim$(CheckNatureString(TheirTrade.Data(SummarySlot).Nature)), .X + 191, .Y + 86, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, TheirTrade.Data(SummarySlot).Level, .X + 191, .Y + 109, D3DColorARGB(180, 255, 255, 255), False
-                        'RenderText Font_Default, TheirTrade.Data(SummarySlot).CurHP & "/" & TheirTrade.Data(SummarySlot).MaxHP, .X + 191, .Y + 143, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, TheirTrade.Data(SummarySlot).CurExp & "/" & TheirTrade.Data(SummarySlot).NextExp, .X + 191, .Y + 134, D3DColorARGB(180, 255, 255, 255), False
-
-                        setStat = StatEnum.HP
-                        RenderText Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 166, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)), .Y + 166, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 166, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.Atk
-                        RenderText Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 189, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)), .Y + 189, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 189, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.Def
-                        RenderText Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 212, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)), .Y + 212, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 212, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.SpAtk
-                        RenderText Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 235, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)), .Y + 235, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 235, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.SpDef
-                        RenderText Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 258, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)), .Y + 258, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 258, D3DColorARGB(180, 169, 241, 163), False
-
-                        setStat = StatEnum.Spd
-                        RenderText Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat), .X + 191, .Y + 281, D3DColorARGB(180, 255, 255, 255), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)), .Y + 281, D3DColorARGB(180, 237, 233, 141), False
-                        RenderText Font_Default, " (" & TheirTrade.Data(SummarySlot).StatEV(setStat) & ")", .X + 191 + GetTextWidth(Font_Default, TheirTrade.Data(SummarySlot).Stat(setStat)) + GetTextWidth(Font_Default, " (" & TheirTrade.Data(SummarySlot).StatIV(setStat) & ")"), .Y + 281, D3DColorARGB(180, 169, 241, 163), False
-
-                        '//Icon
-                        If TheirTrade.Data(SummarySlot).IsShiny = YES Then
-                            If Pokemon(TheirTrade.Data(SummarySlot).Num).Sprite > 0 And Pokemon(TheirTrade.Data(SummarySlot).Num).Sprite <= Count_ShinyPokemonPortrait Then
-                                RenderTexture Tex_ShinyPokemonPortrait(Pokemon(TheirTrade.Data(SummarySlot).Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
-
-                                DrawShinyStar_Summary
-
-                            End If
-                        Else
-                            If Pokemon(TheirTrade.Data(SummarySlot).Num).Sprite > 0 And Pokemon(TheirTrade.Data(SummarySlot).Num).Sprite <= Count_PokemonPortrait Then
-                                RenderTexture Tex_PokemonPortrait(Pokemon(TheirTrade.Data(SummarySlot).Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
-                            End If
-                        End If
-
-                        ' Held Item
-                        If TheirTrade.Data(SummarySlot).HeldItem > 0 Then
-                            RenderText Ui_Default, Trim$(Item(TheirTrade.Data(SummarySlot).HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Ui_Default, Trim$(Item(TheirTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 143, Black
-                            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 1.8) - (GetTextWidth(Ui_Default, Trim$(Item(TheirTrade.Data(SummarySlot).HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
-                        End If
-
-                        ' Type Texture
-                        If Pokemon(TheirTrade.Data(SummarySlot).Num).PrimaryType > 0 Then
-                            RenderTexture Tex_PokemonTypes(Pokemon(TheirTrade.Data(SummarySlot).Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
-                            If Pokemon(TheirTrade.Data(SummarySlot).Num).SecondaryType > 0 Then
-                                RenderTexture Tex_PokemonTypes(Pokemon(TheirTrade.Data(SummarySlot).Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
-                            End If
-                        End If
-
-
-                        ' Moves Name tab
-                        For i = 1 To 4
-                            MoveNum = TheirTrade.Data(SummarySlot).Moveset(i).Num
-                            If MoveNum > 0 Then
-                                ' Degrade
-                                RenderTexture Tex_Gui(Hud), .X + 8, .Y + 195 + (i * 30 - 32), 59, 241, 105, 28, 165, 1
-                                ' Move Name
-                                RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .Y + 190 + (i * 30 - 32), White
-                                ' PP
-                                RenderText Ui_Default, "PP: " & TheirTrade.Data(SummarySlot).Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .Y + 205 + (i * 30 - 32), White
-
-                                ' Poke Type texture
-                                If PokemonMove(MoveNum).Type > 0 Then
-                                    RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20
-                                End If
-
-                                ' Poke Category texture
-                                If PokemonMove(MoveNum).Category > 0 Then
-                                    RenderTexture Tex_Misc(Misc_CategoryTypes), .X + 8, .Y + 208 + (i * 30 - 32), PokemonMove(MoveNum).Category * 20 - 20, 0, 20, 16, 20, 16
-                                End If
-                            End If
-                        Next i
-                    End If
-                End If
+                PokeDate.HeldItem = PokeTrade.HeldItem
+            Case Else
+                Exit Sub
             End Select
+        Else
+            Exit Sub
         End If
+
+        '// U
+        RenderText Font_Default, Trim$(Pokemon(PokeDate.Num).Name), .X + 191, .Y + 40, D3DColorARGB(180, 255, 255, 255), False
+        RenderText Font_Default, Trim$(CheckNatureString(PokeDate.Nature)), .X + 191, .Y + 86, D3DColorARGB(180, 255, 255, 255), False
+        RenderText Font_Default, PokeDate.Level, .X + 191, .Y + 109, D3DColorARGB(180, 255, 255, 255), False
+        RenderText Font_Default, PokeDate.CurExp & "/" & PokeDate.NextExp, .X + 191, .Y + 134, D3DColorARGB(180, 255, 255, 255), False
+
+        '//Stats
+        Y = .Y + 166
+        For i = StatEnum.HP To StatEnum.Stat_Count - 1
+            RenderText Font_Default, PokeDate.Stat(i), .X + 191, Y, D3DColorARGB(180, 255, 255, 255), False
+            RenderText Font_Default, " (" & PokeDate.StatIV(i) & ")", .X + 191 + GetTextWidth(Font_Default, PokeDate.Stat(i)), Y, D3DColorARGB(180, 237, 233, 141), False
+            RenderText Font_Default, " (" & PokeDate.StatEV(i) & ")", .X + 191 + GetTextWidth(Font_Default, PokeDate.Stat(i)) + GetTextWidth(Font_Default, " (" & PokeDate.StatIV(i) & ")"), Y, D3DColorARGB(180, 169, 241, 163), False
+            Y = Y + 23
+        Next i
+
+        '//Icon Shiny
+        If PokeDate.IsShiny = YES Then
+            If Pokemon(PokeDate.Num).Sprite > 0 And Pokemon(PokeDate.Num).Sprite <= Count_ShinyPokemonPortrait Then
+                RenderTexture Tex_ShinyPokemonPortrait(Pokemon(PokeDate.Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
+
+                DrawShinyStar_Summary
+
+            End If
+        Else
+            If Pokemon(PokeDate.Num).Sprite > 0 And Pokemon(PokeDate.Num).Sprite <= Count_PokemonPortrait Then
+                RenderTexture Tex_PokemonPortrait(Pokemon(PokeDate.Num).Sprite), .X + 11, .Y + 43, 0, 0, 96, 96, 96, 96
+            End If
+        End If
+
+        '//Held Item
+        If PokeDate.HeldItem > 0 Then
+            RenderText Ui_Default, Trim$(Item(PokeDate.HeldItem).Name), .X + 10 + ((104 / 2) - (GetTextWidth(Ui_Default, Trim$(Item(PokeDate.HeldItem).Name)) / 2)), .Y + 143, White
+            RenderTexture Tex_Item(PokeUseHeld), .X + ((80 / 1.8) - (GetTextWidth(Ui_Default, Trim$(Item(PokeDate.HeldItem).Name)) / 2)), .Y + 140, 0, 0, 22, 22, 24, 24
+        End If
+
+        ' Type Texture
+        If Pokemon(PokeDate.Num).PrimaryType > 0 Then
+            RenderTexture Tex_PokemonTypes(Pokemon(PokeDate.Num).PrimaryType), .X + 189, .Y + 65, 0, 0, 55, 16, 64, 14
+            If Pokemon(PokeDate.Num).SecondaryType > 0 Then
+                RenderTexture Tex_PokemonTypes(Pokemon(PokeDate.Num).SecondaryType), .X + 241, .Y + 65, 0, 0, 55, 16, 64, 14
+            End If
+        End If
+
+        ' PokeBall Used
+        If PokeDate.BallUsed >= 0 Then
+            'RenderTexture Tex_Item(Item(PokeDate.BallUsed).Sprite), .X + 85, .Y + 115, 0, 0, 24, 24, 24, 24
+            RenderTexture Tex_Misc(Misc_Pokeball), .X + 90, .Y + 115, 0, (PokeDate.BallUsed) * 26, 20, 26, 20, 26
+        End If
+        ' Moves Name tab
+        For i = 1 To 4
+            MoveNum = PokeDate.Moveset(i).Num
+            If MoveNum > 0 Then
+                ' Degrade
+                RenderTexture Tex_Gui(Hud), .X + 8, .Y + 195 + (i * 30 - 32), 59, 241, 105, 28, 165, 1
+                ' Move Name
+                RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .Y + 190 + (i * 30 - 32), White
+                ' PP
+                RenderText Ui_Default, "PP: " & PokeDate.Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .Y + 205 + (i * 30 - 32), White
+
+                ' Moves Type texture
+                If PokemonMove(MoveNum).Type > 0 Then
+                    RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .Y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20
+                End If
+
+                ' Moves Category texture
+                If PokemonMove(MoveNum).Category > 0 Then
+                    RenderTexture Tex_Misc(Misc_CategoryTypes), .X + 8, .Y + 208 + (i * 30 - 32), PokemonMove(MoveNum).Category * 20 - 20, 0, 20, 16, 20, 16
+                End If
+            End If
+        Next i
+
+        ' Poke Gender - Female Rate = 0 -> Is Lendary -> Not Render Sex
+        If Pokemon(PokeDate.Num).Lendary = NO Then
+            DrawGender .X + 95, .Y + 43, PokeDate.Gender, 30
+        End If
+
     End With
+End Sub
+
+Private Sub DrawGender(ByVal X As Long, ByVal Y As Long, ByVal Gender As Byte, ByVal SizePercent As Byte)
+    RenderTexture Tex_Misc(Misc_Gender), X, Y, Gender * 8, 0, 8 + ((8 / 100) * SizePercent), 11 + ((11 / 100) * SizePercent), 8, 11
 End Sub
 
 Private Sub DrawShinyStar_Summary()
@@ -4806,6 +4560,10 @@ Public Sub DrawItemDesc()
     If ItemID = 0 Then Exit Sub
 
     ItemIcon = Item(ItemID).Sprite
+    
+    ' Sair se não houver um Icone
+    If ItemIcon = 0 Then Exit Sub
+    
     ItemName = "~ " & Trim$(Item(ItemID).Name) & " ~"
     DescString = Trim$(Item(ItemID).Desc)
 

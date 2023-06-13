@@ -2441,3 +2441,14 @@ Function GetColStr(Colour As Integer)
         GetColStr = Colour
     End If
 End Function
+
+Function GetMapNameColour() As Byte
+    Select Case Map.Moral
+        Case MAP_MORAL_DANGER: GetMapNameColour = White
+        Case MAP_MORAL_SAFE: GetMapNameColour = White
+        Case MAP_MORAL_ARENA: GetMapNameColour = White
+        Case MAP_MORAL_SAFARI: GetMapNameColour = White
+        Case MAP_MORAL_PVP: GetMapNameColour = Yellow
+        Case Else: GetMapNameColour = White
+    End Select
+End Function
