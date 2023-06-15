@@ -2,116 +2,111 @@
 > Correções <
 VVVVVVVVVVVVV
 
-OK*** -Correções no cartão do treinador, alterações em design e posições, etc...
+03 OK*** -Correções no cartão do treinador, alterações em design e posições, etc...
 
-OK*** -Adicionado formatação de milhares nos valores de Money & Cash. Exemplo: ("1.000.000")
+08 OK*** -Adicionado formatação de milhares nos valores de Money & Cash. Exemplo: ("1.000.000")
 
-OK*** -Correção no EV, que ao pegar um poke com muito EV e ultrapassase do valor máximo do stat, ele não adicionava nada, nem o valor maximo.
+25 OK*** -Correção no EV, que ao pegar um poke com muito EV e ultrapassase do valor máximo do stat, ele não adicionava nada, nem o valor maximo.
 
-OK*** -Adicionado funcionalidade pra abrir o summary seu e de quem você está em trade, pra ver os pokemons.
+25 OK*** -Adicionado funcionalidade pra abrir o summary seu e de quem você está em trade, pra ver os pokemons.
 
-OK*** -Adicionar o pp atual do pokemon no summary e não puxar do editor igual esta: PP/MAXPP
+05 OK*** -Adicionar o pp atual do pokemon no summary e não puxar do editor igual esta: PP/MAXPP
 
-OK*** -fixar cor do nome do ranking, colocar o padrão da engine
+03 OK*** -fixar cor do nome do ranking, colocar o padrão da engine
 
-OK*** -Teste feito no pokémon inicial que já começar level 5 e quando abatem um pokémon selvagem, a barra do HP ultrapassa o limite da mesma conforme mostra a imagem acima.
+03 OK*** -Teste feito no pokémon inicial que já começar level 5 e quando abatem um pokémon selvagem, a barra do HP ultrapassa o limite da mesma conforme mostra a imagem acima.
 
-OK*** -Adicionando novos poketypes, adaptando novos calculos e adicionando nova pasta no carregamento da textura, alterando a janela do summary e posições.
+35 OK*** -Adicionando novos poketypes, adaptando novos calculos e adicionando nova pasta no carregamento da textura, alterando a janela do summary e posições.
 
-OK*** -Corrigido interação com os botões do menu ingame, funcionalidades no botão do rank.
+08 OK*** -Corrigido interação com os botões do menu ingame, funcionalidades no botão do rank.
 
-OK*** -Mostrar quantidade de jogadores online na tela de login e se o servidor está online ou offline com traduções
+10 OK*** -Mostrar quantidade de jogadores online na tela de login e se o servidor está online ou offline com traduções
 
-OK*** -Adicionado sistema de colorir uma string em mais de uma cor, utilizando ColourChar
+15 OK*** -Adicionado sistema de colorir uma string em mais de uma cor, utilizando ColourChar
 
-OK*** -Ajustar painel de aprender a tecnica, melhorar o posicionamento da frase, etc...
+03 OK*** -Ajustar painel de aprender a tecnica, melhorar o posicionamento da frase, etc...
 
-OK*** -Entendendo o Drop do Npc, corrigir o drop do npc, estava randomizando entre slots vazios pra selecionar
+20 OK*** -Entendendo o Drop do Npc, corrigir o drop do npc, estava randomizando entre slots vazios pra selecionar
 	qual item ia dropar, agora randomiza apenas nos que estão cadastrados e melhora o drop.
 
-OK*** -Não permitir adicionar mais que 100% de chance de dropar money do pokemon no editor.
+05 OK*** -Não permitir adicionar mais que 100% de chance de dropar money do pokemon no editor.
 
-OK*** -Traduzir o Behavior do pokemon editor.
+02 OK*** -Traduzir o Behavior do pokemon editor.
 
-OK*** -Esc pra sair dos editores, pra facilitar
+05 OK*** -Esc pra sair dos editores, pra facilitar
 
-OK*** -Adicionar checkbox no item editor, Não deixar pokemon equipar o item.
+15 OK*** -Adicionar checkbox no item editor, Não deixar pokemon equipar o item.
 
-OK*** -Adicionar checkbox no item editor, com o nome "Vinculado" e não pode se desfazer do item,
+15 OK*** -Adicionar checkbox no item editor, com o nome "Vinculado" e não pode se desfazer do item,
 	nem por trade, nem vendendo, o item fica vinculado ao jogador eternamente.
 
-OK*** -Implementar os Berries Items: Barrie Type, Value
+35 OK*** -Implementar os Berries Items: Barrie Type, Value
 	Usar as nomenclaturas do Status do pokemon do Summary pra extrair os atributos
-
-OK*** -Adicionar novo atributo item editor, Proteinas, criar type com os atributos(utilizar o mesmo layout da medicina)
+	-Adicionar novo atributo item editor, Proteinas, criar type com os atributos(utilizar o mesmo layout da medicina)
 	Obs: Foi implementado junto com o barrie
 
--InGame \/
-OK*** -Alterar a cor do botão set no trade, está da cor do fundo.
-OK*** -Pokemons maiores que 32x32 o nome fica em cima da sprite, adicionar pra subir.
-OK*** -Alteração da cor do texto de invite.
-OK*** -Corrigir erro, ao selecionar item no trade, aparecia o summary.
-OK*** -adicionar descrição do item no summary ao passar o mouse.
--adicionar pra não poder trocar no trade com o mesmo ip e level acima de X pra poder dar trade.
-OK*** -ao digitar na box do money no trade, chamava o pokemon pra batalha.
-OK*** -Alterar a cor dos nomes no trade.
-OK*** -Correção nos editores, pra salvar ao alterar, sem precisar selecionar outro item abaixo ou acima.
-OK*** -Alterar o tamanho da fonte do item held que aparece no summary pra caber no espaço.
-OK*** -Alteração em toda estrutura do Summary, removido 4 estruturas de código, adicionado apenas uma.
-OK*** -Adicionar o sistema de BallUsed, que só estava criado a database
-OK*** -Adicionar qual o tipo de pokebola ele foi capturado no summary
-OK*** -Modificar as cores das fontes do shop, etc, deixar padrão o cinza que adicionei anteriormente no trade, etc
-
-OK*** -Adicionar o sound do pokemon no editor dele, ao spawnar ele no mapa tem o Cry, que recebi os áudios,
+05 OK*** -Alterar a cor do botão set no trade, está da cor do fundo.
+07 OK*** -Pokemons maiores que 32x32 o nome fica em cima da sprite, adicionar pra subir.
+02 OK*** -Alteração da cor do texto de invite.
+10 OK*** -Corrigir erro, ao selecionar item no trade, aparecia o summary.
+15 OK*** -adicionar descrição do item no summary ao passar o mouse.
+10 OK*** -ao digitar na box do money no trade, chamava o pokemon pra batalha.
+02 OK*** -Alterar a cor dos nomes no trade.
+05 OK*** -Correção nos editores, pra salvar ao alterar, sem precisar selecionar outro item abaixo ou acima.
+05 OK*** -Alterar o tamanho da fonte do item held que aparece no summary pra caber no espaço.
+25 OK*** -Alteração em toda estrutura do Summary, removido 4 estruturas de código, adicionado apenas uma.
+15 OK*** -Adicionar o sistema de BallUsed, que só estava criado a database
+10 OK*** -Adicionar qual o tipo de pokebola ele foi capturado no summary
+02 OK*** -Modificar as cores das fontes do shop, etc, deixar padrão o cinza que adicionei anteriormente no trade, etc
+15 OK*** -Adicionar o sound do pokemon no editor dele, ao spawnar ele no mapa tem o Cry, que recebi os áudios,
 		adicionar uma pasta em SFX, pra realizar a leitura deles especificamente.
-OK-Adicionar Moral - Pvp (Pode abater pokémon de outros jogadores sem enviar convite de DUEL mas sem punição).
-OK-Adicionar pra mostrar mapa PVP, nome do mapa amarelo.
-OK-Adicionar melhores identificadores de moral do mapa
-OK-Adicionar cor nas morais dos mapas, e não apenas no PVP
-OK-Organização > Removido 2 métodos de implementação do Pokemon ao atacar um player e adicionado em apenas 1.
-OK-Adicionado ChkBox no map properties, Nome: Kill Player?, Funcionalidade: Pode matar jogadores naquele mapa
+25 OK-Adicionar Moral - Pvp (Pode abater pokémon de outros jogadores sem enviar convite de DUEL mas sem punição).
+05 OK-Adicionar pra mostrar mapa PVP, nome do mapa amarelo.
+05 OK-Adicionar melhores identificadores de moral do mapa
+05 OK-Adicionar cor nas morais dos mapas, e não apenas no PVP
+15 OK-Organização > Removido 2 métodos de implementação do Pokemon ao atacar um player e adicionado em apenas 1.
+15 OK-Adicionado ChkBox no map properties, Nome: Kill Player?, Funcionalidade: Pode matar jogadores naquele mapa
 	Então se usar em conjunto com o Mapa PVP, pode matar pokemons e players.
-OK-Adicionar o sexo do pokemon no ícone da hud + summary
-OK-Adicionar checkbox Lendary no editor poke, pra não mostrar sexo se for lendario.
-OK-Adicionar o Gender no PokeStorage no lugar do itemheld e o itemheld por no canto inferior esquerdo
-OK-Corrigir o pokemonstorage, ao selecionar varios poke e depois fechar, ao abrir novamente esta selecionado ainda.
-OK-Adicionar botão de banir conta no servidor
-OK-Adicionar o ban por IP, tem apenas o de char
-OK-Alterar o nome do nome do server na janela dele.
-OK-Adicionar o click segundo botão na lista de jogadores, e aparecer as opções de acesso, kick, ban, etc
-OK-Alterar o time do jogo, ao invés de passar 30 segs, passar de 15 em 15.
-OK-Adicionar pra falar no canal da party, usando o /party
-OK-Não poder atacar membros da party em mapa PVP seja o pokemon dele ou o player
-OK-Adicionar uma combobox no painel admin pra mostrar o nature ao invés do txtbox
-OK-Administrativo: ao entregar um pokemon adicionar uma opção de pokebola, com uma combobox pra mostrar a lista
+15 OK-Adicionar o sexo do pokemon no ícone da hud + summary
+05 OK-Adicionar checkbox Lendary no editor poke, pra não mostrar sexo se for lendario.
+15 OK-Adicionar o Gender no PokeStorage no lugar do itemheld e o itemheld por no canto inferior esquerdo
+02 OK-Corrigir o pokemonstorage, ao selecionar varios poke e depois fechar, ao abrir novamente esta selecionado ainda.
+05 OK-Adicionar o ban por IP no servidor
+05 OK-Alterar o nome do server na janela.
+15 OK-Adicionar o click segundo botão na lista de jogadores no servidor, e aparecer as opções de acesso, kick, ban, etc
+02 OK-Alterar o time do jogo, ao invés de passar 30 segs, passar de 15 em 15.
+17 OK-Adicionar pra falar no canal da party, usando o /party
+15 OK-Não poder atacar membros da party em mapa PVP seja o pokemon dele ou o player
+12 OK-Adicionar uma combobox no painel admin pra mostrar o nature ao invés do txtbox
+10 OK-Administrativo: ao entregar um pokemon adicionar uma opção de pokebola, com uma combobox pra mostrar a lista
 	de pokebolas.
+10 OK-adicionar pra não poder trocar no trade com o mesmo ip e level acima de X pra poder dar trade.
 
 //-Não tirar dinheiro em mapa 
-
--PokemonEditor \/
-OK*** -scrl Evolve do pokemon, adicionar um find pra procurar pelo nome ou pelo ID.
-OK*** -scrl da sprite do pokemon, pra procurar o número da sprite.
-OK*** -adicionar um find(nome ou id) ao lado da lista de procura de item pra dropar do poke.
-OK*** -adicionar foto do pokemon no editor de pokemon
-OK*** -Adicionar OffSetY no nome do pokemon, pra se encaixar
-OK*** -Correção de bug que carregava todos pokemon na evolução de índice 1
-
--ItemEditor \/
-OK*** -Adicionar txt pra procurar pelo ID do item
-OK*** -Adicionar os Power Bracelets no lugar do Battle Items, Os tipos são dos Stats EV, acrescido
+#Pokemon Editor
+05 OK*** -scrl Evolve do pokemon, adicionar um find pra procurar pelo nome ou pelo ID.
+03 OK*** -scrl da sprite do pokemon, pra procurar o número da sprite.
+05 OK*** -adicionar um find(nome ou id) ao lado da lista de procura de item pra dropar do poke.
+15 OK*** -adicionar foto do pokemon no editor de pokemon
+10 OK*** -Adicionar OffSetY no nome do pokemon, pra se encaixar
+02 OK*** -Correção de bug que carregava todos pokemon na evolução de índice 1
+#ItemEditor
+03 OK*** -Adicionar txt pra procurar pelo ID do item
+35 OK*** -Adicionar os Power Bracelets no lugar do Battle Items, Os tipos são dos Stats EV, acrescido
 	do nome Power antes do nome do atributo no editor, adicionar Value.
 	(Vai funcionar da seguinte forma, ao adicionar Power Hp, e value for 8,
 	e ao equipar este item no pokemon e ir matar algum, se ele der 2 de sp attack,
 	o bracelete power hp vai dar os 8 de hp e mais 2 de sp attack.)
--Adicionar novo editor: HeldItems, ao receber as informações do philip, adicionar em um novo editor
 
--DataBase \/
-OK*** -Adicionado: Item(ItemNum).Desc = vbNullString na limpeza do item, estava dando erro em item sem descrição,
+10 OK*** -Adicionado: Item(ItemNum).Desc = vbNullString na limpeza do item, estava dando erro em item sem descrição,
 	e corrigido o draw na renderização pra renderizar se não tiver descrição.
-OK*** -Tinha 3 subs pra renderização da descrição do item, uma pro trade, uma pro storage, uma pro shop, inv, etc..
+15 OK*** -Tinha 3 subs pra renderização da descrição do item, uma pro trade, uma pro storage, uma pro shop, inv, etc..
 	agora centralizei todas em apenas uma pra não reescrever código e facilitar manutenção.
 	Obs: Foi removido todas as descrições de items, pra utilizar a nova adaptação.
 
+Total 669
+
+-Adicionar novo editor: HeldItems, ao receber as informações do philip, adicionar em um novo editor
 
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 >Futuramente, após finalizar correções básicas.<

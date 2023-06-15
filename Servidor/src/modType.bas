@@ -733,6 +733,10 @@ Private Type OptionRec
     
     '//Other
     ShinyRarity As Long
+    
+    '//Requerimentos pra trade
+    TradeLvlMin As Integer
+    SameIp As Byte
 End Type
 
 Private Type DataRec
