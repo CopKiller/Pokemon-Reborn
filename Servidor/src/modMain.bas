@@ -40,6 +40,8 @@ Dim filename As String
         MAX_PLAYER = Val(GetVar(filename, "Data", "Player"))
     End If
     
+    Call UsersOnline_Start
+    
     ' Data Limit
     ReDim Player(1 To MAX_PLAYER, 1 To MAX_PLAYERCHAR) As PlayerRec
     ReDim PlayerInv(1 To MAX_PLAYER) As PlayerInvRec
@@ -119,10 +121,31 @@ Dim filename As String
     GameHour = Hour(Now)
     GameMinute = Minute(Now)
     GameSecs = Second(Now)
-    GameSecs_Velocity = 30
+    GameSecs_Velocity = 15
     
     AppRunning = True   '//Make sure that our application is actually running
     AppLoop             '//Start the loop
+End Sub
+
+Sub UsersOnline_Start()
+    Dim i As Long
+
+    For i = 1 To MAX_PLAYER
+        frmServer.lvwInfo.ListItems.Add (i)
+
+        If i < 10 Then
+            frmServer.lvwInfo.ListItems(i).Text = "00" & i
+        ElseIf i < 100 Then
+            frmServer.lvwInfo.ListItems(i).Text = "0" & i
+        Else
+            frmServer.lvwInfo.ListItems(i).Text = i
+        End If
+
+        frmServer.lvwInfo.ListItems(i).SubItems(1) = vbNullString
+        frmServer.lvwInfo.ListItems(i).SubItems(2) = vbNullString
+        frmServer.lvwInfo.ListItems(i).SubItems(3) = vbNullString
+    Next
+
 End Sub
 
 Sub DestroyServer()

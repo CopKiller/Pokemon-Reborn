@@ -114,29 +114,36 @@ Begin VB.Form frmAdmin
       TabIndex        =   9
       Top             =   0
       Width           =   4095
-      Begin VB.TextBox txtANature 
-         Alignment       =   2  'Center
-         Height          =   285
-         Left            =   2400
+      Begin VB.ComboBox cmbBall 
+         Height          =   315
+         Left            =   2040
          TabIndex        =   63
-         Text            =   "0"
-         Top             =   3840
-         Width           =   1575
+         Text            =   "Ball Used"
+         Top             =   3120
+         Width           =   1815
+      End
+      Begin VB.ComboBox cmbNature 
+         Height          =   315
+         Left            =   120
+         TabIndex        =   62
+         Text            =   "Nature"
+         Top             =   3120
+         Width           =   1815
       End
       Begin VB.CheckBox chkAIv 
          Caption         =   "IVFull"
          Height          =   255
-         Left            =   3000
+         Left            =   120
          TabIndex        =   61
-         Top             =   3360
+         Top             =   2880
          Width           =   855
       End
       Begin VB.CheckBox chkAShiny 
          Caption         =   "IsShiny"
          Height          =   255
-         Left            =   3000
+         Left            =   2040
          TabIndex        =   60
-         Top             =   3120
+         Top             =   2880
          Width           =   855
       End
       Begin VB.Frame Frame4 
@@ -226,35 +233,35 @@ Begin VB.Form frmAdmin
       Begin VB.TextBox txtAccess 
          Alignment       =   2  'Center
          Height          =   285
-         Left            =   1080
+         Left            =   720
          TabIndex        =   46
          Text            =   "0"
-         Top             =   1320
+         Top             =   720
          Width           =   975
       End
       Begin VB.CommandButton Command2 
          Caption         =   "Acesso"
          Height          =   255
-         Left            =   120
+         Left            =   1680
          TabIndex        =   45
-         Top             =   1320
-         Width           =   975
+         Top             =   720
+         Width           =   855
       End
       Begin VB.CommandButton Command7 
-         Caption         =   "Unmute"
+         Caption         =   "Unmut"
          Height          =   255
-         Left            =   3120
+         Left            =   3360
          TabIndex        =   44
-         Top             =   1080
-         Width           =   855
+         Top             =   720
+         Width           =   615
       End
       Begin VB.CommandButton Command6 
          Caption         =   "Mute"
          Height          =   255
-         Left            =   2160
+         Left            =   2760
          TabIndex        =   43
-         Top             =   1080
-         Width           =   855
+         Top             =   720
+         Width           =   615
       End
       Begin VB.TextBox txtAItem 
          Alignment       =   2  'Center
@@ -262,7 +269,7 @@ Begin VB.Form frmAdmin
          Left            =   2160
          TabIndex        =   37
          Text            =   "0"
-         Top             =   2520
+         Top             =   1920
          Width           =   735
       End
       Begin VB.TextBox txtAPoke 
@@ -271,15 +278,15 @@ Begin VB.Form frmAdmin
          Left            =   2160
          TabIndex        =   36
          Text            =   "0"
-         Top             =   3240
-         Width           =   855
+         Top             =   2520
+         Width           =   735
       End
       Begin VB.OptionButton optGiveItem 
          Caption         =   "Option1"
          Height          =   255
          Left            =   120
          TabIndex        =   35
-         Top             =   2520
+         Top             =   1920
          Value           =   -1  'True
          Width           =   255
       End
@@ -288,7 +295,7 @@ Begin VB.Form frmAdmin
          Height          =   255
          Left            =   120
          TabIndex        =   34
-         Top             =   3240
+         Top             =   2520
          Width           =   255
       End
       Begin VB.HScrollBar scrlAPoke 
@@ -296,7 +303,7 @@ Begin VB.Form frmAdmin
          Left            =   360
          Min             =   1
          TabIndex        =   32
-         Top             =   3240
+         Top             =   2520
          Value           =   1
          Width           =   1815
       End
@@ -304,7 +311,7 @@ Begin VB.Form frmAdmin
          Height          =   285
          Left            =   720
          TabIndex        =   24
-         Top             =   1920
+         Top             =   1200
          Width           =   3255
       End
       Begin VB.TextBox txtAName 
@@ -312,24 +319,24 @@ Begin VB.Form frmAdmin
          Left            =   720
          TabIndex        =   22
          Top             =   360
-         Width           =   3255
+         Width           =   1815
       End
       Begin VB.HScrollBar scrlAItem 
          Height          =   255
          Left            =   360
          Min             =   1
          TabIndex        =   17
-         Top             =   2520
+         Top             =   1920
          Value           =   1
          Width           =   1815
       End
       Begin VB.CommandButton cmdASpawn 
          Caption         =   "Entregar"
-         Height          =   255
-         Left            =   120
+         Height          =   375
+         Left            =   2040
          TabIndex        =   16
-         Top             =   3480
-         Width           =   2055
+         Top             =   3600
+         Width           =   1815
       End
       Begin VB.TextBox txtAmount 
          Alignment       =   2  'Center
@@ -346,75 +353,74 @@ Begin VB.Form frmAdmin
          Left            =   3000
          TabIndex        =   15
          Text            =   "1"
-         Top             =   2760
-         Width           =   975
+         Top             =   2280
+         Width           =   855
       End
       Begin VB.CommandButton cmdAtt 
          Caption         =   "Obter"
-         Height          =   255
+         Height          =   375
          Left            =   120
          TabIndex        =   14
-         Top             =   3840
-         Width           =   2055
+         Top             =   3600
+         Width           =   1815
       End
       Begin VB.CommandButton cmdAWarpMe2 
          Caption         =   "Ir"
          Height          =   255
-         Left            =   120
+         Left            =   1320
          TabIndex        =   13
-         Top             =   720
-         Width           =   855
+         Top             =   120
+         Width           =   615
       End
       Begin VB.CommandButton cmdAKick 
          Caption         =   "Kick"
          Height          =   255
-         Left            =   2160
+         Left            =   2760
          TabIndex        =   12
-         Top             =   720
-         Width           =   855
+         Top             =   120
+         Width           =   615
       End
       Begin VB.CommandButton cmdABan 
          Caption         =   "Ban"
          Height          =   255
-         Left            =   3120
+         Left            =   3360
          TabIndex        =   11
-         Top             =   720
-         Width           =   855
+         Top             =   120
+         Width           =   615
       End
       Begin VB.CommandButton cmdAWarp2Me 
          Caption         =   "Puxar"
          Height          =   255
-         Left            =   1080
+         Left            =   1920
          TabIndex        =   10
-         Top             =   720
-         Width           =   975
+         Top             =   120
+         Width           =   615
       End
-      Begin VB.Label lblANature 
-         AutoSize        =   -1  'True
-         Caption         =   "Nature:"
-         Height          =   195
-         Left            =   2400
-         TabIndex        =   62
-         Top             =   3600
-         Width           =   525
+      Begin VB.Label Label8 
+         Caption         =   "Acces:"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   64
+         Top             =   720
+         Width           =   495
       End
       Begin VB.Label Label7 
          AutoSize        =   -1  'True
-         Caption         =   "ID Ou Nome"
+         Caption         =   "Find:"
          Height          =   195
-         Left            =   2040
+         Left            =   2280
          TabIndex        =   56
-         Top             =   2280
-         Width           =   885
+         Top             =   1680
+         Width           =   345
       End
       Begin VB.Label Label4 
          AutoSize        =   -1  'True
-         Caption         =   "ID Ou Nome"
+         Caption         =   "Find:"
          Height          =   195
-         Left            =   2040
+         Left            =   2280
          TabIndex        =   48
-         Top             =   3000
-         Width           =   885
+         Top             =   2280
+         Width           =   345
       End
       Begin VB.Label Label3 
          AutoSize        =   -1  'True
@@ -441,7 +447,7 @@ Begin VB.Form frmAdmin
          Height          =   195
          Left            =   120
          TabIndex        =   33
-         Top             =   3000
+         Top             =   2280
          Width           =   1515
       End
       Begin VB.Line Line3 
@@ -457,14 +463,14 @@ Begin VB.Form frmAdmin
          Height          =   195
          Left            =   120
          TabIndex        =   25
-         Top             =   1920
+         Top             =   1200
          Width           =   465
       End
       Begin VB.Line Line2 
          X1              =   120
          X2              =   3960
-         Y1              =   1800
-         Y2              =   1800
+         Y1              =   1080
+         Y2              =   1080
       End
       Begin VB.Label Label29 
          AutoSize        =   -1  'True
@@ -483,7 +489,7 @@ Begin VB.Form frmAdmin
          Height          =   195
          Left            =   120
          TabIndex        =   19
-         Top             =   2280
+         Top             =   1560
          Width           =   1440
       End
       Begin VB.Label lblAmount 
@@ -493,7 +499,7 @@ Begin VB.Form frmAdmin
          Height          =   195
          Left            =   3000
          TabIndex        =   18
-         Top             =   2520
+         Top             =   2040
          Width           =   915
       End
    End
@@ -591,7 +597,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Loaded As Boolean
+
 
 Private Sub cmdABan_Click()
     If Player(MyIndex).Access >= ACCESS_MODERATOR Then
@@ -708,7 +714,7 @@ Private Sub cmdAtt_Click()
             End If
             
             
-            SendGivePokemonTo Trim$(Player(MyIndex).Name), scrlAPoke, CLng(txtAmount), chkAShiny, chkAIv, CLng(txtANature.Text)
+            SendGivePokemonTo Trim$(Player(MyIndex).Name), scrlAPoke, CLng(txtAmount), chkAShiny, chkAIv, cmbNature.ListIndex, cmbBall.ListIndex
         Else
             AddText "Invalid command!", BrightRed
             Exit Sub
@@ -999,26 +1005,36 @@ Private Sub Form_Load()
     scrlAItem.max = MAX_ITEM
     scrlAItem.min = 0
     scrlAItem = 0
-    
+
     scrlAPoke.max = MAX_POKEMON
     scrlAPoke.min = 0
     scrlAPoke = 0
 
     ' Poke Spawn
-    If Loaded = False Then
-        Me.cmbSpawn.Clear
-        Me.cmbSpawn.AddItem "None."
-        For i = 1 To MAX_POKEMON
-            If Spawn(i).PokeNum > 0 Then
-                Me.cmbSpawn.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name)
-            Else
-                Me.cmbSpawn.AddItem i & ": Vazio"
-            End If
-            DoEvents
-        Next i
-        
-        Loaded = True
-    End If
+    Me.cmbSpawn.Clear
+    Me.cmbSpawn.AddItem "None."
+    For i = 1 To MAX_POKEMON
+        If Spawn(i).PokeNum > 0 Then
+            Me.cmbSpawn.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name)
+        Else
+            Me.cmbSpawn.AddItem i & ": Vazio"
+        End If
+        DoEvents
+    Next i
+    
+    ' Poke Nature
+    Me.cmbNature.Clear
+    For i = 0 To PokemonNature.PokemonNature_Count - 1
+        Me.cmbNature.AddItem i & ": " & CheckNatureString(i)
+        DoEvents
+    Next i
+    
+    ' Poke Balls
+    Me.cmbBall.Clear
+    For i = 0 To BallEnum.BallEnum_Count - 1
+        Me.cmbBall.AddItem i & ": " & CheckPokeBallString(i)
+        DoEvents
+    Next i
 End Sub
 
 Private Sub optGiveItem_Click()
@@ -1092,25 +1108,6 @@ Private Sub txtAItem_Change()
         End If
         scrlAItem = txtAItem
     End If
-End Sub
-
-Private Sub txtANature_Change()
-    
-    If txtANature = vbNullString Then
-        txtANature = 0
-    End If
-    
-    If Not IsNumeric(txtANature) Then
-        Call AddText("Adicione apenas numeros", BrightRed)
-        Exit Sub
-    End If
-    
-    If txtANature > 0 And txtANature <= PokemonNature_Count Then
-        lblANature = "Nature: " & CheckNatureString(txtANature)
-    End If
-    
-    
-
 End Sub
 
 Private Sub txtAPoke_Change()

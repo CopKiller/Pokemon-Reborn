@@ -73,6 +73,20 @@ OK-Adicionado ChkBox no map properties, Nome: Kill Player?, Funcionalidade: Pode
 	Então se usar em conjunto com o Mapa PVP, pode matar pokemons e players.
 OK-Adicionar o sexo do pokemon no ícone da hud + summary
 OK-Adicionar checkbox Lendary no editor poke, pra não mostrar sexo se for lendario.
+OK-Adicionar o Gender no PokeStorage no lugar do itemheld e o itemheld por no canto inferior esquerdo
+OK-Corrigir o pokemonstorage, ao selecionar varios poke e depois fechar, ao abrir novamente esta selecionado ainda.
+OK-Adicionar botão de banir conta no servidor
+OK-Adicionar o ban por IP, tem apenas o de char
+OK-Alterar o nome do nome do server na janela dele.
+OK-Adicionar o click segundo botão na lista de jogadores, e aparecer as opções de acesso, kick, ban, etc
+OK-Alterar o time do jogo, ao invés de passar 30 segs, passar de 15 em 15.
+OK-Adicionar pra falar no canal da party, usando o /party
+OK-Não poder atacar membros da party em mapa PVP seja o pokemon dele ou o player
+OK-Adicionar uma combobox no painel admin pra mostrar o nature ao invés do txtbox
+OK-Administrativo: ao entregar um pokemon adicionar uma opção de pokebola, com uma combobox pra mostrar a lista
+	de pokebolas.
+
+//-Não tirar dinheiro em mapa 
 
 -PokemonEditor \/
 OK*** -scrl Evolve do pokemon, adicionar um find pra procurar pelo nome ou pelo ID.
@@ -89,6 +103,7 @@ OK*** -Adicionar os Power Bracelets no lugar do Battle Items, Os tipos são dos 
 	(Vai funcionar da seguinte forma, ao adicionar Power Hp, e value for 8,
 	e ao equipar este item no pokemon e ir matar algum, se ele der 2 de sp attack,
 	o bracelete power hp vai dar os 8 de hp e mais 2 de sp attack.)
+-Adicionar novo editor: HeldItems, ao receber as informações do philip, adicionar em um novo editor
 
 -DataBase \/
 OK*** -Adicionado: Item(ItemNum).Desc = vbNullString na limpeza do item, estava dando erro em item sem descrição,

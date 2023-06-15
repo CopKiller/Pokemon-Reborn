@@ -1,17 +1,18 @@
 VERSION 5.00
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "mswinsck.ocx"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmServer 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "PokeNew "
-   ClientHeight    =   3510
+   ClientHeight    =   3525
    ClientLeft      =   45
    ClientTop       =   375
-   ClientWidth     =   7125
+   ClientWidth     =   7050
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   3510
-   ScaleWidth      =   7125
+   ScaleHeight     =   3525
+   ScaleWidth      =   7050
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
    Begin TabDlg.SSTab SSTab1 
@@ -19,11 +20,11 @@ Begin VB.Form frmServer
       Left            =   120
       TabIndex        =   0
       Top             =   120
-      Width           =   6975
-      _ExtentX        =   12303
+      Width           =   6855
+      _ExtentX        =   12091
       _ExtentY        =   5953
       _Version        =   393216
-      Tab             =   2
+      Tab             =   1
       TabHeight       =   520
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
@@ -33,52 +34,44 @@ Begin VB.Form frmServer
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
       TabPicture(1)   =   "frmServer.frx":001C
-      Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "btnAcess(0)"
-      Tab(1).Control(1)=   "btnAcess(1)"
-      Tab(1).Control(2)=   "btnAcess(2)"
-      Tab(1).Control(3)=   "btnAcess(3)"
-      Tab(1).Control(4)=   "btnAcess(4)"
-      Tab(1).Control(5)=   "lbPlayers"
-      Tab(1).Control(6)=   "btnDisconnect"
-      Tab(1).ControlCount=   7
+      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).Control(0)=   "lvwInfo"
+      Tab(1).Control(0).Enabled=   0   'False
+      Tab(1).ControlCount=   1
       TabCaption(2)   =   "Administrativo"
       TabPicture(2)   =   "frmServer.frx":0038
-      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "lblGameTime"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "frmInfo"
-      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "chkStaffOnly"
-      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).ControlCount=   3
       Begin VB.CheckBox chkStaffOnly 
          Caption         =   "Modo Desenvolvedor"
          Height          =   255
-         Left            =   4560
-         TabIndex        =   19
+         Left            =   -70440
+         TabIndex        =   12
          Top             =   480
          Width           =   2175
       End
       Begin VB.Frame frmInfo 
          Height          =   2535
-         Left            =   120
-         TabIndex        =   11
+         Left            =   -74880
+         TabIndex        =   4
          Top             =   720
-         Width           =   6735
+         Width           =   6615
          Begin VB.CommandButton cmdExp 
             Caption         =   "Ativar"
             Height          =   375
-            Left            =   4320
-            TabIndex        =   22
+            Left            =   4080
+            TabIndex        =   15
             Top             =   1920
             Width           =   1695
          End
          Begin VB.TextBox txtExpHour 
             Alignment       =   2  'Center
             Height          =   285
-            Left            =   4440
-            TabIndex        =   20
+            Left            =   4200
+            TabIndex        =   13
             Text            =   "0"
             Top             =   1440
             Width           =   1455
@@ -87,16 +80,16 @@ Begin VB.Form frmServer
             Caption         =   "Desligar Servidor"
             Height          =   375
             Left            =   720
-            TabIndex        =   16
+            TabIndex        =   9
             Top             =   2040
             Width           =   2295
          End
          Begin VB.HScrollBar scrlExp 
             Height          =   255
-            Left            =   3960
+            Left            =   3720
             Max             =   5
             Min             =   1
-            TabIndex        =   15
+            TabIndex        =   8
             Top             =   960
             Value           =   1
             Width           =   2295
@@ -106,7 +99,7 @@ Begin VB.Form frmServer
             Height          =   375
             Index           =   0
             Left            =   720
-            TabIndex        =   14
+            TabIndex        =   7
             Top             =   720
             Width           =   2295
          End
@@ -115,7 +108,7 @@ Begin VB.Form frmServer
             Height          =   375
             Index           =   1
             Left            =   720
-            TabIndex        =   13
+            TabIndex        =   6
             Top             =   1080
             Width           =   2295
          End
@@ -124,7 +117,7 @@ Begin VB.Form frmServer
             Height          =   375
             Index           =   2
             Left            =   720
-            TabIndex        =   12
+            TabIndex        =   5
             Top             =   1440
             Width           =   2295
          End
@@ -140,8 +133,8 @@ Begin VB.Form frmServer
                Strikethrough   =   0   'False
             EndProperty
             Height          =   375
-            Left            =   4320
-            TabIndex        =   23
+            Left            =   4080
+            TabIndex        =   16
             Top             =   240
             Width           =   1935
          End
@@ -149,8 +142,8 @@ Begin VB.Form frmServer
             AutoSize        =   -1  'True
             Caption         =   "Horas:"
             Height          =   195
-            Left            =   3960
-            TabIndex        =   21
+            Left            =   3720
+            TabIndex        =   14
             Top             =   1440
             Width           =   465
          End
@@ -162,85 +155,25 @@ Begin VB.Form frmServer
             ForeColor       =   &H80000008&
             Height          =   255
             Left            =   240
-            TabIndex        =   18
+            TabIndex        =   11
             Top             =   240
             Width           =   3255
          End
          Begin VB.Line Line1 
             BorderColor     =   &H00C0C0C0&
-            X1              =   3720
-            X2              =   3720
+            X1              =   3480
+            X2              =   3480
             Y1              =   2280
             Y2              =   240
          End
          Begin VB.Label lblExp 
             Caption         =   "Exp: 1"
             Height          =   255
-            Left            =   3960
-            TabIndex        =   17
+            Left            =   3720
+            TabIndex        =   10
             Top             =   720
             Width           =   2295
          End
-      End
-      Begin VB.CommandButton btnAcess 
-         Caption         =   "Remover"
-         Height          =   375
-         Index           =   0
-         Left            =   -70080
-         TabIndex        =   9
-         Top             =   480
-         Width           =   1815
-      End
-      Begin VB.CommandButton btnAcess 
-         Caption         =   "Moderador"
-         Height          =   375
-         Index           =   1
-         Left            =   -70080
-         TabIndex        =   8
-         Top             =   900
-         Width           =   1815
-      End
-      Begin VB.CommandButton btnAcess 
-         Caption         =   "Mapper"
-         Height          =   375
-         Index           =   2
-         Left            =   -70080
-         TabIndex        =   7
-         Top             =   1305
-         Width           =   1815
-      End
-      Begin VB.CommandButton btnAcess 
-         Caption         =   "Dev"
-         Height          =   375
-         Index           =   3
-         Left            =   -70080
-         TabIndex        =   6
-         Top             =   1710
-         Width           =   1815
-      End
-      Begin VB.CommandButton btnAcess 
-         Caption         =   "Dono"
-         Height          =   375
-         Index           =   4
-         Left            =   -70080
-         TabIndex        =   5
-         Top             =   2160
-         Width           =   1815
-      End
-      Begin VB.ListBox lbPlayers 
-         Height          =   2205
-         Left            =   -74880
-         TabIndex        =   4
-         Top             =   480
-         Width           =   4695
-      End
-      Begin VB.CommandButton btnDisconnect 
-         Caption         =   "Desconectar"
-         Height          =   375
-         Left            =   -74880
-         TabIndex        =   3
-         Top             =   2760
-         Width           =   4335
       End
       Begin VB.TextBox txtLog 
          Height          =   2295
@@ -258,12 +191,62 @@ Begin VB.Form frmServer
          Top             =   2760
          Width           =   6495
       End
+      Begin MSComctlLib.ListView lvwInfo 
+         Height          =   2655
+         Left            =   120
+         TabIndex        =   17
+         Top             =   480
+         Width           =   6495
+         _ExtentX        =   11456
+         _ExtentY        =   4683
+         View            =   3
+         Arrange         =   1
+         LabelWrap       =   -1  'True
+         HideSelection   =   0   'False
+         AllowReorder    =   -1  'True
+         FullRowSelect   =   -1  'True
+         GridLines       =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Verdana"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         NumItems        =   4
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "Index"
+            Object.Width           =   1323
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "IP Address"
+            Object.Width           =   3175
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Account"
+            Object.Width           =   3175
+         EndProperty
+         BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   3
+            Text            =   "Character"
+            Object.Width           =   3617
+         EndProperty
+      End
       Begin VB.Label lblGameTime 
          AutoSize        =   -1  'True
          Caption         =   "Time:"
          Height          =   195
-         Left            =   120
-         TabIndex        =   10
+         Left            =   -74880
+         TabIndex        =   3
          Top             =   480
          Width           =   390
       End
@@ -287,7 +270,31 @@ Begin VB.Form frmServer
       Caption         =   "&PopUpMenu"
       Visible         =   0   'False
       Begin VB.Menu mnuDisconnect 
-         Caption         =   "Disconnect Index"
+         Caption         =   "Disconnect"
+      End
+      Begin VB.Menu mnuBanChar 
+         Caption         =   "Ban Char"
+      End
+      Begin VB.Menu mnuBanIp 
+         Caption         =   "Ban IP"
+      End
+      Begin VB.Menu mnuBan 
+         Caption         =   "Ban Ip & Char"
+      End
+      Begin VB.Menu mnuRemove 
+         Caption         =   "Remove Access"
+      End
+      Begin VB.Menu mnuMod 
+         Caption         =   "Set Mod"
+      End
+      Begin VB.Menu mnuMapper 
+         Caption         =   "Set Mapper"
+      End
+      Begin VB.Menu mnuDev 
+         Caption         =   "Set Dev"
+      End
+      Begin VB.Menu mnuOwner 
+         Caption         =   "Set Owner"
       End
    End
 End
@@ -297,48 +304,6 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-
-Private Sub btnAcess_Click(Index As Integer)
-Dim i As Long
-Dim IdAccess As Long
-
-    i = lbPlayers.ListIndex + 1
-    
-    If (lbPlayers.ListIndex > -1) Then
-        If IsPlaying(i) Then
-        
-            Select Case Index
-                Case 0
-                    IdAccess = Index
-                Case 1
-                    IdAccess = Index
-                Case 2
-                    IdAccess = Index
-                Case 3
-                    IdAccess = Index
-                Case 4
-                    IdAccess = Index
-            End Select
-            
-            Player(i, TempPlayer(i).UseChar).Access = IdAccess
-            SendPlayerData i
-        End If
-    End If
-    
-End Sub
-
-Private Sub btnDisconnect_Click()
-Dim i As Long
-
-    i = lbPlayers.ListIndex + 1
-    
-    If (lbPlayers.ListIndex > -1) Then
-        If GetPlayerIP(i) <> vbNullString Then
-            CloseSocket (lbPlayers.ListIndex + 1)
-        End If
-    End If
-    
-End Sub
 
 Private Sub btnReload_Click(Index As Integer)
 Dim i As Long
@@ -480,7 +445,31 @@ Private Sub cmdShutdown_Click()
     End If
 End Sub
 
-Private Sub frmUser_DragDrop(Source As Control, x As Single, Y As Single)
+Private Sub frmUser_DragDrop(Source As Control, X As Single, Y As Single)
+
+End Sub
+
+Private Sub lvwInfo_ColumnClick(ByVal ColumnHeader As MSComctlLib.ColumnHeader)
+
+'When a ColumnHeader object is clicked, the ListView control is sorted by the subitems of that column.
+'Set the SortKey to the Index of the ColumnHeader - 1
+'Set Sorted to True to sort the list.
+    If lvwInfo.SortOrder = lvwAscending Then
+        lvwInfo.SortOrder = lvwDescending
+    Else
+        lvwInfo.SortOrder = lvwAscending
+    End If
+
+    lvwInfo.SortKey = ColumnHeader.Index - 1
+    lvwInfo.Sorted = True
+End Sub
+
+Private Sub lvwInfo_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If Not AppRunning Then Exit Sub
+    
+    If Button = vbRightButton Then
+        PopupMenu mnuPopUp
+    End If
 
 End Sub
 
@@ -546,6 +535,120 @@ End Sub
 ' *****************
 Private Sub Form_Unload(Cancel As Integer)
     DestroyServer
+End Sub
+
+Sub mnuDisconnect_click()
+    Dim i As Long
+    i = frmServer.lvwInfo.SelectedItem.Index
+
+    If IsConnected(i) Then
+        If GetPlayerIP(i) <> vbNullString Then
+            CloseSocket i
+        End If
+    End If
+
+End Sub
+
+Sub mnuBanChar_click()
+    Dim i As Long
+    i = frmServer.lvwInfo.SelectedItem.Index
+    ' Banir o Character
+    If IsPlaying(i) Then
+        BanCharacter Name
+        CloseSocket FindPlayer(Name)
+    End If
+
+End Sub
+
+Sub mnuBanIp_click()
+    Dim i As Long
+    i = frmServer.lvwInfo.SelectedItem.Index
+
+    If IsConnected(i) Then
+        BanIP GetPlayerIP(i)
+        CloseSocket i
+    End If
+
+End Sub
+
+Sub mnuBan_click()
+    Dim i As Long
+    i = frmServer.lvwInfo.SelectedItem.Index
+
+    If IsPlaying(i) Then
+        BanCharacter Player(i, TempPlayer(i).UseChar).Name
+    End If
+
+    If IsConnected(i) Then
+        BanIP GetPlayerIP(i)
+        CloseSocket i
+    End If
+
+End Sub
+
+Sub mnuRemove_click()
+    Dim i As Long
+    i = frmServer.lvwInfo.SelectedItem.Index
+
+    If i > 0 Then
+        If IsPlaying(i) Then
+            Player(i, TempPlayer(i).UseChar).Access = ACCESS_NONE
+            SendPlayerData i
+        End If
+    End If
+
+End Sub
+
+Sub mnuMod_click()
+    Dim i As Long
+    i = frmServer.lvwInfo.SelectedItem.Index
+
+    If i > 0 Then
+        If IsPlaying(i) Then
+            Player(i, TempPlayer(i).UseChar).Access = ACCESS_MODERATOR
+            SendPlayerData i
+        End If
+    End If
+
+End Sub
+
+Sub mnuMapper_click()
+    Dim i As Long
+    i = frmServer.lvwInfo.SelectedItem.Index
+
+    If i > 0 Then
+        If IsPlaying(i) Then
+            Player(i, TempPlayer(i).UseChar).Access = ACCESS_MAPPER
+            SendPlayerData i
+        End If
+    End If
+
+End Sub
+
+Sub mnuDev_click()
+    Dim i As Long
+    i = frmServer.lvwInfo.SelectedItem.Index
+
+    If i > 0 Then
+        If IsPlaying(i) Then
+            Player(i, TempPlayer(i).UseChar).Access = ACCESS_DEVELOPER
+            SendPlayerData i
+        End If
+    End If
+
+End Sub
+
+Sub mnuOwner_click()
+    Dim i As Long
+    i = frmServer.lvwInfo.SelectedItem.Index
+
+    If i > 0 Then
+        If IsPlaying(i) Then
+            Player(i, TempPlayer(i).UseChar).Access = ACCESS_CREATOR
+            SendPlayerData i
+        End If
+    End If
+
 End Sub
 
 Private Sub txtCommand_KeyPress(KeyAscii As Integer)
@@ -619,22 +722,4 @@ End Sub
 Private Sub txtLog_GotFocus()
     txtCommand.SetFocus
     DoEvents
-End Sub
-
-'
-Sub UsersOnline_Start()
-    Dim i As Long
-
-    For i = 1 To MAX_PLAYER
-        frmServer.lbPlayers.AddItem vbNullString
-
-        If i < 10 Then
-            frmServer.lbPlayers.List(i) = "00" & i
-        ElseIf i < 100 Then
-            frmServer.lbPlayers.List(i) = "0" & i
-        Else
-            frmServer.lbPlayers.List(i) = i
-        End If
-    Next
-
 End Sub

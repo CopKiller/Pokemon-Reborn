@@ -36,7 +36,7 @@ Public Sub DeleteFile(ByVal filename As String)
     Kill filename
 End Sub
 
-Public Sub AddLog(ByVal SString As String)
+Public Sub AddLog(ByVal sString As String)
 Dim filename As String
 
     '//Write error on logs
@@ -46,11 +46,11 @@ Dim filename As String
         Close #1
     End If
     Open filename For Append As #1
-        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & SString
+        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & sString
     Close #1
 End Sub
 
-Public Sub AddIPLog(ByVal SString As String)
+Public Sub AddIPLog(ByVal sString As String)
 Dim filename As String
 
     '//Write error on logs
@@ -61,7 +61,7 @@ Dim filename As String
         Close #1
     End If
     Open filename For Append As #1
-        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & SString
+        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & sString
     Close #1
 End Sub
 
@@ -228,15 +228,18 @@ Public Sub ClearAccount(ByVal Index As Long)
 End Sub
 
 Public Sub ClearPlayer(ByVal Index As Long)
-Dim I As Long
+    Dim I As Long
 
     For I = 1 To MAX_PLAYERCHAR
         '//Clear
         Call ZeroMemory(ByVal VarPtr(Player(Index, I)), LenB(Player(Index, I)))
         Call ZeroMemory(ByVal VarPtr(PlayerPokemon(Index)), LenB(PlayerPokemon(Index)))
         Player(Index, I).Name = vbNullString
-        frmServer.lbPlayers.List(Index - 1) = vbNullString
     Next
+
+    frmServer.lvwInfo.ListItems(Index).SubItems(1) = vbNullString
+    frmServer.lvwInfo.ListItems(Index).SubItems(2) = vbNullString
+    frmServer.lvwInfo.ListItems(Index).SubItems(3) = vbNullString
 End Sub
 
 Public Sub AddPlayerData(ByVal Index As Long, ByVal CharSlot As Byte, ByVal Name As String, ByVal Sprite As Long)

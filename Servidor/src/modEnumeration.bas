@@ -127,6 +127,7 @@ Public Enum ClientPackets
     CPlayerDir
     CMapMsg
     CGlobalMsg
+    CPartyMsg
     CPlayerMsg
     CWarpTo
     CAdminWarp

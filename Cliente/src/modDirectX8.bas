@@ -3530,25 +3530,22 @@ Private Sub DrawPokemonStorage()
                         RenderTexture Tex_PokemonIcon(Sprite), DrawX, DrawY, MapAnim * 32, 0, 32, 32, 32, 32
                         '//Held Item
                         If PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem > 0 And PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem <= MAX_ITEM Then
-                            RenderTexture Tex_Item(PokeUseHeld), DrawX + 20, DrawY - 2, 0, 0, 14, 14, 24, 24
+                            RenderTexture Tex_Item(PokeUseHeld), DrawX - 4, DrawY + 21, 0, 0, 13, 13, 24, 24
                         End If
 
-                        '//Poke Type texture
-                        'If Pokemon(PlayerPokemonStorage(PokemonCurSlot).Data(i).Num).PrimaryType > 0 Then
-                        '    RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemonStorage(PokemonCurSlot).Data(i).Num).PrimaryType), DrawX + 2, DrawY + 30, 0, 0, 14, 14, 22, 23
-                        '    If Pokemon(PlayerPokemonStorage(PokemonCurSlot).Data(i).Num).SecondaryType > 0 Then
-                        '        RenderTexture Tex_PokemonTypes(Pokemon(PlayerPokemonStorage(PokemonCurSlot).Data(i).Num).SecondaryType), DrawX + 17, DrawY + 30, 0, 0, 14, 14, 22, 23
-                        '    End If
-                        'End If
+                        ' Poke Gender - Female Rate = 0 -> Is Lendary -> Not Render Sex
+                        If Pokemon(PlayerPokemonStorage(PokemonCurSlot).Data(i).Num).Lendary = NO Then
+                            DrawGender DrawX + 24, DrawY, PlayerPokemonStorage(PokemonCurSlot).Data(i).Gender, 0
+                        End If
+
+                        ' Using in PokeStorage to select Pokes.
+                        If IsPokemonSelected(i) Then
+                            RenderTexture Tex_Misc(Misc_PokeSelect), GetPokemonSelectedX(i), GetPokemonSelectedY(i) - 7, 0, 0, 26, 20, 26, 20
+                        End If
                     End If
 
                     RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
                 End If
-            End If
-
-            ' Using in PokeStorage to select Pokes.
-            If IsPokemonSelected(i) Then
-                RenderTexture Tex_Misc(Misc_PokeSelect), GetPokemonSelectedX(i), GetPokemonSelectedY(i) - 7, 0, 0, 26, 20, 26, 20
             End If
         Next
 
@@ -3968,7 +3965,6 @@ Private Sub DrawPokemonSummary()
             Case 1    ' MyPokes
                 If PlayerPokemons(SummarySlot).Num > 0 Then
                     PokeDate = PlayerPokemons(SummarySlot)
-                    Debug.Print PlayerPokemons(SummarySlot).BallUsed
                 Else
                     Exit Sub
                 End If

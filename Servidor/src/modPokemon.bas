@@ -2,7 +2,7 @@ Attribute VB_Name = "modPokemon"
 Option Explicit
 
 Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO)
-Dim MapNum As Long, x As Long, y As Long
+Dim MapNum As Long, x As Long, Y As Long
 Dim RndNum As Long
 Dim x2 As Long, y2 As Long
 Dim gotData As Boolean
@@ -23,8 +23,8 @@ Dim gotData As Boolean
         If MapNum <= 1 Then MapNum = 1
         If MapNum >= MAX_MAP Then MapNum = MAX_MAP
         
-        If Not Map(MapNum).Moral = 3 Then '//Can Spawn at Saffari
-            If Map(MapNum).Moral > 0 Then '//Don't spawn
+        If Not Map(MapNum).Moral = MAP_MORAL_SAFARI Then '//Can Spawn at Saffari
+            If Map(MapNum).Moral = MAP_MORAL_ARENA Or Map(MapNum).Moral = MAP_MORAL_SAFE Then '//Don't spawn
                 Exit Sub
             End If
         End If
@@ -45,15 +45,15 @@ Dim gotData As Boolean
         gotData = False
         If Spawn(MapPokeNum).randomXY = NO Then
             x = Spawn(MapPokeNum).MapX
-            y = Spawn(MapPokeNum).MapY
+            Y = Spawn(MapPokeNum).MapY
         Else
             '//randomize value for 100 times
             If Not gotData Then
                 For RndNum = 1 To 100
                     x = Random(0, Map(MapNum).MaxX)
-                    y = Random(0, Map(MapNum).MaxY)
+                    Y = Random(0, Map(MapNum).MaxY)
                         
-                    If NpcTileOpen(MapNum, x, y) Then
+                    If NpcTileOpen(MapNum, x, Y) Then
                         gotData = True
                         Exit For
                     End If
@@ -66,7 +66,7 @@ Dim gotData As Boolean
                     For y2 = 0 To Map(MapNum).MaxY
                         If NpcTileOpen(MapNum, x2, y2) Then
                             x = x2
-                            y = y2
+                            Y = y2
                             gotData = True
                             Exit For
                         End If
@@ -76,18 +76,18 @@ Dim gotData As Boolean
 
             If Not gotData Then
                 x = Spawn(MapPokeNum).MapX
-                y = Spawn(MapPokeNum).MapY
+                Y = Spawn(MapPokeNum).MapY
             End If
         End If
         If x <= 0 Then x = 0
         If x >= Map(MapNum).MaxX Then x = Map(MapNum).MaxX
-        If y <= 0 Then y = 0
-        If y >= Map(MapNum).MaxY Then y = Map(MapNum).MaxY
+        If Y <= 0 Then Y = 0
+        If Y >= Map(MapNum).MaxY Then Y = Map(MapNum).MaxY
             
         '//Check Game Time
         If GameHour >= Spawn(MapPokeNum).SpawnTimeMin And GameHour <= Spawn(MapPokeNum).SpawnTimeMax Then
             '//Spawn Pokemon
-            SpawnPokemon MapPokeNum, Spawn(MapPokeNum).PokeNum, MapNum, x, y, Random(0, 3), ForceSpawn, ForceShiny
+            SpawnPokemon MapPokeNum, Spawn(MapPokeNum).PokeNum, MapNum, x, Y, Random(0, 3), ForceSpawn, ForceShiny
         End If
     End If
 End Sub
@@ -142,7 +142,7 @@ Dim i As Long
     Next
 End Function
 
-Public Function SpawnPokemon(ByVal slot As Long, ByVal PokemonNum As Long, ByVal MapNum As Long, ByVal x As Long, ByVal y As Long, ByVal Dir As Byte, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO) As Boolean
+Public Function SpawnPokemon(ByVal slot As Long, ByVal PokemonNum As Long, ByVal MapNum As Long, ByVal x As Long, ByVal Y As Long, ByVal Dir As Byte, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO) As Boolean
 Dim bs As Byte, m As Long, s As Byte
 Dim ShinyChanceVal As Long, ShinyLuckVal As Long
 Dim MoveSlot As Long
@@ -156,8 +156,8 @@ Dim MoveSlot As Long
     If slot <= 0 Or slot > MAX_GAME_POKEMON Then Exit Function
     If x <= 0 Then x = 0
     If x >= Map(MapNum).MaxX Then x = Map(MapNum).MaxX
-    If y <= 0 Then y = 0
-    If y >= Map(MapNum).MaxY Then y = Map(MapNum).MaxY
+    If Y <= 0 Then Y = 0
+    If Y >= Map(MapNum).MaxY Then Y = Map(MapNum).MaxY
     
     '//Update HighIndex
     If slot > Pokemon_HighIndex Then
@@ -173,7 +173,7 @@ Dim MoveSlot As Long
         '//Location
         .Map = MapNum
         .x = x
-        .y = y
+        .Y = Y
         .Dir = Dir
             
         '//Nature
@@ -186,12 +186,12 @@ Dim MoveSlot As Long
         ShinyLuckVal = Random(0, Options.ShinyRarity)
         
         If ShinyChanceVal = ShinyLuckVal Then
-            .isShiny = YES
+            .IsShiny = YES
         Else
-            .isShiny = NO
+            .IsShiny = NO
         End If
         If ForceSpawn Then
-            .isShiny = ForceShiny
+            .IsShiny = ForceShiny
         End If
         
         .Gender = Random(GENDER_MALE, GENDER_FEMALE)
@@ -217,8 +217,8 @@ Dim MoveSlot As Long
         Next
             
         '//Vital
-        .MaxHP = .Stat(StatEnum.HP).Value * Spawn(slot).pokeBuff
-        .CurHP = .MaxHP
+        .MaxHp = .Stat(StatEnum.HP).Value * Spawn(slot).pokeBuff
+        .CurHp = .MaxHp
             
         '//Moveset
         If PokemonNum > 0 Then
@@ -307,9 +307,9 @@ Dim i As Byte, pCount As Byte
                 .Dir = DIR_UP
                 
                 '//Check to make sure not outside of boundries
-                If .y > 0 Then
-                    If Not CheckDirection(.Map, DIR_UP, .x, .y, True) Then
-                        .y = .y - 1
+                If .Y > 0 Then
+                    If Not CheckDirection(.Map, DIR_UP, .x, .Y, True) Then
+                        .Y = .Y - 1
                         DidMove = True
                     End If
                 End If
@@ -317,9 +317,9 @@ Dim i As Byte, pCount As Byte
                 .Dir = DIR_DOWN
                 
                 '//Check to make sure not outside of boundries
-                If .y < Map(.Map).MaxY Then
-                    If Not CheckDirection(.Map, DIR_DOWN, .x, .y, True) Then
-                        .y = .y + 1
+                If .Y < Map(.Map).MaxY Then
+                    If Not CheckDirection(.Map, DIR_DOWN, .x, .Y, True) Then
+                        .Y = .Y + 1
                         DidMove = True
                     End If
                 End If
@@ -328,7 +328,7 @@ Dim i As Byte, pCount As Byte
                 
                 '//Check to make sure not outside of boundries
                 If .x > 0 Then
-                    If Not CheckDirection(.Map, DIR_LEFT, .x, .y, True) Then
+                    If Not CheckDirection(.Map, DIR_LEFT, .x, .Y, True) Then
                         .x = .x - 1
                         DidMove = True
                     End If
@@ -338,7 +338,7 @@ Dim i As Byte, pCount As Byte
                 
                 '//Check to make sure not outside of boundries
                 If .x < Map(.Map).MaxX Then
-                    If Not CheckDirection(.Map, DIR_RIGHT, .x, .y, True) Then
+                    If Not CheckDirection(.Map, DIR_RIGHT, .x, .Y, True) Then
                         .x = .x + 1
                         DidMove = True
                     End If
@@ -350,9 +350,9 @@ Dim i As Byte, pCount As Byte
             If .Status = StatusEnum.Poison Then
                 If .StatusMove >= 4 Then
                     If .StatusDamage > 0 Then
-                        If .StatusDamage >= .CurHP Then
-                            .CurHP = 0
-                            SendActionMsg .Map, "-" & .StatusDamage, .x * 32, .y * 32, Magenta
+                        If .StatusDamage >= .CurHp Then
+                            .CurHp = 0
+                            SendActionMsg .Map, "-" & .StatusDamage, .x * 32, .Y * 32, Magenta
                             
                             If Spawn(MapPokemonNum).NoExp = NO Then
                                 If .LastAttacker > 0 Then
@@ -390,15 +390,15 @@ Dim i As Byte, pCount As Byte
                             ClearMapPokemon MapPokemonNum
                             Exit Function
                         Else
-                            .CurHP = .CurHP - .StatusDamage
-                            SendActionMsg .Map, "-" & .StatusDamage, .x * 32, .y * 32, Magenta
+                            .CurHp = .CurHp - .StatusDamage
+                            SendActionMsg .Map, "-" & .StatusDamage, .x * 32, .Y * 32, Magenta
                             '//Update
                             SendPokemonVital MapPokemonNum
                         End If
                         '//Reset
                         .StatusMove = 0
                     Else
-                        .StatusDamage = (.MaxHP / 16)
+                        .StatusDamage = (.MaxHp / 16)
                     End If
                 Else
                     .StatusMove = .StatusMove + 1

@@ -2329,6 +2329,16 @@ Public Function CheckNatureString(ByVal natureNum As Byte) As String
     End Select
 End Function
 
+Public Function CheckPokeBallString(ByVal ballNum As Byte) As String
+    Select Case ballNum
+        Case BallEnum.b_Pokeball: CheckPokeBallString = "PokeBall"
+        Case BallEnum.b_Greatball: CheckPokeBallString = "Greatball"
+        Case BallEnum.b_Ultraball: CheckPokeBallString = "Ultraball"
+        Case BallEnum.b_Masterball: CheckPokeBallString = "Masterball"
+        Case BallEnum.b_Primerball: CheckPokeBallString = "Primerball"
+    End Select
+End Function
+
 Public Function GetLevelNextExp(ByVal Level As Long) As Long
     'GetLevelNextExp = (1.2 * ((Level + 1) ^ 3)) - (15 * ((Level + 1) ^ 2)) + (100 * (Level + 1)) - 140
     GetLevelNextExp = ((Level + 5) ^ 3) * (((((Level + 5) + 1) / 3) + 24) / 50)

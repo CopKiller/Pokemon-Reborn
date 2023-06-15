@@ -959,6 +959,7 @@ Public Sub ProcessPlayerMove(ByVal Index As Long, ByVal MoveNum As Long)
     Select Case PokemonMove(MoveNum).targetType
     Case 0    '//Self
         '//Status
+
         If PokemonMove(MoveNum).pStatus > 0 And PokemonMove(MoveNum).StatusToSelf = NO Then
             If PokemonMove(MoveNum).pStatus = 6 Then
                 PlayerPokemon(Index).IsConfuse = YES
@@ -1060,92 +1061,97 @@ Public Sub ProcessPlayerMove(ByVal Index As Long, ByVal MoveNum As Long)
             If IsPlaying(I) Then
                 If TempPlayer(I).UseChar > 0 Then
                     If Player(I, TempPlayer(I).UseChar).Map = MapNum Then
-                        '//Can't kill player
-                        If PlayerPokemon(I).Num > 0 Then
-                            '//Check Status Req
-                            If PokemonMove(MoveNum).StatusReq > 0 Then
-                                If PlayerPokemons(I).Data(PlayerPokemon(I).slot).Status = PokemonMove(MoveNum).StatusReq Then
+                        '//Ignore Party Member
+                        If Not IsPartyMember(Index, I) Then
+                            '//Can't kill player
+                            If PlayerPokemon(I).Num > 0 Then
+                                '//Check Status Req
+                                If PokemonMove(MoveNum).StatusReq > 0 Then
+                                    If PlayerPokemons(I).Data(PlayerPokemon(I).slot).Status = PokemonMove(MoveNum).StatusReq Then
+                                        CanAttack = True
+                                    Else
+                                        CanAttack = False
+                                    End If
+                                Else
                                     CanAttack = True
-                                Else
+                                End If
+
+
+                                If PlayerPokemon(I).IsProtect > 0 Then
                                     CanAttack = False
+                                    PlayerPokemon(I).IsProtect = NO
+                                    SendActionMsg MapNum, "Protected", PlayerPokemon(I).X * 32, PlayerPokemon(I).Y * 32, Yellow
                                 End If
-                            Else
-                                CanAttack = True
-                            End If
-                            If PlayerPokemon(I).IsProtect > 0 Then
-                                CanAttack = False
-                                PlayerPokemon(I).IsProtect = NO
-                                SendActionMsg MapNum, "Protected", PlayerPokemon(I).X * 32, PlayerPokemon(I).Y * 32, Yellow
-                            End If
 
-                            If CanAttack Then
-                                InRange = False
-                                If PokemonMove(MoveNum).targetType = 1 Then    '//AoE
-                                    If IsOnAoERange(Range, X, Y, PlayerPokemon(I).X, PlayerPokemon(I).Y) Then InRange = True
-                                ElseIf PokemonMove(MoveNum).targetType = 2 Then    '//Linear
-                                    If IsOnLinearRange(PlayerPokemon(Index).Dir, Range, X, Y, PlayerPokemon(I).X, PlayerPokemon(I).Y) Then InRange = True
-                                ElseIf PokemonMove(MoveNum).targetType = 3 Then    '//Spray
-                                    If IsOnSprayRange(PlayerPokemon(Index).Dir, Range, X, Y, PlayerPokemon(I).X, PlayerPokemon(I).Y) Then InRange = True
-                                Else
+                                If CanAttack Then
                                     InRange = False
-                                End If
+                                    If PokemonMove(MoveNum).targetType = 1 Then    '//AoE
+                                        If IsOnAoERange(Range, X, Y, PlayerPokemon(I).X, PlayerPokemon(I).Y) Then InRange = True
+                                    ElseIf PokemonMove(MoveNum).targetType = 2 Then    '//Linear
+                                        If IsOnLinearRange(PlayerPokemon(Index).Dir, Range, X, Y, PlayerPokemon(I).X, PlayerPokemon(I).Y) Then InRange = True
+                                    ElseIf PokemonMove(MoveNum).targetType = 3 Then    '//Spray
+                                        If IsOnSprayRange(PlayerPokemon(Index).Dir, Range, X, Y, PlayerPokemon(I).X, PlayerPokemon(I).Y) Then InRange = True
+                                    Else
+                                        InRange = False
+                                    End If
 
-                                If InRange Then
-                                    If Not I = Index Then
-                                        If (TempPlayer(Index).InDuel = I And TempPlayer(I).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(I, TempPlayer(I).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
-                                            If PlayerPokemon(I).slot > 0 Then
-                                                If PokemonMove(MoveNum).pStatus = 6 Then
-                                                    PlayerPokemon(I).IsConfuse = YES
-                                                    SendPlayerPokemonStatus I
-                                                    Select Case TempPlayer(I).CurLanguage
-                                                    Case LANG_PT: AddAlert I, "Your pokemon got confused", White
-                                                    Case LANG_EN: AddAlert I, "Your pokemon got confused", White
-                                                    Case LANG_ES: AddAlert I, "Your pokemon got confused", White
-                                                    End Select
-                                                Else
-                                                    '//Status
-                                                    If PokemonMove(MoveNum).pStatus > 0 And PokemonMove(MoveNum).StatusToSelf = NO Then
-                                                        If PlayerPokemons(I).Data(PlayerPokemon(I).slot).Status <= 0 Then
-                                                            statusChance = (100 * (PokemonMove(MoveNum).pStatusChance / 100))
+                                    If InRange Then
+                                        If Not I = Index Then
+                                            If (TempPlayer(Index).InDuel = I And TempPlayer(I).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(I, TempPlayer(I).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
+                                                If PlayerPokemon(I).slot > 0 Then
+                                                    If PokemonMove(MoveNum).pStatus = 6 Then
+                                                        PlayerPokemon(I).IsConfuse = YES
+                                                        SendPlayerPokemonStatus I
+                                                        Select Case TempPlayer(I).CurLanguage
+                                                        Case LANG_PT: AddAlert I, "Your pokemon got confused", White
+                                                        Case LANG_EN: AddAlert I, "Your pokemon got confused", White
+                                                        Case LANG_ES: AddAlert I, "Your pokemon got confused", White
+                                                        End Select
+                                                    Else
+                                                        '//Status
+                                                        If PokemonMove(MoveNum).pStatus > 0 And PokemonMove(MoveNum).StatusToSelf = NO Then
+                                                            If PlayerPokemons(I).Data(PlayerPokemon(I).slot).Status <= 0 Then
+                                                                statusChance = (100 * (PokemonMove(MoveNum).pStatusChance / 100))
 
-                                                            If IsImmuneOnStatus(PokemonMove(MoveNum).Type, Pokemon(PlayerPokemon(I).Num).PrimaryType, Pokemon(PlayerPokemon(I).Num).SecondaryType, PokemonMove(MoveNum).pStatus) Then
-                                                                If statusChance > 0 Then
-                                                                    statusRand = Random(1, 100)
-                                                                    If statusRand <= statusChance Then
-                                                                        PlayerPokemons(I).Data(PlayerPokemon(I).slot).Status = PokemonMove(MoveNum).pStatus
-                                                                        SendPlayerPokemonStatus I
-                                                                        Select Case PokemonMove(MoveNum).pStatus
-                                                                        Case StatusEnum.Poison
-                                                                            Select Case TempPlayer(I).CurLanguage
-                                                                            Case LANG_PT: AddAlert I, "Your pokemon got poisoned", White
-                                                                            Case LANG_EN: AddAlert I, "Your pokemon got poisoned", White
-                                                                            Case LANG_ES: AddAlert I, "Your pokemon got poisoned", White
+                                                                If IsImmuneOnStatus(PokemonMove(MoveNum).Type, Pokemon(PlayerPokemon(I).Num).PrimaryType, Pokemon(PlayerPokemon(I).Num).SecondaryType, PokemonMove(MoveNum).pStatus) Then
+                                                                    If statusChance > 0 Then
+                                                                        statusRand = Random(1, 100)
+                                                                        If statusRand <= statusChance Then
+                                                                            PlayerPokemons(I).Data(PlayerPokemon(I).slot).Status = PokemonMove(MoveNum).pStatus
+                                                                            SendPlayerPokemonStatus I
+                                                                            Select Case PokemonMove(MoveNum).pStatus
+                                                                            Case StatusEnum.Poison
+                                                                                Select Case TempPlayer(I).CurLanguage
+                                                                                Case LANG_PT: AddAlert I, "Your pokemon got poisoned", White
+                                                                                Case LANG_EN: AddAlert I, "Your pokemon got poisoned", White
+                                                                                Case LANG_ES: AddAlert I, "Your pokemon got poisoned", White
+                                                                                End Select
+                                                                            Case StatusEnum.Burn
+                                                                                Select Case TempPlayer(I).CurLanguage
+                                                                                Case LANG_PT: AddAlert I, "Your pokemon got burned", White
+                                                                                Case LANG_EN: AddAlert I, "Your pokemon got burned", White
+                                                                                Case LANG_ES: AddAlert I, "Your pokemon got burned", White
+                                                                                End Select
+                                                                            Case StatusEnum.Paralize
+                                                                                Select Case TempPlayer(I).CurLanguage
+                                                                                Case LANG_PT: AddAlert I, "Your pokemon got paralized", White
+                                                                                Case LANG_EN: AddAlert I, "Your pokemon got paralized", White
+                                                                                Case LANG_ES: AddAlert I, "Your pokemon got paralized", White
+                                                                                End Select
+                                                                            Case StatusEnum.Sleep
+                                                                                Select Case TempPlayer(I).CurLanguage
+                                                                                Case LANG_PT: AddAlert I, "Your pokemon fell asleep", White
+                                                                                Case LANG_EN: AddAlert I, "Your pokemon fell asleep", White
+                                                                                Case LANG_ES: AddAlert I, "Your pokemon fell asleep", White
+                                                                                End Select
+                                                                            Case StatusEnum.Frozen
+                                                                                Select Case TempPlayer(I).CurLanguage
+                                                                                Case LANG_PT: AddAlert I, "Your pokemon got frozed", White
+                                                                                Case LANG_EN: AddAlert I, "Your pokemon got frozed", White
+                                                                                Case LANG_ES: AddAlert I, "Your pokemon got frozed", White
+                                                                                End Select
                                                                             End Select
-                                                                        Case StatusEnum.Burn
-                                                                            Select Case TempPlayer(I).CurLanguage
-                                                                            Case LANG_PT: AddAlert I, "Your pokemon got burned", White
-                                                                            Case LANG_EN: AddAlert I, "Your pokemon got burned", White
-                                                                            Case LANG_ES: AddAlert I, "Your pokemon got burned", White
-                                                                            End Select
-                                                                        Case StatusEnum.Paralize
-                                                                            Select Case TempPlayer(I).CurLanguage
-                                                                            Case LANG_PT: AddAlert I, "Your pokemon got paralized", White
-                                                                            Case LANG_EN: AddAlert I, "Your pokemon got paralized", White
-                                                                            Case LANG_ES: AddAlert I, "Your pokemon got paralized", White
-                                                                            End Select
-                                                                        Case StatusEnum.Sleep
-                                                                            Select Case TempPlayer(I).CurLanguage
-                                                                            Case LANG_PT: AddAlert I, "Your pokemon fell asleep", White
-                                                                            Case LANG_EN: AddAlert I, "Your pokemon fell asleep", White
-                                                                            Case LANG_ES: AddAlert I, "Your pokemon fell asleep", White
-                                                                            End Select
-                                                                        Case StatusEnum.Frozen
-                                                                            Select Case TempPlayer(I).CurLanguage
-                                                                            Case LANG_PT: AddAlert I, "Your pokemon got frozed", White
-                                                                            Case LANG_EN: AddAlert I, "Your pokemon got frozed", White
-                                                                            Case LANG_ES: AddAlert I, "Your pokemon got frozed", White
-                                                                            End Select
-                                                                        End Select
+                                                                        End If
                                                                     End If
                                                                 End If
                                                             End If
@@ -1154,188 +1160,188 @@ Public Sub ProcessPlayerMove(ByVal Index As Long, ByVal MoveNum As Long)
                                                 End If
                                             End If
                                         End If
-                                    End If
-                                    '//Check Move
-                                    Select Case PokemonMove(MoveNum).AttackType
-                                    Case 1    '//Damage
-                                        If Not I = Index Then
-                                            If (TempPlayer(Index).InDuel = I And TempPlayer(I).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(I, TempPlayer(I).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
-                                                '//Target and Do Damage
-                                                targetType = Pokemon(PlayerPokemon(I).Num).PrimaryType
-                                                targetType2 = Pokemon(PlayerPokemon(I).Num).SecondaryType
-                                                Select Case PokemonMove(MoveNum).Category
-                                                Case MoveCategory.Physical
-                                                    DefStat = GetPlayerPokemonStat(I, Def)
-                                                Case MoveCategory.Special
-                                                    DefStat = GetPlayerPokemonStat(I, SpDef)
-                                                End Select
-                                                Damage = GetPokemonDamage(ownType, pType, targetType, targetType2, ownLevel, AtkStat, Power, DefStat)
-                                                '//Check Critical
-                                                If PlayerPokemon(Index).NextCritical = YES Then
-                                                    Damage = Damage * 2
-                                                    SendActionMsg MapNum, "Critical", PlayerPokemon(Index).X * 32, PlayerPokemon(Index).Y * 32, Yellow
-                                                    PlayerPokemon(Index).NextCritical = NO
-                                                End If
-                                                If PokemonMove(MoveNum).BoostWeather > 0 Then
-                                                    If PokemonMove(MoveNum).BoostWeather = Map(MapNum).CurWeather Then
-                                                        Damage = Damage * 2
-                                                    End If
-                                                End If
-                                                If PokemonMove(MoveNum).DecreaseWeather > 0 Then
-                                                    If PokemonMove(MoveNum).DecreaseWeather = Map(MapNum).CurWeather Then
-                                                        Damage = Damage / 2
-                                                    End If
-                                                End If
-
-                                                If Damage > 0 Then
-                                                    '//Check Reflect
-                                                    If PlayerPokemon(I).ReflectMove = PokemonMove(MoveNum).Category Then
-                                                        If PlayerPokemon(I).ReflectMove > 0 Then
-                                                            If PlayerPokemon(Index).slot > 0 Then
-                                                                PlayerPokemon(I).ReflectMove = 0
-                                                                SendActionMsg MapNum, "Reflected", PlayerPokemon(I).X * 32, PlayerPokemon(I).Y * 32, White
-
-                                                                PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp - Damage
-                                                                SendActionMsg MapNum, "-" & Damage, PlayerPokemon(Index).X * 32, PlayerPokemon(Index).Y * 32, BrightGreen
-                                                                If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp <= 0 Then
-                                                                    PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp = 0
-                                                                    SendPlayerPokemonVital Index
-                                                                    SendPlayerPokemonFaint Index
-                                                                Else
-                                                                    SendPlayerPokemonVital Index
-                                                                End If
-                                                            End If
-                                                        End If
-                                                    Else
-                                                        PlayerAttackPlayer Index, I, Damage
-
-                                                        '//Absorb
-                                                        If PokemonMove(MoveNum).AbsorbDamage > 0 Then
-                                                            Absorbed = Damage * (PokemonMove(MoveNum).AbsorbDamage / 100)
-                                                            If Absorbed > 0 Then
-                                                                PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp + Absorbed
-                                                                SendActionMsg MapNum, "+" & Absorbed, PlayerPokemon(Index).X * 32, PlayerPokemon(Index).Y * 32, BrightGreen
-                                                                If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp >= PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHp Then
-                                                                    PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHp
-                                                                End If
-                                                                SendPlayerPokemonVital Index
-                                                            End If
-                                                        End If
-                                                    End If
-                                                End If
-                                            End If
-                                        End If
-                                    Case 2    '//Buff/Debuff
-                                        If Not I = Index Then
-                                            If (TempPlayer(Index).InDuel = I And TempPlayer(I).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(I, TempPlayer(I).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
-                                                For z = 1 To StatEnum.Stat_Count - 1
-                                                    PlayerPokemon(I).StatBuff(z) = PlayerPokemon(I).StatBuff(z) + PokemonMove(MoveNum).dStat(z)
-                                                    If PlayerPokemon(I).StatBuff(z) > 6 Then
-                                                        PlayerPokemon(I).StatBuff(z) = 6
-                                                    ElseIf PlayerPokemon(I).StatBuff(z) < -6 Then
-                                                        PlayerPokemon(I).StatBuff(z) = -6
-                                                    End If
-                                                Next
-                                                SendPlayerPokemonStatBuff I
-                                            End If
-                                        End If
-                                    Case 3    '//Heal
-                                        If Not TempPlayer(Index).InDuel = I And Not Map(MapNum).Moral = MAP_MORAL_PVP Then
-                                            If PlayerPokemon(I).slot > 0 Then
-                                                HealAmount = PlayerPokemons(I).Data(PlayerPokemon(I).slot).MaxHp * (PokemonMove(MoveNum).Power / 100)
-                                                PlayerPokemons(I).Data(PlayerPokemon(I).slot).CurHp = PlayerPokemons(Index).Data(PlayerPokemon(I).slot).CurHp + HealAmount
-                                                SendActionMsg MapNum, "+" & HealAmount, PlayerPokemon(I).X * 32, PlayerPokemon(I).Y * 32, BrightGreen
-                                                If PlayerPokemons(I).Data(PlayerPokemon(I).slot).CurHp >= PlayerPokemons(I).Data(PlayerPokemon(I).slot).MaxHp Then
-                                                    PlayerPokemons(I).Data(PlayerPokemon(I).slot).CurHp = PlayerPokemons(I).Data(PlayerPokemon(I).slot).MaxHp
-                                                End If
-                                                SendPlayerPokemonVital I
-                                                If PokemonMove(MoveNum).pStatus = 7 Then
-                                                    '//Cure Status
-                                                    PlayerPokemons(I).Data(PlayerPokemon(I).slot).Status = 0
-                                                    Select Case TempPlayer(I).CurLanguage
-                                                    Case LANG_PT: AddAlert I, "Your pokemon got cured", White
-                                                    Case LANG_EN: AddAlert I, "Your pokemon got cured", White
-                                                    Case LANG_ES: AddAlert I, "Your pokemon got cured", White
+                                        '//Check Move
+                                        Select Case PokemonMove(MoveNum).AttackType
+                                        Case 1    '//Damage
+                                            If Not I = Index Then
+                                                If (TempPlayer(Index).InDuel = I And TempPlayer(I).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(I, TempPlayer(I).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
+                                                    '//Target and Do Damage
+                                                    targetType = Pokemon(PlayerPokemon(I).Num).PrimaryType
+                                                    targetType2 = Pokemon(PlayerPokemon(I).Num).SecondaryType
+                                                    Select Case PokemonMove(MoveNum).Category
+                                                    Case MoveCategory.Physical
+                                                        DefStat = GetPlayerPokemonStat(I, Def)
+                                                    Case MoveCategory.Special
+                                                        DefStat = GetPlayerPokemonStat(I, SpDef)
                                                     End Select
-                                                    SendPlayerPokemonStatus I
+                                                    Damage = GetPokemonDamage(ownType, pType, targetType, targetType2, ownLevel, AtkStat, Power, DefStat)
+                                                    '//Check Critical
+                                                    If PlayerPokemon(Index).NextCritical = YES Then
+                                                        Damage = Damage * 2
+                                                        SendActionMsg MapNum, "Critical", PlayerPokemon(Index).X * 32, PlayerPokemon(Index).Y * 32, Yellow
+                                                        PlayerPokemon(Index).NextCritical = NO
+                                                    End If
+                                                    If PokemonMove(MoveNum).BoostWeather > 0 Then
+                                                        If PokemonMove(MoveNum).BoostWeather = Map(MapNum).CurWeather Then
+                                                            Damage = Damage * 2
+                                                        End If
+                                                    End If
+                                                    If PokemonMove(MoveNum).DecreaseWeather > 0 Then
+                                                        If PokemonMove(MoveNum).DecreaseWeather = Map(MapNum).CurWeather Then
+                                                            Damage = Damage / 2
+                                                        End If
+                                                    End If
+
+                                                    If Damage > 0 Then
+                                                        '//Check Reflect
+                                                        If PlayerPokemon(I).ReflectMove = PokemonMove(MoveNum).Category Then
+                                                            If PlayerPokemon(I).ReflectMove > 0 Then
+                                                                If PlayerPokemon(Index).slot > 0 Then
+                                                                    PlayerPokemon(I).ReflectMove = 0
+                                                                    SendActionMsg MapNum, "Reflected", PlayerPokemon(I).X * 32, PlayerPokemon(I).Y * 32, White
+
+                                                                    PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp - Damage
+                                                                    SendActionMsg MapNum, "-" & Damage, PlayerPokemon(Index).X * 32, PlayerPokemon(Index).Y * 32, BrightGreen
+                                                                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp <= 0 Then
+                                                                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp = 0
+                                                                        SendPlayerPokemonVital Index
+                                                                        SendPlayerPokemonFaint Index
+                                                                    Else
+                                                                        SendPlayerPokemonVital Index
+                                                                    End If
+                                                                End If
+                                                            End If
+                                                        Else
+                                                            PlayerAttackPlayer Index, I, Damage
+
+                                                            '//Absorb
+                                                            If PokemonMove(MoveNum).AbsorbDamage > 0 Then
+                                                                Absorbed = Damage * (PokemonMove(MoveNum).AbsorbDamage / 100)
+                                                                If Absorbed > 0 Then
+                                                                    PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp + Absorbed
+                                                                    SendActionMsg MapNum, "+" & Absorbed, PlayerPokemon(Index).X * 32, PlayerPokemon(Index).Y * 32, BrightGreen
+                                                                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp >= PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHp Then
+                                                                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHp
+                                                                    End If
+                                                                    SendPlayerPokemonVital Index
+                                                                End If
+                                                            End If
+                                                        End If
+                                                    End If
                                                 End If
                                             End If
-
-                                            InRange2 = False
-                                            If PokemonMove(MoveNum).targetType = 1 Then    '//AoE
-                                                If IsOnAoERange(Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange2 = True
-                                            ElseIf PokemonMove(MoveNum).targetType = 2 Then    '//Linear
-                                                If IsOnLinearRange(PlayerPokemon(Index).Dir, Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange2 = True
-                                            ElseIf PokemonMove(MoveNum).targetType = 3 Then    '//Spray
-                                                If IsOnSprayRange(PlayerPokemon(Index).Dir, Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange2 = True
-                                            Else
-                                                InRange2 = False
+                                        Case 2    '//Buff/Debuff
+                                            If Not I = Index Then
+                                                If (TempPlayer(Index).InDuel = I And TempPlayer(I).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(I, TempPlayer(I).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
+                                                    For z = 1 To StatEnum.Stat_Count - 1
+                                                        PlayerPokemon(I).StatBuff(z) = PlayerPokemon(I).StatBuff(z) + PokemonMove(MoveNum).dStat(z)
+                                                        If PlayerPokemon(I).StatBuff(z) > 6 Then
+                                                            PlayerPokemon(I).StatBuff(z) = 6
+                                                        ElseIf PlayerPokemon(I).StatBuff(z) < -6 Then
+                                                            PlayerPokemon(I).StatBuff(z) = -6
+                                                        End If
+                                                    Next
+                                                    SendPlayerPokemonStatBuff I
+                                                End If
                                             End If
-
-                                            If InRange2 Then
-                                                Select Case PokemonMove(MoveNum).AttackType
-                                                Case 3    '//Heal
-                                                    HealAmount = GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level) * (PokemonMove(MoveNum).Power / 100)
-                                                    Player(I, TempPlayer(I).UseChar).CurHp = Player(I, TempPlayer(I).UseChar).CurHp + HealAmount
-                                                    SendActionMsg MapNum, "+" & HealAmount, Player(I, TempPlayer(I).UseChar).X * 32, Player(I, TempPlayer(I).UseChar).Y * 32, BrightGreen
-                                                    If Player(I, TempPlayer(I).UseChar).CurHp >= GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level) Then
-                                                        Player(I, TempPlayer(I).UseChar).CurHp = GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level)
+                                        Case 3    '//Heal
+                                            If Not TempPlayer(Index).InDuel = I And Not Map(MapNum).Moral = MAP_MORAL_PVP Then
+                                                If PlayerPokemon(I).slot > 0 Then
+                                                    HealAmount = PlayerPokemons(I).Data(PlayerPokemon(I).slot).MaxHp * (PokemonMove(MoveNum).Power / 100)
+                                                    PlayerPokemons(I).Data(PlayerPokemon(I).slot).CurHp = PlayerPokemons(Index).Data(PlayerPokemon(I).slot).CurHp + HealAmount
+                                                    SendActionMsg MapNum, "+" & HealAmount, PlayerPokemon(I).X * 32, PlayerPokemon(I).Y * 32, BrightGreen
+                                                    If PlayerPokemons(I).Data(PlayerPokemon(I).slot).CurHp >= PlayerPokemons(I).Data(PlayerPokemon(I).slot).MaxHp Then
+                                                        PlayerPokemons(I).Data(PlayerPokemon(I).slot).CurHp = PlayerPokemons(I).Data(PlayerPokemon(I).slot).MaxHp
                                                     End If
-                                                    SendPlayerVital I
+                                                    SendPlayerPokemonVital I
                                                     If PokemonMove(MoveNum).pStatus = 7 Then
                                                         '//Cure Status
-                                                        Player(I, TempPlayer(I).UseChar).Status = 0
+                                                        PlayerPokemons(I).Data(PlayerPokemon(I).slot).Status = 0
                                                         Select Case TempPlayer(I).CurLanguage
-                                                        Case LANG_PT: AddAlert I, "You got cured", White
-                                                        Case LANG_EN: AddAlert I, "You got cured", White
-                                                        Case LANG_ES: AddAlert I, "You got cured", White
+                                                        Case LANG_PT: AddAlert I, "Your pokemon got cured", White
+                                                        Case LANG_EN: AddAlert I, "Your pokemon got cured", White
+                                                        Case LANG_ES: AddAlert I, "Your pokemon got cured", White
                                                         End Select
-                                                        SendPlayerStatus I
+                                                        SendPlayerPokemonStatus I
                                                     End If
-                                                End Select
+                                                End If
+
+                                                InRange2 = False
+                                                If PokemonMove(MoveNum).targetType = 1 Then    '//AoE
+                                                    If IsOnAoERange(Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange2 = True
+                                                ElseIf PokemonMove(MoveNum).targetType = 2 Then    '//Linear
+                                                    If IsOnLinearRange(PlayerPokemon(Index).Dir, Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange2 = True
+                                                ElseIf PokemonMove(MoveNum).targetType = 3 Then    '//Spray
+                                                    If IsOnSprayRange(PlayerPokemon(Index).Dir, Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange2 = True
+                                                Else
+                                                    InRange2 = False
+                                                End If
+
+                                                If InRange2 Then
+                                                    Select Case PokemonMove(MoveNum).AttackType
+                                                    Case 3    '//Heal
+                                                        HealAmount = GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level) * (PokemonMove(MoveNum).Power / 100)
+                                                        Player(I, TempPlayer(I).UseChar).CurHp = Player(I, TempPlayer(I).UseChar).CurHp + HealAmount
+                                                        SendActionMsg MapNum, "+" & HealAmount, Player(I, TempPlayer(I).UseChar).X * 32, Player(I, TempPlayer(I).UseChar).Y * 32, BrightGreen
+                                                        If Player(I, TempPlayer(I).UseChar).CurHp >= GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level) Then
+                                                            Player(I, TempPlayer(I).UseChar).CurHp = GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level)
+                                                        End If
+                                                        SendPlayerVital I
+                                                        If PokemonMove(MoveNum).pStatus = 7 Then
+                                                            '//Cure Status
+                                                            Player(I, TempPlayer(I).UseChar).Status = 0
+                                                            Select Case TempPlayer(I).CurLanguage
+                                                            Case LANG_PT: AddAlert I, "You got cured", White
+                                                            Case LANG_EN: AddAlert I, "You got cured", White
+                                                            Case LANG_ES: AddAlert I, "You got cured", White
+                                                            End Select
+                                                            SendPlayerStatus I
+                                                        End If
+                                                    End Select
+                                                End If
                                             End If
-                                        End If
-                                    End Select
+                                        End Select
+                                    End If
                                 End If
-                            End If
-                        ElseIf Map(MapNum).KillPlayer = YES Then
-                            'Adicionado a um método, pra ser usado juntamente com o PVP
-                            Call AttackPlayer(I, MoveNum, PlayerPokemon(Index).Num, X, Y, PlayerPokemon(Index).Dir, pType, ownType, ownLevel, AtkStat, Power, PlayerPokemon(Index).NextCritical, PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp, PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHp)
-                        Else
+                            ElseIf Map(MapNum).KillPlayer = YES Then
+                                'Adicionado a um método, pra ser usado juntamente com o PVP
+                                Call AttackPlayer(I, MoveNum, PlayerPokemon(Index).Num, X, Y, PlayerPokemon(Index).Dir, pType, ownType, ownLevel, AtkStat, Power, PlayerPokemon(Index).NextCritical, PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp, PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHp)
+                            Else
 
-                            If Not TempPlayer(Index).InDuel = I Then
-                                InRange = False
-                                If PokemonMove(MoveNum).targetType = 1 Then    '//AoE
-                                    If IsOnAoERange(Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange = True
-                                ElseIf PokemonMove(MoveNum).targetType = 2 Then    '//Linear
-                                    If IsOnLinearRange(PlayerPokemon(Index).Dir, Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange = True
-                                ElseIf PokemonMove(MoveNum).targetType = 3 Then    '//Spray
-                                    If IsOnSprayRange(PlayerPokemon(Index).Dir, Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange = True
-                                Else
+                                If Not TempPlayer(Index).InDuel = I Then
                                     InRange = False
-                                End If
+                                    If PokemonMove(MoveNum).targetType = 1 Then    '//AoE
+                                        If IsOnAoERange(Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange = True
+                                    ElseIf PokemonMove(MoveNum).targetType = 2 Then    '//Linear
+                                        If IsOnLinearRange(PlayerPokemon(Index).Dir, Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange = True
+                                    ElseIf PokemonMove(MoveNum).targetType = 3 Then    '//Spray
+                                        If IsOnSprayRange(PlayerPokemon(Index).Dir, Range, X, Y, Player(I, TempPlayer(I).UseChar).X, Player(I, TempPlayer(I).UseChar).Y) Then InRange = True
+                                    Else
+                                        InRange = False
+                                    End If
 
-                                If InRange Then
-                                    Select Case PokemonMove(MoveNum).AttackType
-                                    Case 3    '//Heal
-                                        HealAmount = GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level) * (PokemonMove(MoveNum).Power / 100)
-                                        Player(I, TempPlayer(I).UseChar).CurHp = Player(I, TempPlayer(I).UseChar).CurHp + HealAmount
-                                        SendActionMsg MapNum, "+" & HealAmount, Player(I, TempPlayer(I).UseChar).X * 32, Player(I, TempPlayer(I).UseChar).Y * 32, BrightGreen
-                                        If Player(I, TempPlayer(I).UseChar).CurHp >= GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level) Then
-                                            Player(I, TempPlayer(I).UseChar).CurHp = GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level)
-                                        End If
-                                        SendPlayerVital I
-                                        If PokemonMove(MoveNum).pStatus = 7 Then
-                                            '//Cure Status
-                                            Player(I, TempPlayer(I).UseChar).Status = 0
-                                            Select Case TempPlayer(I).CurLanguage
-                                            Case LANG_PT: AddAlert I, "You got cured", White
-                                            Case LANG_EN: AddAlert I, "You got cured", White
-                                            Case LANG_ES: AddAlert I, "You got cured", White
-                                            End Select
-                                            SendPlayerStatus I
-                                        End If
-                                    End Select
+                                    If InRange Then
+                                        Select Case PokemonMove(MoveNum).AttackType
+                                        Case 3    '//Heal
+                                            HealAmount = GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level) * (PokemonMove(MoveNum).Power / 100)
+                                            Player(I, TempPlayer(I).UseChar).CurHp = Player(I, TempPlayer(I).UseChar).CurHp + HealAmount
+                                            SendActionMsg MapNum, "+" & HealAmount, Player(I, TempPlayer(I).UseChar).X * 32, Player(I, TempPlayer(I).UseChar).Y * 32, BrightGreen
+                                            If Player(I, TempPlayer(I).UseChar).CurHp >= GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level) Then
+                                                Player(I, TempPlayer(I).UseChar).CurHp = GetPlayerHP(Player(I, TempPlayer(I).UseChar).Level)
+                                            End If
+                                            SendPlayerVital I
+                                            If PokemonMove(MoveNum).pStatus = 7 Then
+                                                '//Cure Status
+                                                Player(I, TempPlayer(I).UseChar).Status = 0
+                                                Select Case TempPlayer(I).CurLanguage
+                                                Case LANG_PT: AddAlert I, "You got cured", White
+                                                Case LANG_EN: AddAlert I, "You got cured", White
+                                                Case LANG_ES: AddAlert I, "You got cured", White
+                                                End Select
+                                                SendPlayerStatus I
+                                            End If
+                                        End Select
+                                    End If
                                 End If
                             End If
                         End If
@@ -2329,18 +2335,18 @@ Private Sub AttackPlayer(I As Long, MoveNum As Long, _
                         NextCritical As Byte, CurHp As Long, MaxHp As Long)
 
 '//Damage Calculation
-Dim Damage As Long
-Dim targetType As Byte, targetType2 As Byte
-Dim DefStat As Long
+    Dim Damage As Long
+    Dim targetType As Byte, targetType2 As Byte
+    Dim DefStat As Long
 
-Dim InRange As Boolean
-Dim CanAttack As Boolean
-Dim statusChance As Long
-Dim statusRand As Long
-Dim Absorbed As Long
-Dim setBuff As Long
+    Dim InRange As Boolean
+    Dim CanAttack As Boolean
+    Dim statusChance As Long
+    Dim statusRand As Long
+    Dim Absorbed As Long
+    Dim setBuff As Long
 
-'//Attack Player
+    '//Attack Player
     With Player(I, TempPlayer(I).UseChar)
         '//Check Status Req
         If PokemonMove(MoveNum).StatusReq > 0 Then

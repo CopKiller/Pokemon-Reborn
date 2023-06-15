@@ -1515,6 +1515,11 @@ Private Sub ChatboxKeyPress(KeyAscii As Integer)
                     MyChat = vbNullString
                     cacheMsg = vbNullString
                     Exit Sub
+                Case "/party"
+                    ChatTab = "/party"
+                    MyChat = vbNullString
+                    cacheMsg = vbNullString
+                    Exit Sub
                 End Select
             End If
         End If
@@ -2663,6 +2668,14 @@ Public Sub AddPokemonSelected(ByVal slotNum As Byte)
     PokemonsStorage_Select(slotNum).slotNum = slotNum
 End Sub
 
+Public Sub ClearPokemonsSelected()
+    Dim i As Byte
+    
+    For i = 1 To MAX_STORAGE
+        PokemonsStorage_Select(i).slotNum = 0
+    Next i
+End Sub
+
 Private Sub PokemonStorageMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
 Dim tmpX As Long, tmpY As Long
 Dim i As Long
@@ -2751,6 +2764,7 @@ Private Sub PokemonStorageMouseUp(Buttons As Integer, Shift As Integer, X As Sin
                                 End If
                             Case ButtonEnum.PokemonStorage_Close
                                 SendOpenStorage 0
+                                ClearPokemonsSelected
                             End Select
                         End If
                     End If
@@ -4018,6 +4032,7 @@ Dim i As Long
                 AddText "[space] = you must press 'Spacebar' to trigger the command", White
                 AddText "/map[space] = Map Message", White
                 AddText "/all[space] = Global Message", White
+                AddText "/party[space] = Party Message", White
                 AddText "@playername[space] = Whisper", White
                 AddText "/online = check who's online", White
                 AddText "- Action Key -", Pink
@@ -4486,6 +4501,9 @@ continue:
         Case "/all"
             '//Global Msg
             SendGlobalMsg Trim$(MyChat)
+        Case "/party"
+            '//Party Msg
+            SendPartyMsg Trim$(MyChat)
         Case Else
             '//Player Msg
             SendPlayerMsg Trim$(ChatTab), Trim$(MyChat)

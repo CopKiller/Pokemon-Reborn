@@ -17,6 +17,7 @@ Public Sub InitMessages()
     HandleDataSub(CPlayerDir) = GetAddress(AddressOf HandlePlayerDir)
     HandleDataSub(CMapMsg) = GetAddress(AddressOf HandleMapMsg)
     HandleDataSub(CGlobalMsg) = GetAddress(AddressOf HandleGlobalMsg)
+    HandleDataSub(CPartyMsg) = GetAddress(AddressOf HandlePartyMsg)
     HandleDataSub(CPlayerMsg) = GetAddress(AddressOf HandlePlayerMsg)
     HandleDataSub(CWarpTo) = GetAddress(AddressOf HandleWarpTo)
     HandleDataSub(CAdminWarp) = GetAddress(AddressOf HandleAdminWarp)
@@ -414,6 +415,9 @@ Dim I As Long
             End Select
             Exit Sub
         End If
+        
+        frmServer.lvwInfo.ListItems(Index).SubItems(1) = GetPlayerIP(Index)
+        frmServer.lvwInfo.ListItems(Index).SubItems(2) = Username
         
         TextAdd frmServer.txtLog, "Account '" & Username & "' has logged in..."
         AddIPLog "Account '" & Username & "' has logged in on IP " & GetPlayerIP(Index)
@@ -902,6 +906,58 @@ Dim UpdateMsg As String
         End If
     Next
     
+    AddLog UpdateMsg
+End Sub
+
+Private Sub HandlePartyMsg(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+    Dim buffer As clsBuffer
+    Dim I As Long
+    Dim Msg As String, MsgColor As Long
+    Dim UpdateMsg As String
+
+    ' Prevent from receiving a empty data
+    If Not IsPlaying(Index) Then Exit Sub
+
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+    Msg = buffer.ReadString
+    Set buffer = Nothing
+
+    If TempPlayer(Index).UseChar <= 0 Then Exit Sub
+    If Player(Index, TempPlayer(Index).UseChar).Muted = YES Then Exit Sub
+
+    MsgColor = Magenta
+
+    If PartyCount(Index) > 0 Then
+
+        With TempPlayer(Index)
+            For I = 1 To MAX_PARTY
+                If .PartyIndex(I) > 0 Then
+                    If IsPlaying(.PartyIndex(I)) Then
+                        If TempPlayer(.PartyIndex(I)).UseChar > 0 Then
+                            Select Case TempPlayer(.PartyIndex(I)).CurLanguage
+                            Case LANG_PT: UpdateMsg = "[Grupo] " & Trim$(Player(I, TempPlayer(Index).UseChar).Name) & ": " & Msg
+                            Case LANG_EN: UpdateMsg = "[Party] " & Trim$(Player(I, TempPlayer(Index).UseChar).Name) & ": " & Msg
+                            Case LANG_ES: UpdateMsg = "[Party] " & Trim$(Player(I, TempPlayer(Index).UseChar).Name) & ": " & Msg
+                            End Select
+
+                            '//Send Msg
+                            SendPlayerMsg .PartyIndex(I), UpdateMsg, MsgColor
+
+                        End If
+                    End If
+                End If
+            Next
+        End With
+
+    Else
+        Select Case TempPlayer(Index).CurLanguage
+        Case LANG_PT: AddAlert Index, "Você precisa estar em grupo!", White
+        Case LANG_EN: AddAlert Index, "Você precisa estar em grupo!", White
+        Case LANG_ES: AddAlert Index, "Você precisa estar em grupo!", White
+        End Select
+    End If
+
     AddLog UpdateMsg
 End Sub
 
@@ -1634,7 +1690,7 @@ Dim CatchValue As Long
         
         '//Check Type
         Select Case Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Type
-            Case ItemTypeEnum.Pokeball
+            Case ItemTypeEnum.pokeBall
                 If TempPlayer(Index).TmpCatchPokeNum > 0 Then
                     Select Case TempPlayer(Index).CurLanguage
                         Case LANG_PT: AddAlert Index, "You are currently capturing a pokemon", White
@@ -3541,6 +3597,7 @@ Dim PokeNum As Long, Level As Long
 Dim playerName As String
 Dim I As Long
 Dim IsShiny As Byte, IVFull As Byte, TheNature As Byte
+Dim pokeBall As Byte
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
@@ -3554,6 +3611,7 @@ Dim IsShiny As Byte, IVFull As Byte, TheNature As Byte
     IsShiny = buffer.ReadByte
     IVFull = buffer.ReadByte
     TheNature = buffer.ReadByte
+    pokeBall = buffer.ReadByte
     Set buffer = Nothing
     If UCase$(playerName) <> "ALL" Then
         I = FindPlayer(playerName)
@@ -3594,7 +3652,7 @@ Dim IsShiny As Byte, IVFull As Byte, TheNature As Byte
     If Level <= 0 Or Level > MAX_LEVEL Then Exit Sub
     
     AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " , Admin Rights: Give Pokemon To " & Trim$(Player(I, TempPlayer(I).UseChar).Name) & ", Pokemon#" & PokeNum & " Level" & Level
-    GivePlayerPokemon I, PokeNum, Level, BallEnum.b_Pokeball, IsShiny, IVFull, TheNature
+    GivePlayerPokemon I, PokeNum, Level, pokeBall, IsShiny, IVFull, TheNature
 End Sub
 
 Private Sub HandleSpawnPokemon(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
@@ -4752,7 +4810,9 @@ Dim InputName As String
     TextAdd frmServer.txtLog, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " ban " & Trim$(Player(TargetIndex, TempPlayer(TargetIndex).UseChar).Name)
     AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " ban " & Trim$(Player(TargetIndex, TempPlayer(TargetIndex).UseChar).Name)
     
-    'BanIP GetPlayerIP(TargetIndex)
+    ' Banir o IP
+    BanIP GetPlayerIP(TargetIndex)
+    ' Banir o Character
     BanCharacter Trim$(Player(TargetIndex, TempPlayer(TargetIndex).UseChar).Name)
     CloseSocket TargetIndex
 End Sub

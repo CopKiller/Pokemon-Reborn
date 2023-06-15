@@ -125,6 +125,7 @@ Public Enum ClientPackets
     CPlayerDir
     CMapMsg
     CGlobalMsg
+    CPartyMsg
     CPlayerMsg
     CWarpTo
     CAdminWarp
@@ -406,6 +407,8 @@ Public Enum BallEnum
     b_Ultraball
     b_Masterball
     b_Primerball
+    
+    BallEnum_Count
 End Enum
 
 '//Status
