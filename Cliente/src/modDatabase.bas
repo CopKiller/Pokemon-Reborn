@@ -207,7 +207,7 @@ Public Sub ResetGui()
     End With
     With GUI(GuiEnum.GUI_INVENTORY)
         .OrigX = Screen_Width - .Width - Rand(10, 30) - 25
-        .OrigY = 100 + Rand(10, 40) - 25
+        .OrigY = 120
     End With
     With GUI(GuiEnum.GUI_TRAINER)
         .OrigX = Screen_Width - .Width - Rand(10, 30)
@@ -254,8 +254,8 @@ Public Sub ResetGui()
         .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_RANK)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2)
+        .OrigX = (Screen_Width - .Width)
+        .OrigY = 120
     End With
     With Button(ButtonEnum.Game_Pokedex)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 5)

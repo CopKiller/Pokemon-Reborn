@@ -304,13 +304,10 @@ Public RankingHighIndex As Long
 Public ControlScrollHold As Boolean
 Public ControlScroll As Long
 Public ControlScrollY As Long
-Public ControlScrollCount As Long
-Public ControlViewCount As Long
 Public MaxControlViewLine As Long
 Public ControlScrollUp As Boolean
 Public ControlScrollDown As Boolean
 Public ControlScrollTimer As Long
-Public ControlHighIndex As Long
 
 '//Releasing thing
 Public ReleaseStorageSlot As Byte

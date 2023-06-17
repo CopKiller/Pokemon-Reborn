@@ -1737,7 +1737,7 @@ Dim Data1 As Long, Data2 As Long, Data3 As Long
         InUsed = NO
         Data1 = 0: Data2 = 0: Data3 = 0
         Select Case InvUseDataType
-            Case ItemTypeEnum.Pokeball
+            Case ItemTypeEnum.PokeBall
                 '//Check if there's pokemon on tile
                 For i = 1 To Pokemon_HighIndex
                     If MapPokemon(i).Num > 0 Then

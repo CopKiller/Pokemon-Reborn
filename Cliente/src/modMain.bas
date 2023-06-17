@@ -129,6 +129,9 @@ Dim SetWidth As Long
     
     CentralizeWindow frmMain
     
+    ' Initialize, using in scrolling of Controls Option.
+    MaxControlViewLine = ControlEnum.Control_Count - 1 - MAX_CONTROL_PREV
+    
     ForceExit = False
     AppRunning = True   '//Make sure that our application is actually running
     AppLoop             '//Start the loop
@@ -518,7 +521,7 @@ Dim z As Long
     SEVolume = CurSoundVolume
     
     '//Reset
-    CurControlKey = 1
+    CurControlKey = 0
     editKey = 0
     '//Set Key
     For z = 1 To ControlEnum.Control_Count - 1

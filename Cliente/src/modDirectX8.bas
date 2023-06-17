@@ -3121,7 +3121,7 @@ Dim i As Long
         Next
 
         '//Render Text
-        RenderArrayText Font_Default, InputBoxHeader, .X + 10, .Y + 10, 250, White
+        RenderArrayText Font_Default, InputBoxHeader, .X + 10, .Y + 10, 250, DarkGrey
         
         '//Text
         RenderArrayText Font_Default, UpdateChatText(Font_Default, InputBoxText & TextLine, 210), .X + 22, .Y + 34, 250, White
@@ -3526,7 +3526,7 @@ Private Sub DrawPokemonStorage()
                     DrawY = .Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
 
                     '//Icon
-                    If Sprite > 0 And Sprite < Count_PokemonIcon Then
+                    If Sprite > 0 And Sprite <= Count_PokemonIcon Then
                         RenderTexture Tex_PokemonIcon(Sprite), DrawX, DrawY, MapAnim * 32, 0, 32, 32, 32, 32
                         '//Held Item
                         If PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem > 0 And PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem <= MAX_ITEM Then
@@ -3906,7 +3906,7 @@ Dim MaxY As Long, PosY As Long, PosX As Long
                 
                 If PlayerPokedex(pokeDexIndex).Obtained = YES Then
                     '//Icon
-                    If Pokemon(pokeDexIndex).Sprite > 0 And Pokemon(pokeDexIndex).Sprite < Count_PokemonIcon Then
+                    If Pokemon(pokeDexIndex).Sprite > 0 And Pokemon(pokeDexIndex).Sprite <= Count_PokemonIcon Then
                         RenderTexture Tex_PokemonIcon(Pokemon(pokeDexIndex).Sprite), .X + DrawX + 7, .Y + DrawY + 7, MapAnim * 32, 0, 32, 32, 32, 32
                     End If
                 Else
@@ -4215,6 +4215,7 @@ Private Sub DrawRank()
         Next
     End With
 End Sub
+
 
 Private Sub DrawBadge()
 Dim i As Long

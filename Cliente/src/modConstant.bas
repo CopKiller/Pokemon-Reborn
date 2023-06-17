@@ -240,9 +240,6 @@ Public Const PIC_Y As Byte = 16
 '//Chatbox
 Public Const MAX_CHAT_TEXT As Long = 180
 
-'//Control Key
-Public Const MAX_CONTROL_PREV As Byte = 7
-
 '//Map Anim
 Public Const MAX_MAP_FRAME As Byte = 100
 
@@ -271,10 +268,11 @@ Public Const RankingScrollStartY As Byte = 55
 Public Const RankingScrollEndY As Byte = 220
 
 ' Controles Scrool
-Public Const ControlScrollLength As Byte = 100
+Public Const MAX_CONTROL_PREV As Byte = 7
+Public Const ControlScrollLength As Byte = 120
 Public Const ControlScrollSize As Byte = 35
-Public Const ControlScrollStartY As Byte = 68
-Public Const ControlScrollEndY As Byte = 156
+Public Const ControlScrollStartY As Byte = 48
+Public Const ControlScrollEndY As Byte = 176
 
 ' Quantidade da lista de resolução
 Public Const MAX_RESOLUTION_LIST As Integer = 6

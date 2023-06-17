@@ -122,21 +122,42 @@ Public Sub AppLoop()
                         End If
                     End If
                 End If
-
+                
+                ' Pode ser usado InGame ou InMenu
                 If ControlScrollTimer + 150 < Tick Then
                     If ControlScrollUp Then
-                        If ControlViewCount > 0 Then
-                            ControlViewCount = ControlViewCount - 1
-                            ControlScrollY = (ControlViewCount * 132) / MaxControlViewLine
-                            ControlScrollY = (132 - ControlScrollY)
+                        If CurControlKey > 0 Then
+                            CurControlKey = CurControlKey - 1
+                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                            ControlScrollY = (ControlScrollLength - ControlScrollY)
                             ControlScrollTimer = GetTickCount
                         End If
                     End If
                     If ControlScrollDown Then
-                        If ControlViewCount < MaxControlViewLine Then
-                            ControlViewCount = ControlViewCount + 1
-                            ControlScrollY = (ControlViewCount * 132) / MaxControlViewLine
-                            ControlScrollY = (132 - ControlScrollY)
+                        If CurControlKey + (MAX_CONTROL_PREV) < ControlEnum.Control_Count - 1 Then
+                            CurControlKey = CurControlKey + 1
+                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                            ControlScrollY = (ControlScrollLength - ControlScrollY)
+                            ControlScrollTimer = GetTickCount
+                        End If
+                    End If
+                End If
+            ElseIf GameState = GameStateEnum.InMenu Then
+                ' Pode ser usado InGame ou InMenu
+                If ControlScrollTimer + 150 < Tick Then
+                    If ControlScrollUp Then
+                        If CurControlKey > 0 Then
+                            CurControlKey = CurControlKey - 1
+                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                            ControlScrollY = (ControlScrollLength - ControlScrollY)
+                            ControlScrollTimer = GetTickCount
+                        End If
+                    End If
+                    If ControlScrollDown Then
+                        If CurControlKey + (MAX_CONTROL_PREV) < ControlEnum.Control_Count - 1 Then
+                            CurControlKey = CurControlKey + 1
+                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                            ControlScrollY = (ControlScrollLength - ControlScrollY)
                             ControlScrollTimer = GetTickCount
                         End If
                     End If

@@ -674,7 +674,7 @@ Private Sub cmdASpawn_Click()
                 Exit Sub
             End If
 
-            SendGivePokemonTo txtBName, scrlAPoke, txtAmount, chkAShiny, chkAIv, txtANature
+            SendGivePokemonTo txtBName, scrlAPoke, CLng(txtAmount), chkAShiny, chkAIv, cmbNature.ListIndex, cmbBall.ListIndex
         Else
             AddText "Invalid command!", BrightRed
             Exit Sub

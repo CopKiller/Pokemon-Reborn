@@ -857,7 +857,7 @@ Dim UpdateMsg As String
             If TempPlayer(i).UseChar > 0 Then
                 If Player(i, TempPlayer(i).UseChar).Map = MapNum Then
                     '//Send Msg
-                    SendChatbubble MapNum, Index, TARGET_TYPE_PLAYER, Msg, White
+                    SendChatbubble MapNum, Index, TARGET_TYPE_PLAYER, Msg, DarkGrey
                     SendPlayerMsg i, UpdateMsg, MsgColor
                 End If
             End If

@@ -181,9 +181,9 @@ Public Enum ClientPackets
     CRemoveHeld
     CStealthMode
     CWhosOnline
-    
+
     CRequestRank
-    
+
     CHotbarUpdate
     CUseHotbar
     CCreateParty
@@ -391,7 +391,7 @@ End Enum
 '//Item Type
 Public Enum ItemTypeEnum
     None = 0
-    Pokeball
+    PokeBall
     Medicine
     Berries
     keyItems
@@ -407,6 +407,17 @@ Public Enum BallEnum
     b_Ultraball
     b_Masterball
     b_Primerball
+    b_CherishBall
+    b_LuxuryBall
+    b_FriendBall
+    b_NetBall
+    b_DiveBall
+    b_RepeatBall
+    b_TimerBall
+    b_SafariBall
+    b_QuickBall
+    b_DuskBall
+    b_LoveBall
     
     BallEnum_Count
 End Enum

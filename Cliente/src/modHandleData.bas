@@ -271,25 +271,25 @@ Dim i As Long
 End Sub
 
 Private Sub HandleInGame(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim i As Long
+    Dim i As Long
 
     '//Hide possible open'ed gui
     GuiState GUI_LOGIN, False
     GuiState GUI_REGISTER, False
     GuiState GUI_CHARACTERCREATE, False
     GuiState GUI_CHARACTERSELECT, False
-    
+
     '//Open Game Gui
     GuiState GUI_CHATBOX, True
     ChatTab = "/map"
-    
+
     '//Hide Loading Screen
     SetStatus False
-    
+
     WaitTimer = 0
-    
+
     InitFade 0, FadeIn, 4
-    
+
     For i = 1 To MAX_POKEMON
         If Len(Trim$(Pokemon(i).Name)) > 0 Then
             PokedexHighIndex = i
@@ -297,7 +297,7 @@ Dim i As Long
             MaxPokedexViewLine = MaxPokedexViewLine - 3
         End If
     Next
-    
+
     For i = 1 To MAX_RANK
         If Len(Trim$(Rank(i).Name)) > 0 Then
             RankingHighIndex = i

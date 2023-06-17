@@ -189,7 +189,7 @@ Dim X As Long
                 
                 ' Quantidade dos controles
                 For i = 1 To MAX_CONTROL_PREV
-                    Count = CurControlKey + (i - 1)
+                    Count = CurControlKey + (i)
                     If Count > 0 And Count <= ControlEnum.Control_Count - 1 Then
                         RenderTexture Tex_Gui(.Pic), .X + 152, .Y + 43 + ((25 + 5) * (i - 1)), 93, 389, 254, 28, 254, 28
                     
@@ -248,18 +248,18 @@ Public Sub OptionKeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Public Sub OptionMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim i As Long
-Dim tmpX As Long, tmpY As Long
-Dim Count As Long
-Dim curResolution As Long
+    Dim i As Long
+    Dim tmpX As Long, tmpY As Long
+    Dim Count As Long
+    Dim curResolution As Long
 
     With GUI(GuiEnum.GUI_OPTION)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         '//Set to top most
         UpdateGuiOrder GUI_OPTION
-        
+
         '//Loop through all items
         For i = ButtonEnum.Option_Close To ButtonEnum.Option_sSoundDown
             If setWindow <> i Then
@@ -267,155 +267,175 @@ Dim curResolution As Long
                     If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateHover Then
                             Button(i).State = ButtonState.StateClick
+                            Select Case i
+                            Case ButtonEnum.Option_cTabUp
+                                ControlScrollUp = True
+                                ControlScrollDown = False
+                                ControlScrollTimer = GetTickCount
+                                If CurControlKey > 0 Then
+                                    CurControlKey = CurControlKey - 1
+                                    ControlScrollY = (CurControlKey * ControlScrollLength) \ MaxControlViewLine
+                                    ControlScrollY = (ControlScrollLength - ControlScrollY)
+                                End If
+                            Case ButtonEnum.Option_cTabDown
+                                ControlScrollUp = False
+                                ControlScrollDown = True
+                                ControlScrollTimer = GetTickCount
+                                If CurControlKey + (MAX_CONTROL_PREV) < ControlEnum.Control_Count - 1 Then
+                                    CurControlKey = CurControlKey + 1
+                                    ControlScrollY = (CurControlKey * ControlScrollLength)
+                                    ControlScrollY = (ControlScrollY \ MaxControlViewLine)
+                                    ControlScrollY = (ControlScrollLength - ControlScrollY)
+                                End If
+                            End Select
                         End If
                     End If
                 End If
             End If
         Next
-        
+
         GuiPathEdit = False
-        
+
         '//Window
         Select Case setWindow
-            Case ButtonEnum.Option_Video
-                '//Fullscreen
-                tmpX = 105: tmpY = 45
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
-                    If isFullscreen = YES Then
-                        isFullscreen = NO
-                    Else
-                        isFullscreen = YES
-                    End If
-                    setDidChange = True
-                End If
-                
-                ' Clique sobre a lista de resolução
-                If ResolutionList Then
-                    For i = 1 To MAX_RESOLUTION_LIST
-                        If CursorX >= .X + PaddingLeft + 64 And CursorX <= .X + PaddingLeft + 64 + 140 And CursorY >= .Y + ((20 * MAX_RESOLUTION_LIST) + ((i - 2) * 20)) And CursorY <= .Y + ((20 * MAX_RESOLUTION_LIST) + ((i - 2) * 20)) + 20 Then
-                            CurResolutionList = i
-                            
-                            ' Verifica a resolução atual e seta os novos valores
-                            Select Case CurResolutionList
-                                Case 1
-                                    WidthSize = "800"
-                                    HeightSize = "608"
-                                Case 2
-                                    WidthSize = "1280"
-                                    HeightSize = "704"
-                                Case 3
-                                    WidthSize = "1344"
-                                    HeightSize = "704"
-                                Case 4
-                                    WidthSize = "1600"
-                                    HeightSize = "832"
-                                Case 5
-                                    WidthSize = "1856"
-                                    HeightSize = "960"
-                                Case 6
-                                    WidthSize = "2432"
-                                    HeightSize = "960"
-                            End Select
-
-                            setDidChange = True
-                            Exit For
-                        End If
-                    Next
-                    ResolutionList = False
+        Case ButtonEnum.Option_Video
+            '//Fullscreen
+            tmpX = 105: tmpY = 45
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
+                If isFullscreen = YES Then
+                    isFullscreen = NO
                 Else
-                    If CursorX >= .X + PaddingLeft + 64 And CursorX <= .X + PaddingLeft + 64 + 140 And CursorY >= .Y + tmpY + 32 And CursorY <= .Y + tmpY + 32 + 23 Then
-                        ResolutionList = True
-                    End If
+                    isFullscreen = YES
                 End If
-        
-            Case ButtonEnum.Option_Sound
-                tmpX = 152: tmpY = 45
-                For i = 1 To MAX_VOLUME
-                    If CursorX >= .X + tmpX + 162 + ((8 + 3) * (i - 1)) And CursorX <= .X + tmpX + 162 + ((8 + 3) * (i - 1)) + 9 Then
-                        '//Background Music
-                        If CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 20 Then
-                            BGVolume = i
-                            setDidChange = True
-                        ElseIf CursorY >= .Y + 27 + tmpY And CursorY <= .Y + 27 + tmpY + 20 Then
+                setDidChange = True
+            End If
+
+            ' Clique sobre a lista de resolução
+            If ResolutionList Then
+                For i = 1 To MAX_RESOLUTION_LIST
+                    If CursorX >= .X + PaddingLeft + 64 And CursorX <= .X + PaddingLeft + 64 + 140 And CursorY >= .Y + ((20 * MAX_RESOLUTION_LIST) + ((i - 2) * 20)) And CursorY <= .Y + ((20 * MAX_RESOLUTION_LIST) + ((i - 2) * 20)) + 20 Then
+                        CurResolutionList = i
+
+                        ' Verifica a resolução atual e seta os novos valores
+                        Select Case CurResolutionList
+                        Case 1
+                            WidthSize = "800"
+                            HeightSize = "608"
+                        Case 2
+                            WidthSize = "1280"
+                            HeightSize = "704"
+                        Case 3
+                            WidthSize = "1344"
+                            HeightSize = "704"
+                        Case 4
+                            WidthSize = "1600"
+                            HeightSize = "832"
+                        Case 5
+                            WidthSize = "1856"
+                            HeightSize = "960"
+                        Case 6
+                            WidthSize = "2432"
+                            HeightSize = "960"
+                        End Select
+
+                        setDidChange = True
+                        Exit For
+                    End If
+                Next
+                ResolutionList = False
+            Else
+                If CursorX >= .X + PaddingLeft + 64 And CursorX <= .X + PaddingLeft + 64 + 140 And CursorY >= .Y + tmpY + 32 And CursorY <= .Y + tmpY + 32 + 23 Then
+                    ResolutionList = True
+                End If
+            End If
+
+        Case ButtonEnum.Option_Sound
+            tmpX = 152: tmpY = 45
+            For i = 1 To MAX_VOLUME
+                If CursorX >= .X + tmpX + 162 + ((8 + 3) * (i - 1)) And CursorX <= .X + tmpX + 162 + ((8 + 3) * (i - 1)) + 9 Then
+                    '//Background Music
+                    If CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 20 Then
+                        BGVolume = i
+                        setDidChange = True
+                    ElseIf CursorY >= .Y + 27 + tmpY And CursorY <= .Y + 27 + tmpY + 20 Then
                         '//Sound Effect
-                            SEVolume = i
-                            setDidChange = True
-                        End If
+                        SEVolume = i
+                        setDidChange = True
                     End If
-                Next
-            Case ButtonEnum.Option_Game
-                '//Show Fps
-                tmpX = 105: tmpY = 70
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
-                    If FPSvisible = YES Then
-                        FPSvisible = NO
-                    Else
-                        FPSvisible = YES
-                    End If
-                    setDidChange = True
                 End If
-                
-                '//Show Ping
-                tmpX = 105: tmpY = 90
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
-                    If PingVisible = YES Then
-                        PingVisible = NO
-                    Else
-                        PingVisible = YES
-                    End If
-                    setDidChange = True
+            Next
+        Case ButtonEnum.Option_Game
+            '//Show Fps
+            tmpX = 105: tmpY = 70
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
+                If FPSvisible = YES Then
+                    FPSvisible = NO
+                Else
+                    FPSvisible = YES
                 End If
-                
-                '//Skip Boot Up
-                tmpX = 105: tmpY = 110
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
-                    If tSkipBootUp = YES Then
-                        tSkipBootUp = NO
-                    Else
-                        tSkipBootUp = YES
-                    End If
-                    setDidChange = True
+                setDidChange = True
+            End If
+
+            '//Show Ping
+            tmpX = 105: tmpY = 90
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
+                If PingVisible = YES Then
+                    PingVisible = NO
+                Else
+                    PingVisible = YES
                 End If
-                
-                '//Name Visible
-                tmpX = 105: tmpY = 130
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
-                    If Namevisible = YES Then
-                        Namevisible = NO
-                    Else
-                        Namevisible = YES
-                    End If
-                    setDidChange = True
+                setDidChange = True
+            End If
+
+            '//Skip Boot Up
+            tmpX = 105: tmpY = 110
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
+                If tSkipBootUp = YES Then
+                    tSkipBootUp = NO
+                Else
+                    tSkipBootUp = YES
                 End If
-                
-                '//PP Bar
-                tmpX = 105: tmpY = 150
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
-                    If PPBarvisible = YES Then
-                        PPBarvisible = NO
-                    Else
-                        PPBarvisible = YES
-                    End If
-                    setDidChange = True
+                setDidChange = True
+            End If
+
+            '//Name Visible
+            tmpX = 105: tmpY = 130
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
+                If Namevisible = YES Then
+                    Namevisible = NO
+                Else
+                    Namevisible = YES
                 End If
-                
-            Case ButtonEnum.Option_Control
-                
-                For i = 1 To MAX_CONTROL_PREV
-                    Count = CurControlKey + (i - 1)
-                    If Count > 0 And Count <= ControlEnum.Control_Count - 1 Then
-                        If CursorX >= .X + 290 And CursorX <= .X + 290 + 114 And CursorY >= .Y + 44 + ((25 + 5) * (i - 1)) And CursorY <= .Y + 44 + ((25 + 5) * (i - 1)) + 24 Then
-                            editKey = Count
-                        End If
-                    End If
-                Next
-                
-                If CursorX >= .X + 414 And CursorX <= .X + 414 + 19 And CursorY >= .Y + ControlScrollStartY + ((ControlScrollEndY - ControlScrollSize) - ControlScrollY) And CursorY <= .Y + ControlScrollStartY + ((ControlScrollEndY - ControlScrollSize) - ControlScrollY) + ControlScrollSize Then
-                    ControlScrollHold = True
+                setDidChange = True
+            End If
+
+            '//PP Bar
+            tmpX = 105: tmpY = 150
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 Then
+                If PPBarvisible = YES Then
+                    PPBarvisible = NO
+                Else
+                    PPBarvisible = YES
                 End If
-        
+                setDidChange = True
+            End If
+
+        Case ButtonEnum.Option_Control
+            For i = 1 To MAX_CONTROL_PREV
+                Count = CurControlKey + (i)
+                If Count > 0 And Count <= ControlEnum.Control_Count - 1 Then
+                    If CursorX >= .X + 290 And CursorX <= .X + 290 + 114 And CursorY >= .Y + 44 + ((25 + 5) * (i - 1)) And CursorY <= .Y + 44 + ((25 + 5) * (i - 1)) + 24 Then
+                        editKey = Count
+                    End If
+                End If
+            Next
+
+            If CursorX >= .X + 414 And CursorX <= .X + 414 + 19 And CursorY >= .Y + ControlScrollStartY + ((ControlScrollEndY - ControlScrollSize) - ControlScrollY) And CursorY <= .Y + ControlScrollStartY + ((ControlScrollEndY - ControlScrollSize) - ControlScrollY) + ControlScrollSize Then
+                ControlScrollHold = True
+            End If
+
         End Select
-        
+
         '//Check for dragging
         .OldMouseX = CursorX - .X
         .OldMouseY = CursorY - .Y
@@ -547,7 +567,7 @@ Dim Count As Long
             Case ButtonEnum.Option_Control
                 '//Control Key
                 For i = 1 To MAX_CONTROL_PREV
-                    Count = CurControlKey + (i - 1)
+                    Count = CurControlKey + (i)
                     If Count > 0 And Count <= ControlEnum.Control_Count - 1 Then
                         If CursorX >= .X + 290 And CursorX <= .X + 290 + 114 And CursorY >= .Y + 44 + ((25 + 5) * (i - 1)) And CursorY <= .Y + 44 + ((25 + 5) * (i - 1)) + 24 Then
                             IsHovering = True
@@ -572,9 +592,12 @@ Dim Count As Long
                             
                             CurControlKey = CurControlKey - 1
                             
-                            If CurControlKey <= 0 Then
+                            If CurControlKey < 0 Then
                                 CurControlKey = 0
                             End If
+                            
+                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                            ControlScrollY = (ControlScrollLength - ControlScrollY)
                             
                         End If
                     End If
@@ -588,15 +611,15 @@ Dim Count As Long
                             '
                             CurControlKey = CurControlKey + 1
                             
-                            If CurControlKey >= 28 Then
-                                CurControlKey = 28
+                            If CurControlKey >= ControlEnum.Control_Count Then
+                                CurControlKey = ControlEnum.Control_Count - 1
                             End If
+                            
+                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                            ControlScrollY = (ControlScrollLength - ControlScrollY)
                             
                         End If
                     End If
-                     
-                    'ControlScrollCount = (132 - CurControlKey)
-                    'ControlViewCount = ((ControlScrollCount / MaxControlViewLine) / (132 / MaxControlViewLine)) * MaxControlViewLine
                     
                 End If
         
@@ -643,20 +666,6 @@ Dim i As Long, z As Long
                                     End If
                                 Case ButtonEnum.Option_Video, ButtonEnum.Option_Sound, ButtonEnum.Option_Game, ButtonEnum.Option_Control
                                     setWindow = i
-                                Case ButtonEnum.Option_cTabUp
-                                    ControlScrollUp = True
-                                    ControlScrollDown = False
-                                    ControlScrollTimer = GetTickCount
-                                    If CurControlKey > 1 Then
-                                        CurControlKey = CurControlKey - 1
-                                    End If
-                                Case ButtonEnum.Option_cTabDown
-                                    ControlScrollUp = False
-                                    ControlScrollDown = True
-                                    ControlScrollTimer = GetTickCount
-                                    If CurControlKey + (MAX_CONTROL_PREV - 1) < ControlEnum.Control_Count - 1 Then
-                                        CurControlKey = CurControlKey + 1
-                                    End If
                                 Case ButtonEnum.Option_sMusicUp
                                     If BGVolume < MAX_VOLUME Then
                                         BGVolume = BGVolume + 1
@@ -683,11 +692,6 @@ Dim i As Long, z As Long
                 End If
             End If
         Next
-        
-        '//Check for scroll
-        If CursorX >= .X + 414 And CursorX <= .X + 414 + 19 And CursorY >= .Y + ControlScrollStartY + ((ControlScrollEndY - ControlScrollSize) - ControlScrollY) And CursorY <= .Y + ControlScrollStartY + ((ControlScrollEndY - ControlScrollSize) - ControlScrollY) + ControlScrollSize Then
-            ControlScrollHold = True
-        End If
         
         '//Window
         Select Case setWindow

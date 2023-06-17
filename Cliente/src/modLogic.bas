@@ -2331,11 +2331,22 @@ End Function
 
 Public Function CheckPokeBallString(ByVal ballNum As Byte) As String
     Select Case ballNum
-        Case BallEnum.b_Pokeball: CheckPokeBallString = "PokeBall"
-        Case BallEnum.b_Greatball: CheckPokeBallString = "Greatball"
-        Case BallEnum.b_Ultraball: CheckPokeBallString = "Ultraball"
-        Case BallEnum.b_Masterball: CheckPokeBallString = "Masterball"
-        Case BallEnum.b_Primerball: CheckPokeBallString = "Primerball"
+        Case BallEnum.b_Pokeball: CheckPokeBallString = "Poke Ball"
+        Case BallEnum.b_Greatball: CheckPokeBallString = "Great Ball"
+        Case BallEnum.b_Ultraball: CheckPokeBallString = "Ultra Ball"
+        Case BallEnum.b_Masterball: CheckPokeBallString = "Master Ball"
+        Case BallEnum.b_Primerball: CheckPokeBallString = "Primer Ball"
+        Case BallEnum.b_CherishBall: CheckPokeBallString = "Cherish Ball"
+        Case BallEnum.b_LuxuryBall: CheckPokeBallString = "Luxury Ball"
+        Case BallEnum.b_FriendBall: CheckPokeBallString = "Friend Ball"
+        Case BallEnum.b_NetBall: CheckPokeBallString = "Net Ball"
+        Case BallEnum.b_DiveBall: CheckPokeBallString = "Dive Ball"
+        Case BallEnum.b_RepeatBall: CheckPokeBallString = "Repeat Ball"
+        Case BallEnum.b_TimerBall: CheckPokeBallString = "Timer Ball"
+        Case BallEnum.b_SafariBall: CheckPokeBallString = "Safari Ball"
+        Case BallEnum.b_QuickBall: CheckPokeBallString = "Quick Ball"
+        Case BallEnum.b_DuskBall: CheckPokeBallString = "Dusk Ball"
+        Case BallEnum.b_LoveBall: CheckPokeBallString = "Love Ball"
     End Select
 End Function
 
