@@ -2473,3 +2473,54 @@ Function GetMapNameColour() As Byte
         Case Else: GetMapNameColour = White
     End Select
 End Function
+
+Function GetWeekDay() As String
+    Select Case GameWeek
+    Case 1
+        '//Language
+        'Public Const LANG_PT As Byte = 0
+        'Public Const LANG_EN As Byte = 1
+        'Public Const LANG_ES As Byte = 2
+        Select Case GameSetting.CurLanguage
+        Case LANG_PT: GetWeekDay = "Dom"
+        Case LANG_EN: GetWeekDay = "Sun"
+        Case LANG_ES: GetWeekDay = "Dom"
+        End Select
+    Case 2
+        Select Case GameSetting.CurLanguage
+        Case LANG_PT: GetWeekDay = "Seg"
+        Case LANG_EN: GetWeekDay = "Sun"
+        Case LANG_ES: GetWeekDay = "Seg"
+        End Select
+    Case 3
+        Select Case GameSetting.CurLanguage
+        Case LANG_PT: GetWeekDay = "Ter"
+        Case LANG_EN: GetWeekDay = "Tue"
+        Case LANG_ES: GetWeekDay = "Ter"
+        End Select
+    Case 4
+        Select Case GameSetting.CurLanguage
+        Case LANG_PT: GetWeekDay = "Qua"
+        Case LANG_EN: GetWeekDay = "Wed"
+        Case LANG_ES: GetWeekDay = "Qua"
+        End Select
+    Case 5
+        Select Case GameSetting.CurLanguage
+        Case LANG_PT: GetWeekDay = "Qui"
+        Case LANG_EN: GetWeekDay = "Thu"
+        Case LANG_ES: GetWeekDay = "Qui"
+        End Select
+    Case 6
+        Select Case GameSetting.CurLanguage
+        Case LANG_PT: GetWeekDay = "Sex"
+        Case LANG_EN: GetWeekDay = "Fri"
+        Case LANG_ES: GetWeekDay = "Sex"
+        End Select
+    Case 7
+        Select Case GameSetting.CurLanguage
+        Case LANG_PT: GetWeekDay = "Sab"
+        Case LANG_EN: GetWeekDay = "Sat"
+        Case LANG_ES: GetWeekDay = "Sab"
+        End Select
+    End Select
+End Function

@@ -109,6 +109,7 @@ Public Sub InitMessages()
     HandleDataSub(SRequestCash) = GetAddress(AddressOf HandleRequestCash)
     HandleDataSub(SEventInfo) = GetAddress(AddressOf HandleEventInfo)
     HandleDataSub(SRequestServerInfo) = GetAddress(AddressOf HandleRequestServerInfo)
+    HandleDataSub(SClientTime) = GetAddress(AddressOf HandleClientTime)
 End Sub
 
 Public Sub HandleData(ByRef Data() As Byte)
@@ -475,15 +476,6 @@ End Sub
 
 Private Sub HandleMapDone(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
 Dim i As Long
-Dim buffer As clsBuffer
-
-    Set buffer = New clsBuffer
-    buffer.WriteBytes Data()
-    GameHour = buffer.ReadByte
-    GameMinute = buffer.ReadByte
-    GameSecond = buffer.ReadByte
-    GameSecond_Velocity = buffer.ReadByte
-    Set buffer = Nothing
 
     GettingMap = False
     CanMoveNow = True
@@ -2353,4 +2345,19 @@ Private Sub HandleRequestServerInfo(ByVal Index As Long, ByRef Data() As Byte, B
     
     '//Close Socket
     DestroyTCP
+End Sub
+
+Private Sub HandleClientTime(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+    Dim buffer As clsBuffer
+    
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+    
+    GameWeek = buffer.ReadByte
+    GameHour = buffer.ReadByte
+    GameMinute = buffer.ReadByte
+    GameSecond = buffer.ReadByte
+    GameSecond_Velocity = buffer.ReadByte
+    
+    Set buffer = Nothing
 End Sub

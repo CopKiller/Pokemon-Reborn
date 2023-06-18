@@ -1,0 +1,178 @@
+-- Type --
+Hold Items
+
+- Amulet Coin
+Efeito: An item to be held by a Pokémon. It doubles any prize money received as long as the holder joins the battle at least once.
+
+- Assault vest
+Efeito: Holder's Sp. Def is 1.5x, but it can only select damaging moves.
+
+- Black Belt
+Efeito: Holder's Fighting-type attacks have 1.2x power.
+
+- Black Glasses
+Efeito: Holder's Dark-type attacks have 1.2x power.
+
+- Black Sludge
+Efeito: Each turn, if holder is a Poison type, restores 1/16 max HP; loses 1/8 if not.
+
+- Charcoal
+Efito: Holder's Fire-type attacks have 1.2x power.
+
+- Choice Band
+Efeito: Holder's Attack is 1.5x, but it can only select the first move it executes.
+
+- Choice Scarf
+Efeito: Holder's Speed is 1.5x, but it can only select the first move it executes.
+
+- Choice Specs
+Efeito: Holder's Sp. Atk is 1.5x, but it can only select the first move it executes.
+
+- Clear Amulet
+Efeito: Prevents other Pokemon from lowering the holder's stat stages.
+
+- Dragon Fang
+Efeito: Holder's Dragon-type attacks have 1.2x power.
+
+- Eviolite
+Efeito: If holder's species can evolve, its Defense and Sp. Def are 1.5x.
+
+- Exp. Share
+Efeito: Turning on this special device will allow all the Pokémon on your team to share in Exp. Points gained.
+*OBS: Essse item compartilha experiência com todos da equipe, mais a ideia seria que quem estivesse segurando o item ficasse com 60% da experiência e o restante da experiência foi dividida entre os outros 5 (8%) independente se estivesse 5 ou menos membros na equipe.
+
+- Expert Belt
+Efeito: Holder's attacks that are super effective against the target do 1.2x damage.
+
+- Flame Orb
+Efeito: At the end of every turn, this item attempts to burn the holder.
+
+- Focus Band
+Efeito: Holder has a 10% chance to survive an attack that would KO it with 1 HP.
+
+- Hard Stone
+Efeito: Holder's Rock-type attacks have 1.2x power.
+
+- Leftovers //Segs - 10
+Efeito: At the end of every turn, holder restores 1/16 of its max HP.
+
+- Life Orb
+Efeito: Holder's attacks do 1.3x damage, and it loses 1/10 its max HP after the attack.
+
+//- Light Clay
+//Efeito: Holder's use of Aurora Veil, Light Screen, or Reflect lasts 8 turns instead of 5.
+
+- Magnet
+Efeito: Holder's Electric-type attacks have 1.2x power.
+
+- Metal Coat
+Efeito: Holder's Steel-type attacks have 1.2x power. 
+
+- Miracle Seed
+Efeito: Holder's Grass-type attacks have 1.2x power.
+
+- Muscle Band
+Efeito: Holder's physical attacks have 1.1x power.
+
+- Mystic Water
+Efeito: Holder's Water-type attacks have 1.2x power.
+
+- Never-Melt Ice
+Efeito: Holder's Ice-type attacks have 1.2x power.
+
+- Poison Barb
+Efeito: Holder's Poison-type attacks have 1.2x power.
+
+- Razor Claw
+Efeito: Holder's critical hit ratio is raised by 1 stage.
+
+- Rocky Helmet
+Efeito: If holder is hit by a contact move, the attacker loses 1/6 of its max HP.
+
+- Scope Lens
+Efeito: Holder's critical hit ratio is raised by 1 stage.
+
+- Sharp Beak
+Efeito: Holder's Flying-type attacks have 1.2x power.
+
+- Silk Scarf
+Efeito: Holder's Normal-type attacks have 1.2x power.
+
+- Soft Sand
+Efeito: Holder's Ground-type attacks have 1.2x power.
+
+- Spell Tag
+Efeito: Holder's Ghost-type attacks have 1.2x power.
+
+- Twisted Spoon
+Efeito: Holder's Psychic-type attacks have 1.2x power.
+
+- Wise Glasses
+Efeito: Holder's special attacks have 1.1x power.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

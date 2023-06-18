@@ -108,6 +108,7 @@ Public Enum ServerPackets
     SRequestCash
     SEventInfo
     SRequestServerInfo
+    SClientTime
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum

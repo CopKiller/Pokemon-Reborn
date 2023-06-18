@@ -1,10 +1,33 @@
 
--Corrigido o Scrolling da aba de controles das opções do ESC
--Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
+-OK-Corrigido o Scrolling da aba de controles das opções do ESC
+-OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
+-Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
+OK-Adicionar o nome do dia da semana na posição perto do nome do mapa com traduções
+OK-Remover os segundos do tempo de jogo, deixar apenas horas e minutos
+-Adicionar o tempo now do servidor(Hora e minuto), antes de qualquer mensagem no chat
+-Adicionar um find no Spawn Editor, pra procurar o nome do poke ou numero
+-Adicionar um botão de copia no Spawn Editor, pra copiar e colar no próximo slot
+-Adicionar uma checkbox no SpawnEditor, pra selecionar e clikar no mapa onde deve spawnar
+//-Adicionar textbox no SpawnEditor, pra poder adicionar um campo de HP no pokemon, pra usar em boss.
+-Adicionar combobox de items no SpawnEditor, pokemon nasce com o item equipado, e ao captura-lo, vem com o item equipado.
+-Adicionar 3 botões de Manha, tarde e noite, pra preencher o spawntime ao clikar em um deles.
+-Quando capturar um shiny, aparecer mensagem no global com nome, mostrando o nome do mapa.
+-Quando capturar um pokemon rarity, dependendo de um valor de rarity, aparecer mensagem global.
+-Adicionar uma combobox de Nature no Spawn Editor, pra escolher a nature do poke em específico a spawnar.
+//-Adicionar uma checkbox de IVFull em spawn.
 
+-Adicionar o Find no pokemon do npc treinador, pra adicioná-los.
+-Consertar o Find do move do npc treinador, ja tem criado, apenas corrigir.
+-Adicionar no pokemon do npc treinador, combobox de item pra adicionar o item equipado de cada um.
+-Adicionar combobox de nature do npc treinador, ao adicionar um pokemon.
+-Ao alternar os slots do pokemon pra outro slot no mesmo npc treinador, resetar os dados preenchidos do poke.
+-Adicionar checkbox de IV Full nos pokemon do npc treinador.
+-Adicionar checkbox de IsShiny nos pokemon do npc treinador.
+-Adicionar checkbox de Rebatle, pra caso perca e somente ao perder, poder lutar novamente sem esperar virar o dia, apenas se ganhar, poder lutar em outro dia.
 
+//-Adicionar mais duas descrição de item, pra que seja 3 descrições, um pra cada linguagem.
 
--Adicionar novo editor: HeldItems, ao receber as informações do philip, adicionar em um novo editor
+-Adicionar lógica: HeldItems, implementado pelas que está no txt, no editor apenas selecionar o nome, e em value ser a quantidade de segundos pra alguns com tempo em específico
 
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 >Futuramente, após finalizar correções básicas.<

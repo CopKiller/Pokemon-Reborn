@@ -3222,7 +3222,7 @@ Private Sub DrawHud()
     '//Map Name
     RenderText Ui_Default, Trim$(Map.Name), Screen_Width - 161 - 5 + 5, 8, GetMapNameColour
     '//Server Time
-    RenderText Ui_Default, KeepTwoDigit(GameHour) & ":" & KeepTwoDigit(GameMinute) & ":" & KeepTwoDigit(GameSecond), Screen_Width - 161 - 5 + 5, 16 + 8, White
+    RenderText Ui_Default, KeepTwoDigit(GameHour) & ":" & KeepTwoDigit(GameMinute) & " - " & GetWeekDay, Screen_Width - 161 - 5 + 5, 16 + 8, White
 
     '//Icon
     If GameHour >= 5 And GameHour <= 11 Then

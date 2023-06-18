@@ -205,6 +205,7 @@ Public GameHour As Byte
 Public GameMinute As Byte
 Public GameSecond As Byte
 Public GameSecond_Velocity As Byte
+Public GameWeek As Byte
 
 '//New Moves
 Public MoveLearnPokeSlot As Byte

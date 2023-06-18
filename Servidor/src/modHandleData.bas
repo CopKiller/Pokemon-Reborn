@@ -703,6 +703,8 @@ Dim i As Long
     
     '//Done Loading
     SendMapDone Index
+    
+    SendClientTimeTo Index
 End Sub
 
 Private Sub HandlePlayerMove(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)

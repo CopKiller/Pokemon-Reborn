@@ -110,6 +110,7 @@ Public Enum ServerPackets
     SRequestCash
     SEventInfo
     SRequestServerInfo
+    SClientTime
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -391,7 +392,7 @@ End Enum
 '//Item Type
 Public Enum ItemTypeEnum
     None = 0
-    Pokeball
+    pokeBall
     Medicine
     Berries
     keyItems

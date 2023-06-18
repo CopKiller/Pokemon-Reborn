@@ -552,12 +552,12 @@ End Sub
 Sub mnuBanChar_click()
     Dim i As Long
     i = frmServer.lvwInfo.SelectedItem.Index
+    
     ' Banir o Character
     If IsPlaying(i) Then
-        BanCharacter Name
-        CloseSocket FindPlayer(Name)
+        BanCharacter Player(i, TempPlayer(i).UseChar).Name
+        CloseSocket FindPlayer(Player(i, TempPlayer(i).UseChar).Name)
     End If
-
 End Sub
 
 Sub mnuBanIp_click()
