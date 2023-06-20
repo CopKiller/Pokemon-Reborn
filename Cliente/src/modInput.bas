@@ -1385,6 +1385,11 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                                 BuySlotType = 0
                                 BuySlotData = 0
                                 CloseChoiceBox
+                            Case CB_BUYINV
+                                '//Buy Inv Slot
+                                SendBuyInvSlot BuySlotData
+                                BuySlotData = 0
+                                CloseChoiceBox
                             Case CB_FLY
                                 SendFlyToBadge FlyBadgeSlot
                                 FlyBadgeSlot = 0
@@ -1407,6 +1412,9 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                                 CloseChoiceBox
                             Case CB_BUYSLOT
                                 BuySlotType = 0
+                                BuySlotData = 0
+                                CloseChoiceBox
+                            Case CB_BUYINV
                                 BuySlotData = 0
                                 CloseChoiceBox
                             Case CB_FLY

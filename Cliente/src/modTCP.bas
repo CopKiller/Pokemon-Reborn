@@ -1401,3 +1401,13 @@ Public Sub RequestServerInfo()
         Set buffer = Nothing
     End If
 End Sub
+
+Public Sub SendBuyInvSlot(ByVal InvSlot As Byte)
+    Dim buffer As clsBuffer
+
+    Set buffer = New clsBuffer
+    buffer.WriteLong CBuyInvSlot
+    buffer.WriteByte InvSlot
+    SendData buffer.ToArray()
+    Set buffer = Nothing
+End Sub

@@ -227,6 +227,7 @@ Public Enum ClientPackets
     CRequestCash
     CSetCash
     CRequestServerInfo
+    CBuyInvSlot
     '//Make sure CMSG_COUNT is below everything else
     CMSG_Count
 End Enum

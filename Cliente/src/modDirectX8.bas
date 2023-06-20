@@ -3251,7 +3251,7 @@ Private Sub DrawHud()
 
         '//Level
         If PlayerPokemon(MyIndex).Slot > 0 Then
-            RenderText Font_Default, "Lv" & (PlayerPokemons(PlayerPokemon(MyIndex).Slot).Level), 135, 25, White
+            RenderText Font_Default, "Lv" & (PlayerPokemons(PlayerPokemon(MyIndex).Slot).Level), 125, 25, White
         End If
 
         '//HP
@@ -3977,10 +3977,10 @@ Private Sub DrawPokemonSummary()
             Case 3, 4    ' YouTrade & TheirTrade //Utilizam estruturas diferentes, não da pra utilizar um type diretamente
                 Dim PokeTrade As TradeDataRec
 
-                If CheckingTrade = 1 Then    ' Their
+                If CheckingTrade = 2 Then    ' Their
                     If TheirTrade.Data(SummarySlot).TradeType <> 2 Then Exit Sub
                     PokeTrade = TheirTrade.Data(SummarySlot)
-                ElseIf CheckingTrade = 2 Then    ' Your
+                ElseIf CheckingTrade = 1 Then    ' Your
                     If YourTrade.Data(SummarySlot).TradeType <> 2 Then Exit Sub
                     PokeTrade = YourTrade.Data(SummarySlot)
                 Else

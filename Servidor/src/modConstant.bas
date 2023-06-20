@@ -181,3 +181,7 @@ Public Const MAP_MORAL_SAFE As Byte = 1
 Public Const MAP_MORAL_ARENA As Byte = 2
 Public Const MAP_MORAL_SAFARI As Byte = 3
 Public Const MAP_MORAL_PVP As Byte = 4
+
+'//Game Constants
+Public Const INV_SLOTS_LOCKED As Byte = 10 ' Slots
+Public Const INV_SLOTS_PRICE As Byte = 5 ' Cash

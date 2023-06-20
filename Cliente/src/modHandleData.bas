@@ -595,7 +595,7 @@ Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
-    AddText Trim$(buffer.ReadString), buffer.ReadLong
+    AddText KeepTwoDigit(Hour(time)) & ":" & KeepTwoDigit(Minute(time)) & " " & Trim$(buffer.ReadString), buffer.ReadLong
     Set buffer = Nothing
 End Sub
 
@@ -1018,6 +1018,7 @@ Dim i As Byte
         With PlayerInv(i)
             .Num = buffer.ReadLong
             .value = buffer.ReadLong
+            .Locked = buffer.ReadByte
         End With
     Next
     Set buffer = Nothing
@@ -1033,6 +1034,7 @@ Dim Slot As Byte
     With PlayerInv(Slot)
         .Num = buffer.ReadLong
         .value = buffer.ReadLong
+        .Locked = buffer.ReadByte
     End With
     Set buffer = Nothing
 End Sub

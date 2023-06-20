@@ -1,16 +1,16 @@
 Attribute VB_Name = "Inventory_Window"
 Public Sub DrawInventory()
-Dim i As Long
-Dim DrawX As Long, DrawY As Long
-Dim Sprite As Long
+    Dim i As Long
+    Dim DrawX As Long, DrawY As Long
+    Dim Sprite As Long
 
     With GUI(GuiEnum.GUI_INVENTORY)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         '//Render the window
         RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
-        
+
         '//Buttons
         'Dim ButtonText As String, DrawText As Boolean
         For i = ButtonEnum.Inventory_Close To ButtonEnum.Inventory_Close
@@ -18,27 +18,35 @@ Dim Sprite As Long
                 RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
-        
+
         '//Items
         For i = 1 To MAX_PLAYER_INV
             If i <> DragInvSlot Then
-                If PlayerInv(i).Num > 0 Then
-                    Sprite = Item(PlayerInv(i).Num).Sprite
-                    
+                If PlayerInv(i).Locked = NO Then
+                    If PlayerInv(i).Num > 0 Then
+                        Sprite = Item(PlayerInv(i).Num).Sprite
+
+                        DrawX = .X + (7 + ((5 + TILE_X) * (((i - 1) Mod 5))))
+                        DrawY = .Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
+
+                        '//Draw Icon
+                        If Sprite > 0 And Sprite <= Count_Item Then
+                            RenderTexture Tex_Item(Sprite), DrawX + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
+                        End If
+
+                        RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
+
+                        '//Count
+                        If PlayerInv(i).value > 1 Then
+                            RenderText Font_Default, PlayerInv(i).value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInv(i).value)), DrawY + 14, White
+                        End If
+                    End If
+                Else '= YES
+                    '//Renderizando slots bloqueados
+                    Sprite = 532
                     DrawX = .X + (7 + ((5 + TILE_X) * (((i - 1) Mod 5))))
                     DrawY = .Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
-                    
-                    '//Draw Icon
-                    If Sprite > 0 And Sprite <= Count_Item Then
-                        RenderTexture Tex_Item(Sprite), DrawX + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
-                    End If
-                    
-                    RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
-                    
-                    '//Count
-                    If PlayerInv(i).value > 1 Then
-                        RenderText Font_Default, PlayerInv(i).value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInv(i).value)), DrawY + 14, White
-                    End If
+                    RenderTexture Tex_Item(Sprite), DrawX + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
                 End If
             End If
         Next
@@ -85,6 +93,7 @@ Dim i As Long
                         DragInvSlot = i
                         WindowPriority = GuiEnum.GUI_INVENTORY
                     End If
+                    
                 End If
             End If
         End If
@@ -99,8 +108,8 @@ Dim i As Long
 End Sub
 
 Public Sub InventoryMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim tmpX As Long, tmpY As Long
-Dim i As Long
+    Dim tmpX As Long, tmpY As Long
+    Dim i As Long
 
     With GUI(GuiEnum.GUI_INVENTORY)
         '//Make sure it's visible
@@ -109,7 +118,7 @@ Dim i As Long
         Else
             Exit Sub
         End If
-        
+
         If DragInvSlot > 0 Or DragStorageSlot > 0 Then
             If WindowPriority = 0 Then
                 WindowPriority = GuiEnum.GUI_INVENTORY
@@ -118,32 +127,32 @@ Dim i As Long
                 End If
             End If
         End If
-        
+
         If GuiVisibleCount <= 0 Then Exit Sub
         If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_INVENTORY Then Exit Sub
-        
+
         IsHovering = False
-        
+
         '//Loop through all items
         For i = ButtonEnum.Inventory_Close To ButtonEnum.Inventory_Close
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
-        
+
                         IsHovering = True
-                        MouseIcon = 1 '//Select
+                        MouseIcon = 1    '//Select
                     End If
                 End If
             End If
         Next
-        
+
         '//Inv
         i = IsInvItem(CursorX, CursorY)
         If i > 0 Then
             IsHovering = True
-            MouseIcon = 1 '//Select
-            
+            MouseIcon = 1    '//Select
+
             If Not InvItemDesc = i Then
                 InvItemDesc = i
                 InvItemDescTimer = GetTickCount
@@ -151,17 +160,26 @@ Dim i As Long
             End If
         End If
 
+        i = IsInvSlot(CursorX, CursorY)
+        If i > 0 Then
+            If PlayerInv(i).Locked = YES Then
+                IsHovering = True
+                MouseIcon = 1    '//Select
+            End If
+        End If
+
+
         '//Check for dragging
         If .InDrag Then
             tmpX = CursorX - .OldMouseX
             tmpY = CursorY - .OldMouseY
-            
+
             '//Check if outbound
             If tmpX <= 0 Then tmpX = 0
             If tmpX >= Screen_Width - .Width Then tmpX = Screen_Width - .Width
             If tmpY <= 0 Then tmpY = 0
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
-            
+
             .X = tmpX
             .Y = tmpY
         End If
@@ -169,15 +187,15 @@ Dim i As Long
 End Sub
 
 Public Sub InventoryMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim i As Long
+    Dim i As Long
 
     With GUI(GuiEnum.GUI_INVENTORY)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         If GuiVisibleCount <= 0 Then Exit Sub
         If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_INVENTORY Then Exit Sub
-        
+
         '//Loop through all items
         For i = ButtonEnum.Inventory_Close To ButtonEnum.Inventory_Close
             If CanShowButton(i) Then
@@ -185,16 +203,16 @@ Dim i As Long
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
-                            Case ButtonEnum.Inventory_Close
-                                If GUI(GuiEnum.GUI_INVENTORY).Visible Then
-                                    GuiState GUI_INVENTORY, False
-                                End If
+                        Case ButtonEnum.Inventory_Close
+                            If GUI(GuiEnum.GUI_INVENTORY).Visible Then
+                                GuiState GUI_INVENTORY, False
+                            End If
                         End Select
                     End If
                 End If
             End If
         Next
-        
+
         '//Replace item
         If TradeIndex = 0 Then
             If DragInvSlot > 0 Then
@@ -203,9 +221,21 @@ Dim i As Long
                     SendSwitchInvSlot DragInvSlot, i
                 End If
             End If
+
+
+            If DragInvSlot = 0 Then
+                i = IsInvSlot(CursorX, CursorY)
+                If i > 0 Then
+                    If PlayerInv(i).Locked = YES Then
+                        BuySlotData = i
+                        OpenChoiceBox "Do you want to buy this slot for $" & INV_SLOTS_PRICE & " Cash?", CB_BUYINV
+                    End If
+                End If
+            End If
+
             DragInvSlot = 0
         End If
-        
+
         '//Replace item
         If DragStorageSlot > 0 Then
             i = IsInvSlot(CursorX, CursorY)
@@ -222,7 +252,7 @@ Dim i As Long
             End If
         End If
         DragStorageSlot = 0
-        
+
         '//Check for dragging
         .InDrag = False
     End With

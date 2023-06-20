@@ -72,7 +72,7 @@ Public Const MAX_MAP_NPC As Byte = 35
 Public Const MAX_POKEMON As Long = 1000 '151
 Public Const MAX_GAME_POKEMON As Long = 2000
 Public Const MAX_ITEM As Long = 600 '100
-Public Const MAX_PLAYER_INV As Byte = 50
+Public Const MAX_PLAYER_INV As Byte = 35
 Public Const MAX_PLAYER_POKEMON As Byte = 6
 Public Const MAX_POKEMON_MOVE As Long = 1000 '100
 Public Const MAX_POKEMON_MOVESET As Byte = 30
@@ -220,6 +220,7 @@ Public Const CB_REQUEST As Byte = 6
 Public Const CB_RELEASE As Byte = 7
 Public Const CB_BUYSLOT As Byte = 8
 Public Const CB_FLY As Byte = 9
+Public Const CB_BUYINV As Byte = 10
 
 '//InputBox
 Public Const IB_NEWPASSWORD As Byte = 1
@@ -292,3 +293,7 @@ Public Const MAP_MORAL_SAFE = 1
 Public Const MAP_MORAL_ARENA = 2
 Public Const MAP_MORAL_SAFARI = 3
 Public Const MAP_MORAL_PVP = 4
+
+'//Game Constants
+Public Const INV_SLOTS_LOCKED As Byte = 10 ' Slots
+Public Const INV_SLOTS_PRICE As Byte = 5 ' Cash

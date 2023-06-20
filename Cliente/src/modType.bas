@@ -283,6 +283,7 @@ End Type
 Private Type PlayerInvRec
     Num As Long
     value As Long
+    Locked As Byte
 End Type
 
 Public Type PokemonMovesetRec

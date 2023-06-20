@@ -538,8 +538,8 @@ Dim x As Long, Y As Long
         Next
             
         '//Vital
-        .MaxHP = .Stat(StatEnum.HP).Value
-        .CurHP = .MaxHP
+        .MaxHp = .Stat(StatEnum.HP).Value
+        .CurHp = .MaxHp
         
         '//Moveset
         For i = 1 To MAX_MOVESET
@@ -654,15 +654,15 @@ Dim MoveSpeed As Long
             If .Status = StatusEnum.Poison Then
                 If .StatusMove >= 4 Then
                     If .StatusDamage > 0 Then
-                        If .StatusDamage >= .CurHP Then
-                            .CurHP = 0
+                        If .StatusDamage >= .CurHp Then
+                            .CurHp = 0
                             SendActionMsg MapNum, "-" & .StatusDamage, .x * 32, .Y * 32, Magenta
                             
                             MapNpc(MapNum, NpcIndex).PokemonAlive(MapNpc(MapNum, NpcIndex).CurPokemon) = NO
                             NpcPokemonCallBack MapNum, NpcIndex
                             Exit Function
                         Else
-                            .CurHP = .CurHP - .StatusDamage
+                            .CurHp = .CurHp - .StatusDamage
                             SendActionMsg MapNum, "-" & .StatusDamage, .x * 32, .Y * 32, Magenta
                             '//Update
                             'SendPokemonVital MapPokemonNum
@@ -670,7 +670,7 @@ Dim MoveSpeed As Long
                         '//Reset
                         .StatusMove = 0
                     Else
-                        .StatusDamage = (.MaxHP / 16)
+                        .StatusDamage = (.MaxHp / 16)
                     End If
                 Else
                     .StatusMove = .StatusMove + 1
@@ -800,3 +800,43 @@ Public Function GetAtributeName(Atributte As StatEnum) As String
     Case StatEnum.Spd: GetAtributeName = "Spd"
     End Select
 End Function
+
+Public Sub BuyInvSlot(ByVal Index As Long, ByVal InvNum As Byte)
+    If InvNum <= 0 Or InvNum > MAX_PLAYER_INV Then
+        Exit Sub
+    End If
+    If TempPlayer(Index).UseChar <= 0 Then
+        Exit Sub
+    End If
+
+    With PlayerInv(Index).Data(InvNum)
+        If .Locked = YES Then
+            If Player(Index, TempPlayer(Index).UseChar).Cash >= INV_SLOTS_PRICE Then
+
+                .Locked = NO
+                Call SendPlayerInvSlot(Index, InvNum)
+
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
+                Case LANG_EN: AddAlert Index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
+                Case LANG_ES: AddAlert Index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
+                End Select
+            Else
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Você não possui " & INV_SLOTS_PRICE & " de Cash", White
+                Case LANG_EN: AddAlert Index, "Você não possui " & INV_SLOTS_PRICE & " de Cash", White
+                Case LANG_ES: AddAlert Index, "Você não possui " & INV_SLOTS_PRICE & " de Cash", White
+                End Select
+            End If
+        Else
+            Select Case TempPlayer(Index).CurLanguage
+            Case LANG_PT: AddAlert Index, "O Slot " & InvNum & " da sua bag já está liberado", White
+            Case LANG_EN: AddAlert Index, "O Slot " & InvNum & " da sua bag já está liberado", White
+            Case LANG_ES: AddAlert Index, "O Slot " & InvNum & " da sua bag já está liberado", White
+            End Select
+        End If
+    End With
+End Sub
+
+
+

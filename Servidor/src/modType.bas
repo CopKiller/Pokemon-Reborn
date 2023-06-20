@@ -64,7 +64,7 @@ Private Type MapPokemonRec
     
     '//Location
     Map As Long
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -135,7 +135,7 @@ Private Type MapNpcPokemonRec
     Num As Long     '//Index of the npc
     
     '//Location
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -198,7 +198,7 @@ Private Type MapNpcRec
     Num As Long     '//Index of the npc
     
     '//Location
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -217,7 +217,7 @@ Public Type PlayerPokemonRec
     Num As Long
     
     '//Location
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -260,7 +260,7 @@ Public Type PlayerRec
     
     '//Location
     Map As Long
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -335,6 +335,7 @@ End Type
 Public Type PlayerInvDataRec
     Num As Long
     Value As Long
+    Locked As Byte
 End Type
 
 Public Type PlayerInvRec

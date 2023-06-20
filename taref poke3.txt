@@ -4,7 +4,9 @@
 -Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
 OK-Adicionar o nome do dia da semana na posição perto do nome do mapa com traduções
 OK-Remover os segundos do tempo de jogo, deixar apenas horas e minutos
--Adicionar o tempo now do servidor(Hora e minuto), antes de qualquer mensagem no chat
+OK-Alterar a posição do level do poke na hud.
+OK-Adicionar sistema de compra de slots do inventário por cash & alteração no visual do inventario pelo photoshop
+OK-Adicionar o tempo now do servidor(Hora e minuto), antes de qualquer mensagem no chat
 -Adicionar um find no Spawn Editor, pra procurar o nome do poke ou numero
 -Adicionar um botão de copia no Spawn Editor, pra copiar e colar no próximo slot
 -Adicionar uma checkbox no SpawnEditor, pra selecionar e clikar no mapa onde deve spawnar

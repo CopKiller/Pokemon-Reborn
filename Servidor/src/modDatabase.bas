@@ -250,18 +250,18 @@ Public Sub ClearPlayer(ByVal Index As Long)
 End Sub
 
 Public Sub AddPlayerData(ByVal Index As Long, ByVal CharSlot As Byte, ByVal Name As String, ByVal Sprite As Long)
-Dim filename As String
-Dim f As Long
+    Dim filename As String
+    Dim f As Long
 
     '//Determine the file location
     'FileName = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & ".ini"
-    
+
     With Player(Index, CharSlot)
         .Name = Trim$(Name)
         .Sprite = Sprite
         .Access = 0
         .Map = Options.StartMap
-        .X = Options.startX
+        .x = Options.startX
         .Y = Options.startY
         .Dir = Options.StartDir
         .CurHp = 255
@@ -271,7 +271,7 @@ Dim f As Long
         .Started = CStr(Date)
         .TimePlay = 0
     End With
-    
+
     'Call PutVar(FileName, "General", "Name", Trim$(Name))
     'Call PutVar(FileName, "General", "Sprite", Str(Sprite))
     'Call PutVar(FileName, "General", "Access", Str(ACCESS_NONE))
@@ -285,13 +285,13 @@ Dim f As Long
 
     '// For tutorial mode
     'Call PutVar(FileName, "Tutorial", "DidStart", YES)
-    
+
     SavePlayerData Index, CharSlot
 
     '//Append name to file
     f = FreeFile
     Open App.Path & "\data\accounts\charlist.txt" For Append As #f
-        Print #f, Trim$(Name)
+    Print #f, Trim$(Name)
     Close #f
 End Sub
 
@@ -494,7 +494,13 @@ Dim s As String
 End Sub
 
 Public Sub ClearPlayerInv(ByVal Index As Long)
+    Dim i As Byte
     Call ZeroMemory(ByVal VarPtr(PlayerInv(Index)), LenB(PlayerInv(Index)))
+    
+    ' Lock lasts 10 InvSlots and buying by cash.
+    For i = (MAX_PLAYER_INV - INV_SLOTS_LOCKED + 1) To MAX_PLAYER_INV
+        PlayerInv(Index).Data(i).Locked = YES
+    Next i
 End Sub
 
 Public Sub LoadPlayerInv(ByVal Index As Long, ByVal CharSlot As Byte)
@@ -553,7 +559,7 @@ End Sub
 
 Public Sub LoadPlayerPokemons(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte, X As Byte
+Dim i As Byte, x As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -618,7 +624,7 @@ End Sub
 
 Public Sub SavePlayerPokemons(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte, X As Byte
+Dim i As Byte, x As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -683,7 +689,7 @@ End Sub
 
 Public Sub LoadPlayerInvStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim X As Byte, Y As Byte
+Dim x As Byte, Y As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -703,7 +709,7 @@ End Sub
 
 Public Sub SavePlayerInvStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim X As Byte, Y As Byte
+Dim x As Byte, Y As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -810,7 +816,7 @@ Dim i As Long
 End Sub
 
 Public Sub LoadMap(ByVal MapNum As Long)
-Dim X As Long, Y As Long
+Dim x As Long, Y As Long
 Dim filename As String
 Dim f As Long
 Dim i As Long
@@ -844,9 +850,9 @@ Dim a As Byte
         End With
         
         '//Tiles
-        For X = 0 To Map(MapNum).MaxX
+        For x = 0 To Map(MapNum).MaxX
             For Y = 0 To Map(MapNum).MaxY
-                With Map(MapNum).Tile(X, Y)
+                With Map(MapNum).Tile(x, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -903,7 +909,7 @@ Dim i As Long
 End Sub
 
 Public Sub SaveMap(ByVal MapNum As Long)
-Dim X As Long, Y As Long
+Dim x As Long, Y As Long
 Dim filename As String
 Dim f As Long
 Dim i As Long
@@ -928,9 +934,9 @@ Dim a As Byte
         End With
         
         '//Tiles
-        For X = 0 To Map(MapNum).MaxX
+        For x = 0 To Map(MapNum).MaxX
             For Y = 0 To Map(MapNum).MaxY
-                With Map(MapNum).Tile(X, Y)
+                With Map(MapNum).Tile(x, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -1074,7 +1080,7 @@ End Sub
 
 Public Sub LoadPokemon(ByVal PokemonNum As Long)
 Dim filename As String
-Dim f As Long, X As Byte
+Dim f As Long, x As Byte
 
     filename = App.Path & "\data\pokemons\pokemondata_" & PokemonNum & ".dat"
     f = FreeFile
@@ -1102,7 +1108,7 @@ End Sub
 
 Public Sub SavePokemon(ByVal PokemonNum As Long)
 Dim filename As String
-Dim f As Long, X As Byte
+Dim f As Long, x As Byte
 
     filename = App.Path & "\data\pokemons\pokemondata_" & PokemonNum & ".dat"
     If FileExist(filename) Then
@@ -1403,14 +1409,14 @@ End Sub
 ' ** Conversation Properties **
 ' ********************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim x As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
-    For X = 1 To MAX_CONV_DATA
+    For x = 1 To MAX_CONV_DATA
         For Y = 1 To MAX_LANGUAGE
-            Conversation(ConversationNum).ConvData(X).TextLang(Y).Text = vbNullString
+            Conversation(ConversationNum).ConvData(x).TextLang(Y).Text = vbNullString
             For z = 1 To 3
-                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(z) = vbNullString
+                Conversation(ConversationNum).ConvData(x).TextLang(Y).tReply(z) = vbNullString
             Next
         Next
     Next
