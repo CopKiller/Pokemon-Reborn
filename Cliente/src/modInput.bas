@@ -492,28 +492,28 @@ End Sub
 
 '//This handle the main form's key event
 Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim i As Long
-Dim DidClick As Boolean
-Dim x2 As Long, Y2 As Long
-Dim textX As Long, textY As Long
-Dim PreventAction As Boolean
-Dim Column As Long
+    Dim i As Long
+    Dim DidClick As Boolean
+    Dim x2 As Long, Y2 As Long
+    Dim textX As Long, textY As Long
+    Dim PreventAction As Boolean
+    Dim Column As Long
 
     If Fade Then Exit Sub
-    
+
     ChatOn = False
     EditInputMoney = False
     editKey = 0
     EditTab = False
     MyChat = vbNullString
-    
+
     '//SelMenu
     If SelMenu.Visible Then
         If SelMenuLogic(Buttons) Then
             Exit Sub
         End If
     End If
-    
+
     '//GUI Priority
     '1st = Choice Box/Input Box
     '2nd = Global Menu
@@ -565,114 +565,114 @@ Dim Column As Long
                             If GuiZOrder(i) > 0 Then
                                 If CursorX >= GUI(GuiZOrder(i)).X And CursorX <= GUI(GuiZOrder(i)).X + GUI(GuiZOrder(i)).Width And CursorY >= GUI(GuiZOrder(i)).Y And CursorY <= GUI(GuiZOrder(i)).Y + GUI(GuiZOrder(i)).Height Then
                                     Select Case GuiZOrder(i)
-                                        Case GuiEnum.GUI_LOGIN
-                                            If Not DidClick Then
-                                                LoginMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_REGISTER
-                                            If Not DidClick Then
-                                                RegisterMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_CHARACTERSELECT
-                                            If Not DidClick Then
-                                                CharacterSelectMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_CHARACTERCREATE
-                                            If Not DidClick Then
-                                                CharacterCreateMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_CHATBOX
-                                            If Not DidClick Then
-                                                ChatBoxMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_INVENTORY
-                                            If Not DidClick Then
-                                                InventoryMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_MOVEREPLACE
-                                            If Not DidClick Then
-                                                MoveReplaceMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_TRAINER
-                                            If Not DidClick Then
-                                                TrainerMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_INVSTORAGE
-                                            If Not DidClick Then
-                                                InvStorageMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_POKEMONSTORAGE
-                                            If Not DidClick Then
-                                                PokemonStorageMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_SHOP
-                                            If Not DidClick Then
-                                                ShopMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_TRADE
-                                            If Not DidClick Then
-                                                TradeMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_POKEDEX
-                                            If Not DidClick Then
-                                                PokedexMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_POKEMONSUMMARY
-                                            If Not DidClick Then
-                                                PokemonSummaryMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_RELEARN
-                                            If Not DidClick Then
-                                                RelearnMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_BADGE
-                                            If Not DidClick Then
-                                                BadgeMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
-                                        Case GuiEnum.GUI_SLOTMACHINE
-                                            'If Not DidClick Then
-                                                'SlotMachineMouseDown Buttons, Shift, X, Y
-                                                'DidClick = True
-                                               ' Exit For
-                                            'End If
-                                        Case GuiEnum.GUI_RANK
-                                            If Not DidClick Then
-                                                RankMouseDown Buttons, Shift, X, Y
-                                                DidClick = True
-                                                Exit For
-                                            End If
+                                    Case GuiEnum.GUI_LOGIN
+                                        If Not DidClick Then
+                                            LoginMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_REGISTER
+                                        If Not DidClick Then
+                                            RegisterMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_CHARACTERSELECT
+                                        If Not DidClick Then
+                                            CharacterSelectMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_CHARACTERCREATE
+                                        If Not DidClick Then
+                                            CharacterCreateMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_CHATBOX
+                                        If Not DidClick Then
+                                            ChatBoxMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_INVENTORY
+                                        If Not DidClick Then
+                                            InventoryMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_MOVEREPLACE
+                                        If Not DidClick Then
+                                            MoveReplaceMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_TRAINER
+                                        If Not DidClick Then
+                                            TrainerMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_INVSTORAGE
+                                        If Not DidClick Then
+                                            InvStorageMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_POKEMONSTORAGE
+                                        If Not DidClick Then
+                                            PokemonStorageMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_SHOP
+                                        If Not DidClick Then
+                                            ShopMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_TRADE
+                                        If Not DidClick Then
+                                            TradeMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_POKEDEX
+                                        If Not DidClick Then
+                                            PokedexMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_POKEMONSUMMARY
+                                        If Not DidClick Then
+                                            PokemonSummaryMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_RELEARN
+                                        If Not DidClick Then
+                                            RelearnMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_BADGE
+                                        If Not DidClick Then
+                                            BadgeMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_SLOTMACHINE
+                                        'If Not DidClick Then
+                                        'SlotMachineMouseDown Buttons, Shift, X, Y
+                                        'DidClick = True
+                                        ' Exit For
+                                        'End If
+                                    Case GuiEnum.GUI_RANK
+                                        If Not DidClick Then
+                                            RankMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
                                     End Select
                                 End If
                             End If
@@ -682,183 +682,192 @@ Dim Column As Long
             End If
         End If
     End If
-    
+
     Select Case GameState
-        Case GameStateEnum.InMenu
-            If Not DidClick And Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible Then
-                
-                
-                ' Botão do Footer
-                Y = Screen_Height
-                X = Screen_Width
-                textY = Y - 40
-                Column = X / 3
-                
-                If Not GUI(GuiEnum.GUI_CHARACTERSELECT).Visible = True Then
-                    
-                    ' Botão Registrar
-                    If Not CreditVisible = True Then
-                        If CursorX >= Column / 2 - GetTextWidth(Font_Default, TextUIFooterCreateAccount) / 2 And CursorX <= Column / 2 - GetTextWidth(Font_Default, TextUIFooterCreateAccount) / 2 + GetTextWidth(Font_Default, TextUIFooterCreateAccount) And CursorY >= textY And CursorY <= textY + 40 Then
-                            If Not GUI(GuiEnum.GUI_REGISTER).Visible Then
-                                GuiState GUI_LOGIN, False
-                                GuiState GUI_REGISTER, True, True
-                                CurTextbox = 1
-                                User = vbNullString
-                                Pass = vbNullString
-                                Pass2 = vbNullString
-                                Email = vbNullString
-                            End If
-                        End If
-                    End If
-                    
-                    ' Botão Créditos
-                    If CursorX >= Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 And CursorX <= (Column * 2) + Column / 2 - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 + GetTextWidth(Font_Default, TextUIFooterCredits) And CursorY >= textY And CursorY <= textY + 40 Then
-                        If CreditVisible Then
-                            CreditState = 1
-                        Else
-                            CreditVisible = True
-                            CreditOffset = 0
-                            CreditState = 0
-                            
-                            For i = 0 To CreditTextCount
-                                Credit(i).Y = Credit(i).StartY
-                            Next
-                        End If
-                    End If
-                    
-                Else
-                    ' Botão Trocar Senha
-                    If CursorX >= Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterChangePassword) / 2 And CursorX <= (Column * 2) + Column / 2 - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 + GetTextWidth(Font_Default, TextUIFooterChangePassword) And CursorY >= textY And CursorY <= textY + 40 Then
-                        If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible Then
-                            OpenInputBox "Enter your new password", IB_NEWPASSWORD
+    Case GameStateEnum.InMenu
+        If Not DidClick And Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible Then
+
+
+            ' Botão do Footer
+            Y = Screen_Height
+            X = Screen_Width
+            textY = Y - 40
+            Column = X / 3
+
+            If Not GUI(GuiEnum.GUI_CHARACTERSELECT).Visible = True Then
+
+                ' Botão Registrar
+                If Not CreditVisible = True Then
+                    If CursorX >= Column / 2 - GetTextWidth(Font_Default, TextUIFooterCreateAccount) / 2 And CursorX <= Column / 2 - GetTextWidth(Font_Default, TextUIFooterCreateAccount) / 2 + GetTextWidth(Font_Default, TextUIFooterCreateAccount) And CursorY >= textY And CursorY <= textY + 40 Then
+                        If Not GUI(GuiEnum.GUI_REGISTER).Visible Then
+                            GuiState GUI_LOGIN, False
+                            GuiState GUI_REGISTER, True, True
+                            CurTextbox = 1
+                            User = vbNullString
+                            Pass = vbNullString
+                            Pass2 = vbNullString
+                            Email = vbNullString
                         End If
                     End If
                 End If
-                
+
+                ' Botão Créditos
+                If CursorX >= Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 And CursorX <= (Column * 2) + Column / 2 - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 + GetTextWidth(Font_Default, TextUIFooterCredits) And CursorY >= textY And CursorY <= textY + 40 Then
+                    If CreditVisible Then
+                        CreditState = 1
+                    Else
+                        CreditVisible = True
+                        CreditOffset = 0
+                        CreditState = 0
+
+                        For i = 0 To CreditTextCount
+                            Credit(i).Y = Credit(i).StartY
+                        Next
+                    End If
+                End If
+
+            Else
+                ' Botão Trocar Senha
+                If CursorX >= Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterChangePassword) / 2 And CursorX <= (Column * 2) + Column / 2 - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 + GetTextWidth(Font_Default, TextUIFooterChangePassword) And CursorY >= textY And CursorY <= textY + 40 Then
+                    If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible Then
+                        OpenInputBox "Enter your new password", IB_NEWPASSWORD
+                    End If
+                End If
             End If
-        Case GameStateEnum.InGame
-            If Not DidClick And Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible And Not GUI(GuiEnum.GUI_CONVO).Visible Then
-                If Buttons = vbRightButton Then
-                    If Editor <> EDITOR_MAP Then
-                        For i = 1 To MAX_PLAYER_POKEMON
-                            If PlayerPokemon(MyIndex).Num > 0 Then
-                                If PlayerPokemon(MyIndex).Slot = i Then
-                                    If PlayerPokemons(i).Num > 0 Then
-                                        x2 = Screen_Width - 34 - 5 - ((i - 1) * 40)
-                                        Y2 = 62 ' + 52 + ((i - 1) * 40)
-                                            
-                                        If CursorX >= x2 And CursorX <= x2 + 34 And CursorY >= Y2 And CursorY <= Y2 + 37 Then
-                                            SelPoke = i
-                                            If PlayerPokemons(i).CurHP > 0 Then
-                                                OpenSelMenu SelMenuType.PlayerPokes
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            Else
+
+        End If
+    Case GameStateEnum.InGame
+        If Not DidClick And Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible And Not GUI(GuiEnum.GUI_CONVO).Visible Then
+            If Buttons = vbRightButton Then
+                If Editor <> EDITOR_MAP Then
+                    For i = 1 To MAX_PLAYER_POKEMON
+                        If PlayerPokemon(MyIndex).Num > 0 Then
+                            If PlayerPokemon(MyIndex).Slot = i Then
                                 If PlayerPokemons(i).Num > 0 Then
-                                    If PlayerPokemons(i).CurHP > 0 Then
-                                        x2 = Screen_Width - 34 - 5 - ((i - 1) * 40)
-                                        Y2 = 62 ' + 52 + ((i - 1) * 40)
-                                            
-                                        If CursorX >= x2 And CursorX <= x2 + 34 And CursorY >= Y2 And CursorY <= Y2 + 37 Then
-                                            SelPoke = i
-                                            OpenSelMenu SelMenuType.SpawnPokes
-                                        End If
-                                    Else
-                                        x2 = Screen_Width - 34 - 5 - ((i - 1) * 40)
-                                        Y2 = 62 ' + 52 + ((i - 1) * 40)
-                                            
-                                        If CursorX >= x2 And CursorX <= x2 + 34 And CursorY >= Y2 And CursorY <= Y2 + 37 Then
-                                            SelPoke = i
-                                            OpenSelMenu SelMenuType.RevivePokes
+                                    x2 = Screen_Width - 34 - 5 - ((i - 1) * 40)
+                                    Y2 = 62    ' + 52 + ((i - 1) * 40)
+
+                                    If CursorX >= x2 And CursorX <= x2 + 34 And CursorY >= Y2 And CursorY <= Y2 + 37 Then
+                                        SelPoke = i
+                                        If PlayerPokemons(i).CurHP > 0 Then
+                                            OpenSelMenu SelMenuType.PlayerPokes
                                         End If
                                     End If
                                 End If
                             End If
-                        Next
-                    End If
-                End If
-                
-                For i = 1 To MAX_HOTBAR
-                    x2 = Screen_Width - 42 - 170 - ((i - 1) * 45)
-                    Y2 = 5 '62 + 37 + 5
-                            
-                    If CursorX >= x2 And CursorX <= x2 + 42 And CursorY >= Y2 And CursorY <= Y2 + 45 Then
-                        If Buttons = vbRightButton Then
-                            '//Remove Hotbar
-                            SendHotbarUpdate i
-                        End If
-                    End If
-                Next
-            
-                '//Editor Map
-                If Buttons = vbLeftButton Or Buttons = vbRightButton Then
-                    If Editor = EDITOR_MAP Then
-                        MapEditorMouseDown Buttons
-                    End If
-                End If
-            
-                '//Admin Warp
-                If Buttons = vbRightButton Then
-                    If ShiftKey Then
-                        If Editor <> EDITOR_MAP Then
-                            If Player(MyIndex).Access > 0 Then
-                                If PlayerPokemon(MyIndex).Num <= 0 Then
-                                    AdminWarp curTileX, curTileY
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
-            
-                If Not Editor = EDITOR_MAP Then
-                    If Not DidClick And Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible Then
-                        '//Loop through all items
-                        For i = ButtonEnum.Game_Pokedex To ButtonEnum.Game_Evolve
-                            If CanShowButton(i) Then
-                                If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).Y And CursorY <= Button(i).Y + Button(i).Height Then
-                                    PreventAction = False
-                                    Select Case i
-                                        Case ButtonEnum.Game_Pokedex
-                                            If GUI(GuiEnum.GUI_POKEDEX).Visible Then
-                                                PreventAction = True
-                                            End If
-                                        Case ButtonEnum.Game_Bag
-                                            If GUI(GuiEnum.GUI_INVENTORY).Visible Then
-                                                PreventAction = True
-                                            End If
-                                        Case ButtonEnum.Game_Card
-                                            If GUI(GuiEnum.GUI_TRAINER).Visible Then
-                                                PreventAction = True
-                                            End If
-                                        Case ButtonEnum.Game_Task
-                                            'If GUI(GuiEnum.GUI_RANK).Visible Then
-                                            '    PreventAction = True
-                                            'End If
-                                        Case ButtonEnum.Game_Rank
-                                            If GUI(GuiEnum.GUI_RANK).Visible Then
-                                                PreventAction = True
-                                            End If
-                                        Case ButtonEnum.Game_Menu
-                                            If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
-                                                PreventAction = True
-                                            End If
-                                    End Select
-                                    
-                                    If Not PreventAction Then
-                                        If Button(i).State = ButtonState.StateHover Then
-                                            Button(i).State = ButtonState.StateClick
-                                        End If
+                        Else
+                            If PlayerPokemons(i).Num > 0 Then
+                                If PlayerPokemons(i).CurHP > 0 Then
+                                    x2 = Screen_Width - 34 - 5 - ((i - 1) * 40)
+                                    Y2 = 62    ' + 52 + ((i - 1) * 40)
+
+                                    If CursorX >= x2 And CursorX <= x2 + 34 And CursorY >= Y2 And CursorY <= Y2 + 37 Then
+                                        SelPoke = i
+                                        OpenSelMenu SelMenuType.SpawnPokes
+                                    End If
+                                Else
+                                    x2 = Screen_Width - 34 - 5 - ((i - 1) * 40)
+                                    Y2 = 62    ' + 52 + ((i - 1) * 40)
+
+                                    If CursorX >= x2 And CursorX <= x2 + 34 And CursorY >= Y2 And CursorY <= Y2 + 37 Then
+                                        SelPoke = i
+                                        OpenSelMenu SelMenuType.RevivePokes
                                     End If
                                 End If
                             End If
-                        Next
-                    End If
+                        End If
+                    Next
                 End If
-            
-                SearchMouseDown Buttons
             End If
+
+            For i = 1 To MAX_HOTBAR
+                x2 = Screen_Width - 42 - 170 - ((i - 1) * 45)
+                Y2 = 5    '62 + 37 + 5
+
+                If CursorX >= x2 And CursorX <= x2 + 42 And CursorY >= Y2 And CursorY <= Y2 + 45 Then
+                    If Buttons = vbRightButton Then
+                        '//Remove Hotbar
+                        SendHotbarUpdate i
+                    End If
+                End If
+            Next
+
+            If Editor = EDITOR_SPAWN Then
+                '//Click on Map to SetSpawn Location
+                If SpawnSet Then
+                    frmEditor_Spawn.txtMap = Player(MyIndex).Map
+                    frmEditor_Spawn.txtX = curTileX
+                    frmEditor_Spawn.txtY = curTileY
+                End If
+            End If
+
+            '//Editor Map
+            If Buttons = vbLeftButton Or Buttons = vbRightButton Then
+                If Editor = EDITOR_MAP Then
+                    MapEditorMouseDown Buttons
+                End If
+            End If
+
+            '//Admin Warp
+            If Buttons = vbRightButton Then
+                If ShiftKey Then
+                    If Editor <> EDITOR_MAP Then
+                        If Player(MyIndex).Access > 0 Then
+                            If PlayerPokemon(MyIndex).Num <= 0 Then
+                                AdminWarp curTileX, curTileY
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+
+            If Not Editor = EDITOR_MAP Then
+                If Not DidClick And Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible Then
+                    '//Loop through all items
+                    For i = ButtonEnum.Game_Pokedex To ButtonEnum.Game_Evolve
+                        If CanShowButton(i) Then
+                            If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).Y And CursorY <= Button(i).Y + Button(i).Height Then
+                                PreventAction = False
+                                Select Case i
+                                Case ButtonEnum.Game_Pokedex
+                                    If GUI(GuiEnum.GUI_POKEDEX).Visible Then
+                                        PreventAction = True
+                                    End If
+                                Case ButtonEnum.Game_Bag
+                                    If GUI(GuiEnum.GUI_INVENTORY).Visible Then
+                                        PreventAction = True
+                                    End If
+                                Case ButtonEnum.Game_Card
+                                    If GUI(GuiEnum.GUI_TRAINER).Visible Then
+                                        PreventAction = True
+                                    End If
+                                Case ButtonEnum.Game_Task
+                                    'If GUI(GuiEnum.GUI_RANK).Visible Then
+                                    '    PreventAction = True
+                                    'End If
+                                Case ButtonEnum.Game_Rank
+                                    If GUI(GuiEnum.GUI_RANK).Visible Then
+                                        PreventAction = True
+                                    End If
+                                Case ButtonEnum.Game_Menu
+                                    If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
+                                        PreventAction = True
+                                    End If
+                                End Select
+
+                                If Not PreventAction Then
+                                    If Button(i).State = ButtonState.StateHover Then
+                                        Button(i).State = ButtonState.StateClick
+                                    End If
+                                End If
+                            End If
+                        End If
+                    Next
+                End If
+            End If
+
+            SearchMouseDown Buttons
+        End If
     End Select
 End Sub
 

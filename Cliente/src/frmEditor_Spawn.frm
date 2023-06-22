@@ -2,88 +2,168 @@ VERSION 5.00
 Begin VB.Form frmEditor_Spawn 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Pokemon Spawn Editor"
-   ClientHeight    =   4995
+   ClientHeight    =   5865
    ClientLeft      =   150
    ClientTop       =   795
-   ClientWidth     =   8295
+   ClientWidth     =   8280
    ControlBox      =   0   'False
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4995
-   ScaleWidth      =   8295
+   ScaleHeight     =   5865
+   ScaleWidth      =   8280
    StartUpPosition =   3  'Windows Default
    Begin VB.Frame Frame2 
       Caption         =   "Properties"
-      Height          =   4815
+      Height          =   5775
       Left            =   2880
       TabIndex        =   2
       Top             =   0
       Width           =   5295
+      Begin VB.ComboBox cmbNature 
+         Height          =   315
+         Left            =   1200
+         TabIndex        =   43
+         Text            =   "PokeNature"
+         Top             =   1440
+         Width           =   3495
+      End
+      Begin VB.Frame Frame4 
+         Caption         =   "Spawn Time(Hour)"
+         Height          =   975
+         Left            =   120
+         TabIndex        =   34
+         Top             =   4680
+         Width           =   5055
+         Begin VB.CommandButton Command6 
+            Caption         =   "Night 18-04"
+            Height          =   255
+            Left            =   3720
+            TabIndex        =   41
+            Top             =   600
+            Width           =   1215
+         End
+         Begin VB.CommandButton Command5 
+            Caption         =   "Day 10-18"
+            Height          =   255
+            Left            =   3720
+            TabIndex        =   40
+            Top             =   360
+            Width           =   1215
+         End
+         Begin VB.CommandButton Command4 
+            Caption         =   "Morning 04-10"
+            Height          =   255
+            Left            =   3720
+            TabIndex        =   39
+            Top             =   120
+            Width           =   1215
+         End
+         Begin VB.TextBox txtSpawnMin 
+            Height          =   285
+            Left            =   1080
+            TabIndex        =   36
+            Text            =   "0"
+            Top             =   360
+            Width           =   1095
+         End
+         Begin VB.TextBox txtSpawnMax 
+            Height          =   285
+            Left            =   2640
+            TabIndex        =   35
+            Text            =   "0"
+            Top             =   360
+            Width           =   1095
+         End
+         Begin VB.Label Label8 
+            Alignment       =   2  'Center
+            Caption         =   "to"
+            Height          =   255
+            Left            =   2160
+            TabIndex        =   38
+            Top             =   360
+            Width           =   375
+         End
+         Begin VB.Label Label9 
+            Caption         =   "Spawn Time:"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   37
+            Top             =   360
+            Width           =   975
+         End
+      End
+      Begin VB.ComboBox cmbItem 
+         Height          =   315
+         Left            =   1200
+         TabIndex        =   33
+         Text            =   "ItemEquipped"
+         Top             =   1080
+         Width           =   3495
+      End
+      Begin VB.TextBox txtFind 
+         Height          =   285
+         Left            =   960
+         TabIndex        =   28
+         Top             =   240
+         Width           =   1455
+      End
       Begin VB.HScrollBar scrlPokeBuff 
          Height          =   255
-         Left            =   1800
+         Left            =   1200
          Max             =   100
-         TabIndex        =   31
-         Top             =   4320
-         Width           =   3255
+         TabIndex        =   27
+         Top             =   1800
+         Width           =   3495
       End
       Begin VB.CheckBox chkNoExp 
          Caption         =   "Cannot Give Exp?"
          Height          =   255
-         Left            =   3360
-         TabIndex        =   29
-         Top             =   3840
+         Left            =   3000
+         TabIndex        =   25
+         Top             =   2520
          Width           =   1695
       End
       Begin VB.ComboBox cmbPokemonNum 
          Height          =   315
-         Left            =   1560
+         Left            =   2520
          Style           =   2  'Dropdown List
-         TabIndex        =   28
-         Top             =   360
-         Width           =   3495
+         TabIndex        =   24
+         Top             =   240
+         Width           =   2175
       End
       Begin VB.CheckBox chkCanCatch 
          Caption         =   "Cannot Catch?"
          Height          =   255
-         Left            =   1440
-         TabIndex        =   27
-         Top             =   3840
+         Left            =   600
+         TabIndex        =   23
+         Top             =   2520
          Width           =   2295
       End
       Begin VB.TextBox txtRarity 
          Height          =   285
-         Left            =   1440
-         TabIndex        =   24
-         Text            =   "0"
-         Top             =   3480
-         Width           =   855
-      End
-      Begin VB.TextBox txtSpawnMax 
-         Height          =   285
-         Left            =   3360
-         TabIndex        =   21
-         Text            =   "0"
-         Top             =   3120
-         Width           =   1695
-      End
-      Begin VB.TextBox txtSpawnMin 
-         Height          =   285
-         Left            =   1440
+         Left            =   1200
          TabIndex        =   20
          Text            =   "0"
-         Top             =   3120
-         Width           =   1575
+         Top             =   2160
+         Width           =   855
       End
       Begin VB.Frame Frame3 
          Caption         =   "Location:"
          Height          =   1335
          Left            =   120
          TabIndex        =   11
-         Top             =   1680
+         Top             =   3240
          Width           =   5055
+         Begin VB.CommandButton Command3 
+            Caption         =   "Click On Map"
+            Height          =   375
+            Left            =   120
+            TabIndex        =   31
+            Top             =   840
+            Width           =   1095
+         End
          Begin VB.CheckBox chkRandomXY 
             Caption         =   "Random"
             Height          =   255
@@ -151,120 +231,135 @@ Begin VB.Form frmEditor_Spawn
       End
       Begin VB.TextBox txtRespawn 
          Height          =   285
-         Left            =   1560
+         Left            =   1200
          TabIndex        =   9
          Text            =   "0"
-         Top             =   1320
-         Width           =   3015
+         Top             =   2880
+         Width           =   1095
       End
       Begin VB.TextBox txtMaxLevel 
          Height          =   285
-         Left            =   3480
+         Left            =   3120
          TabIndex        =   6
          Text            =   "0"
-         Top             =   960
+         Top             =   720
          Width           =   1575
       End
       Begin VB.TextBox txtMinLevel 
          Height          =   285
-         Left            =   1560
+         Left            =   1200
          TabIndex        =   5
          Text            =   "0"
-         Top             =   960
+         Top             =   720
          Width           =   1575
       End
-      Begin VB.Label lblBuff 
-         Caption         =   "Pokemon Buff: 0"
+      Begin VB.Label Label13 
+         Caption         =   "Nature:"
          Height          =   255
-         Left            =   240
-         TabIndex        =   30
-         Top             =   4320
-         Width           =   4815
+         Left            =   600
+         TabIndex        =   42
+         Top             =   1440
+         Width           =   615
+      End
+      Begin VB.Label Label12 
+         Caption         =   "Item Equipped:"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   32
+         Top             =   1080
+         Width           =   1095
+      End
+      Begin VB.Label lblBuff 
+         Caption         =   "Poke Buff: 0"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   26
+         Top             =   1800
+         Width           =   1575
       End
       Begin VB.Label Label11 
          Caption         =   "Common  [ 0 ~~ 100000 ] Rare"
          Height          =   255
-         Left            =   2640
-         TabIndex        =   26
-         Top             =   3480
+         Left            =   2160
+         TabIndex        =   22
+         Top             =   2160
          Width           =   2415
       End
       Begin VB.Label Label10 
-         Caption         =   "Rarity"
+         Caption         =   "Rarity:"
          Height          =   255
-         Left            =   240
-         TabIndex        =   25
-         Top             =   3480
-         Width           =   1335
-      End
-      Begin VB.Label Label9 
-         Caption         =   "Spawn Time"
-         Height          =   255
-         Left            =   240
-         TabIndex        =   23
-         Top             =   3120
-         Width           =   1335
-      End
-      Begin VB.Label Label8 
-         Alignment       =   2  'Center
-         Caption         =   "to"
-         Height          =   255
-         Left            =   3000
-         TabIndex        =   22
-         Top             =   3120
-         Width           =   375
+         Left            =   600
+         TabIndex        =   21
+         Top             =   2160
+         Width           =   495
       End
       Begin VB.Label Label4 
          Caption         =   "ms"
          Height          =   255
-         Left            =   4680
+         Left            =   2280
          TabIndex        =   10
-         Top             =   1320
+         Top             =   2880
          Width           =   375
       End
       Begin VB.Label Label1 
          Caption         =   "Respawn:"
          Height          =   255
-         Left            =   240
+         Left            =   360
          TabIndex        =   8
-         Top             =   1320
-         Width           =   1335
+         Top             =   2880
+         Width           =   855
       End
       Begin VB.Label Label3 
          Alignment       =   2  'Center
          Caption         =   "to"
          Height          =   255
-         Left            =   3120
+         Left            =   2760
          TabIndex        =   7
-         Top             =   960
+         Top             =   720
          Width           =   375
       End
       Begin VB.Label Label2 
          Caption         =   "Level Range:"
          Height          =   255
-         Left            =   240
+         Left            =   120
          TabIndex        =   4
-         Top             =   960
-         Width           =   1455
+         Top             =   720
+         Width           =   1095
       End
       Begin VB.Label lblPokemon 
          Caption         =   "Pokemon: "
          Height          =   255
-         Left            =   240
+         Left            =   120
          TabIndex        =   3
-         Top             =   360
-         Width           =   4815
+         Top             =   280
+         Width           =   1215
       End
    End
    Begin VB.Frame Frame1 
       Caption         =   "Index"
-      Height          =   4815
+      Height          =   5775
       Left            =   120
       TabIndex        =   0
       Top             =   0
       Width           =   2655
+      Begin VB.CommandButton Command2 
+         Caption         =   "Paste"
+         Height          =   255
+         Left            =   1560
+         TabIndex        =   30
+         Top             =   5400
+         Width           =   975
+      End
+      Begin VB.CommandButton Command1 
+         Caption         =   "Copy"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   29
+         Top             =   5400
+         Width           =   975
+      End
       Begin VB.ListBox lstMapPokemon 
-         Height          =   4350
+         Height          =   5130
          Left            =   120
          TabIndex        =   1
          Top             =   240
@@ -288,6 +383,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private CopySpawn As SpawnRec
+
 Private Sub chkCanCatch_Click()
     Spawn(EditorIndex).CanCatch = chkCanCatch.value
 End Sub
@@ -302,6 +399,23 @@ End Sub
 
 Private Sub chkRandomXY_Click()
     Spawn(EditorIndex).randomXY = chkRandomXY.value
+End Sub
+
+Private Sub cmbItem_Click()
+    If cmbItem.ListIndex > 0 Then
+        If Item(cmbItem.ListIndex).NotEquipable = YES Then
+            MsgBox "O item selecionado não pode ser equipado por pokemon, altere no editor de item"
+            Exit Sub
+        End If
+    End If
+
+    Spawn(EditorIndex).HeldItem = cmbItem.ListIndex
+    EditorChange = True
+End Sub
+
+Private Sub cmbNature_Click()
+    Spawn(EditorIndex).Nature = cmbNature.ListIndex - 1
+    EditorChange = True
 End Sub
 
 Private Sub cmbPokemonNum_Click()
@@ -320,10 +434,49 @@ Dim tmpIndex As Long
     EditorChange = True
 End Sub
 
+Private Sub Command1_Click()
+    CopySpawn = Spawn(EditorIndex)
+End Sub
+
+Private Sub Command2_Click()
+    Spawn(EditorIndex) = CopySpawn
+    SpawnEditorLoadIndex EditorIndex
+End Sub
+
+Private Sub Command3_Click()
+    SpawnSet = Not SpawnSet
+    
+    If SpawnSet Then
+        Command3.Caption = "Cancel"
+    Else
+        Command3.Caption = "Click On Map"
+    End If
+End Sub
+
+Private Sub Command4_Click()
+    txtSpawnMin = 4
+    txtSpawnMax = 10
+End Sub
+
+Private Sub Command5_Click()
+    txtSpawnMin = 10
+    txtSpawnMax = 18
+End Sub
+
+Private Sub Command6_Click()
+    txtSpawnMin = 18
+    txtSpawnMax = 4
+End Sub
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     If KeyCode = vbKeyEscape Then
         CloseSpawnEditor
     End If
+End Sub
+
+Private Sub Form_Load()
+    txtFind.Text = "Digite um Nome ou ID..."
+    txtFind.ForeColor = vbGrayText ' Altera a cor do texto para cinza para indicar que é uma mensagem descritiva
 End Sub
 
 Private Sub lstMapPokemon_Click()
@@ -355,9 +508,63 @@ Dim i As Long
 End Sub
 
 Private Sub scrlPokeBuff_Change()
-    lblBuff.Caption = "Pokemon Buff: " & scrlPokeBuff.value
+    lblBuff.Caption = "Poke Buff: " & scrlPokeBuff.value
     Spawn(EditorIndex).PokeBuff = scrlPokeBuff.value
     EditorChange = True
+End Sub
+
+Private Sub txtFind_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+    
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_ITEM
+    
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+    
+    ' Nome deste controle
+    If Not IsNumeric(txtFind) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtFind))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                ' Atribuição da estrutura em procura
+                If InStr(1, UCase$(Trim$(Pokemon(i).Name)), Find) > 0 Then
+                    ' Nome do controle a ser alterado
+                    cmbPokemonNum.ListIndex = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        ' Nome deste controle
+        If txtFind > MAX_INDEX Then
+            ' Nome deste controle
+            txtFind = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtFind <= 0 Then
+            ' Nome deste controle
+            txtFind = 1
+        End If
+        ' Nome do controle a ser alterado & Nome deste controle
+        cmbPokemonNum.ListIndex = txtFind
+    End If
+End Sub
+
+Private Sub txtFind_Click()
+    txtFind.Text = ""
+    txtFind.ForeColor = vbWindowText ' Altera a cor do texto para preto para indicar que é uma mensagem descritiva
+End Sub
+
+Private Sub txtFind_LostFocus()
+    txtFind.Text = "Digite um Nome ou ID..."
+    txtFind.ForeColor = vbGrayText    ' Altera a cor do texto para cinza para indicar que é uma mensagem descritiva
 End Sub
 
 Private Sub txtMap_Change()

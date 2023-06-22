@@ -118,7 +118,6 @@ Begin VB.Form frmAdmin
          Height          =   315
          Left            =   2040
          TabIndex        =   63
-         Text            =   "Ball Used"
          Top             =   3120
          Width           =   1815
       End
@@ -126,7 +125,6 @@ Begin VB.Form frmAdmin
          Height          =   315
          Left            =   120
          TabIndex        =   62
-         Text            =   "Nature"
          Top             =   3120
          Width           =   1815
       End
@@ -674,7 +672,7 @@ Private Sub cmdASpawn_Click()
                 Exit Sub
             End If
 
-            SendGivePokemonTo txtBName, scrlAPoke, CLng(txtAmount), chkAShiny, chkAIv, cmbNature.ListIndex, cmbBall.ListIndex
+            SendGivePokemonTo txtBName, scrlAPoke, CLng(txtAmount), chkAShiny, chkAIv, cmbNature.ListIndex - 1, cmbBall.ListIndex
         Else
             AddText "Invalid command!", BrightRed
             Exit Sub
@@ -714,7 +712,7 @@ Private Sub cmdAtt_Click()
             End If
             
             
-            SendGivePokemonTo Trim$(Player(MyIndex).Name), scrlAPoke, CLng(txtAmount), chkAShiny, chkAIv, cmbNature.ListIndex, cmbBall.ListIndex
+            SendGivePokemonTo Trim$(Player(MyIndex).Name), scrlAPoke, CLng(txtAmount), chkAShiny, chkAIv, cmbNature.ListIndex - 1, cmbBall.ListIndex
         Else
             AddText "Invalid command!", BrightRed
             Exit Sub
@@ -1024,6 +1022,7 @@ Private Sub Form_Load()
     
     ' Poke Nature
     Me.cmbNature.Clear
+    Me.cmbNature.AddItem "None."
     For i = 0 To PokemonNature.PokemonNature_Count - 1
         Me.cmbNature.AddItem i & ": " & CheckNatureString(i)
         DoEvents

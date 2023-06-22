@@ -886,7 +886,7 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
         .chkStock.value = Item(xIndex).Stock
         .cmbType.ListIndex = Item(xIndex).Type
         
-        If Item(xIndex).Type = ItemTypeEnum.Pokeball Then
+        If Item(xIndex).Type = ItemTypeEnum.PokeBall Then
             .fraPokeball.Visible = True
             .txtCatchRate.Text = Item(xIndex).Data1
             .scrlBallSprite.value = Item(xIndex).Data2
@@ -1160,13 +1160,26 @@ Dim i As Long
                 .lstMapPokemon.AddItem i & ": "
             End If
         Next
+        
+        .cmbItem.Clear
+        .cmbItem.AddItem "None"
+        For i = 1 To MAX_ITEM
+            .cmbItem.AddItem i & ": " & Trim$(Item(i).Name)
+        Next
+        
+        .cmbNature.Clear
+        .cmbNature.AddItem "None"
+        For i = 0 To PokemonNature.PokemonNature_Count - 1
+            .cmbNature.AddItem i & ": " & CheckNatureString(i)
+        Next
+        
         .lstMapPokemon.ListIndex = 0
         SpawnEditorLoadIndex .lstMapPokemon.ListIndex + 1
         
         '//No edit done
         EditorChange = False
         
-        .Show
+        .Show vbModeless, frmMain
     End With
 End Sub
 
@@ -1198,6 +1211,11 @@ Dim i As Long
         .chkCanCatch.value = Spawn(xIndex).CanCatch
         .chkNoExp.value = Spawn(xIndex).NoExp
         .scrlPokeBuff.value = Spawn(xIndex).PokeBuff
+        .cmbItem.ListIndex = Spawn(xIndex).HeldItem
+        .cmbNature.ListIndex = Spawn(xIndex).Nature + 1
+        
+        SpawnSet = False
+        .Command3.Caption = "Click On Map"
     End With
     
     SpawnChange(xIndex) = True
@@ -1210,6 +1228,7 @@ Dim i As Long
         SpawnChange(i) = False
     Next
     Editor = EDITOR_NONE
+    SpawnSet = False
     Unload frmEditor_Spawn
 End Sub
 

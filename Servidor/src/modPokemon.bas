@@ -40,6 +40,11 @@ Dim gotData As Boolean
                 Exit Sub
             End If
         End If
+        
+        '//check HeldItem equipped
+        If Spawn(MapPokeNum).HeldItem > 0 Then
+            MapPokemon(MapPokeNum).HeldItem = Spawn(MapPokeNum).HeldItem
+        End If
     
         '//Check Position
         gotData = False
@@ -143,12 +148,12 @@ Dim i As Long
 End Function
 
 Public Function SpawnPokemon(ByVal slot As Long, ByVal PokemonNum As Long, ByVal MapNum As Long, ByVal X As Long, ByVal Y As Long, ByVal Dir As Byte, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO) As Boolean
-Dim bs As Byte, m As Long, s As Byte
-Dim ShinyChanceVal As Long, ShinyLuckVal As Long
-Dim MoveSlot As Long
+    Dim bs As Byte, m As Long, s As Byte
+    Dim ShinyChanceVal As Long, ShinyLuckVal As Long
+    Dim MoveSlot As Long
 
     SpawnPokemon = False
-    
+
     '//Check for error
     If PokemonNum <= 0 Or PokemonNum > MAX_POKEMON Then Exit Function
     If MapNum <= 0 Or MapNum > MAX_MAP Then Exit Function
@@ -158,33 +163,37 @@ Dim MoveSlot As Long
     If X >= Map(MapNum).MaxX Then X = Map(MapNum).MaxX
     If Y <= 0 Then Y = 0
     If Y >= Map(MapNum).MaxY Then Y = Map(MapNum).MaxY
-    
+
     '//Update HighIndex
     If slot > Pokemon_HighIndex Then
         Pokemon_HighIndex = slot
         '//Send to all
         SendPokemonHighIndex
     End If
-    
+
     With MapPokemon(slot)
         '//General
         .Num = PokemonNum
-            
+
         '//Location
         .Map = MapNum
         .X = X
         .Y = Y
         .Dir = Dir
-            
-        '//Nature
-        .Nature = Random(0, PokemonNature.PokemonNature_Count - 1)
-        If .Nature <= 0 Then .Nature = 0
-        If .Nature >= (PokemonNature.PokemonNature_Count - 1) Then .Nature = PokemonNature.PokemonNature_Count - 1
-        
+
+        '//Nature none implementada a partir do spawn editor
+        If Spawn(slot).Nature = -1 Then
+            .Nature = Random(0, PokemonNature.PokemonNature_Count - 1)
+            If .Nature <= 0 Then .Nature = 0
+            If .Nature >= (PokemonNature.PokemonNature_Count - 1) Then .Nature = PokemonNature.PokemonNature_Count - 1
+        ElseIf Spawn(slot).Nature >= 0 Then
+            .Nature = Spawn(slot).Nature
+        End If
+
         '//Shiny Randomizer
         ShinyChanceVal = Random(0, Options.ShinyRarity)
         ShinyLuckVal = Random(0, Options.ShinyRarity)
-        
+
         If ShinyChanceVal = ShinyLuckVal Then
             .IsShiny = YES
         Else
@@ -193,12 +202,12 @@ Dim MoveSlot As Long
         If ForceSpawn Then
             .IsShiny = ForceShiny
         End If
-        
+
         .Gender = Random(GENDER_MALE, GENDER_FEMALE)
         If Not .Gender = GENDER_MALE And Not .Gender = GENDER_FEMALE Then
             .Gender = GENDER_MALE
         End If
-        
+
         '//Status
         .Status = 0
 
@@ -206,7 +215,7 @@ Dim MoveSlot As Long
         .Level = Random(Spawn(slot).MinLevel, Spawn(slot).MaxLevel)
         If .Level <= 1 Then .Level = 1
         If .Level >= MAX_LEVEL Then .Level = MAX_LEVEL
-            
+
         '//Stats
         For bs = 1 To StatEnum.Stat_Count - 1
             .Stat(bs).EV = 0
@@ -215,11 +224,11 @@ Dim MoveSlot As Long
             If .Stat(bs).IV < 1 Then .Stat(bs).IV = 1
             .Stat(bs).Value = CalculatePokemonStat(bs, .Num, .Level, .Stat(bs).EV, .Stat(bs).IV, .Nature)
         Next
-            
+
         '//Vital
         .MaxHp = .Stat(StatEnum.HP).Value * Spawn(slot).pokeBuff
         .CurHp = .MaxHp
-            
+
         '//Moveset
         If PokemonNum > 0 Then
             For m = MAX_POKEMON_MOVESET To 1 Step -1
@@ -244,11 +253,11 @@ Dim MoveSlot As Long
                 End If
             Next
         End If
-        
+
         '//Clear Target
         .TargetIndex = 0
         .targetType = 0
-        
+
         '//Update Data to map
         SendPokemonData slot, , MapNum
     End With

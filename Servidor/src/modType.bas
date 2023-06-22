@@ -64,7 +64,7 @@ Private Type MapPokemonRec
     
     '//Location
     Map As Long
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
@@ -128,6 +128,9 @@ Private Type MapPokemonRec
     '//Reflect
     ReflectMove As Byte
     IsProtect As Byte
+    
+    '//HeldItem
+    HeldItem As Long
 End Type
 
 Private Type MapNpcPokemonRec
@@ -135,7 +138,7 @@ Private Type MapNpcPokemonRec
     Num As Long     '//Index of the npc
     
     '//Location
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
@@ -198,7 +201,7 @@ Private Type MapNpcRec
     Num As Long     '//Index of the npc
     
     '//Location
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
@@ -217,7 +220,7 @@ Public Type PlayerPokemonRec
     Num As Long
     
     '//Location
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
@@ -260,7 +263,7 @@ Public Type PlayerRec
     
     '//Location
     Map As Long
-    x As Long
+    X As Long
     Y As Long
     Dir As Byte
     
@@ -665,6 +668,9 @@ Private Type SpawnRec
     CanCatch As Byte
     NoExp As Byte
     pokeBuff As Byte
+    HeldItem As Integer
+    '//Nature
+    Nature As Integer
 End Type
 
 Private Type TextLangRec
@@ -738,6 +744,9 @@ Private Type OptionRec
     '//Requerimentos pra trade
     TradeLvlMin As Integer
     SameIp As Byte
+    
+    '//Dados Pokemon p/ GlobalMsg
+    Rarity As Integer
 End Type
 
 Private Type DataRec

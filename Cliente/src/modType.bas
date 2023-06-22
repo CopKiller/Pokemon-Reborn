@@ -546,7 +546,7 @@ Private Type AnimationRec
     looptime(0 To 1) As Long
 End Type
 
-Private Type SpawnRec
+Public Type SpawnRec
     PokeNum As Long
     MinLevel As Byte
     MaxLevel As Byte
@@ -564,6 +564,10 @@ Private Type SpawnRec
     CanCatch As Byte
     NoExp As Byte
     PokeBuff As Byte
+    '//HeldItem
+    HeldItem As Integer
+    '//Nature
+    Nature As Integer
 End Type
 
 Private Type TextLangRec

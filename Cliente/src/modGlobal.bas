@@ -473,3 +473,6 @@ Public TextUICharactersDelete As String
 
 ' Chat
 Public TextEnterToChat As String
+
+' Editor Spawn, Set Map XY on Click Map
+Public SpawnSet As Boolean

@@ -698,7 +698,7 @@ End Sub
 
 Public Sub SendGivePokemonTo(ByVal PlayerName As String, ByVal PokeNum As Long, _
                              ByVal Level As Long, Optional ByVal IsShiny As Byte = NO, _
-                             Optional IVFull As Byte = NO, Optional Nature As Byte = NO, _
+                             Optional IVFull As Byte = NO, Optional Nature As Integer = -1, _
                              Optional PokeBall As Byte = 0)
     Dim buffer As clsBuffer
 
@@ -709,7 +709,7 @@ Public Sub SendGivePokemonTo(ByVal PlayerName As String, ByVal PokeNum As Long, 
     buffer.WriteLong Level
     buffer.WriteByte IsShiny
     buffer.WriteByte IVFull
-    buffer.WriteByte Nature
+    buffer.WriteInteger Nature
     buffer.WriteByte PokeBall
     SendData buffer.ToArray()
     Set buffer = Nothing

@@ -310,6 +310,7 @@ End Enum
 
 '//Nature
 Public Enum PokemonNature
+    None = -1
     '//Neutral
     NatureHardy = 0
     NatureDocile

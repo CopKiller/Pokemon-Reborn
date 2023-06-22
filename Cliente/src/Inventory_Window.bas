@@ -2,7 +2,7 @@ Attribute VB_Name = "Inventory_Window"
 Public Sub DrawInventory()
     Dim i As Long
     Dim DrawX As Long, DrawY As Long
-    Dim Sprite As Long
+    Dim Sprite As Long, Alpha As Long
 
     With GUI(GuiEnum.GUI_INVENTORY)
         '//Make sure it's visible
@@ -43,10 +43,16 @@ Public Sub DrawInventory()
                     End If
                 Else '= YES
                     '//Renderizando slots bloqueados
+                    If IsNextInvSlotToBuy(i) = True Then
+                        Alpha = D3DColorARGB(255, 255, 255, 255)
+                    Else
+                        Alpha = D3DColorARGB(150, 255, 255, 255)
+                    End If
+                    
                     Sprite = 532
                     DrawX = .X + (7 + ((5 + TILE_X) * (((i - 1) Mod 5))))
                     DrawY = .Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
-                    RenderTexture Tex_Item(Sprite), DrawX + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
+                    RenderTexture Tex_Item(Sprite), DrawX + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), Alpha
                 End If
             End If
         Next
@@ -162,7 +168,7 @@ Public Sub InventoryMouseMove(Buttons As Integer, Shift As Integer, X As Single,
 
         i = IsInvSlot(CursorX, CursorY)
         If i > 0 Then
-            If PlayerInv(i).Locked = YES Then
+            If IsNextInvSlotToBuy(i) = True Then
                 IsHovering = True
                 MouseIcon = 1    '//Select
             End If
@@ -185,6 +191,22 @@ Public Sub InventoryMouseMove(Buttons As Integer, Shift As Integer, X As Single,
         End If
     End With
 End Sub
+
+Private Function IsNextInvSlotToBuy(ByVal i As Byte) As Boolean
+    Dim l As Byte
+
+    IsNextInvSlotToBuy = False
+    For l = 1 To MAX_PLAYER_INV
+        If PlayerInv(l).Locked = YES Then
+            If l = i Then
+                IsNextInvSlotToBuy = True
+                Exit Function
+            Else
+                Exit Function
+            End If
+        End If
+    Next l
+End Function
 
 Public Sub InventoryMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
     Dim i As Long
@@ -218,7 +240,9 @@ Public Sub InventoryMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y
             If DragInvSlot > 0 Then
                 i = IsInvSlot(CursorX, CursorY)
                 If i > 0 Then
-                    SendSwitchInvSlot DragInvSlot, i
+                    If PlayerInv(i).Locked = NO Then
+                        SendSwitchInvSlot DragInvSlot, i
+                    End If
                 End If
             End If
 
@@ -226,7 +250,7 @@ Public Sub InventoryMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y
             If DragInvSlot = 0 Then
                 i = IsInvSlot(CursorX, CursorY)
                 If i > 0 Then
-                    If PlayerInv(i).Locked = YES Then
+                    If IsNextInvSlotToBuy(i) = True Then
                         BuySlotData = i
                         OpenChoiceBox "Do you want to buy this slot for $" & INV_SLOTS_PRICE & " Cash?", CB_BUYINV
                     End If

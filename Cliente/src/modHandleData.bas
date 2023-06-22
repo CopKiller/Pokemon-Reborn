@@ -592,11 +592,19 @@ End Sub
 
 Private Sub HandlePlayerMsg(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
 Dim buffer As clsBuffer
+Dim Msg As String, Colour As Long
 
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
-    AddText KeepTwoDigit(Hour(time)) & ":" & KeepTwoDigit(Minute(time)) & " " & Trim$(buffer.ReadString), buffer.ReadLong
+    Msg = buffer.ReadString
+    Colour = buffer.ReadLong
     Set buffer = Nothing
+    
+    If InStr(1, Msg, ColourChar) > 0 Then
+        Debug.Print "Encontrou"
+    End If
+    
+    AddText KeepTwoDigit(Hour(time)) & ":" & KeepTwoDigit(Minute(time)) & " " & Trim$(Msg), Colour
 End Sub
 
 Private Sub HandleSpawnMapNpc(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)

@@ -185,3 +185,5 @@ Public Const MAP_MORAL_PVP As Byte = 4
 '//Game Constants
 Public Const INV_SLOTS_LOCKED As Byte = 10 ' Slots
 Public Const INV_SLOTS_PRICE As Byte = 5 ' Cash
+
+Public Const ColourChar As String * 1 = "½"

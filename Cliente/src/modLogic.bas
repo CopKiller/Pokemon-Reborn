@@ -2296,8 +2296,9 @@ errorHandler:
     CalculateSpeed = 4
 End Function
 
-Public Function CheckNatureString(ByVal natureNum As Byte) As String
+Public Function CheckNatureString(ByVal natureNum As Integer) As String
     Select Case natureNum
+        Case PokemonNature.None: CheckNatureString = "None"
         '//Neutral
         Case PokemonNature.NatureHardy: CheckNatureString = "Hardy"
         Case PokemonNature.NatureDocile: CheckNatureString = "Docile"

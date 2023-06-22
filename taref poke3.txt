@@ -1,22 +1,30 @@
 
--OK-Corrigido o Scrolling da aba de controles das opções do ESC
--OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
--Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
+OK-Corrigido o Scrolling da aba de controles das opções do ESC
+OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
 OK-Adicionar o nome do dia da semana na posição perto do nome do mapa com traduções
 OK-Remover os segundos do tempo de jogo, deixar apenas horas e minutos
 OK-Alterar a posição do level do poke na hud.
 OK-Adicionar sistema de compra de slots do inventário por cash & alteração no visual do inventario pelo photoshop
 OK-Adicionar o tempo now do servidor(Hora e minuto), antes de qualquer mensagem no chat
--Adicionar um find no Spawn Editor, pra procurar o nome do poke ou numero
--Adicionar um botão de copia no Spawn Editor, pra copiar e colar no próximo slot
--Adicionar uma checkbox no SpawnEditor, pra selecionar e clikar no mapa onde deve spawnar
+OK-Adicionar um find no Spawn Editor, pra procurar o nome do poke ou numero
+OK-Adicionar um botão de copia no Spawn Editor, pra copiar e colar no próximo slot
+OK-Adicionar um botao no SpawnEditor, pra selecionar e clikar no mapa onde deve spawnar
 //-Adicionar textbox no SpawnEditor, pra poder adicionar um campo de HP no pokemon, pra usar em boss.
--Adicionar combobox de items no SpawnEditor, pokemon nasce com o item equipado, e ao captura-lo, vem com o item equipado.
--Adicionar 3 botões de Manha, tarde e noite, pra preencher o spawntime ao clikar em um deles.
--Quando capturar um shiny, aparecer mensagem no global com nome, mostrando o nome do mapa.
--Quando capturar um pokemon rarity, dependendo de um valor de rarity, aparecer mensagem global.
--Adicionar uma combobox de Nature no Spawn Editor, pra escolher a nature do poke em específico a spawnar.
+OK-Adicionar combobox de items no SpawnEditor, pokemon nasce com o item equipado, e ao captura-lo, vem com o item equipado.
+OK-Adicionar 3 botões de manhã, dia e noite, pra preencher o spawntime ao clikar em um deles.
+	* Morning - (04:00 - 09:59).
+	* Day - (10:00 - 17:59).
+	* Night - (18:00 - 03:59)
+OK-Quando capturar um shiny, aparecer mensagem no global com "nome do jogador", "Pokémon" e nome do "Mapa".
+	Exemplo: "Philip" capturou um "Chamander" shiny em "Ceruleon".
+OK-Quando capturar um pokemon rarity, dependendo de um valor de rarity, aparecer mensagem global.
+	Exemplo: "Philip" capturou um "Dratini" raro em "Dark Cave". Todo valor da raridade no editor que estiver acima de "50"
+OK-Adicionar uma combobox de Nature no Spawn Editor, pra escolher a nature do poke em específico a spawnar.
+	-Adicionado índice de nature -1, pra ser como um índice 'None', pois antes só randomizava
+	e agora precisa selecionar um específico as vezes e com combobox que o menor índice é 0.
 //-Adicionar uma checkbox de IVFull em spawn.
+OK-Alteração no sistema de compra de slots do inventário: Adicionado opacidade nos slots que não estão na ordem de desbloqueio
+-Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
 
 -Adicionar o Find no pokemon do npc treinador, pra adicioná-los.
 -Consertar o Find do move do npc treinador, ja tem criado, apenas corrigir.
