@@ -590,6 +590,18 @@ Dim i As Long
             .cmbMoveset.AddItem i & ": " & Trim$(PokemonMove(i).Name)
         Next
         
+        .cmbItem.Clear
+        .cmbItem.AddItem "None"
+        For i = 1 To MAX_ITEM
+            .cmbItem.AddItem i & ": " & Trim$(Item(i).Name)
+        Next
+        
+        .cmbNature.Clear
+        .cmbNature.AddItem "None"
+        For i = 0 To PokemonNature.PokemonNature_Count - 1
+            .cmbNature.AddItem i & ": " & Trim$(CheckNatureString(i))
+        Next
+        
         '//Clear Index
         .lstIndex.Clear
         '//Add Item
@@ -597,7 +609,9 @@ Dim i As Long
             .lstIndex.AddItem i & ": " & Trim$(Npc(i).Name)
         Next
         .lstIndex.ListIndex = 0
+        
         NpcEditorLoadIndex .lstIndex.ListIndex + 1
+        
         
         '//No edit done
         EditorChange = False
@@ -607,17 +621,17 @@ Dim i As Long
 End Sub
 
 Public Sub NpcEditorLoadIndex(ByVal xIndex As Long)
-Dim X As Byte
+    Dim X As Integer
 
     EditorIndex = xIndex
-    
+
     With frmEditor_Npc
         '//General
         .txtName.Text = Trim$(Npc(xIndex).Name)
         .scrlSprite.value = Npc(xIndex).Sprite
         .cmbBehaviour.ListIndex = Npc(xIndex).Behaviour
         .scrlConvo.value = Npc(xIndex).Convo
-        
+
         .lstPokemon.Clear
         For X = 1 To MAX_PLAYER_POKEMON
             If Npc(xIndex).PokemonNum(X) > 0 Then
@@ -627,7 +641,7 @@ Dim X As Byte
             End If
         Next
         .lstPokemon.ListIndex = 0
-        
+
         .lstMoveset.Clear
         For X = 1 To MAX_MOVESET
             If Npc(xIndex).PokemonMoveset(1, X) > 0 Then
@@ -637,16 +651,13 @@ Dim X As Byte
             End If
         Next
         .lstMoveset.ListIndex = 0
-        
-        .cmbPokeNum.ListIndex = Npc(xIndex).PokemonNum(1)
-        .txtLevel.Text = Npc(xIndex).PokemonLevel(1)
-        .cmbMoveset.ListIndex = Npc(xIndex).PokemonMoveset(1, 1)
-        
+
         .txtReward.Text = Npc(xIndex).Reward
         .txtRewardExp.Text = Npc(xIndex).RewardExp
         .scrlWinConvo.value = Npc(xIndex).WinEvent
+        .optRebattle(Npc(xIndex).Rebatle).value = True
     End With
-    
+
     NpcChange(xIndex) = True
 End Sub
 

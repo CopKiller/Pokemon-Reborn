@@ -24,16 +24,24 @@ OK-Adicionar uma combobox de Nature no Spawn Editor, pra escolher a nature do po
 	e agora precisa selecionar um específico as vezes e com combobox que o menor índice é 0.
 //-Adicionar uma checkbox de IVFull em spawn.
 OK-Alteração no sistema de compra de slots do inventário: Adicionado opacidade nos slots que não estão na ordem de desbloqueio
+
+OK-Adicionar o Find no pokemon do npc treinador, pra adicioná-los.
+OK-Consertar o Find do move do npc treinador, ja tem criado, apenas corrigir.
+OK-Adicionar no pokemon do npc treinador, combobox de item pra adicionar o item equipado de cada um.
+OK-Adicionar combobox de nature do npc treinador, ao adicionar um pokemon.
+OK-Ao alternar os slots do pokemon pra outro slot no mesmo npc treinador, resetar os dados preenchidos do poke.
+OK-Adicionar checkbox de IV Full nos pokemon do npc treinador.
+OK-Adicionar checkbox de IsShiny nos pokemon do npc treinador.
+OK-Adicionar checkbox de Rebatle, pra caso perca e somente ao perder, poder lutar novamente sem esperar virar o dia, apenas se ganhar, poder lutar em outro dia.
+OK-Reformulado código de Lose e Win do player contra NPC, centralizado em dois métodos(PlayerLoseToNpc, PlayerWinToNpc)
+OK-Adicionar mecanica pra implementação de ao derrotar um NPC, não poder batalhar com ele nunca mais.
+OK-Adicionar o find no item do editor de npc do pokemon dele.
+
+-Adicionar uma opção de spawn no NPC, escolhendo um dia da semana pra ele aparecer, e ao passar esse dia, despawnar.
+
 -Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
 
--Adicionar o Find no pokemon do npc treinador, pra adicioná-los.
--Consertar o Find do move do npc treinador, ja tem criado, apenas corrigir.
--Adicionar no pokemon do npc treinador, combobox de item pra adicionar o item equipado de cada um.
--Adicionar combobox de nature do npc treinador, ao adicionar um pokemon.
--Ao alternar os slots do pokemon pra outro slot no mesmo npc treinador, resetar os dados preenchidos do poke.
--Adicionar checkbox de IV Full nos pokemon do npc treinador.
--Adicionar checkbox de IsShiny nos pokemon do npc treinador.
--Adicionar checkbox de Rebatle, pra caso perca e somente ao perder, poder lutar novamente sem esperar virar o dia, apenas se ganhar, poder lutar em outro dia.
+-Melhorias na Pokedex.
 
 //-Adicionar mais duas descrição de item, pra que seja 3 descrições, um pra cada linguagem.
 

@@ -194,6 +194,9 @@ Private Type MapNpcPokemonRec
     '//Reflect
     ReflectMove As Byte
     IsProtect As Byte
+    
+    '//Held Item
+    HeldItem As Long
 End Type
 
 Private Type MapNpcRec
@@ -253,6 +256,11 @@ Public Type PlayerPokemonRec
     IsProtect As Byte
 End Type
 
+Private Type NpcBattledRec
+    NpcBattledAt As Byte
+    Win As Byte
+End Type
+
 Public Type PlayerRec
     '//Identification
     Name As String * NAME_LENGTH
@@ -310,8 +318,8 @@ Public Type PlayerRec
     Badge(1 To MAX_BADGE) As Byte
     
     '//NPC Battle
-    NpcBattledMonth(1 To MAX_NPC) As Byte
-    NpcBattledDay(1 To MAX_NPC) As Byte
+    NpcBattledMonth(1 To MAX_NPC) As NpcBattledRec
+    NpcBattledDay(1 To MAX_NPC) As NpcBattledRec
 
     '//Switches
     Switches(1 To MAX_SWITCH) As Byte
@@ -531,6 +539,11 @@ Private Type NpcRec
     Reward As Long
     WinEvent As Long
     RewardExp As Long
+    PokemonItem(1 To MAX_PLAYER_POKEMON) As Long
+    PokemonNature(1 To MAX_PLAYER_POKEMON) As Integer
+    PokemonIsShiny(1 To MAX_PLAYER_POKEMON) As Byte
+    PokemonIvFull(1 To MAX_PLAYER_POKEMON) As Byte
+    Rebatle As Byte
 End Type
 
 Private Type ItemRec

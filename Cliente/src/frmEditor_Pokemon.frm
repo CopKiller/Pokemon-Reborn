@@ -5,7 +5,7 @@ Begin VB.Form frmEditor_Pokemon
    ClientHeight    =   9120
    ClientLeft      =   150
    ClientTop       =   795
-   ClientWidth     =   14055
+   ClientWidth     =   14025
    ControlBox      =   0   'False
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
@@ -13,7 +13,7 @@ Begin VB.Form frmEditor_Pokemon
    MinButton       =   0   'False
    ScaleHeight     =   608
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   937
+   ScaleWidth      =   935
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
    Begin VB.Frame Frame1 

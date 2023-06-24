@@ -280,10 +280,15 @@ End Type
 ' *****************
 ' ** Player Data **
 ' *****************
+Private Type LockedRec
+    Locked As Byte
+    Opacity As Byte
+End Type
+
 Private Type PlayerInvRec
     Num As Long
     value As Long
-    Locked As Byte
+    Status As LockedRec
 End Type
 
 Public Type PokemonMovesetRec
@@ -430,6 +435,11 @@ Private Type NpcRec
     Reward As Long
     WinEvent As Long
     RewardExp As Long
+    PokemonItem(1 To MAX_PLAYER_POKEMON) As Long
+    PokemonNature(1 To MAX_PLAYER_POKEMON) As Integer
+    PokemonIsShiny(1 To MAX_PLAYER_POKEMON) As Byte
+    PokemonIvFull(1 To MAX_PLAYER_POKEMON) As Byte
+    Rebatle As Byte
 End Type
 
 Private Type ItemRec

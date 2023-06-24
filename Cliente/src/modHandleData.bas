@@ -1017,8 +1017,9 @@ Dim MoveSlot As Byte
 End Sub
 
 Private Sub HandlePlayerInv(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim buffer As clsBuffer
-Dim i As Byte
+    Dim buffer As clsBuffer
+    Dim i As Byte
+    Dim NoNext As Boolean
 
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
@@ -1026,15 +1027,24 @@ Dim i As Byte
         With PlayerInv(i)
             .Num = buffer.ReadLong
             .value = buffer.ReadLong
-            .Locked = buffer.ReadByte
+            .Status.Locked = buffer.ReadByte
+            .Status.Opacity = 150
+
+            If Not NoNext Then
+                If .Status.Locked = YES Then
+                    .Status.Opacity = 255
+                    NoNext = True
+                End If
+            End If
         End With
     Next
     Set buffer = Nothing
 End Sub
 
 Private Sub HandlePlayerInvSlot(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim buffer As clsBuffer
-Dim Slot As Byte
+    Dim buffer As clsBuffer
+    Dim Slot As Byte
+    Dim VarLocked As Byte
 
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
@@ -1042,8 +1052,20 @@ Dim Slot As Byte
     With PlayerInv(Slot)
         .Num = buffer.ReadLong
         .value = buffer.ReadLong
-        .Locked = buffer.ReadByte
+        VarLocked = buffer.ReadByte
+
+        If VarLocked <> .Status.Locked Then
+            .Status.Locked = VarLocked
+            If .Status.Locked = NO Then
+                If Slot >= MAX_PLAYER_INV Then Exit Sub
+                Slot = Slot + 1
+
+                PlayerInv(Slot).Status.Locked = YES
+                PlayerInv(Slot).Status.Opacity = 255
+            End If
+        End If
     End With
+
     Set buffer = Nothing
 End Sub
 

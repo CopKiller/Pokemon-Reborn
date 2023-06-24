@@ -187,3 +187,8 @@ Public Const INV_SLOTS_LOCKED As Byte = 10 ' Slots
 Public Const INV_SLOTS_PRICE As Byte = 5 ' Cash
 
 Public Const ColourChar As String * 1 = "½"
+
+'//Rebatle Options
+Public Const REBATLE_NONE As Byte = 0
+Public Const REBATLE_LOSE As Byte = 1
+Public Const REBATLE_NEVER As Byte = 2

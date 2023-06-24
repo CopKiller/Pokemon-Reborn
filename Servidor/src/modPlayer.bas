@@ -1945,15 +1945,15 @@ Dim i As Byte
 End Function
 
 Public Sub ProcessConversation(ByVal Index As Long, ByVal Convo As Long, ByVal ConvoData As Byte, Optional ByVal NpcNum As Long = 0, Optional ByVal tReply As Byte = 0)
-Dim i As Long, X As Long
-Dim fixData As Boolean
+    Dim i As Long, X As Long
+    Dim fixData As Boolean
 
     fixData = False
 
 startOver:
 
     If Convo <= 0 Or Convo > MAX_CONVERSATION Then Exit Sub
-    
+
     If Not fixData Then
         If ConvoData <= 0 Then
             '//Initiate
@@ -1971,271 +1971,301 @@ startOver:
         End If
     End If
     ConvoData = TempPlayer(Index).CurConvoData
-    
+
     If ConvoData > 0 Then
         With Conversation(Convo).ConvData(ConvoData)
             '//Check for custom script
             Select Case .CustomScript
-                Case CONVO_SCRIPT_INVSTORAGE '//Inv Storage
-                    If TempPlayer(Index).StorageType = 0 Then
-                        TempPlayer(Index).StorageType = 1
-                        SendStorage Index
-                    End If
-                    fixData = False
-                Case CONVO_SCRIPT_POKESTORAGE '//Pokemon Storage
-                    If TempPlayer(Index).StorageType = 0 Then
-                        TempPlayer(Index).StorageType = 2
-                        SendStorage Index
-                    End If
-                    fixData = False
-                Case CONVO_SCRIPT_HEAL
-                    '//Heal Pokemon
-                    For i = 1 To MAX_PLAYER_POKEMON
-                        If PlayerPokemons(Index).Data(i).Num > 0 Then
-                            If PlayerPokemons(Index).Data(i).CurHp < PlayerPokemons(Index).Data(i).MaxHp Then
-                                PlayerPokemons(Index).Data(i).CurHp = PlayerPokemons(Index).Data(i).MaxHp
-                            End If
-                            If PlayerPokemons(Index).Data(i).Status > 0 Then
-                                PlayerPokemons(Index).Data(i).Status = 0
-                            End If
-                            For X = 1 To MAX_MOVESET
-                                If PlayerPokemons(Index).Data(i).Moveset(X).Num > 0 Then
-                                    If PlayerPokemons(Index).Data(i).Moveset(X).CurPP < PlayerPokemons(Index).Data(i).Moveset(X).TotalPP Then
-                                        PlayerPokemons(Index).Data(i).Moveset(X).CurPP = PlayerPokemons(Index).Data(i).Moveset(X).TotalPP
-                                        PlayerPokemons(Index).Data(i).Moveset(X).CD = 0
-                                    End If
-                                End If
-                            Next
+            Case CONVO_SCRIPT_INVSTORAGE    '//Inv Storage
+                If TempPlayer(Index).StorageType = 0 Then
+                    TempPlayer(Index).StorageType = 1
+                    SendStorage Index
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_POKESTORAGE    '//Pokemon Storage
+                If TempPlayer(Index).StorageType = 0 Then
+                    TempPlayer(Index).StorageType = 2
+                    SendStorage Index
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_HEAL
+                '//Heal Pokemon
+                For i = 1 To MAX_PLAYER_POKEMON
+                    If PlayerPokemons(Index).Data(i).Num > 0 Then
+                        If PlayerPokemons(Index).Data(i).CurHp < PlayerPokemons(Index).Data(i).MaxHp Then
+                            PlayerPokemons(Index).Data(i).CurHp = PlayerPokemons(Index).Data(i).MaxHp
                         End If
-                    Next
-                    If Player(Index, TempPlayer(Index).UseChar).CurHp < GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level) Then
-                        Player(Index, TempPlayer(Index).UseChar).CurHp = GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level)
-                    End If
-                    If Player(Index, TempPlayer(Index).UseChar).Status > 0 Then
-                        Player(Index, TempPlayer(Index).UseChar).Status = 0
-                        Player(Index, TempPlayer(Index).UseChar).IsConfuse = False
-                    End If
-                    Select Case TempPlayer(Index).CurLanguage
-                        Case LANG_PT: AddAlert Index, "Pokemon HP and PP restored", White
-                        Case LANG_EN: AddAlert Index, "Pokemon HP and PP restored", White
-                        Case LANG_ES: AddAlert Index, "Pokemon HP and PP restored", White
-                    End Select
-                    SendPlayerPokemons Index
-                    SendPlayerVital Index
-                    SendPlayerPokemonStatus Index
-                    SendPlayerStatus Index
-                    fixData = False
-                Case CONVO_SCRIPT_SHOP
-                    If .CustomScriptData > 0 Then
-                        '//Open Shop
-                        If TempPlayer(Index).InShop = 0 Then
-                            TempPlayer(Index).InShop = .CustomScriptData
-                            SendOpenShop Index
+                        If PlayerPokemons(Index).Data(i).Status > 0 Then
+                            PlayerPokemons(Index).Data(i).Status = 0
                         End If
-                    End If
-                    fixData = False
-                Case CONVO_SCRIPT_SETSWITCH
-                    If .CustomScriptData > 0 Then
-                        '//Open Shop
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                Player(Index, TempPlayer(Index).UseChar).Switches(.CustomScriptData) = .CustomScriptData2
-                            End If
-                        End If
-                    End If
-                    fixData = False
-                Case CONVO_SCRIPT_GIVEPOKE
-                    If .CustomScriptData > 0 Then
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                GivePlayerPokemon Index, .CustomScriptData, 5, BallEnum.b_Pokeball
-                            End If
-                        End If
-                    End If
-                    fixData = False
-                Case CONVO_SCRIPT_GIVEITEM
-                    If .CustomScriptData > 0 Then
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                If .CustomScriptData2 > 0 Then
-                                    TryGivePlayerItem Index, .CustomScriptData, .CustomScriptData2
+                        For X = 1 To MAX_MOVESET
+                            If PlayerPokemons(Index).Data(i).Moveset(X).Num > 0 Then
+                                If PlayerPokemons(Index).Data(i).Moveset(X).CurPP < PlayerPokemons(Index).Data(i).Moveset(X).TotalPP Then
+                                    PlayerPokemons(Index).Data(i).Moveset(X).CurPP = PlayerPokemons(Index).Data(i).Moveset(X).TotalPP
+                                    PlayerPokemons(Index).Data(i).Moveset(X).CD = 0
                                 End If
                             End If
+                        Next
+                    End If
+                Next
+                If Player(Index, TempPlayer(Index).UseChar).CurHp < GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level) Then
+                    Player(Index, TempPlayer(Index).UseChar).CurHp = GetPlayerHP(Player(Index, TempPlayer(Index).UseChar).Level)
+                End If
+                If Player(Index, TempPlayer(Index).UseChar).Status > 0 Then
+                    Player(Index, TempPlayer(Index).UseChar).Status = 0
+                    Player(Index, TempPlayer(Index).UseChar).IsConfuse = False
+                End If
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Pokemon HP and PP restored", White
+                Case LANG_EN: AddAlert Index, "Pokemon HP and PP restored", White
+                Case LANG_ES: AddAlert Index, "Pokemon HP and PP restored", White
+                End Select
+                SendPlayerPokemons Index
+                SendPlayerVital Index
+                SendPlayerPokemonStatus Index
+                SendPlayerStatus Index
+                fixData = False
+            Case CONVO_SCRIPT_SHOP
+                If .CustomScriptData > 0 Then
+                    '//Open Shop
+                    If TempPlayer(Index).InShop = 0 Then
+                        TempPlayer(Index).InShop = .CustomScriptData
+                        SendOpenShop Index
+                    End If
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_SETSWITCH
+                If .CustomScriptData > 0 Then
+                    '//Open Shop
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            Player(Index, TempPlayer(Index).UseChar).Switches(.CustomScriptData) = .CustomScriptData2
                         End If
                     End If
-                    fixData = False
-                Case CONVO_SCRIPT_WARPTO
-                    If .CustomScriptData > 0 Then
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                PlayerWarp Index, .CustomScriptData, .CustomScriptData2, .CustomScriptData3, Player(Index, TempPlayer(Index).UseChar).Dir
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_GIVEPOKE
+                If .CustomScriptData > 0 Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            GivePlayerPokemon Index, .CustomScriptData, 5, BallEnum.b_Pokeball
+                        End If
+                    End If
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_GIVEITEM
+                If .CustomScriptData > 0 Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            If .CustomScriptData2 > 0 Then
+                                TryGivePlayerItem Index, .CustomScriptData, .CustomScriptData2
                             End If
                         End If
                     End If
-                    fixData = False
-                Case CONVO_SCRIPT_CHECKMONEY
-                    If .CustomScriptData > 0 Then
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                If Player(Index, TempPlayer(Index).UseChar).Money >= .CustomScriptData Then
-                                    '//Next
-                                    TempPlayer(Index).CurConvoData = .CustomScriptData2
-                                    fixData = True
-                                Else
-                                    TempPlayer(Index).CurConvoData = .CustomScriptData3
-                                    fixData = True
-                                End If
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_WARPTO
+                If .CustomScriptData > 0 Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            PlayerWarp Index, .CustomScriptData, .CustomScriptData2, .CustomScriptData3, Player(Index, TempPlayer(Index).UseChar).Dir
+                        End If
+                    End If
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_CHECKMONEY
+                If .CustomScriptData > 0 Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            If Player(Index, TempPlayer(Index).UseChar).Money >= .CustomScriptData Then
+                                '//Next
+                                TempPlayer(Index).CurConvoData = .CustomScriptData2
+                                fixData = True
+                            Else
+                                TempPlayer(Index).CurConvoData = .CustomScriptData3
+                                fixData = True
                             End If
                         End If
                     End If
-                Case CONVO_SCRIPT_TAKEMONEY
-                    If .CustomScriptData > 0 Then
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                Player(Index, TempPlayer(Index).UseChar).Money = Player(Index, TempPlayer(Index).UseChar).Money - .CustomScriptData
-                                If Player(Index, TempPlayer(Index).UseChar).Money <= 0 Then
-                                    Player(Index, TempPlayer(Index).UseChar).Money = 0
-                                End If
-                                SendPlayerData Index
+                End If
+            Case CONVO_SCRIPT_TAKEMONEY
+                If .CustomScriptData > 0 Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            Player(Index, TempPlayer(Index).UseChar).Money = Player(Index, TempPlayer(Index).UseChar).Money - .CustomScriptData
+                            If Player(Index, TempPlayer(Index).UseChar).Money <= 0 Then
+                                Player(Index, TempPlayer(Index).UseChar).Money = 0
                             End If
+                            SendPlayerData Index
                         End If
                     End If
-                    fixData = False
-                Case CONVO_SCRIPT_STARTBATTLE
-                    If TempPlayer(Index).CurConvoMapNpc > 0 Then
-                        '//ToDo: Check if daily/monthly
-                        If Not Player(Index, TempPlayer(Index).UseChar).NpcBattledDay(TempPlayer(Index).CurConvoNpc) = Day(Now) Then
-                            '// Start Npc Battle
-                            If Player(Index, TempPlayer(Index).UseChar).Map > 0 Then
-                                If MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).InBattle <= 0 Then
-                                    MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).InBattle = Index
-                                    MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).CurPokemon = 1
-                                    For i = 1 To MAX_PLAYER_POKEMON
-                                        If Npc(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).PokemonNum(i) > 0 Then
-                                            MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).PokemonAlive(i) = YES
-                                        Else
-                                            MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).PokemonAlive(i) = NO
-                                        End If
-                                    Next
-                                    SpawnNpcPokemon Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc, 1
-                                    TempPlayer(Index).InNpcDuel = TempPlayer(Index).CurConvoMapNpc
-                                    TempPlayer(Index).DuelTime = 1
-                                    TempPlayer(Index).DuelTimeTmr = GetTickCount + 1000
-                                    SendPlayerNpcDuel Index
-                                    Player(Index, TempPlayer(Index).UseChar).NpcBattledDay(TempPlayer(Index).CurConvoNpc) = Day(Now)
-                                    Player(Index, TempPlayer(Index).UseChar).NpcBattledMonth(TempPlayer(Index).CurConvoNpc) = Month(Now)
-                                End If
-                            End If
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_STARTBATTLE
+                If TempPlayer(Index).CurConvoMapNpc > 0 Then
+
+                    '//Npc not rebattle Option (Never Rebattle if Win)
+                    If Player(Index, TempPlayer(Index).UseChar).NpcBattledDay(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).Win = YES Then
+                        '//Reseta o atributo caso tenha algum problema
+                        If Npc(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).Rebatle <> REBATLE_NEVER Then
+                            Player(Index, TempPlayer(Index).UseChar).NpcBattledDay(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).Win = NO
+                            Player(Index, TempPlayer(Index).UseChar).NpcBattledDay(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).NpcBattledAt = 0
+                            Player(Index, TempPlayer(Index).UseChar).NpcBattledMonth(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).NpcBattledAt = 0
+                            Select Case TempPlayer(Index).CurLanguage
+                            Case LANG_PT: AddAlert Index, "Tente novamente, por favor!", White
+                            Case LANG_EN: AddAlert Index, "Tente novamente, por favor!", White
+                            Case LANG_ES: AddAlert Index, "Tente novamente, por favor!", White
+                            End Select
                         Else
-                            Select Case TempPlayer(Index).CurLanguage 'AddAlert index, "You already battled this NPC", White
-                                Case LANG_PT: AddAlert Index, "Você já batalhou com esse npc hoje, tente novamente amanhã!", White
-                                Case LANG_EN: AddAlert Index, "You have already battled with this npc today, try again tomorrow!", White
-                                Case LANG_ES: AddAlert Index, "You have already battled with this npc today, try again tomorrow!", White
+                            Select Case TempPlayer(Index).CurLanguage
+                            Case LANG_PT: AddAlert Index, "Você não pode lutar novamente com este TREINADOR!", White
+                            Case LANG_EN: AddAlert Index, "Você não pode lutar novamente com este TREINADOR!", White
+                            Case LANG_ES: AddAlert Index, "Você não pode lutar novamente com este TREINADOR!", White
+                            End Select
+                        End If
+                        '//ToDo: Check if daily/monthly
+                    ElseIf Not Player(Index, TempPlayer(Index).UseChar).NpcBattledDay(TempPlayer(Index).CurConvoNpc).NpcBattledAt = Day(Now) Then
+                        '// Start Npc Battle
+                        If Player(Index, TempPlayer(Index).UseChar).Map > 0 Then
+                            If MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).InBattle <= 0 Then
+                                MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).InBattle = Index
+                                MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).CurPokemon = 1
+                                For i = 1 To MAX_PLAYER_POKEMON
+                                    If Npc(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).PokemonNum(i) > 0 Then
+                                        MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).PokemonAlive(i) = YES
+                                    Else
+                                        MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).PokemonAlive(i) = NO
+                                    End If
+                                Next
+                                SpawnNpcPokemon Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc, 1
+                                TempPlayer(Index).InNpcDuel = TempPlayer(Index).CurConvoMapNpc
+                                TempPlayer(Index).DuelTime = 1
+                                TempPlayer(Index).DuelTimeTmr = GetTickCount + 1000
+                                SendPlayerNpcDuel Index
+                            End If
+                        End If
+                    Else
+                        '//Reseta o atributo caso tenha algum problema
+                        If Npc(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).Rebatle = REBATLE_NEVER Then
+                            Player(Index, TempPlayer(Index).UseChar).NpcBattledDay(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).Win = NO
+                            Player(Index, TempPlayer(Index).UseChar).NpcBattledDay(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).NpcBattledAt = 0
+                            Player(Index, TempPlayer(Index).UseChar).NpcBattledMonth(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).NpcBattledAt = 0
+                            Select Case TempPlayer(Index).CurLanguage
+                            Case LANG_PT: AddAlert Index, "Tente novamente, por favor!", White
+                            Case LANG_EN: AddAlert Index, "Tente novamente, por favor!", White
+                            Case LANG_ES: AddAlert Index, "Tente novamente, por favor!", White
+                            End Select
+                        Else
+                            Select Case TempPlayer(Index).CurLanguage    'AddAlert index, "You already battled this NPC", White
+                            Case LANG_PT: AddAlert Index, "Você já batalhou com esse npc hoje, tente novamente amanhã!", White
+                            Case LANG_EN: AddAlert Index, "You have already battled with this npc today, try again tomorrow!", White
+                            Case LANG_ES: AddAlert Index, "You have already battled with this npc today, try again tomorrow!", White
                             End Select
                         End If
                     End If
-                    fixData = False
-                Case CONVO_SCRIPT_RELEARN
-                    If PlayerPokemon(Index).Num > 0 And PlayerPokemon(Index).slot > 0 Then
-                        '//Send Relearn
-                        SendRelearnMove Index, PlayerPokemon(Index).Num, PlayerPokemon(Index).slot
-                    Else
-                        AddAlert Index, "Please spawn your pokemon", White
-                    End If
-                    fixData = False
-                Case CONVO_SCRIPT_GIVEBADGE
-                    If .CustomScriptData > 0 And .CustomScriptData <= MAX_BADGE Then
-                        Player(Index, TempPlayer(Index).UseChar).Badge(.CustomScriptData) = YES
-                        SendPlayerData Index
-                    End If
-                    fixData = False
-                Case CONVO_SCRIPT_CHECKBADGE
-                    If .CustomScriptData > 0 And .CustomScriptData <= MAX_BADGE Then
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                If Player(Index, TempPlayer(Index).UseChar).Badge(.CustomScriptData) = YES Then
-                                    '//Next
-                                    TempPlayer(Index).CurConvoData = .CustomScriptData2
-                                    fixData = True
-                                Else
-                                    TempPlayer(Index).CurConvoData = .CustomScriptData3
-                                    fixData = True
-                                End If
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_RELEARN
+                If PlayerPokemon(Index).Num > 0 And PlayerPokemon(Index).slot > 0 Then
+                    '//Send Relearn
+                    SendRelearnMove Index, PlayerPokemon(Index).Num, PlayerPokemon(Index).slot
+                Else
+                    AddAlert Index, "Please spawn your pokemon", White
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_GIVEBADGE
+                If .CustomScriptData > 0 And .CustomScriptData <= MAX_BADGE Then
+                    Player(Index, TempPlayer(Index).UseChar).Badge(.CustomScriptData) = YES
+                    SendPlayerData Index
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_CHECKBADGE
+                If .CustomScriptData > 0 And .CustomScriptData <= MAX_BADGE Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            If Player(Index, TempPlayer(Index).UseChar).Badge(.CustomScriptData) = YES Then
+                                '//Next
+                                TempPlayer(Index).CurConvoData = .CustomScriptData2
+                                fixData = True
+                            Else
+                                TempPlayer(Index).CurConvoData = .CustomScriptData3
+                                fixData = True
                             End If
                         End If
                     End If
-                Case CONVO_SCRIPT_BEATPOKE
-                    If .CustomScriptData > 0 And .CustomScriptData <= MAX_GAME_POKEMON Then
-                        If MapPokemon(.CustomScriptData).Num <= 0 Then
-                            TempPlayer(Index).CurConvoData = .CustomScriptData2
-                            fixData = True
-                        Else
-                            TempPlayer(Index).CurConvoData = .CustomScriptData3
-                            fixData = True
-                        End If
+                End If
+            Case CONVO_SCRIPT_BEATPOKE
+                If .CustomScriptData > 0 And .CustomScriptData <= MAX_GAME_POKEMON Then
+                    If MapPokemon(.CustomScriptData).Num <= 0 Then
+                        TempPlayer(Index).CurConvoData = .CustomScriptData2
+                        fixData = True
+                    Else
+                        TempPlayer(Index).CurConvoData = .CustomScriptData3
+                        fixData = True
                     End If
-                Case CONVO_SCRIPT_CHECKITEM
-                    If .CustomScriptData > 0 And .CustomScriptData <= MAX_ITEM Then
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                i = checkItem(Index, .CustomScriptData)
-                                If i > 0 Then
-                                    '//Next
-                                    If PlayerInv(Index).Data(i).Value >= .CustomScriptData2 Then
-                                        TempPlayer(Index).CurConvoData = .CustomScriptData3
-                                        fixData = True
-                                    Else
-                                        TempPlayer(Index).CurConvoData = .MoveNext
-                                        fixData = True
-                                    End If
+                End If
+            Case CONVO_SCRIPT_CHECKITEM
+                If .CustomScriptData > 0 And .CustomScriptData <= MAX_ITEM Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            i = checkItem(Index, .CustomScriptData)
+                            If i > 0 Then
+                                '//Next
+                                If PlayerInv(Index).Data(i).Value >= .CustomScriptData2 Then
+                                    TempPlayer(Index).CurConvoData = .CustomScriptData3
+                                    fixData = True
                                 Else
                                     TempPlayer(Index).CurConvoData = .MoveNext
                                     fixData = True
                                 End If
+                            Else
+                                TempPlayer(Index).CurConvoData = .MoveNext
+                                fixData = True
                             End If
                         End If
                     End If
-                Case CONVO_SCRIPT_TAKEITEM
-                    If .CustomScriptData > 0 And .CustomScriptData <= MAX_ITEM Then
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                i = checkItem(Index, .CustomScriptData)
-                                If i > 0 Then
-                                    '//Take Item
-                                    PlayerInv(Index).Data(i).Value = PlayerInv(Index).Data(i).Value - .CustomScriptData2
-                                    If PlayerInv(Index).Data(i).Value <= 0 Then
-                                        '//Clear Item
-                                        PlayerInv(Index).Data(i).Num = 0
-                                        PlayerInv(Index).Data(i).Value = 0
-                                    End If
-                                    SendPlayerInvSlot Index, i
+                End If
+            Case CONVO_SCRIPT_TAKEITEM
+                If .CustomScriptData > 0 And .CustomScriptData <= MAX_ITEM Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            i = checkItem(Index, .CustomScriptData)
+                            If i > 0 Then
+                                '//Take Item
+                                PlayerInv(Index).Data(i).Value = PlayerInv(Index).Data(i).Value - .CustomScriptData2
+                                If PlayerInv(Index).Data(i).Value <= 0 Then
+                                    '//Clear Item
+                                    PlayerInv(Index).Data(i).Num = 0
+                                    PlayerInv(Index).Data(i).Value = 0
                                 End If
+                                SendPlayerInvSlot Index, i
                             End If
                         End If
                     End If
-                    fixData = False
-                Case CONVO_SCRIPT_RESPAWNPOKE
-                    If .CustomScriptData > 0 And .CustomScriptData <= MAX_GAME_POKEMON Then
-                        SpawnMapPokemon .CustomScriptData, True
-                    End If
-                    fixData = False
-                Case CONVO_SCRIPT_CHECKLEVEL
-                    If .CustomScriptData > 0 And .CustomScriptData <= MAX_LEVEL Then
-                        If IsPlaying(Index) Then
-                            If TempPlayer(Index).UseChar > 0 Then
-                                If Player(Index, TempPlayer(Index).UseChar).Level >= (.CustomScriptData) Then
-                                    '//Next
-                                    TempPlayer(Index).CurConvoData = .CustomScriptData2
-                                    fixData = True
-                                Else
-                                    TempPlayer(Index).CurConvoData = .CustomScriptData3
-                                    fixData = True
-                                End If
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_RESPAWNPOKE
+                If .CustomScriptData > 0 And .CustomScriptData <= MAX_GAME_POKEMON Then
+                    SpawnMapPokemon .CustomScriptData, True
+                End If
+                fixData = False
+            Case CONVO_SCRIPT_CHECKLEVEL
+                If .CustomScriptData > 0 And .CustomScriptData <= MAX_LEVEL Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            If Player(Index, TempPlayer(Index).UseChar).Level >= (.CustomScriptData) Then
+                                '//Next
+                                TempPlayer(Index).CurConvoData = .CustomScriptData2
+                                fixData = True
+                            Else
+                                TempPlayer(Index).CurConvoData = .CustomScriptData3
+                                fixData = True
                             End If
                         End If
                     End If
+                End If
             End Select
-            
+
             '//Check if can init
             If .NoText = YES Then GoTo startOver
         End With
@@ -2246,7 +2276,7 @@ startOver:
         TempPlayer(Index).CurConvoNpc = 0
         TempPlayer(Index).CurConvoMapNpc = 0
     End If
-    
+
     SendInitConvo Index, TempPlayer(Index).CurConvoNum, TempPlayer(Index).CurConvoData, NpcNum
 End Sub
 
@@ -2586,14 +2616,8 @@ Dim DuelIndex As Long
     End If
     If TempPlayer(Index).InNpcDuel > 0 Then
         If CountPlayerPokemonAlive(Index) <= 0 Then
-            SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "Lose!", Player(Index, TempPlayer(Index).UseChar).X * 32, Player(Index, TempPlayer(Index).UseChar).Y * 32, White
-            MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).InNpcDuel).InBattle = 0
-            NpcPokemonCallBack Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).InNpcDuel
-            TempPlayer(Index).InNpcDuel = 0
-            TempPlayer(Index).DuelTime = 0
-            TempPlayer(Index).DuelTimeTmr = 0
-            TempPlayer(Index).WarningTimer = 0
-            SendPlayerNpcDuel Index
+            '//Adicionado a apenas um método.
+            PlayerLoseToNpc Index, TempPlayer(Index).InNpcDuel
         Else
             TempPlayer(Index).DuelReset = YES
         End If

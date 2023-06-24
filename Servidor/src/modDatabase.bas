@@ -999,8 +999,13 @@ End Sub
 ' ** Npc Properties **
 ' ********************
 Public Sub ClearNpc(ByVal NpcNum As Long)
+    Dim i As Byte
     Call ZeroMemory(ByVal VarPtr(Npc(NpcNum)), LenB(Npc(NpcNum)))
     Npc(NpcNum).Name = vbNullString
+    
+    For i = 1 To MAX_PLAYER_POKEMON
+        Npc(NpcNum).PokemonNature(i) = -1
+    Next i
 End Sub
 
 Public Sub ClearNpcs()
@@ -1347,6 +1352,7 @@ End Sub
 Public Sub ClearSpawn(ByVal SpawnNum As Long)
     Call ZeroMemory(ByVal VarPtr(Spawn(SpawnNum)), LenB(Spawn(SpawnNum)))
     Spawn(SpawnNum).SpawnTimeMax = 23
+    Spawn(SpawnNum).Nature = -1
 End Sub
 
 Public Sub ClearSpawns()

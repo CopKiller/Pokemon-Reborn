@@ -143,14 +143,14 @@ End Sub
 
 
 Private Sub UpdatePlayerLogic()
-Dim i As Long
-Dim Tick As Long
-Dim Value As Long
-Dim RandomNumber As Long
+    Dim i As Long
+    Dim Tick As Long
+    Dim Value As Long
+    Dim RandomNumber As Long
 
     For i = 1 To Player_HighIndex
         Tick = GetTickCount
-        
+
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
                 '//Check Player Pokemon Logic
@@ -194,7 +194,7 @@ Dim RandomNumber As Long
                         End If
                     End If
                 End If
-                
+
                 '//Check if trying to catch a pokemon
                 If TempPlayer(i).TmpCatchPokeNum > 0 Then
                     If TempPlayer(i).TmpCatchTimer <= GetTickCount Then
@@ -207,27 +207,27 @@ Dim RandomNumber As Long
                                     MapPokemon(TempPlayer(i).TmpCatchPokeNum).InCatch = NO
                                     MapPokemon(TempPlayer(i).TmpCatchPokeNum).targetType = TARGET_TYPE_PLAYER
                                     MapPokemon(TempPlayer(i).TmpCatchPokeNum).TargetIndex = i
-                                    SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 3, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                    SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 3, TempPlayer(i).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                     TempPlayer(i).TmpCatchPokeNum = 0
                                     TempPlayer(i).TmpCatchTimer = 0
                                     TempPlayer(i).TmpCatchTries = 0
                                     TempPlayer(i).TmpCatchValue = 0
                                     TempPlayer(i).TmpCatchUseBall = 0
                                     Select Case TempPlayer(i).CurLanguage
-                                        Case LANG_PT: AddAlert i, "Your Pokeball broke", White
-                                        Case LANG_EN: AddAlert i, "Your Pokeball broke", White
-                                        Case LANG_ES: AddAlert i, "Your Pokeball broke", White
+                                    Case LANG_PT: AddAlert i, "Your Pokeball broke", White
+                                    Case LANG_EN: AddAlert i, "Your Pokeball broke", White
+                                    Case LANG_ES: AddAlert i, "Your Pokeball broke", White
                                     End Select
                                 Else
                                     '//Continue
                                     TempPlayer(i).TmpCatchTries = TempPlayer(i).TmpCatchTries + 1
                                     TempPlayer(i).TmpCatchTimer = GetTickCount + 500
                                     '//Do Animation
-                                    SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 1, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                    SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 1, TempPlayer(i).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                     Select Case TempPlayer(i).CurLanguage
-                                        Case LANG_PT: AddAlert i, "The pokeball shaked...", White
-                                        Case LANG_EN: AddAlert i, "The pokeball shaked...", White
-                                        Case LANG_ES: AddAlert i, "The pokeball shaked...", White
+                                    Case LANG_PT: AddAlert i, "The pokeball shaked...", White
+                                    Case LANG_EN: AddAlert i, "The pokeball shaked...", White
+                                    Case LANG_ES: AddAlert i, "The pokeball shaked...", White
                                     End Select
                                 End If
                             Else
@@ -235,40 +235,40 @@ Dim RandomNumber As Long
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).InCatch = NO
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).targetType = TARGET_TYPE_PLAYER
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).TargetIndex = i
-                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 3, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 3, TempPlayer(i).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                 TempPlayer(i).TmpCatchPokeNum = 0
                                 TempPlayer(i).TmpCatchTimer = 0
                                 TempPlayer(i).TmpCatchTries = 0
                                 TempPlayer(i).TmpCatchValue = 0
                                 TempPlayer(i).TmpCatchUseBall = 0
                                 Select Case TempPlayer(i).CurLanguage
-                                    Case LANG_PT: AddAlert i, "Your Pokeball broke", White
-                                    Case LANG_EN: AddAlert i, "Your Pokeball broke", White
-                                    Case LANG_ES: AddAlert i, "Your Pokeball broke", White
+                                Case LANG_PT: AddAlert i, "Your Pokeball broke", White
+                                Case LANG_EN: AddAlert i, "Your Pokeball broke", White
+                                Case LANG_ES: AddAlert i, "Your Pokeball broke", White
                                 End Select
                             End If
                         Else
                             '//Success
                             If CountFreePokemonSlot(i) < 5 Then
                                 Select Case TempPlayer(i).CurLanguage
-                                    Case LANG_PT: AddAlert i, "Warning: You only have few slot left for pokemon", White
-                                    Case LANG_EN: AddAlert i, "Warning: You only have few slot left for pokemon", White
-                                    Case LANG_ES: AddAlert i, "Warning: You only have few slot left for pokemon", White
+                                Case LANG_PT: AddAlert i, "Warning: You only have few slot left for pokemon", White
+                                Case LANG_EN: AddAlert i, "Warning: You only have few slot left for pokemon", White
+                                Case LANG_ES: AddAlert i, "Warning: You only have few slot left for pokemon", White
                                 End Select
                             End If
-                            
+
                             '//Give Player Pokemon
                             If CatchMapPokemonData(i, TempPlayer(i).TmpCatchPokeNum, TempPlayer(i).TmpCatchUseBall) Then
                                 '//Success
                                 '//Clear map pokemon
-                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 2, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 2, TempPlayer(i).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                 Select Case TempPlayer(i).CurLanguage
-                                    Case LANG_PT: AddAlert i, "Congratiolations! You have captured the pokemon...", White
-                                    Case LANG_EN: AddAlert i, "Congratiolations! You have captured the pokemon...", White
-                                    Case LANG_ES: AddAlert i, "Congratiolations! You have captured the pokemon...", White
+                                Case LANG_PT: AddAlert i, "Congratiolations! You have captured the pokemon...", White
+                                Case LANG_EN: AddAlert i, "Congratiolations! You have captured the pokemon...", White
+                                Case LANG_ES: AddAlert i, "Congratiolations! You have captured the pokemon...", White
                                 End Select
                                 ClearMapPokemon TempPlayer(i).TmpCatchPokeNum
-                                
+
                                 TempPlayer(i).TmpCatchPokeNum = 0
                                 TempPlayer(i).TmpCatchTimer = 0
                                 TempPlayer(i).TmpCatchTries = 0
@@ -279,22 +279,22 @@ Dim RandomNumber As Long
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).InCatch = NO
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).targetType = TARGET_TYPE_PLAYER
                                 MapPokemon(TempPlayer(i).TmpCatchPokeNum).TargetIndex = i
-                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 3, TempPlayer(i).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                                SendMapPokemonCatchState MapPokemon(TempPlayer(i).TmpCatchPokeNum).Map, TempPlayer(i).TmpCatchPokeNum, MapPokemon(TempPlayer(i).TmpCatchPokeNum).X, MapPokemon(TempPlayer(i).TmpCatchPokeNum).Y, 3, TempPlayer(i).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                                 TempPlayer(i).TmpCatchPokeNum = 0
                                 TempPlayer(i).TmpCatchTimer = 0
                                 TempPlayer(i).TmpCatchTries = 0
                                 TempPlayer(i).TmpCatchValue = 0
                                 TempPlayer(i).TmpCatchUseBall = 0
                                 Select Case TempPlayer(i).CurLanguage
-                                    Case LANG_PT: AddAlert i, "Your Pokeball broke", White
-                                    Case LANG_EN: AddAlert i, "Your Pokeball broke", White
-                                    Case LANG_ES: AddAlert i, "Your Pokeball broke", White
+                                Case LANG_PT: AddAlert i, "Your Pokeball broke", White
+                                Case LANG_EN: AddAlert i, "Your Pokeball broke", White
+                                Case LANG_ES: AddAlert i, "Your Pokeball broke", White
                                 End Select
                             End If
                         End If
                     End If
                 End If
-                
+
                 '//Duel
                 If TempPlayer(i).InDuel > 0 Or TempPlayer(i).InNpcDuel > 0 Then
                     '//Starting
@@ -305,7 +305,7 @@ Dim RandomNumber As Long
                                 If TempPlayer(i).DuelTime > 0 Then
                                     SendActionMsg .Map, TempPlayer(i).DuelTime, .X * 32, .Y * 32, White
                                 End If
-                                
+
                                 If TempPlayer(i).DuelTime <= 0 Then
                                     '//Init Battle
                                     SendActionMsg .Map, "Start!", .X * 32, .Y * 32, White
@@ -313,9 +313,9 @@ Dim RandomNumber As Long
                                     TempPlayer(i).WarningTimer = GetTickCount + 5000
                                     If PlayerPokemon(i).Num <= 0 Then
                                         Select Case TempPlayer(i).CurLanguage
-                                            Case LANG_PT: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
-                                            Case LANG_EN: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
-                                            Case LANG_ES: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
+                                        Case LANG_PT: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
+                                        Case LANG_EN: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
+                                        Case LANG_ES: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
                                         End Select
                                     End If
                                 Else
@@ -323,7 +323,7 @@ Dim RandomNumber As Long
                                 End If
                             End With
                         End If
-                    Else '//Current
+                    Else    '//Current
                         If PlayerPokemon(i).Num <= 0 Then
                             If TempPlayer(i).DuelTimeTmr <= GetTickCount Then
                                 '//PvP
@@ -368,22 +368,16 @@ Dim RandomNumber As Long
                                     SendRequest i
                                 End If
                                 If TempPlayer(i).InNpcDuel > 0 Then
-                                    MapNpc(Player(i, TempPlayer(i).UseChar).Map, TempPlayer(i).InNpcDuel).InBattle = 0
-                                    NpcPokemonCallBack Player(i, TempPlayer(i).UseChar).Map, TempPlayer(i).InNpcDuel
-                                    SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Lose!", Player(i, TempPlayer(i).UseChar).X * 32, Player(i, TempPlayer(i).UseChar).Y * 32, White
-                                    TempPlayer(i).InNpcDuel = 0
-                                    TempPlayer(i).DuelTime = 0
-                                    TempPlayer(i).DuelTimeTmr = 0
-                                    TempPlayer(i).WarningTimer = 0
-                                    SendPlayerNpcDuel i
+                                    '//Adicionado a apenas um método.
+                                    PlayerLoseToNpc i, TempPlayer(i).InNpcDuel
                                 End If
                             Else
                                 If TempPlayer(i).WarningTimer <= GetTickCount Then
                                     If PlayerPokemon(i).Num <= 0 Then
                                         Select Case TempPlayer(i).CurLanguage
-                                            Case LANG_PT: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
-                                            Case LANG_EN: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
-                                            Case LANG_ES: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
+                                        Case LANG_PT: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
+                                        Case LANG_EN: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
+                                        Case LANG_ES: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
                                         End Select
                                     End If
                                     TempPlayer(i).WarningTimer = GetTickCount + 5000
@@ -395,7 +389,7 @@ Dim RandomNumber As Long
                         End If
                     End If
                 End If
-                
+
                 '//Action
                 'If PlayerPokemon(i).Num <= 0 Then
                 '    With Player(i, TempPlayer(i).UseChar)
@@ -500,36 +494,8 @@ Dim QueueMove As Long
                                     DuelIndex = MapNpc(MapNum, MapNpcNum).InBattle
                                     If IsPlaying(DuelIndex) Then
                                         If TempPlayer(DuelIndex).UseChar > 0 Then
-                                            SendActionMsg MapNum, "Win!", Player(DuelIndex, TempPlayer(DuelIndex).UseChar).X * 32, Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Y * 32, White
-                                            Select Case TempPlayer(DuelIndex).CurLanguage
-                                                Case LANG_PT: AddAlert DuelIndex, "You win on a duel!", White
-                                                Case LANG_EN: AddAlert DuelIndex, "You win on a duel!", White
-                                                Case LANG_ES: AddAlert DuelIndex, "You win on a duel!", White
-                                            End Select
-                                            TempPlayer(DuelIndex).InNpcDuel = 0
-                                            TempPlayer(DuelIndex).DuelTime = 0
-                                            TempPlayer(DuelIndex).DuelTimeTmr = 0
-                                            TempPlayer(DuelIndex).WarningTimer = 0
-                                            SendPlayerNpcDuel DuelIndex
-                                            '//Send Reward
-                                            If Npc(MapNpc(MapNum, MapNpcNum).Num).Reward > 0 Then
-                                                Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Money = Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Money + Npc(MapNpc(MapNum, MapNpcNum).Num).Reward
-                                                If Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Money >= MAX_MONEY Then
-                                                    Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Money = MAX_MONEY
-                                                End If
-                                                SendPlayerData DuelIndex
-                                                AddAlert DuelIndex, "You got $" & Npc(MapNpc(MapNum, MapNpcNum).Num).Reward, White
-                                                If Npc(MapNpc(MapNum, MapNpcNum).Num).RewardExp > 0 Then
-                                                    GivePlayerExp DuelIndex, Npc(MapNpc(MapNum, MapNpcNum).Num).RewardExp
-                                                End If
-                                            End If
-                                            If Npc(MapNpc(MapNum, MapNpcNum).Num).WinEvent > 0 Then
-                                                TempPlayer(DuelIndex).CurConvoNum = Npc(MapNpc(MapNum, MapNpcNum).Num).WinEvent
-                                                TempPlayer(DuelIndex).CurConvoData = 0 '//Always start at 0
-                                                TempPlayer(DuelIndex).CurConvoNpc = MapNpc(MapNum, MapNpcNum).Num
-                                                TempPlayer(DuelIndex).CurConvoMapNpc = MapNpcNum
-                                                ProcessConversation DuelIndex, TempPlayer(DuelIndex).CurConvoNum, TempPlayer(DuelIndex).CurConvoData, TempPlayer(DuelIndex).CurConvoNpc
-                                            End If
+                                            '//Adicionado a apenas um método.
+                                            PlayerWinToNpc DuelIndex, MapNpcNum
                                         End If
                                     End If
                                     MapNpc(MapNum, MapNpcNum).InBattle = 0

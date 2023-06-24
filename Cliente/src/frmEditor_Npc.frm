@@ -2,18 +2,18 @@ VERSION 5.00
 Begin VB.Form frmEditor_Npc 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "NPC Editor"
-   ClientHeight    =   7095
+   ClientHeight    =   7065
    ClientLeft      =   150
    ClientTop       =   795
-   ClientWidth     =   9240
+   ClientWidth     =   9210
    ControlBox      =   0   'False
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   473
+   ScaleHeight     =   471
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   616
+   ScaleWidth      =   614
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
    Begin VB.Frame Frame2 
@@ -23,59 +23,124 @@ Begin VB.Form frmEditor_Npc
       TabIndex        =   2
       Top             =   0
       Width           =   6015
+      Begin VB.OptionButton optRebattle 
+         Caption         =   "Rebattle Never"
+         Height          =   195
+         Index           =   2
+         Left            =   4200
+         TabIndex        =   41
+         Top             =   6600
+         Width           =   1455
+      End
+      Begin VB.OptionButton optRebattle 
+         Caption         =   "Rebattle Lose"
+         Height          =   195
+         Index           =   1
+         Left            =   4200
+         TabIndex        =   40
+         Top             =   6360
+         Width           =   1335
+      End
+      Begin VB.OptionButton optRebattle 
+         Caption         =   "None"
+         Height          =   195
+         Index           =   0
+         Left            =   4200
+         TabIndex        =   39
+         Top             =   6120
+         Width           =   1335
+      End
       Begin VB.TextBox txtRewardExp 
          Height          =   285
-         Left            =   4080
-         TabIndex        =   31
+         Left            =   2160
+         TabIndex        =   29
          Text            =   "0"
-         Top             =   6000
-         Width           =   1695
+         Top             =   6360
+         Width           =   1815
       End
       Begin VB.HScrollBar scrlWinConvo 
          Height          =   255
-         Left            =   3000
+         Left            =   2520
          Max             =   0
-         TabIndex        =   30
-         Top             =   6360
-         Width           =   2775
+         TabIndex        =   28
+         Top             =   6600
+         Width           =   1575
       End
       Begin VB.TextBox txtReward 
          Height          =   285
          Left            =   2160
-         TabIndex        =   27
+         TabIndex        =   26
          Text            =   "0"
-         Top             =   6000
+         Top             =   6120
          Width           =   1815
       End
       Begin VB.Frame Frame3 
          Caption         =   "Pokemon"
-         Height          =   3375
+         Height          =   3495
          Left            =   240
          TabIndex        =   16
          Top             =   2520
          Width           =   5535
+         Begin VB.TextBox txtFindItem 
+            Height          =   285
+            Left            =   3480
+            TabIndex        =   42
+            Top             =   2880
+            Width           =   1815
+         End
+         Begin VB.CheckBox chkIv 
+            Caption         =   "IV Full"
+            Height          =   255
+            Left            =   1560
+            TabIndex        =   36
+            Top             =   3120
+            Width           =   975
+         End
+         Begin VB.CheckBox chkShiny 
+            Caption         =   "Shiny"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   35
+            Top             =   3120
+            Width           =   975
+         End
+         Begin VB.ComboBox cmbNature 
+            Height          =   315
+            Left            =   240
+            TabIndex        =   33
+            Text            =   "Combo1"
+            Top             =   2760
+            Width           =   2535
+         End
+         Begin VB.ComboBox cmbItem 
+            Height          =   315
+            Left            =   2880
+            TabIndex        =   32
+            Text            =   "Combo1"
+            Top             =   3120
+            Width           =   2415
+         End
+         Begin VB.TextBox txtFind 
+            Height          =   285
+            Left            =   1080
+            TabIndex        =   30
+            Top             =   1440
+            Width           =   1695
+         End
          Begin VB.ComboBox cmbMoveset 
             Height          =   315
             Left            =   3480
             Style           =   2  'Dropdown List
-            TabIndex        =   25
-            Top             =   2880
-            Width           =   1815
-         End
-         Begin VB.CommandButton cmdFindMove 
-            Caption         =   "Find"
-            Height          =   255
-            Left            =   4560
             TabIndex        =   24
             Top             =   2520
-            Width           =   735
+            Width           =   1815
          End
          Begin VB.TextBox txtFindMoveset 
             Height          =   285
-            Left            =   2880
+            Left            =   3480
             TabIndex        =   23
-            Top             =   2520
-            Width           =   1575
+            Top             =   2280
+            Width           =   1815
          End
          Begin VB.TextBox txtLevel 
             Height          =   285
@@ -89,7 +154,7 @@ Begin VB.Form frmEditor_Npc
             Height          =   840
             Left            =   2880
             TabIndex        =   20
-            Top             =   1560
+            Top             =   1440
             Width           =   2415
          End
          Begin VB.ComboBox cmbPokeNum 
@@ -107,12 +172,28 @@ Begin VB.Form frmEditor_Npc
             Top             =   360
             Width           =   5055
          End
+         Begin VB.Label Label9 
+            Caption         =   "Nature"
+            Height          =   255
+            Left            =   960
+            TabIndex        =   34
+            Top             =   2520
+            Width           =   615
+         End
+         Begin VB.Label Label8 
+            Caption         =   "Item"
+            Height          =   255
+            Left            =   2880
+            TabIndex        =   31
+            Top             =   2880
+            Width           =   615
+         End
          Begin VB.Label Label6 
             Caption         =   "Move"
             Height          =   255
             Left            =   2880
-            TabIndex        =   26
-            Top             =   2880
+            TabIndex        =   25
+            Top             =   2400
             Width           =   855
          End
          Begin VB.Label Label5 
@@ -188,21 +269,29 @@ Begin VB.Form frmEditor_Npc
          Top             =   360
          Width           =   3855
       End
+      Begin VB.Label Label10 
+         Caption         =   "Exp:"
+         Height          =   255
+         Left            =   1560
+         TabIndex        =   38
+         Top             =   6360
+         Width           =   495
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Money:"
+         Height          =   255
+         Left            =   1320
+         TabIndex        =   37
+         Top             =   6120
+         Width           =   735
+      End
       Begin VB.Label lblWinConvo 
          Caption         =   "Win Convo:"
          Height          =   255
          Left            =   240
-         TabIndex        =   29
-         Top             =   6360
+         TabIndex        =   27
+         Top             =   6600
          Width           =   5535
-      End
-      Begin VB.Label Label7 
-         Caption         =   "Reward Money / EXP:"
-         Height          =   255
-         Left            =   240
-         TabIndex        =   28
-         Top             =   6000
-         Width           =   1815
       End
       Begin VB.Label Label3 
          Caption         =   "Type:"
@@ -301,8 +390,34 @@ Option Explicit
 Private PokemonIndex As Long
 Private MoveIndex As Long
 
+Private Sub chkIv_Click()
+    If PokemonIndex = 0 Then Exit Sub
+    Npc(EditorIndex).PokemonIvFull(PokemonIndex) = chkIv
+    EditorChange = True
+End Sub
+
+Private Sub chkShiny_Click()
+    If PokemonIndex = 0 Then Exit Sub
+    Npc(EditorIndex).PokemonIsShiny(PokemonIndex) = chkShiny
+    EditorChange = True
+End Sub
+
 Private Sub cmbBehaviour_Click()
     Npc(EditorIndex).Behaviour = cmbBehaviour.ListIndex
+    EditorChange = True
+End Sub
+
+Private Sub cmbItem_Click()
+
+    If PokemonIndex = 0 Then Exit Sub
+    If cmbItem.ListIndex > 0 Then
+        If Item(cmbItem.ListIndex).NotEquipable = YES Then
+            MsgBox "O item selecionado não pode ser equipado por pokemon, altere no editor de item"
+            Exit Sub
+        End If
+    End If
+
+    Npc(EditorIndex).PokemonItem(PokemonIndex) = cmbItem.ListIndex
     EditorChange = True
 End Sub
 
@@ -323,6 +438,12 @@ Dim tmpIndex As Long
     EditorChange = True
 End Sub
 
+Private Sub cmbNature_Click()
+    If PokemonIndex = 0 Then Exit Sub
+    Npc(EditorIndex).PokemonNature(PokemonIndex) = cmbNature.ListIndex - 1
+    EditorChange = True
+End Sub
+
 Private Sub cmbPokeNum_Click()
 Dim tmpIndex As Long
 
@@ -337,38 +458,6 @@ Dim tmpIndex As Long
     End If
     lstPokemon.ListIndex = tmpIndex
     EditorChange = True
-End Sub
-
-Private Sub cmdFindMove_Click()
-Dim FindChar As String
-Dim clBound As Long, cuBound As Long
-Dim i As Long
-Dim ComboText As String
-Dim indexString As String
-Dim stringLength As Long
-
-    If Len(Trim$(txtFindMoveset.Text)) > 0 Then
-        FindChar = Trim$(txtFindMoveset.Text)
-        clBound = 0
-        cuBound = MAX_POKEMON_MOVE
-        
-        For i = clBound To cuBound
-            If cmbMoveset.List(i) <> "None" Then
-                ComboText = Trim$(cmbMoveset.List(i))
-                indexString = i & ": "
-                stringLength = Len(ComboText) - Len(indexString)
-                If stringLength >= 0 Then
-                    ComboText = Mid$(ComboText, Len(indexString) + 1, stringLength)
-                    If LCase(ComboText) = LCase(FindChar) Then
-                        cmbMoveset.ListIndex = i
-                        Exit Sub
-                    End If
-                End If
-            End If
-        Next
-        
-        MsgBox "Index not found", vbCritical
-    End If
 End Sub
 
 Private Sub cmdIndexSearch_Click()
@@ -412,6 +501,15 @@ Private Sub Form_Load()
     txtName.MaxLength = NAME_LENGTH
     scrlConvo.max = MAX_CONVERSATION
     scrlWinConvo.max = MAX_CONVERSATION
+    
+    txtFind.Text = "Digite um Nome ou ID..."
+    txtFind.ForeColor = vbGrayText ' Altera a cor do texto para cinza para indicar que é uma mensagem descritiva
+    
+    txtFindMoveset.Text = "Digite um Nome ou ID..."
+    txtFindMoveset.ForeColor = vbGrayText ' Altera a cor do texto para cinza para indicar que é uma mensagem descritiva
+    
+    txtFindItem.Text = "Digite um Nome ou ID..."
+    txtFindItem.ForeColor = vbGrayText ' Altera a cor do texto para cinza para indicar que é uma mensagem descritiva
 End Sub
 
 Private Sub lstIndex_Click()
@@ -436,6 +534,10 @@ Dim X As Byte
     
     cmbPokeNum.ListIndex = Npc(EditorIndex).PokemonNum(PokemonIndex)
     txtLevel.Text = Npc(EditorIndex).PokemonLevel(PokemonIndex)
+    cmbItem.ListIndex = Npc(EditorIndex).PokemonItem(PokemonIndex)
+    cmbNature.ListIndex = Npc(EditorIndex).PokemonNature(PokemonIndex) + 1
+    chkShiny = Npc(EditorIndex).PokemonIsShiny(PokemonIndex)
+    chkIv = Npc(EditorIndex).PokemonIvFull(PokemonIndex)
     lstMoveset.Clear
     For X = 1 To MAX_MOVESET
         If Npc(EditorIndex).PokemonMoveset(PokemonIndex, X) > 0 Then
@@ -476,6 +578,11 @@ Dim i As Long
     'CloseNpcEditor
 End Sub
 
+Private Sub optRebattle_Click(Index As Integer)
+    Npc(EditorIndex).Rebatle = Index
+    EditorChange = True
+End Sub
+
 Private Sub scrlConvo_Change()
     If scrlConvo.value > 0 Then
         lblConvo.Caption = "Conversation: " & Trim$(Conversation(scrlConvo.value).Name)
@@ -500,6 +607,168 @@ Private Sub scrlWinConvo_Change()
     End If
     Npc(EditorIndex).WinEvent = scrlWinConvo.value
     EditorChange = True
+End Sub
+
+Private Sub txtFind_Click()
+    txtFind.Text = ""
+    txtFind.ForeColor = vbWindowText ' Altera a cor do texto para preto para indicar que é uma mensagem descritiva
+End Sub
+
+Private Sub txtFind_LostFocus()
+    txtFind.Text = "Digite um Nome ou ID..."
+    txtFind.ForeColor = vbGrayText    ' Altera a cor do texto para cinza para indicar que é uma mensagem descritiva
+End Sub
+
+Private Sub txtFind_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+    
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_POKEMON
+    
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+    
+    ' Nome deste controle
+    If Not IsNumeric(txtFind) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtFind))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                ' Atribuição da estrutura em procura
+                If InStr(1, UCase$(Trim$(Pokemon(i).Name)), Find) > 0 Then
+                    ' Nome do controle a ser alterado
+                    cmbPokeNum.ListIndex = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        ' Nome deste controle
+        If txtFind > MAX_INDEX Then
+            ' Nome deste controle
+            txtFind = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtFind <= 0 Then
+            ' Nome deste controle
+            txtFind = 1
+        End If
+        ' Nome do controle a ser alterado & Nome deste controle
+        cmbPokeNum.ListIndex = txtFind
+    End If
+End Sub
+
+Private Sub txtFindItem_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+    
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_ITEM
+    
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+    
+    ' Nome deste controle
+    If Not IsNumeric(txtFindItem) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtFindItem))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                ' Atribuição da estrutura em procura
+                If InStr(1, UCase$(Trim$(Item(i).Name)), Find) > 0 Then
+                    ' Nome do controle a ser alterado
+                    cmbItem.ListIndex = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        ' Nome deste controle
+        If txtFindItem > MAX_INDEX Then
+            ' Nome deste controle
+            txtFindItem = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtFindItem <= 0 Then
+            ' Nome deste controle
+            txtFindItem = 1
+        End If
+        ' Nome do controle a ser alterado & Nome deste controle
+        cmbItem.ListIndex = txtFindItem
+    End If
+End Sub
+
+Private Sub txtFindItem_Click()
+    txtFindItem.Text = ""
+    txtFindItem.ForeColor = vbWindowText ' Altera a cor do texto para preto para indicar que é uma mensagem descritiva
+End Sub
+
+Private Sub txtFindItem_LostFocus()
+    txtFindItem.Text = "Digite um Nome ou ID..."
+    txtFindItem.ForeColor = vbGrayText    ' Altera a cor do texto para cinza para indicar que é uma mensagem descritiva
+End Sub
+
+Private Sub txtFindMoveset_Click()
+    txtFindMoveset.Text = ""
+    txtFindMoveset.ForeColor = vbWindowText ' Altera a cor do texto para preto para indicar que é uma mensagem descritiva
+End Sub
+
+Private Sub txtFindMoveset_LostFocus()
+    txtFindMoveset.Text = "Digite um Nome ou ID..."
+    txtFindMoveset.ForeColor = vbGrayText    ' Altera a cor do texto para cinza para indicar que é uma mensagem descritiva
+End Sub
+
+Private Sub txtFindMoveset_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+    
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_POKEMON_MOVE
+    
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+    
+    ' Nome deste controle
+    If Not IsNumeric(txtFindMoveset) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtFindMoveset))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                ' Atribuição da estrutura em procura
+                If InStr(1, UCase$(Trim$(PokemonMove(i).Name)), Find) > 0 Then
+                    ' Nome do controle a ser alterado
+                    cmbMoveset.ListIndex = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        ' Nome deste controle
+        If txtFindMoveset > MAX_INDEX Then
+            ' Nome deste controle
+            txtFindMoveset = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtFindMoveset <= 0 Then
+            ' Nome deste controle
+            txtFindMoveset = 1
+        End If
+        ' Nome do controle a ser alterado & Nome deste controle
+        cmbMoveset.ListIndex = txtFindMoveset
+    End If
 End Sub
 
 Private Sub txtLevel_Change()
