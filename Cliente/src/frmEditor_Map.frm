@@ -1310,6 +1310,8 @@ Private Sub scrlSpriteType_Change()
             lblSpriteType.Caption = "Sprite Type: Bike"
         Case TEMP_SPRITE_GROUP_SURF
             lblSpriteType.Caption = "Sprite Type: Surf"
+        Case TEMP_SPRITE_GROUP_MOUNT
+            lblSpriteType.Caption = "Sprite Type: Mount"
         Case Else
             lblSpriteType.Caption = "Sprite Type: None"
     End Select

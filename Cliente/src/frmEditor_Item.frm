@@ -5,7 +5,7 @@ Begin VB.Form frmEditor_Item
    ClientHeight    =   4260
    ClientLeft      =   150
    ClientTop       =   795
-   ClientWidth     =   9165
+   ClientWidth     =   9225
    ControlBox      =   0   'False
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
@@ -13,7 +13,7 @@ Begin VB.Form frmEditor_Item
    MinButton       =   0   'False
    ScaleHeight     =   284
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   611
+   ScaleWidth      =   615
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
    Begin VB.Frame Frame1 
@@ -396,7 +396,7 @@ Begin VB.Form frmEditor_Item
          Begin VB.HScrollBar scrlSpriteType 
             Height          =   255
             Left            =   2280
-            Max             =   3
+            Max             =   4
             TabIndex        =   29
             Top             =   720
             Width           =   3015
@@ -554,7 +554,7 @@ End Sub
 Private Sub cmbType_Click()
     Item(EditorIndex).Type = cmbType.ListIndex
     
-    If Item(EditorIndex).Type = ItemTypeEnum.Pokeball Then
+    If Item(EditorIndex).Type = ItemTypeEnum.PokeBall Then
         fraPokeball.Visible = True
     Else
         fraPokeball.Visible = False
@@ -686,6 +686,8 @@ Private Sub scrlSpriteType_Change()
             lblSpriteType.Caption = "Sprite Type: Bike"
         Case TEMP_SPRITE_GROUP_SURF
             lblSpriteType.Caption = "Sprite Type: Surf"
+        Case TEMP_SPRITE_GROUP_MOUNT
+            lblSpriteType.Caption = "Sprite Type: Mount"
         Case Else
             lblSpriteType.Caption = "Sprite Type: None"
     End Select

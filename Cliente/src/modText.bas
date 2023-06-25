@@ -549,36 +549,63 @@ Dim DrawX As Long
 End Sub
 
 Public Sub DrawPlayerName(ByVal Index As Long)
-Dim textX As Long, textY As Long
-Dim Color As Long, Name As String
-    
+    Dim textX As Long, textY As Long
+    Dim Color As Long, Name As String
+
     With Player(Index)
         '//Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .Y < TileView.top Or .Y > TileView.bottom Then Exit Sub
-    
+
         Name = Trim$(.Name) + " " + Trim$(.Level)
         Select Case .Access
-            Case ACCESS_MODERATOR
-                Color = BrightGreen
-            Case ACCESS_MAPPER
-                Color = BrightBlue
-            Case ACCESS_DEVELOPER
-                Color = BrightCyan
-            Case ACCESS_CREATOR
-                Color = BrightRed
-            Case Else
-                Color = Yellow
+        Case ACCESS_MODERATOR
+            Color = BrightGreen
+        Case ACCESS_MAPPER
+            Color = BrightBlue
+        Case ACCESS_DEVELOPER
+            Color = BrightCyan
+        Case ACCESS_CREATOR
+            Color = BrightRed
+        Case Else
+            Color = Yellow
         End Select
-            
-        '//calc pos
-        textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
-        If .Sprite < 1 Or .Sprite > Count_Character Then
-            textY = ConvertMapY(.Y * TILE_Y) + .yOffset
-        Else
-            textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 4)
-        End If
-        
+
+        Select Case .TempSprite
+        Case TEMP_SPRITE_GROUP_BIKE
+            '//calc pos
+            textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
+            If .Sprite < 1 Or .Sprite > Count_Character Then
+                textY = ConvertMapY(.Y * (TILE_Y)) + .yOffset
+            Else
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 4)
+            End If
+        Case TEMP_SPRITE_GROUP_DIVE
+            '//calc pos
+            textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
+            If .Sprite < 1 Or .Sprite > Count_Character Then
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset
+            Else
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 4)
+            End If
+        Case TEMP_SPRITE_GROUP_MOUNT
+            '//calc pos
+            textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
+            If .Sprite < 1 Or .Sprite > Count_Character Then
+                textY = ConvertMapY(.Y * (TILE_Y)) + .yOffset
+            Else
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 2.3)
+            End If
+        Case Else
+            '//calc pos
+            textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
+            If .Sprite < 1 Or .Sprite > Count_Character Then
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset
+            Else
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 4)
+            End If
+        End Select
+
         '//Draw name
         If .StealthMode = YES Then
             If Index = MyIndex Then

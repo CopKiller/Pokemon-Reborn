@@ -36,12 +36,13 @@ OK-Adicionar checkbox de Rebatle, pra caso perca e somente ao perder, poder luta
 OK-Reformulado código de Lose e Win do player contra NPC, centralizado em dois métodos(PlayerLoseToNpc, PlayerWinToNpc)
 OK-Adicionar mecanica pra implementação de ao derrotar um NPC, não poder batalhar com ele nunca mais.
 OK-Adicionar o find no item do editor de npc do pokemon dele.
+OK-Base do sistema de montarias c/ pokemon exemplo.
 
 -Adicionar uma opção de spawn no NPC, escolhendo um dia da semana pra ele aparecer, e ao passar esse dia, despawnar.
 
 -Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
 
--Melhorias na Pokedex.
+//-Melhorias na Pokedex.
 
 //-Adicionar mais duas descrição de item, pra que seja 3 descrições, um pra cada linguagem.
 

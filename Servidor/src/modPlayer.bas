@@ -552,6 +552,8 @@ Public Sub JoinGame(ByVal Index As Long, Optional ByVal CurLanguage As Byte = 0)
     '//Exit out if already playing
     If TempPlayer(Index).InGame Then Exit Sub
 
+    frmServer.lvwInfo.ListItems(Index).SubItems(1) = GetPlayerIP(Index)
+    frmServer.lvwInfo.ListItems(Index).SubItems(2) = GetPlayerLogin(Index)
     frmServer.lvwInfo.ListItems(Index).SubItems(3) = Player(Index, TempPlayer(Index).UseChar).Name
 
     '//Check if staff only
@@ -2531,32 +2533,44 @@ End Sub
 Public Sub ChangeTempSprite(ByVal Index As Long, ByVal TempSprite As Byte, Optional ByVal Forced As Boolean = False)
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
-    
+
     Select Case TempSprite
-        Case TEMP_SPRITE_GROUP_NONE
-            If Forced Then
-                Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
-            Else
-                If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE Then
+    Case TEMP_SPRITE_GROUP_NONE
+        If Forced Then
+            Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
+        Else
+            If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE Then
+                If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_MOUNT Then
                     Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
                 End If
             End If
-        Case TEMP_SPRITE_GROUP_DIVE
-            Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_DIVE
-        Case TEMP_SPRITE_GROUP_BIKE
-            If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_DIVE Then
-                If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE Then
-                    Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE
+        End If
+    Case TEMP_SPRITE_GROUP_DIVE
+        Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_DIVE
+    Case TEMP_SPRITE_GROUP_BIKE
+        If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_DIVE Then
+            If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE Then
+                Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE
+            Else
+                Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
+            End If
+        End If
+    Case TEMP_SPRITE_GROUP_MOUNT
+        If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_DIVE Then
+            If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE Then
+                If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_MOUNT Then
+                    Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_MOUNT
                 Else
                     Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
                 End If
             End If
+        End If
         'Case TEMP_SPRITE_GROUP_SURF
-            
-        Case Else
-            Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
+
+    Case Else
+        Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
     End Select
-    
+
     SendPlayerData Index
 End Sub
 

@@ -63,6 +63,7 @@ Public Tex_Character() As Long
 Public Tex_PlayerSprite_N() As Long
 Public Tex_PlayerSprite_D() As Long
 Public Tex_PlayerSprite_B() As Long
+Public Tex_PlayerSprite_M() As Long
 Public Tex_Tileset() As Long
 Public Tex_MapAnim() As Long
 Public Tex_Pokemon() As Long
@@ -85,6 +86,7 @@ Public Count_Character As Long
 Public Count_PlayerSprite_N As Long
 Public Count_PlayerSprite_D As Long
 Public Count_PlayerSprite_B As Long
+Public Count_PlayerSprite_M As Long
 Public Count_Tileset As Long
 Public Count_MapAnim As Long
 Public Count_Pokemon As Long
@@ -592,6 +594,23 @@ Dim TextureName As String
         '//Set the path range to GlobalTexture
         For i = 1 To Count_PlayerSprite_B
             Tex_PlayerSprite_B(i) = SetTexturePath(App.Path & PlayerSprite_Path & i & "_b" & GFX_EXT)
+        Next
+    End If
+    '//Let's start counting at 1
+    Count_PlayerSprite_M = 1
+    Do While FileExist(App.Path & PlayerSprite_Path & Count_PlayerSprite_M & "_m" & GFX_EXT)
+        '//If file exist, let's check the other count
+        Count_PlayerSprite_M = Count_PlayerSprite_M + 1
+    Loop
+    '//If it reach at this point, it means that the file on the certain count is missing so we must remove it
+    Count_PlayerSprite_M = Count_PlayerSprite_M - 1
+    '//Make sure that we have texture to set
+    If Count_PlayerSprite_M > 0 Then
+        '//Set texture range
+        ReDim Tex_PlayerSprite_M(1 To Count_PlayerSprite_M)
+        '//Set the path range to GlobalTexture
+        For i = 1 To Count_PlayerSprite_M
+            Tex_PlayerSprite_M(i) = SetTexturePath(App.Path & PlayerSprite_Path & i & "_m" & GFX_EXT)
         Next
     End If
     
@@ -1820,6 +1839,12 @@ Dim DrawAlpha As Long
                 '//Check sprite size
                 oWidth = GetPicWidth(Tex_PlayerSprite_D(Sprite)) / 3
                 oHeight = GetPicHeight(Tex_PlayerSprite_D(Sprite)) / 4
+            Case TEMP_SPRITE_GROUP_MOUNT
+                '//Empty sprite? then exit out
+                If Sprite <= 0 Or Sprite > Count_PlayerSprite_M Then Exit Sub
+                '//Check sprite size
+                oWidth = GetPicWidth(Tex_PlayerSprite_M(Sprite)) / 3
+                oHeight = GetPicHeight(Tex_PlayerSprite_M(Sprite)) / 4
             Case Else
                 '//Empty sprite? then exit out
                 If Sprite <= 0 Or Sprite > Count_PlayerSprite_N Then Exit Sub
@@ -1872,6 +1897,7 @@ Dim DrawAlpha As Long
         Select Case .TempSprite
             Case TEMP_SPRITE_GROUP_BIKE: RenderTexture Tex_PlayerSprite_B(Sprite), ConvertMapX(X), ConvertMapY(Y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
             Case TEMP_SPRITE_GROUP_DIVE: RenderTexture Tex_PlayerSprite_D(Sprite), ConvertMapX(X), ConvertMapY(Y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            Case TEMP_SPRITE_GROUP_MOUNT: RenderTexture Tex_PlayerSprite_M(Sprite), ConvertMapX(X), ConvertMapY(Y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
             Case Else: RenderTexture Tex_PlayerSprite_N(Sprite), ConvertMapX(X), ConvertMapY(Y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
         End Select
     End With

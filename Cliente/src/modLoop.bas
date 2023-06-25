@@ -404,6 +404,8 @@ Dim MovementSpeed As Long
                 MovementSpeed = 2
             Else
                 If .TempSprite = TEMP_SPRITE_GROUP_BIKE Then
+                    MovementSpeed = 8
+                ElseIf .TempSprite = TEMP_SPRITE_GROUP_MOUNT Then
                     MovementSpeed = 10
                 Else
                     MovementSpeed = 6 '//TEMP
