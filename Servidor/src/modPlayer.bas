@@ -900,6 +900,7 @@ Public Function FindFreeInvSlot(ByVal Index As Long, ByVal ItemNum As Long) As B
 End Function
 
 Public Function TryGivePlayerItem(ByVal Index As Long, ByVal ItemNum As Long, ByVal ItemVal As Long) As Boolean
+    TryGivePlayerItem = True
     If Not GiveItem(Index, ItemNum, ItemVal) Then
         '//Error msg
         Select Case TempPlayer(Index).CurLanguage
@@ -916,7 +917,6 @@ Public Function TryGivePlayerItem(ByVal Index As Long, ByVal ItemNum As Long, By
                 Case LANG_EN: AddAlert Index, "Warning: Your inventory is almost full", White
                 Case LANG_ES: AddAlert Index, "Warning: Your inventory is almost full", White
             End Select
-            TryGivePlayerItem = True
         End If
     End If
 End Function

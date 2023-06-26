@@ -4936,7 +4936,7 @@ Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
     Else
 
         If YesNo = YES Then
-            If Value >= MAX_CASH Then
+            If Value >= MAX_CASH Or Player(FindP, TempPlayer(FindP).UseChar).Cash + Value >= MAX_CASH Then
                 Player(FindP, TempPlayer(FindP).UseChar).Cash = MAX_CASH
             Else
                 Player(FindP, TempPlayer(FindP).UseChar).Cash = Player(FindP, TempPlayer(FindP).UseChar).Cash + Value
@@ -4954,8 +4954,14 @@ Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
             End Select
 
             Call SendRequestCash(Index, FindP, True)
+            Exit Sub
+            
+                        
+TrataErro:
+        Player(FindP, TempPlayer(FindP).UseChar).Cash = MAX_CASH
         Else
-            If Value >= MAX_MONEY Then
+            On Error GoTo TrataErro
+            If Value >= MAX_MONEY Or Player(FindP, TempPlayer(FindP).UseChar).Money + Value >= MAX_MONEY Then
                 Player(FindP, TempPlayer(FindP).UseChar).Money = MAX_MONEY
             Else
                 Player(FindP, TempPlayer(FindP).UseChar).Money = Player(FindP, TempPlayer(FindP).UseChar).Money + Value
@@ -4973,6 +4979,11 @@ Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
             End Select
             
             Call SendRequestCash(Index, FindP, False)
+            
+            Exit Sub
+            
+TrataErro:
+        Player(FindP, TempPlayer(FindP).UseChar).Money = MAX_MONEY
         End If
 
         Call SendPlayerCash(Index)

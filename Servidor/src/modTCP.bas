@@ -97,7 +97,7 @@ Dim count As Long
 End Sub
 
 Private Sub SocketConnected(ByVal Index As Long)
-Dim i As Long, x As Long
+Dim i As Long, X As Long
 
     If Not Index = 0 Then
         ' make sure they're not banned from ip
@@ -270,7 +270,7 @@ Dim i As Long
         buffer.WriteLong .Sprite
         buffer.WriteByte .Access
         buffer.WriteLong .Map
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
         buffer.WriteLong .CurHp
@@ -349,7 +349,7 @@ End Sub
 
 Public Sub Create_MapCache(ByVal MapNum As Long)
 Dim buffer As clsBuffer
-Dim x As Long, Y As Long
+Dim X As Long, Y As Long
 Dim i As Long, a As Byte
 
     Set buffer = New clsBuffer
@@ -368,9 +368,9 @@ Dim i As Long, a As Byte
     End With
     
     '//Tiles
-    For x = 0 To Map(MapNum).MaxX
+    For X = 0 To Map(MapNum).MaxX
         For Y = 0 To Map(MapNum).MaxY
-            With Map(MapNum).Tile(x, Y)
+            With Map(MapNum).Tile(X, Y)
                 '//Layer
                 For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                     For a = MapLayerType.Normal To MapLayerType.Animated
@@ -484,7 +484,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong SPlayerMove
     buffer.WriteLong Index
     With Player(Index, TempPlayer(Index).UseChar)
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
         
@@ -504,7 +504,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong SPlayerXY
     buffer.WriteLong Index
     With Player(Index, TempPlayer(Index).UseChar)
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         
         If Not sendToSelf Then
@@ -599,7 +599,7 @@ Dim i As Long
             buffer.WriteLong .Num
             
             '//Location
-            buffer.WriteLong .x
+            buffer.WriteLong .X
             buffer.WriteLong .Y
             buffer.WriteByte .Dir
         End With
@@ -623,7 +623,7 @@ Dim buffer As clsBuffer
         buffer.WriteLong .Num
         
         '//Location
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
     End With
@@ -638,7 +638,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong SNpcMove
     buffer.WriteLong MapNpcNum
     With MapNpc(MapNum, MapNpcNum)
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
     End With
@@ -672,7 +672,7 @@ Dim buffer As clsBuffer
         
         '//Location
         buffer.WriteLong .Map
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
         
@@ -726,7 +726,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong SPokemonMove
     buffer.WriteLong MapPokeNum
     With MapPokemon(MapPokeNum)
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
         SendDataToMap .Map, buffer.ToArray()
@@ -761,7 +761,7 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
-Public Sub SendChatbubble(ByVal MapNum As Long, ByVal Target As Long, ByVal targetType As Byte, ByVal Msg As String, ByVal Colour As Long, Optional ByVal x As Long = -1, Optional ByVal Y As Long = -1, Optional ByVal ToIndex As Long = 0)
+Public Sub SendChatbubble(ByVal MapNum As Long, ByVal Target As Long, ByVal targetType As Byte, ByVal Msg As String, ByVal Colour As Long, Optional ByVal X As Long = -1, Optional ByVal Y As Long = -1, Optional ByVal ToIndex As Long = 0)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
@@ -770,7 +770,7 @@ Dim buffer As clsBuffer
     buffer.WriteByte targetType
     buffer.WriteString Msg
     buffer.WriteLong Colour
-    buffer.WriteLong x
+    buffer.WriteLong X
     buffer.WriteLong Y
     If ToIndex > 0 Then
         SendDataTo ToIndex, buffer.ToArray()
@@ -791,7 +791,7 @@ Dim i As Long
         buffer.WriteByte Init
         buffer.WriteByte InitState
         buffer.WriteLong .Num
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
         buffer.WriteByte .slot
@@ -845,7 +845,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong SPlayerPokemonMove
     buffer.WriteLong Index
     With PlayerPokemon(Index)
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
         
@@ -867,7 +867,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong SPlayerPokemonXY
     buffer.WriteLong Index
     With PlayerPokemon(Index)
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         
         If Not sendToSelf Then
@@ -977,7 +977,7 @@ End Sub
 
 Public Sub SendPlayerPokemons(ByVal Index As Long)
 Dim buffer As clsBuffer
-Dim i As Byte, x As Byte
+Dim i As Byte, X As Byte
 
     Set buffer = New clsBuffer
     buffer.WriteLong SPlayerPokemons
@@ -987,10 +987,10 @@ Dim i As Byte, x As Byte
             
             buffer.WriteByte .Data(i).Level
         
-            For x = 1 To StatEnum.Stat_Count - 1
-                buffer.WriteLong .Data(i).Stat(x).Value
-                buffer.WriteLong .Data(i).Stat(x).IV
-                buffer.WriteLong .Data(i).Stat(x).EV
+            For X = 1 To StatEnum.Stat_Count - 1
+                buffer.WriteLong .Data(i).Stat(X).Value
+                buffer.WriteLong .Data(i).Stat(X).IV
+                buffer.WriteLong .Data(i).Stat(X).EV
             Next
             
             '//Vital
@@ -1021,10 +1021,10 @@ Dim i As Byte, x As Byte
             End If
             
             '//Moveset
-            For x = 1 To MAX_MOVESET
-                buffer.WriteLong .Data(i).Moveset(x).Num
-                buffer.WriteByte .Data(i).Moveset(x).CurPP
-                buffer.WriteByte .Data(i).Moveset(x).TotalPP
+            For X = 1 To MAX_MOVESET
+                buffer.WriteLong .Data(i).Moveset(X).Num
+                buffer.WriteByte .Data(i).Moveset(X).CurPP
+                buffer.WriteByte .Data(i).Moveset(X).TotalPP
             Next
             
             '//Ball Used
@@ -1038,7 +1038,7 @@ Dim i As Byte, x As Byte
 End Sub
 
 Public Sub SendPlayerPokemonSlot(ByVal Index As Long, ByVal slot As Byte)
-Dim buffer As clsBuffer, x As Byte
+Dim buffer As clsBuffer, X As Byte
 
     Set buffer = New clsBuffer
     buffer.WriteLong SPlayerPokemonSlot
@@ -1048,10 +1048,10 @@ Dim buffer As clsBuffer, x As Byte
         
         buffer.WriteByte .Data(slot).Level
         
-        For x = 1 To StatEnum.Stat_Count - 1
-            buffer.WriteLong .Data(slot).Stat(x).Value
-            buffer.WriteLong .Data(slot).Stat(x).IV
-            buffer.WriteLong .Data(slot).Stat(x).EV
+        For X = 1 To StatEnum.Stat_Count - 1
+            buffer.WriteLong .Data(slot).Stat(X).Value
+            buffer.WriteLong .Data(slot).Stat(X).IV
+            buffer.WriteLong .Data(slot).Stat(X).EV
         Next
         
         '//Vital
@@ -1082,10 +1082,10 @@ Dim buffer As clsBuffer, x As Byte
         End If
         
         '//Moveset
-        For x = 1 To MAX_MOVESET
-            buffer.WriteLong .Data(slot).Moveset(x).Num
-            buffer.WriteByte .Data(slot).Moveset(x).CurPP
-            buffer.WriteByte .Data(slot).Moveset(x).TotalPP
+        For X = 1 To MAX_MOVESET
+            buffer.WriteLong .Data(slot).Moveset(X).Num
+            buffer.WriteByte .Data(slot).Moveset(X).CurPP
+            buffer.WriteByte .Data(slot).Moveset(X).TotalPP
         Next
         
         '//Ball Used
@@ -1097,14 +1097,14 @@ Dim buffer As clsBuffer, x As Byte
     Set buffer = Nothing
 End Sub
 
-Public Sub SendActionMsg(ByVal MapNum As Long, ByVal Msg As String, ByVal x As Long, ByVal Y As Long, ByVal Color As Long)
+Public Sub SendActionMsg(ByVal MapNum As Long, ByVal Msg As String, ByVal X As Long, ByVal Y As Long, ByVal Color As Long)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong SActionMsg
     buffer.WriteString Msg
     buffer.WriteLong Color
-    buffer.WriteLong x
+    buffer.WriteLong X
     buffer.WriteLong Y
     SendDataToMap MapNum, buffer.ToArray()
     Set buffer = Nothing
@@ -1120,13 +1120,13 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
-Public Sub SendPlayAnimation(ByVal MapNum As Long, ByVal Anim As Long, ByVal x As Long, ByVal Y As Long, Optional ByVal OnlyTo As Long = 0)
+Public Sub SendPlayAnimation(ByVal MapNum As Long, ByVal Anim As Long, ByVal X As Long, ByVal Y As Long, Optional ByVal OnlyTo As Long = 0)
 Dim buffer As clsBuffer
     
     Set buffer = New clsBuffer
     buffer.WriteLong SPlayAnimation
     buffer.WriteLong Anim
-    buffer.WriteLong x
+    buffer.WriteLong X
     buffer.WriteLong Y
     If OnlyTo > 0 Then
         SendDataTo OnlyTo, buffer.ToArray
@@ -1169,13 +1169,13 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
-Public Sub SendMapPokemonCatchState(ByVal MapNum As Long, ByVal PokeSlot As Long, ByVal x As Long, ByVal Y As Long, ByVal catchState As Byte, ByVal Pic As Byte)
+Public Sub SendMapPokemonCatchState(ByVal MapNum As Long, ByVal PokeSlot As Long, ByVal X As Long, ByVal Y As Long, ByVal catchState As Byte, ByVal Pic As Byte)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong SMapPokemonCatchState
     buffer.WriteLong PokeSlot
-    buffer.WriteLong x
+    buffer.WriteLong X
     buffer.WriteLong Y
     buffer.WriteByte catchState
     buffer.WriteByte Pic
@@ -1199,16 +1199,16 @@ End Sub
 
 Public Sub SendPlayerInvStorage(ByVal Index As Long)
 Dim buffer As clsBuffer
-Dim x As Byte, Y As Byte
+Dim X As Byte, Y As Byte
 
     Set buffer = New clsBuffer
     buffer.WriteLong SPlayerInvStorage
     With PlayerInvStorage(Index)
-        For x = 1 To MAX_STORAGE_SLOT
-            buffer.WriteByte .slot(x).Unlocked
+        For X = 1 To MAX_STORAGE_SLOT
+            buffer.WriteByte .slot(X).Unlocked
             For Y = 1 To MAX_STORAGE
-                buffer.WriteLong .slot(x).Data(Y).Num
-                buffer.WriteLong .slot(x).Data(Y).Value
+                buffer.WriteLong .slot(X).Data(Y).Num
+                buffer.WriteLong .slot(X).Data(Y).Value
             Next
         Next
     End With
@@ -1233,63 +1233,63 @@ End Sub
 
 Public Sub SendPlayerPokemonStorage(ByVal Index As Long)
 Dim buffer As clsBuffer
-Dim x As Byte, Y As Byte, z As Byte
+Dim X As Byte, Y As Byte, z As Byte
 
     Set buffer = New clsBuffer
     buffer.WriteLong SPlayerPokemonStorage
     With PlayerPokemonStorage(Index)
-        For x = 1 To MAX_STORAGE_SLOT
-            buffer.WriteByte .slot(x).Unlocked
+        For X = 1 To MAX_STORAGE_SLOT
+            buffer.WriteByte .slot(X).Unlocked
             For Y = 1 To MAX_STORAGE
-                buffer.WriteLong .slot(x).Data(Y).Num
+                buffer.WriteLong .slot(X).Data(Y).Num
                 
                 '//Stats
-                buffer.WriteByte .slot(x).Data(Y).Level
+                buffer.WriteByte .slot(X).Data(Y).Level
                 For z = 1 To StatEnum.Stat_Count - 1
-                    buffer.WriteLong .slot(x).Data(Y).Stat(z).Value
-                    buffer.WriteLong .slot(x).Data(Y).Stat(z).IV
-                    buffer.WriteLong .slot(x).Data(Y).Stat(z).EV
+                    buffer.WriteLong .slot(X).Data(Y).Stat(z).Value
+                    buffer.WriteLong .slot(X).Data(Y).Stat(z).IV
+                    buffer.WriteLong .slot(X).Data(Y).Stat(z).EV
                 Next
                 
                 '//Vital
-                buffer.WriteLong .slot(x).Data(Y).CurHp
-                buffer.WriteLong .slot(x).Data(Y).MaxHp
+                buffer.WriteLong .slot(X).Data(Y).CurHp
+                buffer.WriteLong .slot(X).Data(Y).MaxHp
                 
                 '//Nature
-                buffer.WriteByte .slot(x).Data(Y).Nature
+                buffer.WriteByte .slot(X).Data(Y).Nature
                 
                 '//Shiny
-                buffer.WriteByte .slot(x).Data(Y).IsShiny
+                buffer.WriteByte .slot(X).Data(Y).IsShiny
                 
                 '//Happiness
-                buffer.WriteByte .slot(x).Data(Y).Happiness
+                buffer.WriteByte .slot(X).Data(Y).Happiness
                 
                 '//Gender
-                buffer.WriteByte .slot(x).Data(Y).Gender
+                buffer.WriteByte .slot(X).Data(Y).Gender
                 
                 '//Status
-                buffer.WriteByte .slot(x).Data(Y).Status
+                buffer.WriteByte .slot(X).Data(Y).Status
                 
                 '//Exp
-                buffer.WriteLong .slot(x).Data(Y).CurExp
-                If .slot(x).Data(Y).Num > 0 Then
-                    buffer.WriteLong GetPokemonNextExp(.slot(x).Data(Y).Level, Pokemon(.slot(x).Data(Y).Num).GrowthRate)
+                buffer.WriteLong .slot(X).Data(Y).CurExp
+                If .slot(X).Data(Y).Num > 0 Then
+                    buffer.WriteLong GetPokemonNextExp(.slot(X).Data(Y).Level, Pokemon(.slot(X).Data(Y).Num).GrowthRate)
                 Else
                     buffer.WriteLong 0
                 End If
                 
                 '//Moveset
                 For z = 1 To MAX_MOVESET
-                    buffer.WriteLong .slot(x).Data(Y).Moveset(z).Num
-                    buffer.WriteLong .slot(x).Data(Y).Moveset(z).CurPP
-                    buffer.WriteLong .slot(x).Data(Y).Moveset(z).TotalPP
+                    buffer.WriteLong .slot(X).Data(Y).Moveset(z).Num
+                    buffer.WriteLong .slot(X).Data(Y).Moveset(z).CurPP
+                    buffer.WriteLong .slot(X).Data(Y).Moveset(z).TotalPP
                 Next
                 
                 '//Ball Used
-                buffer.WriteByte .slot(x).Data(Y).BallUsed
+                buffer.WriteByte .slot(X).Data(Y).BallUsed
                 
                 '//Held Item
-                buffer.WriteLong .slot(x).Data(Y).HeldItem
+                buffer.WriteLong .slot(X).Data(Y).HeldItem
             Next
         Next
     End With
@@ -1299,7 +1299,7 @@ End Sub
 
 Public Sub SendPlayerPokemonStorageSlot(ByVal Index As Long, ByVal slot As Byte, ByVal Data As Byte)
 Dim buffer As clsBuffer
-Dim x As Byte
+Dim X As Byte
 
     Set buffer = New clsBuffer
     buffer.WriteLong SPlayerPokemonStorageSlot
@@ -1310,10 +1310,10 @@ Dim x As Byte
                 
         '//Stats
         buffer.WriteByte .slot(slot).Data(Data).Level
-        For x = 1 To StatEnum.Stat_Count - 1
-            buffer.WriteLong .slot(slot).Data(Data).Stat(x).Value
-            buffer.WriteLong .slot(slot).Data(Data).Stat(x).IV
-            buffer.WriteLong .slot(slot).Data(Data).Stat(x).EV
+        For X = 1 To StatEnum.Stat_Count - 1
+            buffer.WriteLong .slot(slot).Data(Data).Stat(X).Value
+            buffer.WriteLong .slot(slot).Data(Data).Stat(X).IV
+            buffer.WriteLong .slot(slot).Data(Data).Stat(X).EV
         Next
                 
         '//Vital
@@ -1344,10 +1344,10 @@ Dim x As Byte
         End If
                 
         '//Moveset
-        For x = 1 To MAX_MOVESET
-            buffer.WriteLong .slot(slot).Data(Data).Moveset(x).Num
-            buffer.WriteLong .slot(slot).Data(Data).Moveset(x).CurPP
-            buffer.WriteLong .slot(slot).Data(Data).Moveset(x).TotalPP
+        For X = 1 To MAX_MOVESET
+            buffer.WriteLong .slot(slot).Data(Data).Moveset(X).Num
+            buffer.WriteLong .slot(slot).Data(Data).Moveset(X).CurPP
+            buffer.WriteLong .slot(slot).Data(Data).Moveset(X).TotalPP
         Next
                 
         '//Ball Used
@@ -1442,7 +1442,7 @@ Dim buffer As clsBuffer
 End Sub
 
 Public Sub SendUpdateTradeItem(ByVal Index As Long, ByVal tradeIndex As Long, ByVal TradeSlot As Byte)
-Dim buffer As clsBuffer, x As Byte
+Dim buffer As clsBuffer, X As Byte
 
     If TradeSlot <= 0 Or TradeSlot > MAX_TRADE Then Exit Sub
     
@@ -1462,10 +1462,10 @@ Dim buffer As clsBuffer, x As Byte
         
         buffer.WriteByte .Level
         
-        For x = 1 To StatEnum.Stat_Count - 1
-            buffer.WriteLong .Stat(x)
-            buffer.WriteLong .StatIV(x)
-            buffer.WriteLong .StatEV(x)
+        For X = 1 To StatEnum.Stat_Count - 1
+            buffer.WriteLong .Stat(X)
+            buffer.WriteLong .StatIV(X)
+            buffer.WriteLong .StatEV(X)
         Next
         
         '//Vital
@@ -1492,10 +1492,10 @@ Dim buffer As clsBuffer, x As Byte
         buffer.WriteLong .nextExp
         
         '//Moveset
-        For x = 1 To MAX_MOVESET
-            buffer.WriteLong .Moveset(x).Num
-            buffer.WriteByte .Moveset(x).CurPP
-            buffer.WriteByte .Moveset(x).TotalPP
+        For X = 1 To MAX_MOVESET
+            buffer.WriteLong .Moveset(X).Num
+            buffer.WriteByte .Moveset(X).CurPP
+            buffer.WriteByte .Moveset(X).TotalPP
         Next
         
         '//Ball Used
@@ -1639,15 +1639,15 @@ End Sub
 
 Public Sub SendPlayerPokemonsStat(ByVal Index As Long, ByVal slot As Byte)
 Dim buffer As clsBuffer
-Dim x As Byte
+Dim X As Byte
 
     Set buffer = New clsBuffer
     buffer.WriteLong SPlayerPokemonsStat
     buffer.WriteByte slot
-    For x = 1 To StatEnum.Stat_Count - 1
-        buffer.WriteLong PlayerPokemons(Index).Data(slot).Stat(x).Value
-        buffer.WriteLong PlayerPokemons(Index).Data(slot).Stat(x).IV
-        buffer.WriteLong PlayerPokemons(Index).Data(slot).Stat(x).EV
+    For X = 1 To StatEnum.Stat_Count - 1
+        buffer.WriteLong PlayerPokemons(Index).Data(slot).Stat(X).Value
+        buffer.WriteLong PlayerPokemons(Index).Data(slot).Stat(X).IV
+        buffer.WriteLong PlayerPokemons(Index).Data(slot).Stat(X).EV
     Next
     SendDataTo Index, buffer.ToArray()
     Set buffer = Nothing
@@ -1655,15 +1655,15 @@ End Sub
 
 Public Sub SendPlayerPokemonStatBuff(ByVal Index As Long)
 Dim buffer As clsBuffer
-Dim x As Byte
+Dim X As Byte
 
     If PlayerPokemon(Index).Num <= 0 Then Exit Sub
     If PlayerPokemon(Index).slot <= 0 Then Exit Sub
     
     Set buffer = New clsBuffer
     buffer.WriteLong SPlayerPokemonStatBuff
-    For x = 1 To StatEnum.Stat_Count - 1
-        buffer.WriteLong PlayerPokemon(Index).StatBuff(x)
+    For X = 1 To StatEnum.Stat_Count - 1
+        buffer.WriteLong PlayerPokemon(Index).StatBuff(X)
     Next
     SendDataTo Index, buffer.ToArray()
     Set buffer = Nothing
@@ -1720,7 +1720,7 @@ Dim buffer As clsBuffer
         buffer.WriteLong .Num
         
         '//Location
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
         
@@ -1760,7 +1760,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong SNpcPokemonMove
     buffer.WriteLong NpcIndex
     With MapNpcPokemon(MapNum, NpcIndex)
-        buffer.WriteLong .x
+        buffer.WriteLong .X
         buffer.WriteLong .Y
         buffer.WriteByte .Dir
         SendDataToMap MapNum, buffer.ToArray()
@@ -2343,6 +2343,7 @@ Public Sub SendClientTimeTo(ByVal Index As Long)
     buffer.WriteByte GameHour
     buffer.WriteByte GameMinute
     buffer.WriteByte GameSecs
+    buffer.WriteByte GameSecs_Velocity
     SendDataTo Index, buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -2356,6 +2357,7 @@ Public Sub SendClientTimeToAll()
     buffer.WriteByte GameHour
     buffer.WriteByte GameMinute
     buffer.WriteByte GameSecs
+    buffer.WriteByte GameSecs_Velocity
     SendDataToAll buffer.ToArray()
     Set buffer = Nothing
 End Sub
