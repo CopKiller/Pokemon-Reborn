@@ -661,15 +661,15 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As
                                             DidClick = True
                                             Exit For
                                         End If
-                                    Case GuiEnum.GUI_SLOTMACHINE
-                                        'If Not DidClick Then
-                                        'SlotMachineMouseDown Buttons, Shift, X, Y
-                                        'DidClick = True
-                                        ' Exit For
-                                        'End If
                                     Case GuiEnum.GUI_RANK
                                         If Not DidClick Then
                                             RankMouseDown Buttons, Shift, X, Y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_LOJAVIRTUAL
+                                        If Not DidClick Then
+                                            LojaVirtualMouseDown Buttons, Shift, X, Y
                                             DidClick = True
                                             Exit For
                                         End If
@@ -841,10 +841,10 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As
                                     If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                         PreventAction = True
                                     End If
-                                Case ButtonEnum.Game_Task
-                                    'If GUI(GuiEnum.GUI_RANK).Visible Then
-                                    '    PreventAction = True
-                                    'End If
+                                Case ButtonEnum.Game_LojaVirtual
+                                    If GUI(GuiEnum.GUI_LOJAVIRTUAL).Visible Then
+                                        PreventAction = True
+                                    End If
                                 Case ButtonEnum.Game_Rank
                                     If GUI(GuiEnum.GUI_RANK).Visible Then
                                         PreventAction = True
@@ -1006,8 +1006,8 @@ Dim PreventAction As Boolean
                             Case GuiEnum.GUI_POKEMONSUMMARY:    PokemonSummaryMouseMove Buttons, Shift, X, Y
                             Case GuiEnum.GUI_RELEARN:           RelearnMouseMove Buttons, Shift, X, Y
                             Case GuiEnum.GUI_BADGE:             BadgeMouseMove Buttons, Shift, X, Y
-                            'Case GuiEnum.GUI_SLOTMACHINE:       SlotMachineMouseMove Buttons, Shift, X, Y
                             Case GuiEnum.GUI_RANK:              RankMouseMove Buttons, Shift, X, Y
+                            Case GuiEnum.GUI_LOJAVIRTUAL:       LojaVirtualMouseMove Buttons, Shift, X, Y
                         End Select
                     End If
                 End If
@@ -1049,10 +1049,10 @@ Dim PreventAction As Boolean
                                         If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                             PreventAction = True
                                         End If
-                                    Case ButtonEnum.Game_Task
-                                        'If GUI(GuiEnum.GUI_RANK).Visible Then
-                                        '    PreventAction = True
-                                        'End If
+                                    Case ButtonEnum.Game_LojaVirtual
+                                        If GUI(GuiEnum.GUI_LOJAVIRTUAL).Visible Then
+                                            PreventAction = True
+                                        End If
                                     Case ButtonEnum.Game_Rank
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
                                             PreventAction = True
@@ -1144,8 +1144,8 @@ Dim x2 As Long, Y2 As Long
                                 Case GuiEnum.GUI_POKEMONSUMMARY:    PokemonSummaryMouseUp Buttons, Shift, X, Y
                                 Case GuiEnum.GUI_RELEARN:           RelearnMouseUp Buttons, Shift, X, Y
                                 Case GuiEnum.GUI_BADGE:             BadgeMouseUp Buttons, Shift, X, Y
-                                'Case GuiEnum.GUI_SLOTMACHINE:       SlotMachineMouseUp Buttons, Shift, X, Y
                                 Case GuiEnum.GUI_RANK:              RankMouseUp Buttons, Shift, X, Y
+                                Case GuiEnum.GUI_LOJAVIRTUAL:       LojaVirtualMouseUp Buttons, Shift, X, Y
                             End Select
                         End If
                     End If
@@ -1182,10 +1182,10 @@ Dim x2 As Long, Y2 As Long
                                         If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                             PreventAction = True
                                         End If
-                                    Case ButtonEnum.Game_Task
-                                        'If GUI(GuiEnum.GUI_RANK).Visible Then
-                                        '    PreventAction = True
-                                        'End If
+                                    Case ButtonEnum.Game_LojaVirtual
+                                        If GUI(GuiEnum.GUI_LOJAVIRTUAL).Visible Then
+                                            PreventAction = True
+                                        End If
                                     Case ButtonEnum.Game_Rank
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
                                             PreventAction = True
@@ -1213,10 +1213,10 @@ Dim x2 As Long, Y2 As Long
                                                 If GUI(GuiEnum.GUI_TRAINER).Visible = False Then
                                                     GuiState GUI_TRAINER, True
                                                 End If
-                                            Case ButtonEnum.Game_Task
-                                                'If GUI(GuiEnum.GUI_SLOTMACHINE).Visible = False Then
-                                                '    GuiState GUI_SLOTMACHINE, True
-                                                'End If
+                                            Case ButtonEnum.Game_LojaVirtual
+                                                If GUI(GuiEnum.GUI_LOJAVIRTUAL).Visible = False Then
+                                                    GuiState GUI_LOJAVIRTUAL, True
+                                                End If
                                             Case ButtonEnum.Game_Rank
                                                 If GUI(GuiEnum.GUI_RANK).Visible = False Then
                                                     SendRequestRank
@@ -3917,120 +3917,14 @@ Dim i As Long
     End With
 End Sub
 
-' ***************
-' ** SlotMachine **
-' ***************
-Private Sub SlotMachineMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim i As Long
-
-    With GUI(GuiEnum.GUI_SLOTMACHINE)
-        '//Make sure it's visible
-        If Not .Visible Then Exit Sub
-        
-        '//Set to top most
-        UpdateGuiOrder GUI_SLOTMACHINE
-        
-        '//Loop through all items
-        For i = ButtonEnum.SlotMachine_Close To ButtonEnum.SlotMachine_Close
-            If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
-                    If Button(i).State = ButtonState.StateHover Then
-                        Button(i).State = ButtonState.StateClick
-                    End If
-                End If
-            End If
-        Next
-        
-        '//Check for dragging
-        .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
-        If .OldMouseY >= 0 And .OldMouseY <= 31 Then
-            .InDrag = True
-        End If
-    End With
-End Sub
-
-Private Sub SlotMachineMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim tmpX As Long, tmpY As Long
-Dim i As Long
-
-    With GUI(GuiEnum.GUI_SLOTMACHINE)
-        '//Make sure it's visible
-        If Not .Visible Then Exit Sub
-        
-        If GuiVisibleCount <= 0 Then Exit Sub
-        If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_SLOTMACHINE Then Exit Sub
-        
-        IsHovering = False
-        
-        '//Loop through all items
-        For i = ButtonEnum.SlotMachine_Close To ButtonEnum.SlotMachine_Close
-            If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
-                    If Button(i).State = ButtonState.StateNormal Then
-                        Button(i).State = ButtonState.StateHover
-            
-                        IsHovering = True
-                        MouseIcon = 1 '//Select
-                    End If
-                End If
-            End If
-        Next
-        
-        '//Check for dragging
-        If .InDrag Then
-            tmpX = CursorX - .OldMouseX
-            tmpY = CursorY - .OldMouseY
-            
-            '//Check if outbound
-            If tmpX <= 0 Then tmpX = 0
-            If tmpX >= Screen_Width - .Width Then tmpX = Screen_Width - .Width
-            If tmpY <= 0 Then tmpY = 0
-            If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
-            
-            .X = tmpX
-            .Y = tmpY
-        End If
-    End With
-End Sub
-
-Private Sub SlotMachineMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
-Dim i As Long
-
-    With GUI(GuiEnum.GUI_SLOTMACHINE)
-        '//Make sure it's visible
-        If Not .Visible Then Exit Sub
-        
-        If GuiVisibleCount <= 0 Then Exit Sub
-        If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_SLOTMACHINE Then Exit Sub
-        
-        '//Loop through all items
-        For i = ButtonEnum.SlotMachine_Close To ButtonEnum.SlotMachine_Close
-            If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
-                    If Button(i).State = ButtonState.StateClick Then
-                        Button(i).State = ButtonState.StateNormal
-                        Select Case i
-                            Case ButtonEnum.SlotMachine_Close
-                                '//Close Slot Machine
-                                
-                        End Select
-                    End If
-                End If
-            End If
-        Next
-
-        '//Check for dragging
-        .InDrag = False
-    End With
-End Sub
-
 Private Sub HandleChatMsg(ByVal chatText As String)
 Dim chatMsg As String
 Dim Command() As String
 Dim cacheChatTab As String
 Dim motdText As String
 Dim i As Long
+
+    On Error Resume Next
 
     chatMsg = chatText
     

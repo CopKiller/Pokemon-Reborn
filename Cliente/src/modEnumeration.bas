@@ -483,8 +483,8 @@ Public Enum GuiEnum
     GUI_POKEMONSUMMARY
     GUI_RELEARN
     GUI_BADGE
-    GUI_SLOTMACHINE
     GUI_RANK
+    GUI_LOJAVIRTUAL
     '//Make sure that Gui_Count is below everything else
     Gui_Count
 End Enum
@@ -524,7 +524,7 @@ Public Enum ButtonEnum
     Game_Pokedex
     Game_Bag
     Game_Card
-    Game_Task
+    Game_LojaVirtual
     Game_Rank
     Game_Menu
     Game_Evolve
@@ -569,10 +569,19 @@ Public Enum ButtonEnum
     Relearn_ScrollDown
     Relearn_ScrollUp
     Badge_Close
-    SlotMachine_Close
     Rank_Close
     Rank_ScrollUp
     Rank_ScrollDown
+    LojaVirtual_Close
+    LojaVirtual_Buy
+    LojaVirtual_Slot1
+    LojaVirtual_Slot2
+    LojaVirtual_Slot3
+    LojaVirtual_Slot4
+    LojaVirtual_Slot5
+    LojaVirtual_Slot6
+    LojaVirtual_Slot7
+    LojaVirtual_Slot8
     '//Make sure that Gui_Count is below everything else
     Button_Count
 End Enum

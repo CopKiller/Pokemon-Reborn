@@ -37,10 +37,9 @@ OK-Reformulado código de Lose e Win do player contra NPC, centralizado em dois 
 OK-Adicionar mecanica pra implementação de ao derrotar um NPC, não poder batalhar com ele nunca mais.
 OK-Adicionar o find no item do editor de npc do pokemon dele.
 OK-Base do sistema de montarias c/ pokemon exemplo.
+OK-Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
 
 -Adicionar uma opção de spawn no NPC, escolhendo um dia da semana pra ele aparecer, e ao passar esse dia, despawnar.
-
--Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
 
 //-Melhorias na Pokedex.
 
@@ -54,7 +53,7 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 
 - Sistema de Login Diário.
 - Sistema de VIP
-- Sistema de Loja Virtual na HUD.
+- Sistema de Loja Virtual na HUD. >>>>>>>>>>>>>>>>>>>>>>>>>(EM ANDAMENTO)<<<<<<<<<<<<<<<<<<<<<<<<<<
 - Sistema de Montarias (Rider, Aquática e Voadora).
 - Sistema de MAPA(Teleportar pro badge do treiner card).
 - Sistema de Breed (egg).

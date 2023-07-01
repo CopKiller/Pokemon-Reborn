@@ -9,201 +9,206 @@ Dim PaddingTop As Long
 Dim TextUIBoxSize As Long
 
 Public Sub DrawOption()
-Dim i As Long
-Dim tmpX As Long, tmpY As Long
-Dim Count As Long
-Dim X As Long
+    Dim i As Long
+    Dim tmpX As Long, tmpY As Long
+    Dim Count As Long
+    Dim X As Long
 
     With GUI(GuiEnum.GUI_OPTION)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         Language
-        
+
         RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, D3DColorARGB(160, 0, 0, 0)
-        
+
         '//Render the window
         RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
-        
+
         ' Incia o valor do padding lateral
         PaddingLeft = 152
-        
+
         ' Incia o valor do padding superior
         PaddingTop = 42
-        
+
         ' Inicia o valor do texto na caixa
         TextUIBoxSize = 104
-        
+
         '//Buttons
         'Dim ButtonText As String, DrawText As Boolean
         For i = ButtonEnum.Option_Close To ButtonEnum.Option_sSoundDown
             If setWindow = i Then Button(i).State = ButtonState.StateClick
-            
+
             If CanShowButton(i) Then
                 RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
-                
+
                 Select Case i
-                
-                    Case 18
-                        RenderText Font_Default, TextUIOptionVideoButton, .X + Button(i).X + (Button(i).Width / 2) - (GetTextWidth(Font_Default, TextUIOptionVideoButton) / 2) - 3, (.Y + Button(i).Y) + Button(i).Height / 2 - 11, White, , 255
-                    Case 19
-                        RenderText Font_Default, TextUIOptionSoundButton, .X + Button(i).X + (Button(i).Width / 2) - (GetTextWidth(Font_Default, TextUIOptionSoundButton) / 2) - 3, (.Y + Button(i).Y) + Button(i).Height / 2 - 11, White, , 255
-                    Case 20
-                        RenderText Font_Default, TextUIOptionGameButton, .X + Button(i).X + (Button(i).Width / 2) - (GetTextWidth(Font_Default, TextUIOptionGameButton) / 2) - 3, (.Y + Button(i).Y) + Button(i).Height / 2 - 11, White, , 255
-                    Case 21
-                        RenderText Font_Default, TextUIOptionControlButton, .X + Button(i).X + (Button(i).Width / 2) - (GetTextWidth(Font_Default, TextUIOptionControlButton) / 2) - 3, (.Y + Button(i).Y) + Button(i).Height / 2 - 11, White, , 255
+
+                Case 18
+                    RenderText Font_Default, TextUIOptionVideoButton, .X + Button(i).X + (Button(i).Width / 2) - (GetTextWidth(Font_Default, TextUIOptionVideoButton) / 2) - 3, (.Y + Button(i).Y) + Button(i).Height / 2 - 11, White, , 255
+                Case 19
+                    RenderText Font_Default, TextUIOptionSoundButton, .X + Button(i).X + (Button(i).Width / 2) - (GetTextWidth(Font_Default, TextUIOptionSoundButton) / 2) - 3, (.Y + Button(i).Y) + Button(i).Height / 2 - 11, White, , 255
+                Case 20
+                    RenderText Font_Default, TextUIOptionGameButton, .X + Button(i).X + (Button(i).Width / 2) - (GetTextWidth(Font_Default, TextUIOptionGameButton) / 2) - 3, (.Y + Button(i).Y) + Button(i).Height / 2 - 11, White, , 255
+                Case 21
+                    RenderText Font_Default, TextUIOptionControlButton, .X + Button(i).X + (Button(i).Width / 2) - (GetTextWidth(Font_Default, TextUIOptionControlButton) / 2) - 3, (.Y + Button(i).Y) + Button(i).Height / 2 - 11, White, , 255
                 End Select
-                
+
             End If
         Next
-        
+
         Select Case setWindow
-            Case ButtonEnum.Option_Video
-                
-                '//Fullscreen
-                tmpX = 105: tmpY = 45
-                RenderText Font_Default, "Fullscreen", .X + PaddingLeft + 25, .Y + tmpY, D3DColorARGB(255, 229, 229, 229), False
-                
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + tmpY, 52, 403 + 17, 17, 17, 17, 17
+        Case ButtonEnum.Option_Video
+
+            '//Fullscreen
+            tmpX = 105: tmpY = 45
+            RenderText Font_Default, "Fullscreen", .X + PaddingLeft + 25, .Y + tmpY, D3DColorARGB(255, 229, 229, 229), False
+
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + tmpY And CursorY <= .Y + tmpY + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + tmpY, 52, 403 + 17, 17, 17, 17, 17
+            Else
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + tmpY, 52, 403, 17, 17, 17, 17
+            End If
+
+            If isFullscreen = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + tmpY, 52, 403 + 34, 17, 17, 17, 17
+
+            ' Desenha o texto da resolução
+            RenderText Font_Default, "Janela: ", .X + PaddingLeft, .Y + tmpY + 32, White, , 255
+
+            ' Desenha o fundo
+            RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + 61), .Y + tmpY + 32, 0, 8, 180 - 27, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
+
+            ' Desenha a lista de resoluções
+            If ShowResolutionList Then
+
+                If CurResolutionList > 0 Then
+                    RenderText Font_Default, ResolutionName(CurResolutionList), (.X + PaddingLeft) + 64, .Y + tmpY + 32, White
                 Else
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + tmpY, 52, 403, 17, 17, 17, 17
+                    RenderText Font_Default, GameSetting.Width & "x" & GameSetting.Height, (.X + PaddingLeft) + 64, .Y + tmpY + 32, White
                 End If
-                
-                If isFullscreen = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + tmpY, 52, 403 + 34, 17, 17, 17, 17
-                
-                ' Desenha o texto da resolução
-                RenderText Font_Default, "Janela: ", .X + PaddingLeft, .Y + tmpY + 32, White, , 255
-                
-                ' Desenha o fundo
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + 61), .Y + tmpY + 32, 0, 8, 180 - 27, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
-                
-                ' Desenha a lista de resoluções
-                If ShowResolutionList Then
-                
-                    If CurResolutionList > 0 Then
-                        RenderText Font_Default, ResolutionName(CurResolutionList), (.X + PaddingLeft) + 64, .Y + tmpY + 32, White
-                    Else
-                        RenderText Font_Default, GameSetting.Width & "x" & GameSetting.Height, (.X + PaddingLeft) + 64, .Y + tmpY + 32, White
-                    End If
-                        
-                    If ResolutionList Then
-                        For X = 1 To MAX_RESOLUTION_LIST
-                            If CursorX >= .X + PaddingLeft + 64 And CursorX <= .X + PaddingLeft + 64 + 140 And CursorY >= .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)) And CursorY <= .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)) + 20 Then
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + PaddingLeft + 64, .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)), 0, 8, 150, 20, 1, 1, D3DColorARGB(100, 0, 0, 0)
-                            Else
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + PaddingLeft + 64, .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)), 0, 8, 150, 20, 1, 1, D3DColorARGB(100, 0, 0, 0)
-                            End If
-                            RenderText Font_Default, ResolutionName(X), .X + PaddingLeft + 64 + 4, .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)) + 2, White
-                        Next
-                    End If
-                End If
-        
-            Case ButtonEnum.Option_Sound
-                RenderText Font_Default, TextUIOptionMusic, .X + 152, .Y + 45, D3DColorARGB(255, 229, 229, 229), False
-                RenderText Font_Default, TextUIOptionSound, .X + 152, .Y + 27 + 45, D3DColorARGB(255, 229, 229, 229), False
-                For i = 1 To MAX_VOLUME
-                    If BGVolume >= i Then
-                        RenderTexture Tex_System(gSystemEnum.UserInterface), .X + 152 + 162 + ((8 + 3) * (i - 1)), .Y + 45, 0, 8, 9, 20, 1, 1, D3DColorARGB(255, 94, 177, 94)
-                    Else
-                        RenderTexture Tex_System(gSystemEnum.UserInterface), .X + 152 + 162 + ((8 + 3) * (i - 1)), .Y + 45, 0, 8, 9, 20, 1, 1, D3DColorARGB(255, 100, 100, 100)
-                    End If
-                    If SEVolume >= i Then
-                        RenderTexture Tex_System(gSystemEnum.UserInterface), .X + 152 + 162 + ((8 + 3) * (i - 1)), .Y + 27 + 45, 0, 8, 9, 20, 1, 1, D3DColorARGB(255, 94, 177, 94)
-                    Else
-                        RenderTexture Tex_System(gSystemEnum.UserInterface), .X + 152 + 162 + ((8 + 3) * (i - 1)), .Y + 27 + 45, 0, 8, 9, 20, 1, 1, D3DColorARGB(255, 100, 100, 100)
-                    End If
-                Next
-                
-            Case ButtonEnum.Option_Game
-                'Desenha a gui
-                RenderText Font_Default, TextUIOptionPath, .X + PaddingLeft, .Y + 45, D3DColorARGB(255, 229, 229, 229), False
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + PaddingLeft + 80, .Y + 45, 0, 8, 180, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
-            
-                If GuiPathEdit Then
-                    RenderText Font_Default, GuiPath & TextLine, .X + PaddingLeft + 84, .Y + 46, D3DColorARGB(255, 229, 229, 229), False
-                Else
-                    RenderText Font_Default, "...\" & GuiPath & "\", .X + PaddingLeft + 84, .Y + 46, D3DColorARGB(255, 229, 229, 229), False
-                End If
-                
-                ' Desenha o fps
-                RenderText Font_Default, TextUIOptionsFps, .X + PaddingLeft + 25, .Y + 70, D3DColorARGB(255, 229, 229, 229), False
-                If CursorX >= .X + tmpX And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 70 And CursorY <= .Y + 70 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 70, 52, 403 + 17, 17, 17, 17, 17
-                Else
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 70, 52, 403, 17, 17, 17, 17
-                End If
-                If FPSvisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 70, 52, 403 + 34, 17, 17, 17, 17
-            
-                ' Desenha o ping
-                RenderText Font_Default, TextUIOptionsPing, .X + PaddingLeft + 25, .Y + 90, D3DColorARGB(255, 229, 229, 229), False
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 90 And CursorY <= .Y + 90 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 90, 52, 403 + 17, 17, 17, 17, 17
-                Else
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 90, 52, 403, 17, 17, 17, 17
-                End If
-                If PingVisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 90, 52, 403 + 34, 17, 17, 17, 17
-                
-                ' Desenha o ínicio rápido
-                RenderText Font_Default, TextUIOptionsFast, .X + PaddingLeft + 25, .Y + 110, D3DColorARGB(255, 229, 229, 229), False
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 110 And CursorY <= .Y + 110 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 110, 52, 403 + 17, 17, 17, 17, 17
-                Else
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 110, 52, 403, 17, 17, 17, 17
-                End If
-                If tSkipBootUp = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 110, 52, 403 + 34, 17, 17, 17, 17
-                
-                ' Desenha o nome
-                RenderText Font_Default, TextUIOptionName, .X + PaddingLeft + 25, .Y + 130, D3DColorARGB(255, 229, 229, 229), False
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 130 And CursorY <= .Y + 130 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 130, 52, 403 + 17, 17, 17, 17, 17
-                Else
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 130, 52, 403, 17, 17, 17, 17
-                End If
-                If Namevisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 130, 52, 403 + 34, 17, 17, 17, 17
-                
-                ' Desenha o PPBar
-                RenderText Font_Default, TextUIOptionPP, .X + PaddingLeft + 25, .Y + 150, D3DColorARGB(255, 229, 229, 229), False
-                If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 150 And CursorY <= .Y + 150 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 150, 52, 403 + 17, 17, 17, 17, 17
-                Else
-                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 150, 52, 403, 17, 17, 17, 17
-                End If
-                If PPBarvisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 150, 52, 403 + 34, 17, 17, 17, 17
-                
-                ' Desenha a tradução
-                RenderText Font_Default, TextUIOptionLanguage, .X + PaddingLeft, .Y + 190 + 4, D3DColorARGB(255, 229, 229, 229), False
-                For i = 1 To MAX_LANGUAGE
-                    If (tmpCurLanguage + 1) = i Then
-                        RenderTexture Tex_Misc(Misc_Language), .X + 80 + PaddingLeft + ((i - 1) * 55), .Y + 190, 0, 25 * (i - 1), 45, 25, 45, 25, D3DColorARGB(255, 255, 255, 255)
-                    Else
-                        RenderTexture Tex_Misc(Misc_Language), .X + 80 + PaddingLeft + ((i - 1) * 55), .Y + 190, 0, 25 * (i - 1), 45, 25, 45, 25, D3DColorARGB(100, 255, 255, 255)
-                    End If
-                Next
-            
-            ' Desenha a Opção de Controles
-            Case ButtonEnum.Option_Control
-                
-                ' Desenha o Scroll
-                RenderTexture Tex_Gui(.Pic), .X + 414, .Y + ControlScrollStartY + ((ControlScrollEndY - ControlScrollSize) - ControlScrollY), 328, 310, 19, 35, 19, 35
-                
-                ' Quantidade dos controles
-                For i = 1 To MAX_CONTROL_PREV
-                    Count = CurControlKey + (i)
-                    If Count > 0 And Count <= ControlEnum.Control_Count - 1 Then
-                        RenderTexture Tex_Gui(.Pic), .X + 152, .Y + 43 + ((25 + 5) * (i - 1)), 93, 389, 254, 28, 254, 28
-                    
-                        ' Desenha o Nome
-                        RenderText Font_Default, ControlKey(Count).keyName, .X + 158, .Y + 43 + ((25 + 5) * (i - 1)) + 3, White
-                        
-                        If editKey = Count Then
-                            RenderTexture Tex_Gui(.Pic), .X + 290, .Y + 43 + ((25 + 5) * (i - 1)), 231, 417, 116, 28, 116, 28
+
+                If ResolutionList Then
+                    ' Desenha uma arrow /\ nas resoluções, apenas detalhe, nada demais.
+                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft + 198, .Y + tmpY + 31, Button(ButtonEnum.Option_cTabUp).StartX(Button(ButtonEnum.Option_cTabUp).State), Button(ButtonEnum.Option_cTabUp).StartY(Button(ButtonEnum.Option_cTabUp).State), Button(ButtonEnum.Option_cTabUp).Width - 3, Button(ButtonEnum.Option_cTabUp).Height - 3, Button(ButtonEnum.Option_cTabUp).Width, Button(ButtonEnum.Option_cTabUp).Height
+                    For X = 1 To MAX_RESOLUTION_LIST
+                        If CursorX >= .X + PaddingLeft + 64 And CursorX <= .X + PaddingLeft + 64 + 140 And CursorY >= .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)) And CursorY <= .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)) + 20 Then
+                            RenderTexture Tex_System(gSystemEnum.UserInterface), .X + PaddingLeft + 64, .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)), 0, 8, 150, 20, 1, 1, D3DColorARGB(100, 0, 0, 0)
+                        Else
+                            RenderTexture Tex_System(gSystemEnum.UserInterface), .X + PaddingLeft + 64, .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)), 0, 8, 150, 20, 1, 1, D3DColorARGB(100, 0, 0, 0)
                         End If
-                        
-                        ' Desenha a Key
-                        RenderText Font_Default, GetKeyCodeName(TmpKey(Count)), .X + 295, .Y + 43 + ((25 + 5) * (i - 1)) + 3, Dark
+                        RenderText Font_Default, ResolutionName(X), .X + PaddingLeft + 64 + 4, .Y + ((20 * MAX_RESOLUTION_LIST) + ((X - 2) * 20)) + 2, White
+                    Next
+                Else
+                    ' Desenha uma arrow \/ nas resoluções, apenas detalhe, nada demais.
+                    RenderTexture Tex_Gui(.Pic), .X + PaddingLeft + 198, .Y + tmpY + 31, Button(ButtonEnum.Option_cTabDown).StartX(Button(ButtonEnum.Option_cTabDown).State), Button(ButtonEnum.Option_cTabDown).StartY(Button(ButtonEnum.Option_cTabDown).State), Button(ButtonEnum.Option_cTabDown).Width - 3, Button(ButtonEnum.Option_cTabDown).Height - 3, Button(ButtonEnum.Option_cTabDown).Width, Button(ButtonEnum.Option_cTabDown).Height
+                End If
+            End If
+
+        Case ButtonEnum.Option_Sound
+            RenderText Font_Default, TextUIOptionMusic, .X + 152, .Y + 45, D3DColorARGB(255, 229, 229, 229), False
+            RenderText Font_Default, TextUIOptionSound, .X + 152, .Y + 27 + 45, D3DColorARGB(255, 229, 229, 229), False
+            For i = 1 To MAX_VOLUME
+                If BGVolume >= i Then
+                    RenderTexture Tex_System(gSystemEnum.UserInterface), .X + 152 + 162 + ((8 + 3) * (i - 1)), .Y + 45, 0, 8, 9, 20, 1, 1, D3DColorARGB(255, 94, 177, 94)
+                Else
+                    RenderTexture Tex_System(gSystemEnum.UserInterface), .X + 152 + 162 + ((8 + 3) * (i - 1)), .Y + 45, 0, 8, 9, 20, 1, 1, D3DColorARGB(255, 100, 100, 100)
+                End If
+                If SEVolume >= i Then
+                    RenderTexture Tex_System(gSystemEnum.UserInterface), .X + 152 + 162 + ((8 + 3) * (i - 1)), .Y + 27 + 45, 0, 8, 9, 20, 1, 1, D3DColorARGB(255, 94, 177, 94)
+                Else
+                    RenderTexture Tex_System(gSystemEnum.UserInterface), .X + 152 + 162 + ((8 + 3) * (i - 1)), .Y + 27 + 45, 0, 8, 9, 20, 1, 1, D3DColorARGB(255, 100, 100, 100)
+                End If
+            Next
+
+        Case ButtonEnum.Option_Game
+            'Desenha a gui
+            RenderText Font_Default, TextUIOptionPath, .X + PaddingLeft, .Y + 45, D3DColorARGB(255, 229, 229, 229), False
+            RenderTexture Tex_System(gSystemEnum.UserInterface), .X + PaddingLeft + 80, .Y + 45, 0, 8, 180, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
+
+            If GuiPathEdit Then
+                RenderText Font_Default, GuiPath & TextLine, .X + PaddingLeft + 84, .Y + 46, D3DColorARGB(255, 229, 229, 229), False
+            Else
+                RenderText Font_Default, "...\" & GuiPath & "\", .X + PaddingLeft + 84, .Y + 46, D3DColorARGB(255, 229, 229, 229), False
+            End If
+
+            ' Desenha o fps
+            RenderText Font_Default, TextUIOptionsFps, .X + PaddingLeft + 25, .Y + 70, D3DColorARGB(255, 229, 229, 229), False
+            If CursorX >= .X + tmpX And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 70 And CursorY <= .Y + 70 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 70, 52, 403 + 17, 17, 17, 17, 17
+            Else
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 70, 52, 403, 17, 17, 17, 17
+            End If
+            If FPSvisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 70, 52, 403 + 34, 17, 17, 17, 17
+
+            ' Desenha o ping
+            RenderText Font_Default, TextUIOptionsPing, .X + PaddingLeft + 25, .Y + 90, D3DColorARGB(255, 229, 229, 229), False
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 90 And CursorY <= .Y + 90 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 90, 52, 403 + 17, 17, 17, 17, 17
+            Else
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 90, 52, 403, 17, 17, 17, 17
+            End If
+            If PingVisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 90, 52, 403 + 34, 17, 17, 17, 17
+
+            ' Desenha o ínicio rápido
+            RenderText Font_Default, TextUIOptionsFast, .X + PaddingLeft + 25, .Y + 110, D3DColorARGB(255, 229, 229, 229), False
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 110 And CursorY <= .Y + 110 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 110, 52, 403 + 17, 17, 17, 17, 17
+            Else
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 110, 52, 403, 17, 17, 17, 17
+            End If
+            If tSkipBootUp = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 110, 52, 403 + 34, 17, 17, 17, 17
+
+            ' Desenha o nome
+            RenderText Font_Default, TextUIOptionName, .X + PaddingLeft + 25, .Y + 130, D3DColorARGB(255, 229, 229, 229), False
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 130 And CursorY <= .Y + 130 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 130, 52, 403 + 17, 17, 17, 17, 17
+            Else
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 130, 52, 403, 17, 17, 17, 17
+            End If
+            If Namevisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 130, 52, 403 + 34, 17, 17, 17, 17
+
+            ' Desenha o PPBar
+            RenderText Font_Default, TextUIOptionPP, .X + PaddingLeft + 25, .Y + 150, D3DColorARGB(255, 229, 229, 229), False
+            If CursorX >= .X + PaddingLeft And CursorX <= .X + PaddingLeft + 17 And CursorY >= .Y + 150 And CursorY <= .Y + 150 + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_OPTION Then
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 150, 52, 403 + 17, 17, 17, 17, 17
+            Else
+                RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 150, 52, 403, 17, 17, 17, 17
+            End If
+            If PPBarvisible = YES Then RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + 150, 52, 403 + 34, 17, 17, 17, 17
+
+            ' Desenha a tradução
+            RenderText Font_Default, TextUIOptionLanguage, .X + PaddingLeft, .Y + 190 + 4, D3DColorARGB(255, 229, 229, 229), False
+            For i = 1 To MAX_LANGUAGE
+                If (tmpCurLanguage + 1) = i Then
+                    RenderTexture Tex_Misc(Misc_Language), .X + 80 + PaddingLeft + ((i - 1) * 55), .Y + 190, 0, 25 * (i - 1), 45, 25, 45, 25, D3DColorARGB(255, 255, 255, 255)
+                Else
+                    RenderTexture Tex_Misc(Misc_Language), .X + 80 + PaddingLeft + ((i - 1) * 55), .Y + 190, 0, 25 * (i - 1), 45, 25, 45, 25, D3DColorARGB(100, 255, 255, 255)
+                End If
+            Next
+
+            ' Desenha a Opção de Controles
+        Case ButtonEnum.Option_Control
+
+            ' Desenha o Scroll
+            RenderTexture Tex_Gui(.Pic), .X + 414, .Y + ControlScrollStartY + ((ControlScrollEndY - ControlScrollSize) - ControlScrollY), 328, 310, 19, 35, 19, 35
+
+            ' Quantidade dos controles
+            For i = 1 To MAX_CONTROL_PREV
+                Count = CurControlKey + (i)
+                If Count > 0 And Count <= ControlEnum.Control_Count - 1 Then
+                    RenderTexture Tex_Gui(.Pic), .X + 152, .Y + 43 + ((25 + 5) * (i - 1)), 93, 389, 254, 28, 254, 28
+
+                    ' Desenha o Nome
+                    RenderText Font_Default, ControlKey(Count).keyName, .X + 158, .Y + 43 + ((25 + 5) * (i - 1)) + 3, White
+
+                    If editKey = Count Then
+                        RenderTexture Tex_Gui(.Pic), .X + 290, .Y + 43 + ((25 + 5) * (i - 1)), 231, 417, 116, 28, 116, 28
                     End If
-                Next
+
+                    ' Desenha a Key
+                    RenderText Font_Default, GetKeyCodeName(TmpKey(Count)), .X + 295, .Y + 43 + ((25 + 5) * (i - 1)) + 3, Dark
+                End If
+            Next
         End Select
     End With
 End Sub

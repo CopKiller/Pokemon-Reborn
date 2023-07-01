@@ -473,7 +473,7 @@ Dim TextureName As String
             Case 21: TextureName = "pokemon-summary"
             Case 22: TextureName = "relearn"
             Case 23: TextureName = "badge"
-            Case 24: TextureName = "slot-machine"
+            Case 24: TextureName = "lojavirtual-window"
             Case 25: TextureName = "rank"
             Case 26: TextureName = "bottom-login"
             Case Else: TextureName = Count_Gui
@@ -512,7 +512,7 @@ Dim TextureName As String
                 Case 21: TextureName = "pokemon-summary"
                 Case 22: TextureName = "relearn"
                 Case 23: TextureName = "badge"
-                Case 24: TextureName = "slot-machine"
+                Case 24: TextureName = "lojavirtual-window"
                 Case 25: TextureName = "rank"
                 Case 26: TextureName = "bottom-login"
                 Case Else: TextureName = i
@@ -1532,10 +1532,10 @@ Private Sub Render_Game()
                     If GUI(GuiEnum.GUI_TRAINER).Visible Then
                         Button(i).State = ButtonState.StateClick
                     End If
-                Case ButtonEnum.Game_Task
-                    'If GUI(GuiEnum.GUI_RANK).Visible Then
-                    '    Button(i).State = ButtonState.StateClick
-                    'End If
+                Case ButtonEnum.Game_LojaVirtual
+                    If GUI(GuiEnum.GUI_LOJAVIRTUAL).Visible Then
+                        Button(i).State = ButtonState.StateClick
+                    End If
                 Case ButtonEnum.Game_Rank
                     If GUI(GuiEnum.GUI_RANK).Visible Then
                         Button(i).State = ButtonState.StateClick
@@ -1569,8 +1569,8 @@ Private Sub Render_Game()
                         Case GuiEnum.GUI_POKEMONSUMMARY: DrawPokemonSummary
                         Case GuiEnum.GUI_RELEARN: DrawRelearn
                         Case GuiEnum.GUI_BADGE: DrawBadge
-                            'Case GuiEnum.GUI_SLOTMACHINE: DrawSlotMachine
                         Case GuiEnum.GUI_RANK: DrawRank
+                        Case GuiEnum.GUI_LOJAVIRTUAL: DrawLojaVirtual
                         End Select
                     End If
                 Next
@@ -4271,26 +4271,6 @@ Dim PosX As Long, PosY As Long, TexX As Long, TexY As Long
                 
                 '//Draw Icon
                 RenderTexture Tex_Gui(.Pic), PosX, PosY, TexX, TexY, 20, 20, 20, 20
-            End If
-        Next
-    End With
-End Sub
-
-Private Sub DrawSlotMachine()
-Dim i As Long
-Dim PosX As Long, PosY As Long, TexX As Long, TexY As Long
-
-    With GUI(GuiEnum.GUI_SLOTMACHINE)
-        '//Make sure it's visible
-        If Not .Visible Then Exit Sub
-        
-        '//Render the window
-        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
-        
-        '//Buttons
-        For i = ButtonEnum.SlotMachine_Close To ButtonEnum.SlotMachine_Close
-            If CanShowButton(i) Then
-                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
     End With

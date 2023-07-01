@@ -132,6 +132,9 @@ Dim SetWidth As Long
     ' Initialize, using in scrolling of Controls Option.
     MaxControlViewLine = ControlEnum.Control_Count - 1 - MAX_CONTROL_PREV
     
+    'Test
+    InitLojaVirtual
+    
     ForceExit = False
     AppRunning = True   '//Make sure that our application is actually running
     AppLoop             '//Start the loop

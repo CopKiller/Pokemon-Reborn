@@ -249,13 +249,13 @@ Public Sub ResetGui()
         .OrigX = Screen_Width - .Width - Rand(10, 30)
         .OrigY = 100 + Rand(10, 40)
     End With
-    With GUI(GuiEnum.GUI_SLOTMACHINE)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
-    End With
     With GUI(GuiEnum.GUI_RANK)
         .OrigX = (Screen_Width - .Width)
         .OrigY = 120
+    End With
+    With GUI(GuiEnum.GUI_LOJAVIRTUAL)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With Button(ButtonEnum.Game_Pokedex)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
@@ -269,7 +269,7 @@ Public Sub ResetGui()
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
         .Y = Screen_Height - .Height - 10
     End With
-    With Button(ButtonEnum.Game_Task)
+    With Button(ButtonEnum.Game_LojaVirtual)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
         .Y = Screen_Height - .Height - 10
     End With
@@ -330,8 +330,8 @@ Dim FileName As String
             Case GuiEnum.GUI_POKEMONSUMMARY: FileTitle = "pokemon-summary"
             Case GuiEnum.GUI_RELEARN: FileTitle = "relearn"
             Case GuiEnum.GUI_BADGE: FileTitle = "badge"
-            Case GuiEnum.GUI_SLOTMACHINE: FileTitle = "slot-machine"
             Case GuiEnum.GUI_RANK: FileTitle = "rank"
+            Case GuiEnum.GUI_LOJAVIRTUAL: FileTitle = "lojavirtual-window"
         End Select
         FileName = App.Path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\" & FileTitle & ".ini"
         If FileExist(FileName) Then
@@ -384,7 +384,7 @@ Dim FileName As String
                 Case ButtonEnum.Game_Pokedex: FileTitle = "Game_Pokedex"
                 Case ButtonEnum.Game_Bag: FileTitle = "Game_Bag"
                 Case ButtonEnum.Game_Card: FileTitle = "Game_Card"
-                Case ButtonEnum.Game_Task: FileTitle = "Game_Task"
+                Case ButtonEnum.Game_LojaVirtual: FileTitle = "Game_LojaVirtual"
                 Case ButtonEnum.Game_Rank: FileTitle = "Game_Rank"
                 Case ButtonEnum.Game_Menu: FileTitle = "Game_Menu"
                 Case ButtonEnum.Game_Evolve: FileTitle = "Game_Evolve"
@@ -432,6 +432,16 @@ Dim FileName As String
                 Case ButtonEnum.Rank_Close: FileTitle = "Rank_Close"
                 Case ButtonEnum.Rank_ScrollUp: FileTitle = "Rank_ScrollUp"
                 Case ButtonEnum.Rank_ScrollDown: FileTitle = "Rank_ScrollDown"
+                Case ButtonEnum.LojaVirtual_Close: FileTitle = "LojaVirtual_Close"
+                Case ButtonEnum.LojaVirtual_Buy: FileTitle = "LojaVirtual_Buy"
+                Case ButtonEnum.LojaVirtual_Slot1: FileTitle = "LojaVirtual_Slot1"
+                Case ButtonEnum.LojaVirtual_Slot2: FileTitle = "LojaVirtual_Slot2"
+                Case ButtonEnum.LojaVirtual_Slot3: FileTitle = "LojaVirtual_Slot3"
+                Case ButtonEnum.LojaVirtual_Slot4: FileTitle = "LojaVirtual_Slot4"
+                Case ButtonEnum.LojaVirtual_Slot5: FileTitle = "LojaVirtual_Slot5"
+                Case ButtonEnum.LojaVirtual_Slot6: FileTitle = "LojaVirtual_Slot6"
+                Case ButtonEnum.LojaVirtual_Slot7: FileTitle = "LojaVirtual_Slot7"
+                Case ButtonEnum.LojaVirtual_Slot8: FileTitle = "LojaVirtual_Slot8"
             End Select
             
             With Button(i)
@@ -1006,14 +1016,14 @@ End Sub
 ' ** Conversation **
 ' ***************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim X As Byte, Y As Byte, Z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
     For X = 1 To MAX_CONV_DATA
         For Y = 1 To MAX_LANGUAGE
             Conversation(ConversationNum).ConvData(X).TextLang(Y).Text = vbNullString
-            For z = 1 To 3
-                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(z) = vbNullString
+            For Z = 1 To 3
+                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(Z) = vbNullString
             Next
         Next
     Next
@@ -1031,7 +1041,7 @@ End Sub
 ' ** Shop **
 ' ***************
 Public Sub ClearShop(ByVal ShopNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim X As Byte, Y As Byte, Z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Shop(ShopNum)), LenB(Shop(ShopNum)))
 End Sub
@@ -1048,7 +1058,7 @@ End Sub
 ' ** Quest **
 ' ***************
 Public Sub ClearQuest(ByVal QuestNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim X As Byte, Y As Byte, Z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Quest(QuestNum)), LenB(Quest(QuestNum)))
 End Sub
