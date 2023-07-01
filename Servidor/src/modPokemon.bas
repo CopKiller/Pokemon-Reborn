@@ -2,10 +2,10 @@ Attribute VB_Name = "modPokemon"
 Option Explicit
 
 Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO)
-Dim MapNum As Long, X As Long, Y As Long
-Dim RndNum As Long
-Dim x2 As Long, y2 As Long
-Dim gotData As Boolean
+    Dim MapNum As Long, X As Long, Y As Long
+    Dim RndNum As Long
+    Dim x2 As Long, y2 As Long
+    Dim gotData As Boolean
 
     '//Check Error
     If MapPokemon(MapPokeNum).Num > 0 Then Exit Sub
@@ -22,16 +22,16 @@ Dim gotData As Boolean
         End If
         If MapNum <= 1 Then MapNum = 1
         If MapNum >= MAX_MAP Then MapNum = MAX_MAP
-        
-        If Not Map(MapNum).Moral = MAP_MORAL_SAFARI Then '//Can Spawn at Saffari
-            If Map(MapNum).Moral = MAP_MORAL_ARENA Or Map(MapNum).Moral = MAP_MORAL_SAFE Then '//Don't spawn
+
+        If Not Map(MapNum).Moral = MAP_MORAL_SAFARI Then    '//Can Spawn at Saffari
+            If Map(MapNum).Moral = MAP_MORAL_ARENA Or Map(MapNum).Moral = MAP_MORAL_SAFE Then    '//Don't spawn
                 Exit Sub
             End If
         End If
         If Len(Trim$(Map(MapNum).Name)) <= 0 Then
             Exit Sub
         End If
-        
+
         '//check rarity
         If Not ForceSpawn Then
             RndNum = Random(0, Spawn(MapPokeNum).Rarity)
@@ -40,12 +40,12 @@ Dim gotData As Boolean
                 Exit Sub
             End If
         End If
-        
+
         '//check HeldItem equipped
         If Spawn(MapPokeNum).HeldItem > 0 Then
             MapPokemon(MapPokeNum).HeldItem = Spawn(MapPokeNum).HeldItem
         End If
-    
+
         '//Check Position
         gotData = False
         If Spawn(MapPokeNum).randomXY = NO Then
@@ -57,14 +57,14 @@ Dim gotData As Boolean
                 For RndNum = 1 To 100
                     X = Random(0, Map(MapNum).MaxX)
                     Y = Random(0, Map(MapNum).MaxY)
-                        
+
                     If NpcTileOpen(MapNum, X, Y) Then
                         gotData = True
                         Exit For
                     End If
                 Next
             End If
-                    
+
             '//spawn on the free tile
             If Not gotData Then
                 For x2 = 0 To Map(MapNum).MaxX
@@ -88,14 +88,31 @@ Dim gotData As Boolean
         If X >= Map(MapNum).MaxX Then X = Map(MapNum).MaxX
         If Y <= 0 Then Y = 0
         If Y >= Map(MapNum).MaxY Then Y = Map(MapNum).MaxY
-            
-        '//Check Game Time
-        If GameHour >= Spawn(MapPokeNum).SpawnTimeMin And GameHour <= Spawn(MapPokeNum).SpawnTimeMax Then
-            '//Spawn Pokemon
+
+
+        'Debug.Print Pokemon(Spawn(MapPokeNum).PokeNum).Name
+        If IsWithinSpawnTime(MapPokeNum, GameHour) = True Then
+            ' Spawn Pokemon
             SpawnPokemon MapPokeNum, Spawn(MapPokeNum).PokeNum, MapNum, X, Y, Random(0, 3), ForceSpawn, ForceShiny
         End If
     End If
 End Sub
+
+Function IsWithinSpawnTime(MapPokeNum As Long, hour As Byte) As Boolean
+    Dim isNightSpawn As Boolean
+
+    If Spawn(MapPokeNum).SpawnTimeMin > Spawn(MapPokeNum).SpawnTimeMax Then
+        ' Spawn noturno
+        If hour >= Spawn(MapPokeNum).SpawnTimeMin Or hour <= Spawn(MapPokeNum).SpawnTimeMax Then
+            IsWithinSpawnTime = True
+        End If
+    Else
+        ' Spawn regular
+        If hour >= Spawn(MapPokeNum).SpawnTimeMin And hour <= Spawn(MapPokeNum).SpawnTimeMax Then
+            IsWithinSpawnTime = True
+        End If
+    End If
+End Function
 
 Public Sub SpawnAllMapPokemon()
 Dim i As Long
@@ -521,3 +538,4 @@ Dim expEarn As Long, i As Byte, pCount As Byte
         End If
     End With
 End Sub
+

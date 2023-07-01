@@ -544,6 +544,7 @@ Private Type NpcRec
     PokemonIsShiny(1 To MAX_PLAYER_POKEMON) As Byte
     PokemonIvFull(1 To MAX_PLAYER_POKEMON) As Byte
     Rebatle As Byte
+    SpawnWeekDay(1 To 7) As Byte
 End Type
 
 Private Type ItemRec

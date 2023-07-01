@@ -262,8 +262,8 @@ Dim DidSpawn As Boolean
                                 GoTo Continue
                             End If
                         End If
-                    Next
-                Next
+                    Next Y
+                Next X
 Continue:
             End If
             
@@ -281,7 +281,7 @@ Continue:
                         DidSpawn = True
                         Exit For
                     End If
-                Next
+                Next i
             End If
             
             '//spawn on the free tile
@@ -294,8 +294,8 @@ Continue:
                             .Dir = Random(0, 3)
                             DidSpawn = True
                         End If
-                    Next
-                Next
+                    Next Y
+                Next X
             End If
             
             If DidSpawn Then

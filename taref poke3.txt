@@ -38,6 +38,8 @@ OK-Adicionar mecanica pra implementação de ao derrotar um NPC, não poder bata
 OK-Adicionar o find no item do editor de npc do pokemon dele.
 OK-Base do sistema de montarias c/ pokemon exemplo.
 OK-Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
+OK-Adicionado correção ao sistema nativo de spawnar em horários específicos um pokemon,
+	estava dando problema no range, que as vezes passava da meia-noite, então criei um método pra resolver.
 
 -Adicionar uma opção de spawn no NPC, escolhendo um dia da semana pra ele aparecer, e ao passar esse dia, despawnar.
 

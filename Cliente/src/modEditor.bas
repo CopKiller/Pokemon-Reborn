@@ -656,6 +656,10 @@ Public Sub NpcEditorLoadIndex(ByVal xIndex As Long)
         .txtRewardExp.Text = Npc(xIndex).RewardExp
         .scrlWinConvo.value = Npc(xIndex).WinEvent
         .optRebattle(Npc(xIndex).Rebatle).value = True
+        
+        For X = 1 To 7
+            .chkWeekDay(X - 1).value = Npc(xIndex).SpawnWeekDay(X)
+        Next X
     End With
 
     NpcChange(xIndex) = True

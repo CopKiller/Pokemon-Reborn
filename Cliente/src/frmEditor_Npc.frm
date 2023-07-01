@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form frmEditor_Npc 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "NPC Editor"
-   ClientHeight    =   7065
+   ClientHeight    =   6900
    ClientLeft      =   150
    ClientTop       =   795
    ClientWidth     =   9210
@@ -11,14 +11,85 @@ Begin VB.Form frmEditor_Npc
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   471
+   ScaleHeight     =   460
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   614
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
+   Begin VB.Frame Frame4 
+      Caption         =   "Spawn Day's"
+      Height          =   1335
+      Left            =   120
+      TabIndex        =   43
+      Top             =   5520
+      Width           =   2895
+      Begin VB.CheckBox chkWeekDay 
+         Caption         =   "Sabado"
+         Height          =   255
+         Index           =   6
+         Left            =   1560
+         TabIndex        =   50
+         Top             =   720
+         Width           =   855
+      End
+      Begin VB.CheckBox chkWeekDay 
+         Caption         =   "Sexta"
+         Height          =   255
+         Index           =   5
+         Left            =   1560
+         TabIndex        =   49
+         Top             =   480
+         Width           =   975
+      End
+      Begin VB.CheckBox chkWeekDay 
+         Caption         =   "Quinta"
+         Height          =   255
+         Index           =   4
+         Left            =   1560
+         TabIndex        =   48
+         Top             =   240
+         Width           =   975
+      End
+      Begin VB.CheckBox chkWeekDay 
+         Caption         =   "Quarta"
+         Height          =   255
+         Index           =   3
+         Left            =   360
+         TabIndex        =   47
+         Top             =   960
+         Width           =   975
+      End
+      Begin VB.CheckBox chkWeekDay 
+         Caption         =   "Terça"
+         Height          =   255
+         Index           =   2
+         Left            =   360
+         TabIndex        =   46
+         Top             =   720
+         Width           =   735
+      End
+      Begin VB.CheckBox chkWeekDay 
+         Caption         =   "Segunda"
+         Height          =   255
+         Index           =   1
+         Left            =   360
+         TabIndex        =   45
+         Top             =   480
+         Width           =   975
+      End
+      Begin VB.CheckBox chkWeekDay 
+         Caption         =   "Domingo"
+         Height          =   255
+         Index           =   0
+         Left            =   360
+         TabIndex        =   44
+         Top             =   240
+         Width           =   975
+      End
+   End
    Begin VB.Frame Frame2 
       Caption         =   "Properties"
-      Height          =   6975
+      Height          =   6855
       Left            =   3120
       TabIndex        =   2
       Top             =   0
@@ -29,7 +100,7 @@ Begin VB.Form frmEditor_Npc
          Index           =   2
          Left            =   4200
          TabIndex        =   41
-         Top             =   6600
+         Top             =   6360
          Width           =   1455
       End
       Begin VB.OptionButton optRebattle 
@@ -38,7 +109,7 @@ Begin VB.Form frmEditor_Npc
          Index           =   1
          Left            =   4200
          TabIndex        =   40
-         Top             =   6360
+         Top             =   6120
          Width           =   1335
       End
       Begin VB.OptionButton optRebattle 
@@ -47,7 +118,7 @@ Begin VB.Form frmEditor_Npc
          Index           =   0
          Left            =   4200
          TabIndex        =   39
-         Top             =   6120
+         Top             =   5880
          Width           =   1335
       End
       Begin VB.TextBox txtRewardExp 
@@ -55,7 +126,7 @@ Begin VB.Form frmEditor_Npc
          Left            =   2160
          TabIndex        =   29
          Text            =   "0"
-         Top             =   6360
+         Top             =   6120
          Width           =   1815
       End
       Begin VB.HScrollBar scrlWinConvo 
@@ -63,7 +134,7 @@ Begin VB.Form frmEditor_Npc
          Left            =   2520
          Max             =   0
          TabIndex        =   28
-         Top             =   6600
+         Top             =   6480
          Width           =   1575
       End
       Begin VB.TextBox txtReward 
@@ -71,21 +142,21 @@ Begin VB.Form frmEditor_Npc
          Left            =   2160
          TabIndex        =   26
          Text            =   "0"
-         Top             =   6120
+         Top             =   5880
          Width           =   1815
       End
       Begin VB.Frame Frame3 
          Caption         =   "Pokemon"
-         Height          =   3495
+         Height          =   3375
          Left            =   240
          TabIndex        =   16
-         Top             =   2520
+         Top             =   2400
          Width           =   5535
          Begin VB.TextBox txtFindItem 
             Height          =   285
             Left            =   3480
             TabIndex        =   42
-            Top             =   2880
+            Top             =   2760
             Width           =   1815
          End
          Begin VB.CheckBox chkIv 
@@ -93,7 +164,7 @@ Begin VB.Form frmEditor_Npc
             Height          =   255
             Left            =   1560
             TabIndex        =   36
-            Top             =   3120
+            Top             =   2760
             Width           =   975
          End
          Begin VB.CheckBox chkShiny 
@@ -101,7 +172,7 @@ Begin VB.Form frmEditor_Npc
             Height          =   255
             Left            =   240
             TabIndex        =   35
-            Top             =   3120
+            Top             =   2760
             Width           =   975
          End
          Begin VB.ComboBox cmbNature 
@@ -109,7 +180,7 @@ Begin VB.Form frmEditor_Npc
             Left            =   240
             TabIndex        =   33
             Text            =   "Combo1"
-            Top             =   2760
+            Top             =   2400
             Width           =   2535
          End
          Begin VB.ComboBox cmbItem 
@@ -117,14 +188,14 @@ Begin VB.Form frmEditor_Npc
             Left            =   2880
             TabIndex        =   32
             Text            =   "Combo1"
-            Top             =   3120
+            Top             =   3000
             Width           =   2415
          End
          Begin VB.TextBox txtFind 
             Height          =   285
             Left            =   1080
             TabIndex        =   30
-            Top             =   1440
+            Top             =   1320
             Width           =   1695
          End
          Begin VB.ComboBox cmbMoveset 
@@ -132,14 +203,14 @@ Begin VB.Form frmEditor_Npc
             Left            =   3480
             Style           =   2  'Dropdown List
             TabIndex        =   24
-            Top             =   2520
+            Top             =   2400
             Width           =   1815
          End
          Begin VB.TextBox txtFindMoveset 
             Height          =   285
             Left            =   3480
             TabIndex        =   23
-            Top             =   2280
+            Top             =   2160
             Width           =   1815
          End
          Begin VB.TextBox txtLevel 
@@ -147,14 +218,14 @@ Begin VB.Form frmEditor_Npc
             Left            =   1200
             TabIndex        =   22
             Text            =   "0"
-            Top             =   2160
+            Top             =   1920
             Width           =   1575
          End
          Begin VB.ListBox lstMoveset 
             Height          =   840
             Left            =   2880
             TabIndex        =   20
-            Top             =   1440
+            Top             =   1320
             Width           =   2415
          End
          Begin VB.ComboBox cmbPokeNum 
@@ -162,14 +233,14 @@ Begin VB.Form frmEditor_Npc
             Left            =   240
             Style           =   2  'Dropdown List
             TabIndex        =   19
-            Top             =   1680
+            Top             =   1560
             Width           =   2535
          End
          Begin VB.ListBox lstPokemon 
             Height          =   1035
             Left            =   240
             TabIndex        =   17
-            Top             =   360
+            Top             =   240
             Width           =   5055
          End
          Begin VB.Label Label9 
@@ -177,7 +248,7 @@ Begin VB.Form frmEditor_Npc
             Height          =   255
             Left            =   960
             TabIndex        =   34
-            Top             =   2520
+            Top             =   2160
             Width           =   615
          End
          Begin VB.Label Label8 
@@ -185,7 +256,7 @@ Begin VB.Form frmEditor_Npc
             Height          =   255
             Left            =   2880
             TabIndex        =   31
-            Top             =   2880
+            Top             =   2760
             Width           =   615
          End
          Begin VB.Label Label6 
@@ -193,7 +264,7 @@ Begin VB.Form frmEditor_Npc
             Height          =   255
             Left            =   2880
             TabIndex        =   25
-            Top             =   2400
+            Top             =   2280
             Width           =   855
          End
          Begin VB.Label Label5 
@@ -201,15 +272,15 @@ Begin VB.Form frmEditor_Npc
             Height          =   255
             Left            =   240
             TabIndex        =   21
-            Top             =   2160
+            Top             =   1920
             Width           =   975
          End
          Begin VB.Label Label4 
             Caption         =   "Pokemon"
             Height          =   255
-            Left            =   240
+            Left            =   360
             TabIndex        =   18
-            Top             =   1440
+            Top             =   1320
             Width           =   2415
          End
       End
@@ -274,7 +345,7 @@ Begin VB.Form frmEditor_Npc
          Height          =   255
          Left            =   1560
          TabIndex        =   38
-         Top             =   6360
+         Top             =   6120
          Width           =   495
       End
       Begin VB.Label Label7 
@@ -282,7 +353,7 @@ Begin VB.Form frmEditor_Npc
          Height          =   255
          Left            =   1320
          TabIndex        =   37
-         Top             =   6120
+         Top             =   5880
          Width           =   735
       End
       Begin VB.Label lblWinConvo 
@@ -290,7 +361,7 @@ Begin VB.Form frmEditor_Npc
          Height          =   255
          Left            =   240
          TabIndex        =   27
-         Top             =   6600
+         Top             =   6480
          Width           =   5535
       End
       Begin VB.Label Label3 
@@ -336,7 +407,7 @@ Begin VB.Form frmEditor_Npc
    End
    Begin VB.Frame Frame1 
       Caption         =   "Index"
-      Height          =   6975
+      Height          =   5535
       Left            =   120
       TabIndex        =   0
       Top             =   0
@@ -357,7 +428,7 @@ Begin VB.Form frmEditor_Npc
          Width           =   1815
       End
       Begin VB.ListBox lstIndex 
-         Height          =   6300
+         Height          =   4740
          Left            =   120
          TabIndex        =   1
          Top             =   600
@@ -399,6 +470,12 @@ End Sub
 Private Sub chkShiny_Click()
     If PokemonIndex = 0 Then Exit Sub
     Npc(EditorIndex).PokemonIsShiny(PokemonIndex) = chkShiny
+    EditorChange = True
+End Sub
+
+Private Sub chkWeekDay_Click(Index As Integer)
+    If PokemonIndex = 0 Then Exit Sub
+    Npc(EditorIndex).SpawnWeekDay(Index + 1) = chkWeekDay(Index).value
     EditorChange = True
 End Sub
 
