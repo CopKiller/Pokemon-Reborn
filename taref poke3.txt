@@ -41,6 +41,8 @@ OK-Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
 OK-Adicionado correção ao sistema nativo de spawnar em horários específicos um pokemon,
 	estava dando problema no range, que as vezes passava da meia-noite, então criei um método pra resolver.
 
+-Adicionar no Editor de Spawn, uma renderização na tela, pra mostrar o que ja foi adicionado no mapa
+	colocar Nome do poke e lvl no mapa na localização do spawn dele.
 -Adicionar uma opção de spawn no NPC, escolhendo um dia da semana pra ele aparecer, e ao passar esse dia, despawnar.
 
 //-Melhorias na Pokedex.

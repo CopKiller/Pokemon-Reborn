@@ -19,7 +19,7 @@ Dim SelText As String
         CountText = 0
     End If
 
-    sString = KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & " : " & sString
+    sString = KeepTwoDigit(hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & " : " & sString
 
     SelText = TargetObj.Text
     If Len(SelText) > 0 Then
@@ -829,6 +829,7 @@ Public Sub BuyInvSlot(ByVal Index As Long, ByVal InvNum As Byte)
                     .Locked = NO
                     Player(Index, TempPlayer(Index).UseChar).Cash = Player(Index, TempPlayer(Index).UseChar).Cash - INV_SLOTS_PRICE
                     Call SendPlayerInvSlot(Index, InvNum)
+                    Call SendPlayerCash(Index)
 
                     Select Case TempPlayer(Index).CurLanguage
                     Case LANG_PT: AddAlert Index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
