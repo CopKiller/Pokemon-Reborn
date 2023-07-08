@@ -111,6 +111,7 @@ Public Enum ServerPackets
     SEventInfo
     SRequestServerInfo
     SClientTime
+    SSendVirtualShop
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -228,6 +229,8 @@ Public Enum ClientPackets
     CSetCash
     CRequestServerInfo
     CBuyInvSlot
+    CRequestVirtualShop
+    CPurchaseVirtualShop
     '//Make sure CMSG_COUNT is below everything else
     CMSG_Count
 End Enum
@@ -421,3 +424,35 @@ Public Enum StatusEnum
     Frozen
     Burn
 End Enum
+
+'//Loja Virtual
+Public Enum VirtualShopTabsRec
+    Skins = 1
+    Mounts
+    Items
+    Vips
+    
+    CountTabs
+End Enum
+
+'//Spawn Npc
+Public Enum WeekDayEnum
+    Domingo = 1
+    Segunda
+    Terça
+    Quarta
+    Quinta
+    Sexta
+    Sabado
+    
+    Count_WeekDay
+End Enum
+
+
+
+
+
+
+
+
+

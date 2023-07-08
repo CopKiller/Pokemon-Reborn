@@ -26,6 +26,7 @@ Dim filename As String
     ChkDir App.Path & "\data\", "conversation"
     ChkDir App.Path & "\data\", "shop"
     ChkDir App.Path & "\data\", "quest"
+    ChkDir App.Path & "\data\", "virtualshop"
     
     '//False = Get Error on Log text
     '//True = Get Error from IDE
@@ -79,6 +80,10 @@ Dim filename As String
     ClearQuests
     TextAdd frmServer.txtLog, "Clearing Map Npcs..."
     ClearMapNpcs
+    TextAdd frmServer.txtLog, "Clearing Virtual Shop..."
+    ClearVirtualShop
+    TextAdd frmServer.txtLog, "Loading Virtual Shop..."
+    LoadVirtualShop
     TextAdd frmServer.txtLog, "Loading Maps..."
     LoadMaps
     TextAdd frmServer.txtLog, "Loading Npcs..."
@@ -118,7 +123,7 @@ Dim filename As String
     TextAdd frmServer.txtLog, "Initialization Complete..."
     
     '//Obter data e hora do sistema, OBS: O client trabalha com esses horários
-    GameHour = Hour(Now)
+    GameHour = hour(Now)
     GameMinute = Minute(Now)
     GameSecs = Second(Now)
     GameSecs_Velocity = 15

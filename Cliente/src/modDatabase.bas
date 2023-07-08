@@ -159,7 +159,7 @@ End Sub
 
 Public Sub ResetGuiLocation(ByVal vGui As GuiEnum)
     '// Starting Location will be given by code
-    GUI(vGui).X = GUI(vGui).OrigX
+    GUI(vGui).x = GUI(vGui).OrigX
     GUI(vGui).Y = GUI(vGui).OrigY
 End Sub
 
@@ -253,57 +253,57 @@ Public Sub ResetGui()
         .OrigX = (Screen_Width - .Width)
         .OrigY = 120
     End With
-    With GUI(GuiEnum.GUI_LOJAVIRTUAL)
+    With GUI(GuiEnum.GUI_VIRTUALSHOP)
         .OrigX = (Screen_Width / 2) - (.Width / 2)
         .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With Button(ButtonEnum.Game_Pokedex)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
+        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
         .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Bag)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 4)
+        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 4)
         .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Card)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
+        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
         .Y = Screen_Height - .Height - 10
     End With
-    With Button(ButtonEnum.Game_LojaVirtual)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
+    With Button(ButtonEnum.Game_VirtualShop)
+        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
         .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Rank)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
+        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
         .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Menu)
-        .X = Screen_Width - .Width - 10
+        .x = Screen_Width - .Width - 10
         .Y = Screen_Height - .Height - 10
     End With
     
     With Button(ButtonEnum.Game_Evolve)
-        .X = 180
+        .x = 180
         .Y = 19
     End With
     
     With Button(ButtonEnum.Convo_Reply1)
-        .X = (Screen_Width / 2) - (.Width / 2)
+        .x = (Screen_Width / 2) - (.Width / 2)
         .Y = (Screen_Height / 2) - (111 / 2)
     End With
     With Button(ButtonEnum.Convo_Reply2)
-        .X = (Screen_Width / 2) - (.Width / 2)
+        .x = (Screen_Width / 2) - (.Width / 2)
         .Y = (Screen_Height / 2) - (111 / 2) + 37
     End With
     With Button(ButtonEnum.Convo_Reply3)
-        .X = (Screen_Width / 2) - (.Width / 2)
+        .x = (Screen_Width / 2) - (.Width / 2)
         .Y = (Screen_Height / 2) - (111 / 2) + 74
     End With
 End Sub
 
 '//Once we get error in loading gui that means, gui file doesn't exist
 Public Sub LoadGui()
-Dim i As Long, X As Byte
+Dim i As Long, x As Byte
 Dim FileTitle As String
 Dim FileName As String
 
@@ -331,7 +331,7 @@ Dim FileName As String
             Case GuiEnum.GUI_RELEARN: FileTitle = "relearn"
             Case GuiEnum.GUI_BADGE: FileTitle = "badge"
             Case GuiEnum.GUI_RANK: FileTitle = "rank"
-            Case GuiEnum.GUI_LOJAVIRTUAL: FileTitle = "lojavirtual-window"
+            Case GuiEnum.GUI_VIRTUALSHOP: FileTitle = "virtualShop-window"
         End Select
         FileName = App.Path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\" & FileTitle & ".ini"
         If FileExist(FileName) Then
@@ -384,7 +384,7 @@ Dim FileName As String
                 Case ButtonEnum.Game_Pokedex: FileTitle = "Game_Pokedex"
                 Case ButtonEnum.Game_Bag: FileTitle = "Game_Bag"
                 Case ButtonEnum.Game_Card: FileTitle = "Game_Card"
-                Case ButtonEnum.Game_LojaVirtual: FileTitle = "Game_LojaVirtual"
+                Case ButtonEnum.Game_VirtualShop: FileTitle = "Game_VirtualShop"
                 Case ButtonEnum.Game_Rank: FileTitle = "Game_Rank"
                 Case ButtonEnum.Game_Menu: FileTitle = "Game_Menu"
                 Case ButtonEnum.Game_Evolve: FileTitle = "Game_Evolve"
@@ -432,28 +432,22 @@ Dim FileName As String
                 Case ButtonEnum.Rank_Close: FileTitle = "Rank_Close"
                 Case ButtonEnum.Rank_ScrollUp: FileTitle = "Rank_ScrollUp"
                 Case ButtonEnum.Rank_ScrollDown: FileTitle = "Rank_ScrollDown"
-                Case ButtonEnum.LojaVirtual_Close: FileTitle = "LojaVirtual_Close"
-                Case ButtonEnum.LojaVirtual_Buy: FileTitle = "LojaVirtual_Buy"
-                Case ButtonEnum.LojaVirtual_Slot1: FileTitle = "LojaVirtual_Slot1"
-                Case ButtonEnum.LojaVirtual_Slot2: FileTitle = "LojaVirtual_Slot2"
-                Case ButtonEnum.LojaVirtual_Slot3: FileTitle = "LojaVirtual_Slot3"
-                Case ButtonEnum.LojaVirtual_Slot4: FileTitle = "LojaVirtual_Slot4"
-                Case ButtonEnum.LojaVirtual_Slot5: FileTitle = "LojaVirtual_Slot5"
-                Case ButtonEnum.LojaVirtual_Slot6: FileTitle = "LojaVirtual_Slot6"
-                Case ButtonEnum.LojaVirtual_Slot7: FileTitle = "LojaVirtual_Slot7"
-                Case ButtonEnum.LojaVirtual_Slot8: FileTitle = "LojaVirtual_Slot8"
+                Case ButtonEnum.VirtualShop_Close: FileTitle = "VirtualShop_Close"
+                Case ButtonEnum.VirtualShop_Buy: FileTitle = "VirtualShop_Buy"
+                Case ButtonEnum.VirtualShop_ScrollDown: FileTitle = "VirtualShop_ScrollDown"
+                Case ButtonEnum.VirtualShop_ScrollUp: FileTitle = "VirtualShop_ScrollUp"
             End Select
             
             With Button(i)
-                For X = ButtonState.StateNormal To ButtonState.StateClick
-                    .StartX(X) = Val(GetVar(FileName, FileTitle, "StartX_" & X))
-                    .StartY(X) = Val(GetVar(FileName, FileTitle, "StartY_" & X))
+                For x = ButtonState.StateNormal To ButtonState.StateClick
+                    .StartX(x) = Val(GetVar(FileName, FileTitle, "StartX_" & x))
+                    .StartY(x) = Val(GetVar(FileName, FileTitle, "StartY_" & x))
                 Next
                 
                 .Width = Val(GetVar(FileName, FileTitle, "Width"))
                 .Height = Val(GetVar(FileName, FileTitle, "Height"))
                 
-                .X = Val(GetVar(FileName, FileTitle, "X"))
+                .x = Val(GetVar(FileName, FileTitle, "X"))
                 .Y = Val(GetVar(FileName, FileTitle, "Y"))
             End With
         Next
@@ -468,22 +462,22 @@ End Sub
 ' ********************
 Public Function CheckRev(ByVal MapNum As Long, ByVal Rev As Long) As Boolean
 Dim FileName As String
-Dim F As Long
+Dim f As Long
 Dim GotRev As Long
 
     On Error GoTo errorHandler
 
     FileName = App.Path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     If Not FileExist(FileName) Then
         CheckRev = False
         Exit Function
     End If
     
-    Open FileName For Binary As #F
-        Get #F, , GotRev
-    Close #F
+    Open FileName For Binary As #f
+        Get #f, , GotRev
+    Close #f
     
     If GotRev = Rev Then
         CheckRev = True
@@ -505,12 +499,12 @@ End Sub
 
 Public Sub LoadMap(ByVal MapNum As Long)
 Dim FileName As String
-Dim F As Long
-Dim X As Long, Y As Long
+Dim f As Long
+Dim x As Long, Y As Long
 Dim i As Long, a As Byte
 
     FileName = App.Path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     If Not FileExist(FileName) Then
         MsgBox "Failed to load map cache. Exiting...", vbCritical
@@ -518,16 +512,16 @@ Dim i As Long, a As Byte
         Exit Sub
     End If
     
-    Open FileName For Binary As #F
+    Open FileName For Binary As #f
         With Map
             '//General
-            Get #F, , .Revision
-            Get #F, , .Name
-            Get #F, , .Moral
+            Get #f, , .Revision
+            Get #f, , .Name
+            Get #f, , .Moral
             
             '//Size
-            Get #F, , .MaxX
-            Get #F, , .MaxY
+            Get #f, , .MaxX
+            Get #f, , .MaxY
             
             '//Redim the size
             If .MaxX < MAX_MAPX Then .MaxX = MAX_MAPX
@@ -536,126 +530,126 @@ Dim i As Long, a As Byte
         End With
         
         '//Tiles
-        For X = 0 To Map.MaxX
+        For x = 0 To Map.MaxX
             For Y = 0 To Map.MaxY
-                With Map.Tile(X, Y)
+                With Map.Tile(x, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
-                            Get #F, , .Layer(i, a).Tile
-                            Get #F, , .Layer(i, a).TileX
-                            Get #F, , .Layer(i, a).TileY
+                            Get #f, , .Layer(i, a).Tile
+                            Get #f, , .Layer(i, a).TileX
+                            Get #f, , .Layer(i, a).TileY
                             '//Map anim
-                            Get #F, , .Layer(i, a).MapAnim
+                            Get #f, , .Layer(i, a).MapAnim
                         Next
                     Next
                     '//Tile Data
-                    Get #F, , .Attribute
-                    Get #F, , .Data1
-                    Get #F, , .Data2
-                    Get #F, , .Data3
-                    Get #F, , .Data4
+                    Get #f, , .Attribute
+                    Get #f, , .Data1
+                    Get #f, , .Data2
+                    Get #f, , .Data3
+                    Get #f, , .Data4
                 End With
             Next
         Next
         
         With Map
             '//Map Link
-            Get #F, , .LinkUp
-            Get #F, , .LinkDown
-            Get #F, , .LinkLeft
-            Get #F, , .LinkRight
+            Get #f, , .LinkUp
+            Get #f, , .LinkDown
+            Get #f, , .LinkLeft
+            Get #f, , .LinkRight
             
             '//Map Data
-            Get #F, , .Music
+            Get #f, , .Music
             
             '//Npc
             For i = 1 To MAX_MAP_NPC
-                Get #F, , .Npc(i)
+                Get #f, , .Npc(i)
             Next
             
             '//Moral
-            Get #F, , .KillPlayer
-            Get #F, , .IsCave
-            Get #F, , .CaveLight
-            Get #F, , .SpriteType
-            Get #F, , .StartWeather
+            Get #f, , .KillPlayer
+            Get #f, , .IsCave
+            Get #f, , .CaveLight
+            Get #f, , .SpriteType
+            Get #f, , .StartWeather
         End With
-    Close #F
+    Close #f
     DoEvents
 End Sub
 
 Public Sub SaveMap(ByVal MapNum As Long)
 Dim FileName As String
-Dim F As Long
-Dim X As Long, Y As Long
+Dim f As Long
+Dim x As Long, Y As Long
 Dim i As Long, a As Long
 
     FileName = App.Path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
-    F = FreeFile
+    f = FreeFile
     
     If FileExist(FileName) Then DeleteFile FileName
     
-    Open FileName For Binary As #F
+    Open FileName For Binary As #f
         With Map
             '//General
-            Put #F, , .Revision
-            Put #F, , .Name
-            Put #F, , .Moral
+            Put #f, , .Revision
+            Put #f, , .Name
+            Put #f, , .Moral
             
             '//Size
-            Put #F, , .MaxX
-            Put #F, , .MaxY
+            Put #f, , .MaxX
+            Put #f, , .MaxY
         End With
         
         '//Tiles
-        For X = 0 To Map.MaxX
+        For x = 0 To Map.MaxX
             For Y = 0 To Map.MaxY
-                With Map.Tile(X, Y)
+                With Map.Tile(x, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
-                            Put #F, , .Layer(i, a).Tile
-                            Put #F, , .Layer(i, a).TileX
-                            Put #F, , .Layer(i, a).TileY
+                            Put #f, , .Layer(i, a).Tile
+                            Put #f, , .Layer(i, a).TileX
+                            Put #f, , .Layer(i, a).TileY
                             '//Map anim
-                            Put #F, , .Layer(i, a).MapAnim
+                            Put #f, , .Layer(i, a).MapAnim
                         Next
                     Next
                     
                     '//Tile Data
-                    Put #F, , .Attribute
-                    Put #F, , .Data1
-                    Put #F, , .Data2
-                    Put #F, , .Data3
-                    Put #F, , .Data4
+                    Put #f, , .Attribute
+                    Put #f, , .Data1
+                    Put #f, , .Data2
+                    Put #f, , .Data3
+                    Put #f, , .Data4
                 End With
             Next
         Next
         
         With Map
             '//Map Link
-            Put #F, , .LinkUp
-            Put #F, , .LinkDown
-            Put #F, , .LinkLeft
-            Put #F, , .LinkRight
+            Put #f, , .LinkUp
+            Put #f, , .LinkDown
+            Put #f, , .LinkLeft
+            Put #f, , .LinkRight
             
             '//Map Data
-            Put #F, , .Music
+            Put #f, , .Music
             
             '//Npc
             For i = 1 To MAX_MAP_NPC
-                Put #F, , .Npc(i)
+                Put #f, , .Npc(i)
             Next
             
             '//Moral
-            Put #F, , .KillPlayer
-            Put #F, , .IsCave
-            Put #F, , .CaveLight
-            Put #F, , .SpriteType
-            Put #F, , .StartWeather
+            Put #f, , .KillPlayer
+            Put #f, , .IsCave
+            Put #f, , .CaveLight
+            Put #f, , .SpriteType
+            Put #f, , .StartWeather
         End With
-    Close #F
+    Close #f
     DoEvents
 End Sub
 
@@ -1016,14 +1010,14 @@ End Sub
 ' ** Conversation **
 ' ***************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim X As Byte, Y As Byte, Z As Byte
+Dim x As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
-    For X = 1 To MAX_CONV_DATA
+    For x = 1 To MAX_CONV_DATA
         For Y = 1 To MAX_LANGUAGE
-            Conversation(ConversationNum).ConvData(X).TextLang(Y).Text = vbNullString
-            For Z = 1 To 3
-                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(Z) = vbNullString
+            Conversation(ConversationNum).ConvData(x).TextLang(Y).Text = vbNullString
+            For z = 1 To 3
+                Conversation(ConversationNum).ConvData(x).TextLang(Y).tReply(z) = vbNullString
             Next
         Next
     Next
@@ -1041,7 +1035,7 @@ End Sub
 ' ** Shop **
 ' ***************
 Public Sub ClearShop(ByVal ShopNum As Long)
-Dim X As Byte, Y As Byte, Z As Byte
+Dim x As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Shop(ShopNum)), LenB(Shop(ShopNum)))
 End Sub
@@ -1058,7 +1052,7 @@ End Sub
 ' ** Quest **
 ' ***************
 Public Sub ClearQuest(ByVal QuestNum As Long)
-Dim X As Byte, Y As Byte, Z As Byte
+Dim x As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Quest(QuestNum)), LenB(Quest(QuestNum)))
 End Sub
@@ -1127,4 +1121,13 @@ Dim i As Long
         Credit(i).Y = (Screen_Height - 40) + (20 * i)
         Credit(i).StartY = (Screen_Height - 40) + (20 * i)
     Next
+End Sub
+
+'//Rank
+Public Sub ClearRank()
+    Dim i As Long
+    
+    For i = 1 To UBound(Rank)
+        Call ZeroMemory(ByVal VarPtr(Rank(i)), LenB(Rank(i)))
+    Next i
 End Sub

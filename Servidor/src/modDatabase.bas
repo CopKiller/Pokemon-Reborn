@@ -46,7 +46,7 @@ Dim filename As String
         Close #1
     End If
     Open filename For Append As #1
-        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & sString
+        Print #1, "[" & KeepTwoDigit(hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & sString
     Close #1
 End Sub
 
@@ -61,7 +61,7 @@ Dim filename As String
         Close #1
     End If
     Open filename For Append As #1
-        Print #1, "[" & KeepTwoDigit(Hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & sString
+        Print #1, "[" & KeepTwoDigit(hour(Now)) & ":" & KeepTwoDigit(Minute(Now)) & "]" & " " & sString
     Close #1
 End Sub
 
@@ -265,7 +265,7 @@ Public Sub AddPlayerData(ByVal Index As Long, ByVal CharSlot As Byte, ByVal Name
         .Sprite = Sprite
         .Access = 0
         .Map = Options.StartMap
-        .X = Options.startX
+        .x = Options.startX
         .Y = Options.startY
         .Dir = Options.StartDir
         .CurHp = 255
@@ -563,7 +563,7 @@ End Sub
 
 Public Sub LoadPlayerPokemons(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte, X As Byte
+Dim i As Byte, x As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -628,7 +628,7 @@ End Sub
 
 Public Sub SavePlayerPokemons(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim i As Byte, X As Byte
+Dim i As Byte, x As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -693,7 +693,7 @@ End Sub
 
 Public Sub LoadPlayerInvStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim X As Byte, Y As Byte
+Dim x As Byte, Y As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -713,7 +713,7 @@ End Sub
 
 Public Sub SavePlayerInvStorage(ByVal Index As Long, ByVal CharSlot As Byte)
 Dim filename As String
-Dim X As Byte, Y As Byte
+Dim x As Byte, Y As Byte
 Dim f As Long
 
     '//Determine the file location
@@ -820,7 +820,7 @@ Dim i As Long
 End Sub
 
 Public Sub LoadMap(ByVal MapNum As Long)
-Dim X As Long, Y As Long
+Dim x As Long, Y As Long
 Dim filename As String
 Dim f As Long
 Dim i As Long
@@ -854,9 +854,9 @@ Dim a As Byte
         End With
         
         '//Tiles
-        For X = 0 To Map(MapNum).MaxX
+        For x = 0 To Map(MapNum).MaxX
             For Y = 0 To Map(MapNum).MaxY
-                With Map(MapNum).Tile(X, Y)
+                With Map(MapNum).Tile(x, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -913,7 +913,7 @@ Dim i As Long
 End Sub
 
 Public Sub SaveMap(ByVal MapNum As Long)
-Dim X As Long, Y As Long
+Dim x As Long, Y As Long
 Dim filename As String
 Dim f As Long
 Dim i As Long
@@ -938,9 +938,9 @@ Dim a As Byte
         End With
         
         '//Tiles
-        For X = 0 To Map(MapNum).MaxX
+        For x = 0 To Map(MapNum).MaxX
             For Y = 0 To Map(MapNum).MaxY
-                With Map(MapNum).Tile(X, Y)
+                With Map(MapNum).Tile(x, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -1089,7 +1089,7 @@ End Sub
 
 Public Sub LoadPokemon(ByVal PokemonNum As Long)
 Dim filename As String
-Dim f As Long, X As Byte
+Dim f As Long, x As Byte
 
     filename = App.Path & "\data\pokemons\pokemondata_" & PokemonNum & ".dat"
     f = FreeFile
@@ -1117,7 +1117,7 @@ End Sub
 
 Public Sub SavePokemon(ByVal PokemonNum As Long)
 Dim filename As String
-Dim f As Long, X As Byte
+Dim f As Long, x As Byte
 
     filename = App.Path & "\data\pokemons\pokemondata_" & PokemonNum & ".dat"
     If FileExist(filename) Then
@@ -1419,14 +1419,14 @@ End Sub
 ' ** Conversation Properties **
 ' ********************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim x As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
-    For X = 1 To MAX_CONV_DATA
+    For x = 1 To MAX_CONV_DATA
         For Y = 1 To MAX_LANGUAGE
-            Conversation(ConversationNum).ConvData(X).TextLang(Y).Text = vbNullString
+            Conversation(ConversationNum).ConvData(x).TextLang(Y).Text = vbNullString
             For z = 1 To 3
-                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(z) = vbNullString
+                Conversation(ConversationNum).ConvData(x).TextLang(Y).tReply(z) = vbNullString
             Next
         Next
     Next
@@ -1650,4 +1650,92 @@ Dim i As Byte
         Rank(i).Name = GetVar(filename, "RANK", "Name" & i)
         Rank(i).Level = Val(GetVar(filename, "RANK", "Level" & i))
     Next
+End Sub
+
+Private Sub CheckVirtualShop()
+    Dim filename As String, i As Byte, x As Long
+
+    For i = 1 To VirtualShopTabsRec.CountTabs - 1
+        Select Case i
+        Case VirtualShopTabsRec.Skins: filename = App.Path & "\data\virtualshop\skins.ini"
+        Case VirtualShopTabsRec.Mounts: filename = App.Path & "\data\virtualshop\mounts.ini"
+        Case VirtualShopTabsRec.Items: filename = App.Path & "\data\virtualshop\items.ini"
+        Case VirtualShopTabsRec.Vips: filename = App.Path & "\data\virtualshop\vips.ini"
+        End Select
+        If Not FileExist(filename) Then
+            ClearVirtualShop
+            Call SaveVirtualShop
+            Exit Sub
+        End If
+    Next i
+End Sub
+
+Public Sub SaveVirtualShop()
+    Dim filename As String, i As Long, x As Long
+    
+    
+    For i = 1 To VirtualShopTabsRec.CountTabs - 1
+        Select Case i
+        Case VirtualShopTabsRec.Skins: filename = App.Path & "\data\virtualshop\skins.ini"
+        Case VirtualShopTabsRec.Mounts: filename = App.Path & "\data\virtualshop\mounts.ini"
+        Case VirtualShopTabsRec.Items: filename = App.Path & "\data\virtualshop\items.ini"
+        Case VirtualShopTabsRec.Vips: filename = App.Path & "\data\virtualshop\vips.ini"
+        End Select
+        
+        If FileExist(filename) Then
+            Kill filename
+        End If
+
+        PutVar filename, "INIT", "MAX_SLOTS", CStr(VirtualShop(i).Max_Slots)
+        
+        For x = 1 To UBound(VirtualShop(i).Items)
+            PutVar filename, "Slot" & x, "ItemNum", CStr(VirtualShop(i).Items(x).ItemNum)
+            PutVar filename, "Slot" & x, "ItemQuant", CStr(VirtualShop(i).Items(x).ItemQuant)
+            PutVar filename, "Slot" & x, "ItemPrice", CStr(VirtualShop(i).Items(x).ItemPrice)
+            PutVar filename, "Slot" & x, "CustomDesc", CStr(VirtualShop(i).Items(x).CustomDesc)
+        Next x
+    Next
+
+End Sub
+
+Public Sub LoadVirtualShop()
+Dim filename As String
+Dim i As Byte
+Dim x As Long
+
+    Call CheckVirtualShop
+
+    For i = 1 To VirtualShopTabsRec.CountTabs - 1
+        Select Case i
+        Case VirtualShopTabsRec.Skins: filename = App.Path & "\data\virtualshop\skins.ini"
+        Case VirtualShopTabsRec.Mounts: filename = App.Path & "\data\virtualshop\mounts.ini"
+        Case VirtualShopTabsRec.Items: filename = App.Path & "\data\virtualshop\items.ini"
+        Case VirtualShopTabsRec.Vips: filename = App.Path & "\data\virtualshop\vips.ini"
+        End Select
+        
+        VirtualShop(i).Max_Slots = Val(GetVar(filename, "INIT", "MAX_SLOTS"))
+        
+        
+        ReDim VirtualShop(i).Items(1 To VirtualShop(i).Max_Slots)
+        
+        If VirtualShop(i).Max_Slots >= 1 Then
+            For x = 1 To VirtualShop(i).Max_Slots
+                VirtualShop(i).Items(x).ItemNum = Val(Trim$(GetVar(filename, "Slot" & x, "ItemNum")))
+                VirtualShop(i).Items(x).ItemQuant = Val(Trim$(GetVar(filename, "Slot" & x, "ItemQuant")))
+                VirtualShop(i).Items(x).ItemPrice = Val(Trim$(GetVar(filename, "Slot" & x, "ItemPrice")))
+                VirtualShop(i).Items(x).CustomDesc = Val(Trim$(GetVar(filename, "Slot" & x, "CustomDesc")))
+            Next x
+        End If
+    Next i
+    
+End Sub
+
+Public Sub ClearVirtualShop()
+    Dim i As Long
+
+    For i = 1 To VirtualShopTabsRec.CountTabs - 1
+        Call ZeroMemory(ByVal VarPtr(VirtualShop(i)), LenB(VirtualShop(i)))
+        VirtualShop(i).Max_Slots = 1
+        ReDim VirtualShop(i).Items(1 To VirtualShop(i).Max_Slots)
+    Next i
 End Sub

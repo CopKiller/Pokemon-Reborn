@@ -1,63 +1,99 @@
-
-OK-Corrigido o Scrolling da aba de controles das opções do ESC
 OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
-OK-Adicionar o nome do dia da semana na posição perto do nome do mapa com traduções
-OK-Remover os segundos do tempo de jogo, deixar apenas horas e minutos
-OK-Alterar a posição do level do poke na hud.
-OK-Adicionar sistema de compra de slots do inventário por cash & alteração no visual do inventario pelo photoshop
-OK-Adicionar o tempo now do servidor(Hora e minuto), antes de qualquer mensagem no chat
-OK-Adicionar um find no Spawn Editor, pra procurar o nome do poke ou numero
-OK-Adicionar um botão de copia no Spawn Editor, pra copiar e colar no próximo slot
-OK-Adicionar um botao no SpawnEditor, pra selecionar e clikar no mapa onde deve spawnar
-//-Adicionar textbox no SpawnEditor, pra poder adicionar um campo de HP no pokemon, pra usar em boss.
-OK-Adicionar combobox de items no SpawnEditor, pokemon nasce com o item equipado, e ao captura-lo, vem com o item equipado.
-OK-Adicionar 3 botões de manhã, dia e noite, pra preencher o spawntime ao clikar em um deles.
+
+05-OK-Adicionar o nome do dia da semana na posição perto do nome do mapa com traduções
+
+10-OK-Corrigido o Scrolling da aba de controles das opções do ESC
+
+05-OK-Remover os segundos do tempo de jogo, deixar apenas horas e minutos
+
+03-OK-Alterar a posição do level do poke na hud.
+
+30-OK-Adicionar sistema de compra de slots do inventário por cash & alteração no visual do inventario pelo photoshop
+
+05-OK-Adicionar o tempo now do servidor(Hora e minuto), antes de qualquer mensagem no chat
+
+05-OK-Adicionar um find no Spawn Editor, pra procurar o nome do poke ou numero
+
+07-OK-Adicionar um botão de copia no Spawn Editor, pra copiar e colar no próximo slot
+
+09-OK-Adicionar um botao no SpawnEditor, pra selecionar e clikar no mapa onde deve spawnar
+
+19-OK-Adicionar combobox de items no SpawnEditor, pokemon nasce com o item equipado, e ao captura-lo, vem com o item equipado.
+
+08-OK-Adicionar 3 botões de manhã, dia e noite, pra preencher o spawntime ao clikar em um deles.
 	* Morning - (04:00 - 09:59).
 	* Day - (10:00 - 17:59).
 	* Night - (18:00 - 03:59)
-OK-Quando capturar um shiny, aparecer mensagem no global com "nome do jogador", "Pokémon" e nome do "Mapa".
+
+07-OK-Quando capturar um shiny, aparecer mensagem no global com "nome do jogador", "Pokémon" e nome do "Mapa".
 	Exemplo: "Philip" capturou um "Chamander" shiny em "Ceruleon".
-OK-Quando capturar um pokemon rarity, dependendo de um valor de rarity, aparecer mensagem global.
+
+07-OK-Quando capturar um pokemon rarity, dependendo de um valor de rarity, aparecer mensagem global.
 	Exemplo: "Philip" capturou um "Dratini" raro em "Dark Cave". Todo valor da raridade no editor que estiver acima de "50"
-OK-Adicionar uma combobox de Nature no Spawn Editor, pra escolher a nature do poke em específico a spawnar.
+
+15-OK-Adicionar uma combobox de Nature no Spawn Editor, pra escolher a nature do poke em específico a spawnar.
 	-Adicionado índice de nature -1, pra ser como um índice 'None', pois antes só randomizava
 	e agora precisa selecionar um específico as vezes e com combobox que o menor índice é 0.
-//-Adicionar uma checkbox de IVFull em spawn.
-OK-Alteração no sistema de compra de slots do inventário: Adicionado opacidade nos slots que não estão na ordem de desbloqueio
 
-OK-Adicionar o Find no pokemon do npc treinador, pra adicioná-los.
-OK-Consertar o Find do move do npc treinador, ja tem criado, apenas corrigir.
-OK-Adicionar no pokemon do npc treinador, combobox de item pra adicionar o item equipado de cada um.
-OK-Adicionar combobox de nature do npc treinador, ao adicionar um pokemon.
-OK-Ao alternar os slots do pokemon pra outro slot no mesmo npc treinador, resetar os dados preenchidos do poke.
-OK-Adicionar checkbox de IV Full nos pokemon do npc treinador.
-OK-Adicionar checkbox de IsShiny nos pokemon do npc treinador.
-OK-Adicionar checkbox de Rebatle, pra caso perca e somente ao perder, poder lutar novamente sem esperar virar o dia, apenas se ganhar, poder lutar em outro dia.
-OK-Reformulado código de Lose e Win do player contra NPC, centralizado em dois métodos(PlayerLoseToNpc, PlayerWinToNpc)
-OK-Adicionar mecanica pra implementação de ao derrotar um NPC, não poder batalhar com ele nunca mais.
-OK-Adicionar o find no item do editor de npc do pokemon dele.
-OK-Base do sistema de montarias c/ pokemon exemplo.
-OK-Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
-OK-Adicionado correção ao sistema nativo de spawnar em horários específicos um pokemon,
+05-OK-Alteração no sistema de compra de slots do inventário: Adicionado opacidade nos slots que não estão na ordem de desbloqueio
+
+05-OK-Adicionar o Find no pokemon do npc treinador, pra adicioná-los.
+
+05-OK-Consertar o Find do move do npc treinador, ja tem criado, apenas corrigir.
+
+12-OK-Adicionar no pokemon do npc treinador, combobox de item pra adicionar o item equipado de cada um.
+
+10-OK-Adicionar combobox de nature do npc treinador, ao adicionar um pokemon.
+
+03-OK-Ao alternar os slots do pokemon pra outro slot no mesmo npc treinador, resetar os dados preenchidos do poke.
+
+05-OK-Adicionar checkbox de IV Full nos pokemon do npc treinador.
+
+05-OK-Adicionar checkbox de IsShiny nos pokemon do npc treinador.
+
+19-OK-Adicionar checkbox de Rebatle, pra caso perca e somente ao perder, poder lutar novamente sem esperar virar o dia, apenas se ganhar, poder lutar em outro dia.
+
+10-OK-Reformulado código de Lose e Win do player contra NPC, centralizado em dois métodos(PlayerLoseToNpc, PlayerWinToNpc)
+
+10-OK-Adicionar mecanica pra implementação de ao derrotar um NPC, não poder batalhar com ele nunca mais.
+
+05-OK-Adicionar o find no item do editor de npc do pokemon dele.
+
+15-OK-Base do sistema de montarias terrestres c/ pokemon exemplo feito no photoshop.
+
+04-OK-Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
+
+19-OK-Adicionado correção ao sistema nativo de spawnar em horários específicos um pokemon,
 	estava dando problema no range, que as vezes passava da meia-noite, então criei um método pra resolver.
 
--Adicionar no Editor de Spawn, uma renderização na tela, pra mostrar o que ja foi adicionado no mapa
-	colocar Nome do poke e lvl no mapa na localização do spawn dele.
--Adicionar uma opção de spawn no NPC, escolhendo um dia da semana pra ele aparecer, e ao passar esse dia, despawnar.
+19-OK-Adicionar pro máximo de item amontoado 999, apartir dai não poder obter mais daquele item.(inv e banco)
 
-//-Melhorias na Pokedex.
+150- Sistema de Loja Virtual na HUD. >>>>>>>>>>>>>>>>>>>>>>>>>(FINALIZADO)<<<<<<<<<<<<<<<<<<<<<<<<<<
+	-->Utilizando um [+] antes da escrita, vai torná-lo um benefício abrangente.
+	-->Utilizando um [-] antes da escrita, vai torná-lo um benefício não abrangente.
+	-->Não utilizando nada antes da escrita, vai torná-lo uma descrição normal apenas.
+	-->Por favor, separe cada benefício com uma "," ao final de cada.
+	-->Dê preferencia primeiramente aos benefícios abrangentes, e após os não abrangentes e após a descrição, se houver uma.
+	//Eu adaptei esse sistema pra funcionar em qualquer janela, então você poderá usar em outras abas e não apenas no VIP. Para que funcione essa descrição que implementei, você precisa deixar marcado a opção "Custom Description", ai então você consegue usar o tutorialzin acima que mostrei como faz pra aparecer os benefícios.
 
-//-Adicionar mais duas descrição de item, pra que seja 3 descrições, um pra cada linguagem.
+08-OK-Adicionar mais uma aba na loja virtual(a escolher o nome, pra adicionar o vip la tbm)
+
+03-OK-Mudar os nomes da loja virtual, "Skins" para "Outfit", "Item" para "Items"
+
+12-OK-Mecanica na descrição da loja virtual, adaptada de uma forma para que use o VIP de uma forma mais qualificada.
+
+15-Adicionar uma opção de spawn no NPC, escolhendo um dia da semana pra ele aparecer, e ao passar esse dia, despawnar.
+
+10-Correção de falha crítica, falta de verificação ao adicionar um item do inv na item storage.
+10-Correção de falha crítica, falta de verificação ao adicionar um item da storage no inventario.
+
+Total
+494
 
 -Adicionar lógica: HeldItems, implementado pelas que está no txt, no editor apenas selecionar o nome, e em value ser a quantidade de segundos pra alguns com tempo em específico
 
-/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
->Futuramente, após finalizar correções básicas.<
-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-
 - Sistema de Login Diário.
 - Sistema de VIP
-- Sistema de Loja Virtual na HUD. >>>>>>>>>>>>>>>>>>>>>>>>>(EM ANDAMENTO)<<<<<<<<<<<<<<<<<<<<<<<<<<
 - Sistema de Montarias (Rider, Aquática e Voadora).
 - Sistema de MAPA(Teleportar pro badge do treiner card).
 - Sistema de Breed (egg).
@@ -65,6 +101,12 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 - Sistema de Outfit.
 - Sistema de Guilds Global.
 - Sistema de RAID Pokémon.
+
+-Outfit gratuita enquanto tiver vip2
+-Montaria gratuita enquanto tiver vip 2
+-Login Diário em dobro ao obter vip 2
+-Poder adicionar mais items no mercado global que X Limite que free poderia
+-Mais chances em uma RAID
 
 -Pk & Hero System-
 	-PK-

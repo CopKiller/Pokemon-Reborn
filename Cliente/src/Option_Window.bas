@@ -193,8 +193,8 @@ Public Sub DrawOption()
             RenderTexture Tex_Gui(.Pic), .X + 414, .Y + ControlScrollStartY + ((ControlScrollEndY - ControlScrollSize) - ControlScrollY), 328, 310, 19, 35, 19, 35
 
             ' Quantidade dos controles
-            For i = 1 To MAX_CONTROL_PREV
-                Count = CurControlKey + (i)
+            For i = 1 To ControlScrollViewLine
+                Count = ControlViewCount + (i)
                 If Count > 0 And Count <= ControlEnum.Control_Count - 1 Then
                     RenderTexture Tex_Gui(.Pic), .X + 152, .Y + 43 + ((25 + 5) * (i - 1)), 93, 389, 254, 28, 254, 28
 
@@ -277,19 +277,19 @@ Public Sub OptionMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y 
                                 ControlScrollUp = True
                                 ControlScrollDown = False
                                 ControlScrollTimer = GetTickCount
-                                If CurControlKey > 0 Then
-                                    CurControlKey = CurControlKey - 1
-                                    ControlScrollY = (CurControlKey * ControlScrollLength) \ MaxControlViewLine
+                                If ControlViewCount > 0 Then
+                                    ControlViewCount = ControlViewCount - 1
+                                    ControlScrollY = (ControlViewCount * ControlScrollLength) \ ControlMaxViewLine
                                     ControlScrollY = (ControlScrollLength - ControlScrollY)
                                 End If
                             Case ButtonEnum.Option_cTabDown
                                 ControlScrollUp = False
                                 ControlScrollDown = True
                                 ControlScrollTimer = GetTickCount
-                                If CurControlKey + (MAX_CONTROL_PREV) < ControlEnum.Control_Count - 1 Then
-                                    CurControlKey = CurControlKey + 1
-                                    ControlScrollY = (CurControlKey * ControlScrollLength)
-                                    ControlScrollY = (ControlScrollY \ MaxControlViewLine)
+                                If ControlViewCount + (ControlScrollViewLine) < ControlEnum.Control_Count - 1 Then
+                                    ControlViewCount = ControlViewCount + 1
+                                    ControlScrollY = (ControlViewCount * ControlScrollLength)
+                                    ControlScrollY = (ControlScrollY \ ControlMaxViewLine)
                                     ControlScrollY = (ControlScrollLength - ControlScrollY)
                                 End If
                             End Select
@@ -426,8 +426,8 @@ Public Sub OptionMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y 
             End If
 
         Case ButtonEnum.Option_Control
-            For i = 1 To MAX_CONTROL_PREV
-                Count = CurControlKey + (i)
+            For i = 1 To ControlScrollViewLine
+                Count = ControlViewCount + (i)
                 If Count > 0 And Count <= ControlEnum.Control_Count - 1 Then
                     If CursorX >= .X + 290 And CursorX <= .X + 290 + 114 And CursorY >= .Y + 44 + ((25 + 5) * (i - 1)) And CursorY <= .Y + 44 + ((25 + 5) * (i - 1)) + 24 Then
                         editKey = Count
@@ -571,8 +571,8 @@ Dim Count As Long
                 Next
             Case ButtonEnum.Option_Control
                 '//Control Key
-                For i = 1 To MAX_CONTROL_PREV
-                    Count = CurControlKey + (i)
+                For i = 1 To ControlScrollViewLine
+                    Count = ControlViewCount + (i)
                     If Count > 0 And Count <= ControlEnum.Control_Count - 1 Then
                         If CursorX >= .X + 290 And CursorX <= .X + 290 + 114 And CursorY >= .Y + 44 + ((25 + 5) * (i - 1)) And CursorY <= .Y + 44 + ((25 + 5) * (i - 1)) + 24 Then
                             IsHovering = True
@@ -595,13 +595,13 @@ Dim Count As Long
                             ControlScrollY = (CursorY - (.Y + ControlScrollStartY + (ControlScrollEndY - ControlScrollSize)) - (ControlScrollSize / 2)) * -1
                             If ControlScrollY >= ControlScrollEndY - ControlScrollSize Then ControlScrollY = ControlScrollEndY - ControlScrollSize
                             
-                            CurControlKey = CurControlKey - 1
+                            ControlViewCount = ControlViewCount - 1
                             
-                            If CurControlKey < 0 Then
-                                CurControlKey = 0
+                            If ControlViewCount < 0 Then
+                                ControlViewCount = 0
                             End If
                             
-                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                            ControlScrollY = (ControlViewCount * ControlScrollLength) / ControlMaxViewLine
                             ControlScrollY = (ControlScrollLength - ControlScrollY)
                             
                         End If
@@ -614,13 +614,13 @@ Dim Count As Long
                             If ControlScrollY <= 0 Then ControlScrollY = 0
                             
                             '
-                            CurControlKey = CurControlKey + 1
+                            ControlViewCount = ControlViewCount + 1
                             
-                            If CurControlKey >= ControlEnum.Control_Count Then
-                                CurControlKey = ControlEnum.Control_Count - 1
+                            If ControlViewCount >= ControlEnum.Control_Count Then
+                                ControlViewCount = ControlEnum.Control_Count - 1
                             End If
                             
-                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                            ControlScrollY = (ControlViewCount * ControlScrollLength) / ControlMaxViewLine
                             ControlScrollY = (ControlScrollLength - ControlScrollY)
                             
                         End If

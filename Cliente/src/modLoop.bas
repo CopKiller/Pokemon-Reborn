@@ -108,55 +108,77 @@ Public Sub AppLoop()
                     If RankingScrollUp Then
                         If RankingViewCount > 0 Then
                             RankingViewCount = RankingViewCount - 1
-                            RankingScrollY = (RankingViewCount * RankingScrollLength) / MaxRankingViewLine
+                            RankingScrollY = (RankingViewCount * RankingScrollLength) / RankingMaxViewLine
                             RankingScrollY = (RankingScrollLength - RankingScrollY)
                             RankingScrollTimer = GetTickCount
                         End If
                     End If
                     If RankingScrollDown Then
-                        If RankingViewCount < MaxRankingViewLine Then
+                        If RankingViewCount < RankingMaxViewLine Then
                             RankingViewCount = RankingViewCount + 1
-                            RankingScrollY = (RankingViewCount * RankingScrollLength) / MaxRankingViewLine
+                            RankingScrollY = (RankingViewCount * RankingScrollLength) / RankingMaxViewLine
                             RankingScrollY = (RankingScrollLength - RankingScrollY)
                             RankingScrollTimer = GetTickCount
                         End If
                     End If
                 End If
                 
-                ' Pode ser usado InGame ou InMenu
+                ' Controls
                 If ControlScrollTimer + 150 < Tick Then
                     If ControlScrollUp Then
-                        If CurControlKey > 0 Then
-                            CurControlKey = CurControlKey - 1
-                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                        If ControlViewCount > 0 Then
+                            ControlViewCount = ControlViewCount - 1
+                            ControlScrollY = (ControlViewCount * ControlScrollLength) / ControlMaxViewLine
                             ControlScrollY = (ControlScrollLength - ControlScrollY)
                             ControlScrollTimer = GetTickCount
                         End If
                     End If
                     If ControlScrollDown Then
-                        If CurControlKey + (MAX_CONTROL_PREV) < ControlEnum.Control_Count - 1 Then
-                            CurControlKey = CurControlKey + 1
-                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                        If ControlViewCount + (ControlScrollViewLine) < ControlEnum.Control_Count - 1 Then
+                            ControlViewCount = ControlViewCount + 1
+                            ControlScrollY = (ControlViewCount * ControlScrollLength) / ControlMaxViewLine
                             ControlScrollY = (ControlScrollLength - ControlScrollY)
                             ControlScrollTimer = GetTickCount
                         End If
                     End If
                 End If
+                
+                ' Virtual Shop
+                If VirtualShopScrollTimer + 150 < Tick Then
+                    If VirtualShopScrollUp Then
+                        If VirtualShopScrollCount > 0 Then
+                            VirtualShopScrollCount = VirtualShopScrollCount - 1
+                            VirtualShopScrollY = (VirtualShopScrollCount * VirtualShopScrollLength) \ (VirtualShopMaxViewLine \ VirtualShopViewLines)
+                            VirtualShopScrollY = (VirtualShopScrollLength - VirtualShopScrollY)
+                            VirtualShopScrollTimer = GetTickCount
+                        End If
+                    End If
+                    If VirtualShopScrollDown Then
+                        If VirtualShopScrollCount < (VirtualShopMaxViewLine \ VirtualShopViewLines) Then
+                            VirtualShopScrollCount = VirtualShopScrollCount + 1
+                            VirtualShopScrollY = (VirtualShopScrollCount * VirtualShopScrollLength) \ (VirtualShopMaxViewLine \ VirtualShopViewLines)
+                            VirtualShopScrollY = (VirtualShopScrollLength - VirtualShopScrollY)
+                            VirtualShopScrollTimer = GetTickCount
+                        End If
+                    End If
+                End If
             ElseIf GameState = GameStateEnum.InMenu Then
-                ' Pode ser usado InGame ou InMenu
+                '// Pode ser usado InMenu
+                
+                ' -->Controls
                 If ControlScrollTimer + 150 < Tick Then
                     If ControlScrollUp Then
-                        If CurControlKey > 0 Then
-                            CurControlKey = CurControlKey - 1
-                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                        If ControlViewCount > 0 Then
+                            ControlViewCount = ControlViewCount - 1
+                            ControlScrollY = (ControlViewCount * ControlScrollLength) / ControlMaxViewLine
                             ControlScrollY = (ControlScrollLength - ControlScrollY)
                             ControlScrollTimer = GetTickCount
                         End If
                     End If
                     If ControlScrollDown Then
-                        If CurControlKey + (MAX_CONTROL_PREV) < ControlEnum.Control_Count - 1 Then
-                            CurControlKey = CurControlKey + 1
-                            ControlScrollY = (CurControlKey * ControlScrollLength) / MaxControlViewLine
+                        If ControlViewCount + (ControlScrollViewLine) < ControlEnum.Control_Count - 1 Then
+                            ControlViewCount = ControlViewCount + 1
+                            ControlScrollY = (ControlViewCount * ControlScrollLength) / ControlMaxViewLine
                             ControlScrollY = (ControlScrollLength - ControlScrollY)
                             ControlScrollTimer = GetTickCount
                         End If

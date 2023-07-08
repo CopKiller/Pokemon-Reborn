@@ -109,6 +109,7 @@ Public Enum ServerPackets
     SEventInfo
     SRequestServerInfo
     SClientTime
+    SSendVirtualShop
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -228,6 +229,8 @@ Public Enum ClientPackets
     CSetCash
     CRequestServerInfo
     CBuyInvSlot
+    CRequestVirtualShop
+    CPurchaseVirtualShop
     '//Make sure CMSG_COUNT is below everything else
     CMSG_Count
 End Enum
@@ -484,7 +487,7 @@ Public Enum GuiEnum
     GUI_RELEARN
     GUI_BADGE
     GUI_RANK
-    GUI_LOJAVIRTUAL
+    GUI_VIRTUALSHOP
     '//Make sure that Gui_Count is below everything else
     Gui_Count
 End Enum
@@ -524,7 +527,7 @@ Public Enum ButtonEnum
     Game_Pokedex
     Game_Bag
     Game_Card
-    Game_LojaVirtual
+    Game_VirtualShop
     Game_Rank
     Game_Menu
     Game_Evolve
@@ -572,16 +575,10 @@ Public Enum ButtonEnum
     Rank_Close
     Rank_ScrollUp
     Rank_ScrollDown
-    LojaVirtual_Close
-    LojaVirtual_Buy
-    LojaVirtual_Slot1
-    LojaVirtual_Slot2
-    LojaVirtual_Slot3
-    LojaVirtual_Slot4
-    LojaVirtual_Slot5
-    LojaVirtual_Slot6
-    LojaVirtual_Slot7
-    LojaVirtual_Slot8
+    VirtualShop_Close
+    VirtualShop_Buy
+    VirtualShop_ScrollDown
+    VirtualShop_ScrollUp
     '//Make sure that Gui_Count is below everything else
     Button_Count
 End Enum

@@ -5,13 +5,13 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmServer 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "PokeNew "
-   ClientHeight    =   3525
+   ClientHeight    =   3570
    ClientLeft      =   45
    ClientTop       =   375
    ClientWidth     =   7050
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   3525
+   ScaleHeight     =   3570
    ScaleWidth      =   7050
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
@@ -24,17 +24,21 @@ Begin VB.Form frmServer
       _ExtentX        =   12091
       _ExtentY        =   5953
       _Version        =   393216
-      Tab             =   1
+      Tabs            =   4
+      Tab             =   3
+      TabsPerRow      =   4
       TabHeight       =   520
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtLog"
-      Tab(0).Control(1)=   "txtCommand"
+      Tab(0).Control(0)=   "txtCommand"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "txtLog"
+      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
       TabPicture(1)   =   "frmServer.frx":001C
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "lvwInfo"
       Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
@@ -42,9 +46,26 @@ Begin VB.Form frmServer
       TabPicture(2)   =   "frmServer.frx":0038
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "lblGameTime"
+      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "frmInfo"
+      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "chkStaffOnly"
+      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).ControlCount=   3
+      TabCaption(3)   =   "Editores"
+      TabPicture(3)   =   "frmServer.frx":0054
+      Tab(3).ControlEnabled=   -1  'True
+      Tab(3).Control(0)=   "cmdEditStore"
+      Tab(3).Control(0).Enabled=   0   'False
+      Tab(3).ControlCount=   1
+      Begin VB.CommandButton cmdEditStore 
+         Caption         =   "Edit Store"
+         Height          =   375
+         Left            =   360
+         TabIndex        =   18
+         Top             =   840
+         Width           =   1335
+      End
       Begin VB.CheckBox chkStaffOnly 
          Caption         =   "Modo Desenvolvedor"
          Height          =   255
@@ -181,21 +202,21 @@ Begin VB.Form frmServer
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   2
-         Top             =   480
+         Top             =   780
          Width           =   6495
       End
       Begin VB.TextBox txtCommand 
          Height          =   380
          Left            =   -74880
          TabIndex        =   1
-         Top             =   2760
+         Top             =   3060
          Width           =   6495
       End
       Begin MSComctlLib.ListView lvwInfo 
          Height          =   2655
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   17
-         Top             =   480
+         Top             =   780
          Width           =   6495
          _ExtentX        =   11456
          _ExtentY        =   4683
@@ -372,6 +393,11 @@ Dim i As Long
     End If
 End Sub
 
+Private Sub cmdEditStore_Click()
+    Call LoadVirtualShop
+    frmEditor_Store.Show vbModeless, frmServer
+End Sub
+
 Private Sub cmdExp_Click()
     Dim i As Integer
 
@@ -445,7 +471,7 @@ Private Sub cmdShutdown_Click()
     End If
 End Sub
 
-Private Sub frmUser_DragDrop(Source As Control, X As Single, Y As Single)
+Private Sub frmUser_DragDrop(Source As Control, x As Single, Y As Single)
 
 End Sub
 
@@ -464,7 +490,7 @@ Private Sub lvwInfo_ColumnClick(ByVal ColumnHeader As MSComctlLib.ColumnHeader)
     lvwInfo.Sorted = True
 End Sub
 
-Private Sub lvwInfo_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lvwInfo_MouseDown(Button As Integer, Shift As Integer, x As Single, Y As Single)
     If Not AppRunning Then Exit Sub
     
     If Button = vbRightButton Then

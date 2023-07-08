@@ -110,6 +110,7 @@ Public Sub InitMessages()
     HandleDataSub(SEventInfo) = GetAddress(AddressOf HandleEventInfo)
     HandleDataSub(SRequestServerInfo) = GetAddress(AddressOf HandleRequestServerInfo)
     HandleDataSub(SClientTime) = GetAddress(AddressOf HandleClientTime)
+    HandleDataSub(SSendVirtualShop) = GetAddress(AddressOf HandleVirtualShop)
 End Sub
 
 Public Sub HandleData(ByRef Data() As Byte)
@@ -302,8 +303,8 @@ Private Sub HandleInGame(ByVal Index As Long, ByRef Data() As Byte, ByVal StartA
     For i = 1 To MAX_RANK
         If Len(Trim$(Rank(i).Name)) > 0 Then
             RankingHighIndex = i
-            MaxRankingViewLine = RankingHighIndex
-            MaxRankingViewLine = MaxRankingViewLine - RankingViewLine
+            RankingMaxViewLine = RankingHighIndex
+            RankingMaxViewLine = RankingMaxViewLine - RankingScrollViewLine
         End If
     Next
 End Sub
@@ -2392,4 +2393,27 @@ Private Sub HandleClientTime(ByVal Index As Long, ByRef Data() As Byte, ByVal St
     GameSecond_Velocity = buffer.ReadByte
     
     Set buffer = Nothing
+End Sub
+
+Private Sub HandleVirtualShop(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+    Dim buffer As clsBuffer
+    Dim i As Long, X As Long, Matriz As Long
+
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+
+    For i = 1 To VirtualShopTabsRec.CountTabs - 1
+        Matriz = buffer.ReadLong
+        ReDim VirtualShop(i).Items(1 To Matriz)
+
+        For X = LBound(VirtualShop(i).Items) To UBound(VirtualShop(i).Items)
+            VirtualShop(i).Items(X).ItemNum = buffer.ReadLong
+            VirtualShop(i).Items(X).ItemQuant = buffer.ReadLong
+            VirtualShop(i).Items(X).ItemPrice = buffer.ReadLong
+            VirtualShop(i).Items(X).CustomDesc = buffer.ReadByte
+        Next X
+    Next i
+    Set buffer = Nothing
+
+    SwitchTabFromVirtualShop Skins
 End Sub

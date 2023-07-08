@@ -263,14 +263,14 @@ Public Const PokedexScrollStartY As Byte = 55
 Public Const PokedexScrollEndY As Byte = 167
 
 '//Ranking Scrolling
-Public Const RankingViewLine As Byte = 8
+Public Const RankingScrollViewLine As Byte = 8
 Public Const RankingScrollLength As Byte = 185
 Public Const RankingScrollSize As Byte = 35
 Public Const RankingScrollStartY As Byte = 55
 Public Const RankingScrollEndY As Byte = 220
 
 ' Controles Scrool
-Public Const MAX_CONTROL_PREV As Byte = 7
+Public Const ControlScrollViewLine As Byte = 7
 Public Const ControlScrollLength As Byte = 120
 Public Const ControlScrollSize As Byte = 35
 Public Const ControlScrollStartY As Byte = 48

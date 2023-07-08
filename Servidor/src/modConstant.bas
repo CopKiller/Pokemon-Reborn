@@ -68,6 +68,7 @@ Public Const MAX_SWITCH As Long = 1000
 Public Const MAX_DROP As Byte = 5
 Public Const MAX_MONEY As Long = 999999999
 Public Const MAX_CASH As Long = 9999
+Public Const MAX_AMOUNT As Long = 999
 Public Const MAX_BADGE As Byte = 32
 Public Const MAX_HOTBAR As Byte = 5
 Public Const MAX_QUEST As String = 100

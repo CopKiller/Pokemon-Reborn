@@ -13,7 +13,7 @@ Dim SetWidth As Long
     ShowServerList = True
     ServerList = False
     
-    ' // SERVER SETUP
+    ' //SERVER SETUP
     CurServerList = 1
     
     ServerName(1) = "Pc"
@@ -130,10 +130,7 @@ Dim SetWidth As Long
     CentralizeWindow frmMain
     
     ' Initialize, using in scrolling of Controls Option.
-    MaxControlViewLine = ControlEnum.Control_Count - 1 - MAX_CONTROL_PREV
-    
-    'Test
-    InitLojaVirtual
+    ControlMaxViewLine = ControlEnum.Control_Count - 1 - ControlScrollViewLine
     
     ForceExit = False
     AppRunning = True   '//Make sure that our application is actually running
@@ -466,6 +463,8 @@ Public Sub ClearGameData()
     ClearConversations
     ClearShops
     ClearQuests
+    ClearRank
+    ClearVirtualShop
 End Sub
 
 Public Sub ResetMenu()
@@ -524,7 +523,7 @@ Dim z As Long
     SEVolume = CurSoundVolume
     
     '//Reset
-    CurControlKey = 0
+    ControlViewCount = 0
     editKey = 0
     '//Set Key
     For z = 1 To ControlEnum.Control_Count - 1

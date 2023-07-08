@@ -257,8 +257,9 @@ Begin VB.Form frmEditor_Item
          Width           =   975
       End
       Begin VB.TextBox txtDesc 
-         Height          =   285
+         Height          =   525
          Left            =   1200
+         MultiLine       =   -1  'True
          TabIndex        =   34
          Top             =   1680
          Width           =   4455

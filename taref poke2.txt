@@ -82,7 +82,6 @@ VVVVVVVVVVVVV
 	de pokebolas.
 10 OK-adicionar pra não poder trocar no trade com o mesmo ip e level acima de X pra poder dar trade.
 
-//-Não tirar dinheiro em mapa 
 #Pokemon Editor
 05 OK*** -scrl Evolve do pokemon, adicionar um find pra procurar pelo nome ou pelo ID.
 03 OK*** -scrl da sprite do pokemon, pra procurar o número da sprite.

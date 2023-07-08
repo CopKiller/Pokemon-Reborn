@@ -26,8 +26,23 @@ Public Conversation(1 To MAX_CONVERSATION) As ConversationRec
 Public Shop(1 To MAX_SHOP) As ShopRec
 Public Quest(1 To MAX_QUEST) As QuestRec
 Public Rank(1 To MAX_RANK) As RankRec
+
 '//Event Xp
 Public EventExp As EventExpRec
+'//Virtual Shop
+Public VirtualShop(1 To VirtualShopTabsRec.CountTabs - 1) As VirtualShopDataRec
+
+Private Type VirtualShopRec
+    ItemNum As Long
+    ItemQuant As Long
+    ItemPrice As Long
+    CustomDesc As Byte
+End Type
+
+Private Type VirtualShopDataRec
+    Items() As VirtualShopRec
+    Max_Slots As Integer
+End Type
 
 Private Type EventExpRec
     ExpEvent As Boolean
@@ -64,7 +79,7 @@ Private Type MapPokemonRec
     
     '//Location
     Map As Long
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -138,7 +153,7 @@ Private Type MapNpcPokemonRec
     Num As Long     '//Index of the npc
     
     '//Location
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -204,7 +219,7 @@ Private Type MapNpcRec
     Num As Long     '//Index of the npc
     
     '//Location
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -223,7 +238,7 @@ Public Type PlayerPokemonRec
     Num As Long
     
     '//Location
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     
@@ -271,7 +286,7 @@ Public Type PlayerRec
     
     '//Location
     Map As Long
-    X As Long
+    x As Long
     Y As Long
     Dir As Byte
     

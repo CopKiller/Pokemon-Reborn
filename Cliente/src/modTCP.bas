@@ -422,7 +422,7 @@ Dim buffer As clsBuffer
     Set buffer = New clsBuffer
     buffer.WriteLong CDepositItemTo
     buffer.WriteByte StorageSlot
-    buffer.WriteByte StorageData
+    'buffer.WriteByte StorageData
     buffer.WriteByte InvSlot
     buffer.WriteLong wValue
     SendData buffer.ToArray()
@@ -448,7 +448,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong CWithdrawItemTo
     buffer.WriteByte StorageSlot
     buffer.WriteByte StorageData
-    buffer.WriteByte InvSlot
+    'buffer.WriteByte InvSlot
     buffer.WriteLong wValue
     SendData buffer.ToArray()
     Set buffer = Nothing
@@ -1408,6 +1408,26 @@ Public Sub SendBuyInvSlot(ByVal InvSlot As Byte)
     Set buffer = New clsBuffer
     buffer.WriteLong CBuyInvSlot
     buffer.WriteByte InvSlot
+    SendData buffer.ToArray()
+    Set buffer = Nothing
+End Sub
+
+Public Sub RequestVirtualShop()
+    Dim buffer As clsBuffer
+
+    Set buffer = New clsBuffer
+    buffer.WriteLong CRequestVirtualShop
+    SendData buffer.ToArray()
+    Set buffer = Nothing
+End Sub
+
+Public Sub PurchaseVirtualShop(ByVal Indice As Long, ByVal Slot As Long)
+    Dim buffer As clsBuffer
+
+    Set buffer = New clsBuffer
+    buffer.WriteLong CPurchaseVirtualShop
+    buffer.WriteLong Indice
+    buffer.WriteLong Slot
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub

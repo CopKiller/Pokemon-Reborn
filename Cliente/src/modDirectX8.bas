@@ -473,7 +473,7 @@ Dim TextureName As String
             Case 21: TextureName = "pokemon-summary"
             Case 22: TextureName = "relearn"
             Case 23: TextureName = "badge"
-            Case 24: TextureName = "lojavirtual-window"
+            Case 24: TextureName = "virtualShop-window"
             Case 25: TextureName = "rank"
             Case 26: TextureName = "bottom-login"
             Case Else: TextureName = Count_Gui
@@ -512,7 +512,7 @@ Dim TextureName As String
                 Case 21: TextureName = "pokemon-summary"
                 Case 22: TextureName = "relearn"
                 Case 23: TextureName = "badge"
-                Case 24: TextureName = "lojavirtual-window"
+                Case 24: TextureName = "virtualShop-window"
                 Case 25: TextureName = "rank"
                 Case 26: TextureName = "bottom-login"
                 Case Else: TextureName = i
@@ -1532,8 +1532,8 @@ Private Sub Render_Game()
                     If GUI(GuiEnum.GUI_TRAINER).Visible Then
                         Button(i).State = ButtonState.StateClick
                     End If
-                Case ButtonEnum.Game_LojaVirtual
-                    If GUI(GuiEnum.GUI_LOJAVIRTUAL).Visible Then
+                Case ButtonEnum.Game_VirtualShop
+                    If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible Then
                         Button(i).State = ButtonState.StateClick
                     End If
                 Case ButtonEnum.Game_Rank
@@ -1570,7 +1570,7 @@ Private Sub Render_Game()
                         Case GuiEnum.GUI_RELEARN: DrawRelearn
                         Case GuiEnum.GUI_BADGE: DrawBadge
                         Case GuiEnum.GUI_RANK: DrawRank
-                        Case GuiEnum.GUI_LOJAVIRTUAL: DrawLojaVirtual
+                        Case GuiEnum.GUI_VIRTUALSHOP: DrawVirtualShop
                         End Select
                     End If
                 Next
@@ -4214,14 +4214,14 @@ Private Sub DrawRank()
         Next
         
         '//Scroll
-        If RankingHighIndex > RankingViewLine Then
+        If RankingHighIndex > RankingScrollViewLine Then
             RenderTexture Tex_Gui(.Pic), .X + 7, .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY), 28, 373, 19, 35, 19, 35
         End If
         
         '//ShowRank
         '//ID Icons Top 1, 2 and 3.
         '// 1º = 528 => 2º = 529 => 3º = 530
-        For i = RankingViewCount To (RankingViewCount) + (RankingViewLine - 1)
+        For i = RankingViewCount To (RankingViewCount) + (RankingScrollViewLine - 1)
             If i >= 0 And i < RankingHighIndex Then
                 rankIndex = i + 1
                 

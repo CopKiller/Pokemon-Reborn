@@ -170,11 +170,6 @@ Public MyChat As String
 Public ChatTab As String
 Public ChatMinimize As Boolean
 
-'//ControlKey
-Public CurControlKey As Long
-Public editKey As Long
-Public TmpKey(1 To ControlEnum.Control_Count - 1) As Long
-
 '//Menu
 Public WaitTimer As Long
 
@@ -295,7 +290,7 @@ Public RankingScroll As Long
 Public RankingScrollY As Long
 Public RankingScrollCount As Long
 Public RankingViewCount As Long
-Public MaxRankingViewLine As Long
+Public RankingMaxViewLine As Long
 Public RankingScrollUp As Boolean
 Public RankingScrollDown As Boolean
 Public RankingScrollTimer As Long
@@ -305,10 +300,14 @@ Public RankingHighIndex As Long
 Public ControlScrollHold As Boolean
 Public ControlScroll As Long
 Public ControlScrollY As Long
-Public MaxControlViewLine As Long
+Public ControlViewCount As Long
+Public ControlMaxViewLine As Long
 Public ControlScrollUp As Boolean
 Public ControlScrollDown As Boolean
 Public ControlScrollTimer As Long
+'//ControlKey
+Public editKey As Long
+Public TmpKey(1 To ControlEnum.Control_Count - 1) As Long
 
 '//Releasing thing
 Public ReleaseStorageSlot As Byte

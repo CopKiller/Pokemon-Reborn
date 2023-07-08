@@ -1,0 +1,7 @@
+//-Melhorias na Pokedex.
+
+//-Adicionar mais duas descrição de item, pra que seja 3 descrições, um pra cada linguagem.
+
+//-Adicionar uma checkbox de IVFull em spawn.
+
+//-Adicionar textbox no SpawnEditor, pra poder adicionar um campo de HP no pokemon, pra usar em boss.
