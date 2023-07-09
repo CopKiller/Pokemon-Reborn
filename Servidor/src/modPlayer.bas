@@ -10,14 +10,14 @@ Public Function GetPlayerIP(ByVal Index As Long) As String
 End Function
 
 Private Function TotalPlayerOnMap(ByVal MapNum As Long) As Long
-Dim i As Long
+Dim I As Long
 Dim count As Long
 
     count = 0
-    For i = 1 To Player_HighIndex
-        If IsPlaying(i) Then
-            If TempPlayer(i).UseChar > 0 Then
-                If Player(i, TempPlayer(i).UseChar).Map = MapNum Then
+    For I = 1 To Player_HighIndex
+        If IsPlaying(I) Then
+            If TempPlayer(I).UseChar > 0 Then
+                If Player(I, TempPlayer(I).UseChar).Map = MapNum Then
                     count = count + 1
                 End If
             End If
@@ -27,13 +27,13 @@ Dim count As Long
 End Function
 
 Public Function TotalPlayerOnline()
-Dim i As Long
+Dim I As Long
 Dim count As Long
 
     count = 0
-    For i = 1 To Player_HighIndex
-        If IsPlaying(i) Then
-            If TempPlayer(i).UseChar > 0 Then
+    For I = 1 To Player_HighIndex
+        If IsPlaying(I) Then
+            If TempPlayer(I).UseChar > 0 Then
                 count = count + 1
             End If
         End If
@@ -116,7 +116,7 @@ Public Sub PlayerMove(ByVal Index As Long, ByVal Dir As Byte, Optional ByVal sen
 Dim DidMove As Boolean
 Dim OldX As Long, OldY As Long
 Dim gothealed As Boolean
-Dim i As Long, x As Byte
+Dim I As Long, x As Byte
 
     '//Exit out when error
     If Index <= 0 Or Index > MAX_PLAYER Then Exit Sub
@@ -231,21 +231,21 @@ Dim i As Long, x As Byte
                 Case MapAttribute.HealPokemon
                     '//Heal Pokemon
                     gothealed = False
-                    For i = 1 To MAX_PLAYER_POKEMON
-                        If PlayerPokemons(Index).Data(i).Num > 0 Then
-                            If PlayerPokemons(Index).Data(i).CurHp < PlayerPokemons(Index).Data(i).MaxHp Then
-                                PlayerPokemons(Index).Data(i).CurHp = PlayerPokemons(Index).Data(i).MaxHp
+                    For I = 1 To MAX_PLAYER_POKEMON
+                        If PlayerPokemons(Index).Data(I).Num > 0 Then
+                            If PlayerPokemons(Index).Data(I).CurHp < PlayerPokemons(Index).Data(I).MaxHp Then
+                                PlayerPokemons(Index).Data(I).CurHp = PlayerPokemons(Index).Data(I).MaxHp
                                 gothealed = True
                             End If
-                            If PlayerPokemons(Index).Data(i).Status > 0 Then
-                                PlayerPokemons(Index).Data(i).Status = 0
+                            If PlayerPokemons(Index).Data(I).Status > 0 Then
+                                PlayerPokemons(Index).Data(I).Status = 0
                                 gothealed = True
                             End If
                             For x = 1 To MAX_MOVESET
-                                If PlayerPokemons(Index).Data(i).Moveset(x).Num > 0 Then
-                                    If PlayerPokemons(Index).Data(i).Moveset(x).CurPP < PlayerPokemons(Index).Data(i).Moveset(x).TotalPP Then
-                                        PlayerPokemons(Index).Data(i).Moveset(x).CurPP = PlayerPokemons(Index).Data(i).Moveset(x).TotalPP
-                                        PlayerPokemons(Index).Data(i).Moveset(x).CD = 0
+                                If PlayerPokemons(Index).Data(I).Moveset(x).Num > 0 Then
+                                    If PlayerPokemons(Index).Data(I).Moveset(x).CurPP < PlayerPokemons(Index).Data(I).Moveset(x).TotalPP Then
+                                        PlayerPokemons(Index).Data(I).Moveset(x).CurPP = PlayerPokemons(Index).Data(I).Moveset(x).TotalPP
+                                        PlayerPokemons(Index).Data(I).Moveset(x).CD = 0
                                         gothealed = True
                                     End If
                                 End If
@@ -671,7 +671,7 @@ End Sub
 
 Public Sub LeftGame(ByVal Index As Long)
     Dim sIP As String
-    Dim i As Long, x As Byte, Y As Byte
+    Dim I As Long, x As Byte, Y As Byte
 
     sIP = GetPlayerIP(Index)
 
@@ -685,75 +685,75 @@ Public Sub LeftGame(ByVal Index As Long)
     '//InGame Data
     If TempPlayer(Index).InGame Then
         '//Request
-        i = TempPlayer(Index).PlayerRequest
-        If i > 0 Then
+        I = TempPlayer(Index).PlayerRequest
+        If I > 0 Then
             '//Cancel Request to index
-            If IsPlaying(i) Then
-                If TempPlayer(i).UseChar > 0 Then
-                    If TempPlayer(i).PlayerRequest = Index Then
+            If IsPlaying(I) Then
+                If TempPlayer(I).UseChar > 0 Then
+                    If TempPlayer(I).PlayerRequest = Index Then
                         If TempPlayer(Index).RequestType = 1 Then  '//1 Duel
                             '//Check if already in duel
                             If TempPlayer(Index).InDuel > 0 Then
-                                SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Win!", Player(i, TempPlayer(i).UseChar).x * 32, Player(i, TempPlayer(i).UseChar).Y * 32, White
-                                Player(i, TempPlayer(i).UseChar).Win = Player(i, TempPlayer(i).UseChar).Win + 1
-                                SendPlayerPvP (i)
-                                TempPlayer(i).InDuel = 0
-                                TempPlayer(i).DuelTime = 0
-                                TempPlayer(i).DuelTimeTmr = 0
-                                TempPlayer(i).WarningTimer = 0
-                                TempPlayer(i).PlayerRequest = 0
-                                TempPlayer(i).RequestType = 0
-                                SendRequest i
+                                SendActionMsg Player(I, TempPlayer(I).UseChar).Map, "Win!", Player(I, TempPlayer(I).UseChar).x * 32, Player(I, TempPlayer(I).UseChar).Y * 32, White
+                                Player(I, TempPlayer(I).UseChar).Win = Player(I, TempPlayer(I).UseChar).Win + 1
+                                SendPlayerPvP (I)
+                                TempPlayer(I).InDuel = 0
+                                TempPlayer(I).DuelTime = 0
+                                TempPlayer(I).DuelTimeTmr = 0
+                                TempPlayer(I).WarningTimer = 0
+                                TempPlayer(I).PlayerRequest = 0
+                                TempPlayer(I).RequestType = 0
+                                SendRequest I
                             Else
                                 '//Cancel Request to index
-                                TempPlayer(i).PlayerRequest = 0
-                                TempPlayer(i).RequestType = 0
-                                SendRequest i
-                                Select Case TempPlayer(i).CurLanguage
-                                Case LANG_PT: AddAlert i, "Duel request has been cancelled", White
-                                Case LANG_EN: AddAlert i, "Duel request has been cancelled", White
-                                Case LANG_ES: AddAlert i, "Duel request has been cancelled", White
+                                TempPlayer(I).PlayerRequest = 0
+                                TempPlayer(I).RequestType = 0
+                                SendRequest I
+                                Select Case TempPlayer(I).CurLanguage
+                                Case LANG_PT: AddAlert I, "Duel request has been cancelled", White
+                                Case LANG_EN: AddAlert I, "Duel request has been cancelled", White
+                                Case LANG_ES: AddAlert I, "Duel request has been cancelled", White
                                 End Select
                             End If
                         ElseIf TempPlayer(Index).RequestType = 2 Then    '//trade
                             '//Check if already in trade
                             If TempPlayer(Index).InTrade > 0 Then
-                                TempPlayer(i).InTrade = 0
+                                TempPlayer(I).InTrade = 0
                                 For x = 1 To MAX_TRADE
-                                    Call ZeroMemory(ByVal VarPtr(TempPlayer(i).TradeItem(x)), LenB(TempPlayer(i).TradeItem(x)))
+                                    Call ZeroMemory(ByVal VarPtr(TempPlayer(I).TradeItem(x)), LenB(TempPlayer(I).TradeItem(x)))
                                 Next
-                                TempPlayer(i).TradeMoney = 0
-                                TempPlayer(i).TradeSet = 0
-                                TempPlayer(i).TradeAccept = 0
-                                TempPlayer(i).PlayerRequest = 0
-                                TempPlayer(i).RequestType = 0
-                                Select Case TempPlayer(i).CurLanguage
-                                Case LANG_PT: AddAlert i, "The trade was declined", White
-                                Case LANG_EN: AddAlert i, "The trade was declined", White
-                                Case LANG_ES: AddAlert i, "The trade was declined", White
+                                TempPlayer(I).TradeMoney = 0
+                                TempPlayer(I).TradeSet = 0
+                                TempPlayer(I).TradeAccept = 0
+                                TempPlayer(I).PlayerRequest = 0
+                                TempPlayer(I).RequestType = 0
+                                Select Case TempPlayer(I).CurLanguage
+                                Case LANG_PT: AddAlert I, "The trade was declined", White
+                                Case LANG_EN: AddAlert I, "The trade was declined", White
+                                Case LANG_ES: AddAlert I, "The trade was declined", White
                                 End Select
-                                SendCloseTrade i
-                                SendRequest i
+                                SendCloseTrade I
+                                SendRequest I
                             Else
                                 '//Cancel Request to index
-                                TempPlayer(i).PlayerRequest = 0
-                                TempPlayer(i).RequestType = 0
-                                SendRequest i
-                                Select Case TempPlayer(i).CurLanguage
-                                Case LANG_PT: AddAlert i, "Trade request has been cancelled", White
-                                Case LANG_EN: AddAlert i, "Trade request has been cancelled", White
-                                Case LANG_ES: AddAlert i, "Trade request has been cancelled", White
+                                TempPlayer(I).PlayerRequest = 0
+                                TempPlayer(I).RequestType = 0
+                                SendRequest I
+                                Select Case TempPlayer(I).CurLanguage
+                                Case LANG_PT: AddAlert I, "Trade request has been cancelled", White
+                                Case LANG_EN: AddAlert I, "Trade request has been cancelled", White
+                                Case LANG_ES: AddAlert I, "Trade request has been cancelled", White
                                 End Select
                             End If
                         ElseIf TempPlayer(Index).RequestType = 3 Then    '//Party
                             '//Cancel Request to index
-                            TempPlayer(i).PlayerRequest = 0
-                            TempPlayer(i).RequestType = 0
-                            SendRequest i
-                            Select Case TempPlayer(i).CurLanguage
-                            Case LANG_PT: AddAlert i, "Party request has been cancelled", White
-                            Case LANG_EN: AddAlert i, "Party request has been cancelled", White
-                            Case LANG_ES: AddAlert i, "Party request has been cancelled", White
+                            TempPlayer(I).PlayerRequest = 0
+                            TempPlayer(I).RequestType = 0
+                            SendRequest I
+                            Select Case TempPlayer(I).CurLanguage
+                            Case LANG_PT: AddAlert I, "Party request has been cancelled", White
+                            Case LANG_EN: AddAlert I, "Party request has been cancelled", White
+                            Case LANG_ES: AddAlert I, "Party request has been cancelled", White
                             End Select
                         End If
                     End If
@@ -819,13 +819,13 @@ Public Sub LeftGame(ByVal Index As Long)
 End Sub
 
 Public Function FindPlayer(ByVal Name As String) As Long
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To Player_HighIndex
-        If IsPlaying(i) Then
-            If TempPlayer(i).UseChar > 0 Then
-                If UCase$(Trim$(Player(i, TempPlayer(i).UseChar).Name)) = UCase$(Trim$(Name)) Then
-                    FindPlayer = i
+    For I = 1 To Player_HighIndex
+        If IsPlaying(I) Then
+            If TempPlayer(I).UseChar > 0 Then
+                If UCase$(Trim$(Player(I, TempPlayer(I).UseChar).Name)) = UCase$(Trim$(Name)) Then
+                    FindPlayer = I
                     Exit Function
                 End If
             End If
@@ -836,12 +836,12 @@ Dim i As Long
 End Function
 
 Public Function FindAccount(ByVal Name As String) As Long
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To Player_HighIndex
-        If Len(Account(i).Username) > 0 Then
-            If UCase$(Trim$(Account(i).Username)) = UCase$(Trim$(Name)) Then
-                FindAccount = i
+    For I = 1 To Player_HighIndex
+        If Len(Account(I).Username) > 0 Then
+            If UCase$(Trim$(Account(I).Username)) = UCase$(Trim$(Name)) Then
+                FindAccount = I
                 Exit Function
             End If
         End If
@@ -851,19 +851,19 @@ Dim i As Long
 End Function
 
 Public Function FindSameItemSlot(ByVal Index As Long, ByVal ItemNum As Long) As Byte
-Dim i As Byte
+Dim I As Byte
 
     FindSameItemSlot = 0
     
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
     
-    For i = 1 To MAX_PLAYER_INV
-        With PlayerInv(Index).Data(i)
+    For I = 1 To MAX_PLAYER_INV
+        With PlayerInv(Index).Data(I)
             If .Num = ItemNum Then
                 If Item(ItemNum).Stock = YES Then
                     '//add val
-                    FindSameItemSlot = i
+                    FindSameItemSlot = I
                     Exit Function
                 End If
             End If
@@ -872,7 +872,7 @@ Dim i As Byte
 End Function
 
 Public Function FindFreeInvSlot(ByVal Index As Long, ByVal ItemNum As Long, ByRef ItemVal As Long, Optional ByRef MsgFrom As String) As Byte
-    Dim i As Byte
+    Dim I As Byte
 
     FindFreeInvSlot = 0
 
@@ -880,10 +880,10 @@ Public Function FindFreeInvSlot(ByVal Index As Long, ByVal ItemNum As Long, ByRe
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
 
     If Item(ItemNum).Stock = YES Then
-        i = FindSameItemSlot(Index, ItemNum)
-        If i > 0 Then
-            If CheckInvValues(Index, i, ItemNum, ItemVal, MsgFrom) Then
-                FindFreeInvSlot = i
+        I = FindSameItemSlot(Index, ItemNum)
+        If I > 0 Then
+            If CheckInvValues(Index, I, ItemNum, ItemVal, MsgFrom) Then
+                FindFreeInvSlot = I
                 Exit Function
             Else
                 Exit Function
@@ -891,12 +891,12 @@ Public Function FindFreeInvSlot(ByVal Index As Long, ByVal ItemNum As Long, ByRe
         End If
     End If
 
-    For i = 1 To MAX_PLAYER_INV
-        With PlayerInv(Index).Data(i)
+    For I = 1 To MAX_PLAYER_INV
+        With PlayerInv(Index).Data(I)
             If .Locked = NO Then
                 If .Num = 0 Then
-                    If CheckInvValues(Index, i, ItemNum, ItemVal, MsgFrom) Then
-                        FindFreeInvSlot = i
+                    If CheckInvValues(Index, I, ItemNum, ItemVal, MsgFrom) Then
+                        FindFreeInvSlot = I
                         Exit Function
                     End If
                 End If
@@ -975,7 +975,7 @@ Public Function TryGivePlayerItem(ByVal Index As Long, ByVal ItemNum As Long, By
 End Function
 
 Public Function CountFreeInvSlot(ByVal Index As Long) As Long
-Dim count As Long, i As Long
+Dim count As Long, I As Long
 
     CountFreeInvSlot = 0
     count = 0
@@ -983,8 +983,8 @@ Dim count As Long, i As Long
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
     
-    For i = 1 To MAX_PLAYER_INV
-        With PlayerInv(Index).Data(i)
+    For I = 1 To MAX_PLAYER_INV
+        With PlayerInv(Index).Data(I)
             If .Num = 0 Then
                 count = count + 1
             End If
@@ -995,19 +995,19 @@ Dim count As Long, i As Long
 End Function
 
 Public Function GiveItem(ByVal Index As Long, ByVal ItemNum As Long, ByRef ItemVal As Long, Optional ByRef MsgFrom As String) As Boolean
-Dim i As Byte
+Dim I As Byte
 
     '//Get Slot
-    i = FindFreeInvSlot(Index, ItemNum, ItemVal, MsgFrom)
+    I = FindFreeInvSlot(Index, ItemNum, ItemVal, MsgFrom)
     
     '//Got slot
-    If i > 0 Then
-        With PlayerInv(Index).Data(i)
+    If I > 0 Then
+        With PlayerInv(Index).Data(I)
             .Num = ItemNum
             .Value = .Value + ItemVal
         End With
         '//Update
-        SendPlayerInvSlot Index, i
+        SendPlayerInvSlot Index, I
         GiveItem = True
     Else
         GiveItem = False
@@ -1016,11 +1016,11 @@ End Function
 
 '//Player Pokemon
 Public Function FindOpenPokeSlot(ByVal Index As Long) As Long
-Dim i As Byte
+Dim I As Byte
 
-    For i = 1 To MAX_PLAYER_POKEMON
-        If PlayerPokemons(Index).Data(i).Num = 0 Then
-            FindOpenPokeSlot = i
+    For I = 1 To MAX_PLAYER_POKEMON
+        If PlayerPokemons(Index).Data(I).Num = 0 Then
+            FindOpenPokeSlot = I
             Exit Function
         End If
     Next
@@ -1028,13 +1028,13 @@ End Function
 
 Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal Level As Long, ByVal BallUsed As Byte, Optional ByVal IsShiny As Byte = NO, _
                              Optional ByVal IVFull As Byte = NO, Optional ByVal TheNature As Integer = -1)
-    Dim i As Long, x As Byte, m As Long, s As Byte, slot As Byte, StorageSlot As Byte, gotSlot As Byte
+    Dim I As Long, x As Byte, m As Long, s As Byte, slot As Byte, StorageSlot As Byte, gotSlot As Byte
 
-    i = FindOpenPokeSlot(Index)
+    I = FindOpenPokeSlot(Index)
 
     '//Got slot
-    If i > 0 Then
-        With PlayerPokemons(Index).Data(i)
+    If I > 0 Then
+        With PlayerPokemons(Index).Data(I)
             .Num = PokeNum
 
             .Level = Level
@@ -1100,7 +1100,7 @@ Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal L
             AddPlayerPokedex Index, .Num, YES, YES
         End With
         '//Update
-        SendPlayerPokemonSlot Index, i
+        SendPlayerPokemonSlot Index, I
     Else
         For StorageSlot = 1 To MAX_STORAGE_SLOT
             gotSlot = FindFreePokeStorageSlot(Index, StorageSlot)
@@ -1187,27 +1187,27 @@ Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal L
 End Sub
 
 Public Sub UpdatePlayerPokemonOrder(ByVal Index As Long)
-Dim i As Long
+Dim I As Long
 
-    For i = 2 To MAX_PLAYER_POKEMON
+    For I = 2 To MAX_PLAYER_POKEMON
         With PlayerPokemons(Index)
             '//Check if previous number is empty
-            If .Data(i - 1).Num = 0 Then
+            If .Data(I - 1).Num = 0 Then
                 '//Move Data
-                .Data(i - 1) = .Data(i)
-                Call ZeroMemory(ByVal VarPtr(.Data(i)), LenB(.Data(i)))
+                .Data(I - 1) = .Data(I)
+                Call ZeroMemory(ByVal VarPtr(.Data(I)), LenB(.Data(I)))
             End If
         End With
     Next
 End Sub
 
 Public Function CountPlayerPokemon(ByVal Index As Long) As Byte
-Dim i As Byte
+Dim I As Byte
 Dim count As Byte
 
     count = 0
-    For i = 1 To MAX_PLAYER_POKEMON
-        With PlayerPokemons(Index).Data(i)
+    For I = 1 To MAX_PLAYER_POKEMON
+        With PlayerPokemons(Index).Data(I)
             If .Num > 0 Then
                 count = count + 1
             End If
@@ -1217,12 +1217,12 @@ Dim count As Byte
 End Function
 
 Public Function CountPlayerPokemonAlive(ByVal Index As Long) As Byte
-Dim i As Byte
+Dim I As Byte
 Dim count As Byte
 
     count = 0
-    For i = 1 To MAX_PLAYER_POKEMON
-        With PlayerPokemons(Index).Data(i)
+    For I = 1 To MAX_PLAYER_POKEMON
+        With PlayerPokemons(Index).Data(I)
             If .Num > 0 Then
                 If .CurHp > 0 Then
                     count = count + 1
@@ -1367,7 +1367,7 @@ Private Sub CheckPlayerPokemonLevelUp(ByVal Index As Long, ByVal PokeSlot As Byt
 Dim ExpRollover As Long
 Dim statNu As Byte
 Dim oldlevel As Long, levelcount As Long
-Dim i As Long
+Dim I As Long
 Dim DidLevel As Boolean
 
     '//Check Error
@@ -1411,7 +1411,7 @@ Dim DidLevel As Boolean
 End Sub
 
 Public Function FindFreeMoveSlot(ByVal Index As Long, ByVal PokeSlot As Byte, Optional ByVal MoveSlot As Byte = 0) As Long
-Dim i As Byte
+Dim I As Byte
 Dim foundsameslot As Boolean
 
     '//Check Error
@@ -1422,8 +1422,8 @@ Dim foundsameslot As Boolean
 
     foundsameslot = False
     With PlayerPokemons(Index).Data(PokeSlot)
-        For i = 1 To MAX_MOVESET
-            If .Moveset(i).Num = 0 Then
+        For I = 1 To MAX_MOVESET
+            If .Moveset(I).Num = 0 Then
                 'If MoveSlot > 0 Then
                 '    If .Moveset(i).Num = MoveSlot Then
                 '        foundsameslot = True
@@ -1435,7 +1435,7 @@ Dim foundsameslot As Boolean
                 '        FindFreeMoveSlot = -1
                 '    End If
                 'Else
-                    FindFreeMoveSlot = i
+                    FindFreeMoveSlot = I
                     Exit Function
                 'End If
             End If
@@ -1444,7 +1444,7 @@ Dim foundsameslot As Boolean
 End Function
 
 Public Sub CheckNewMove(ByVal Index As Long, ByVal PokeSlot As Byte, Optional ByVal StartIndex As Long = 1)
-Dim i As Byte, x As Byte
+Dim I As Byte, x As Byte
 Dim FoundMatch As Boolean
 Dim MoveSlot As Byte
 Dim Continue As Boolean
@@ -1460,13 +1460,13 @@ Dim Continue As Boolean
     '//Add Exp
     With PlayerPokemons(Index).Data(PokeSlot)
         '//Check New Move
-        For i = StartIndex To MAX_POKEMON_MOVESET
-            If Pokemon(.Num).Moveset(i).MoveNum > 0 Then
-                If Pokemon(.Num).Moveset(i).MoveLevel = .Level Then
+        For I = StartIndex To MAX_POKEMON_MOVESET
+            If Pokemon(.Num).Moveset(I).MoveNum > 0 Then
+                If Pokemon(.Num).Moveset(I).MoveLevel = .Level Then
                     Continue = False
                     '//Make sure move doesn't exist
                     For x = 1 To MAX_MOVESET
-                        If .Moveset(x).Num = Pokemon(.Num).Moveset(i).MoveNum Then
+                        If .Moveset(x).Num = Pokemon(.Num).Moveset(I).MoveNum Then
                             Continue = True
                         End If
                     Next
@@ -1475,17 +1475,17 @@ Dim Continue As Boolean
                         MoveSlot = FindFreeMoveSlot(Index, PokeSlot)
                         If MoveSlot >= 0 Then
                             If MoveSlot > 0 Then
-                                .Moveset(MoveSlot).Num = Pokemon(.Num).Moveset(i).MoveNum
-                                .Moveset(MoveSlot).TotalPP = PokemonMove(Pokemon(.Num).Moveset(i).MoveNum).PP
+                                .Moveset(MoveSlot).Num = Pokemon(.Num).Moveset(I).MoveNum
+                                .Moveset(MoveSlot).TotalPP = PokemonMove(Pokemon(.Num).Moveset(I).MoveNum).PP
                                 .Moveset(MoveSlot).CurPP = .Moveset(MoveSlot).TotalPP
                                 SendPlayerPokemonSlot Index, PokeSlot
                                 '//Send Msg
-                                SendPlayerMsg Index, Trim$(Pokemon(.Num).Name) & " learned the move " & Trim$(PokemonMove(Pokemon(.Num).Moveset(i).MoveNum).Name), White
+                                SendPlayerMsg Index, Trim$(Pokemon(.Num).Name) & " learned the move " & Trim$(PokemonMove(Pokemon(.Num).Moveset(I).MoveNum).Name), White
                             Else
                                 '//Proceed to ask
                                 TempPlayer(Index).MoveLearnPokeSlot = PokeSlot
-                                TempPlayer(Index).MoveLearnNum = Pokemon(.Num).Moveset(i).MoveNum
-                                TempPlayer(Index).MoveLearnIndex = i + 1
+                                TempPlayer(Index).MoveLearnNum = Pokemon(.Num).Moveset(I).MoveNum
+                                TempPlayer(Index).MoveLearnIndex = I + 1
                                 SendNewMove Index
                             End If
                         End If
@@ -1502,7 +1502,7 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
     Dim x As Long
     Dim exproll As Long
     Dim Exp As Long
-    Dim i As Long, CanLearn As Boolean
+    Dim I As Long, CanLearn As Boolean
     Dim BerriesFunc As Integer, PokeName As String
 
     If Not IsPlaying(Index) Then Exit Sub
@@ -1722,8 +1722,8 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
         If Item(ItemNum).Data1 > 0 Then
             If PlayerPokemon(Index).Num > 0 Then
                 If PlayerPokemon(Index).slot > 0 Then
-                    For i = 1 To StatEnum.Stat_Count - 1
-                        If Item(ItemNum).Data1 = i Then
+                    For I = 1 To StatEnum.Stat_Count - 1
+                        If Item(ItemNum).Data1 = I Then
                             ' Adiciona ou remove a experiência (Berries/Proteins)
                             BerriesFunc = GivePlayerPokemonEVExp(Index, PlayerPokemon(Index).slot, Item(ItemNum).Data1, Item(ItemNum).Data2)
                             If BerriesFunc <> 0 Then
@@ -1759,7 +1759,7 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
                             End If
                             Exit For
                         End If
-                    Next i
+                    Next I
                 Else
                     Select Case TempPlayer(Index).CurLanguage
                     Case LANG_PT: AddAlert Index, "Você não está em um pokemon", White
@@ -1789,26 +1789,26 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
         If PlayerPokemon(Index).Num > 0 And PlayerPokemon(Index).slot > 0 Then
             If Item(ItemNum).Data1 > 0 Then
                 CanLearn = False
-                For i = 1 To 110
-                    If Pokemon(PlayerPokemon(Index).Num).ItemMoveset(i) = Item(ItemNum).Data1 Then
+                For I = 1 To 110
+                    If Pokemon(PlayerPokemon(Index).Num).ItemMoveset(I) = Item(ItemNum).Data1 Then
                         CanLearn = True
                         Exit For
                     End If
                 Next
                 '//Make sure move doesn't exist
-                For i = 1 To MAX_MOVESET
-                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).Num = Item(ItemNum).Data1 Then
+                For I = 1 To MAX_MOVESET
+                    If PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(I).Num = Item(ItemNum).Data1 Then
                         CanLearn = False
                     End If
                 Next
 
                 If CanLearn Then
                     '//Continue
-                    i = FindFreeMoveSlot(Index, PlayerPokemon(Index).slot)
-                    If i > 0 Then
-                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).Num = Item(ItemNum).Data1
-                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).TotalPP = PokemonMove(Item(ItemNum).Data1).PP
-                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(i).TotalPP
+                    I = FindFreeMoveSlot(Index, PlayerPokemon(Index).slot)
+                    If I > 0 Then
+                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(I).Num = Item(ItemNum).Data1
+                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(I).TotalPP = PokemonMove(Item(ItemNum).Data1).PP
+                        PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(I).CurPP = PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).Moveset(I).TotalPP
                         SendPlayerPokemonSlot Index, PlayerPokemon(Index).slot
                         '//Send Msg
                         SendPlayerMsg Index, Trim$(Pokemon(PlayerPokemon(Index).Num).Name) & " learned the move " & Trim$(PokemonMove(Item(ItemNum).Data1).Name), White
@@ -1854,18 +1854,18 @@ End Sub
 '//Count Free Pokemno slot
 Public Function CountFreePokemonSlot(ByVal Index As Long) As Long
 Dim count As Long
-Dim i As Byte, x As Byte
+Dim I As Byte, x As Byte
 
     count = 0
-    For i = 1 To MAX_PLAYER_POKEMON
-        If PlayerPokemons(Index).Data(i).Num = 0 Then
+    For I = 1 To MAX_PLAYER_POKEMON
+        If PlayerPokemons(Index).Data(I).Num = 0 Then
             count = count + 1
         End If
     Next
-    For i = 1 To MAX_STORAGE_SLOT
-        If PlayerPokemonStorage(Index).slot(i).Unlocked = YES Then
+    For I = 1 To MAX_STORAGE_SLOT
+        If PlayerPokemonStorage(Index).slot(I).Unlocked = YES Then
             For x = 1 To MAX_STORAGE
-                If PlayerPokemonStorage(Index).slot(i).Data(x).Num = 0 Then
+                If PlayerPokemonStorage(Index).slot(I).Data(x).Num = 0 Then
                     count = count + 1
                 End If
             Next
@@ -1875,7 +1875,7 @@ Dim i As Byte, x As Byte
 End Function
 
 Public Function FindSameInvStorageSlot(ByVal Index As Long, ByVal StorageSlot As Byte, ByVal ItemNum As Long) As Byte
-Dim i As Byte
+Dim I As Byte
 
     FindSameInvStorageSlot = 0
     
@@ -1884,13 +1884,13 @@ Dim i As Byte
     
     If ItemNum <= 0 Then Exit Function
     
-    For i = 1 To MAX_STORAGE
+    For I = 1 To MAX_STORAGE
         With PlayerInvStorage(Index).slot(StorageSlot)
             If .Unlocked = YES Then
-                If .Data(i).Num = ItemNum Then
+                If .Data(I).Num = ItemNum Then
                     If Item(ItemNum).Stock = YES Then
                         '//add val
-                        FindSameInvStorageSlot = i
+                        FindSameInvStorageSlot = I
                         Exit Function
                     End If
                 End If
@@ -1900,26 +1900,26 @@ Dim i As Byte
 End Function
 
 Private Function FindFreeInvStorageSlot(ByVal Index As Long, ByVal StorageSlot As Byte, ByVal ItemNum As Long, ByRef ItemVal As Long, Optional ByRef MsgFrom As String) As Byte
-    Dim i As Byte
+    Dim I As Byte
 
     FindFreeInvStorageSlot = 0
 
     If Item(ItemNum).Stock = YES Then
-        i = FindSameInvStorageSlot(Index, StorageSlot, ItemNum)
-        If i > 0 Then
-            If CheckStorageValues(Index, StorageSlot, i, ItemNum, ItemVal, MsgFrom) Then
-                FindFreeInvStorageSlot = i
+        I = FindSameInvStorageSlot(Index, StorageSlot, ItemNum)
+        If I > 0 Then
+            If CheckStorageValues(Index, StorageSlot, I, ItemNum, ItemVal, MsgFrom) Then
+                FindFreeInvStorageSlot = I
             End If
 
             Exit Function
         End If
     End If
 
-    For i = 1 To MAX_STORAGE
-        With PlayerInvStorage(Index).slot(StorageSlot).Data(i)
+    For I = 1 To MAX_STORAGE
+        With PlayerInvStorage(Index).slot(StorageSlot).Data(I)
             If .Num = 0 Then
-                If CheckStorageValues(Index, StorageSlot, i, ItemNum, ItemVal, MsgFrom) Then
-                    FindFreeInvStorageSlot = i
+                If CheckStorageValues(Index, StorageSlot, I, ItemNum, ItemVal, MsgFrom) Then
+                    FindFreeInvStorageSlot = I
                 End If
 
                 Exit Function
@@ -1929,18 +1929,20 @@ Private Function FindFreeInvStorageSlot(ByVal Index As Long, ByVal StorageSlot A
 End Function
 
 Public Function checkItem(ByVal Index As Long, ByVal ItemNum As Long) As Long
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_PLAYER_INV
-        If PlayerInv(Index).Data(i).Num = ItemNum Then
-            checkItem = i
+    For I = 1 To MAX_PLAYER_INV
+        If PlayerInv(Index).Data(I).Num = ItemNum Then
+            checkItem = I
             Exit Function
         End If
     Next
     checkItem = 0
 End Function
 
-Private Function CheckStorageValues(ByVal Index As Long, ByVal StorageSlot As Long, ByVal Data As Long, ByVal ItemNum As Long, ByRef ItemVal As Long, Optional ByRef MsgFrom As String) As Boolean
+Private Function CheckStorageValues(ByVal Index As Long, ByVal StorageSlot As Long, ByVal Data As Long, ByVal ItemNum As Long, _
+ByRef ItemVal As Long, Optional ByRef MsgFrom As String) As Boolean
+    
     CheckStorageValues = True
 
     With PlayerInvStorage(Index).slot(StorageSlot).Data(Data)
@@ -1986,7 +1988,7 @@ Private Function CheckStorageValues(ByVal Index As Long, ByVal StorageSlot As Lo
 End Function
 
 Public Function CountFreeStorageSlot(ByVal Index As Long, ByVal StorageSlot As Long) As Long
-Dim count As Long, i As Long
+Dim count As Long, I As Long
 
     CountFreeStorageSlot = 0
     count = 0
@@ -1994,8 +1996,8 @@ Dim count As Long, i As Long
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
     
-    For i = 1 To MAX_STORAGE
-        With PlayerInvStorage(Index).slot(StorageSlot).Data(i)
+    For I = 1 To MAX_STORAGE
+        With PlayerInvStorage(Index).slot(StorageSlot).Data(I)
             If .Num = 0 Then
                 count = count + 1
             End If
@@ -2034,18 +2036,18 @@ Public Function TryGiveStorageItem(ByVal Index As Long, ByVal StorageSlot As Byt
 End Function
 
 Public Function GiveStorageItem(ByVal Index As Long, ByVal StorageSlot As Byte, ByVal ItemNum As Long, ByRef ItemVal As Long, Optional ByRef MsgFrom As String) As Boolean
-    Dim i As Byte
+    Dim I As Byte
 
     '//Verifica se tem um slot pra adicionar o item
-    i = FindFreeInvStorageSlot(Index, StorageSlot, ItemNum, ItemVal, MsgFrom)
-    If i > 0 Then
-        With PlayerInvStorage(Index).slot(StorageSlot).Data(i)
+    I = FindFreeInvStorageSlot(Index, StorageSlot, ItemNum, ItemVal, MsgFrom)
+    If I > 0 Then
+        With PlayerInvStorage(Index).slot(StorageSlot).Data(I)
             .Num = ItemNum
             .Value = .Value + ItemVal
             GiveStorageItem = True
 
             '//Update
-            SendPlayerInvStorageSlot Index, StorageSlot, i
+            SendPlayerInvStorageSlot Index, StorageSlot, I
         End With
     Else
         Exit Function
@@ -2054,7 +2056,7 @@ Public Function GiveStorageItem(ByVal Index As Long, ByVal StorageSlot As Byte, 
 End Function
 
 Public Sub ProcessConversation(ByVal Index As Long, ByVal Convo As Long, ByVal ConvoData As Byte, Optional ByVal NpcNum As Long = 0, Optional ByVal tReply As Byte = 0)
-    Dim i As Long, x As Long
+    Dim I As Long, x As Long
     Dim fixData As Boolean
 
     fixData = False
@@ -2099,19 +2101,19 @@ startOver:
                 fixData = False
             Case CONVO_SCRIPT_HEAL
                 '//Heal Pokemon
-                For i = 1 To MAX_PLAYER_POKEMON
-                    If PlayerPokemons(Index).Data(i).Num > 0 Then
-                        If PlayerPokemons(Index).Data(i).CurHp < PlayerPokemons(Index).Data(i).MaxHp Then
-                            PlayerPokemons(Index).Data(i).CurHp = PlayerPokemons(Index).Data(i).MaxHp
+                For I = 1 To MAX_PLAYER_POKEMON
+                    If PlayerPokemons(Index).Data(I).Num > 0 Then
+                        If PlayerPokemons(Index).Data(I).CurHp < PlayerPokemons(Index).Data(I).MaxHp Then
+                            PlayerPokemons(Index).Data(I).CurHp = PlayerPokemons(Index).Data(I).MaxHp
                         End If
-                        If PlayerPokemons(Index).Data(i).Status > 0 Then
-                            PlayerPokemons(Index).Data(i).Status = 0
+                        If PlayerPokemons(Index).Data(I).Status > 0 Then
+                            PlayerPokemons(Index).Data(I).Status = 0
                         End If
                         For x = 1 To MAX_MOVESET
-                            If PlayerPokemons(Index).Data(i).Moveset(x).Num > 0 Then
-                                If PlayerPokemons(Index).Data(i).Moveset(x).CurPP < PlayerPokemons(Index).Data(i).Moveset(x).TotalPP Then
-                                    PlayerPokemons(Index).Data(i).Moveset(x).CurPP = PlayerPokemons(Index).Data(i).Moveset(x).TotalPP
-                                    PlayerPokemons(Index).Data(i).Moveset(x).CD = 0
+                            If PlayerPokemons(Index).Data(I).Moveset(x).Num > 0 Then
+                                If PlayerPokemons(Index).Data(I).Moveset(x).CurPP < PlayerPokemons(Index).Data(I).Moveset(x).TotalPP Then
+                                    PlayerPokemons(Index).Data(I).Moveset(x).CurPP = PlayerPokemons(Index).Data(I).Moveset(x).TotalPP
+                                    PlayerPokemons(Index).Data(I).Moveset(x).CD = 0
                                 End If
                             End If
                         Next
@@ -2239,11 +2241,11 @@ startOver:
                             If MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).InBattle <= 0 Then
                                 MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).InBattle = Index
                                 MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).CurPokemon = 1
-                                For i = 1 To MAX_PLAYER_POKEMON
-                                    If Npc(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).PokemonNum(i) > 0 Then
-                                        MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).PokemonAlive(i) = YES
+                                For I = 1 To MAX_PLAYER_POKEMON
+                                    If Npc(MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).Num).PokemonNum(I) > 0 Then
+                                        MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).PokemonAlive(I) = YES
                                     Else
-                                        MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).PokemonAlive(i) = NO
+                                        MapNpc(Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc).PokemonAlive(I) = NO
                                     End If
                                 Next
                                 SpawnNpcPokemon Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc, 1
@@ -2317,10 +2319,10 @@ startOver:
                 If .CustomScriptData > 0 And .CustomScriptData <= MAX_ITEM Then
                     If IsPlaying(Index) Then
                         If TempPlayer(Index).UseChar > 0 Then
-                            i = checkItem(Index, .CustomScriptData)
-                            If i > 0 Then
+                            I = checkItem(Index, .CustomScriptData)
+                            If I > 0 Then
                                 '//Next
-                                If PlayerInv(Index).Data(i).Value >= .CustomScriptData2 Then
+                                If PlayerInv(Index).Data(I).Value >= .CustomScriptData2 Then
                                     TempPlayer(Index).CurConvoData = .CustomScriptData3
                                     fixData = True
                                 Else
@@ -2338,16 +2340,16 @@ startOver:
                 If .CustomScriptData > 0 And .CustomScriptData <= MAX_ITEM Then
                     If IsPlaying(Index) Then
                         If TempPlayer(Index).UseChar > 0 Then
-                            i = checkItem(Index, .CustomScriptData)
-                            If i > 0 Then
+                            I = checkItem(Index, .CustomScriptData)
+                            If I > 0 Then
                                 '//Take Item
-                                PlayerInv(Index).Data(i).Value = PlayerInv(Index).Data(i).Value - .CustomScriptData2
-                                If PlayerInv(Index).Data(i).Value <= 0 Then
+                                PlayerInv(Index).Data(I).Value = PlayerInv(Index).Data(I).Value - .CustomScriptData2
+                                If PlayerInv(Index).Data(I).Value <= 0 Then
                                     '//Clear Item
-                                    PlayerInv(Index).Data(i).Num = 0
-                                    PlayerInv(Index).Data(i).Value = 0
+                                    PlayerInv(Index).Data(I).Num = 0
+                                    PlayerInv(Index).Data(I).Value = 0
                                 End If
-                                SendPlayerInvSlot Index, i
+                                SendPlayerInvSlot Index, I
                             End If
                         End If
                     End If
@@ -2390,7 +2392,7 @@ startOver:
 End Sub
 
 Public Function FindFreePokeStorageSlot(ByVal Index As Long, ByVal StorageSlot As Byte) As Byte
-Dim i As Byte
+Dim I As Byte
 
     FindFreePokeStorageSlot = 0
     
@@ -2398,10 +2400,10 @@ Dim i As Byte
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
     If PlayerPokemonStorage(Index).slot(StorageSlot).Unlocked = NO Then Exit Function
     
-    For i = 1 To MAX_STORAGE
-        With PlayerPokemonStorage(Index).slot(StorageSlot).Data(i)
+    For I = 1 To MAX_STORAGE
+        With PlayerPokemonStorage(Index).slot(StorageSlot).Data(I)
             If .Num = 0 Then
-                FindFreePokeStorageSlot = i
+                FindFreePokeStorageSlot = I
                 Exit Function
             End If
         End With
@@ -2412,7 +2414,7 @@ End Function
 Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Long, ByVal UsedBall As Byte) As Boolean
     Dim StorageSlot As Byte
     Dim gotSlot As Byte
-    Dim i As Long
+    Dim I As Long
 
     CatchMapPokemonData = False
     If MapPokeNum <= 0 Or MapPokeNum > MAX_GAME_POKEMON Then Exit Function
@@ -2428,10 +2430,10 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
 
             '//Stats
             .Level = MapPokemon(MapPokeNum).Level
-            For i = 1 To StatEnum.Stat_Count - 1
-                .Stat(i).Value = MapPokemon(MapPokeNum).Stat(i).Value
-                .Stat(i).IV = MapPokemon(MapPokeNum).Stat(i).IV
-                .Stat(i).EV = 0
+            For I = 1 To StatEnum.Stat_Count - 1
+                .Stat(I).Value = MapPokemon(MapPokeNum).Stat(I).Value
+                .Stat(I).IV = MapPokemon(MapPokeNum).Stat(I).IV
+                .Stat(I).EV = 0
             Next
 
             '//Vital
@@ -2457,13 +2459,13 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
             .CurExp = 0
 
             '//Moves
-            For i = 1 To MAX_MOVESET
-                .Moveset(i).Num = MapPokemon(MapPokeNum).Moveset(i).Num
+            For I = 1 To MAX_MOVESET
+                .Moveset(I).Num = MapPokemon(MapPokeNum).Moveset(I).Num
                 '//Reresh
-                If .Moveset(i).Num > 0 Then
-                    .Moveset(i).TotalPP = PokemonMove(.Moveset(i).Num).PP
-                    .Moveset(i).CurPP = .Moveset(i).TotalPP
-                    .Moveset(i).CD = 0
+                If .Moveset(I).Num > 0 Then
+                    .Moveset(I).TotalPP = PokemonMove(.Moveset(I).Num).PP
+                    .Moveset(I).CurPP = .Moveset(I).TotalPP
+                    .Moveset(I).CD = 0
                 End If
             Next
 
@@ -2478,29 +2480,29 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
 
             '//GlobalMsg IsShiny & Rarity
             If .IsShiny = YES Then
-                For i = 1 To Player_HighIndex
-                    If IsPlaying(i) Then
+                For I = 1 To Player_HighIndex
+                    If IsPlaying(I) Then
                         If TempPlayer(Index).UseChar > 0 Then
                             Select Case TempPlayer(Index).CurLanguage
-                            Case LANG_PT: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " shiny em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
-                            Case LANG_EN: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " shiny em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
-                            Case LANG_ES: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " shiny em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                            Case LANG_PT: SendPlayerMsg I, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " shiny em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                            Case LANG_EN: SendPlayerMsg I, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " shiny em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                            Case LANG_ES: SendPlayerMsg I, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " shiny em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
                             End Select
                         End If
                     End If
-                Next i
+                Next I
             ElseIf Spawn(MapPokeNum).Rarity >= Options.Rarity Then
-                For i = 1 To Player_HighIndex
-                    If IsPlaying(i) Then
+                For I = 1 To Player_HighIndex
+                    If IsPlaying(I) Then
                         If TempPlayer(Index).UseChar > 0 Then
                             Select Case TempPlayer(Index).CurLanguage
-                            Case LANG_PT: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " raro em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
-                            Case LANG_EN: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " raro em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
-                            Case LANG_ES: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " raro em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                            Case LANG_PT: SendPlayerMsg I, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " raro em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                            Case LANG_EN: SendPlayerMsg I, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " raro em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                            Case LANG_ES: SendPlayerMsg I, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " raro em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
                             End Select
                         End If
                     End If
-                Next i
+                Next I
             End If
         End With
 
@@ -2520,10 +2522,10 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
 
                     '//Stats
                     .Level = MapPokemon(MapPokeNum).Level
-                    For i = 1 To StatEnum.Stat_Count - 1
-                        .Stat(i).Value = MapPokemon(MapPokeNum).Stat(i).Value
-                        .Stat(i).IV = MapPokemon(MapPokeNum).Stat(i).IV
-                        .Stat(i).EV = 0
+                    For I = 1 To StatEnum.Stat_Count - 1
+                        .Stat(I).Value = MapPokemon(MapPokeNum).Stat(I).Value
+                        .Stat(I).IV = MapPokemon(MapPokeNum).Stat(I).IV
+                        .Stat(I).EV = 0
                     Next
 
                     '//Vital
@@ -2549,13 +2551,13 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
                     .CurExp = 0
 
                     '//Moves
-                    For i = 1 To MAX_MOVESET
-                        .Moveset(i).Num = MapPokemon(MapPokeNum).Moveset(i).Num
+                    For I = 1 To MAX_MOVESET
+                        .Moveset(I).Num = MapPokemon(MapPokeNum).Moveset(I).Num
                         '//Reresh
-                        If .Moveset(i).Num > 0 Then
-                            .Moveset(i).TotalPP = PokemonMove(.Moveset(i).Num).PP
-                            .Moveset(i).CurPP = .Moveset(i).TotalPP
-                            .Moveset(i).CD = 0
+                        If .Moveset(I).Num > 0 Then
+                            .Moveset(I).TotalPP = PokemonMove(.Moveset(I).Num).PP
+                            .Moveset(I).CurPP = .Moveset(I).TotalPP
+                            .Moveset(I).CD = 0
                         End If
                     Next
 
@@ -2586,11 +2588,11 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
 End Function
 
 Public Function FindOpenTradeSlot(ByVal Index As Long) As Long
-Dim i As Byte
+Dim I As Byte
 
-    For i = 1 To MAX_TRADE
-        If TempPlayer(Index).TradeItem(i).Type = 0 Then
-            FindOpenTradeSlot = i
+    For I = 1 To MAX_TRADE
+        If TempPlayer(Index).TradeItem(I).Type = 0 Then
+            FindOpenTradeSlot = I
             Exit Function
         End If
     Next
@@ -2621,15 +2623,15 @@ Public Sub AddPlayerPokedex(ByVal Index As Long, ByVal PokeNum As Long, Optional
 End Sub
 
 Public Sub ClearMyTarget(ByVal Index As Long, ByVal MapNum As Long)
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To Pokemon_HighIndex
-        If MapPokemon(i).Num > 0 Then
-            If MapPokemon(i).Map = MapNum Then
-                If MapPokemon(i).targetType = TARGET_TYPE_PLAYER Then
-                    If MapPokemon(i).TargetIndex = Index Then
-                        MapPokemon(i).targetType = 0
-                        MapPokemon(i).TargetIndex = 0
+    For I = 1 To Pokemon_HighIndex
+        If MapPokemon(I).Num > 0 Then
+            If MapPokemon(I).Map = MapNum Then
+                If MapPokemon(I).targetType = TARGET_TYPE_PLAYER Then
+                    If MapPokemon(I).TargetIndex = Index Then
+                        MapPokemon(I).targetType = 0
+                        MapPokemon(I).TargetIndex = 0
                     End If
                 End If
             End If
@@ -2682,11 +2684,11 @@ Public Sub ChangeTempSprite(ByVal Index As Long, ByVal TempSprite As Byte, Optio
 End Sub
 
 Public Function FindInvItemSlot(ByVal Index As Long, ByVal ItemNum As Long) As Long
-Dim i As Long
+Dim I As Long
 
-    For i = 1 To MAX_PLAYER_INV
-        If PlayerInv(Index).Data(i).Num = ItemNum Then
-            FindInvItemSlot = i
+    For I = 1 To MAX_PLAYER_INV
+        If PlayerInv(Index).Data(I).Num = ItemNum Then
+            FindInvItemSlot = I
             Exit Function
         End If
     Next
@@ -2823,7 +2825,7 @@ End Function
 Public Sub KillPlayer(ByVal Index As Long)
 Dim ExpPenalty As Long, MoneyPenalty As Long
 Dim ExpRollover As Long, CountBadge As Byte
-Dim i As Byte
+Dim I As Byte
 
     With Player(Index, TempPlayer(Index).UseChar)
         .CurHp = GetPlayerHP(.Level)
@@ -2835,8 +2837,8 @@ Dim i As Byte
         '//Penalty
         'ExpPenalty = GetExpPenalty(.Level)
         CountBadge = 0
-        For i = 1 To MAX_BADGE
-            If .Badge(i) = YES Then
+        For I = 1 To MAX_BADGE
+            If .Badge(I) = YES Then
                 CountBadge = CountBadge + 1
             End If
         Next
@@ -2888,13 +2890,13 @@ End Sub
 
 Public Sub SendWhosOnline(ByVal Index As Long)
 Dim s As String
-Dim i As Long
+Dim I As Long
 
     s = "Player Online: "
-    For i = 1 To Player_HighIndex
-        If IsPlaying(i) Then
-            If TempPlayer(i).UseChar > 0 Then
-                s = s & Trim$(Player(i, TempPlayer(i).UseChar).Name) & ", "
+    For I = 1 To Player_HighIndex
+        If IsPlaying(I) Then
+            If TempPlayer(I).UseChar > 0 Then
+                s = s & Trim$(Player(I, TempPlayer(I).UseChar).Name) & ", "
             End If
         End If
     Next
@@ -2903,15 +2905,15 @@ Dim i As Long
 End Sub
 
 Public Sub CreateParty(ByVal Index As Long)
-Dim i As Long
+Dim I As Long
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     If TempPlayer(Index).InParty > 0 Then Exit Sub
     
     TempPlayer(Index).InParty = YES
-    For i = 1 To MAX_PARTY
-        TempPlayer(Index).PartyIndex(i) = 0
+    For I = 1 To MAX_PARTY
+        TempPlayer(Index).PartyIndex(I) = 0
     Next
     TempPlayer(Index).PartyIndex(1) = Index
     AddAlert Index, "Party Created", White
@@ -2919,24 +2921,24 @@ Dim i As Long
 End Sub
 
 Public Sub LeaveParty(ByVal Index As Long)
-Dim i As Long, PartyRequest As Long, PartySlot As Byte
+Dim I As Long, PartyRequest As Long, PartySlot As Byte
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     If TempPlayer(Index).InParty <= 0 Then Exit Sub
     
     TempPlayer(Index).InParty = 0
-    For i = 1 To MAX_PARTY
-        PartyRequest = TempPlayer(Index).PartyIndex(i)
+    For I = 1 To MAX_PARTY
+        PartyRequest = TempPlayer(Index).PartyIndex(I)
         '//Remove self
         If PartyRequest = Index Then
-            PartySlot = i
-            TempPlayer(Index).PartyIndex(i) = 0
+            PartySlot = I
+            TempPlayer(Index).PartyIndex(I) = 0
         End If
     Next
     '//Update to member
-    For i = 1 To MAX_PARTY
-        PartyRequest = TempPlayer(Index).PartyIndex(i)
+    For I = 1 To MAX_PARTY
+        PartyRequest = TempPlayer(Index).PartyIndex(I)
         If PartyRequest > 0 Then
             If IsPlaying(PartyRequest) Then
                 If TempPlayer(PartyRequest).UseChar > 0 Then
@@ -2954,7 +2956,7 @@ Dim i As Long, PartyRequest As Long, PartySlot As Byte
 End Sub
 
 Public Sub JoinParty(ByVal Index As Long, ByVal InviteIndex As Long)
-Dim i As Long, slot As Byte
+Dim I As Long, slot As Byte
 Dim PartyRequest As Long
 
     If Not IsPlaying(Index) Then Exit Sub
@@ -2965,16 +2967,16 @@ Dim PartyRequest As Long
     If TempPlayer(InviteIndex).InParty > 0 Then Exit Sub
     slot = 0
     '//Check free slot
-    For i = 1 To MAX_PARTY
-        If TempPlayer(Index).PartyIndex(i) <= 0 Then
-            slot = i
+    For I = 1 To MAX_PARTY
+        If TempPlayer(Index).PartyIndex(I) <= 0 Then
+            slot = I
             Exit For
         End If
     Next
     
     If slot > 0 Then
-        For i = 1 To MAX_PARTY
-            PartyRequest = TempPlayer(Index).PartyIndex(i)
+        For I = 1 To MAX_PARTY
+            PartyRequest = TempPlayer(Index).PartyIndex(I)
             If PartyRequest > 0 Then
                 If IsPlaying(PartyRequest) Then
                     If TempPlayer(PartyRequest).UseChar > 0 Then
@@ -2985,8 +2987,8 @@ Dim PartyRequest As Long
             End If
         Next
         
-        For i = 1 To MAX_PARTY
-            TempPlayer(InviteIndex).PartyIndex(i) = TempPlayer(Index).PartyIndex(i)
+        For I = 1 To MAX_PARTY
+            TempPlayer(InviteIndex).PartyIndex(I) = TempPlayer(Index).PartyIndex(I)
         Next
         TempPlayer(InviteIndex).InParty = YES
         SendParty InviteIndex
@@ -2994,24 +2996,24 @@ Dim PartyRequest As Long
 End Sub
 
 Public Function PartyCount(ByVal Index As Long) As Byte
-Dim i As Long, count As Long
+Dim I As Long, count As Long
 
     count = 0
-    For i = 1 To MAX_PARTY
-        If TempPlayer(Index).PartyIndex(i) > 0 Then
+    For I = 1 To MAX_PARTY
+        If TempPlayer(Index).PartyIndex(I) > 0 Then
             count = count + 1
         End If
     Next
     PartyCount = count
 End Function
 
-Public Function IsPartyMember(ByVal Index As Long, ByVal i As Long) As Boolean
+Public Function IsPartyMember(ByVal Index As Long, ByVal I As Long) As Boolean
     Dim z As Byte
     If TempPlayer(Index).InParty > 0 Then
         For z = 1 To MAX_PARTY
             If TempPlayer(Index).PartyIndex(z) > 0 Then
                 If TempPlayer(Index).PartyIndex(z) <> Index Then
-                    If TempPlayer(Index).PartyIndex(z) = i Then
+                    If TempPlayer(Index).PartyIndex(z) = I Then
                         IsPartyMember = True
                         Exit Function
                     End If
@@ -3129,3 +3131,86 @@ End Function
 Function GetPlayerLogin(ByVal Index As Long) As String
     GetPlayerLogin = Trim$(Player(Index, TempPlayer(Index).UseChar).Name)
 End Function
+
+Function HasInvItem(ByVal Index As Long, ByVal ItemNum As Long) As Long
+    Dim I As Long
+
+    ' Check for subscript out of range
+    If ItemNum <= 0 Or ItemNum > MAX_ITEM Then
+        HasInvItem = 0
+        Exit Function
+    End If
+
+    For I = 1 To MAX_PLAYER_INV
+        ' Check to see if the player has the item
+        If GetPlayerInvItemNum(Index, I) = ItemNum Then
+
+            If Item(ItemNum).Stock > 0 Then
+                HasInvItem = GetPlayerInvItemValue(Index, I)
+            Else
+                HasInvItem = 1
+            End If
+
+            Exit Function
+
+        End If
+    Next
+
+End Function
+
+Function GetPlayerInvItemNum(ByVal Index As Long, ByVal InvSlot As Long) As Long
+    If Index > Player_HighIndex Then Exit Function
+    If InvSlot = 0 Then Exit Function
+
+    GetPlayerInvItemNum = PlayerInv(Index).Data(InvSlot).Num
+End Function
+
+Function GetPlayerInvItemValue(ByVal Index As Long, ByVal InvSlot As Long) As Long
+    If Index > Player_HighIndex Then Exit Function
+    If InvSlot = 0 Then Exit Function
+
+    GetPlayerInvItemValue = PlayerInv(Index).Data(InvSlot).Value
+End Function
+
+Function HasStorageItem(ByVal Index As Long, ByVal StorageSlot As Byte, ByVal ItemNum As Long) As Long
+    Dim I As Long
+
+    ' Check for subscript out of range
+    If ItemNum <= 0 Or ItemNum > MAX_ITEM Then
+        HasStorageItem = 0
+        Exit Function
+    End If
+
+    For I = 1 To MAX_STORAGE
+        ' Check to see if the player has the item
+        If GetPlayerStorageItemNum(Index, StorageSlot, I) = ItemNum Then
+
+            If Item(ItemNum).Stock > 0 Then
+                HasStorageItem = GetPlayerStorageItemValue(Index, StorageSlot, I)
+            Else
+                HasStorageItem = 1
+            End If
+
+            Exit Function
+
+        End If
+    Next
+
+End Function
+
+Function GetPlayerStorageItemNum(ByVal Index As Long, ByVal StorageSlot As Byte, ByVal StorageData As Long) As Long
+    If Index > Player_HighIndex Then Exit Function
+    If StorageSlot = 0 Then Exit Function
+    If PlayerInvStorage(Index).slot(StorageSlot).Unlocked = NO Then Exit Function
+
+    GetPlayerStorageItemNum = PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Num
+End Function
+
+Function GetPlayerStorageItemValue(ByVal Index As Long, ByVal StorageSlot As Long, ByVal StorageData As Long) As Long
+    If Index > Player_HighIndex Then Exit Function
+    If StorageSlot = 0 Then Exit Function
+    If PlayerInvStorage(Index).slot(StorageSlot).Unlocked = NO Then Exit Function
+
+    GetPlayerStorageItemValue = PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value
+End Function
+

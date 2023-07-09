@@ -1921,11 +1921,21 @@ Private Sub HandleDepositItemTo(ByVal Index As Long, ByRef Data() As Byte, ByVal
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     If StorageSlot <= 0 Or StorageSlot > 5 Then Exit Sub
-    'If StorageData <= 0 Or StorageData > MAX_STORAGE Then Exit Sub
     If InvSlot <= 0 Or InvSlot > MAX_PLAYER_INV Then Exit Sub
     If PlayerInvStorage(Index).slot(StorageSlot).Unlocked = NO Then Exit Sub
     If gameValue <= 0 Then Exit Sub
-
+    
+    '//Verifica se o jogador possui a quantidade
+    If Not HasInvItem(Index, GetPlayerInvItemNum(Index, InvSlot)) >= gameValue Then
+        Select Case TempPlayer(Index).CurLanguage
+        Case LANG_PT: AddAlert Index, "Você não possui " & gameValue, White
+        Case LANG_EN: AddAlert Index, "Você não possui " & gameValue, White
+        Case LANG_ES: AddAlert Index, "Você não possui " & gameValue, White
+        End Select
+    
+        Exit Sub
+    End If
+    
     '//Place item to that part
     If TryGiveStorageItem(Index, StorageSlot, PlayerInv(Index).Data(InvSlot).Num, gameValue, MsgFrom) Then
         PlayerInv(Index).Data(InvSlot).Value = PlayerInv(Index).Data(InvSlot).Value - gameValue
@@ -1986,12 +1996,20 @@ Private Sub HandleWithdrawItemTo(ByVal Index As Long, ByRef Data() As Byte, ByVa
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     If StorageSlot <= 0 Or StorageSlot > 5 Then Exit Sub
     If StorageData <= 0 Or StorageData > MAX_STORAGE Then Exit Sub
-    
-    If PlayerInvStorage(Index).slot(StorageSlot).Unlocked = False Then Exit Sub
     If StorageSlot <= 0 Or StorageSlot > MAX_STORAGE_SLOT Then Exit Sub
+    If PlayerInvStorage(Index).slot(StorageSlot).Unlocked = False Then Exit Sub
     If gameValue <= 0 Then Exit Sub
-    
-    
+
+    '//Verifica se o banco possui o item e quantidade
+    If Not HasStorageItem(Index, StorageSlot, GetPlayerStorageItemNum(Index, StorageSlot, StorageData)) >= gameValue Then
+        Select Case TempPlayer(Index).CurLanguage
+        Case LANG_PT: AddAlert Index, "Você não possui " & gameValue, White
+        Case LANG_EN: AddAlert Index, "Você não possui " & gameValue, White
+        Case LANG_ES: AddAlert Index, "Você não possui " & gameValue, White
+        End Select
+        
+        Exit Sub
+    End If
 
     If TryGivePlayerItem(Index, PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Num, gameValue) Then
         PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value = PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value - gameValue
@@ -2802,16 +2820,6 @@ Private Sub HandleAddTrade(ByVal Index As Long, ByRef Data() As Byte, ByVal Star
                 If TradeSlot <= 0 Or TradeSlot > MAX_PLAYER_INV Then Exit Sub
                 If TradeData <= 0 Then Exit Sub
 
-                ' Não pode negociar item de cash
-                'If Item(PlayerInv(Index).Data(TradeSlot).Num).IsCash = YES Then
-                '    Select Case TempPlayer(Index).CurLanguage
-                '    Case LANG_PT: AddAlert Index, "Item não permitido para vender.", White
-                '    Case LANG_EN: AddAlert Index, "Item not allowed to sell.", White
-                '    Case LANG_ES: AddAlert Index, "Artículo no permitido para vender.", White
-                '    End Select
-                '    Exit Sub
-                'End If
-
                 ' Não pode negociar item Linked
                 If Item(PlayerInv(Index).Data(TradeSlot).Num).Linked = YES Then
                     Select Case TempPlayer(Index).CurLanguage
@@ -2856,15 +2864,6 @@ Private Sub HandleAddTrade(ByVal Index As Long, ByRef Data() As Byte, ByVal Star
 
                 ' Não pode negociar item de cash
                 If PlayerPokemons(Index).Data(TradeSlot).HeldItem > 0 Then
-                    'If Item(PlayerPokemons(Index).Data(TradeSlot).HeldItem).IsCash = YES Then
-                    '    Select Case TempPlayer(Index).CurLanguage
-                    '    Case LANG_PT: AddAlert Index, "Pokemon usa um item não permitido para vender.", White
-                    '    Case LANG_EN: AddAlert Index, "Pokemon use item not allowed to sell.", White
-                    '    Case LANG_ES: AddAlert Index, "Pokemon usa artículo no permitido para vender.", White
-                    '    End Select
-                    '    Exit Sub
-                    'End If
-
                     ' Não pode negociar item Linked
                     If Item(PlayerPokemons(Index).Data(TradeSlot).HeldItem).Linked = YES Then
                         Select Case TempPlayer(Index).CurLanguage

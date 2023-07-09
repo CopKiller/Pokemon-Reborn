@@ -66,8 +66,6 @@ OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
 19-OK-Adicionado correção ao sistema nativo de spawnar em horários específicos um pokemon,
 	estava dando problema no range, que as vezes passava da meia-noite, então criei um método pra resolver.
 
-19-OK-Adicionar pro máximo de item amontoado 999, apartir dai não poder obter mais daquele item.(inv e banco)
-
 150- Sistema de Loja Virtual na HUD. >>>>>>>>>>>>>>>>>>>>>>>>>(FINALIZADO)<<<<<<<<<<<<<<<<<<<<<<<<<<
 	-->Utilizando um [+] antes da escrita, vai torná-lo um benefício abrangente.
 	-->Utilizando um [-] antes da escrita, vai torná-lo um benefício não abrangente.
@@ -84,7 +82,10 @@ OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
 
 15-Adicionar uma opção de spawn no NPC, escolhendo um dia da semana pra ele aparecer, e ao passar esse dia, despawnar.
 
+19-OK-Adicionar pro máximo de item amontoado 999, apartir dai não poder obter mais daquele item.(inv e banco)
+
 10-Correção de falha crítica, falta de verificação ao adicionar um item do inv na item storage.
+
 10-Correção de falha crítica, falta de verificação ao adicionar um item da storage no inventario.
 
 Total
