@@ -1,7 +1,30 @@
-//-Melhorias na Pokedex.
+-Melhorias na Pokedex.
 
-//-Adicionar mais duas descrição de item, pra que seja 3 descrições, um pra cada linguagem.
+-Adicionar mais duas descrição de item, pra que seja 3 descrições, um pra cada linguagem.
 
-//-Adicionar uma checkbox de IVFull em spawn.
+-Adicionar uma checkbox de IVFull em spawn.
 
-//-Adicionar textbox no SpawnEditor, pra poder adicionar um campo de HP no pokemon, pra usar em boss.
+-Adicionar textbox no SpawnEditor, pra poder adicionar um campo de HP no pokemon, pra usar em boss.
+
+-Adicionar um tipo no editor de mapa, pra adicionar no mapa um indice de mensagem, que faz a leitura de um
+bloco de texto no client, pra ver a mensagem de uma placa.
+
+-Pk & Hero System-
+	-PK-
+-Adicionar Map Moral - Pk (Pode abater outros jogadores c/ pokemons, sem enviar convite de DUEL mas com punição PK).
+-Adicionar Sistema de Pk nos mapas PK e recebe 1 de pontuação PK pra participar do Ranking.
+-Icone pra identificar um PK.
+-Adicionar mensagem no chat, pra quando um jogador se tornar PK, aparecer o nome dele com a mensagem global com o nome do mapa.
+-Adicionar pra mostrar mapa PK, nome do mapa vermelho.
+-Adicionar Ranking de PK (8 posições) (Aproveitar os icones do ranking de level)
+-Player Pk perde toda a pontuação PK e o PK, ao morrer pra jogador, apenas pra jogador, tornando o matador um heroi.
+-Player Pk só pode morrer em mapas exceto no safe.
+	-Hero-
+-Adicionar Sistema de Heroi, ao matar um player PK receber a classificação como Heroi 
+-Player se torna heroi ao matar um jogador PK e recebe 1 de pontuação Heroi pra participar do Ranking.
+-Icone pra identificar um Heroi.
+-Adicionar mensagem no chat, pra quando um jogador se tornar Heroi, aparecer o nome dele com a mensagem global com o nome do mapa.
+-Player heroi perde o heroi e pontuação ao atacar algum jogador normal em area PK, ou ser abatido por um jogador PK.
+-Adicionar Ranking de Heroi (8 posições) (Aproveitar os icones do ranking de level)
+	-Obs-
+-Adicionar uma janela, ao selecionar o ranking, aparecer uma box com 3 opções de ranking pra escolher (Level, Pk, Heroi)

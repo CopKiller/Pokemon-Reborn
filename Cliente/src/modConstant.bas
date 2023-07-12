@@ -178,6 +178,7 @@ Public Const TEMP_SPRITE_GROUP_DIVE As Byte = 1
 Public Const TEMP_SPRITE_GROUP_BIKE As Byte = 2
 Public Const TEMP_SPRITE_GROUP_SURF As Byte = 3
 Public Const TEMP_SPRITE_GROUP_MOUNT As Byte = 4
+Public Const TEMP_FISH_MODE As Byte = 5
 
 '//Player Action
 Public Const ACTION_SLIDE As Byte = 1

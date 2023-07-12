@@ -1578,6 +1578,7 @@ Dim itemSlot As Byte
                                     '//Clear Item
                                     PlayerInv(Index).Data(itemSlot).Num = 0
                                     PlayerInv(Index).Data(itemSlot).Value = 0
+                                    PlayerInv(Index).Data(itemSlot).TmrCooldown = 0
                                 End If
                                 SendPlayerInvSlot Index, itemSlot
                             Else
@@ -1676,11 +1677,12 @@ Private Sub HandleSwitchInvSlot(ByVal Index As Long, ByRef Data() As Byte, ByVal
 End Sub
 
 Private Sub HandleGotData(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim buffer As clsBuffer
-Dim InUsed As Byte
-Dim Data1 As Long, Data2 As Long, Data3 As Long
-Dim CatchRate As Single
-Dim CatchValue As Long
+    Dim buffer As clsBuffer
+    Dim InUsed As Byte
+    Dim Data1 As Long, Data2 As Long, Data3 As Long
+    Dim CatchRate As Single
+    Dim CatchValue As Long
+    Dim NotTake As Boolean
 
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
@@ -1689,196 +1691,204 @@ Dim CatchValue As Long
     Data2 = buffer.ReadLong
     Data3 = buffer.ReadLong
     Set buffer = Nothing
-    
+
     If InUsed = YES Then
         '//Make Sure Usage of item is available
         If Not IsPlaying(Index) Then GoTo Continue
         If TempPlayer(Index).UseChar <= 0 Then GoTo Continue
         If TempPlayer(Index).TmpUseInvSlot <= 0 Then GoTo Continue
         If PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num <= 0 Then GoTo Continue
-        
+
         '//Check Type
         Select Case Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Type
-            Case ItemTypeEnum.pokeBall
-                If TempPlayer(Index).TmpCatchPokeNum > 0 Then
-                    Select Case TempPlayer(Index).CurLanguage
-                        Case LANG_PT: AddAlert Index, "You are currently capturing a pokemon", White
-                        Case LANG_EN: AddAlert Index, "You are currently capturing a pokemon", White
-                        Case LANG_ES: AddAlert Index, "You are currently capturing a pokemon", White
-                    End Select
-                    GoTo Continue
-                End If
-                
-                '//Make sure we still have slot
-                If CountFreePokemonSlot(Index) <= 0 Then
-                    Select Case TempPlayer(Index).CurLanguage
-                        Case LANG_PT: AddAlert Index, "You don't have any free slot left to capture a pokemon", White
-                        Case LANG_EN: AddAlert Index, "You don't have any free slot left to capture a pokemon", White
-                        Case LANG_ES: AddAlert Index, "You don't have any free slot left to capture a pokemon", White
-                    End Select
-                    GoTo Continue
-                End If
-                
-                '//Make sure pokemon is not empty
-                If Data1 <= 0 Or Data1 > MAX_GAME_POKEMON Then GoTo Continue
-                '//Check if exist on map
-                If MapPokemon(Data1).Num <= 0 Then GoTo Continue
-                If Not MapPokemon(Data1).Map = Player(Index, TempPlayer(Index).UseChar).Map Then GoTo Continue
-                
-                '//Check if inrange
-                If MapPokemon(Data1).x < Player(Index, TempPlayer(Index).UseChar).x - 4 Or MapPokemon(Data1).x > Player(Index, TempPlayer(Index).UseChar).x + 4 Or MapPokemon(Data1).Y < Player(Index, TempPlayer(Index).UseChar).Y - 4 Or MapPokemon(Data1).Y > Player(Index, TempPlayer(Index).UseChar).Y + 4 Then
-                    Select Case TempPlayer(Index).CurLanguage
-                        Case LANG_PT: AddAlert Index, "Out of range", White
-                        Case LANG_EN: AddAlert Index, "Out of range", White
-                        Case LANG_ES: AddAlert Index, "Out of range", White
-                    End Select
-                    GoTo Continue
-                End If
-                
-                '//Check if catchable
-                If Player(Index, TempPlayer(Index).UseChar).Access < ACCESS_CREATOR Then
-                    If Spawn(Data1).CanCatch = YES Then
-                        Select Case TempPlayer(Index).CurLanguage
-                            Case LANG_PT: AddAlert Index, "You cannot catch this Pokemon", White
-                            Case LANG_EN: AddAlert Index, "You cannot catch this Pokemon", White
-                            Case LANG_ES: AddAlert Index, "You cannot catch this Pokemon", White
-                        End Select
-                        GoTo Continue
-                    End If
-                End If
-                
-                '//Make sure no one is trying to catch this pokemon
-                If MapPokemon(Data1).InCatch = YES Then GoTo Continue
+        Case ItemTypeEnum.pokeBall
+            If TempPlayer(Index).TmpCatchPokeNum > 0 Then
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "You are currently capturing a pokemon", White
+                Case LANG_EN: AddAlert Index, "You are currently capturing a pokemon", White
+                Case LANG_ES: AddAlert Index, "You are currently capturing a pokemon", White
+                End Select
+                GoTo Continue
+            End If
 
-                If Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data3 = YES Then
-                    '// Success
-                    '//Give Pokemon
-                    If CountFreePokemonSlot(Index) < 5 Then
-                        Select Case TempPlayer(Index).CurLanguage
+            '//Make sure we still have slot
+            If CountFreePokemonSlot(Index) <= 0 Then
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "You don't have any free slot left to capture a pokemon", White
+                Case LANG_EN: AddAlert Index, "You don't have any free slot left to capture a pokemon", White
+                Case LANG_ES: AddAlert Index, "You don't have any free slot left to capture a pokemon", White
+                End Select
+                GoTo Continue
+            End If
+
+            '//Make sure pokemon is not empty
+            If Data1 <= 0 Or Data1 > MAX_GAME_POKEMON Then GoTo Continue
+            '//Check if exist on map
+            If MapPokemon(Data1).Num <= 0 Then GoTo Continue
+            If Not MapPokemon(Data1).Map = Player(Index, TempPlayer(Index).UseChar).Map Then GoTo Continue
+
+            '//Check if inrange
+            If MapPokemon(Data1).x < Player(Index, TempPlayer(Index).UseChar).x - 4 Or MapPokemon(Data1).x > Player(Index, TempPlayer(Index).UseChar).x + 4 Or MapPokemon(Data1).Y < Player(Index, TempPlayer(Index).UseChar).Y - 4 Or MapPokemon(Data1).Y > Player(Index, TempPlayer(Index).UseChar).Y + 4 Then
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Out of range", White
+                Case LANG_EN: AddAlert Index, "Out of range", White
+                Case LANG_ES: AddAlert Index, "Out of range", White
+                End Select
+                GoTo Continue
+            End If
+
+            '//Check if catchable
+            If Player(Index, TempPlayer(Index).UseChar).Access < ACCESS_CREATOR Then
+                If Spawn(Data1).CanCatch = YES Then
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "You cannot catch this Pokemon", White
+                    Case LANG_EN: AddAlert Index, "You cannot catch this Pokemon", White
+                    Case LANG_ES: AddAlert Index, "You cannot catch this Pokemon", White
+                    End Select
+                    GoTo Continue
+                End If
+            End If
+
+            '//Make sure no one is trying to catch this pokemon
+            If MapPokemon(Data1).InCatch = YES Then GoTo Continue
+
+            If Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data3 = YES Then
+                '// Success
+                '//Give Pokemon
+                If CountFreePokemonSlot(Index) < 5 Then
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "Warning: You only have few slot left for pokemon", White
+                    Case LANG_EN: AddAlert Index, "Warning: You only have few slot left for pokemon", White
+                    Case LANG_ES: AddAlert Index, "Warning: You only have few slot left for pokemon", White
+                    End Select
+                End If
+
+                '//Give Player Pokemon
+                If CatchMapPokemonData(Index, Data1, Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2) Then
+                    '//Success
+                    '//Clear Map Pokemon
+                    TempPlayer(Index).TmpCatchUseBall = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2
+                    SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 2, TempPlayer(Index).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                    ClearMapPokemon Data1
+
+                    TempPlayer(Index).TmpCatchPokeNum = 0
+                    TempPlayer(Index).TmpCatchTimer = 0
+                    TempPlayer(Index).TmpCatchTries = 0
+                    TempPlayer(Index).TmpCatchValue = 0
+                    TempPlayer(Index).TmpCatchUseBall = 0
+                Else
+                    '//Broke
+                    MapPokemon(Data1).InCatch = NO
+                    MapPokemon(Data1).targetType = TARGET_TYPE_PLAYER
+                    MapPokemon(Data1).TargetIndex = Index
+                    SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 3, TempPlayer(Index).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                    TempPlayer(Index).TmpCatchPokeNum = 0
+                    TempPlayer(Index).TmpCatchTimer = 0
+                    TempPlayer(Index).TmpCatchTries = 0
+                    TempPlayer(Index).TmpCatchValue = 0
+                    TempPlayer(Index).TmpCatchUseBall = 0
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "Your Pokeball broke", White
+                    Case LANG_EN: AddAlert Index, "Your Pokeball broke", White
+                    Case LANG_ES: AddAlert Index, "Your Pokeball broke", White
+                    End Select
+                End If
+            Else
+                '//Do Catch
+                CatchRate = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data1
+                CatchRate = CatchRate / 10
+
+                If MapPokemon(Data1).CurHp > 0 Then
+                    '//ToDo: 1 = Status Modifier
+                    CatchValue = (((3 * MapPokemon(Data1).MaxHp - 2 * MapPokemon(Data1).CurHp) * Pokemon(MapPokemon(Data1).Num).CatchRate * CatchRate) / (3 * MapPokemon(Data1).MaxHp)) * 1
+
+                    If CatchValue >= 255 Then
+                        '// Success
+                        '//Give Pokemon
+                        If CountFreePokemonSlot(Index) < 5 Then
+                            Select Case TempPlayer(Index).CurLanguage
                             Case LANG_PT: AddAlert Index, "Warning: You only have few slot left for pokemon", White
                             Case LANG_EN: AddAlert Index, "Warning: You only have few slot left for pokemon", White
                             Case LANG_ES: AddAlert Index, "Warning: You only have few slot left for pokemon", White
-                        End Select
-                    End If
-                        
-                    '//Give Player Pokemon
-                    If CatchMapPokemonData(Index, Data1, Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2) Then
-                        '//Success
-                        '//Clear Map Pokemon
-                        TempPlayer(Index).TmpCatchUseBall = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2
-                        SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 2, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
-                        ClearMapPokemon Data1
-                            
-                        TempPlayer(Index).TmpCatchPokeNum = 0
-                        TempPlayer(Index).TmpCatchTimer = 0
-                        TempPlayer(Index).TmpCatchTries = 0
-                        TempPlayer(Index).TmpCatchValue = 0
-                        TempPlayer(Index).TmpCatchUseBall = 0
-                    Else
-                        '//Broke
-                        MapPokemon(Data1).InCatch = NO
-                        MapPokemon(Data1).targetType = TARGET_TYPE_PLAYER
-                        MapPokemon(Data1).TargetIndex = Index
-                        SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 3, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
-                        TempPlayer(Index).TmpCatchPokeNum = 0
-                        TempPlayer(Index).TmpCatchTimer = 0
-                        TempPlayer(Index).TmpCatchTries = 0
-                        TempPlayer(Index).TmpCatchValue = 0
-                        TempPlayer(Index).TmpCatchUseBall = 0
-                        Select Case TempPlayer(Index).CurLanguage
+                            End Select
+                        End If
+
+                        '//Give Player Pokemon
+                        If CatchMapPokemonData(Index, Data1, TempPlayer(Index).TmpCatchUseBall) Then
+                            '//Success
+                            '//Clear Map Pokemon
+                            TempPlayer(Index).TmpCatchUseBall = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2
+                            SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 2, TempPlayer(Index).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                            ClearMapPokemon Data1
+
+                            TempPlayer(Index).TmpCatchPokeNum = 0
+                            TempPlayer(Index).TmpCatchTimer = 0
+                            TempPlayer(Index).TmpCatchTries = 0
+                            TempPlayer(Index).TmpCatchValue = 0
+                            TempPlayer(Index).TmpCatchUseBall = 0
+                        Else
+                            '//Broke
+                            MapPokemon(Data1).InCatch = NO
+                            MapPokemon(Data1).targetType = TARGET_TYPE_PLAYER
+                            MapPokemon(Data1).TargetIndex = Index
+                            SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 3, TempPlayer(Index).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                            TempPlayer(Index).TmpCatchPokeNum = 0
+                            TempPlayer(Index).TmpCatchTimer = 0
+                            TempPlayer(Index).TmpCatchTries = 0
+                            TempPlayer(Index).TmpCatchValue = 0
+                            TempPlayer(Index).TmpCatchUseBall = 0
+                            Select Case TempPlayer(Index).CurLanguage
                             Case LANG_PT: AddAlert Index, "Your Pokeball broke", White
                             Case LANG_EN: AddAlert Index, "Your Pokeball broke", White
                             Case LANG_ES: AddAlert Index, "Your Pokeball broke", White
-                        End Select
-                    End If
-                Else
-                    '//Do Catch
-                    CatchRate = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data1
-                    CatchRate = CatchRate / 10
-                    
-                    If MapPokemon(Data1).CurHp > 0 Then
-                        '//ToDo: 1 = Status Modifier
-                        CatchValue = (((3 * MapPokemon(Data1).MaxHp - 2 * MapPokemon(Data1).CurHp) * Pokemon(MapPokemon(Data1).Num).CatchRate * CatchRate) / (3 * MapPokemon(Data1).MaxHp)) * 1
-                        
-                        If CatchValue >= 255 Then
-                            '// Success
-                            '//Give Pokemon
-                            If CountFreePokemonSlot(Index) < 5 Then
-                                Select Case TempPlayer(Index).CurLanguage
-                                    Case LANG_PT: AddAlert Index, "Warning: You only have few slot left for pokemon", White
-                                    Case LANG_EN: AddAlert Index, "Warning: You only have few slot left for pokemon", White
-                                    Case LANG_ES: AddAlert Index, "Warning: You only have few slot left for pokemon", White
-                                End Select
-                            End If
-                            
-                            '//Give Player Pokemon
-                            If CatchMapPokemonData(Index, Data1, TempPlayer(Index).TmpCatchUseBall) Then
-                                '//Success
-                                '//Clear Map Pokemon
-                                TempPlayer(Index).TmpCatchUseBall = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2
-                                SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 2, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
-                                ClearMapPokemon Data1
-                                
-                                TempPlayer(Index).TmpCatchPokeNum = 0
-                                TempPlayer(Index).TmpCatchTimer = 0
-                                TempPlayer(Index).TmpCatchTries = 0
-                                TempPlayer(Index).TmpCatchValue = 0
-                                TempPlayer(Index).TmpCatchUseBall = 0
-                            Else
-                                '//Broke
-                                MapPokemon(Data1).InCatch = NO
-                                MapPokemon(Data1).targetType = TARGET_TYPE_PLAYER
-                                MapPokemon(Data1).TargetIndex = Index
-                                SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 3, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
-                                TempPlayer(Index).TmpCatchPokeNum = 0
-                                TempPlayer(Index).TmpCatchTimer = 0
-                                TempPlayer(Index).TmpCatchTries = 0
-                                TempPlayer(Index).TmpCatchValue = 0
-                                TempPlayer(Index).TmpCatchUseBall = 0
-                                Select Case TempPlayer(Index).CurLanguage
-                                    Case LANG_PT: AddAlert Index, "Your Pokeball broke", White
-                                    Case LANG_EN: AddAlert Index, "Your Pokeball broke", White
-                                    Case LANG_ES: AddAlert Index, "Your Pokeball broke", White
-                                End Select
-                            End If
-                        Else
-                            TempPlayer(Index).TmpCatchPokeNum = Data1
-                            TempPlayer(Index).TmpCatchTimer = GetTickCount + 250
-                            TempPlayer(Index).TmpCatchTries = 0
-                            TempPlayer(Index).TmpCatchValue = CatchValue
-                            TempPlayer(Index).TmpCatchUseBall = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2 '//ToDo: Pokeball
-                            MapPokemon(Data1).InCatch = YES
-                            SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 0, TempPlayer(Index).TmpCatchUseBall '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
+                            End Select
                         End If
+                    Else
+                        TempPlayer(Index).TmpCatchPokeNum = Data1
+                        TempPlayer(Index).TmpCatchTimer = GetTickCount + 250
+                        TempPlayer(Index).TmpCatchTries = 0
+                        TempPlayer(Index).TmpCatchValue = CatchValue
+                        TempPlayer(Index).TmpCatchUseBall = Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2    '//ToDo: Pokeball
+                        MapPokemon(Data1).InCatch = YES
+                        SendMapPokemonCatchState MapPokemon(Data1).Map, Data1, MapPokemon(Data1).x, MapPokemon(Data1).Y, 0, TempPlayer(Index).TmpCatchUseBall    '// 0 = Init, 1 = Shake, 2 = Success, 3 = Fail
                     End If
                 End If
-            Case ItemTypeEnum.Medicine
-                '//Revive
-                If Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data1 = 4 Then
-                    If Data1 <= 0 Or Data1 > MAX_PLAYER_POKEMON Then Exit Sub
-                    
+            End If
+        Case ItemTypeEnum.Medicine
+            '//Revive
+            If Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data1 = 4 Then
+                If Data1 <= 0 Or Data1 > MAX_PLAYER_POKEMON Then Exit Sub
+
+                If PlayerPokemons(Index).Data(Data1).CurHp <= 0 Then
                     PlayerPokemons(Index).Data(Data1).CurHp = PlayerPokemons(Index).Data(Data1).MaxHp * (Item(PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num).Data2 / 100)
                     SendPlayerPokemonSlot Index, Data1
-                    
+
                     Select Case TempPlayer(Index).CurLanguage
-                        Case LANG_PT: AddAlert Index, "Pokemon was revived", White
-                        Case LANG_EN: AddAlert Index, "Pokemon was revived", White
-                        Case LANG_ES: AddAlert Index, "Pokemon was revived", White
+                    Case LANG_PT: AddAlert Index, "Pokemon was revived", White
+                    Case LANG_EN: AddAlert Index, "Pokemon was revived", White
+                    Case LANG_ES: AddAlert Index, "Pokemon was revived", White
                     End Select
+                    NotTake = False
+                Else
+                    NotTake = True
                 End If
+            End If
         End Select
-        
+
         '//Take Item
-        PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value = PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value - 1
-        If PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value <= 0 Then
-            '//Clear Item
-            PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num = 0
-            PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value = 0
+        If Not NotTake Then ' -> P/ usar com o revive
+            PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value = PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value - 1
+            If PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value <= 0 Then
+                '//Clear Item
+                PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num = 0
+                PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value = 0
+                PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).TmrCooldown = 0
+            End If
+            SendPlayerInvSlot Index, TempPlayer(Index).TmpUseInvSlot
+            TempPlayer(Index).TmpUseInvSlot = 0
         End If
-        SendPlayerInvSlot Index, TempPlayer(Index).TmpUseInvSlot
-        TempPlayer(Index).TmpUseInvSlot = 0
     End If
-    
+
 Continue:
     'AddAlert Index, "Invalid Target", White
     '//Clear
@@ -1937,11 +1947,12 @@ Private Sub HandleDepositItemTo(ByVal Index As Long, ByRef Data() As Byte, ByVal
     End If
     
     '//Place item to that part
-    If TryGiveStorageItem(Index, StorageSlot, PlayerInv(Index).Data(InvSlot).Num, gameValue, MsgFrom) Then
+    If TryGiveStorageItem(Index, StorageSlot, PlayerInv(Index).Data(InvSlot).Num, gameValue, PlayerInv(Index).Data(InvSlot).TmrCooldown, MsgFrom) Then
         PlayerInv(Index).Data(InvSlot).Value = PlayerInv(Index).Data(InvSlot).Value - gameValue
         If PlayerInv(Index).Data(InvSlot).Value <= 0 Then
             PlayerInv(Index).Data(InvSlot).Num = 0
             PlayerInv(Index).Data(InvSlot).Value = 0
+            PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
         End If
 
         '//Update
@@ -2011,11 +2022,12 @@ Private Sub HandleWithdrawItemTo(ByVal Index As Long, ByRef Data() As Byte, ByVa
         Exit Sub
     End If
 
-    If TryGivePlayerItem(Index, PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Num, gameValue) Then
+    If TryGivePlayerItem(Index, PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Num, gameValue, PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).TmrCooldown) Then
         PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value = PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value - gameValue
         If PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value <= 0 Then
             PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Num = 0
             PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value = 0
+            PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).TmrCooldown = 0
         End If
         '//Update
         SendPlayerInvStorageSlot Index, StorageSlot, StorageData
@@ -2420,6 +2432,7 @@ Private Sub HandleSellItem(ByVal Index As Long, ByRef Data() As Byte, ByVal Star
                 If PlayerInv(Index).Data(InvSlot).Value <= 0 Then
                     PlayerInv(Index).Data(InvSlot).Num = 0
                     PlayerInv(Index).Data(InvSlot).Value = 0
+                    PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
                 End If
                 SendPlayerInvSlot Index, InvSlot
                 .Money = .Money + aPrice
@@ -3219,6 +3232,7 @@ Dim PokeSlot As Long
                         If PlayerInv(Index).Data(.TradeSlot).Value <= 0 Then
                             PlayerInv(Index).Data(.TradeSlot).Num = 0
                             PlayerInv(Index).Data(.TradeSlot).Value = 0
+                            PlayerInv(Index).Data(.TradeSlot).TmrCooldown = 0
                         End If
                         '//Update
                         SendPlayerInvSlot Index, .TradeSlot
@@ -3237,6 +3251,7 @@ Dim PokeSlot As Long
                         If PlayerInv(tradeIndex).Data(.TradeSlot).Value <= 0 Then
                             PlayerInv(tradeIndex).Data(.TradeSlot).Num = 0
                             PlayerInv(tradeIndex).Data(.TradeSlot).Value = 0
+                            PlayerInv(tradeIndex).Data(.TradeSlot).TmrCooldown = 0
                         End If
                         '//Update
                         SendPlayerInvSlot tradeIndex, .TradeSlot
@@ -3733,6 +3748,7 @@ Dim InvSlot As Long
                     '//Clear Item
                     PlayerInv(Index).Data(InvSlot).Num = 0
                     PlayerInv(Index).Data(InvSlot).Value = 0
+                    PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
                 End If
                 SendPlayerInvSlot Index, InvSlot
             
@@ -3793,6 +3809,7 @@ Dim InvSlot As Long, PokeSlot As Byte
                 '//Clear Item
                 PlayerInv(Index).Data(InvSlot).Num = 0
                 PlayerInv(Index).Data(InvSlot).Value = 0
+                PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
             End If
             SendPlayerInvSlot Index, InvSlot
             
@@ -3821,6 +3838,7 @@ Dim InvSlot As Long, PokeSlot As Byte
                 '//Clear Item
                 PlayerInv(Index).Data(InvSlot).Num = 0
                 PlayerInv(Index).Data(InvSlot).Value = 0
+                PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
             End If
             SendPlayerInvSlot Index, InvSlot
             
@@ -3905,6 +3923,7 @@ Dim InvSlot As Long
         '//Clear Item
         PlayerInv(Index).Data(InvSlot).Num = 0
         PlayerInv(Index).Data(InvSlot).Value = 0
+        PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
     End If
     SendPlayerInvSlot Index, InvSlot
 End Sub

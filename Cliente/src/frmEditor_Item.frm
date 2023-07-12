@@ -55,6 +55,75 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   0
       Top             =   0
       Width           =   6015
+      Begin VB.TextBox txtDelay 
+         Height          =   285
+         Left            =   4200
+         TabIndex        =   56
+         Top             =   360
+         Width           =   1095
+      End
+      Begin VB.Frame fraKeyItem 
+         Caption         =   "Key Item Properties"
+         Height          =   1455
+         Left            =   240
+         TabIndex        =   28
+         Top             =   2160
+         Visible         =   0   'False
+         Width           =   5535
+         Begin VB.HScrollBar scrlFish 
+            Height          =   255
+            Left            =   3840
+            Max             =   2
+            TabIndex        =   55
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   1455
+         End
+         Begin VB.ComboBox cmbKeyItemType 
+            Height          =   315
+            ItemData        =   "frmEditor_Item.frx":0004
+            Left            =   2280
+            List            =   "frmEditor_Item.frx":000E
+            Style           =   2  'Dropdown List
+            TabIndex        =   32
+            Top             =   360
+            Width           =   3015
+         End
+         Begin VB.HScrollBar scrlSpriteType 
+            Height          =   255
+            Left            =   2280
+            Max             =   5
+            TabIndex        =   29
+            Top             =   720
+            Width           =   3015
+         End
+         Begin VB.Label lblFish 
+            BackStyle       =   0  'Transparent
+            Caption         =   "Sprite:"
+            Height          =   255
+            Left            =   3120
+            TabIndex        =   54
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   615
+         End
+         Begin VB.Label Label8 
+            Caption         =   "Key Item Type:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   31
+            Top             =   360
+            Width           =   1215
+         End
+         Begin VB.Label lblSpriteType 
+            Caption         =   "Sprite Type: None"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   30
+            Top             =   720
+            Width           =   5055
+         End
+      End
       Begin VB.Frame fraPowerBracer 
          Caption         =   "Power Bracer"
          Height          =   1455
@@ -72,9 +141,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbPowerType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0004
+            ItemData        =   "frmEditor_Item.frx":0025
             Left            =   1440
-            List            =   "frmEditor_Item.frx":001D
+            List            =   "frmEditor_Item.frx":003E
             Style           =   2  'Dropdown List
             TabIndex        =   50
             Top             =   360
@@ -115,9 +184,9 @@ Begin VB.Form frmEditor_Item
          Width           =   4695
          Begin VB.ComboBox cmbBerrieType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":006C
+            ItemData        =   "frmEditor_Item.frx":008D
             Left            =   1440
-            List            =   "frmEditor_Item.frx":0085
+            List            =   "frmEditor_Item.frx":00A6
             Style           =   2  'Dropdown List
             TabIndex        =   44
             Top             =   360
@@ -166,9 +235,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbMoveList 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":00B0
+            ItemData        =   "frmEditor_Item.frx":00D1
             Left            =   1440
-            List            =   "frmEditor_Item.frx":00B2
+            List            =   "frmEditor_Item.frx":00D3
             Style           =   2  'Dropdown List
             TabIndex        =   39
             Top             =   360
@@ -289,9 +358,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbMedicineType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":00B4
+            ItemData        =   "frmEditor_Item.frx":00D5
             Left            =   1440
-            List            =   "frmEditor_Item.frx":00D0
+            List            =   "frmEditor_Item.frx":00F1
             Style           =   2  'Dropdown List
             TabIndex        =   20
             Top             =   360
@@ -332,9 +401,9 @@ Begin VB.Form frmEditor_Item
       End
       Begin VB.ComboBox cmbType 
          Height          =   315
-         ItemData        =   "frmEditor_Item.frx":012E
+         ItemData        =   "frmEditor_Item.frx":014F
          Left            =   1200
-         List            =   "frmEditor_Item.frx":014A
+         List            =   "frmEditor_Item.frx":016B
          Style           =   2  'Dropdown List
          TabIndex        =   9
          Top             =   1200
@@ -376,48 +445,15 @@ Begin VB.Form frmEditor_Item
          Top             =   840
          Width           =   1935
       End
-      Begin VB.Frame fraKeyItem 
-         Caption         =   "Key Item Properties"
-         Height          =   1215
-         Left            =   240
-         TabIndex        =   28
-         Top             =   2160
-         Visible         =   0   'False
-         Width           =   5535
-         Begin VB.ComboBox cmbKeyItemType 
-            Height          =   315
-            ItemData        =   "frmEditor_Item.frx":01A2
-            Left            =   2280
-            List            =   "frmEditor_Item.frx":01AC
-            Style           =   2  'Dropdown List
-            TabIndex        =   32
-            Top             =   360
-            Width           =   3015
-         End
-         Begin VB.HScrollBar scrlSpriteType 
-            Height          =   255
-            Left            =   2280
-            Max             =   4
-            TabIndex        =   29
-            Top             =   720
-            Width           =   3015
-         End
-         Begin VB.Label Label8 
-            Caption         =   "Key Item Type:"
-            Height          =   255
-            Left            =   240
-            TabIndex        =   31
-            Top             =   360
-            Width           =   1215
-         End
-         Begin VB.Label lblSpriteType 
-            Caption         =   "Sprite Type: None"
-            Height          =   255
-            Left            =   240
-            TabIndex        =   30
-            Top             =   720
-            Width           =   5055
-         End
+      Begin VB.Label Label15 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Delay(ms)"
+         Height          =   195
+         Left            =   4320
+         TabIndex        =   57
+         Top             =   120
+         Width           =   690
       End
       Begin VB.Label Label12 
          Caption         =   "ID:"
@@ -673,6 +709,12 @@ Private Sub scrlBallSprite_Change()
     EditorChange = True
 End Sub
 
+Private Sub scrlFish_Change()
+    lblFish = "Sprite: " & scrlFish
+    Item(EditorIndex).Data3 = scrlFish.value
+    EditorChange = True
+End Sub
+
 Private Sub scrlSprite_Change()
     lblSprite.Caption = "Sprite: " & scrlSprite.value
     Item(EditorIndex).Sprite = scrlSprite.value
@@ -680,6 +722,9 @@ Private Sub scrlSprite_Change()
 End Sub
 
 Private Sub scrlSpriteType_Change()
+    scrlFish.Visible = False
+    lblFish.Visible = False
+    
     Select Case scrlSpriteType.value
         Case TEMP_SPRITE_GROUP_DIVE
             lblSpriteType.Caption = "Sprite Type: Dive"
@@ -689,6 +734,11 @@ Private Sub scrlSpriteType_Change()
             lblSpriteType.Caption = "Sprite Type: Surf"
         Case TEMP_SPRITE_GROUP_MOUNT
             lblSpriteType.Caption = "Sprite Type: Mount"
+        Case TEMP_FISH_MODE
+            lblSpriteType.Caption = "Sprite Type: Fish"
+            scrlFish.Visible = True
+            lblFish.Visible = True
+            scrlFish = Item(EditorIndex).Data3
         Case Else
             lblSpriteType.Caption = "Sprite Type: None"
     End Select
@@ -708,6 +758,19 @@ Private Sub txtCatchRate_Change()
         Item(EditorIndex).Data1 = Val(txtCatchRate.Text)
         EditorChange = True
     End If
+End Sub
+
+Private Sub txtDelay_Change()
+    If Not IsNumeric(txtDelay) Then
+        txtDelay = 0
+    End If
+    
+    If txtDelay < 0 Then
+        txtDelay = 0
+    End If
+    
+    Item(EditorIndex).Delay = txtDelay
+    EditorChange = True
 End Sub
 
 Private Sub txtDesc_Change()

@@ -1,8 +1,8 @@
 Attribute VB_Name = "modPokemon"
 Option Explicit
 
-Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO)
-    Dim MapNum As Long, X As Long, Y As Long
+Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO, Optional ByVal FishIndex As Long = 0)
+    Dim MapNum As Long, x As Long, Y As Long
     Dim RndNum As Long
     Dim x2 As Long, y2 As Long
     Dim gotData As Boolean
@@ -20,12 +20,15 @@ Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal ForceSpawn A
                 MapNum = Spawn(MapPokeNum).MapNum
             End If
         End If
+
         If MapNum <= 1 Then MapNum = 1
         If MapNum >= MAX_MAP Then MapNum = MAX_MAP
 
-        If Not Map(MapNum).Moral = MAP_MORAL_SAFARI Then    '//Can Spawn at Saffari
-            If Map(MapNum).Moral = MAP_MORAL_ARENA Or Map(MapNum).Moral = MAP_MORAL_SAFE Then    '//Don't spawn
-                Exit Sub
+        If FishIndex = 0 Then
+            If Not Map(MapNum).Moral = MAP_MORAL_SAFARI Then    '//Can Spawn at Saffari
+                If Map(MapNum).Moral = MAP_MORAL_ARENA Or Map(MapNum).Moral = MAP_MORAL_SAFE Then    '//Don't spawn
+                    Exit Sub
+                End If
             End If
         End If
         If Len(Trim$(Map(MapNum).Name)) <= 0 Then
@@ -48,44 +51,54 @@ Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal ForceSpawn A
 
         '//Check Position
         gotData = False
-        If Spawn(MapPokeNum).randomXY = NO Then
-            X = Spawn(MapPokeNum).MapX
-            Y = Spawn(MapPokeNum).MapY
-        Else
-            '//randomize value for 100 times
-            If Not gotData Then
-                For RndNum = 1 To 100
-                    X = Random(0, Map(MapNum).MaxX)
-                    Y = Random(0, Map(MapNum).MaxY)
+        If FishIndex = 0 Then    ' Adaptado pra usar com a pesca, que cai em cima do jogador o peixe
+            If Spawn(MapPokeNum).randomXY = NO Then
+                x = Spawn(MapPokeNum).MapX
+                Y = Spawn(MapPokeNum).MapY
+            Else
+                '//randomize value for 100 times
+                If Not gotData Then
+                    For RndNum = 1 To 100
+                        x = Random(0, Map(MapNum).MaxX)
+                        Y = Random(0, Map(MapNum).MaxY)
 
-                    If NpcTileOpen(MapNum, X, Y) Then
-                        gotData = True
-                        Exit For
-                    End If
-                Next
-            End If
-
-            '//spawn on the free tile
-            If Not gotData Then
-                For x2 = 0 To Map(MapNum).MaxX
-                    For y2 = 0 To Map(MapNum).MaxY
-                        If NpcTileOpen(MapNum, x2, y2) Then
-                            X = x2
-                            Y = y2
+                        If NpcTileOpen(MapNum, x, Y) Then
                             gotData = True
                             Exit For
                         End If
                     Next
-                Next
-            End If
+                End If
 
-            If Not gotData Then
-                X = Spawn(MapPokeNum).MapX
-                Y = Spawn(MapPokeNum).MapY
+                '//spawn on the free tile
+                If Not gotData Then
+                    For x2 = 0 To Map(MapNum).MaxX
+                        For y2 = 0 To Map(MapNum).MaxY
+                            If NpcTileOpen(MapNum, x2, y2) Then
+                                x = x2
+                                Y = y2
+                                gotData = True
+                                Exit For
+                            End If
+                        Next
+                    Next
+                End If
+
+                If Not gotData Then
+                    x = Spawn(MapPokeNum).MapX
+                    Y = Spawn(MapPokeNum).MapY
+                End If
+            End If
+        Else    '//Sistema de fish
+            If IsPlaying(FishIndex) Then
+                If TempPlayer(FishIndex).UseChar > 0 Then
+                    x = GetPlayerX(FishIndex)
+                    Y = GetPlayerY(FishIndex)
+                    MapNum = GetPlayerMap(FishIndex)
+                End If
             End If
         End If
-        If X <= 0 Then X = 0
-        If X >= Map(MapNum).MaxX Then X = Map(MapNum).MaxX
+        If x <= 0 Then x = 0
+        If x >= Map(MapNum).MaxX Then x = Map(MapNum).MaxX
         If Y <= 0 Then Y = 0
         If Y >= Map(MapNum).MaxY Then Y = Map(MapNum).MaxY
 
@@ -93,7 +106,7 @@ Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal ForceSpawn A
         'Debug.Print Pokemon(Spawn(MapPokeNum).PokeNum).Name
         If IsWithinSpawnTime(MapPokeNum, GameHour) = True Then
             ' Spawn Pokemon
-            SpawnPokemon MapPokeNum, Spawn(MapPokeNum).PokeNum, MapNum, X, Y, Random(0, 3), ForceSpawn, ForceShiny
+            SpawnPokemon MapPokeNum, Spawn(MapPokeNum).PokeNum, MapNum, x, Y, Random(0, 3), ForceSpawn, ForceShiny
         End If
     End If
 End Sub
@@ -164,7 +177,7 @@ Dim i As Long
     Next
 End Function
 
-Public Function SpawnPokemon(ByVal slot As Long, ByVal PokemonNum As Long, ByVal MapNum As Long, ByVal X As Long, ByVal Y As Long, ByVal Dir As Byte, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO) As Boolean
+Public Function SpawnPokemon(ByVal slot As Long, ByVal PokemonNum As Long, ByVal MapNum As Long, ByVal x As Long, ByVal Y As Long, ByVal Dir As Byte, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO) As Boolean
     Dim bs As Byte, m As Long, s As Byte
     Dim ShinyChanceVal As Long, ShinyLuckVal As Long
     Dim MoveSlot As Long
@@ -176,8 +189,8 @@ Public Function SpawnPokemon(ByVal slot As Long, ByVal PokemonNum As Long, ByVal
     If MapNum <= 0 Or MapNum > MAX_MAP Then Exit Function
     If Dir < 0 Or Dir > DIR_RIGHT Then Exit Function
     If slot <= 0 Or slot > MAX_GAME_POKEMON Then Exit Function
-    If X <= 0 Then X = 0
-    If X >= Map(MapNum).MaxX Then X = Map(MapNum).MaxX
+    If x <= 0 Then x = 0
+    If x >= Map(MapNum).MaxX Then x = Map(MapNum).MaxX
     If Y <= 0 Then Y = 0
     If Y >= Map(MapNum).MaxY Then Y = Map(MapNum).MaxY
 
@@ -194,7 +207,7 @@ Public Function SpawnPokemon(ByVal slot As Long, ByVal PokemonNum As Long, ByVal
 
         '//Location
         .Map = MapNum
-        .X = X
+        .x = x
         .Y = Y
         .Dir = Dir
 
@@ -334,7 +347,7 @@ Dim i As Byte, pCount As Byte
                 
                 '//Check to make sure not outside of boundries
                 If .Y > 0 Then
-                    If Not CheckDirection(.Map, DIR_UP, .X, .Y, True) Then
+                    If Not CheckDirection(.Map, DIR_UP, .x, .Y, True) Then
                         .Y = .Y - 1
                         DidMove = True
                     End If
@@ -344,7 +357,7 @@ Dim i As Byte, pCount As Byte
                 
                 '//Check to make sure not outside of boundries
                 If .Y < Map(.Map).MaxY Then
-                    If Not CheckDirection(.Map, DIR_DOWN, .X, .Y, True) Then
+                    If Not CheckDirection(.Map, DIR_DOWN, .x, .Y, True) Then
                         .Y = .Y + 1
                         DidMove = True
                     End If
@@ -353,9 +366,9 @@ Dim i As Byte, pCount As Byte
                 .Dir = DIR_LEFT
                 
                 '//Check to make sure not outside of boundries
-                If .X > 0 Then
-                    If Not CheckDirection(.Map, DIR_LEFT, .X, .Y, True) Then
-                        .X = .X - 1
+                If .x > 0 Then
+                    If Not CheckDirection(.Map, DIR_LEFT, .x, .Y, True) Then
+                        .x = .x - 1
                         DidMove = True
                     End If
                 End If
@@ -363,9 +376,9 @@ Dim i As Byte, pCount As Byte
                 .Dir = DIR_RIGHT
                 
                 '//Check to make sure not outside of boundries
-                If .X < Map(.Map).MaxX Then
-                    If Not CheckDirection(.Map, DIR_RIGHT, .X, .Y, True) Then
-                        .X = .X + 1
+                If .x < Map(.Map).MaxX Then
+                    If Not CheckDirection(.Map, DIR_RIGHT, .x, .Y, True) Then
+                        .x = .x + 1
                         DidMove = True
                     End If
                 End If
@@ -378,7 +391,7 @@ Dim i As Byte, pCount As Byte
                     If .StatusDamage > 0 Then
                         If .StatusDamage >= .CurHp Then
                             .CurHp = 0
-                            SendActionMsg .Map, "-" & .StatusDamage, .X * 32, .Y * 32, Magenta
+                            SendActionMsg .Map, "-" & .StatusDamage, .x * 32, .Y * 32, Magenta
                             
                             If Spawn(MapPokemonNum).NoExp = NO Then
                                 If .LastAttacker > 0 Then
@@ -417,7 +430,7 @@ Dim i As Byte, pCount As Byte
                             Exit Function
                         Else
                             .CurHp = .CurHp - .StatusDamage
-                            SendActionMsg .Map, "-" & .StatusDamage, .X * 32, .Y * 32, Magenta
+                            SendActionMsg .Map, "-" & .StatusDamage, .x * 32, .Y * 32, Magenta
                             '//Update
                             SendPokemonVital MapPokemonNum
                         End If

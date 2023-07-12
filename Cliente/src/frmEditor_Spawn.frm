@@ -21,6 +21,14 @@ Begin VB.Form frmEditor_Spawn
       TabIndex        =   2
       Top             =   0
       Width           =   5295
+      Begin VB.CheckBox chkFish 
+         Caption         =   "Fishing?"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   44
+         Top             =   480
+         Width           =   975
+      End
       Begin VB.ComboBox cmbNature 
          Height          =   315
          Left            =   1200
@@ -389,16 +397,24 @@ Private Sub chkCanCatch_Click()
     Spawn(EditorIndex).CanCatch = chkCanCatch.value
 End Sub
 
+Private Sub chkFish_Click()
+    Spawn(EditorIndex).Fishing = chkFish
+    EditorChange = True
+End Sub
+
 Private Sub chkNoExp_Click()
     Spawn(EditorIndex).NoExp = chkNoExp.value
+    EditorChange = True
 End Sub
 
 Private Sub chkRandomMap_Click()
     Spawn(EditorIndex).randomMap = chkRandomMap.value
+    EditorChange = True
 End Sub
 
 Private Sub chkRandomXY_Click()
     Spawn(EditorIndex).randomXY = chkRandomXY.value
+    EditorChange = True
 End Sub
 
 Private Sub cmbItem_Click()

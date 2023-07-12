@@ -328,6 +328,10 @@ Option Explicit
 
 Private Sub btnReload_Click(Index As Integer)
 Dim i As Long
+
+    'CheckPokemonIdsInMap 4
+    Call AddPokemonsFishing
+    Exit Sub
     
     Select Case Index
         Case 0

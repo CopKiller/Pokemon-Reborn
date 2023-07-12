@@ -27,10 +27,18 @@ Public Shop(1 To MAX_SHOP) As ShopRec
 Public Quest(1 To MAX_QUEST) As QuestRec
 Public Rank(1 To MAX_RANK) As RankRec
 
+'//Fishing system
+Public Fishing(1 To MAX_MAP) As FishingRec
+
 '//Event Xp
 Public EventExp As EventExpRec
 '//Virtual Shop
 Public VirtualShop(1 To VirtualShopTabsRec.CountTabs - 1) As VirtualShopDataRec
+
+Private Type FishingRec
+    Pokemon() As Long
+    
+End Type
 
 Private Type VirtualShopRec
     ItemNum As Long
@@ -352,6 +360,10 @@ Public Type PlayerRec
     '//Jour Init
     Started As Date
     TimePlay As Long
+    
+    '//Fish System
+    FishMode As Byte
+    FishRod As Byte
 End Type
 
 ' *****************
@@ -362,6 +374,7 @@ Public Type PlayerInvDataRec
     Num As Long
     Value As Long
     Locked As Byte
+    TmrCooldown As Long
 End Type
 
 Public Type PlayerInvRec
@@ -371,6 +384,7 @@ End Type
 Public Type PlayerInvStorageDataRec
     Num As Long
     Value As Long
+    TmrCooldown As Long
 End Type
 
 Private Type PlayerInvStorageSlotRec
@@ -573,9 +587,10 @@ Private Type ItemRec
     Price As Long
     Data3 As Long
     Desc As String * 255
-    IsCash As Byte
-    Linked As Byte
-    NotEquipable As Byte
+    IsCash As Byte          'Novo método de cash no shop!
+    Linked As Byte          'Vinculado ao jogador!
+    NotEquipable As Byte    'Não equipavel ao poke.
+    Delay As Long           'Items que utilizam de Delay
 End Type
 
 Private Type MovesetRec
@@ -700,6 +715,8 @@ Private Type SpawnRec
     HeldItem As Integer
     '//Nature
     Nature As Integer
+    '//Fishing?
+    Fishing As Byte
 End Type
 
 Private Type TextLangRec

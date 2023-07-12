@@ -784,6 +784,15 @@ Begin VB.Form frmEditor_Map
       Visible         =   0   'False
       Width           =   1815
       Begin VB.OptionButton optAttribute 
+         Caption         =   "Fish Spot"
+         Height          =   255
+         Index           =   13
+         Left            =   120
+         TabIndex        =   105
+         Top             =   3120
+         Width           =   1335
+      End
+      Begin VB.OptionButton optAttribute 
          Caption         =   "Warp Check"
          Height          =   255
          Index           =   12
@@ -1055,7 +1064,7 @@ End Sub
 
 Private Sub cmdPropertiesSave_Click()
 Dim X As Long, x2 As Long
-Dim Y As Long, Y2 As Long
+Dim y As Long, Y2 As Long
 Dim tempArr() As TileRec
 Dim i As Long
     '//Input Data
@@ -1092,8 +1101,8 @@ Dim i As Long
     ReDim Map.Tile(0 To Map.MaxX, 0 To Map.MaxY)
 
     For X = 0 To x2
-        For Y = 0 To Y2
-            Map.Tile(X, Y) = tempArr(X, Y)
+        For y = 0 To Y2
+            Map.Tile(X, y) = tempArr(X, y)
         Next
     Next
     
@@ -1269,12 +1278,12 @@ Private Sub optType_Click(Index As Integer)
     End Select
 End Sub
 
-Private Sub picTileset_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    Call MapEditorChooseTile(Button, X, Y)
+Private Sub picTileset_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+    Call MapEditorChooseTile(Button, X, y)
 End Sub
 
-Private Sub picTileset_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    Call MapEditorChooseTile(Button, X, Y, True)
+Private Sub picTileset_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+    Call MapEditorChooseTile(Button, X, y, True)
 End Sub
 
 Private Sub scrlCaveLight_Change()
@@ -1312,6 +1321,8 @@ Private Sub scrlSpriteType_Change()
             lblSpriteType.Caption = "Sprite Type: Surf"
         Case TEMP_SPRITE_GROUP_MOUNT
             lblSpriteType.Caption = "Sprite Type: Mount"
+        Case TEMP_FISH_MODE
+            lblSpriteType.Caption = "Sprite Type: Fish"
         Case Else
             lblSpriteType.Caption = "Sprite Type: None"
     End Select

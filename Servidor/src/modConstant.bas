@@ -14,6 +14,7 @@ Public Declare Function GetPrivateProfileString Lib "Kernel32" Alias "GetPrivate
 '//Socket
 Public Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcA" (ByVal lpPrevWndFunc As Long, ByVal hwnd As Long, ByRef Msg() As Byte, ByVal wParam As Long, ByVal lparam As Long) As Long
 
+
 ' *************
 ' ** General **
 ' *************
@@ -157,6 +158,7 @@ Public Const TEMP_SPRITE_GROUP_DIVE As Byte = 1
 Public Const TEMP_SPRITE_GROUP_BIKE As Byte = 2
 Public Const TEMP_SPRITE_GROUP_SURF As Byte = 3
 Public Const TEMP_SPRITE_GROUP_MOUNT As Byte = 4
+Public Const TEMP_FISH_MODE As Byte = 5
 
 '//Player Action
 Public Const ACTION_SLIDE As Byte = 1

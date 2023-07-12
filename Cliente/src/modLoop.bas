@@ -6,7 +6,7 @@ Private Declare Sub Sleep Lib "Kernel32" (ByVal dwMilliseconds As Long) '//halts
 
 '//Handle all looping/time procedure of the application
 Public Sub AppLoop()
-    Dim i As Long
+    Dim i As Long, x As Long
     Dim Tick As Long
     Dim Tmr25 As Long, Tmr100 As Long, Tmr500 As Long, Tmr250 As Long, Tmr1000 As Long, Tmr3000 As Long
     Dim WalkTmr As Long, ChatTmr As Long
@@ -122,7 +122,7 @@ Public Sub AppLoop()
                         End If
                     End If
                 End If
-                
+
                 ' Controls
                 If ControlScrollTimer + 150 < Tick Then
                     If ControlScrollUp Then
@@ -142,7 +142,7 @@ Public Sub AppLoop()
                         End If
                     End If
                 End If
-                
+
                 ' Virtual Shop
                 If VirtualShopScrollTimer + 150 < Tick Then
                     If VirtualShopScrollUp Then
@@ -164,7 +164,7 @@ Public Sub AppLoop()
                 End If
             ElseIf GameState = GameStateEnum.InMenu Then
                 '// Pode ser usado InMenu
-                
+
                 ' -->Controls
                 If ControlScrollTimer + 150 < Tick Then
                     If ControlScrollUp Then
@@ -198,14 +198,14 @@ Public Sub AppLoop()
 
                         If CreditTextCount > 0 Then
                             For i = 0 To CreditTextCount
-                                If Credit(i).Y > -32 Then
-                                    Credit(i).Y = Credit(i).Y - 1
+                                If Credit(i).y > -32 Then
+                                    Credit(i).y = Credit(i).y - 1
                                 End If
                             Next
                             '//Check if the last text is gone then reset
-                            If Credit(CreditTextCount).Y <= -32 Then
+                            If Credit(CreditTextCount).y <= -32 Then
                                 For i = 0 To CreditTextCount
-                                    Credit(i).Y = Credit(i).StartY
+                                    Credit(i).y = Credit(i).StartY
                                 Next
                             End If
                         End If
@@ -266,50 +266,67 @@ Public Sub AppLoop()
         End If
 
         If Tmr1000 < Tick Then
-            GameSecond = GameSecond + GameSecond_Velocity
-            If GameSecond >= 60 Then
-                GameSecond = 0
-                GameMinute = GameMinute + 1
-                If GameMinute >= 60 Then
-                    GameMinute = 0
-                    GameHour = GameHour + 1
-                    If GameHour >= 24 Then
-                        GameHour = 0
+            If GameState = GameStateEnum.InGame Then
+
+                GameSecond = GameSecond + GameSecond_Velocity
+                If GameSecond >= 60 Then
+                    GameSecond = 0
+                    GameMinute = GameMinute + 1
+                    If GameMinute >= 60 Then
+                        GameMinute = 0
+                        GameHour = GameHour + 1
+                        If GameHour >= 24 Then
+                            GameHour = 0
+                        End If
                     End If
                 End If
-            End If
 
-            If GameHour >= 0 And GameHour <= 5 Then     '// Dawn: 1am - 5am
-                DayAndNightARGB = D3DColorARGB(200, 0, 0, 0)
-                ShowLights = True
-                LightAlpha = 255
-            ElseIf GameHour >= 6 And GameHour <= 12 Then    '// Morning: 6am - 12pm
-                DayAndNightARGB = D3DColorARGB(20, 0, 0, 0)
-                ShowLights = True
-                LightAlpha = 20
-            ElseIf GameHour >= 13 And GameHour <= 17 Then    '// Afternoon: 1pm - 5pm
-                DayAndNightARGB = D3DColorARGB(0, 0, 0, 0)
-                ShowLights = False
-                LightAlpha = 0
-            ElseIf GameHour >= 18 And GameHour <= 21 Then    '// Dusk: 5pm - 8pm
-                DayAndNightARGB = D3DColorARGB(50, 0, 0, 0)
-                ShowLights = True
-                LightAlpha = 100
-            Else    '// Night: 9pm - 12am
-                DayAndNightARGB = D3DColorARGB(150, 0, 0, 0)
-                ShowLights = True
-                LightAlpha = 255
-            End If
+                If GameHour >= 0 And GameHour <= 5 Then     '// Dawn: 1am - 5am
+                    DayAndNightARGB = D3DColorARGB(200, 0, 0, 0)
+                    ShowLights = True
+                    LightAlpha = 255
+                ElseIf GameHour >= 6 And GameHour <= 12 Then    '// Morning: 6am - 12pm
+                    DayAndNightARGB = D3DColorARGB(20, 0, 0, 0)
+                    ShowLights = True
+                    LightAlpha = 20
+                ElseIf GameHour >= 13 And GameHour <= 17 Then    '// Afternoon: 1pm - 5pm
+                    DayAndNightARGB = D3DColorARGB(0, 0, 0, 0)
+                    ShowLights = False
+                    LightAlpha = 0
+                ElseIf GameHour >= 18 And GameHour <= 21 Then    '// Dusk: 5pm - 8pm
+                    DayAndNightARGB = D3DColorARGB(50, 0, 0, 0)
+                    ShowLights = True
+                    LightAlpha = 100
+                Else    '// Night: 9pm - 12am
+                    DayAndNightARGB = D3DColorARGB(150, 0, 0, 0)
+                    ShowLights = True
+                    LightAlpha = 255
+                End If
 
-            ' Jornada do jogador, tempo jogado
-            If GameState = GameStateEnum.InGame Then
+                ' Jornada do jogador, tempo jogado
                 Player(MyIndex).TimePlay = Player(MyIndex).TimePlay + 1
-            End If
 
-            ' Evento exp window
-            If ExpMultiply > 0 Then
-                If ExpSecs > 0 Then
-                    ExpSecs = ExpSecs - 1
+                ' Processamento do cooldown dos items da bolsa
+                For i = 1 To MAX_PLAYER_INV
+                    If PlayerInv(i).Num > 0 Then
+                        If PlayerInv(i).ItemCooldown > 0 Then    ' 1 seg
+                            PlayerInv(i).ItemCooldown = PlayerInv(i).ItemCooldown - 1
+                            
+                            For x = 1 To MAX_HOTBAR
+                                If PlayerInv(i).Num = Player(MyIndex).Hotbar(x).Num Then
+                                    Player(MyIndex).Hotbar(x).TmrCooldown = PlayerInv(i).ItemCooldown
+                                End If
+                            Next x
+                            
+                        End If
+                    End If
+                Next i
+
+                ' Evento exp window
+                If ExpMultiply > 0 Then
+                    If ExpSecs > 0 Then
+                        ExpSecs = ExpSecs - 1
+                    End If
                 End If
             End If
 
@@ -838,7 +855,7 @@ Private Sub ProcessMyLogic()
         With Player(MyIndex)
             If .Action = ACTION_SLIDE Then
                 If .ActionTmr <= GetTickCount Then
-                    If Map.Tile(.X, .Y).Attribute = MapAttribute.Slide Then
+                    If Map.Tile(.x, .y).Attribute = MapAttribute.Slide Then
                         .Action = ACTION_SLIDE
                         .ActionTmr = GetTickCount + 50
                         ForcePlayerMove .Dir

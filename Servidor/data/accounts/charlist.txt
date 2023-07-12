@@ -6,6 +6,4 @@ MarcaPhilips
 eaas
 furdunso
 Corrigido
-Peixonalto
-Avaca
-Vaco
+Farofa

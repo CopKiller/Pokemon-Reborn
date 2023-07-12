@@ -110,6 +110,8 @@ Public Enum ServerPackets
     SRequestServerInfo
     SClientTime
     SSendVirtualShop
+    SFishMode
+    SItemCooldown
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -270,6 +272,7 @@ Public Enum MapAttribute
     Slide
     Checkpoint
     WarpCheckpoint
+    FishSpot
     '//Make sure MapAttribute_Count is below everything else
     MapAttribute_Count
 End Enum

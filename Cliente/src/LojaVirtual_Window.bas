@@ -168,7 +168,7 @@ Public Sub DrawVirtualShop()
         If (VirtualShopMaxViewLine - 1) > (VirtualShopViewLine * VirtualShopViewLines) Then
             RenderTexture Tex_Gui(.Pic), .X + 4, .Y + VirtualShopScrollStartY + ((VirtualShopScrollEndY - VirtualShopScrollSize) - VirtualShopScrollY), 328, 310, 19, 35, 19, 35
         End If
-        
+
         '//Buttons
         For i = ButtonEnum.VirtualShop_Close To ButtonEnum.VirtualShop_ScrollUp
             If CanShowButton(i) Then
@@ -198,7 +198,7 @@ Public Sub DrawVirtualShop()
                 End If
             End If
         Next i
-        
+
         '//Escrever insentivo pra doação na janela da loja virtual
         RenderText Font_Default, CaptionContribuitor, .X + 30, (.Y + .Height - 25), White, , 255
 
@@ -264,96 +264,98 @@ Public Sub DrawVirtualShop()
 
         '//Seleção do item
         If VirtualShopSlot > 0 Then
-            If Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Sprite > 0 Then
+            If VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum > 0 Then
+                If Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Sprite > 0 Then
 
-                '--> Renderiza o icone do item na descrição
-                RenderTexture Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Sprite), .X + 362, (.Y + 43), 0, 0, 32, 32, 24, 24
-                '//Renderiza o nome do item
-                RenderText Font_Default, Trim$(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Name), .X + 372 - (GetTextWidth(Ui_Default, Trim$(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Name)) / 2), (.Y + 85), White, , 255
-                '//Renderiza o preço do item
-                RenderText Font_Default, "Price: " & KeepTwoDigit(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemPrice), .X + 342, (.Y + 215), Yellow, , 255
-                '//Obtem a descrição do item
-                DescString = Trim$(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Desc)
+                    '--> Renderiza o icone do item na descrição
+                    RenderTexture Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Sprite), .X + 362, (.Y + 43), 0, 0, 32, 32, 24, 24
+                    '//Renderiza o nome do item
+                    RenderText Font_Default, Trim$(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Name), .X + 372 - (GetTextWidth(Ui_Default, Trim$(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Name)) / 2), (.Y + 85), White, , 255
+                    '//Renderiza o preço do item
+                    RenderText Font_Default, "Price: " & KeepTwoDigit(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemPrice), .X + 342, (.Y + 215), Yellow, , 255
+                    '//Obtem a descrição do item
+                    DescString = Trim$(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Desc)
 
-                '//DESCRIÇÕES PERSONALIZADAS
-                '--> Item Normal
-                If VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).CustomDesc = NO Then
-                    '//Wrap the text
-                    WordWrap_Array Font_Default, DescString, 150, ArrayText
+                    '//DESCRIÇÕES PERSONALIZADAS
+                    '--> Item Normal
+                    If VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).CustomDesc = NO Then
+                        '//Wrap the text
+                        WordWrap_Array Font_Default, DescString, 150, ArrayText
 
-                    '//Loop to all items
-                    '//Reset
-                    tmpY = 0
-                    For i = LBound(ArrayText) To UBound(ArrayText)
-                        '//Set Location
-                        '//Keep it centered
-                        X = (.X + 277) + ((182 * 0.5) - (GetTextWidth(Ui_Default, Trim$(ArrayText(i))) * 0.5))
-                        Y = (.Y + 115) + tmpY
-
-                        '//Render the text
-                        RenderText Ui_Default, Trim$(ArrayText(i)), X, Y, White
-
-                        '//Increase the location for each line
-                        tmpY = tmpY + 16
-                    Next i
-
-                    '//Item com descrição diferenciada
-                ElseIf VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).CustomDesc = YES Then
-                    ' -->Utilizando um [+] antes da escrita, vai torná-lo um benefício abrangente.
-                    ' -->Utilizando um [-] antes da escrita, vai torná-lo um benefício não abrangente.
-                    ' -->Não utilizando nada antes da escrita, vai torná-lo uma descrição normal apenas.
-                    ' -->Por favor, separe cada benefício com uma "," ao final de cada.
-                    ' -->Dê preferencia primeiramente aos benefícios abrangentes, e após os não abrangentes e após a descrição, se houver uma.
-
-                    '//Reset
-                    tmpY = 0
-
-                    '//Set Matriz
-                    ArrayText = Split(DescString, ",")
-
-                    For i = LBound(ArrayText) To UBound(ArrayText)
-
-                        ' -->Verifica se contém um benefício abrangente
-                        If InStr(1, ArrayText(i), "[+]") > 0 Then
+                        '//Loop to all items
+                        '//Reset
+                        tmpY = 0
+                        For i = LBound(ArrayText) To UBound(ArrayText)
+                            '//Set Location
                             '//Keep it centered
-                            X = (.X + 230) + ((182 * 0.5))
-                            Y = (.Y) + 110 + tmpY
-                            '--> Renderiza o icone de beneficio abrangente na descrição
-                            RenderTexture Tex_Gui(.Pic), X - 15, Y, 46, 404, 15, 15, 18, 18
-                            RenderTexture Tex_Gui(.Pic), X - 15, Y, 46, 404 + (17 * 2), 15, 15, 18, 18
+                            X = (.X + 277) + ((182 * 0.5) - (GetTextWidth(Ui_Default, Trim$(ArrayText(i))) * 0.5))
+                            Y = (.Y + 115) + tmpY
+
                             '//Render the text
-                            RenderText Ui_Default, Trim$(Mid(ArrayText(i), 4)), X, Y, White
-                        ElseIf InStr(1, ArrayText(i), "[-]") > 0 Then    ' -->Verifica se contém um benefício não abrangente
-                            '//Keep it centered
-                            X = (.X + 230) + ((182 * 0.5))
-                            Y = (.Y) + 110 + tmpY
-                            '--> Renderiza o icone de beneficio não abrangente na descrição
-                            RenderTexture Tex_Gui(.Pic), X - 15, Y, 46, 404 + (17 * 1), 15, 15, 18, 18
-                            '//Render the text
-                            RenderText Ui_Default, Trim$(Mid(ArrayText(i), 4)), X, Y, White
-                        Else  ' -->Descrição normal
+                            RenderText Ui_Default, Trim$(ArrayText(i)), X, Y, White
 
-                            If Len(ArrayText(i)) > 0 Then
-                                '--> Reset
-                                tmpS = tmpY
+                            '//Increase the location for each line
+                            tmpY = tmpY + 16
+                        Next i
 
-                                '//Wrap the text
-                                WordWrap_Array Font_Default, ArrayText(i), 150, ArrayText2
+                        '//Item com descrição diferenciada
+                    ElseIf VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).CustomDesc = YES Then
+                        ' -->Utilizando um [+] antes da escrita, vai torná-lo um benefício abrangente.
+                        ' -->Utilizando um [-] antes da escrita, vai torná-lo um benefício não abrangente.
+                        ' -->Não utilizando nada antes da escrita, vai torná-lo uma descrição normal apenas.
+                        ' -->Por favor, separe cada benefício com uma "," ao final de cada.
+                        ' -->Dê preferencia primeiramente aos benefícios abrangentes, e após os não abrangentes e após a descrição, se houver uma.
 
+                        '//Reset
+                        tmpY = 0
+
+                        '//Set Matriz
+                        ArrayText = Split(DescString, ",")
+
+                        For i = LBound(ArrayText) To UBound(ArrayText)
+
+                            ' -->Verifica se contém um benefício abrangente
+                            If InStr(1, ArrayText(i), "[+]") > 0 Then
+                                '//Keep it centered
+                                X = (.X + 230) + ((182 * 0.5))
+                                Y = (.Y) + 110 + tmpY
+                                '--> Renderiza o icone de beneficio abrangente na descrição
+                                RenderTexture Tex_Gui(.Pic), X - 15, Y, 46, 404, 15, 15, 18, 18
+                                RenderTexture Tex_Gui(.Pic), X - 15, Y, 46, 404 + (17 * 2), 15, 15, 18, 18
                                 '//Render the text
-                                For z = LBound(ArrayText2) To UBound(ArrayText2)
-                                    '//Keep it centered
-                                    X = (.X + 277) + ((182 * 0.5) - (GetTextWidth(Ui_Default, Trim$(ArrayText2(z))) * 0.5))
-                                    Y = (.Y + 115) + tmpS
-                                    RenderText Ui_Default, Trim$(ArrayText2(z)), X, Y, White
-                                    tmpS = tmpS + 16
-                                Next z
+                                RenderText Ui_Default, Trim$(Mid(ArrayText(i), 4)), X, Y, White
+                            ElseIf InStr(1, ArrayText(i), "[-]") > 0 Then    ' -->Verifica se contém um benefício não abrangente
+                                '//Keep it centered
+                                X = (.X + 230) + ((182 * 0.5))
+                                Y = (.Y) + 110 + tmpY
+                                '--> Renderiza o icone de beneficio não abrangente na descrição
+                                RenderTexture Tex_Gui(.Pic), X - 15, Y, 46, 404 + (17 * 1), 15, 15, 18, 18
+                                '//Render the text
+                                RenderText Ui_Default, Trim$(Mid(ArrayText(i), 4)), X, Y, White
+                            Else  ' -->Descrição normal
+
+                                If Len(ArrayText(i)) > 0 Then
+                                    '--> Reset
+                                    tmpS = tmpY
+
+                                    '//Wrap the text
+                                    WordWrap_Array Font_Default, ArrayText(i), 150, ArrayText2
+
+                                    '//Render the text
+                                    For z = LBound(ArrayText2) To UBound(ArrayText2)
+                                        '//Keep it centered
+                                        X = (.X + 277) + ((182 * 0.5) - (GetTextWidth(Ui_Default, Trim$(ArrayText2(z))) * 0.5))
+                                        Y = (.Y + 115) + tmpS
+                                        RenderText Ui_Default, Trim$(ArrayText2(z)), X, Y, White
+                                        tmpS = tmpS + 16
+                                    Next z
+                                End If
                             End If
-                        End If
 
-                        tmpY = tmpY + 16
-                    Next i
+                            tmpY = tmpY + 16
+                        Next i
 
+                    End If
                 End If
             End If
 

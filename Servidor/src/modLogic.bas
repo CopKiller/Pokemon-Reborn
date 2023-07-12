@@ -140,6 +140,11 @@ Dim xIndex As Long
         Exit Function
     End If
     
+    If Map(MapNum).Tile(wX, wY).Attribute = MapAttribute.FishSpot Then
+        CheckDirection = True
+        Exit Function
+    End If
+    
     If NpcChecking Then
         For i = 1 To MAX_MAP_NPC
             '//Check Npc
@@ -249,7 +254,7 @@ Public Sub CheckSpawnNpc(ByVal MapNum As Long, ByVal MapNpcNum As Long)
     Next i
 
     If Not SpawnAllDay Then
-        WeekDayNum = WeekDay(Date)
+        WeekDayNum = Weekday(Date)
         For i = 1 To WeekDayEnum.Count_WeekDay - 1
             If Npc(Map(MapNum).Npc(MapNpcNum)).SpawnWeekDay(i) = YES Then
                 If i = WeekDayNum Then
@@ -265,6 +270,10 @@ Public Sub CheckSpawnNpc(ByVal MapNum As Long, ByVal MapNpcNum As Long)
                 End If
             End If
         Next i
+    Else
+        If MapNpc(MapNum, MapNpcNum).Num = 0 Then
+            Call SpawnNpc(MapNum, MapNpcNum)
+        End If
     End If
 End Sub
 
@@ -474,6 +483,11 @@ Dim i As Long
         Exit Function
     End If
     If Map(MapNum).Tile(x, Y).Attribute = MapAttribute.WarpCheckpoint Then
+        CheckOpenTile = False
+        Exit Function
+    End If
+    
+    If Map(MapNum).Tile(x, Y).Attribute = MapAttribute.FishSpot Then
         CheckOpenTile = False
         Exit Function
     End If

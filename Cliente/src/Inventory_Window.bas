@@ -9,13 +9,13 @@ Public Sub DrawInventory()
         If Not .Visible Then Exit Sub
 
         '//Render the window
-        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
+        RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
 
         '//Buttons
         'Dim ButtonText As String, DrawText As Boolean
         For i = ButtonEnum.Inventory_Close To ButtonEnum.Inventory_Close
             If CanShowButton(i) Then
-                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
+                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .y + Button(i).y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
 
@@ -25,13 +25,19 @@ Public Sub DrawInventory()
                 If PlayerInv(i).Status.Locked = NO Then
                     If PlayerInv(i).Num > 0 Then
                         Sprite = Item(PlayerInv(i).Num).Sprite
+                        
+                        If PlayerInv(i).ItemCooldown > 0 Then
+                            Alpha = D3DColorARGB(100, 255, 100, 100)
+                        Else
+                            Alpha = D3DColorARGB(255, 255, 255, 255)
+                        End If
 
                         DrawX = .X + (7 + ((5 + TILE_X) * (((i - 1) Mod 5))))
-                        DrawY = .Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
+                        DrawY = .y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
 
                         '//Draw Icon
                         If Sprite > 0 And Sprite <= Count_Item Then
-                            RenderTexture Tex_Item(Sprite), DrawX + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
+                            RenderTexture Tex_Item(Sprite), DrawX + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), Alpha
                         End If
 
                         RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
@@ -47,7 +53,7 @@ Public Sub DrawInventory()
                     
                     Sprite = 532
                     DrawX = .X + (7 + ((5 + TILE_X) * (((i - 1) Mod 5))))
-                    DrawY = .Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
+                    DrawY = .y + (37 + ((5 + TILE_Y) * ((i - 1) \ 5)))
                     RenderTexture Tex_Item(Sprite), DrawX + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), Alpha
                 End If
             End If
@@ -58,7 +64,7 @@ End Sub
 ' ***************
 ' ** Inventory **
 ' ***************
-Public Sub InventoryMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub InventoryMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_INVENTORY)
@@ -71,7 +77,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Inventory_Close To ButtonEnum.Inventory_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -102,21 +108,21 @@ Dim i As Long
         
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Public Sub InventoryMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub InventoryMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim tmpX As Long, tmpY As Long
     Dim i As Long
 
     With GUI(GuiEnum.GUI_INVENTORY)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        If CursorX >= .X And CursorX <= .X + .Width And CursorY >= .Y And CursorY <= .Y + .Height Then
+        If CursorX >= .X And CursorX <= .X + .Width And CursorY >= .y And CursorY <= .y + .Height Then
         Else
             Exit Sub
         End If
@@ -138,7 +144,7 @@ Public Sub InventoryMouseMove(Buttons As Integer, Shift As Integer, X As Single,
         '//Loop through all items
         For i = ButtonEnum.Inventory_Close To ButtonEnum.Inventory_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
 
@@ -183,12 +189,12 @@ Public Sub InventoryMouseMove(Buttons As Integer, Shift As Integer, X As Single,
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
 
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Public Sub InventoryMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub InventoryMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
 
     With GUI(GuiEnum.GUI_INVENTORY)
@@ -201,7 +207,7 @@ Public Sub InventoryMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y
         '//Loop through all items
         For i = ButtonEnum.Inventory_Close To ButtonEnum.Inventory_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i

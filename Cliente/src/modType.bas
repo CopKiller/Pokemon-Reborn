@@ -51,8 +51,8 @@ Private Type MapPokemonRec
     
     '//Location
     Map As Long
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     Dir As Byte
     
     '//Vital
@@ -89,8 +89,8 @@ Private Type MapNpcPokemonRec
     Num As Long     '//Index of the npc
     
     '//Location
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     Dir As Byte
     
     '//Vital
@@ -136,8 +136,8 @@ Private Type MapNpcRec
     Num As Long     '//Index of the npc
     
     '//Location
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     Dir As Byte
     
     '//Client Only
@@ -152,8 +152,8 @@ Public Type PlayerPokemonRec
     Num As Long
     
     '//Location
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     Dir As Byte
     
     '//For own index
@@ -213,6 +213,11 @@ Public Type PlayerPokemonRec
     MoveSpeed As Long
 End Type
 
+Private Type HotbarRec
+    Num As Long
+    TmrCooldown As Long
+End Type
+
 Public Type PlayerRec
     '//Identification
     Name As String * NAME_LENGTH
@@ -223,8 +228,8 @@ Public Type PlayerRec
     
     '//Location
     Map As Long
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     Dir As Byte
 
     '//Vital
@@ -250,7 +255,7 @@ Public Type PlayerRec
     Badge(1 To MAX_BADGE) As Byte
     
     '//Hotbar
-    Hotbar(1 To MAX_HOTBAR) As Long
+    Hotbar(1 To MAX_HOTBAR) As HotbarRec
     
     '//Stealth Mode
     StealthMode As Byte
@@ -269,6 +274,10 @@ Public Type PlayerRec
     
     Started As Date
     TimePlay As Long
+    
+    '//Fish System
+    FishMode As Byte
+    FishRod As Byte
     
     '//Client Only
     Moving As Byte
@@ -289,6 +298,7 @@ Private Type PlayerInvRec
     Num As Long
     value As Long
     Status As LockedRec
+    ItemCooldown As Long
 End Type
 
 Public Type PokemonMovesetRec
@@ -418,8 +428,8 @@ End Type
 Public Type TilePosRec
     Used As Boolean
     ' Position of tile
-    X As Integer
-    Y As Integer
+    x As Integer
+    y As Integer
 End Type
 
 Private Type NpcRec
@@ -457,6 +467,7 @@ Private Type ItemRec
     IsCash As Byte          'Novo método de cash no shop!
     Linked As Byte          'Vinculado ao jogador!
     NotEquipable As Byte    'Não equipavel ao poke.
+    Delay As Long           'Items que utilizam de Delay
 End Type
 
 Private Type MovesetRec
@@ -579,6 +590,8 @@ Public Type SpawnRec
     HeldItem As Integer
     '//Nature
     Nature As Integer
+    '//Fishing?
+    Fishing As Byte
 End Type
 
 Private Type TextLangRec
@@ -705,8 +718,8 @@ End Type
 Private Type CatchBallRec
     InUsed As Boolean
     Pic As Byte
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     State As Byte
     Frame As Byte
     FrameState As Byte
@@ -716,8 +729,8 @@ End Type
 Private Type WeatherDropRec
     Pic As Long
     PicType As Byte
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     SpeedY As Long
 End Type
 
@@ -731,7 +744,7 @@ End Type
 
 Private Type CreditRec
     Text As String
-    Y As Long
+    y As Long
     StartY As Long
 End Type
 
@@ -746,8 +759,8 @@ Private Type ButtonRec
     StartY(0 To 2) As Long
     
     '//Location
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     
     '//Size
     Height As Long
@@ -763,8 +776,8 @@ Private Type GuiRec
     Pic As Byte
     
     '//Location
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     OrigX As Long
     OrigY As Long
     
@@ -849,8 +862,8 @@ Public Type ChatBubbleRec
     Colour As Long
     target As Long
     targetType As Byte
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     
     '//Client data only
     timer As Long
@@ -863,8 +876,8 @@ Private Type SelMenuRec
     Type As Byte
     
     '//Location
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     
     '//Text
     MaxText As Byte
@@ -881,8 +894,8 @@ Private Type ActionMsgRec
     Created As Long
     Color As Long
     Scroll As Long
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     timer As Long
     Alpha As Long
 End Type
@@ -890,8 +903,8 @@ End Type
 '//Animation
 Private Type AnimInstanceRec
     Animation As Long
-    X As Long
-    Y As Long
+    x As Long
+    y As Long
     '//timing
     timer(0 To 1) As Long
     '//rendering check

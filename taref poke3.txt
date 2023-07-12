@@ -89,7 +89,86 @@ OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
 10-Correção de falha crítica, falta de verificação ao adicionar um item da storage no inventario.
 
 Total
-494
+494 - 250
+244
+
+-Remover o fundo do botão do ranking
+
+-Adicionar um botão na hud, pra abrir a loja virtual, com o mesmo icone dela.
+
+OK->Sistema de Fish:
+	OK->Criar uma ação de pesca(modo pesca), que dê pra utilizar mesmo estando em bike,mount,dive, etc...
+	OK->Ativar a ação apartir de um item de pesca que vai ser um KEY-ITEM, ao usar o item, 
+	sendo na borda de um rio, primeiramente vai ativar o modo pesca e vai ter a chance 
+	do pokemon ser pescado.
+		-O item vai ter um delay pra pesca, que vai estar em ms no editor de item(ao selecionar o tipo, ex: Mount, Dive, Pesca
+		que consequentemente vai aparecer a txt pra preencher em ms a quantidade de segundos de delay, futuramente podendo ser reduzido
+		com o VIP.)
+	OK->Adicionar um atributo de mapa, que vai ser adicionado nas bordas dos rios, pra poder ser usado
+	a vara de pesca KEY-ITEM nestes locais, estando de frente pra algum deles com a SIGLA F.
+	OK->Adicionar um check no spawn "Fish", pra identificar que é um pokemon de agua, que só pode ser capturado com a vara de pesca.
+		OK->A chance de spawn ao utilizar a vara de pesca, será baseada em cima do delay da vara de pesca e do rarity.
+		OK->Pra fins de checar o spawn do poke no mapa em que está sendo pescado, seria usado como parametro o 'Mapa', adicionado
+		ao spawn editor e então prosseguir com a comparação de chances citada anteriormente.
+	OK->Procurar uma vara de pesca pokemon que tenha os 4 lados pra adicionar.
+		OK->Em modo pesca, a vara de pesca aparece renderizada na sprite do jogador.
+		OK->Pra sair do modo pesca, se movimentar pra algum lado vai desativar o modo pesca.
+		OK->Pra pescar não é necessario selecionar o slot no rio, apenas usar o item de pesca novamente de frente para o rio.
+	OK->Adicionar mecanica pra despawnar o pokemon do mapa e não obstruir slot, ELES PRECISAM SEMPRE SER SELVAGEM
+	pra forçar o jogador a capturá-lo
+		OK->Ao ficar 4 slots longe ou o pokemon pescado perder o target do pescador, despawná-lo.
+
+OK-Adicionado sistema de Cooldown de item global(Inv + hotbar).
+
+*Item HM, com o tipo Cutting e RockSmash, pra cortar arvores ou quebrar pedras, que somente quem cortou
+ pode passar, mesmo que apareça pra outros que foi cortada, não conseguem passar, apenas esperando
+ o respawn novamente do atributo(3 segundos).
+	-O atributo vai ser adicionado aos atributos do mapa, como Cutting, e pra interagir com ele,
+	vai ter mais de uma maneira:
+		*-Forma Free: Usa um HM com a tecnica de cuting ou rocksmash, forçando o jogador a ter
+		um pokemon mula pra carregar esses tipos de tecnicas e altera um move do pokemon.
+			-Precisa adicionar um requerimento de insignia no MoveEditor da insignia 1 ao 8,
+			 na tecnica em questão.
+			-Só poder usar a tecnica e cortar uma arvore ou quebrar uma pedra se tiver a insignia.
+
+		*Forma Vip: Um item que somente ao ter na bag e apertar espaço, vai interagir com o cutting ou rocksmash,
+		tendo em vista que precisa ter um requerimento de insignia do move que está no HM.
+		Adicionar uma checkbox em HM, pra verificar se é uma alcarina(item da loja virtual)
+		e consequentemente, deve-se marcar como NoPokeEquipe e IsCash(pra não vender na loja tradicional)
+		e não poder dar use e ganhar a tecnica ao ter o check alcarina marcado.
+
+-Map Report com a lista de todos os mapas
+
+OK-Adiciona correção, os revive estão podendo ser usados mesmo em pokemons vivos na hud.
+
+-Reaproveitar a barra de hp que fica em baixo do pokemon, pra adicionar no icone da hud na parte superior,
+pra saber a quantidade de hp que cada pokemon possui.
+
+- (itemKey) adicionar um item que permita abrir o baú de itens e pokémon sem ter que retorna ao centro pokémon.
+
+- Adiciona botão no editor de mapas em propriedades para que o "player" não utilize poções de cura. (No cure)
+
+- Cria item box, na mesma pode cadastra até 20 itens e para cada um seleciona a % da chance do mesmo, quantidade do mesmo tbm
+	-Aparecer mensagem na tela com o nome do item, etc ao receber.
+
+- Quando chega em determinado mapa para enfrentar por exemplo o líder do gynasio, não se permitir que os jogadores online se encontrem. Cria uma função que naquele mapa específico seja offline.
+- Sistema de mapas offline, neste mapa não pode mostrar:
+	-Outros jogadores ou pokemons deles
+	-Outras batalhas de NPC
+	-Outras spells
+	-Outros soms
+	-Adicionar implementação nos npcs que realizam batalhas, podem batalhar somente com 1 por vez.
+	-Não mostrar o chat local de outros jogadores no mapa
+
+- Adicionar atributo no mapa, caso o jogador não tenha um badge requerido, tenha uma list com todos os npcs,
+que tem adicionado no proprio mapa, e caso não tenha o badge solicitado abra o dialogo com o npc listado.
+
+- Linkar os pokemons pra aparecer no chat o nome deles, e ao clikar aparecer o summary deles, seja
+na hora que obter o shiny e aparecer a mensagem global linkada, ou seja quando for rarity;
+Tambem poder linkar os meus pokemons pra enviar no chat e ao clikarem aparecer o summary.
+(escolher shift ou ctrl pra adicionar eles ao chat, ao clikar em algum da equipe.)
+
+
 
 -Adicionar lógica: HeldItems, implementado pelas que está no txt, no editor apenas selecionar o nome, e em value ser a quantidade de segundos pra alguns com tempo em específico
 
@@ -108,23 +187,3 @@ Total
 -Login Diário em dobro ao obter vip 2
 -Poder adicionar mais items no mercado global que X Limite que free poderia
 -Mais chances em uma RAID
-
--Pk & Hero System-
-	-PK-
--Adicionar Map Moral - Pk (Pode abater outros jogadores c/ pokemons, sem enviar convite de DUEL mas com punição PK).
--Adicionar Sistema de Pk nos mapas PK e recebe 1 de pontuação PK pra participar do Ranking.
--Icone pra identificar um PK.
--Adicionar mensagem no chat, pra quando um jogador se tornar PK, aparecer o nome dele com a mensagem global com o nome do mapa.
--Adicionar pra mostrar mapa PK, nome do mapa vermelho.
--Adicionar Ranking de PK (8 posições) (Aproveitar os icones do ranking de level)
--Player Pk perde toda a pontuação PK e o PK, ao morrer pra jogador, apenas pra jogador, tornando o matador um heroi.
--Player Pk só pode morrer em mapas exceto no safe.
-	-Hero-
--Adicionar Sistema de Heroi, ao matar um player PK receber a classificação como Heroi 
--Player se torna heroi ao matar um jogador PK e recebe 1 de pontuação Heroi pra participar do Ranking.
--Icone pra identificar um Heroi.
--Adicionar mensagem no chat, pra quando um jogador se tornar Heroi, aparecer o nome dele com a mensagem global com o nome do mapa.
--Player heroi perde o heroi e pontuação ao atacar algum jogador normal em area PK, ou ser abatido por um jogador PK.
--Adicionar Ranking de Heroi (8 posições) (Aproveitar os icones do ranking de level)
-	-Obs-
--Adicionar uma janela, ao selecionar o ranking, aparecer uma box com 3 opções de ranking pra escolher (Level, Pk, Heroi)

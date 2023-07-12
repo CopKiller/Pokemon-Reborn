@@ -757,9 +757,11 @@ Private Sub UpdatePokemonLogic()
         If MapPokemon(MapPokeNum).Num <= 0 Then
             '//Check if does exist
             If MapPokemon(MapPokeNum).PokemonIndex > 0 Then
-                If MapPokemon(MapPokeNum).Respawn <= GetTickCount Then
-                    '//Spawn pokemon
-                    SpawnMapPokemon MapPokeNum
+                If Spawn(MapPokeNum).Fishing = NO Then    ' Não spawna pokemon de pesca automaticamente
+                    If MapPokemon(MapPokeNum).Respawn <= GetTickCount Then
+                        '//Spawn pokemon
+                        SpawnMapPokemon MapPokeNum
+                    End If
                 End If
             End If
         End If
@@ -804,6 +806,10 @@ Private Sub UpdatePokemonLogic()
                                         If onSightDistanceX <= onSightRange And onSightDistanceY <= onSightRange Then
 
                                         Else
+                                            '//Fish system
+                                            If Spawn(MapPokeNum).Fishing = YES Then
+                                                ClearMapPokemon MapPokeNum
+                                            End If
                                             ' Lost Target
                                             MapPokemon(MapPokeNum).targetType = 0
                                             MapPokemon(MapPokeNum).TargetIndex = 0
@@ -814,6 +820,10 @@ Private Sub UpdatePokemonLogic()
                                         End If
                                     End If
                                 Else
+                                    '//Fish system
+                                    If Spawn(MapPokeNum).Fishing = YES Then
+                                        ClearMapPokemon MapPokeNum
+                                    End If
                                     ' Lost Target
                                     MapPokemon(MapPokeNum).targetType = 0
                                     MapPokemon(MapPokeNum).TargetIndex = 0
@@ -823,6 +833,10 @@ Private Sub UpdatePokemonLogic()
                                     TargetY = 0
                                 End If
                             Else
+                                '//Fish system
+                                If Spawn(MapPokeNum).Fishing = YES Then
+                                    ClearMapPokemon MapPokeNum
+                                End If
                                 ' Lost Target
                                 MapPokemon(MapPokeNum).targetType = 0
                                 MapPokemon(MapPokeNum).TargetIndex = 0
@@ -832,6 +846,10 @@ Private Sub UpdatePokemonLogic()
                                 TargetY = 0
                             End If
                         Else
+                            '//Fish system
+                            If Spawn(MapPokeNum).Fishing = YES Then
+                                ClearMapPokemon MapPokeNum
+                            End If
                             ' Lost Target
                             MapPokemon(MapPokeNum).targetType = 0
                             MapPokemon(MapPokeNum).TargetIndex = 0
@@ -852,6 +870,10 @@ Private Sub UpdatePokemonLogic()
                             If onSightDistanceX <= onSightRange And onSightDistanceY <= onSightRange Then
 
                             Else
+                                '//Fish system
+                                If Spawn(MapPokeNum).Fishing = YES Then
+                                    ClearMapPokemon MapPokeNum
+                                End If
                                 ' Lost Target
                                 MapPokemon(MapPokeNum).targetType = 0
                                 MapPokemon(MapPokeNum).TargetIndex = 0

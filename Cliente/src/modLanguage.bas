@@ -122,7 +122,7 @@ Public Sub Language()
             TextUIRegisterConfirm = "Finalizar cadastro"
             TextUIRegisterCheckBox = "Mostrar a senha?"
             TextUIRegisterUsernameLenght = "Your username must be between 3 and " & (NAME_LENGTH - 1) & " characters long, and only letters, numbers and _ allowed"
-            TextUIRegisterPasswordLenght = "Your password must be between " & ((NAME_LENGTH - 1) / 4) & " and " & (NAME_LENGTH - 1) & " characters long, and only letters, numbers _ allowed"
+            TextUIRegisterPasswordLenght = "Your password must be between " & ((NAME_LENGTH - 1) \ 4) & " and " & (NAME_LENGTH - 1) & " characters long, and only letters, numbers _ allowed"
             TextUIRegisterPasswordMatch = "Password did not match"
             TExtUIRegisterInvalidEmail = "Invalid email"
             
