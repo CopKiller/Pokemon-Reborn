@@ -180,7 +180,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong CPlayerMove
     buffer.WriteByte Player(MyIndex).Dir
     buffer.WriteLong Player(MyIndex).X
-    buffer.WriteLong Player(MyIndex).Y
+    buffer.WriteLong Player(MyIndex).y
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -247,13 +247,13 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
-Public Sub AdminWarp(ByVal X As Long, ByVal Y As Long)
+Public Sub AdminWarp(ByVal X As Long, ByVal y As Long)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong CAdminWarp
     buffer.WriteLong X
-    buffer.WriteLong Y
+    buffer.WriteLong y
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -296,7 +296,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong CPlayerPokemonMove
     buffer.WriteByte PlayerPokemon(MyIndex).Dir
     buffer.WriteLong PlayerPokemon(MyIndex).X
-    buffer.WriteLong PlayerPokemon(MyIndex).Y
+    buffer.WriteLong PlayerPokemon(MyIndex).y
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -883,7 +883,7 @@ End Sub
 
 Public Sub SendMap()
 Dim buffer As clsBuffer
-Dim X As Long, Y As Long
+Dim X As Long, y As Long
 Dim i As Long, a As Byte
 
     If Player(MyIndex).Access < ACCESS_MAPPER Then Exit Sub
@@ -904,8 +904,8 @@ Dim i As Long, a As Byte
     
     '//Tiles
     For X = 0 To Map.MaxX
-        For Y = 0 To Map.MaxY
-            With Map.Tile(X, Y)
+        For y = 0 To Map.MaxY
+            With Map.Tile(X, y)
                 '//Layer
                 For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                     For a = MapLayerType.Normal To MapLayerType.Animated
@@ -1430,4 +1430,14 @@ Public Sub PurchaseVirtualShop(ByVal Indice As Long, ByVal Slot As Long)
     buffer.WriteLong Slot
     SendData buffer.ToArray()
     Set buffer = Nothing
+End Sub
+
+Public Sub SendMapReport()
+    Dim buffer As clsBuffer
+
+    Set buffer = New clsBuffer
+    buffer.WriteLong CMapReport
+    SendData buffer.ToArray()
+    
+    buffer.Flush: Set buffer = Nothing
 End Sub

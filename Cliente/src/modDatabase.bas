@@ -159,8 +159,8 @@ End Sub
 
 Public Sub ResetGuiLocation(ByVal vGui As GuiEnum)
     '// Starting Location will be given by code
-    GUI(vGui).x = GUI(vGui).OrigX
-    GUI(vGui).Y = GUI(vGui).OrigY
+    GUI(vGui).X = GUI(vGui).OrigX
+    GUI(vGui).y = GUI(vGui).OrigY
 End Sub
 
 Public Sub ResetGui()
@@ -258,52 +258,56 @@ Public Sub ResetGui()
         .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With Button(ButtonEnum.Game_Pokedex)
-        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
-        .Y = Screen_Height - .Height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 6)
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Bag)
-        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 4)
-        .Y = Screen_Height - .Height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Card)
-        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
-        .Y = Screen_Height - .Height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 4)
+        .y = Screen_Height - .Height - 10
     End With
-    With Button(ButtonEnum.Game_VirtualShop)
-        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
-        .Y = Screen_Height - .Height - 10
+    With Button(ButtonEnum.Game_CheckIn)
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Rank)
-        .x = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
-        .Y = Screen_Height - .Height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
+        .y = Screen_Height - .Height - 10
+    End With
+    With Button(ButtonEnum.Game_VirtualShop)
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Menu)
-        .x = Screen_Width - .Width - 10
-        .Y = Screen_Height - .Height - 10
+        .X = Screen_Width - .Width - 10
+        .y = Screen_Height - .Height - 10
     End With
     
     With Button(ButtonEnum.Game_Evolve)
-        .x = 180
-        .Y = 19
+        .X = 180
+        .y = 19
     End With
     
     With Button(ButtonEnum.Convo_Reply1)
-        .x = (Screen_Width / 2) - (.Width / 2)
-        .Y = (Screen_Height / 2) - (111 / 2)
+        .X = (Screen_Width / 2) - (.Width / 2)
+        .y = (Screen_Height / 2) - (111 / 2)
     End With
     With Button(ButtonEnum.Convo_Reply2)
-        .x = (Screen_Width / 2) - (.Width / 2)
-        .Y = (Screen_Height / 2) - (111 / 2) + 37
+        .X = (Screen_Width / 2) - (.Width / 2)
+        .y = (Screen_Height / 2) - (111 / 2) + 37
     End With
     With Button(ButtonEnum.Convo_Reply3)
-        .x = (Screen_Width / 2) - (.Width / 2)
-        .Y = (Screen_Height / 2) - (111 / 2) + 74
+        .X = (Screen_Width / 2) - (.Width / 2)
+        .y = (Screen_Height / 2) - (111 / 2) + 74
     End With
 End Sub
 
 '//Once we get error in loading gui that means, gui file doesn't exist
 Public Sub LoadGui()
-Dim i As Long, x As Byte
+Dim i As Long, X As Byte
 Dim FileTitle As String
 Dim FileName As String
 
@@ -384,8 +388,9 @@ Dim FileName As String
                 Case ButtonEnum.Game_Pokedex: FileTitle = "Game_Pokedex"
                 Case ButtonEnum.Game_Bag: FileTitle = "Game_Bag"
                 Case ButtonEnum.Game_Card: FileTitle = "Game_Card"
-                Case ButtonEnum.Game_VirtualShop: FileTitle = "Game_VirtualShop"
+                Case ButtonEnum.Game_CheckIn: FileTitle = "Game_CheckIn"
                 Case ButtonEnum.Game_Rank: FileTitle = "Game_Rank"
+                Case ButtonEnum.Game_VirtualShop: FileTitle = "Game_VirtualShop"
                 Case ButtonEnum.Game_Menu: FileTitle = "Game_Menu"
                 Case ButtonEnum.Game_Evolve: FileTitle = "Game_Evolve"
                 Case ButtonEnum.Inventory_Close: FileTitle = "Inventory_Close"
@@ -439,16 +444,16 @@ Dim FileName As String
             End Select
             
             With Button(i)
-                For x = ButtonState.StateNormal To ButtonState.StateClick
-                    .StartX(x) = Val(GetVar(FileName, FileTitle, "StartX_" & x))
-                    .StartY(x) = Val(GetVar(FileName, FileTitle, "StartY_" & x))
+                For X = ButtonState.StateNormal To ButtonState.StateClick
+                    .StartX(X) = Val(GetVar(FileName, FileTitle, "StartX_" & X))
+                    .StartY(X) = Val(GetVar(FileName, FileTitle, "StartY_" & X))
                 Next
                 
                 .Width = Val(GetVar(FileName, FileTitle, "Width"))
                 .Height = Val(GetVar(FileName, FileTitle, "Height"))
                 
-                .x = Val(GetVar(FileName, FileTitle, "X"))
-                .Y = Val(GetVar(FileName, FileTitle, "Y"))
+                .X = Val(GetVar(FileName, FileTitle, "X"))
+                .y = Val(GetVar(FileName, FileTitle, "Y"))
             End With
         Next
     End If
@@ -500,7 +505,7 @@ End Sub
 Public Sub LoadMap(ByVal MapNum As Long)
 Dim FileName As String
 Dim f As Long
-Dim x As Long, Y As Long
+Dim X As Long, y As Long
 Dim i As Long, a As Byte
 
     FileName = App.Path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
@@ -530,9 +535,9 @@ Dim i As Long, a As Byte
         End With
         
         '//Tiles
-        For x = 0 To Map.MaxX
-            For Y = 0 To Map.MaxY
-                With Map.Tile(x, Y)
+        For X = 0 To Map.MaxX
+            For y = 0 To Map.MaxY
+                With Map.Tile(X, y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -582,7 +587,7 @@ End Sub
 Public Sub SaveMap(ByVal MapNum As Long)
 Dim FileName As String
 Dim f As Long
-Dim x As Long, Y As Long
+Dim X As Long, y As Long
 Dim i As Long, a As Long
 
     FileName = App.Path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
@@ -603,9 +608,9 @@ Dim i As Long, a As Long
         End With
         
         '//Tiles
-        For x = 0 To Map.MaxX
-            For Y = 0 To Map.MaxY
-                With Map.Tile(x, Y)
+        For X = 0 To Map.MaxX
+            For y = 0 To Map.MaxY
+                With Map.Tile(X, y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -1010,14 +1015,14 @@ End Sub
 ' ** Conversation **
 ' ***************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim x As Byte, Y As Byte, z As Byte
+Dim X As Byte, y As Byte, Z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
-    For x = 1 To MAX_CONV_DATA
-        For Y = 1 To MAX_LANGUAGE
-            Conversation(ConversationNum).ConvData(x).TextLang(Y).Text = vbNullString
-            For z = 1 To 3
-                Conversation(ConversationNum).ConvData(x).TextLang(Y).tReply(z) = vbNullString
+    For X = 1 To MAX_CONV_DATA
+        For y = 1 To MAX_LANGUAGE
+            Conversation(ConversationNum).ConvData(X).TextLang(y).Text = vbNullString
+            For Z = 1 To 3
+                Conversation(ConversationNum).ConvData(X).TextLang(y).tReply(Z) = vbNullString
             Next
         Next
     Next
@@ -1035,7 +1040,7 @@ End Sub
 ' ** Shop **
 ' ***************
 Public Sub ClearShop(ByVal ShopNum As Long)
-Dim x As Byte, Y As Byte, z As Byte
+Dim X As Byte, y As Byte, Z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Shop(ShopNum)), LenB(Shop(ShopNum)))
 End Sub
@@ -1052,7 +1057,7 @@ End Sub
 ' ** Quest **
 ' ***************
 Public Sub ClearQuest(ByVal QuestNum As Long)
-Dim x As Byte, Y As Byte, z As Byte
+Dim X As Byte, y As Byte, Z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Quest(QuestNum)), LenB(Quest(QuestNum)))
 End Sub
@@ -1118,7 +1123,7 @@ Dim i As Long
     
     For i = 0 To CreditTextCount
         Credit(i).Text = CreditText(i)
-        Credit(i).Y = (Screen_Height - 40) + (20 * i)
+        Credit(i).y = (Screen_Height - 40) + (20 * i)
         Credit(i).StartY = (Screen_Height - 40) + (20 * i)
     Next
 End Sub

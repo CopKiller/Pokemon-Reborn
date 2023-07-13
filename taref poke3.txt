@@ -88,15 +88,7 @@ OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
 
 10-Correção de falha crítica, falta de verificação ao adicionar um item da storage no inventario.
 
-Total
-494 - 250
-244
-
--Remover o fundo do botão do ranking
-
--Adicionar um botão na hud, pra abrir a loja virtual, com o mesmo icone dela.
-
-OK->Sistema de Fish:
+70-OK->Sistema de Fish:
 	OK->Criar uma ação de pesca(modo pesca), que dê pra utilizar mesmo estando em bike,mount,dive, etc...
 	OK->Ativar a ação apartir de um item de pesca que vai ser um KEY-ITEM, ao usar o item, 
 	sendo na borda de um rio, primeiramente vai ativar o modo pesca e vai ter a chance 
@@ -118,7 +110,31 @@ OK->Sistema de Fish:
 	pra forçar o jogador a capturá-lo
 		OK->Ao ficar 4 slots longe ou o pokemon pescado perder o target do pescador, despawná-lo.
 
-OK-Adicionado sistema de Cooldown de item global(Inv + hotbar).
+10->OK-Adicionado sistema de Cooldown de item global(Inv + hotbar).
+
+08->OK-Adiciona correção, os revive estão podendo ser usados mesmo em pokemons vivos na hud.
+
+OK-Remover o fundo do botão do ranking
+
+OK-Adicionar um botão na hud, pra abrir a loja virtual, com o mesmo icone dela.
+
+07->OK-Reaproveitar a barra de hp que fica em baixo do pokemon, pra adicionar no icone da hud na parte superior,
+pra saber a quantidade de hp que cada pokemon possui.
+
+08->OK-(item) adicionar um item que permita abrir o baú de itens e pokémon sem ter que retorna ao centro pokémon.
+
+08->OK-Map Report com a lista de todos os mapas
+
+05->OK-Correção em erro que ao teleportar em outro mapa na parte preta dava 'subscript out of range'
+
+Total
+494 + 116 - 250
+360
+
+- Adiciona botão no editor de mapas em propriedades para que o "player" não utilize poções de cura. (No cure)
+
+- Cria item box, na mesma pode cadastra até 20 itens e para cada um seleciona a % da chance do mesmo, quantidade do mesmo tbm
+	-Aparecer mensagem na tela com o nome do item, etc ao receber.
 
 *Item HM, com o tipo Cutting e RockSmash, pra cortar arvores ou quebrar pedras, que somente quem cortou
  pode passar, mesmo que apareça pra outros que foi cortada, não conseguem passar, apenas esperando
@@ -137,20 +153,6 @@ OK-Adicionado sistema de Cooldown de item global(Inv + hotbar).
 		e consequentemente, deve-se marcar como NoPokeEquipe e IsCash(pra não vender na loja tradicional)
 		e não poder dar use e ganhar a tecnica ao ter o check alcarina marcado.
 
--Map Report com a lista de todos os mapas
-
-OK-Adiciona correção, os revive estão podendo ser usados mesmo em pokemons vivos na hud.
-
--Reaproveitar a barra de hp que fica em baixo do pokemon, pra adicionar no icone da hud na parte superior,
-pra saber a quantidade de hp que cada pokemon possui.
-
-- (itemKey) adicionar um item que permita abrir o baú de itens e pokémon sem ter que retorna ao centro pokémon.
-
-- Adiciona botão no editor de mapas em propriedades para que o "player" não utilize poções de cura. (No cure)
-
-- Cria item box, na mesma pode cadastra até 20 itens e para cada um seleciona a % da chance do mesmo, quantidade do mesmo tbm
-	-Aparecer mensagem na tela com o nome do item, etc ao receber.
-
 - Quando chega em determinado mapa para enfrentar por exemplo o líder do gynasio, não se permitir que os jogadores online se encontrem. Cria uma função que naquele mapa específico seja offline.
 - Sistema de mapas offline, neste mapa não pode mostrar:
 	-Outros jogadores ou pokemons deles
@@ -158,7 +160,7 @@ pra saber a quantidade de hp que cada pokemon possui.
 	-Outras spells
 	-Outros soms
 	-Adicionar implementação nos npcs que realizam batalhas, podem batalhar somente com 1 por vez.
-	-Não mostrar o chat local de outros jogadores no mapa
+	-Não mostrar o chat local de outros jogadores no mapa e
 
 - Adicionar atributo no mapa, caso o jogador não tenha um badge requerido, tenha uma list com todos os npcs,
 que tem adicionado no proprio mapa, e caso não tenha o badge solicitado abra o dialogo com o npc listado.

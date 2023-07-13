@@ -16,6 +16,14 @@ Begin VB.Form frmAdmin
       TabIndex        =   26
       Top             =   3360
       Width           =   4095
+      Begin VB.CommandButton Command10 
+         Caption         =   "Map Report"
+         Height          =   375
+         Left            =   2520
+         TabIndex        =   65
+         Top             =   720
+         Width           =   1455
+      End
       Begin VB.CommandButton Command5 
          Caption         =   "Refresh"
          Height          =   435
@@ -897,6 +905,12 @@ Private Sub Command1_Click()
         AddText "Invalid command!", BrightRed
         Exit Sub
     End If
+End Sub
+
+Private Sub Command10_Click()
+    If Player(MyIndex).Access < ACCESS_MODERATOR Then Exit Sub
+    
+    SendMapReport
 End Sub
 
 Private Sub Command2_Click()

@@ -1902,24 +1902,24 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
                 End If
             ElseIf Item(ItemNum).Data2 > 0 And Item(ItemNum).Data2 = TEMP_FISH_MODE Then
                 'If GetPlayerFishMode(Index) = NO Then
-                    Select Case GetPlayerDir(Index)
-                    Case DIR_DOWN
+                Select Case GetPlayerDir(Index)
+                Case DIR_DOWN
                     If Map(GetPlayerMap(Index)).Tile(GetPlayerX(Index), GetPlayerY(Index) + 1).Attribute = MapAttribute.FishSpot Then
                         x = YES
                     End If
-                    Case DIR_UP
+                Case DIR_UP
                     If Map(GetPlayerMap(Index)).Tile(GetPlayerX(Index), GetPlayerY(Index) - 1).Attribute = MapAttribute.FishSpot Then
                         x = YES
                     End If
-                    Case DIR_LEFT
+                Case DIR_LEFT
                     If Map(GetPlayerMap(Index)).Tile(GetPlayerX(Index) - 1, GetPlayerY(Index)).Attribute = MapAttribute.FishSpot Then
                         x = YES
                     End If
-                    Case DIR_RIGHT
+                Case DIR_RIGHT
                     If Map(GetPlayerMap(Index)).Tile(GetPlayerX(Index) + 1, GetPlayerY(Index)).Attribute = MapAttribute.FishSpot Then
                         x = YES
                     End If
-                    End Select
+                End Select
                 If x = YES Then
                     If GetPlayerFishMode(Index) = NO Then
                         SetPlayerFishMode Index, YES
@@ -1933,11 +1933,11 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
                     '//Cooldown
                     SetItemCooldown Index, InvSlot, Item(ItemNum).Delay
                 Else
-                        Select Case TempPlayer(Index).CurLanguage
-                        Case LANG_PT: AddAlert Index, "Não está em frente a um local de pesca!", White
-                        Case LANG_EN: AddAlert Index, "Não está em frente a um local de pesca!", White
-                        Case LANG_ES: AddAlert Index, "Não está em frente a um local de pesca!", White
-                        End Select
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "Não está em frente a um local de pesca!", White
+                    Case LANG_EN: AddAlert Index, "Não está em frente a um local de pesca!", White
+                    Case LANG_ES: AddAlert Index, "Não está em frente a um local de pesca!", White
+                    End Select
                     Exit Sub
                 End If
             End If
@@ -2008,6 +2008,10 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
         '//Cooldown
         '  SetItemCooldown index, InvSlot, Item(ItemNum).Delay
         '  PlayerInv(index).Data(InvSlot).TmrCooldown = 0
+        TempPlayer(Index).StorageType = Item(ItemNum).Data1
+        AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " enter storage"
+        SendStorage Index
+        SetItemCooldown Index, InvSlot, Item(ItemNum).Delay
     Case Else
         '//Not usable
         Exit Sub

@@ -114,6 +114,7 @@ Public Enum ServerPackets
     SSendVirtualShop
     SFishMode
     SItemCooldown
+    SMapReport
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -233,6 +234,7 @@ Public Enum ClientPackets
     CBuyInvSlot
     CRequestVirtualShop
     CPurchaseVirtualShop
+    CMapReport
     '//Make sure CMSG_COUNT is below everything else
     CMSG_Count
 End Enum

@@ -28,6 +28,8 @@ Public Quest(1 To MAX_QUEST) As QuestRec
 
 Public Rank(1 To MAX_RANK) As RankRec
 
+Public MapReport(1 To MAX_MAP) As String
+
 
 Private Type RankRec
     Name As String
@@ -51,7 +53,7 @@ Private Type MapPokemonRec
     
     '//Location
     Map As Long
-    x As Long
+    X As Long
     y As Long
     Dir As Byte
     
@@ -89,7 +91,7 @@ Private Type MapNpcPokemonRec
     Num As Long     '//Index of the npc
     
     '//Location
-    x As Long
+    X As Long
     y As Long
     Dir As Byte
     
@@ -136,7 +138,7 @@ Private Type MapNpcRec
     Num As Long     '//Index of the npc
     
     '//Location
-    x As Long
+    X As Long
     y As Long
     Dir As Byte
     
@@ -152,7 +154,7 @@ Public Type PlayerPokemonRec
     Num As Long
     
     '//Location
-    x As Long
+    X As Long
     y As Long
     Dir As Byte
     
@@ -228,7 +230,7 @@ Public Type PlayerRec
     
     '//Location
     Map As Long
-    x As Long
+    X As Long
     y As Long
     Dir As Byte
 
@@ -428,7 +430,7 @@ End Type
 Public Type TilePosRec
     Used As Boolean
     ' Position of tile
-    x As Integer
+    X As Integer
     y As Integer
 End Type
 
@@ -718,7 +720,7 @@ End Type
 Private Type CatchBallRec
     InUsed As Boolean
     Pic As Byte
-    x As Long
+    X As Long
     y As Long
     State As Byte
     Frame As Byte
@@ -729,7 +731,7 @@ End Type
 Private Type WeatherDropRec
     Pic As Long
     PicType As Byte
-    x As Long
+    X As Long
     y As Long
     SpeedY As Long
 End Type
@@ -759,7 +761,7 @@ Private Type ButtonRec
     StartY(0 To 2) As Long
     
     '//Location
-    x As Long
+    X As Long
     y As Long
     
     '//Size
@@ -776,7 +778,7 @@ Private Type GuiRec
     Pic As Byte
     
     '//Location
-    x As Long
+    X As Long
     y As Long
     OrigX As Long
     OrigY As Long
@@ -862,7 +864,7 @@ Public Type ChatBubbleRec
     Colour As Long
     target As Long
     targetType As Byte
-    x As Long
+    X As Long
     y As Long
     
     '//Client data only
@@ -876,7 +878,7 @@ Private Type SelMenuRec
     Type As Byte
     
     '//Location
-    x As Long
+    X As Long
     y As Long
     
     '//Text
@@ -894,7 +896,7 @@ Private Type ActionMsgRec
     Created As Long
     Color As Long
     Scroll As Long
-    x As Long
+    X As Long
     y As Long
     timer As Long
     Alpha As Long
@@ -903,7 +905,7 @@ End Type
 '//Animation
 Private Type AnimInstanceRec
     Animation As Long
-    x As Long
+    X As Long
     y As Long
     '//timing
     timer(0 To 1) As Long

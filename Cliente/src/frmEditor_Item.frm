@@ -55,6 +55,50 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   0
       Top             =   0
       Width           =   6015
+      Begin VB.Frame fraItemP 
+         Caption         =   "Item Properties"
+         Height          =   1455
+         Left            =   240
+         TabIndex        =   58
+         Top             =   2280
+         Visible         =   0   'False
+         Width           =   5535
+         Begin VB.Frame Frame4 
+            Caption         =   "Pokemon Center"
+            Height          =   1215
+            Left            =   1320
+            TabIndex        =   59
+            Top             =   120
+            Width           =   2775
+            Begin VB.OptionButton OptData 
+               Caption         =   "None"
+               Height          =   195
+               Index           =   0
+               Left            =   240
+               TabIndex        =   62
+               Top             =   240
+               Width           =   1815
+            End
+            Begin VB.OptionButton OptData 
+               Caption         =   "Open Item Storage"
+               Height          =   195
+               Index           =   1
+               Left            =   240
+               TabIndex        =   61
+               Top             =   600
+               Width           =   1815
+            End
+            Begin VB.OptionButton OptData 
+               Caption         =   "Open Poke Storage"
+               Height          =   195
+               Index           =   2
+               Left            =   240
+               TabIndex        =   60
+               Top             =   960
+               Width           =   1815
+            End
+         End
+      End
       Begin VB.TextBox txtDelay 
          Height          =   285
          Left            =   4200
@@ -67,7 +111,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1455
          Left            =   240
          TabIndex        =   28
-         Top             =   2160
+         Top             =   2280
          Visible         =   0   'False
          Width           =   5535
          Begin VB.HScrollBar scrlFish 
@@ -129,7 +173,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1455
          Left            =   240
          TabIndex        =   49
-         Top             =   2160
+         Top             =   2280
          Width           =   4695
          Begin VB.TextBox txtPowerValue 
             Height          =   285
@@ -180,7 +224,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1455
          Left            =   240
          TabIndex        =   42
-         Top             =   2160
+         Top             =   2280
          Width           =   4695
          Begin VB.ComboBox cmbBerrieType 
             Height          =   315
@@ -223,7 +267,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1215
          Left            =   240
          TabIndex        =   38
-         Top             =   2160
+         Top             =   2280
          Width           =   4695
          Begin VB.CheckBox chkTakeItem 
             Caption         =   "Take Item?"
@@ -257,7 +301,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1695
          Left            =   240
          TabIndex        =   12
-         Top             =   2160
+         Top             =   2280
          Visible         =   0   'False
          Width           =   5535
          Begin VB.CheckBox chkAutoCatch 
@@ -338,7 +382,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1455
          Left            =   240
          TabIndex        =   19
-         Top             =   2160
+         Top             =   2280
          Width           =   4695
          Begin VB.CheckBox chkLevelUp 
             Caption         =   "Level Up"
@@ -627,6 +671,12 @@ Private Sub cmbType_Click()
         fraPowerBracer.Visible = False
     End If
     
+    If Item(EditorIndex).Type = ItemTypeEnum.Items Then
+        fraItemP.Visible = True
+    Else
+        fraItemP.Visible = False
+    End If
+    
     EditorChange = True
 End Sub
 
@@ -701,6 +751,11 @@ Dim i As Long
     '//reset
     EditorChange = False
     'CloseItemEditor
+End Sub
+
+Private Sub OptData_Click(Index As Integer)
+    Item(EditorIndex).Data1 = Index
+    EditorChange = True
 End Sub
 
 Private Sub scrlBallSprite_Change()

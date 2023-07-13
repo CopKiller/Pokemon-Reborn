@@ -113,6 +113,7 @@ Public Sub InitMessages()
     HandleDataSub(SSendVirtualShop) = GetAddress(AddressOf HandleVirtualShop)
     HandleDataSub(SFishMode) = GetAddress(AddressOf HandleFishMode)
     HandleDataSub(SItemCooldown) = GetAddress(AddressOf HandleItemCooldown)
+    HandleDataSub(SMapReport) = GetAddress(AddressOf HandleMapReport)
 End Sub
 
 Public Sub HandleData(ByRef Data() As Byte)
@@ -158,13 +159,13 @@ Dim pLength As Long
 End Sub
 
 Private Sub HandleSendPing(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-    On Error GoTo errorHandler
+    On Error GoTo ErrorHandler
     
     PingEnd = GetTickCount
     Ping = PingEnd - PingStart
     
     Exit Sub
-errorHandler:
+ErrorHandler:
     Ping = 5000
     PingEnd = 0
     PingStart = 0
@@ -2462,4 +2463,22 @@ Private Sub HandleItemCooldown(ByVal Index As Long, ByRef Data() As Byte, ByVal 
     Next Z
 
     Set buffer = Nothing
+End Sub
+
+Private Sub HandleMapReport(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+    Dim i As Long, n As Long
+    Dim buffer As clsBuffer
+
+    Set buffer = New clsBuffer
+    buffer.WriteBytes Data()
+
+    frmMapReport.lstIndex.Clear
+    For i = 1 To MAX_MAP
+        MapReport(i) = buffer.ReadString
+        frmMapReport.lstIndex.AddItem i & ": " & MapReport(i)
+    Next i
+
+    frmMapReport.Show vbModeless, frmMain
+
+    buffer.Flush: Set buffer = Nothing
 End Sub

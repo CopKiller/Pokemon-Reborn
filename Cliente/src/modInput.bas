@@ -326,6 +326,12 @@ Public Sub FormKeyUp(KeyCode As Integer, Shift As Integer)
                         Button(ButtonEnum.Game_Card).State = 0
                     End If
                     CanOpenMenu = False
+                'Case GuiEnum.GUI_CHECKIN
+                '    If GUI(GuiEnum.GUI_CHECKIN).Visible = True Then
+                '        GuiState GUI_CHECKIN, False
+                '        Button(ButtonEnum.Game_CheckIn).State = 0
+                '    End If
+                '    CanOpenMenu = False
                 Case GuiEnum.GUI_POKEMONSUMMARY
                     If GUI(GuiEnum.GUI_POKEMONSUMMARY).Visible = True Then
                         GuiState GUI_POKEMONSUMMARY, False
@@ -852,12 +858,16 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As
                                     If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                         PreventAction = True
                                     End If
-                                Case ButtonEnum.Game_VirtualShop
-                                    If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible Then
-                                        PreventAction = True
-                                    End If
+                                Case ButtonEnum.Game_CheckIn
+                                    'If GUI(GuiEnum.GUI_CHECKIN).Visible Then
+                                    '    PreventAction = True
+                                    'End If
                                 Case ButtonEnum.Game_Rank
                                     If GUI(GuiEnum.GUI_RANK).Visible Then
+                                        PreventAction = True
+                                    End If
+                                Case ButtonEnum.Game_VirtualShop
+                                    If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible Then
                                         PreventAction = True
                                     End If
                                 Case ButtonEnum.Game_Menu
@@ -1060,12 +1070,16 @@ Dim PreventAction As Boolean
                                         If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                             PreventAction = True
                                         End If
-                                    Case ButtonEnum.Game_VirtualShop
-                                        If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible Then
-                                            PreventAction = True
-                                        End If
+                                    Case ButtonEnum.Game_CheckIn
+                                        'If GUI(GuiEnum.GUI_CHECKIN).Visible Then
+                                        '    PreventAction = True
+                                        'End If
                                     Case ButtonEnum.Game_Rank
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
+                                            PreventAction = True
+                                        End If
+                                    Case ButtonEnum.Game_VirtualShop
+                                        If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible Then
                                             PreventAction = True
                                         End If
                                     Case ButtonEnum.Game_Menu
@@ -1193,12 +1207,16 @@ Dim x2 As Long, Y2 As Long
                                         If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                             PreventAction = True
                                         End If
-                                    Case ButtonEnum.Game_VirtualShop
-                                        If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible Then
-                                            PreventAction = True
-                                        End If
+                                    Case ButtonEnum.Game_CheckIn
+                                        'If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible Then
+                                        '    PreventAction = True
+                                        'End If
                                     Case ButtonEnum.Game_Rank
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
+                                            PreventAction = True
+                                        End If
+                                    Case ButtonEnum.Game_VirtualShop
+                                        If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible Then
                                             PreventAction = True
                                         End If
                                     Case ButtonEnum.Game_Menu
@@ -1224,15 +1242,20 @@ Dim x2 As Long, Y2 As Long
                                                 If GUI(GuiEnum.GUI_TRAINER).Visible = False Then
                                                     GuiState GUI_TRAINER, True
                                                 End If
-                                            Case ButtonEnum.Game_VirtualShop
-                                                If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible = False Then
-                                                    Call RequestVirtualShop
-                                                    GuiState GUI_VIRTUALSHOP, True
-                                                End If
+                                            Case ButtonEnum.Game_CheckIn
+                                                'If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible = False Then
+                                                '    Call RequestVirtualShop
+                                                '    GuiState GUI_VIRTUALSHOP, True
+                                                'End If
                                             Case ButtonEnum.Game_Rank
                                                 If GUI(GuiEnum.GUI_RANK).Visible = False Then
                                                     SendRequestRank
                                                     GuiState GUI_RANK, True
+                                                End If
+                                            Case ButtonEnum.Game_VirtualShop
+                                                If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible = False Then
+                                                    Call RequestVirtualShop
+                                                    GuiState GUI_VIRTUALSHOP, True
                                                 End If
                                             Case ButtonEnum.Game_Menu
                                                 If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible Then
@@ -1895,6 +1918,8 @@ Dim Data1 As Long, Data2 As Long, Data3 As Long
     If curTileX >= Player(MyIndex).X - 1 And curTileX <= Player(MyIndex).X + 1 Then
         If curTileY >= Player(MyIndex).y - 1 And curTileY <= Player(MyIndex).y + 1 Then
             If Editor = 0 Then
+            If curTileX <= Map.MaxX And curTileX >= 0 Then
+                If curTileY <= Map.MaxY And curTileY >= 0 Then
                 If Map.Tile(curTileX, curTileY).Attribute = MapAttribute.BothStorage Then
                     If Not GUI(GuiEnum.GUI_INVSTORAGE).Visible And Not GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
                         OpenSelMenu SelMenuType.Storage
@@ -1909,8 +1934,10 @@ Dim Data1 As Long, Data2 As Long, Data3 As Long
                     End If
                 ElseIf Map.Tile(curTileX, curTileY).Attribute = MapAttribute.ConvoTile Then
                     If ConvoNum = 0 Then
-                        OpenSelMenu SelMenuType.ConvoTileCheck, Map.Tile(curTileX, curTileY).Data1
+                        OpenSelMenu SelMenuType.ConvoTileCheck, Map.Tile(curTileX, curTileY - 1).Data1
                     End If
+                End If
+                End If
                 End If
             End If
         End If
@@ -1921,7 +1948,7 @@ Private Sub SearchMouseMove(Buttons As Integer)
 Dim i As Long
 
     IsHovering = False
-    
+
     If MyIndex = 0 Then Exit Sub
     If GettingMap Then Exit Sub
 
@@ -1931,14 +1958,14 @@ Dim i As Long
             If Player(i).Map = Player(MyIndex).Map Then
                 If curTileX = Player(i).X And curTileY = Player(i).y Then
                     IsHovering = True
-                    MouseIcon = 1 '//Select
+                    MouseIcon = 1    '//Select
                 End If
                 If i <> MyIndex Then
                     '//Player Pokemon
                     If PlayerPokemon(i).Num > 0 Then
                         If curTileX = PlayerPokemon(i).X And curTileY = PlayerPokemon(i).y Then
                             IsHovering = True
-                            MouseIcon = 1 '//Select
+                            MouseIcon = 1    '//Select
                         End If
                     End If
                 End If
@@ -1949,7 +1976,7 @@ Dim i As Long
         If MapNpc(i).Num > 0 Then
             If curTileX = MapNpc(i).X And curTileY = MapNpc(i).y Then
                 IsHovering = True
-                MouseIcon = 1 '//Select
+                MouseIcon = 1    '//Select
             End If
         End If
     Next
@@ -1958,23 +1985,27 @@ Dim i As Long
             If MapPokemon(i).Map = Player(MyIndex).Map Then
                 If curTileX = MapPokemon(i).X And curTileY = MapPokemon(i).y Then
                     IsHovering = True
-                    MouseIcon = 1 '//Select
+                    MouseIcon = 1    '//Select
                 End If
             End If
         End If
     Next
-        
+
     If curTileX >= Player(MyIndex).X - 1 And curTileX <= Player(MyIndex).X + 1 Then
         If curTileY >= Player(MyIndex).y - 1 And curTileY <= Player(MyIndex).y + 1 Then
-            If Editor = 0 Then
-                If Map.Tile(curTileX, curTileY).Attribute = MapAttribute.BothStorage Or Map.Tile(curTileX, curTileY).Attribute = MapAttribute.InvStorage Or Map.Tile(curTileX, curTileY).Attribute = MapAttribute.PokemonStorage Then
-                    If Not GUI(GuiEnum.GUI_INVSTORAGE).Visible And Not GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                        IsHovering = True
-                        MouseIcon = 1 '//Select
+            If curTileX <= Map.MaxX And curTileX >= 0 Then
+                If curTileY <= Map.MaxY And curTileY >= 0 Then
+                    If Editor = 0 Then
+                        If Map.Tile(curTileX, curTileY).Attribute = MapAttribute.BothStorage Or Map.Tile(curTileX, curTileY).Attribute = MapAttribute.InvStorage Or Map.Tile(curTileX, curTileY).Attribute = MapAttribute.PokemonStorage Then
+                            If Not GUI(GuiEnum.GUI_INVSTORAGE).Visible And Not GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                                IsHovering = True
+                                MouseIcon = 1    '//Select
+                            End If
+                        ElseIf Map.Tile(curTileX, curTileY).Attribute = MapAttribute.ConvoTile Then
+                            IsHovering = True
+                            MouseIcon = 1    '//Select
+                        End If
                     End If
-                ElseIf Map.Tile(curTileX, curTileY).Attribute = MapAttribute.ConvoTile Then
-                    IsHovering = True
-                    MouseIcon = 1 '//Select
                 End If
             End If
         End If
