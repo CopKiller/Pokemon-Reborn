@@ -113,7 +113,6 @@ Public Enum ServerPackets
     SClientTime
     SSendVirtualShop
     SFishMode
-    SItemCooldown
     SMapReport
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
@@ -409,6 +408,7 @@ Public Enum ItemTypeEnum
     TM_HM
     PowerBracer
     Items
+    MysteryBox
 End Enum
 
 '//Ball Type

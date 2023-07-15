@@ -24,6 +24,14 @@ Begin VB.Form frmEditor_Map
       Top             =   120
       Visible         =   0   'False
       Width           =   7215
+      Begin VB.CheckBox chkNoCure 
+         Caption         =   "No Medicine?"
+         Height          =   255
+         Left            =   4320
+         TabIndex        =   106
+         Top             =   1560
+         Width           =   1335
+      End
       Begin VB.ComboBox cmbWeather 
          Height          =   315
          ItemData        =   "frmEditor_Map.frx":0000
@@ -53,18 +61,18 @@ Begin VB.Form frmEditor_Map
       Begin VB.CheckBox chkCave 
          Caption         =   "Cave?"
          Height          =   255
-         Left            =   5640
+         Left            =   6120
          TabIndex        =   75
          Top             =   1560
-         Width           =   1335
+         Width           =   855
       End
       Begin VB.CheckBox chkKillPlayer 
          Caption         =   "Kill Player?"
          Height          =   255
-         Left            =   3720
+         Left            =   2880
          TabIndex        =   74
          Top             =   1560
-         Width           =   1575
+         Width           =   1335
       End
       Begin VB.ComboBox cmbMoral 
          Height          =   315
@@ -1126,6 +1134,8 @@ Dim i As Long
     Map.SpriteType = scrlSpriteType.value
     Map.StartWeather = cmbWeather.ListIndex
     
+    Map.NoCure = chkNoCure.value
+    
     '//Hide properties
     mnuData.Visible = True
     Me.Height = 8340
@@ -1217,6 +1227,8 @@ Dim i As Long
     scrlCaveLight.value = Map.CaveLight
     scrlSpriteType.value = Map.SpriteType
     cmbWeather.ListIndex = Map.StartWeather
+    
+    chkNoCure.value = Map.NoCure
 
     '//Init
     mnuData.Visible = False

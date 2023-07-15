@@ -17,34 +17,24 @@ End Sub
 Public Sub SpawnPokemonIdInMap(ByVal Index As Long, ByVal mapIndex As Long)
     Dim pokemonIds As Collection
     Dim pokemonId As Variant
-    Dim Rand As Long
+    Dim Rand As Long, CountChances As Long
 
     Set pokemonIds = mapPokemonIds(mapIndex)
 
     If pokemonIds.count > 0 Then
 RandomizaNovamente:
         Rand = Random(1, CLng(pokemonIds.count))
-        'For Each pokemonId In pokemonIds
-        'If IsWithinSpawnTime(pokemonId, GameHour) Then
-            
-        'End If
-        'Next pokemonId
         
-        'Debug.Print CLng(pokemonIds.Item(8))
+        '//Limitar a quantidade de tentativas em 30, pra não ter problemas pra sair daqui.
+        If CountChances > 30 Then Exit Sub
         
-        'Debug.Print pokemonIds.count
-
         If IsWithinSpawnTime(pokemonIds.Item(Rand), GameHour) Then
             Call SpawnMapPokemon(pokemonIds.Item(Rand), , , Index)
         Else
             GoTo RandomizaNovamente
+            CountChances = CountChances + 1
         End If
-        '
         
-        'Debug.Print "Map Index: " & mapIndex & ", Pokemon ID: " & pokemonId
-        'Next pokemonId
-        'Else
-        'Debug.Print "Map Index: " & mapIndex & ", No Pokemon IDs"
     End If
 End Sub
 
@@ -57,10 +47,4 @@ Public Sub AddPokemonsFishing()
             AddPokemonIdToMap Spawn(i).MapNum, i
         End If
     Next i
-
-    ' Exemplo de uso: verificar os IDs de Pokémon para cada mapa
-    'Dim mapIndex As Long
-    'For mapIndex = 1 To MAX_MAP
-    '    SpawnPokemonIdInMap mapIndex
-    'Next mapIndex
 End Sub

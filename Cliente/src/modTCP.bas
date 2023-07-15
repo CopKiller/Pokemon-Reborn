@@ -947,6 +947,7 @@ Dim i As Long, a As Byte
         buffer.WriteByte .CaveLight
         buffer.WriteByte .SpriteType
         buffer.WriteByte .StartWeather
+        buffer.WriteByte .NoCure
     End With
     
     SendData buffer.ToArray

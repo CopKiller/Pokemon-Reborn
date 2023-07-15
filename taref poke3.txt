@@ -127,25 +127,41 @@ pra saber a quantidade de hp que cada pokemon possui.
 
 05->OK-Correção em erro que ao teleportar em outro mapa na parte preta dava 'subscript out of range'
 
-Total
-494 + 116 - 250
-360
+08->OK-Adiciona botão no editor de mapas em propriedades para que o "player" não utilize poções de cura. (No cure)
 
-- Adiciona botão no editor de mapas em propriedades para que o "player" não utilize poções de cura. (No cure)
-
-- Cria item box, na mesma pode cadastra até 20 itens e para cada um seleciona a % da chance do mesmo, quantidade do mesmo tbm
+38->OK-Cria item box (MysteryBox), na mesma pode cadastra até 30 itens e para cada um seleciona a % da chance do mesmo, quantidade do mesmo tbm
 	-Aparecer mensagem na tela com o nome do item, etc ao receber.
 
-*Item HM, com o tipo Cutting e RockSmash, pra cortar arvores ou quebrar pedras, que somente quem cortou
+	Exemplo com 4 Items
+	Item 1 - Chance 10  (10%)
+	item 2 - chance 15  (15%)
+	item 3 - chance 45  (45%)
+	item 4 - chance 30  (30%)
+
+	Item 1 - Chance 0.5  (05%)
+	item 2 - chance 1.5  (15%)
+	item 3 - chance 4.5  (45%)
+	item 4 - chance 3.0  (30%)
+
+	Item 1 - Chance 800  (80%)
+	item 2 - chance 100  (10%)
+	item 3 - chance 50   (5%)
+	item 4 - chance 50   (5%)
+
+Total
+656 - 250
+406
+
+Orçamento-> 90
+*Item HM, com o tipo Cutting ou RockSmash, pra cortar arvores ou quebrar pedras, que somente quem cortou
  pode passar, mesmo que apareça pra outros que foi cortada, não conseguem passar, apenas esperando
  o respawn novamente do atributo(3 segundos).
-	-O atributo vai ser adicionado aos atributos do mapa, como Cutting, e pra interagir com ele,
-	vai ter mais de uma maneira:
+	-O atributo do mapa, terá como requerimento pra preencher 2 tipos de dados, o primeiro é o move
+	necessário pra quebrar ou cortar, segundo é o badge requerido pra fazer essa ação ali naquele local.
+	-Formas de interação:
 		*-Forma Free: Usa um HM com a tecnica de cuting ou rocksmash, forçando o jogador a ter
 		um pokemon mula pra carregar esses tipos de tecnicas e altera um move do pokemon.
-			-Precisa adicionar um requerimento de insignia no MoveEditor da insignia 1 ao 8,
-			 na tecnica em questão.
-			-Só poder usar a tecnica e cortar uma arvore ou quebrar uma pedra se tiver a insignia.
+		-Só poder usar a tecnica e cortar uma arvore ou quebrar uma pedra se tiver a insignia.
 
 		*Forma Vip: Um item que somente ao ter na bag e apertar espaço, vai interagir com o cutting ou rocksmash,
 		tendo em vista que precisa ter um requerimento de insignia do move que está no HM.
@@ -153,6 +169,7 @@ Total
 		e consequentemente, deve-se marcar como NoPokeEquipe e IsCash(pra não vender na loja tradicional)
 		e não poder dar use e ganhar a tecnica ao ter o check alcarina marcado.
 
+Orçamento->100
 - Quando chega em determinado mapa para enfrentar por exemplo o líder do gynasio, não se permitir que os jogadores online se encontrem. Cria uma função que naquele mapa específico seja offline.
 - Sistema de mapas offline, neste mapa não pode mostrar:
 	-Outros jogadores ou pokemons deles
@@ -162,9 +179,11 @@ Total
 	-Adicionar implementação nos npcs que realizam batalhas, podem batalhar somente com 1 por vez.
 	-Não mostrar o chat local de outros jogadores no mapa e
 
+Orçamento->25
 - Adicionar atributo no mapa, caso o jogador não tenha um badge requerido, tenha uma list com todos os npcs,
-que tem adicionado no proprio mapa, e caso não tenha o badge solicitado abra o dialogo com o npc listado.
+que tem adicionado no proprio mapa, e caso não tenha o badge solicitado abra o dialogo com o npc listado e não deixe passar.
 
+Orçamento->70
 - Linkar os pokemons pra aparecer no chat o nome deles, e ao clikar aparecer o summary deles, seja
 na hora que obter o shiny e aparecer a mensagem global linkada, ou seja quando for rarity;
 Tambem poder linkar os meus pokemons pra enviar no chat e ao clikarem aparecer o summary.
@@ -172,8 +191,7 @@ Tambem poder linkar os meus pokemons pra enviar no chat e ao clikarem aparecer o
 
 
 
--Adicionar lógica: HeldItems, implementado pelas que está no txt, no editor apenas selecionar o nome, e em value ser a quantidade de segundos pra alguns com tempo em específico
-
+- Adicionar lógica: HeldItems, implementado pelas que está no txt, no editor apenas selecionar o nome, e em value ser a quantidade de segundos pra alguns com tempo em específico
 - Sistema de Login Diário.
 - Sistema de VIP
 - Sistema de Montarias (Rider, Aquática e Voadora).

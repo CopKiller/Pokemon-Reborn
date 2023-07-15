@@ -40,6 +40,12 @@ Private Type FishingRec
     
 End Type
 
+Public Type MysteryBoxRec
+    Num As Integer
+    Quant As Long
+    Chance As Double
+End Type
+
 Private Type VirtualShopRec
     ItemNum As Long
     ItemQuant As Long
@@ -551,6 +557,8 @@ Private Type MapRec
     SpriteType As Byte
     StartWeather As Byte
     
+    NoCure As Byte
+    
     '//Server Side
     CurWeather As Byte
 End Type
@@ -591,6 +599,9 @@ Private Type ItemRec
     Linked As Byte          'Vinculado ao jogador!
     NotEquipable As Byte    'Não equipavel ao poke.
     Delay As Long           'Items que utilizam de Delay
+    Item(1 To MAX_MYSTERY_BOX) As Integer 'Utiliza no MysteryBox
+    ItemValue(1 To MAX_MYSTERY_BOX) As Long 'Utiliza no MysteryBox
+    ItemChance(1 To MAX_MYSTERY_BOX) As Double 'Utiliza no MysteryBox
 End Type
 
 Private Type MovesetRec

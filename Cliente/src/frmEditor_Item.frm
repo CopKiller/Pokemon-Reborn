@@ -55,6 +55,86 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   0
       Top             =   0
       Width           =   6015
+      Begin VB.Frame fraMysteryBox 
+         Caption         =   "Mystery Box"
+         Height          =   1695
+         Left            =   240
+         TabIndex        =   63
+         Top             =   2280
+         Visible         =   0   'False
+         Width           =   5535
+         Begin VB.TextBox txtChance 
+            Height          =   285
+            Left            =   720
+            TabIndex        =   69
+            Top             =   960
+            Width           =   975
+         End
+         Begin VB.TextBox txtQuant 
+            Height          =   285
+            Left            =   720
+            TabIndex        =   67
+            Top             =   600
+            Width           =   975
+         End
+         Begin VB.CommandButton cmdAdd 
+            Caption         =   "Add"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   66
+            Top             =   1320
+            Width           =   1575
+         End
+         Begin VB.ComboBox cmbItems 
+            Height          =   315
+            Left            =   120
+            TabIndex        =   65
+            Text            =   "Combo1"
+            Top             =   240
+            Width           =   1575
+         End
+         Begin VB.ListBox lstItems 
+            Height          =   1230
+            Left            =   1800
+            TabIndex        =   64
+            Top             =   360
+            Width           =   3615
+         End
+         Begin VB.Label lblChanceF 
+            AutoSize        =   -1  'True
+            Caption         =   "Faltam: 0%"
+            Height          =   195
+            Left            =   3480
+            TabIndex        =   72
+            Top             =   120
+            Width           =   765
+         End
+         Begin VB.Label lblChance 
+            AutoSize        =   -1  'True
+            Caption         =   "Chance Total: 0%"
+            Height          =   195
+            Left            =   1800
+            TabIndex        =   71
+            Top             =   120
+            Width           =   1260
+         End
+         Begin VB.Label Label16 
+            Caption         =   "Chance:"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   70
+            Top             =   960
+            Width           =   615
+         End
+         Begin VB.Label lblQuant 
+            Caption         =   "Quant:"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   68
+            Top             =   600
+            Width           =   615
+         End
+      End
       Begin VB.Frame fraItemP 
          Caption         =   "Item Properties"
          Height          =   1455
@@ -447,7 +527,7 @@ Begin VB.Form frmEditor_Item
          Height          =   315
          ItemData        =   "frmEditor_Item.frx":014F
          Left            =   1200
-         List            =   "frmEditor_Item.frx":016B
+         List            =   "frmEditor_Item.frx":016E
          Style           =   2  'Dropdown List
          TabIndex        =   9
          Top             =   1200
@@ -677,7 +757,54 @@ Private Sub cmbType_Click()
         fraItemP.Visible = False
     End If
     
+    If Item(EditorIndex).Type = ItemTypeEnum.MysteryBox Then
+        fraMysteryBox.Visible = True
+    Else
+        fraMysteryBox.Visible = False
+    End If
+    
     EditorChange = True
+End Sub
+
+Private Sub cmdAdd_Click()
+    Dim tmpString() As String
+    Dim X As Long, tmpIndex As Long, Chance As Double
+
+    ' exit out if needed
+    If Not cmbItems.ListCount > 0 Then Exit Sub
+    If Not lstItems.ListCount > 0 Then Exit Sub
+
+    ' set the combo box properly
+    tmpString = Split(cmbItems.List(cmbItems.ListIndex))
+    ' make sure it's not a clear
+    If Not cmbItems.List(cmbItems.ListIndex) = "No Items" Then
+        Item(EditorIndex).Item(lstItems.ListIndex + 1) = cmbItems.ListIndex
+        Item(EditorIndex).ItemValue(lstItems.ListIndex + 1) = txtQuant.Text
+        Item(EditorIndex).ItemChance(lstItems.ListIndex + 1) = txtChance.Text
+    Else
+        Item(EditorIndex).Item(lstItems.ListIndex + 1) = 0
+        Item(EditorIndex).ItemValue(lstItems.ListIndex + 1) = 0
+        Item(EditorIndex).ItemChance(lstItems.ListIndex + 1) = 0
+    End If
+
+    ' re-load the list
+    tmpIndex = lstItems.ListIndex
+    lstItems.Clear
+    For X = 1 To MAX_MYSTERY_BOX
+        If Item(EditorIndex).Item(X) > 0 Then
+            lstItems.AddItem X & ": " & Item(EditorIndex).ItemValue(X) & "x - " & Trim$(Item(Item(EditorIndex).Item(X)).Name) & Item(EditorIndex).ItemChance(X) & "%"
+            Chance = Chance + Item(EditorIndex).ItemChance(X)
+        Else
+            lstItems.AddItem X & ": No Items"
+        End If
+        
+    Next
+    
+    lblChance = "Chance total: " & Chance & "%"
+    
+    lblChanceF = "Faltam: " & (100 - Chance) & "%"
+    lstItems.ListIndex = tmpIndex
+
 End Sub
 
 Private Sub cmdIndexSearch_Click()

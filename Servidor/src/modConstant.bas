@@ -196,3 +196,7 @@ Public Const ColourChar As String * 1 = "½"
 Public Const REBATLE_NONE As Byte = 0
 Public Const REBATLE_LOSE As Byte = 1
 Public Const REBATLE_NEVER As Byte = 2
+
+'//MysteryBox
+Public Const MAX_MYSTERY_BOX As Byte = 30
+

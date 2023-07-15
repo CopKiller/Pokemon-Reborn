@@ -25,15 +25,15 @@ Begin VB.Form frmServer
       _ExtentY        =   5953
       _Version        =   393216
       Tabs            =   4
-      Tab             =   3
+      Tab             =   2
       TabsPerRow      =   4
       TabHeight       =   520
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtCommand"
+      Tab(0).Control(0)=   "txtLog"
       Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "txtLog"
+      Tab(0).Control(1)=   "txtCommand"
       Tab(0).Control(1).Enabled=   0   'False
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
@@ -44,47 +44,65 @@ Begin VB.Form frmServer
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Administrativo"
       TabPicture(2)   =   "frmServer.frx":0038
-      Tab(2).ControlEnabled=   0   'False
+      Tab(2).ControlEnabled=   -1  'True
       Tab(2).Control(0)=   "lblGameTime"
       Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "frmInfo"
+      Tab(2).Control(1)=   "lblCPS"
       Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "chkStaffOnly"
+      Tab(2).Control(2)=   "frmInfo"
       Tab(2).Control(2).Enabled=   0   'False
-      Tab(2).ControlCount=   3
+      Tab(2).Control(3)=   "chkStaffOnly"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).ControlCount=   4
       TabCaption(3)   =   "Editores"
       TabPicture(3)   =   "frmServer.frx":0054
-      Tab(3).ControlEnabled=   -1  'True
+      Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "cmdEditStore"
       Tab(3).Control(0).Enabled=   0   'False
       Tab(3).ControlCount=   1
       Begin VB.CommandButton cmdEditStore 
          Caption         =   "Edit Store"
          Height          =   375
-         Left            =   360
-         TabIndex        =   18
+         Left            =   -74640
+         TabIndex        =   16
          Top             =   840
          Width           =   1335
       End
       Begin VB.CheckBox chkStaffOnly 
          Caption         =   "Modo Desenvolvedor"
          Height          =   255
-         Left            =   -70440
-         TabIndex        =   12
+         Left            =   4560
+         TabIndex        =   10
          Top             =   480
          Width           =   2175
       End
       Begin VB.Frame frmInfo 
          Height          =   2535
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   4
          Top             =   720
          Width           =   6615
+         Begin VB.CommandButton cmdShutdown 
+            Caption         =   "Desligar Servidor"
+            Height          =   375
+            Left            =   120
+            TabIndex        =   19
+            Top             =   2040
+            Width           =   1455
+         End
+         Begin VB.CommandButton Command1 
+            Caption         =   "Recarregar Pokemons Fish"
+            Height          =   375
+            Left            =   720
+            TabIndex        =   17
+            Top             =   360
+            Width           =   2295
+         End
          Begin VB.CommandButton cmdExp 
             Caption         =   "Ativar"
             Height          =   375
             Left            =   4080
-            TabIndex        =   15
+            TabIndex        =   13
             Top             =   1920
             Width           =   1695
          End
@@ -92,18 +110,10 @@ Begin VB.Form frmServer
             Alignment       =   2  'Center
             Height          =   285
             Left            =   4200
-            TabIndex        =   13
+            TabIndex        =   11
             Text            =   "0"
             Top             =   1440
             Width           =   1455
-         End
-         Begin VB.CommandButton cmdShutdown 
-            Caption         =   "Desligar Servidor"
-            Height          =   375
-            Left            =   720
-            TabIndex        =   9
-            Top             =   2040
-            Width           =   2295
          End
          Begin VB.HScrollBar scrlExp 
             Height          =   255
@@ -155,7 +165,7 @@ Begin VB.Form frmServer
             EndProperty
             Height          =   375
             Left            =   4080
-            TabIndex        =   16
+            TabIndex        =   14
             Top             =   240
             Width           =   1935
          End
@@ -164,21 +174,9 @@ Begin VB.Form frmServer
             Caption         =   "Horas:"
             Height          =   195
             Left            =   3720
-            TabIndex        =   14
+            TabIndex        =   12
             Top             =   1440
             Width           =   465
-         End
-         Begin VB.Label lblCPS 
-            Appearance      =   0  'Flat
-            BackColor       =   &H00E0E0E0&
-            BackStyle       =   0  'Transparent
-            Caption         =   "CPS: 0"
-            ForeColor       =   &H80000008&
-            Height          =   255
-            Left            =   240
-            TabIndex        =   11
-            Top             =   240
-            Width           =   3255
          End
          Begin VB.Line Line1 
             BorderColor     =   &H00C0C0C0&
@@ -191,7 +189,7 @@ Begin VB.Form frmServer
             Caption         =   "Exp: 1"
             Height          =   255
             Left            =   3720
-            TabIndex        =   10
+            TabIndex        =   9
             Top             =   720
             Width           =   2295
          End
@@ -215,7 +213,7 @@ Begin VB.Form frmServer
       Begin MSComctlLib.ListView lvwInfo 
          Height          =   2655
          Left            =   -74880
-         TabIndex        =   17
+         TabIndex        =   15
          Top             =   780
          Width           =   6495
          _ExtentX        =   11456
@@ -262,11 +260,23 @@ Begin VB.Form frmServer
             Object.Width           =   3617
          EndProperty
       End
+      Begin VB.Label lblCPS 
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         BackStyle       =   0  'Transparent
+         Caption         =   "CPS: 0"
+         ForeColor       =   &H80000008&
+         Height          =   255
+         Left            =   1920
+         TabIndex        =   18
+         Top             =   480
+         Width           =   2415
+      End
       Begin VB.Label lblGameTime 
          AutoSize        =   -1  'True
          Caption         =   "Time:"
          Height          =   195
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   3
          Top             =   480
          Width           =   390
@@ -328,10 +338,6 @@ Option Explicit
 
 Private Sub btnReload_Click(Index As Integer)
 Dim i As Long
-
-    'CheckPokemonIdsInMap 4
-    Call AddPokemonsFishing
-    Exit Sub
     
     Select Case Index
         Case 0

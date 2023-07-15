@@ -424,6 +424,8 @@ Private Type MapRec
     CaveLight As Byte
     SpriteType As Byte
     StartWeather As Byte
+    
+    NoCure As Byte
 End Type
 
 ' Client Only | Fill Bucket Array
@@ -470,6 +472,9 @@ Private Type ItemRec
     Linked As Byte          'Vinculado ao jogador!
     NotEquipable As Byte    'Não equipavel ao poke.
     Delay As Long           'Items que utilizam de Delay
+    Item(1 To MAX_MYSTERY_BOX) As Integer 'Utiliza no MysteryBox
+    ItemValue(1 To MAX_MYSTERY_BOX) As Long 'Utiliza no MysteryBox
+    ItemChance(1 To MAX_MYSTERY_BOX) As Double 'Utiliza no MysteryBox
 End Type
 
 Private Type MovesetRec

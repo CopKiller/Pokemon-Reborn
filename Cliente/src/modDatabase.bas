@@ -579,6 +579,7 @@ Dim i As Long, a As Byte
             Get #f, , .CaveLight
             Get #f, , .SpriteType
             Get #f, , .StartWeather
+            Get #f, , .NoCure
         End With
     Close #f
     DoEvents
@@ -653,6 +654,7 @@ Dim i As Long, a As Long
             Put #f, , .CaveLight
             Put #f, , .SpriteType
             Put #f, , .StartWeather
+            Put #f, , .NoCure
         End With
     Close #f
     DoEvents
@@ -1015,14 +1017,14 @@ End Sub
 ' ** Conversation **
 ' ***************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim X As Byte, y As Byte, Z As Byte
+Dim X As Byte, y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
     For X = 1 To MAX_CONV_DATA
         For y = 1 To MAX_LANGUAGE
             Conversation(ConversationNum).ConvData(X).TextLang(y).Text = vbNullString
-            For Z = 1 To 3
-                Conversation(ConversationNum).ConvData(X).TextLang(y).tReply(Z) = vbNullString
+            For z = 1 To 3
+                Conversation(ConversationNum).ConvData(X).TextLang(y).tReply(z) = vbNullString
             Next
         Next
     Next
@@ -1040,7 +1042,7 @@ End Sub
 ' ** Shop **
 ' ***************
 Public Sub ClearShop(ByVal ShopNum As Long)
-Dim X As Byte, y As Byte, Z As Byte
+Dim X As Byte, y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Shop(ShopNum)), LenB(Shop(ShopNum)))
 End Sub
@@ -1057,7 +1059,7 @@ End Sub
 ' ** Quest **
 ' ***************
 Public Sub ClearQuest(ByVal QuestNum As Long)
-Dim X As Byte, y As Byte, Z As Byte
+Dim X As Byte, y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Quest(QuestNum)), LenB(Quest(QuestNum)))
 End Sub

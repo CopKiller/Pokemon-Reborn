@@ -898,6 +898,7 @@ Dim a As Byte
             Get #f, , .CaveLight
             Get #f, , .SpriteType
             Get #f, , .StartWeather
+            Get #f, , .NoCure
         End With
     Close #f
     frmServer.Caption = "Loading Map#" & MapNum & ".."
@@ -982,6 +983,7 @@ Dim a As Byte
             Put #f, , .CaveLight
             Put #f, , .SpriteType
             Put #f, , .StartWeather
+            Put #f, , .NoCure
         End With
     Close #f
     DoEvents
