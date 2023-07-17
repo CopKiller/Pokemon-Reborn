@@ -18,7 +18,7 @@ Public Const FVF_Size As Long = 28
 Public Type TLVERTEX
     X        As Single
     y        As Single
-    Z        As Single
+    z        As Single
     rhw      As Single
     Color    As Long
     tu       As Single
@@ -1075,13 +1075,13 @@ Public Sub RenderTextureByRects(ByVal TextureRec As Long, sRect As RECT, dRect A
 End Sub
 
 '//This is just a simple wrapper function that makes filling the structures much much easier...
-Private Function CreateTLVertex(X As Long, y As Long, Z As Single, rhw As Single, Color As Long, tu As Single, tv As Single) As TLVERTEX
+Private Function CreateTLVertex(X As Long, y As Long, z As Single, rhw As Single, Color As Long, tu As Single, tv As Single) As TLVERTEX
     '//NB: whilst you can pass floating point values for the coordinates (single)
     '       there is little point - Direct3D will just approximate the coordinate by rounding
     '       which may well produce unwanted results....
     CreateTLVertex.X = X
     CreateTLVertex.y = y
-    CreateTLVertex.Z = Z
+    CreateTLVertex.z = z
     CreateTLVertex.rhw = rhw
     CreateTLVertex.Color = Color
     CreateTLVertex.tu = tu
@@ -1815,82 +1815,82 @@ Dim AnimMapTile As Byte
 End Sub
 
 Private Sub DrawPlayer(ByVal Index As Long)
-Dim Width As Long, Height As Long
-Dim oWidth As Long, oHeight As Long
-Dim X As Long, y As Long
-Dim Anim As Long, rDir As Byte
-Dim Sprite As Long
-Dim DrawAlpha As Long
+    Dim Width As Long, Height As Long
+    Dim oWidth As Long, oHeight As Long
+    Dim X As Long, y As Long
+    Dim Anim As Long, rDir As Byte
+    Dim Sprite As Long
+    Dim DrawAlpha As Long
 
     '//Check error
     If Index <= 0 Or Index > MAX_PLAYER Then Exit Sub
     If Not IsPlaying(Index) Then Exit Sub
-    
+
     With Player(Index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
-        
+
         Sprite = .Sprite
-        
+
         Select Case .TempSprite
-            Case TEMP_SPRITE_GROUP_BIKE
-                '//Empty sprite? then exit out
-                If Sprite <= 0 Or Sprite > Count_PlayerSprite_B Then Exit Sub
-                '//Check sprite size
-                oWidth = GetPicWidth(Tex_PlayerSprite_B(Sprite)) / 3
-                oHeight = GetPicHeight(Tex_PlayerSprite_B(Sprite)) / 4
-            Case TEMP_SPRITE_GROUP_DIVE
-                '//Empty sprite? then exit out
-                If Sprite <= 0 Or Sprite > Count_PlayerSprite_D Then Exit Sub
-                '//Check sprite size
-                oWidth = GetPicWidth(Tex_PlayerSprite_D(Sprite)) / 3
-                oHeight = GetPicHeight(Tex_PlayerSprite_D(Sprite)) / 4
-            Case TEMP_SPRITE_GROUP_MOUNT
-                '//Empty sprite? then exit out
-                If Sprite <= 0 Or Sprite > Count_PlayerSprite_M Then Exit Sub
-                '//Check sprite size
-                oWidth = GetPicWidth(Tex_PlayerSprite_M(Sprite)) / 3
-                oHeight = GetPicHeight(Tex_PlayerSprite_M(Sprite)) / 4
-            Case Else
-                '//Empty sprite? then exit out
-                If Sprite <= 0 Or Sprite > Count_PlayerSprite_N Then Exit Sub
-                '//Check sprite size
-                oWidth = GetPicWidth(Tex_PlayerSprite_N(Sprite)) / 3
-                oHeight = GetPicHeight(Tex_PlayerSprite_N(Sprite)) / 4
+        Case TEMP_SPRITE_GROUP_BIKE
+            '//Empty sprite? then exit out
+            If Sprite <= 0 Or Sprite > Count_PlayerSprite_B Then Exit Sub
+            '//Check sprite size
+            oWidth = GetPicWidth(Tex_PlayerSprite_B(Sprite)) / 3
+            oHeight = GetPicHeight(Tex_PlayerSprite_B(Sprite)) / 4
+        Case TEMP_SPRITE_GROUP_DIVE
+            '//Empty sprite? then exit out
+            If Sprite <= 0 Or Sprite > Count_PlayerSprite_D Then Exit Sub
+            '//Check sprite size
+            oWidth = GetPicWidth(Tex_PlayerSprite_D(Sprite)) / 3
+            oHeight = GetPicHeight(Tex_PlayerSprite_D(Sprite)) / 4
+        Case TEMP_SPRITE_GROUP_MOUNT
+            '//Empty sprite? then exit out
+            If Sprite <= 0 Or Sprite > Count_PlayerSprite_M Then Exit Sub
+            '//Check sprite size
+            oWidth = GetPicWidth(Tex_PlayerSprite_M(Sprite)) / 3
+            oHeight = GetPicHeight(Tex_PlayerSprite_M(Sprite)) / 4
+        Case Else
+            '//Empty sprite? then exit out
+            If Sprite <= 0 Or Sprite > Count_PlayerSprite_N Then Exit Sub
+            '//Check sprite size
+            oWidth = GetPicWidth(Tex_PlayerSprite_N(Sprite)) / 3
+            oHeight = GetPicHeight(Tex_PlayerSprite_N(Sprite)) / 4
         End Select
         Width = oWidth * 2: Height = oHeight * 2
-        
-        Anim = 1 '//Default Anim  "0 | >1< | 2"
-        
+
+        Anim = 1    '//Default Anim  "0 | >1< | 2"
+
         '//Moving
         Select Case .Dir
-            Case DIR_UP
-                If (.yOffset > 8) Then Anim = .Step
-            Case DIR_DOWN
-                If (.yOffset < -8) Then Anim = .Step
-            Case DIR_LEFT
-                If (.xOffset > 8) Then Anim = .Step
-            Case DIR_RIGHT
-                If (.xOffset < -8) Then Anim = .Step
+        Case DIR_UP
+            If (.yOffset > 8) Then Anim = .Step
+        Case DIR_DOWN
+            If (.yOffset < -8) Then Anim = .Step
+        Case DIR_LEFT
+            If (.xOffset > 8) Then Anim = .Step
+        Case DIR_RIGHT
+            If (.xOffset < -8) Then Anim = .Step
         End Select
-        
+
         If .Action = ACTION_SLIDE Then
             Anim = 2
         End If
-        
+
         '//Checking Direction
         Select Case .Dir
-            Case DIR_UP: rDir = 2
-            Case DIR_DOWN: rDir = 0
-            Case DIR_LEFT: rDir = 1
-            Case DIR_RIGHT: rDir = 3
+        Case DIR_UP: rDir = 2
+        Case DIR_DOWN: rDir = 0
+        Case DIR_LEFT: rDir = 1
+        Case DIR_RIGHT: rDir = 3
         End Select
-        
+
         '//Set position on center of the tile
         X = (.X * TILE_X) + .xOffset - ((Width - TILE_X) / 2)
         y = (.y * TILE_Y) + .yOffset - (Height - TILE_Y)
-        
+
         If .StealthMode = YES Then
             If Index <> MyIndex Then
                 DrawAlpha = 0
@@ -1900,26 +1900,61 @@ Dim DrawAlpha As Long
         Else
             DrawAlpha = 255
         End If
-        
+
         Select Case .TempSprite
-            Case TEMP_SPRITE_GROUP_BIKE: RenderTexture Tex_PlayerSprite_B(Sprite), ConvertMapX(X), ConvertMapY(y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
-            Case TEMP_SPRITE_GROUP_DIVE: RenderTexture Tex_PlayerSprite_D(Sprite), ConvertMapX(X), ConvertMapY(y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
-            Case TEMP_SPRITE_GROUP_MOUNT: RenderTexture Tex_PlayerSprite_M(Sprite), ConvertMapX(X), ConvertMapY(y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
-            Case Else: RenderTexture Tex_PlayerSprite_N(Sprite), ConvertMapX(X), ConvertMapY(y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
-        End Select
-        
-        '//Fish System
-        If .FishMode = YES Then
-            Select Case .Dir
+        Case TEMP_SPRITE_GROUP_BIKE
+            RenderTexture Tex_PlayerSprite_B(Sprite), ConvertMapX(X), ConvertMapY(y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            '//Fish System
+            If .FishMode = YES Then
+                Select Case .Dir
                 Case DIR_UP: y = y - 30: X = X + 10
                 Case DIR_DOWN: y = y + 12: X = X - 10
                 Case DIR_LEFT: y = y - 10: X = X - 7
                 Case DIR_RIGHT: y = y - 10: X = X + 9
-            End Select
-            
-            RenderTexture Tex_Misc(Misc_Fish), ConvertMapX(X), ConvertMapY(y + 42), rDir * 24, .FishRod * 24, 32, 32, 24, 24, D3DColorARGB(DrawAlpha, 255, 255, 255)
-        End If
-        
+                End Select
+
+                RenderTexture Tex_Misc(Misc_Fish), ConvertMapX(X), ConvertMapY(y + 42), rDir * 24, .FishRod * 24, 32, 32, 24, 24, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            End If
+        Case TEMP_SPRITE_GROUP_DIVE
+            RenderTexture Tex_PlayerSprite_D(Sprite), ConvertMapX(X), ConvertMapY(y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            '//Fish System
+            If .FishMode = YES Then
+                Select Case .Dir
+                Case DIR_UP: y = y - 30: X = X + 10
+                Case DIR_DOWN: y = y + 12: X = X - 10
+                Case DIR_LEFT: y = y - 10: X = X - 7
+                Case DIR_RIGHT: y = y - 10: X = X + 9
+                End Select
+
+                RenderTexture Tex_Misc(Misc_Fish), ConvertMapX(X), ConvertMapY(y + 42), rDir * 24, .FishRod * 24, 32, 32, 24, 24, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            End If
+        Case TEMP_SPRITE_GROUP_MOUNT
+            RenderTexture Tex_PlayerSprite_M(Sprite), ConvertMapX(X), ConvertMapY(y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            '//Fish System
+            If .FishMode = YES Then
+                Select Case .Dir
+                Case DIR_UP: y = y - 30: X = X + 10
+                Case DIR_DOWN: y = y + 12: X = X - 10
+                Case DIR_LEFT: y = y - 10: X = X - 7
+                Case DIR_RIGHT: y = y - 10: X = X + 9
+                End Select
+
+                RenderTexture Tex_Misc(Misc_Fish), ConvertMapX(X), ConvertMapY(y + 42), rDir * 24, .FishRod * 24, 32, 32, 24, 24, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            End If
+        Case Else
+            RenderTexture Tex_PlayerSprite_N(Sprite), ConvertMapX(X), ConvertMapY(y), Anim * oWidth, rDir * oHeight, Width, Height, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            '//Fish System
+            If .FishMode = YES Then
+                Select Case .Dir
+                Case DIR_UP: y = y - 30: X = X + 10
+                Case DIR_DOWN: y = y + 12: X = X - 10
+                Case DIR_LEFT: y = y - 10: X = X - 7
+                Case DIR_RIGHT: y = y - 10: X = X + 9
+                End Select
+
+                RenderTexture Tex_Misc(Misc_Fish), ConvertMapX(X), ConvertMapY(y + 42), rDir * 24, .FishRod * 24, 32, 32, 24, 24, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            End If
+        End Select
     End With
 End Sub
 
@@ -4157,7 +4192,8 @@ Private Sub DrawPokemonSummary()
                 RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .y + 190 + (i * 30 - 32), White
                 ' PP
                 RenderText Ui_Default, "PP: " & PokeDate.Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .y + 205 + (i * 30 - 32), White
-
+                ' POWER
+                RenderText Ui_Default, PokemonMove(MoveNum).Power, .X + 26, .y + 205 + (i * 30 - 32), Yellow
                 ' Moves Type texture
                 If PokemonMove(MoveNum).Type > 0 Then
                     RenderTexture Tex_PokemonTypesSymbol(PokemonMove(MoveNum).Type), .X + 8, .y + 195 + (i * 30 - 32), 0, 0, 15, 15, 20, 20

@@ -191,16 +191,29 @@ Tambem poder linkar os meus pokemons pra enviar no chat e ao clikarem aparecer o
 
 
 
-- Adicionar lógica: HeldItems, implementado pelas que está no txt, no editor apenas selecionar o nome, e em value ser a quantidade de segundos pra alguns com tempo em específico
-- Sistema de Login Diário.
-- Sistema de VIP
-- Sistema de Montarias (Rider, Aquática e Voadora).
-- Sistema de MAPA(Teleportar pro badge do treiner card).
-- Sistema de Breed (egg).
-- Sistema de Mercado Global.
-- Sistema de Outfit.
-- Sistema de Guilds Global.
-- Sistema de RAID Pokémon.
+-> Variavel(90-140)- Items Personalizados: Held Items -> Informações dos tipos está na pasta Utilidades -> HeldItems.
+
+-> Variavel(90-140)- Sistema de Login Diário.
+	+ CheckIn 7 dias.
+
+-> Fixo(35)- Sistema de VIP.
+	+ Com bonûs em coisas ja existentes
+	
+-> Fixo(65)- Sistema de Montarias (Rider, Aquática e Voadora).
+	+ Adiciona bônus de Experiência, exemplo 5%.
+
+-> Fixo(20)- Sistema de Teleport To Map.
+	+ Teleportar pro badge do treiner card
+
+-> Falta Info p/ preço(???)- Sistema de Breed(egg).
+
+-> Variavel(110-180)- Sistema de Mercado Global.
+
+-> Variavel(20-35)- Sistema de Outfit.
+
+-> Variavel(110-180)- Sistema de Guilds Global.
+
+-> Falta Info p/ preço(???)- Sistema de RAID Pokémon.
 
 -Outfit gratuita enquanto tiver vip2
 -Montaria gratuita enquanto tiver vip 2

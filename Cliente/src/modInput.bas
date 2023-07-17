@@ -1346,7 +1346,7 @@ End Sub
 
 Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
-    Dim Z As Long
+    Dim z As Long
 
     With GUI(GuiEnum.GUI_CHOICEBOX)
         '//Make sure it's visible
@@ -1389,8 +1389,8 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                                 '//Save setting
                                 SaveSettingConfiguration
                                 '//Save Key Input
-                                For Z = 1 To ControlEnum.Control_Count - 1
-                                    ControlKey(Z).cAsciiKey = TmpKey(Z)
+                                For z = 1 To ControlEnum.Control_Count - 1
+                                    ControlKey(z).cAsciiKey = TmpKey(z)
                                 Next
                                 SaveControlKey
 
@@ -1409,13 +1409,13 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                             Case CB_RELEASE
                                 '//release pokemon
                                 Dim hasSelected As Boolean
-                                For Z = 1 To MAX_STORAGE
-                                    If IsPokemonSelected(Z) Then
+                                For z = 1 To MAX_STORAGE
+                                    If IsPokemonSelected(z) Then
                                         hasSelected = True
-                                        SendReleasePokemon PokemonCurSlot, Z
-                                        ClearPokemonSelected Z
+                                        SendReleasePokemon PokemonCurSlot, z
+                                        ClearPokemonSelected z
                                     End If
-                                Next Z
+                                Next z
 
                                 If Not hasSelected Then
                                     SendReleasePokemon ReleaseStorageSlot, ReleaseStorageData
@@ -1780,74 +1780,74 @@ End Sub
 '/////// Search Input ///////
 '////////////////////////////
 Private Sub SearchMouseDown(Buttons As Integer)
-Dim i As Long
-Dim InUsed As Byte
-Dim Data1 As Long, Data2 As Long, Data3 As Long
+    Dim i As Long
+    Dim InUsed As Byte
+    Dim Data1 As Long, Data2 As Long, Data3 As Long
 
     '//Usage of item
     If InvUseDataType > 0 Then
         InUsed = NO
         Data1 = 0: Data2 = 0: Data3 = 0
         Select Case InvUseDataType
-            Case ItemTypeEnum.PokeBall
-                '//Check if there's pokemon on tile
-                For i = 1 To Pokemon_HighIndex
-                    If MapPokemon(i).Num > 0 Then
-                        If MapPokemon(i).Map = Player(MyIndex).Map Then
-                            If curTileX = MapPokemon(i).X And curTileY = MapPokemon(i).y Then
-                                If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
-                                    If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
-                                        '//Catch Poke
-                                        InUsed = YES
-                                        Data1 = i
-                                        Exit For
-                                    Else
-                                        AddAlert "Not in range", White
-                                    End If
+        Case ItemTypeEnum.PokeBall
+            '//Check if there's pokemon on tile
+            For i = 1 To Pokemon_HighIndex
+                If MapPokemon(i).Num > 0 Then
+                    If MapPokemon(i).Map = Player(MyIndex).Map Then
+                        If curTileX = MapPokemon(i).X And curTileY = MapPokemon(i).y Then
+                            If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
+                                If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
+                                    '//Catch Poke
+                                    InUsed = YES
+                                    Data1 = i
+                                    Exit For
                                 Else
                                     AddAlert "Not in range", White
                                 End If
+                            Else
+                                AddAlert "Not in range", White
                             End If
                         End If
                     End If
-                Next
-                For i = 1 To Player_HighIndex
-                    If PlayerPokemon(i).Num > 0 Then
-                        If Player(i).Map = Player(MyIndex).Map Then
-                            If curTileX = PlayerPokemon(i).X And curTileY = PlayerPokemon(i).y Then
-                                If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
-                                    If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
-                                        AddAlert "You cannot catch this Pokemon", White
-                                    End If
+                End If
+            Next
+            For i = 1 To Player_HighIndex
+                If PlayerPokemon(i).Num > 0 Then
+                    If Player(i).Map = Player(MyIndex).Map Then
+                        If curTileX = PlayerPokemon(i).X And curTileY = PlayerPokemon(i).y Then
+                            If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
+                                If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
+                                    AddAlert "You cannot catch this Pokemon", White
                                 End If
                             End If
                         End If
                     End If
-                Next
-            Case ItemTypeEnum.Medicine
-                If Item(PlayerInv(InvUseSlot).Num).Data1 = 4 Then '//Revive
-                    For i = 1 To MAX_PLAYER_POKEMON
-                        If PlayerPokemons(i).Num > 0 Then
-                            curTileX = Screen_Width - 34 - 5 - ((i - 1) * 40)
-                            curTileY = 62 ' + 52 + ((i - 1) * 40)
-                                            
-                            If CursorX >= curTileX And CursorX <= curTileX + 34 And CursorY >= curTileY And CursorY <= curTileY + 37 Then
-                                '//Catch Poke
-                                InUsed = YES
-                                Data1 = i
-                                Exit For
-                            End If
-                        End If
-                    Next
                 End If
+            Next
+        Case ItemTypeEnum.Medicine
+            If Item(PlayerInv(InvUseSlot).Num).Data1 = 4 Then    '//Revive
+                For i = 1 To MAX_PLAYER_POKEMON
+                    If PlayerPokemons(i).Num > 0 Then
+                        curTileX = Screen_Width - 34 - 5 - ((i - 1) * 40)
+                        curTileY = 62    ' + 52 + ((i - 1) * 40)
+
+                        If CursorX >= curTileX And CursorX <= curTileX + 34 And CursorY >= curTileY And CursorY <= curTileY + 37 Then
+                            '//Catch Poke
+                            InUsed = YES
+                            Data1 = i
+                            Exit For
+                        End If
+                    End If
+                Next
+            End If
         End Select
-        
+
         SendGotData InUsed, Data1
         InvUseDataType = 0
         InvUseSlot = 0
         Exit Sub
     End If
-    
+
     For i = 1 To Pokemon_HighIndex
         If MapPokemon(i).Num > 0 Then
             If MapPokemon(i).Map = Player(MyIndex).Map Then
@@ -1862,7 +1862,7 @@ Dim Data1 As Long, Data2 As Long, Data3 As Long
             End If
         End If
     Next
-    
+
     For i = 1 To Npc_HighIndex
         If MapNpc(i).Num > 0 Then
             If curTileX = MapNpc(i).X And curTileY = MapNpc(i).y Then
@@ -1914,30 +1914,30 @@ Dim Data1 As Long, Data2 As Long, Data3 As Long
             End If
         Next
     End If
-    
+
     If curTileX >= Player(MyIndex).X - 1 And curTileX <= Player(MyIndex).X + 1 Then
         If curTileY >= Player(MyIndex).y - 1 And curTileY <= Player(MyIndex).y + 1 Then
             If Editor = 0 Then
-            If curTileX <= Map.MaxX And curTileX >= 0 Then
-                If curTileY <= Map.MaxY And curTileY >= 0 Then
-                If Map.Tile(curTileX, curTileY).Attribute = MapAttribute.BothStorage Then
-                    If Not GUI(GuiEnum.GUI_INVSTORAGE).Visible And Not GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                        OpenSelMenu SelMenuType.Storage
+                If curTileX <= Map.MaxX And curTileX >= 0 Then
+                    If curTileY <= Map.MaxY And curTileY >= 0 Then
+                        If Map.Tile(curTileX, curTileY).Attribute = MapAttribute.BothStorage Then
+                            If Not GUI(GuiEnum.GUI_INVSTORAGE).Visible And Not GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                                OpenSelMenu SelMenuType.Storage
+                            End If
+                        ElseIf Map.Tile(curTileX, curTileY).Attribute = MapAttribute.InvStorage Then
+                            If Not GUI(GuiEnum.GUI_INVSTORAGE).Visible And Not GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                                SendOpenStorage 1
+                            End If
+                        ElseIf Map.Tile(curTileX, curTileY).Attribute = MapAttribute.PokemonStorage Then
+                            If Not GUI(GuiEnum.GUI_INVSTORAGE).Visible And Not GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
+                                SendOpenStorage 2
+                            End If
+                        ElseIf Map.Tile(curTileX, curTileY).Attribute = MapAttribute.ConvoTile Then
+                            If ConvoNum = 0 Then
+                                OpenSelMenu SelMenuType.ConvoTileCheck, Map.Tile(curTileX, curTileY).Data1
+                            End If
+                        End If
                     End If
-                ElseIf Map.Tile(curTileX, curTileY).Attribute = MapAttribute.InvStorage Then
-                    If Not GUI(GuiEnum.GUI_INVSTORAGE).Visible And Not GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                        SendOpenStorage 1
-                    End If
-                ElseIf Map.Tile(curTileX, curTileY).Attribute = MapAttribute.PokemonStorage Then
-                    If Not GUI(GuiEnum.GUI_INVSTORAGE).Visible And Not GUI(GuiEnum.GUI_POKEMONSTORAGE).Visible Then
-                        SendOpenStorage 2
-                    End If
-                ElseIf Map.Tile(curTileX, curTileY).Attribute = MapAttribute.ConvoTile Then
-                    If ConvoNum = 0 Then
-                        OpenSelMenu SelMenuType.ConvoTileCheck, Map.Tile(curTileX, curTileY - 1).Data1
-                    End If
-                End If
-                End If
                 End If
             End If
         End If
@@ -2834,18 +2834,18 @@ Private Sub PokemonStorageMouseUp(Buttons As Integer, Shift As Integer, X As Sin
 
         If DragPokeSlot > 0 Then
             Dim hasSelected As Boolean
-            Dim Z As Byte, l As Byte
+            Dim z As Byte, l As Byte
             i = IsPokeStorageSlot(CursorX, CursorY)
 
             If i > 0 Then
-                For Z = 1 To MAX_STORAGE
-                    If IsPokemonSelected(Z) Then
+                For z = 1 To MAX_STORAGE
+                    If IsPokemonSelected(z) Then
                         hasSelected = True
-                        SendSwitchStoragePokeSlot PokemonCurSlot, Z, i + l
-                        ClearPokemonSelected Z
+                        SendSwitchStoragePokeSlot PokemonCurSlot, z, i + l
+                        ClearPokemonSelected z
                         l = l + 1
                     End If
-                Next Z
+                Next z
             Else
                 i = IsStorage_Poke
                 If i > 0 Then

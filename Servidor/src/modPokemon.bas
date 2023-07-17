@@ -137,7 +137,9 @@ Dim i As Long
         MapPokemon(i).PokemonIndex = Spawn(i).PokeNum
         MapPokemon(i).Respawn = GetTickCount
         '//Spawn
-        SpawnMapPokemon i
+        If Spawn(i).Fishing = NO Then
+            SpawnMapPokemon i
+        End If
     Next
 End Sub
 

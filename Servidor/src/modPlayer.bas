@@ -2715,6 +2715,33 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
 
                     '//Add Pokedex
                     AddPlayerPokedex Index, .Num, YES, YES
+
+                    '//GlobalMsg IsShiny & Rarity
+                    If .IsShiny = YES Then
+                        For i = 1 To Player_HighIndex
+                            If IsPlaying(i) Then
+                                If TempPlayer(Index).UseChar > 0 Then
+                                    Select Case TempPlayer(Index).CurLanguage
+                                    Case LANG_PT: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " shiny em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                                    Case LANG_EN: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " shiny em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                                    Case LANG_ES: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " shiny em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                                    End Select
+                                End If
+                            End If
+                        Next i
+                    ElseIf Spawn(MapPokeNum).Rarity >= Options.Rarity Then
+                        For i = 1 To Player_HighIndex
+                            If IsPlaying(i) Then
+                                If TempPlayer(Index).UseChar > 0 Then
+                                    Select Case TempPlayer(Index).CurLanguage
+                                    Case LANG_PT: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " raro em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                                    Case LANG_EN: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " raro em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                                    Case LANG_ES: SendPlayerMsg i, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " capturou um " & Trim$(Pokemon(.Num).Name) & " raro em " & Trim$(Map(GetPlayerMap(Index)).Name), Yellow
+                                    End Select
+                                End If
+                            End If
+                        Next i
+                    End If
                 End With
 
                 Select Case TempPlayer(Index).CurLanguage

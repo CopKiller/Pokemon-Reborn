@@ -31,9 +31,9 @@ Begin VB.Form frmServer
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtLog"
+      Tab(0).Control(0)=   "txtCommand"
       Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "txtCommand"
+      Tab(0).Control(1)=   "txtLog"
       Tab(0).Control(1).Enabled=   0   'False
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
@@ -483,6 +483,10 @@ End Sub
 
 Private Sub frmUser_DragDrop(Source As Control, x As Single, Y As Single)
 
+End Sub
+
+Private Sub Command1_Click()
+    AddPokemonsFishing
 End Sub
 
 Private Sub lvwInfo_ColumnClick(ByVal ColumnHeader As MSComctlLib.ColumnHeader)
