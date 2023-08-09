@@ -61,6 +61,13 @@ Public Sub CheckKeys()
 End Sub
 
 Public Sub CheckInputKeys()
+
+    '//Constant
+    If GetKeyState(vbKeyShift) < 0 Then ShiftKey = True
+    
+    ' Using in PokeStorage to select Pokes.
+    If GetKeyState(VK_CONTROL) < 0 Then Ctrl_Press = True
+    
     If GetKeyState(ControlKey(ControlEnum.KeyCheckMove).cAsciiKey) < 0 Then
         chkMoveKey = True
     Else
@@ -153,16 +160,6 @@ Public Sub CheckInputKeys()
     Else
         RightKey = False
     End If
-    
-    '//Constant
-    If GetKeyState(vbKeyShift) < 0 Then
-        ShiftKey = True
-    Else
-        ShiftKey = False
-    End If
-    
-    ' Using in PokeStorage to select Pokes.
-    If GetKeyState(VK_CONTROL) < 0 Then Ctrl_Press = True
 End Sub
 
 Private Sub ResetButtonState(Optional ByVal Force As Boolean = False)
@@ -729,7 +726,7 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As
                 End If
 
                 ' Botão Créditos
-                If CursorX >= Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 And CursorX <= (Column * 2) + Column / 2 - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 + GetTextWidth(Font_Default, TextUIFooterCredits) And CursorY >= textY And CursorY <= textY + 40 Then
+                If CursorX >= Column * 2 + (Column \ 2) - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 And CursorX <= (Column * 2) + Column / 2 - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 + GetTextWidth(Font_Default, TextUIFooterCredits) And CursorY >= textY And CursorY <= textY + 40 Then
                     If CreditVisible Then
                         CreditState = 1
                     Else

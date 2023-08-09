@@ -671,11 +671,41 @@ Public Sub JoinGame(ByVal Index As Long, Optional ByVal CurLanguage As Byte = 0)
         Player(Index, TempPlayer(Index).UseChar).DidStart = NO
         SavePlayerData Index, TempPlayer(Index).UseChar
     End If
+    
+    '//Processa sprite temporaria do jogador
+    ProcessTempSprite Index
 
     '//Send In-Game
     SendHighIndex Index
     SendPokemonHighIndex Index
     SendInGame Index
+End Sub
+
+Private Sub ProcessTempSprite(ByVal Index As Long)
+    Dim ItemNum As Long
+
+    If Not IsPlaying(Index) Then Exit Sub
+    If TempPlayer(Index).UseChar <= 0 Then Exit Sub
+
+    ItemNum = Player(Index, TempPlayer(Index).UseChar).KeyItemNum
+
+    If ItemNum > 0 And ItemNum <= MAX_ITEM Then
+        If Item(ItemNum).Data1 = 1 Then    '//Sprite Type
+            'If Item(ItemNum).Data2 = TEMP_SPRITE_GROUP_MOUNT Then
+                If Map(Player(Index, TempPlayer(Index).UseChar).Map).SpriteType <= TEMP_SPRITE_GROUP_NONE Then
+                    ChangeTempSprite Index, Item(ItemNum).Data2, ItemNum
+                End If
+            'End If
+        End If
+    End If
+End Sub
+
+Public Sub ClearTempSprite(ByVal Index As Long)
+    If Not IsPlaying(Index) Then Exit Sub
+    If TempPlayer(Index).UseChar <= 0 Then Exit Sub
+
+    Call ZeroMemory(ByVal VarPtr(TempPlayer(Index).TempSprite), LenB(TempPlayer(Index).TempSprite))
+    Player(Index, TempPlayer(Index).UseChar).KeyItemNum = 0
 End Sub
 
 Public Sub LeftGame(ByVal Index As Long)
@@ -1245,6 +1275,7 @@ End Function
 
 '//Exp
 Public Sub GivePlayerPokemonExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByVal Exp As Long)
+    Dim TotalBonus As Long
 '//Check Error
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
@@ -1254,6 +1285,14 @@ Public Sub GivePlayerPokemonExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByV
     'Exp Rate
     If EventExp.ExpEvent Then
         Exp = Exp * EventExp.ExpMultiply
+        '//Obter o bonus somado, pra entregar uma action mensagem com o total bonificado
+        TotalBonus = TotalBonus + (EventExp.ExpMultiply * 100)
+    End If
+    'Exp Mount
+    If TempPlayer(Index).TempSprite.TempSpriteExp > 0 Then
+        Exp = Exp + ((Exp / 100) * TempPlayer(Index).TempSprite.TempSpriteExp)
+        '//Obter o bonus somado, pra entregar uma action mensagem com o total bonificado
+        TotalBonus = TotalBonus + (TempPlayer(Index).TempSprite.TempSpriteExp)
     End If
 
     '//Add Exp
@@ -1269,6 +1308,10 @@ Public Sub GivePlayerPokemonExp(ByVal Index As Long, ByVal PokeSlot As Byte, ByV
         If PlayerPokemon(Index).Num > 0 Then
             If PlayerPokemon(Index).slot = PokeSlot Then
                 SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "+" & Exp, PlayerPokemon(Index).x * 32, PlayerPokemon(Index).Y * 32, White
+                
+                If TotalBonus > 0 Then
+                    SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "+" & TotalBonus & "% EXP!", PlayerPokemon(Index).x * 32, (PlayerPokemon(Index).Y - 1) * 32, Black
+                End If
             End If
         End If
     End With
@@ -1753,7 +1796,6 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
                 End If
             End If
         End If
-        Exit Sub
     Case ItemTypeEnum.Berries
 
         If Item(ItemNum).Data1 > 0 Then
@@ -1812,9 +1854,13 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
     Case ItemTypeEnum.keyItems
         Select Case Item(ItemNum).Data1
         Case 1    '//Sprite Type
-            If Item(ItemNum).Data2 > 0 And Item(ItemNum).Data2 < TEMP_FISH_MODE Then
+            If Item(ItemNum).Data2 > 0 And Item(ItemNum).Data2 < TEMP_SPRITE_GROUP_MOUNT Then
                 If Map(Player(Index, TempPlayer(Index).UseChar).Map).SpriteType <= TEMP_SPRITE_GROUP_NONE Then
-                    ChangeTempSprite Index, Item(ItemNum).Data2
+                    ChangeTempSprite Index, Item(ItemNum).Data2, ItemNum
+                End If
+            ElseIf Item(ItemNum).Data2 > 0 And Item(ItemNum).Data2 = TEMP_SPRITE_GROUP_MOUNT Then
+                If Map(Player(Index, TempPlayer(Index).UseChar).Map).SpriteType <= TEMP_SPRITE_GROUP_NONE Then
+                    ChangeTempSprite Index, Item(ItemNum).Data2, ItemNum
                 End If
             ElseIf Item(ItemNum).Data2 > 0 And Item(ItemNum).Data2 = TEMP_FISH_MODE Then
                 'If GetPlayerFishMode(Index) = NO Then
@@ -2813,45 +2859,51 @@ Public Sub ClearMyTarget(ByVal Index As Long, ByVal MapNum As Long)
     Next
 End Sub
 
-Public Sub ChangeTempSprite(ByVal Index As Long, ByVal TempSprite As Byte, Optional ByVal Forced As Boolean = False)
+Public Sub ChangeTempSprite(ByVal Index As Long, ByVal TempSprite As Byte, Optional ByVal ItemNum As Long = 0, Optional ByVal Forced As Boolean = False)
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
 
     Select Case TempSprite
     Case TEMP_SPRITE_GROUP_NONE
         If Forced Then
-            Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
+            Call ClearTempSprite(Index)
         Else
-            If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE Then
-                If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_MOUNT Then
-                    Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
+            If Not TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_BIKE Then
+                If Not TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_MOUNT Then
+                    Call ClearTempSprite(Index)
                 End If
             End If
         End If
     Case TEMP_SPRITE_GROUP_DIVE
-        Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_DIVE
+        Player(Index, TempPlayer(Index).UseChar).KeyItemNum = ItemNum
+        TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_DIVE
     Case TEMP_SPRITE_GROUP_BIKE
-        If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_DIVE Then
-            If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE Then
-                Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE
+        If Not TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_DIVE Then
+            If Not TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_BIKE Then
+                Player(Index, TempPlayer(Index).UseChar).KeyItemNum = ItemNum
+                TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_BIKE
             Else
-                Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
+                Call ClearTempSprite(Index)
             End If
         End If
     Case TEMP_SPRITE_GROUP_MOUNT
-        If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_DIVE Then
-            If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_BIKE Then
-                If Not Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_MOUNT Then
-                    Player(Index, TempPlayer(Index).UseChar).TempSprite = TEMP_SPRITE_GROUP_MOUNT
+        If Not TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_DIVE Then
+            If Not TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_BIKE Then
+                If Not TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_MOUNT Then
+                    Player(Index, TempPlayer(Index).UseChar).KeyItemNum = ItemNum
+                    TempPlayer(Index).TempSprite.TempSpriteType = TEMP_SPRITE_GROUP_MOUNT
+                    TempPlayer(Index).TempSprite.TempSpriteID = Item(ItemNum).Data3
+                    TempPlayer(Index).TempSprite.TempSpriteExp = Item(ItemNum).Data4
+                    TempPlayer(Index).TempSprite.TempSpritePassiva = Item(ItemNum).Data5
                 Else
-                    Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
+                    Call ClearTempSprite(Index)
                 End If
             End If
         End If
         'Case TEMP_SPRITE_GROUP_SURF
 
     Case Else
-        Player(Index, TempPlayer(Index).UseChar).TempSprite = 0
+        Call ClearTempSprite(Index)
     End Select
 
     SendPlayerData Index
@@ -2933,6 +2985,7 @@ End Function
 
 Public Sub GivePlayerExp(ByVal Index As Long, ByVal Exp As Long)
     Dim ExpRollover As Long
+    Dim TotalBonus As Long
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
@@ -2946,6 +2999,12 @@ Public Sub GivePlayerExp(ByVal Index As Long, ByVal Exp As Long)
         'Exp Rate
         If EventExp.ExpEvent Then
             Exp = Exp * EventExp.ExpMultiply
+            TotalBonus = TotalBonus + (EventExp.ExpMultiply * 100)
+        End If
+        'Exp Mount
+        If TempPlayer(Index).TempSprite.TempSpriteExp > 0 Then
+            Exp = Exp + ((Exp / 100) * TempPlayer(Index).TempSprite.TempSpriteExp)
+            TotalBonus = TotalBonus + (TempPlayer(Index).TempSprite.TempSpriteExp)
         End If
 
         .CurExp = .CurExp + Exp
@@ -2966,6 +3025,10 @@ Public Sub GivePlayerExp(ByVal Index As Long, ByVal Exp As Long)
 
         '//ActionMsg
         SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "+" & Exp, .x * 32, .Y * 32, White
+
+        If TotalBonus > 0 Then
+            SendActionMsg Player(Index, TempPlayer(Index).UseChar).Map, "+" & TotalBonus & "% EXP!", .x * 32, (.Y - 1) * 32, Black
+        End If
     End With
 End Sub
 

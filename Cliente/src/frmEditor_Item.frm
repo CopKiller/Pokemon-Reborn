@@ -55,6 +55,96 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   0
       Top             =   0
       Width           =   6015
+      Begin VB.Frame fraKeyItem 
+         Caption         =   "Key Item Properties"
+         Height          =   1815
+         Left            =   240
+         TabIndex        =   28
+         Top             =   2280
+         Visible         =   0   'False
+         Width           =   5535
+         Begin VB.CheckBox chkPassiva 
+            Caption         =   "Usar passiva de corrida com Shift?"
+            Height          =   195
+            Left            =   360
+            TabIndex        =   75
+            Top             =   1440
+            Visible         =   0   'False
+            Width           =   2775
+         End
+         Begin VB.HScrollBar scrlExp 
+            Height          =   255
+            Left            =   1680
+            Max             =   200
+            TabIndex        =   74
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   1335
+         End
+         Begin VB.HScrollBar scrlFish 
+            Height          =   255
+            Left            =   3840
+            Max             =   2
+            TabIndex        =   55
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   1455
+         End
+         Begin VB.ComboBox cmbKeyItemType 
+            Height          =   315
+            ItemData        =   "frmEditor_Item.frx":0004
+            Left            =   2280
+            List            =   "frmEditor_Item.frx":000E
+            Style           =   2  'Dropdown List
+            TabIndex        =   32
+            Top             =   360
+            Width           =   3015
+         End
+         Begin VB.HScrollBar scrlSpriteType 
+            Height          =   255
+            Left            =   2280
+            Max             =   5
+            TabIndex        =   29
+            Top             =   720
+            Width           =   3015
+         End
+         Begin VB.Label lblExp 
+            AutoSize        =   -1  'True
+            Caption         =   "Exp Bonus%:"
+            Height          =   195
+            Left            =   240
+            TabIndex        =   73
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   930
+         End
+         Begin VB.Label lblFish 
+            BackStyle       =   0  'Transparent
+            Caption         =   "Sprite:"
+            Height          =   255
+            Left            =   3120
+            TabIndex        =   54
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   615
+         End
+         Begin VB.Label Label8 
+            Caption         =   "Key Item Type:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   31
+            Top             =   360
+            Width           =   1215
+         End
+         Begin VB.Label lblSpriteType 
+            Caption         =   "Sprite Type: None"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   30
+            Top             =   720
+            Width           =   5055
+         End
+      End
       Begin VB.Frame fraMysteryBox 
          Caption         =   "Mystery Box"
          Height          =   1695
@@ -146,7 +236,7 @@ Begin VB.Form frmEditor_Item
          Begin VB.Frame Frame4 
             Caption         =   "Pokemon Center"
             Height          =   1215
-            Left            =   1320
+            Left            =   1200
             TabIndex        =   59
             Top             =   120
             Width           =   2775
@@ -186,74 +276,12 @@ Begin VB.Form frmEditor_Item
          Top             =   360
          Width           =   1095
       End
-      Begin VB.Frame fraKeyItem 
-         Caption         =   "Key Item Properties"
-         Height          =   1455
-         Left            =   240
-         TabIndex        =   28
-         Top             =   2280
-         Visible         =   0   'False
-         Width           =   5535
-         Begin VB.HScrollBar scrlFish 
-            Height          =   255
-            Left            =   3840
-            Max             =   2
-            TabIndex        =   55
-            Top             =   1080
-            Visible         =   0   'False
-            Width           =   1455
-         End
-         Begin VB.ComboBox cmbKeyItemType 
-            Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0004
-            Left            =   2280
-            List            =   "frmEditor_Item.frx":000E
-            Style           =   2  'Dropdown List
-            TabIndex        =   32
-            Top             =   360
-            Width           =   3015
-         End
-         Begin VB.HScrollBar scrlSpriteType 
-            Height          =   255
-            Left            =   2280
-            Max             =   5
-            TabIndex        =   29
-            Top             =   720
-            Width           =   3015
-         End
-         Begin VB.Label lblFish 
-            BackStyle       =   0  'Transparent
-            Caption         =   "Sprite:"
-            Height          =   255
-            Left            =   3120
-            TabIndex        =   54
-            Top             =   1080
-            Visible         =   0   'False
-            Width           =   615
-         End
-         Begin VB.Label Label8 
-            Caption         =   "Key Item Type:"
-            Height          =   255
-            Left            =   240
-            TabIndex        =   31
-            Top             =   360
-            Width           =   1215
-         End
-         Begin VB.Label lblSpriteType 
-            Caption         =   "Sprite Type: None"
-            Height          =   255
-            Left            =   240
-            TabIndex        =   30
-            Top             =   720
-            Width           =   5055
-         End
-      End
       Begin VB.Frame fraPowerBracer 
          Caption         =   "Power Bracer"
          Height          =   1455
          Left            =   240
          TabIndex        =   49
-         Top             =   2280
+         Top             =   2400
          Width           =   4695
          Begin VB.TextBox txtPowerValue 
             Height          =   285
@@ -304,7 +332,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1455
          Left            =   240
          TabIndex        =   42
-         Top             =   2280
+         Top             =   2400
          Width           =   4695
          Begin VB.ComboBox cmbBerrieType 
             Height          =   315
@@ -347,7 +375,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1215
          Left            =   240
          TabIndex        =   38
-         Top             =   2280
+         Top             =   2400
          Width           =   4695
          Begin VB.CheckBox chkTakeItem 
             Caption         =   "Take Item?"
@@ -381,7 +409,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1695
          Left            =   240
          TabIndex        =   12
-         Top             =   2280
+         Top             =   2400
          Visible         =   0   'False
          Width           =   5535
          Begin VB.CheckBox chkAutoCatch 
@@ -462,7 +490,7 @@ Begin VB.Form frmEditor_Item
          Height          =   1455
          Left            =   240
          TabIndex        =   19
-         Top             =   2280
+         Top             =   2400
          Width           =   4695
          Begin VB.CheckBox chkLevelUp 
             Caption         =   "Level Up"
@@ -674,6 +702,11 @@ End Sub
 
 Private Sub chkNEquipable_Click()
     Item(EditorIndex).NotEquipable = chkNEquipable.value
+    EditorChange = True
+End Sub
+
+Private Sub chkPassiva_Click()
+    Item(EditorIndex).Data5 = chkPassiva.value
     EditorChange = True
 End Sub
 
@@ -891,6 +924,12 @@ Private Sub scrlBallSprite_Change()
     EditorChange = True
 End Sub
 
+Private Sub scrlExp_Change()
+    lblExp = "Exp: " & scrlExp & "%"
+    Item(EditorIndex).Data4 = scrlExp.value
+    EditorChange = True
+End Sub
+
 Private Sub scrlFish_Change()
     lblFish = "Sprite: " & scrlFish
     Item(EditorIndex).Data3 = scrlFish.value
@@ -904,8 +943,16 @@ Private Sub scrlSprite_Change()
 End Sub
 
 Private Sub scrlSpriteType_Change()
+    scrlFish.value = 0
+    scrlExp.value = 0
+    chkPassiva.value = 0
+    
     scrlFish.Visible = False
     lblFish.Visible = False
+    scrlExp.Visible = False
+    lblExp.Visible = False
+    chkPassiva.Visible = False
+    
     
     Select Case scrlSpriteType.value
         Case TEMP_SPRITE_GROUP_DIVE
@@ -916,6 +963,15 @@ Private Sub scrlSpriteType_Change()
             lblSpriteType.Caption = "Sprite Type: Surf"
         Case TEMP_SPRITE_GROUP_MOUNT
             lblSpriteType.Caption = "Sprite Type: Mount"
+            scrlFish.Visible = True
+            lblFish.Visible = True
+            scrlFish.max = Count_PlayerSprite_M(1)
+            scrlFish = Item(EditorIndex).Data3
+            scrlExp.Visible = True
+            lblExp.Visible = True
+            scrlExp.value = Item(EditorIndex).Data4
+            chkPassiva.Visible = True
+            chkPassiva.value = Item(EditorIndex).Data5
         Case TEMP_FISH_MODE
             lblSpriteType.Caption = "Sprite Type: Fish"
             scrlFish.Visible = True

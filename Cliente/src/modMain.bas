@@ -10,22 +10,25 @@ Dim SetWidth As Long
         End
     End If
     
+    '// Inicializa a Cryptografia
+    InitCryptographyKey
+    
     ShowServerList = True
     ServerList = False
     
     ' //SERVER SETUP
     CurServerList = 1
     
-    ServerName(1) = "Pc"
-    ServerIP(1) = "localhost"
+    ServerName(1) = "Server 1"
+    ServerIP(1) = "200.193.214.70"
     ServerPort(1) = 8001
     
-    ServerName(2) = "Philip"
-    ServerIP(2) = "pokerpg.ddns.net"
+    ServerName(2) = "Server 2"
+    ServerIP(2) = "200.193.214.70"
     ServerPort(2) = 8001
     
-    ServerName(3) = "Nada"
-    ServerIP(3) = "localhost"
+    ServerName(3) = "Server 3"
+    ServerIP(3) = "200.193.214.70"
     ServerPort(3) = 8001
 
     ' Configurações das Resoluções
@@ -52,26 +55,26 @@ Dim SetWidth As Long
     LoadControlKey  '//Load all key input
     
     '//Let's check if our required Directory Exist
-    ChkDir App.Path & "\", "data"
-    ChkDir App.Path & "\data\", "themes"
-    ChkDir App.Path & "\data\", "music"
-    ChkDir App.Path & "\data\", "sfx"
-    ChkDir App.Path & "\data\", "resources"
-    ChkDir App.Path & "\data\", "cache"
-    ChkDir App.Path & "\data\cache\", "maps"
-    ChkDir App.Path & "\data\themes\", Trim$(GameSetting.ThemePath)
-    ChkDir App.Path & "\data\themes\" & Trim$(GameSetting.ThemePath) & "\", "textures"
-    ChkDir App.Path & "\data\themes\" & Trim$(GameSetting.ThemePath) & "\", "ui"
-    ChkDir App.Path & "\data\resources\", "character-sprites"
-    ChkDir App.Path & "\data\resources\", "player-sprites"
-    ChkDir App.Path & "\data\resources\", "map-animation"
-    ChkDir App.Path & "\data\resources\", "world-tiles"
-    ChkDir App.Path & "\data\resources\", "pokemon"
-    ChkDir App.Path & "\data\resources\pokemon\", "portrait"
-    ChkDir App.Path & "\data\resources\", "item"
-    ChkDir App.Path & "\data\resources\", "misc"
-    ChkDir App.Path & "\data\resources\", "animation"
-    ChkDir App.Path & "\data\resources\", "weather"
+    ChkDir App.path & "\", "data"
+    ChkDir App.path & "\data\", "themes"
+    ChkDir App.path & "\data\", "music"
+    ChkDir App.path & "\data\", "sfx"
+    ChkDir App.path & "\data\", "resources"
+    ChkDir App.path & "\data\", "cache"
+    ChkDir App.path & "\data\cache\", "maps"
+    ChkDir App.path & "\data\themes\", Trim$(GameSetting.ThemePath)
+    ChkDir App.path & "\data\themes\" & Trim$(GameSetting.ThemePath) & "\", "textures"
+    ChkDir App.path & "\data\themes\" & Trim$(GameSetting.ThemePath) & "\", "ui"
+    ChkDir App.path & "\data\resources\", "character-sprites"
+    ChkDir App.path & "\data\resources\", "player-sprites"
+    ChkDir App.path & "\data\resources\", "map-animation"
+    ChkDir App.path & "\data\resources\", "world-tiles"
+    ChkDir App.path & "\data\resources\", "pokemon"
+    ChkDir App.path & "\data\resources\pokemon\", "portrait"
+    ChkDir App.path & "\data\resources\", "item"
+    ChkDir App.path & "\data\resources\", "misc"
+    ChkDir App.path & "\data\resources\", "animation"
+    ChkDir App.path & "\data\resources\", "weather"
     
     InitDirectX         '//Load the DirectX
     LoadGui
@@ -551,7 +554,7 @@ Dim restartToChange As Boolean
     
     ' Theme Path
     If Trim$(LCase$(GuiPath)) <> Trim$(LCase$(GameSetting.ThemePath)) Then
-        If FileExist(App.Path & "\data\themes\" & GuiPath & ".ini") Then
+        If FileExist(App.path & "\data\themes\" & GuiPath & ".ini") Then
             GameSetting.ThemePath = Trim$(GuiPath)
             restartToChange = True
         Else

@@ -6,7 +6,7 @@ Private Declare Sub Sleep Lib "Kernel32" (ByVal dwMilliseconds As Long) '//halts
 
 '//Handle all looping/time procedure of the application
 Public Sub AppLoop()
-    Dim i As Long, x As Long
+    Dim i As Long, X As Long
     Dim Tick As Long
     Dim Tmr25 As Long, Tmr100 As Long, Tmr500 As Long, Tmr250 As Long, Tmr1000 As Long, Tmr3000 As Long
     Dim WalkTmr As Long, ChatTmr As Long
@@ -312,11 +312,11 @@ Public Sub AppLoop()
                         If PlayerInv(i).ItemCooldown > 0 Then    ' 1 seg
                             PlayerInv(i).ItemCooldown = PlayerInv(i).ItemCooldown - 1
                             
-                            For x = 1 To MAX_HOTBAR
-                                If PlayerInv(i).Num = Player(MyIndex).Hotbar(x).Num Then
-                                    Player(MyIndex).Hotbar(x).TmrCooldown = PlayerInv(i).ItemCooldown
+                            For X = 1 To MAX_HOTBAR
+                                If PlayerInv(i).Num = Player(MyIndex).Hotbar(X).Num Then
+                                    Player(MyIndex).Hotbar(X).TmrCooldown = PlayerInv(i).ItemCooldown
                                 End If
-                            Next x
+                            Next X
                             
                         End If
                     End If
@@ -432,7 +432,7 @@ Public Sub AppLoop()
 End Sub
 
 Private Sub ProcessPlayerMovement(ByVal Index As Long)
-Dim MovementSpeed As Long
+    Dim MovementSpeed As Long
 
     '//Check if player is walking, and if so process moving them over
     With Player(Index)
@@ -443,48 +443,90 @@ Dim MovementSpeed As Long
                 MovementSpeed = 2
             Else
                 If .TempSprite = TEMP_SPRITE_GROUP_BIKE Then
-                    MovementSpeed = 8
+                    MovementSpeed = 6
                 ElseIf .TempSprite = TEMP_SPRITE_GROUP_MOUNT Then
-                    MovementSpeed = 10
+                    If ShiftKey = True Then
+                        If CheckPassivaMount Then
+                            MovementSpeed = 10
+                        Else
+                            MovementSpeed = 7
+                        End If
+                    Else
+                        MovementSpeed = 7
+                    End If
                 Else
-                    MovementSpeed = 6 '//TEMP
+                    MovementSpeed = 5    '//TEMP
                 End If
             End If
         End If
-        
+
         Select Case .Dir
-            Case DIR_UP
-                .yOffset = .yOffset - MovementSpeed
-                If .yOffset < 0 Then .yOffset = 0
-            Case DIR_DOWN
-                .yOffset = .yOffset + MovementSpeed
-                If .yOffset > 0 Then .yOffset = 0
-            Case DIR_LEFT
-                .xOffset = .xOffset - MovementSpeed
-                If .xOffset < 0 Then .xOffset = 0
-            Case DIR_RIGHT
-                .xOffset = .xOffset + MovementSpeed
-                If .xOffset > 0 Then .xOffset = 0
+        Case DIR_UP
+            .yOffset = .yOffset - MovementSpeed
+            If .yOffset < 0 Then .yOffset = 0
+        Case DIR_DOWN
+            .yOffset = .yOffset + MovementSpeed
+            If .yOffset > 0 Then .yOffset = 0
+        Case DIR_LEFT
+            .xOffset = .xOffset - MovementSpeed
+            If .xOffset < 0 Then .xOffset = 0
+        Case DIR_RIGHT
+            .xOffset = .xOffset + MovementSpeed
+            If .xOffset > 0 Then .xOffset = 0
         End Select
-    
+
         ' Check if completed walking over to the next tile
         If .Moving = YES Then
             If .Dir = DIR_RIGHT Or .Dir = DIR_DOWN Then
                 If (.xOffset >= 0) And (.yOffset >= 0) Then
                     .Moving = NO
-                    If .Step = 0 Then
-                        .Step = 2
+
+                    If .TempSprite = TEMP_SPRITE_GROUP_MOUNT Then
+                        If .Step = 0 Then
+                            .Step = 1
+                        ElseIf .Step = 1 Then
+                            .Step = 2
+                        ElseIf .Step = 2 Then
+                            .Step = 3
+                        Else
+                            .Step = 0
+                        End If
+
+                        .IdleTimer = GetTickCount
+                        .IdleAnim = 0
+                        .IdleFrameTmr = GetTickCount
                     Else
-                        .Step = 0
+                        If .Step = 0 Then
+                            .Step = 2
+                        Else
+                            .Step = 0
+                        End If
                     End If
                 End If
             Else
                 If (.xOffset <= 0) And (.yOffset <= 0) Then
                     .Moving = NO
-                    If .Step = 0 Then
-                        .Step = 2
+
+                    If .TempSprite = TEMP_SPRITE_GROUP_MOUNT Then
+                        If .Step = 0 Then
+                            .Step = 1
+                        ElseIf .Step = 1 Then
+                            .Step = 2
+                        ElseIf .Step = 2 Then
+                            .Step = 3
+                        Else
+                            .Step = 0
+                        End If
+
+                        .IdleTimer = GetTickCount
+                        .IdleAnim = 0
+                        .IdleFrameTmr = GetTickCount
                     Else
-                        .Step = 0
+                        If .Step = 0 Then
+                            .Step = 2
+                        Else
+                            .Step = 0
+                        End If
                     End If
                 End If
             End If
@@ -855,7 +897,7 @@ Private Sub ProcessMyLogic()
         With Player(MyIndex)
             If .Action = ACTION_SLIDE Then
                 If .ActionTmr <= GetTickCount Then
-                    If Map.Tile(.x, .y).Attribute = MapAttribute.Slide Then
+                    If Map.Tile(.X, .y).Attribute = MapAttribute.Slide Then
                         .Action = ACTION_SLIDE
                         .ActionTmr = GetTickCount + 50
                         ForcePlayerMove .Dir

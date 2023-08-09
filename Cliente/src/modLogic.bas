@@ -2530,3 +2530,9 @@ Function GetWeekDay() As String
         End Select
     End Select
 End Function
+
+Public Function CheckPassivaMount() As Boolean
+    If Player(MyIndex).TempSpritePassiva > 0 Then CheckPassivaMount = True
+End Function
+
+

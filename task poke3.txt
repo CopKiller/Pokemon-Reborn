@@ -1,0 +1,279 @@
+OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
+
+05-OK-Adicionar o nome do dia da semana na posição perto do nome do mapa com traduções
+
+10-OK-Corrigido o Scrolling da aba de controles das opções do ESC
+
+05-OK-Remover os segundos do tempo de jogo, deixar apenas horas e minutos
+
+03-OK-Alterar a posição do level do poke na hud.
+
+30-OK-Adicionar sistema de compra de slots do inventário por cash & alteração no visual do inventario pelo photoshop
+
+05-OK-Adicionar o tempo now do servidor(Hora e minuto), antes de qualquer mensagem no chat
+
+05-OK-Adicionar um find no Spawn Editor, pra procurar o nome do poke ou numero
+
+07-OK-Adicionar um botão de copia no Spawn Editor, pra copiar e colar no próximo slot
+
+09-OK-Adicionar um botao no SpawnEditor, pra selecionar e clikar no mapa onde deve spawnar
+
+19-OK-Adicionar combobox de items no SpawnEditor, pokemon nasce com o item equipado, e ao captura-lo, vem com o item equipado.
+
+08-OK-Adicionar 3 botões de manhã, dia e noite, pra preencher o spawntime ao clikar em um deles.
+	* Morning - (04:00 - 09:59).
+	* Day - (10:00 - 17:59).
+	* Night - (18:00 - 03:59)
+
+07-OK-Quando capturar um shiny, aparecer mensagem no global com "nome do jogador", "Pokémon" e nome do "Mapa".
+	Exemplo: "Philip" capturou um "Chamander" shiny em "Ceruleon".
+
+07-OK-Quando capturar um pokemon rarity, dependendo de um valor de rarity, aparecer mensagem global.
+	Exemplo: "Philip" capturou um "Dratini" raro em "Dark Cave". Todo valor da raridade no editor que estiver acima de "50"
+
+15-OK-Adicionar uma combobox de Nature no Spawn Editor, pra escolher a nature do poke em específico a spawnar.
+	-Adicionado índice de nature -1, pra ser como um índice 'None', pois antes só randomizava
+	e agora precisa selecionar um específico as vezes e com combobox que o menor índice é 0.
+
+05-OK-Alteração no sistema de compra de slots do inventário: Adicionado opacidade nos slots que não estão na ordem de desbloqueio
+
+05-OK-Adicionar o Find no pokemon do npc treinador, pra adicioná-los.
+
+05-OK-Consertar o Find do move do npc treinador, ja tem criado, apenas corrigir.
+
+12-OK-Adicionar no pokemon do npc treinador, combobox de item pra adicionar o item equipado de cada um.
+
+10-OK-Adicionar combobox de nature do npc treinador, ao adicionar um pokemon.
+
+03-OK-Ao alternar os slots do pokemon pra outro slot no mesmo npc treinador, resetar os dados preenchidos do poke.
+
+05-OK-Adicionar checkbox de IV Full nos pokemon do npc treinador.
+
+05-OK-Adicionar checkbox de IsShiny nos pokemon do npc treinador.
+
+19-OK-Adicionar checkbox de Rebatle, pra caso perca e somente ao perder, poder lutar novamente sem esperar virar o dia, apenas se ganhar, poder lutar em outro dia.
+
+10-OK-Reformulado código de Lose e Win do player contra NPC, centralizado em dois métodos(PlayerLoseToNpc, PlayerWinToNpc)
+
+10-OK-Adicionar mecanica pra implementação de ao derrotar um NPC, não poder batalhar com ele nunca mais.
+
+05-OK-Adicionar o find no item do editor de npc do pokemon dele.
+
+15-OK-Base do sistema de montarias terrestres c/ pokemon exemplo feito no photoshop.
+
+04-OK-Adicionar a seta nas resoluções, pra saber que tem mais ao clikar.
+
+19-OK-Adicionado correção ao sistema nativo de spawnar em horários específicos um pokemon,
+	estava dando problema no range, que as vezes passava da meia-noite, então criei um método pra resolver.
+
+150- Sistema de Loja Virtual na HUD. >>>>>>>>>>>>>>>>>>>>>>>>>(FINALIZADO)<<<<<<<<<<<<<<<<<<<<<<<<<<
+	-->Utilizando um [+] antes da escrita, vai torná-lo um benefício abrangente.
+	-->Utilizando um [-] antes da escrita, vai torná-lo um benefício não abrangente.
+	-->Não utilizando nada antes da escrita, vai torná-lo uma descrição normal apenas.
+	-->Por favor, separe cada benefício com uma "," ao final de cada.
+	-->Dê preferencia primeiramente aos benefícios abrangentes, e após os não abrangentes e após a descrição, se houver uma.
+	//Eu adaptei esse sistema pra funcionar em qualquer janela, então você poderá usar em outras abas e não apenas no VIP. Para que funcione essa descrição que implementei, você precisa deixar marcado a opção "Custom Description", ai então você consegue usar o tutorialzin acima que mostrei como faz pra aparecer os benefícios.
+
+08-OK-Adicionar mais uma aba na loja virtual(a escolher o nome, pra adicionar o vip la tbm)
+
+03-OK-Mudar os nomes da loja virtual, "Skins" para "Outfit", "Item" para "Items"
+
+12-OK-Mecanica na descrição da loja virtual, adaptada de uma forma para que use o VIP de uma forma mais qualificada.
+
+15-Adicionar uma opção de spawn no NPC, escolhendo um dia da semana pra ele aparecer, e ao passar esse dia, despawnar.
+
+19-OK-Adicionar pro máximo de item amontoado 999, apartir dai não poder obter mais daquele item.(inv e banco)
+
+10-Correção de falha crítica, falta de verificação ao adicionar um item do inv na item storage.
+
+10-Correção de falha crítica, falta de verificação ao adicionar um item da storage no inventario.
+
+70-OK->Sistema de Fish:
+	OK->Criar uma ação de pesca(modo pesca), que dê pra utilizar mesmo estando em bike,mount,dive, etc...
+	OK->Ativar a ação apartir de um item de pesca que vai ser um KEY-ITEM, ao usar o item, 
+	sendo na borda de um rio, primeiramente vai ativar o modo pesca e vai ter a chance 
+	do pokemon ser pescado.
+		-O item vai ter um delay pra pesca, que vai estar em ms no editor de item(ao selecionar o tipo, ex: Mount, Dive, Pesca
+		que consequentemente vai aparecer a txt pra preencher em ms a quantidade de segundos de delay, futuramente podendo ser reduzido
+		com o VIP.)
+	OK->Adicionar um atributo de mapa, que vai ser adicionado nas bordas dos rios, pra poder ser usado
+	a vara de pesca KEY-ITEM nestes locais, estando de frente pra algum deles com a SIGLA F.
+	OK->Adicionar um check no spawn "Fish", pra identificar que é um pokemon de agua, que só pode ser capturado com a vara de pesca.
+		OK->A chance de spawn ao utilizar a vara de pesca, será baseada em cima do delay da vara de pesca e do rarity.
+		OK->Pra fins de checar o spawn do poke no mapa em que está sendo pescado, seria usado como parametro o 'Mapa', adicionado
+		ao spawn editor e então prosseguir com a comparação de chances citada anteriormente.
+	OK->Procurar uma vara de pesca pokemon que tenha os 4 lados pra adicionar.
+		OK->Em modo pesca, a vara de pesca aparece renderizada na sprite do jogador.
+		OK->Pra sair do modo pesca, se movimentar pra algum lado vai desativar o modo pesca.
+		OK->Pra pescar não é necessario selecionar o slot no rio, apenas usar o item de pesca novamente de frente para o rio.
+	OK->Adicionar mecanica pra despawnar o pokemon do mapa e não obstruir slot, ELES PRECISAM SEMPRE SER SELVAGEM
+	pra forçar o jogador a capturá-lo
+		OK->Ao ficar 4 slots longe ou o pokemon pescado perder o target do pescador, despawná-lo.
+
+10->OK-Adicionado sistema de Cooldown de item global(Inv + hotbar).
+
+08->OK-Adiciona correção, os revive estão podendo ser usados mesmo em pokemons vivos na hud.
+
+OK-Remover o fundo do botão do ranking
+
+OK-Adicionar um botão na hud, pra abrir a loja virtual, com o mesmo icone dela.
+
+07->OK-Reaproveitar a barra de hp que fica em baixo do pokemon, pra adicionar no icone da hud na parte superior,
+pra saber a quantidade de hp que cada pokemon possui.
+
+08->OK-(item) adicionar um item que permita abrir o baú de itens e pokémon sem ter que retorna ao centro pokémon.
+
+08->OK-Map Report com a lista de todos os mapas
+
+05->OK-Correção em erro que ao teleportar em outro mapa na parte preta dava 'subscript out of range'
+
+08->OK-Adiciona botão no editor de mapas em propriedades para que o "player" não utilize poções de cura. (No cure)
+
+38->OK-Cria item box (MysteryBox), na mesma pode cadastra até 30 itens e para cada um seleciona a % da chance do mesmo, quantidade do mesmo tbm
+	-Aparecer mensagem na tela com o nome do item, etc ao receber.
+
+	Exemplo com 4 Items
+	Item 1 - Chance 10  (10%)
+	item 2 - chance 15  (15%)
+	item 3 - chance 45  (45%)
+	item 4 - chance 30  (30%)
+
+	Item 1 - Chance 0.5  (05%)
+	item 2 - chance 1.5  (15%)
+	item 3 - chance 4.5  (45%)
+	item 4 - chance 3.0  (30%)
+
+	Item 1 - Chance 800  (80%)
+	item 2 - chance 100  (10%)
+	item 3 - chance 50   (5%)
+	item 4 - chance 50   (5%)
+
+Total
+656 - 250
+
+406 - 100
+
+Falta
+306
+
+10-OK->Leitura do arquivo gráfico relacionado as montarias, pra se indexar a cada número de sprite.
+
+10-OK->Adicionar sequencia correta na leitura da montaria, como referência o 'Kabutops'
+
+15-OK->Adicionar um dado no editor de montaria(item), pra acrescentar um bonus pré-definido de exp manual, pra cada uma delas.
+
+10-OK->Adicionar a alteração no código fonte na parte da animação da movimentação, pra realizar a leitura de 4 frames,
+	o padrão é 3 (indo do 0 ao 2), agora as frames são 4 (indo do 0 ao 3).
+
+15-OK->Adicionar animação de movimentos quando se está em modo Idle, pra montaria ficar se movimentando enquanto está em descanso.
+
+->Adicionar passiva de montaria, pode ser ativada segurando o shift ao correr e ativa o modo corrida dela, alternando a frame
+	da 0 pra 2 frame.
+	->Frames vão do 0 ao 3, então a 0 e a 2 faz parte do processo de passivas, a 1 e 3 é andando.
+
+//->Adicionar leitura de novo arquivo, o que faz a leitura do modo corrida do poke, o arquivo fica no mesmo local, com um '_r' ao final
+do nome do arquivo.
+
+->Sistema de montaria aquatica.
+	-Entrar em modo aquatico precisa pressionar Space nas bordas de um rio.
+		-o Space só deve interagir e ativar o modo, caso o jogador tenha o badge requerido pra entrar no rio.
+		-O badge requerido é adicionado ao atributo do mapa necessário pra entrar no modo aquatico.
+		-Este atributo deve ficar dentro do rio, na borda onde está o fish, e o fish adicionar mais a dentro do rio,
+		e fazer com que o fish realize a leitura apartir da borda.
+		-o atributo do modo aquatico não pode ser passado por cima.
+		-ao realizar a interação e tiver o badge, jogar o jogador em cima do atributo aquatico e ativar o modo.
+		-em modo aquatico pode passar por cima do atributo do fish e manter o modo aquatico.
+		-pra sair do modo aquatico o jogador deve sair do atributo aquatico, na terra não terá nenhum atributo então reverte pro normal.
+		-puxe o padrão uma boia ao entrar no rio.
+		-caso o jogador tenha uma montaria aquatica, e estiver com a boia ativada, realizar a troca.
+		-velocidade ao andar com boia deve ser de 7
+		-velocidade da montaria aquatica deve ser 10
+		-jogador não pode pescar em modo aquatico
+		-adicionar uma verificação no trade, em caso do item ser de montarias, o jogador precisa estar sem o uso de montarias pra poder negocia-las.
+		-não permitir duelos quando estiver em modo aquatico.
+		-não permitir spawnar pokemons ao estiver em modo aquatico
+		-não poder guardar uma montaria no bau, caso o jogador esteja em uma montaria.
+		-realizar o teste aquatico com o Lapras
+		-adicionar as sprites de montarias aquaticas em uma pasta com o nome 1_A, dentro dessa pasta vai ter as montarias com os indices puxados apartir do que foi adicionado no editor e assim sucessivamente com outras id de sprites.
+
+-Adicionar um offset X e Y nas montarias, pra ter como modificar a posição da vara de pesca nesses modos apartir dali.
+
+-Sistema de outfits
+	-uma outfit vai alternar pra outra sprite e ao usar novamente retornar pra sprite original.
+	-adicionar infos a serem preenchidas no editor de item da outfit
+		-Numero da sprite da outfit
+		-Bonus de exp da outfit
+	-ao utilizar montaria estando em outfit ou qualquer outro modo, puxar como ID_A para aquaticas e assim por diante.
+	-Não deixar negociar outfit se o jogador estiver usando uma.
+	-Não deixar o jogador guardar outfit no bau se estiver usando uma.
+	-Ver a possibilidade de utilizar algo que ja tenha na montaria pra utilizar na outfit.
+		
+Orçamento->25
+- Adicionar atributo no mapa, caso o jogador não tenha um badge requerido, tenha uma list com todos os npcs,
+que tem adicionado no proprio mapa, e caso não tenha o badge solicitado abra o dialogo com o npc listado e não deixe passar.
+
+
+Orçamento-> 90
+*Item HM, com o tipo Cutting ou RockSmash, pra cortar arvores ou quebrar pedras, que somente quem cortou
+ pode passar, mesmo que apareça pra outros que foi cortada, não conseguem passar, apenas esperando
+ o respawn novamente do atributo(3 segundos).
+	-O atributo do mapa, terá como requerimento pra preencher 2 tipos de dados, o primeiro é o move
+	necessário pra quebrar ou cortar, segundo é o badge requerido pra fazer essa ação ali naquele local.
+	-Formas de interação:
+		*-Forma Free: Usa um HM com a tecnica de cuting ou rocksmash, forçando o jogador a ter
+		um pokemon mula pra carregar esses tipos de tecnicas e altera um move do pokemon.
+		-Só poder usar a tecnica e cortar uma arvore ou quebrar uma pedra se tiver a insignia.
+
+		*Forma Vip: Um item que somente ao ter na bag e apertar espaço, vai interagir com o cutting ou rocksmash,
+		tendo em vista que precisa ter um requerimento de insignia do move que está no HM.
+		Adicionar uma checkbox em HM, pra verificar se é uma alcarina(item da loja virtual)
+		e consequentemente, deve-se marcar como NoPokeEquipe e IsCash(pra não vender na loja tradicional)
+		e não poder dar use e ganhar a tecnica ao ter o check alcarina marcado.
+
+Orçamento->100
+- Quando chega em determinado mapa para enfrentar por exemplo o líder do gynasio, não se permitir que os jogadores online se encontrem. Cria uma função que naquele mapa específico seja offline.
+- Sistema de mapas offline, neste mapa não pode mostrar:
+	-Outros jogadores ou pokemons deles
+	-Outras batalhas de NPC
+	-Outras spells
+	-Outros soms
+	-Adicionar implementação nos npcs que realizam batalhas, podem batalhar somente com 1 por vez.
+	-Não mostrar o chat local de outros jogadores no mapa e
+
+Orçamento->70
+- Linkar os pokemons pra aparecer no chat o nome deles, e ao clikar aparecer o summary deles, seja
+na hora que obter o shiny e aparecer a mensagem global linkada, ou seja quando for rarity;
+Tambem poder linkar os meus pokemons pra enviar no chat e ao clikarem aparecer o summary.
+(escolher shift ou ctrl pra adicionar eles ao chat, ao clikar em algum da equipe.)
+
+
+
+-> Variavel(90-140)- Items Personalizados: Held Items -> Informações dos tipos está na pasta Utilidades -> HeldItems.
+
+-> Variavel(90-140)- Sistema de Login Diário.
+	+ CheckIn 7 dias.
+
+-> Fixo(35)- Sistema de VIP.
+	+ Com bonûs em coisas ja existentes
+	
+-> Fixo(65)- Sistema de Montarias (Rider, Aquática e Voadora).
+	+ Adiciona bônus de Experiência, exemplo 5%.
+
+-> Fixo(20)- Sistema de Teleport To Map.
+	+ Teleportar pro badge do treiner card
+
+-> Falta Info p/ preço(???)- Sistema de Breed(egg).
+
+-> Variavel(110-180)- Sistema de Mercado Global.
+
+-> Variavel(20-35)- Sistema de Outfit.
+
+-> Variavel(110-180)- Sistema de Guilds Global.
+
+-> Falta Info p/ preço(???)- Sistema de RAID Pokémon.
+
+-Outfit gratuita enquanto tiver vip2
+-Montaria gratuita enquanto tiver vip 2
+-Login Diário em dobro ao obter vip 2
+-Poder adicionar mais items no mercado global que X Limite que free poderia
+-Mais chances em uma RAID

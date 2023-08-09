@@ -246,6 +246,8 @@ Public Type PlayerRec
     
     '//Temp Sprite
     TempSprite As Long
+    TempSpriteID As Long
+    TempSpritePassiva As Long
     
     '//confuse
     IsConfuse As Byte
@@ -286,6 +288,11 @@ Public Type PlayerRec
     xOffset As Long
     yOffset As Long
     Step As Byte
+    
+    '//Animações de Montarias
+    IdleTimer As Long
+    IdleFrameTmr As Long
+    IdleAnim As Byte
 End Type
 
 ' *****************
@@ -475,6 +482,8 @@ Private Type ItemRec
     Item(1 To MAX_MYSTERY_BOX) As Integer 'Utiliza no MysteryBox
     ItemValue(1 To MAX_MYSTERY_BOX) As Long 'Utiliza no MysteryBox
     ItemChance(1 To MAX_MYSTERY_BOX) As Double 'Utiliza no MysteryBox
+    Data4 As Long 'Bonus de exp no item, está sendo usado apenas em montaria
+    Data5 As Long 'Adicionado pra ser usado como um checkbox, pra ver se a montaria tem a passiva ou não
 End Type
 
 Private Type MovesetRec

@@ -35,9 +35,15 @@ Public EventExp As EventExpRec
 '//Virtual Shop
 Public VirtualShop(1 To VirtualShopTabsRec.CountTabs - 1) As VirtualShopDataRec
 
+Public Type TempSpriteRec
+    TempSpriteType As Long
+    TempSpriteID As Long
+    TempSpriteExp As Long
+    TempSpritePassiva As Long
+End Type
+
 Private Type FishingRec
     Pokemon() As Long
-    
 End Type
 
 Public Type MysteryBoxRec
@@ -320,7 +326,7 @@ Public Type PlayerRec
     Tie As Long
     
     '//Temp Sprite
-    TempSprite As Long
+    KeyItemNum As Long
     
     '//Status
     Status As Byte
@@ -602,6 +608,8 @@ Private Type ItemRec
     Item(1 To MAX_MYSTERY_BOX) As Integer 'Utiliza no MysteryBox
     ItemValue(1 To MAX_MYSTERY_BOX) As Long 'Utiliza no MysteryBox
     ItemChance(1 To MAX_MYSTERY_BOX) As Double 'Utiliza no MysteryBox
+    Data4 As Long 'Bonus de exp no item, está sendo usado apenas em montaria
+    Data5 As Long 'Adicionado pra ser usado como um checkbox, pra ver se a montaria tem a passiva ou não
 End Type
 
 Private Type MovesetRec
@@ -941,4 +949,7 @@ Public Type TempPlayerRec
     ProcessorID As String
     PingTimer As Long
     PingCount As Long
+    
+    '//Temp Sprite Bonuses
+    TempSprite As TempSpriteRec
 End Type

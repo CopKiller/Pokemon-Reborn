@@ -275,7 +275,9 @@ Dim i As Long
         buffer.WriteByte .Dir
         buffer.WriteLong .CurHp
         buffer.WriteLong .Money
-        buffer.WriteLong .TempSprite
+        buffer.WriteLong TempPlayer(Index).TempSprite.TempSpriteType
+        buffer.WriteLong TempPlayer(Index).TempSprite.TempSpriteID
+        buffer.WriteLong TempPlayer(Index).TempSprite.TempSpritePassiva
         For i = 1 To MAX_BADGE
             buffer.WriteByte .Badge(i)
         Next

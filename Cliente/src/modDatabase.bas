@@ -30,6 +30,18 @@ Public Function FileExist(ByVal FileName As String) As Boolean
     If LenB(Dir(FileName)) > 0 Then FileExist = True
 End Function
 
+Public Function DirExist(ByVal tDir As String) As Boolean
+    Dim strPastaExiste As String
+    
+    strPastaExiste = Dir(tDir, vbDirectory)
+    
+    If strPastaExiste = "" Then
+        DirExist = False
+    Else
+        DirExist = True
+    End If
+End Function
+
 '//This sub delete the file, if it doesn't exist then it will ignore it
 Public Sub DeleteFile(ByVal FileName As String)
     On Error Resume Next

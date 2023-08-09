@@ -73,7 +73,7 @@ Private Sub txtSearch_Change()
     '   Exit Sub
     ' End If
 
-    For i = 1 To MAX_MAPS
+    For i = 1 To MAX_MAP
         If Not Find = "" Then
             If InStr(1, UCase$(Trim$(MapReport(i))), Find) > 0 Then
                 lstIndex.AddItem i & ": " & Trim$(MapReport(i))
