@@ -1,4 +1,4 @@
-OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
+-------> Atualizações, Correções e Sistemas <---------
 
 05-OK-Adicionar o nome do dia da semana na posição perto do nome do mapa com traduções
 
@@ -114,10 +114,6 @@ OK-Adicionado todos os nomes das pokeball na database, totalizando 16 pokeballs
 
 08->OK-Adiciona correção, os revive estão podendo ser usados mesmo em pokemons vivos na hud.
 
-OK-Remover o fundo do botão do ranking
-
-OK-Adicionar um botão na hud, pra abrir a loja virtual, com o mesmo icone dela.
-
 07->OK-Reaproveitar a barra de hp que fica em baixo do pokemon, pra adicionar no icone da hud na parte superior,
 pra saber a quantidade de hp que cada pokemon possui.
 
@@ -148,14 +144,6 @@ pra saber a quantidade de hp que cada pokemon possui.
 	item 3 - chance 50   (5%)
 	item 4 - chance 50   (5%)
 
-Total
-656 - 250
-
-406 - 100
-
-Falta
-306
-
 10-OK->Leitura do arquivo gráfico relacionado as montarias, pra se indexar a cada número de sprite.
 
 10-OK->Adicionar sequencia correta na leitura da montaria, como referência o 'Kabutops'
@@ -167,13 +155,19 @@ Falta
 
 15-OK->Adicionar animação de movimentos quando se está em modo Idle, pra montaria ficar se movimentando enquanto está em descanso.
 
-->Adicionar passiva de montaria, pode ser ativada segurando o shift ao correr e ativa o modo corrida dela, alternando a frame
+10->Adicionar passiva de montaria, pode ser ativada segurando o shift ao correr e ativa o modo corrida dela, alternando a frame
 	da 0 pra 2 frame.
 	->Frames vão do 0 ao 3, então a 0 e a 2 faz parte do processo de passivas, a 1 e 3 é andando.
 
-//->Adicionar leitura de novo arquivo, o que faz a leitura do modo corrida do poke, o arquivo fica no mesmo local, com um '_r' ao final
-do nome do arquivo.
+Preço Total
+726 - 250(Um dos pagamentos)
 
+476 - 100(Segundo pagamento)
+
+Faltou
+376
+
+\\\\\\\\\\\\\\\\\\Sistemas Pendentes.//////////////////////////
 ->Sistema de montaria aquatica.
 	-Entrar em modo aquatico precisa pressionar Space nas bordas de um rio.
 		-o Space só deve interagir e ativar o modo, caso o jogador tenha o badge requerido pra entrar no rio.
@@ -271,6 +265,8 @@ Tambem poder linkar os meus pokemons pra enviar no chat e ao clikarem aparecer o
 -> Variavel(110-180)- Sistema de Guilds Global.
 
 -> Falta Info p/ preço(???)- Sistema de RAID Pokémon.
+
+
 
 -Outfit gratuita enquanto tiver vip2
 -Montaria gratuita enquanto tiver vip 2

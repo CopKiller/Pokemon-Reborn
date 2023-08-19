@@ -28,3 +28,6 @@ bloco de texto no client, pra ver a mensagem de uma placa.
 -Adicionar Ranking de Heroi (8 posições) (Aproveitar os icones do ranking de level)
 	-Obs-
 -Adicionar uma janela, ao selecionar o ranking, aparecer uma box com 3 opções de ranking pra escolher (Level, Pk, Heroi)
+
+//->Adicionar leitura de novo arquivo, o que faz a leitura do modo corrida do poke, o arquivo fica no mesmo local, com um '_r' ao final
+do nome do arquivo.

@@ -20,15 +20,15 @@ Dim SetWidth As Long
     CurServerList = 1
     
     ServerName(1) = "Server 1"
-    ServerIP(1) = "200.193.214.70"
+    ServerIP(1) = "127.0.0.1"
     ServerPort(1) = 8001
     
     ServerName(2) = "Server 2"
-    ServerIP(2) = "200.193.214.70"
+    ServerIP(2) = "127.0.0.1"
     ServerPort(2) = 8001
     
     ServerName(3) = "Server 3"
-    ServerIP(3) = "200.193.214.70"
+    ServerIP(3) = "127.0.0.1"
     ServerPort(3) = 8001
 
     ' Configurações das Resoluções
@@ -89,6 +89,7 @@ Dim SetWidth As Long
     Next
     
     Randomize
+    
     '//Load Sockets
     TcpInit
     InitMessages

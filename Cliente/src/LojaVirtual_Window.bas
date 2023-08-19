@@ -227,7 +227,7 @@ Public Sub DrawVirtualShop()
                             End Select
 
                             If Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite > 0 Then
-                                RenderTexture Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite), XX + 12, YY + 10, 0, 0, GetPicWidth(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicHeight(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicWidth(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicHeight(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), ColourOpacity
+                                RenderTexture Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite), XX + 8, YY + 6, 0, 0, 32, 32, GetPicWidth(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicHeight(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), ColourOpacity
                             End If
                             '//Renderiza o nome do item
                             RenderText Ui_Default, Trim$(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Name), XX + 44, YY + 46 / 2 - 17, White, , 255
@@ -268,7 +268,7 @@ Public Sub DrawVirtualShop()
                 If Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Sprite > 0 Then
 
                     '--> Renderiza o icone do item na descrição
-                    RenderTexture Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Sprite), .X + 362, (.Y + 43), 0, 0, 32, 32, 24, 24
+                    RenderTexture Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Sprite), .X + 362, (.Y + 43), 0, 0, 32, 32, GetPicWidth(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Sprite)), GetPicHeight(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Sprite))
                     '//Renderiza o nome do item
                     RenderText Font_Default, Trim$(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Name), .X + 372 - (GetTextWidth(Ui_Default, Trim$(Item(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemNum).Name)) / 2), (.Y + 85), White, , 255
                     '//Renderiza o preço do item

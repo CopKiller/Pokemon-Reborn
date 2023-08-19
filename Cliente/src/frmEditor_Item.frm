@@ -23,6 +23,22 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   5
       Top             =   0
       Width           =   2895
+      Begin VB.CommandButton Command2 
+         Caption         =   "Paste"
+         Height          =   255
+         Left            =   1920
+         TabIndex        =   77
+         Top             =   3960
+         Width           =   855
+      End
+      Begin VB.CommandButton Command1 
+         Caption         =   "Copy"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   76
+         Top             =   3960
+         Width           =   1095
+      End
       Begin VB.CommandButton cmdIndexSearch 
          Caption         =   "Find"
          Height          =   255
@@ -680,6 +696,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private CopyItem As ItemRec
+
 Private Sub chkAutoCatch_Click()
     Item(EditorIndex).Data3 = chkAutoCatch.value
     EditorChange = True
@@ -868,6 +886,15 @@ Dim stringLength As Long
         
         MsgBox "Index not found", vbCritical
     End If
+End Sub
+
+Private Sub Command1_Click()
+    CopyItem = Item(EditorIndex)
+End Sub
+
+Private Sub Command2_Click()
+    Item(EditorIndex) = CopyItem
+    ItemEditorLoadIndex EditorIndex
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
