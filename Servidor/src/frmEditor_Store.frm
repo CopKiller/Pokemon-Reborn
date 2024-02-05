@@ -75,10 +75,27 @@ Begin VB.Form frmEditor_Store
       TabIndex        =   0
       Top             =   1200
       Width           =   3975
+      Begin VB.TextBox txtAvailableQuant 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2400
+         TabIndex        =   28
+         Text            =   "0"
+         Top             =   2400
+         Width           =   1335
+      End
+      Begin VB.CheckBox chkIsLimited 
+         Caption         =   "Is Limited?"
+         Height          =   255
+         Left            =   2400
+         TabIndex        =   27
+         Top             =   2040
+         Width           =   1335
+      End
       Begin VB.CheckBox chkIsNew 
          Caption         =   "Is New?"
          Height          =   255
-         Left            =   1080
+         Left            =   240
          TabIndex        =   26
          Top             =   2400
          Width           =   1575
@@ -86,7 +103,7 @@ Begin VB.Form frmEditor_Store
       Begin VB.CheckBox chkCustom 
          Caption         =   "Custom Description"
          Height          =   255
-         Left            =   1080
+         Left            =   240
          TabIndex        =   25
          Top             =   2040
          Width           =   1695
@@ -191,6 +208,14 @@ Begin VB.Form frmEditor_Store
          Top             =   1320
          Width           =   375
       End
+      Begin VB.Label Label3 
+         Caption         =   "Quant:"
+         Height          =   255
+         Left            =   1800
+         TabIndex        =   29
+         Top             =   2400
+         Width           =   495
+      End
       Begin VB.Label lblItemName 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -264,6 +289,25 @@ Private Sub chkCustom_Click()
     End If
     
     VirtualShop(Index).Items(SlotNum).CustomDesc = Value
+End Sub
+
+Private Sub chkIsLimited_Click()
+    Dim Index As Long
+    Index = cmbTypeStore.ListIndex + 1
+    Dim Value As Byte
+    Value = chkIsLimited
+    
+    If SlotNum > VirtualShop(Index).Max_Slots Or SlotNum < 1 Then
+        Exit Sub
+    End If
+    
+    If Value = YES Then
+        txtAvailableQuant.Enabled = True
+    Else
+        txtAvailableQuant.Enabled = False
+    End If
+    
+    VirtualShop(Index).Items(SlotNum).IsLimited = Value
 End Sub
 
 Private Sub chkIsNew_Click()
@@ -427,12 +471,33 @@ Private Sub RefreshControls()
     txtItemPrice = VirtualShop(Index).Items(SlotNum).ItemPrice
     chkCustom = VirtualShop(Index).Items(SlotNum).CustomDesc
     chkIsNew = VirtualShop(Index).Items(SlotNum).IsNew
+    chkIsLimited = VirtualShop(Index).Items(SlotNum).IsLimited
+    txtAvailableQuant = VirtualShop(Index).Items(SlotNum).AvailableQuant
     
     If txtItemNum > 0 Then
         lblItemName = "Item Name: " & Trim$(Item(txtItemNum).Name)
     Else
         lblItemName = "Item Name: None."
     End If
+End Sub
+
+Private Sub txtAvailableQuant_Change()
+    Dim Index As Long
+    Index = cmbTypeStore.ListIndex + 1
+    Dim Value As Long
+    
+    If Not IsNumeric(txtAvailableQuant) Then
+        Value = 0
+        txtAvailableQuant = Value
+    Else
+        Value = txtAvailableQuant
+    End If
+
+    If SlotNum > VirtualShop(Index).Max_Slots Or SlotNum < 1 Then
+        Exit Sub
+    End If
+
+    VirtualShop(Index).Items(SlotNum).AvailableQuant = Value
 End Sub
 
 Private Sub txtItemNum_Change()

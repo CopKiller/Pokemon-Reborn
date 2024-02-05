@@ -46,6 +46,8 @@ Private Type VirtualShopRec
     ItemPrice As Long
     CustomDesc As Byte
     IsNew As Byte
+    IsLimited As Byte
+    AvailableQuant As Long
 End Type
 Private Type VirtualShopDataRec
     SelectedWindow As Boolean
@@ -236,15 +238,22 @@ Public Sub DrawVirtualShop()
                             Case ButtonState.StateHover: RenderTexture Tex_Gui(.Pic), XX, YY, 65, 365, 127, 46, 127, 46
                             Case ButtonState.StateClick: RenderTexture Tex_Gui(.Pic), XX, YY, 65, 411, 127, 46, 127, 46
                             End Select
-
+                            
+                            '//Icone do item
                             If Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite > 0 Then
-                                RenderTexture Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite), XX + 8, YY + 6, 0, 0, 32, 32, GetPicWidth(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicHeight(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), ColourOpacity
+                                RenderTexture Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite), XX + 13, YY + 10, 0, 0, GetPicWidth(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicHeight(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicWidth(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicHeight(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), ColourOpacity
                             End If
                             '//Renderiza o nome do item
                             RenderText Ui_Default, Trim$(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Name), XX + 44, YY + 46 / 2 - 17, White, , 255
 
                             '//Renderiza a quantidade do item
                             RenderText Ui_Default, KeepTwoDigit(VirtualShop(VirtualShopIndex).Items(X).ItemQuant), XX + 12, YY + 27, White, , 255
+                            
+                            '//Item com quantidade limitada
+                            If VirtualShop(VirtualShopIndex).Items(X).IsLimited = YES Then
+                                '//Renderiza a quantidade disponível do item
+                                RenderText Ui_Default, "Estoque: " & KeepTwoDigit(VirtualShop(VirtualShopIndex).Items(X).AvailableQuant), XX + 40, YY + 27, Yellow, , 255
+                            End If
 
                             '//Renderiza animação do item "New" se foi configurado.
                             If VirtualShop(VirtualShopIndex).Items(X).IsNew = YES Then

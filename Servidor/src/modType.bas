@@ -58,6 +58,9 @@ Private Type VirtualShopRec
     ItemPrice As Long
     CustomDesc As Byte
     IsNew As Byte
+    
+    IsLimited As Byte
+    AvailableQuant As Long
 End Type
 
 Private Type VirtualShopDataRec

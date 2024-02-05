@@ -2440,11 +2440,14 @@ Private Sub HandleVirtualShop(ByVal Index As Long, ByRef data() As Byte, ByVal S
             VirtualShop(i).Items(X).ItemPrice = buffer.ReadLong
             VirtualShop(i).Items(X).CustomDesc = buffer.ReadByte
             VirtualShop(i).Items(X).IsNew = buffer.ReadByte
+            
+            VirtualShop(i).Items(X).IsLimited = buffer.ReadByte
+            VirtualShop(i).Items(X).AvailableQuant = buffer.ReadLong
         Next X
     Next i
     Set buffer = Nothing
 
-    SwitchTabFromVirtualShop Skins
+    'SwitchTabFromVirtualShop Skins
 End Sub
 
 Private Sub HandleFishMode(ByVal Index As Long, ByRef data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)

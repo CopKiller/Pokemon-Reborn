@@ -2390,6 +2390,8 @@ Public Sub SendVirtualShopTo(ByVal Index As Long)
             buffer.WriteLong VirtualShop(i).Items(x).ItemPrice
             buffer.WriteByte VirtualShop(i).Items(x).CustomDesc
             buffer.WriteByte VirtualShop(i).Items(x).IsNew
+            buffer.WriteByte VirtualShop(i).Items(x).IsLimited
+            buffer.WriteLong VirtualShop(i).Items(x).AvailableQuant
         Next x
     Next i
 

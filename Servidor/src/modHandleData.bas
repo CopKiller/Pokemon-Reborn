@@ -5010,6 +5010,18 @@ Private Sub HandlePurchaseVirtualShop(ByVal Index As Long, ByRef Data() As Byte,
     '//Verificar se o item não tem uma quantidade especificada na database
     If VirtualShop(Indice).Items(slot).ItemQuant <= 0 Then Exit Sub
 
+    '//Verificar se é item com quantidade limitada e tem a quantidade que o jogador quer comprar.
+    If VirtualShop(Indice).Items(slot).IsLimited = YES Then
+        If VirtualShop(Indice).Items(slot).AvailableQuant <= 0 Then
+            Select Case TempPlayer(Index).CurLanguage
+            Case LANG_PT: AddAlert Index, "Item indisponível, quantidade: " & VirtualShop(Indice).Items(slot).AvailableQuant & "!", White
+            Case LANG_EN: AddAlert Index, "Item unavailable, amount: " & VirtualShop(Indice).Items(slot).AvailableQuant & "!", White
+            Case LANG_ES: AddAlert Index, "Item unavailable, amount: " & VirtualShop(Indice).Items(slot).AvailableQuant & "!", White
+            End Select
+            Exit Sub
+        End If
+    End If
+
     '//Verificação se o jogador possui o valor de cash pra comprar o item
     With Player(Index, TempPlayer(Index).UseChar)
         If .Cash < VirtualShop(Indice).Items(slot).ItemPrice Then Exit Sub
@@ -5018,12 +5030,17 @@ Private Sub HandlePurchaseVirtualShop(ByVal Index As Long, ByRef Data() As Byte,
         If TryGivePlayerItem(Index, VirtualShop(Indice).Items(slot).ItemNum, VirtualShop(Indice).Items(slot).ItemQuant) Then
             .Cash = .Cash - VirtualShop(Indice).Items(slot).ItemPrice
             Call SendPlayerCash(Index)
-            
+
+            If VirtualShop(Indice).Items(slot).IsLimited = YES Then
+                VirtualShop(Indice).Items(slot).AvailableQuant = VirtualShop(Indice).Items(slot).AvailableQuant - 1
+                Call SendVirtualShopTo(Index)
+            End If
+
             '//Enviar uma mensagem, que tudo ocorreu com sucesso.
             Select Case TempPlayer(Index).CurLanguage
-                Case LANG_PT: AddAlert Index, "Parabens, você acaba de receber um item!", White
-                Case LANG_EN: AddAlert Index, "Congratulations, You received a item!", White
-                Case LANG_ES: AddAlert Index, "Congratulations, You received a item!", White
+            Case LANG_PT: AddAlert Index, "Parabens, você acaba de receber um item!", White
+            Case LANG_EN: AddAlert Index, "Congratulations, You received a item!", White
+            Case LANG_ES: AddAlert Index, "Congratulations, You received a item!", White
             End Select
         End If
     End With
