@@ -1,12 +1,12 @@
 VERSION 5.00
 Begin VB.Form frmEditor_Store 
    Caption         =   "Edit Store by Peixonalta"
-   ClientHeight    =   4200
+   ClientHeight    =   4500
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   4275
    LinkTopic       =   "Form1"
-   ScaleHeight     =   4200
+   ScaleHeight     =   4500
    ScaleWidth      =   4275
    StartUpPosition =   3  'Windows Default
    Begin VB.CommandButton Command5 
@@ -14,7 +14,7 @@ Begin VB.Form frmEditor_Store
       Height          =   375
       Left            =   1200
       TabIndex        =   24
-      Top             =   3720
+      Top             =   4080
       Width           =   1815
    End
    Begin VB.Frame Frame1 
@@ -70,11 +70,19 @@ Begin VB.Form frmEditor_Store
    End
    Begin VB.Frame Frame2 
       Caption         =   "Container"
-      Height          =   2415
+      Height          =   2775
       Left            =   120
       TabIndex        =   0
       Top             =   1200
       Width           =   3975
+      Begin VB.CheckBox chkIsNew 
+         Caption         =   "Is New?"
+         Height          =   255
+         Left            =   1080
+         TabIndex        =   26
+         Top             =   2400
+         Width           =   1575
+      End
       Begin VB.CheckBox chkCustom 
          Caption         =   "Custom Description"
          Height          =   255
@@ -258,6 +266,19 @@ Private Sub chkCustom_Click()
     VirtualShop(Index).Items(SlotNum).CustomDesc = Value
 End Sub
 
+Private Sub chkIsNew_Click()
+    Dim Index As Long
+    Index = cmbTypeStore.ListIndex + 1
+    Dim Value As Byte
+    Value = chkIsNew
+    
+    If SlotNum > VirtualShop(Index).Max_Slots Or SlotNum < 1 Then
+        Exit Sub
+    End If
+    
+    VirtualShop(Index).Items(SlotNum).IsNew = Value
+End Sub
+
 Private Sub cmbTypeStore_Click()
     SlotNum = 0
     RefreshControls
@@ -405,6 +426,7 @@ Private Sub RefreshControls()
     txtItemQuant = VirtualShop(Index).Items(SlotNum).ItemQuant
     txtItemPrice = VirtualShop(Index).Items(SlotNum).ItemPrice
     chkCustom = VirtualShop(Index).Items(SlotNum).CustomDesc
+    chkIsNew = VirtualShop(Index).Items(SlotNum).IsNew
     
     If txtItemNum > 0 Then
         lblItemName = "Item Name: " & Trim$(Item(txtItemNum).Name)

@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "mswinsck.ocx"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "Mswinsck.ocx"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "Tabctl32.ocx"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmServer 
    BorderStyle     =   1  'Fixed Single
@@ -25,45 +25,38 @@ Begin VB.Form frmServer
       _ExtentY        =   5953
       _Version        =   393216
       Tabs            =   4
-      Tab             =   2
+      Tab             =   3
       TabsPerRow      =   4
       TabHeight       =   520
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
       Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "txtCommand"
-      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "txtLog"
-      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
       TabPicture(1)   =   "frmServer.frx":001C
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "lvwInfo"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Administrativo"
       TabPicture(2)   =   "frmServer.frx":0038
-      Tab(2).ControlEnabled=   -1  'True
-      Tab(2).Control(0)=   "lblGameTime"
-      Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "lblCPS"
-      Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "frmInfo"
-      Tab(2).Control(2).Enabled=   0   'False
-      Tab(2).Control(3)=   "chkStaffOnly"
-      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).ControlEnabled=   0   'False
+      Tab(2).Control(0)=   "chkStaffOnly"
+      Tab(2).Control(1)=   "frmInfo"
+      Tab(2).Control(2)=   "lblCPS"
+      Tab(2).Control(3)=   "lblGameTime"
       Tab(2).ControlCount=   4
       TabCaption(3)   =   "Editores"
       TabPicture(3)   =   "frmServer.frx":0054
-      Tab(3).ControlEnabled=   0   'False
+      Tab(3).ControlEnabled=   -1  'True
       Tab(3).Control(0)=   "cmdEditStore"
       Tab(3).Control(0).Enabled=   0   'False
       Tab(3).ControlCount=   1
       Begin VB.CommandButton cmdEditStore 
          Caption         =   "Edit Store"
          Height          =   375
-         Left            =   -74640
+         Left            =   360
          TabIndex        =   16
          Top             =   840
          Width           =   1335
@@ -71,14 +64,14 @@ Begin VB.Form frmServer
       Begin VB.CheckBox chkStaffOnly 
          Caption         =   "Modo Desenvolvedor"
          Height          =   255
-         Left            =   4560
+         Left            =   -70440
          TabIndex        =   10
          Top             =   480
          Width           =   2175
       End
       Begin VB.Frame frmInfo 
          Height          =   2535
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   4
          Top             =   720
          Width           =   6615
@@ -267,7 +260,7 @@ Begin VB.Form frmServer
          Caption         =   "CPS: 0"
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   18
          Top             =   480
          Width           =   2415
@@ -276,7 +269,7 @@ Begin VB.Form frmServer
          AutoSize        =   -1  'True
          Caption         =   "Time:"
          Height          =   195
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   3
          Top             =   480
          Width           =   390

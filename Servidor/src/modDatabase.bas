@@ -1695,6 +1695,7 @@ Public Sub SaveVirtualShop()
             PutVar filename, "Slot" & x, "ItemQuant", CStr(VirtualShop(i).Items(x).ItemQuant)
             PutVar filename, "Slot" & x, "ItemPrice", CStr(VirtualShop(i).Items(x).ItemPrice)
             PutVar filename, "Slot" & x, "CustomDesc", CStr(VirtualShop(i).Items(x).CustomDesc)
+            PutVar filename, "Slot" & x, "IsNew", CStr(VirtualShop(i).Items(x).IsNew)
         Next x
     Next
 
@@ -1726,6 +1727,7 @@ Dim x As Long
                 VirtualShop(i).Items(x).ItemQuant = Val(Trim$(GetVar(filename, "Slot" & x, "ItemQuant")))
                 VirtualShop(i).Items(x).ItemPrice = Val(Trim$(GetVar(filename, "Slot" & x, "ItemPrice")))
                 VirtualShop(i).Items(x).CustomDesc = Val(Trim$(GetVar(filename, "Slot" & x, "CustomDesc")))
+                VirtualShop(i).Items(x).IsNew = Val(Trim$(GetVar(filename, "Slot" & x, "IsNew")))
             Next x
         End If
     Next i

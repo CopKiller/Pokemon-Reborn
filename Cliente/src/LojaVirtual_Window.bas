@@ -19,6 +19,11 @@ Public VirtualShopScrollUp As Boolean
 Public VirtualShopScrollDown As Boolean
 Public VirtualShopScrollTimer As Long
 
+' New animation in item on virtual shop.
+Private VirtualShopNewOpacity As Byte
+Private VirtualShopNewTimer As Long
+Private VirtualShopNewStep As Byte
+
 '//Window
 Public VirtalShopSlot_State() As ButtonState
 
@@ -40,6 +45,7 @@ Private Type VirtualShopRec
     ItemQuant As Long
     ItemPrice As Long
     CustomDesc As Byte
+    IsNew As Byte
 End Type
 Private Type VirtualShopDataRec
     SelectedWindow As Boolean
@@ -239,6 +245,29 @@ Public Sub DrawVirtualShop()
 
                             '//Renderiza a quantidade do item
                             RenderText Ui_Default, KeepTwoDigit(VirtualShop(VirtualShopIndex).Items(X).ItemQuant), XX + 12, YY + 27, White, , 255
+
+                            '//Renderiza animação do item "New" se foi configurado.
+                            If VirtualShop(VirtualShopIndex).Items(X).IsNew = YES Then
+                                If VirtualShopNewTimer <= GetTickCount + 50 Then
+                                    If VirtualShopNewStep = 0 Then    ' remove opacidade
+                                        If VirtualShopNewOpacity <= 10 Then
+                                            VirtualShopNewStep = 1
+                                        Else
+                                            VirtualShopNewOpacity = VirtualShopNewOpacity - 10
+                                        End If
+                                    ElseIf VirtualShopNewStep = 1 Then    ' adiciona opacidade
+                                        If VirtualShopNewOpacity >= 250 Then
+                                            VirtualShopNewStep = 0
+                                        Else
+                                            VirtualShopNewOpacity = VirtualShopNewOpacity + 2
+                                        End If
+                                    End If
+
+                                    VirtualShopNewTimer = GetTickCount
+                                End If
+
+                                RenderTexture Tex_Misc(Misc_New), XX + 95, YY - 5, 0, 0, 32, 32, GetPicWidth(Tex_Misc(Misc_New)), GetPicHeight(Tex_Misc(Misc_New)), D3DColorARGB(VirtualShopNewOpacity, 255, 255, 255)
+                            End If
                         End If
                     End If
                 End If
