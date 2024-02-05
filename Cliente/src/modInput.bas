@@ -726,7 +726,7 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As
                 End If
 
                 ' Botão Créditos
-                If CursorX >= Column * 2 + (Column \ 2) - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 And CursorX <= (Column * 2) + Column / 2 - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 + GetTextWidth(Font_Default, TextUIFooterCredits) And CursorY >= textY And CursorY <= textY + 40 Then
+                If CursorX >= Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 And CursorX <= (Column * 2) + Column / 2 - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 + GetTextWidth(Font_Default, TextUIFooterCredits) And CursorY >= textY And CursorY <= textY + 40 Then
                     If CreditVisible Then
                         CreditState = 1
                     Else
@@ -2022,8 +2022,8 @@ Private Sub InputBoxKeyPress(KeyAscii As Integer)
         Case IB_WITHDRAW
             If IsNumeric(KeyAscii) Then
                 InputBoxText = InputText(InputBoxText, KeyAscii)
-                If Val(InputBoxText) > PlayerInvStorage(InvCurSlot).Data(InputBoxData1).value Then
-                    InputBoxText = PlayerInvStorage(InvCurSlot).Data(InputBoxData1).value
+                If Val(InputBoxText) > PlayerInvStorage(InvCurSlot).data(InputBoxData1).value Then
+                    InputBoxText = PlayerInvStorage(InvCurSlot).data(InputBoxData1).value
                 End If
             End If
         Case IB_DEPOSIT
@@ -3301,7 +3301,7 @@ Dim i As Long
             MouseIcon = 1 '//Select
             If Not TradeItemDesc = i Then
                 TradeItemDesc = i
-                TradeItemDescType = YourTrade.Data(TradeItemDesc).TradeType
+                TradeItemDescType = YourTrade.data(TradeItemDesc).TradeType
                 TradeItemDescTimer = GetTickCount + 400
                 TradeItemDescShow = False
                 TradeItemDescOwner = 2
@@ -3313,7 +3313,7 @@ Dim i As Long
             MouseIcon = 1 '//Select
             If Not TradeItemDesc = i Then
                 TradeItemDesc = i
-                TradeItemDescType = TheirTrade.Data(TradeItemDesc).TradeType
+                TradeItemDescType = TheirTrade.data(TradeItemDesc).TradeType
                 TradeItemDescTimer = GetTickCount + 400
                 TradeItemDescShow = False
                 TradeItemDescOwner = 1

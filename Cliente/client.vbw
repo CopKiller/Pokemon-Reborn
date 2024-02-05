@@ -1,5 +1,5 @@
 frmMain = 150, 150, 869, 757, C, 125, 125, 828, 732, C
-modMain = 233, 67, 936, 674, Z
+modMain = 233, 67, 936, 674, 
 modDirectX8 = 3, 1, 1389, 782, C
 modGlobal = 113, 11, 757, 799, C
 modConstant = 179, 51, 882, 658, C
