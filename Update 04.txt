@@ -1,17 +1,22 @@
-Criar um novo repositório no git, com a versão do pokereborn, e ignorar pastas de mapas, etc...
+Ok-Criar um novo repositório no git, com a versão do pokereborn, e ignorar pastas de mapas, etc...
 
--Adicionar alterações na loja virtual.
-	-Release Option(Mostra uma animação de "New" no item da loja).
-	-Contador de um item ou montaria adicionado na loja, para ir removendo a quantidade disponível.
+OK-Adicionar alterações na loja virtual.
+	Ok-Release Option(Mostra uma animação de "New" no item da loja).
+	Ok-Contador de um item ou montaria adicionado na loja, para ir removendo a quantidade disponível.
 
 -Adicionar sistema de Vip.
-	-Vip Silver & Vip Gold.
-	-Vip Silver tem uma medalha de prata em pixel renderizando ao lado do nome do personagem.
-	-Vip Gold tem uma medalha de ouro em pixel renderizando ao lado do nome do personagem.
-	-Vip por tempo, mostrando o tempo no treiner card.
-	-Vip por item, usa o item e vira vip.
-	-Vip beneficios: Vip Silver 20% exp, pokemoedas 20%, drop 20%.
-	-Vip beneficios: Vip Gold 30% exp, pokemoedas 30%, drop 30%, 10% desconto em item da loja ingame do jogo, -50% de perda de dinheiro ao morrer para pokemon selvagem.
+	Ok-Vip Silver & Vip Gold.
+	Ok-Vip Silver tem uma medalha de prata em pixel renderizando ao lado do nome do personagem.
+	Ok-Vip Gold tem uma medalha de ouro em pixel renderizando ao lado do nome do personagem.
+	Ok-Vip por tempo, mostrando o tempo no treiner card.
+	Ok-Vip por item, usa o item e vira vip.
+	-Vip beneficios: Vip Silver 10% exp, pokemoedas 10%, drop 10%.
+	-Vip beneficios: Vip Gold 20% exp, pokemoedas 20%, drop 20%, 10% desconto em item da loja ingame do jogo, -50% de perda 	de dinheiro ao morrer para pokemon selvagem.
+	-Vip exp mostra os bonus totais que estão ativos no jogador na tela.
+
+-Editor de pokemons
+	-Adicionar foto da evolução do poke.
+	-Consertar as box de pesquisa por nome, do moveset e item moveset no editor de pokemon
 
 -Adicionar skins de personagens.
 	-Skins todas serão unissex.

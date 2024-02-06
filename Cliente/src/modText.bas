@@ -93,7 +93,7 @@ Dim SizeX As Long, SizeY As Long
 
     '//Font Default
     '//Check name of font
-    FilePath = App.Path & Texture_Path & Trim$(GameSetting.ThemePath) & Font_Path
+    FilePath = App.path & Texture_Path & Trim$(GameSetting.ThemePath) & Font_Path
     FontName = "texdefault"
     SizeX = 256
     SizeY = 256
@@ -105,7 +105,7 @@ Dim SizeX As Long, SizeY As Long
     
     '//Ui Font
     '//Check name of font
-    FilePath = App.Path & Texture_Path & Trim$(GameSetting.ThemePath) & Font_Path
+    FilePath = App.path & Texture_Path & Trim$(GameSetting.ThemePath) & Font_Path
     FontName = "rockwell_15"
     SizeX = 256
     SizeY = 256
@@ -228,6 +228,10 @@ Public Function dx8Colour(ByVal colourNum As Long, Optional ByVal Alpha As Byte 
             dx8Colour = D3DColorARGB(Alpha, 98, 84, 52)
         Case 17 ' Dark
             dx8Colour = D3DColorARGB(Alpha, 75, 75, 75)
+        Case 18    ' gold
+        dx8Colour = D3DColorARGB(Alpha, 255, 215, 0)
+        Case 19    ' light green
+        dx8Colour = D3DColorARGB(Alpha, 124, 205, 80)
     End Select
 End Function
 
@@ -548,11 +552,11 @@ Dim DrawX As Long
     End If
 End Sub
 
-Public Sub DrawPlayerName(ByVal Index As Long)
+Public Sub DrawPlayerName(ByVal index As Long)
     Dim textX As Long, textY As Long
     Dim Color As Long, Name As String
 
-    With Player(Index)
+    With Player(index)
         '//Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -608,12 +612,17 @@ Public Sub DrawPlayerName(ByVal Index As Long)
 
         '//Draw name
         If .StealthMode = YES Then
-            If Index = MyIndex Then
+            If index = MyIndex Then
                 RenderTexture Tex_System(gSystemEnum.UserInterface), textX - 2, textY, 0, 8, GetTextWidth(Font_Default, Name) + 8, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
                 RenderText Font_Default, Name, textX, textY, Color
                 '//Status
                 If .Status > 0 Then
                     RenderTexture Tex_Misc(Misc_Status), (textX - 2) + (((GetTextWidth(Font_Default, Name) + 8) / 2) - 10), textY + 18 + 2, 0, (.Status - 1) * 8, 20, 8, 20, 8
+                End If
+
+                '//Vip
+                If GetPlayerVipStatus(index) > EnumVipType.None Then
+                    RenderTexture Tex_Misc(Misc_Vip), (textX - 2) + (((GetTextWidth(Font_Default, Name) + 8) / 2) - 10), textY + 10 + 2, (GetPlayerVipStatus(index) - 1) * 10, 0, 21, 16, 21, 16
                 End If
             End If
         Else
@@ -622,6 +631,12 @@ Public Sub DrawPlayerName(ByVal Index As Long)
             '//Status
             If .Status > 0 Then
                 RenderTexture Tex_Misc(Misc_Status), (textX - 2) + (((GetTextWidth(Font_Default, Name) + 8) / 2) - 10), textY + 18 + 2, 0, (.Status - 1) * 8, 20, 8, 20, 8
+            End If
+
+            '//Vip
+            If GetPlayerVipStatus(index) > EnumVipType.None Then
+                RenderTexture Tex_System(gSystemEnum.UserInterface), textX - 21, textY, 0, 8, 10 + 8, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
+                RenderTexture Tex_Misc(Misc_Vip), (textX - 17), textY + 1, (GetPlayerVipStatus(index) - 1) * 10, 0, 10, 16, 10, 16
             End If
         End If
     End With
@@ -702,11 +717,11 @@ Private Function ConvertInverse(ByVal value As Integer) As Integer
     End If
 End Function
 
-Public Sub DrawPlayerPokemonName(ByVal Index As Long)
+Public Sub DrawPlayerPokemonName(ByVal index As Long)
 Dim textX As Long, textY As Long
 Dim Color As Long, Name As String
     
-    With PlayerPokemon(Index)
+    With PlayerPokemon(index)
         If .Num <= 0 Then Exit Sub
         
         '//Check if Player is within screen area
@@ -729,7 +744,7 @@ Dim Color As Long, Name As String
         End If
         
         '//Draw name
-        If Player(Index).StealthMode = NO Then
+        If Player(index).StealthMode = NO Then
             RenderTexture Tex_System(gSystemEnum.UserInterface), textX - 2, textY, 0, 8, GetTextWidth(Font_Default, Name) + 8, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
             RenderText Font_Default, Name, textX, textY, Color
             '//Status
@@ -1152,14 +1167,14 @@ Dim tx As Long, ty As Long
     End If
 End Function
 
-Public Sub DrawChatBubble(ByVal Index As Long)
+Public Sub DrawChatBubble(ByVal index As Long)
 Dim theArray() As String
 Dim X As Long, y As Long
 Dim x2 As Long, Y2 As Long
 Dim MaxWidth As Long
 Dim i As Long
     
-    With chatBubble(Index)
+    With chatBubble(index)
         '//Set Default
         X = ConvertMapX(.X * TILE_X) + 16
         y = ConvertMapY(.y * TILE_Y) - 28

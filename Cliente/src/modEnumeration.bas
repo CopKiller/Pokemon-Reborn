@@ -409,6 +409,7 @@ Public Enum ItemTypeEnum
     PowerBracer
     Items
     MysteryBox
+    Vip
 End Enum
 
 '//Ball Type

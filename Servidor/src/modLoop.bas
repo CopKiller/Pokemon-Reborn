@@ -52,6 +52,8 @@ Dim LastUpdateSavePlayers As Long
             Call PlayerPlayTime
             '//Loop Game Time Base
             Call GameTimeLoop
+            '//Check players vip loop
+            Call CheckVipLoop
             
             Tmr1000 = GetTickCount + 1000
         End If

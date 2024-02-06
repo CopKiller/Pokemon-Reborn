@@ -167,7 +167,7 @@ Public Const ACTION_SLIDE As Byte = 1
 ' ** Server Side Only **
 ' **********************
 '//Server Data
-Public Const GAME_NAME As String = "PokeNew"
+Public Const GAME_NAME As String = "PokeReborn"
 Public Const GAME_PORT As Long = 8007
 
 Public Const DC_TIMER As Long = 30000 ' 30 seconds waiting before disconnection

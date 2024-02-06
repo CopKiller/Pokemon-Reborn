@@ -380,6 +380,9 @@ Public Type PlayerRec
     '//Fish System
     FishMode As Byte
     FishRod As Byte
+    
+    '//Vip System
+    Vip As PlayerVipRec
 End Type
 
 ' *****************

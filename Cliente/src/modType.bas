@@ -54,7 +54,7 @@ Private Type MapPokemonRec
     '//Location
     Map As Long
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
     
     '//Vital
@@ -92,7 +92,7 @@ Private Type MapNpcPokemonRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
     
     '//Vital
@@ -139,7 +139,7 @@ Private Type MapNpcRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
     
     '//Client Only
@@ -155,7 +155,7 @@ Public Type PlayerPokemonRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
     
     '//For own index
@@ -231,7 +231,7 @@ Public Type PlayerRec
     '//Location
     Map As Long
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
 
     '//Vital
@@ -283,6 +283,9 @@ Public Type PlayerRec
     FishMode As Byte
     FishRod As Byte
     
+    '//Vip
+    Vip As PlayerVipRec
+    
     '//Client Only
     Moving As Byte
     xOffset As Long
@@ -323,7 +326,7 @@ End Type
 
 Private Type PlayerInvStorageSlotRec
     Unlocked As Byte
-    Data(1 To MAX_STORAGE) As PlayerInvStorageDataRec
+    data(1 To MAX_STORAGE) As PlayerInvStorageDataRec
 End Type
 
 Public Type PlayerPokemonsRec
@@ -370,7 +373,7 @@ End Type
 
 Private Type PlayerPokemonStorageSlotRec
     Unlocked As Byte
-    Data(1 To MAX_STORAGE) As PlayerPokemonsRec
+    data(1 To MAX_STORAGE) As PlayerPokemonsRec
 End Type
 
 Private Type PlayerPokedexRec
@@ -440,7 +443,7 @@ Public Type TilePosRec
     Used As Boolean
     ' Position of tile
     X As Integer
-    Y As Integer
+    y As Integer
 End Type
 
 Private Type NpcRec
@@ -726,7 +729,7 @@ Public Type TradeDataRec
 End Type
 
 Public Type TradeRec
-    Data(1 To MAX_TRADE) As TradeDataRec
+    data(1 To MAX_TRADE) As TradeDataRec
     TradeMoney As Long
     TradeSet As Byte
 End Type
@@ -735,7 +738,7 @@ Private Type CatchBallRec
     InUsed As Boolean
     Pic As Byte
     X As Long
-    Y As Long
+    y As Long
     State As Byte
     Frame As Byte
     FrameState As Byte
@@ -746,7 +749,7 @@ Private Type WeatherDropRec
     Pic As Long
     PicType As Byte
     X As Long
-    Y As Long
+    y As Long
     SpeedY As Long
 End Type
 
@@ -760,7 +763,7 @@ End Type
 
 Private Type CreditRec
     Text As String
-    Y As Long
+    y As Long
     StartY As Long
 End Type
 
@@ -776,7 +779,7 @@ Private Type ButtonRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     
     '//Size
     Height As Long
@@ -793,7 +796,7 @@ Private Type GuiRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     OrigX As Long
     OrigY As Long
     
@@ -879,7 +882,7 @@ Public Type ChatBubbleRec
     target As Long
     targetType As Byte
     X As Long
-    Y As Long
+    y As Long
     
     '//Client data only
     timer As Long
@@ -893,7 +896,7 @@ Private Type SelMenuRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     
     '//Text
     MaxText As Byte
@@ -911,7 +914,7 @@ Private Type ActionMsgRec
     Color As Long
     Scroll As Long
     X As Long
-    Y As Long
+    y As Long
     timer As Long
     Alpha As Long
 End Type
@@ -920,7 +923,7 @@ End Type
 Private Type AnimInstanceRec
     Animation As Long
     X As Long
-    Y As Long
+    y As Long
     '//timing
     timer(0 To 1) As Long
     '//rendering check

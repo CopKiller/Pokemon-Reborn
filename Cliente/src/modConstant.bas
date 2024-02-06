@@ -60,6 +60,8 @@ Public Const Yellow As Byte = 14
 Public Const White As Byte = 15
 Public Const DarkBrown As Byte = 16
 Public Const Dark As Byte = 17
+Public Const Gold As Byte = 18
+Public Const LightGreen As Byte = 19
 
 '//Use to declare as True or False for numerical variable
 Public Const NO As Byte = 0
