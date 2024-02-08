@@ -346,6 +346,11 @@ Public Sub FormKeyUp(KeyCode As Integer, Shift As Integer)
                         Button(ButtonEnum.Game_VirtualShop).State = 0
                     End If
                     CanOpenMenu = False
+                Case GuiEnum.GUI_VIPADVANTAGE
+                    If GUI(GuiEnum.GUI_VIPADVANTAGE).Visible = True Then
+                        GuiState GUI_VIPADVANTAGE, False
+                    End If
+                    CanOpenMenu = False
                 End Select
             End If
 
@@ -684,6 +689,12 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As
                                     Case GuiEnum.GUI_VIRTUALSHOP
                                         If Not DidClick Then
                                             VirtualShopMouseDown Buttons, Shift, X, y
+                                            DidClick = True
+                                            Exit For
+                                        End If
+                                    Case GuiEnum.GUI_VIPADVANTAGE
+                                        If Not DidClick Then
+                                            VipAdvantageMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
@@ -1026,6 +1037,7 @@ Dim PreventAction As Boolean
                             Case GuiEnum.GUI_BADGE:             BadgeMouseMove Buttons, Shift, X, y
                             Case GuiEnum.GUI_RANK:              RankMouseMove Buttons, Shift, X, y
                             Case GuiEnum.GUI_VIRTUALSHOP:       VirtualShopMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_VIPADVANTAGE:      VipAdvantageMouseMove Buttons, Shift, X, y
                         End Select
                     End If
                 End If
@@ -1168,6 +1180,7 @@ Dim x2 As Long, Y2 As Long
                                 Case GuiEnum.GUI_BADGE:             BadgeMouseUp Buttons, Shift, X, y
                                 Case GuiEnum.GUI_RANK:              RankMouseUp Buttons, Shift, X, y
                                 Case GuiEnum.GUI_VIRTUALSHOP:       VirtualShopMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_VIPADVANTAGE:      VipAdvantageMouseUp Buttons, Shift, X, y
                             End Select
                         End If
                     End If
@@ -2308,20 +2321,87 @@ Dim MoveSlot As Byte
 End Sub
 
 ' ***************
+' ** VIP ADVAN **
+' ***************
+Private Sub VipAdvantageMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
+    Dim i As Long
+
+    With GUI(GuiEnum.GUI_VIPADVANTAGE)
+        '//Make sure it's visible
+        If Not .Visible Then Exit Sub
+
+        '//Set to top most
+        UpdateGuiOrder GUI_VIPADVANTAGE
+
+        '//Check for dragging
+        .OldMouseX = CursorX - .X
+        .OldMouseY = CursorY - .y
+        If .OldMouseY >= 0 And .OldMouseY <= 31 Then
+            .InDrag = True
+        End If
+    End With
+End Sub
+
+Private Sub VipAdvantageMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
+    Dim tmpX As Long, tmpY As Long
+    Dim i As Long
+
+    With GUI(GuiEnum.GUI_VIPADVANTAGE)
+        '//Make sure it's visible
+        If Not .Visible Then Exit Sub
+
+        If GuiVisibleCount <= 0 Then Exit Sub
+        If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_VIPADVANTAGE Then Exit Sub
+
+        IsHovering = False
+
+        '//Check for dragging
+        If .InDrag Then
+            tmpX = CursorX - .OldMouseX
+            tmpY = CursorY - .OldMouseY
+
+            '//Check if outbound
+            If tmpX <= 0 Then tmpX = 0
+            If tmpX >= Screen_Width - .Width Then tmpX = Screen_Width - .Width
+            If tmpY <= 0 Then tmpY = 0
+            If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
+
+            .X = tmpX
+            .y = tmpY
+        End If
+    End With
+End Sub
+
+Private Sub VipAdvantageMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
+Dim i As Long
+
+    With GUI(GuiEnum.GUI_VIPADVANTAGE)
+        '//Make sure it's visible
+        If Not .Visible Then Exit Sub
+        
+        If GuiVisibleCount <= 0 Then Exit Sub
+        If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_VIPADVANTAGE Then Exit Sub
+        
+        '//Check for dragging
+        .InDrag = False
+    End With
+End Sub
+
+' ***************
 ' ** Trainer **
 ' ***************
 Private Sub TrainerMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
-Dim i As Long
+    Dim i As Long
 
     With GUI(GuiEnum.GUI_TRAINER)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         '//Set to top most
         UpdateGuiOrder GUI_TRAINER
-        
+
         '//Loop through all items
-        For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_Badge
+        For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_VipAdvantage
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
@@ -2341,43 +2421,43 @@ Dim i As Long
 End Sub
 
 Private Sub TrainerMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
-Dim tmpX As Long, tmpY As Long
-Dim i As Long
+    Dim tmpX As Long, tmpY As Long
+    Dim i As Long
 
     With GUI(GuiEnum.GUI_TRAINER)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         If GuiVisibleCount <= 0 Then Exit Sub
         If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_TRAINER Then Exit Sub
-        
+
         IsHovering = False
-        
+
         '//Loop through all items
-        For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_Badge
+        For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_VipAdvantage
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
-        
+
                         IsHovering = True
-                        MouseIcon = 1 '//Select
+                        MouseIcon = 1    '//Select
                     End If
                 End If
             End If
         Next
-        
+
         '//Check for dragging
         If .InDrag Then
             tmpX = CursorX - .OldMouseX
             tmpY = CursorY - .OldMouseY
-            
+
             '//Check if outbound
             If tmpX <= 0 Then tmpX = 0
             If tmpX >= Screen_Width - .Width Then tmpX = Screen_Width - .Width
             If tmpY <= 0 Then tmpY = 0
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
-            
+
             .X = tmpX
             .y = tmpY
         End If
@@ -2395,7 +2475,7 @@ Dim i As Long
         If Not GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_TRAINER Then Exit Sub
         
         '//Loop through all items
-        For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_Badge
+        For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_VipAdvantage
             If CanShowButton(i) Then
                 If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
@@ -2408,6 +2488,12 @@ Dim i As Long
                             Case ButtonEnum.Trainer_Badge
                                 If GUI(GuiEnum.GUI_BADGE).Visible = False Then
                                     GuiState GUI_BADGE, True
+                                End If
+                            Case ButtonEnum.Trainer_VipAdvantage
+                                If GUI(GuiEnum.GUI_VIPADVANTAGE).Visible = False Then
+                                    GuiState GUI_VIPADVANTAGE, True
+                                Else
+                                    GuiState GUI_VIPADVANTAGE, False
                                 End If
                         End Select
                     End If

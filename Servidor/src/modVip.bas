@@ -11,8 +11,22 @@ Public Enum EnumVipType
     None = 0
     VipSilver
     VipGold
+    
+    VipCount
 End Enum
 
+'//Vip Settings
+Public VipSettings(0 To 2) As VipSettingsRec
+
+Private Type VipSettingsRec
+    VipExp As Integer
+    VipCoin As Integer
+    VipDrop As Integer
+    VipShopPrice As Integer
+    VipDeathPenalty As Integer
+End Type
+
+'//Check vip Loop
 Private CheckVipTimer As Long
 Private Const CheckcVipInterval As Long = 3600000 ' A cada 1 hora verifica o vip de todos os jogadores
 
@@ -121,6 +135,7 @@ Public Function AddVip(ByVal index As Long, ByVal vipType As EnumVipType, ByVal 
             Call SetPlayerVipStatus(index, vipType)
             Call SetPlayerVipDate(index, Date)
             Call SetPlayerVipDays(index, daysValue)
+            Call SendVipAdvantageTo(index)
             Call SendPlayerData(index)
             AddVip = True
             Call SendGlobalMsg("Player " & GetPlayerName(index) & " became VIP!", Green)
@@ -129,3 +144,102 @@ Public Function AddVip(ByVal index As Long, ByVal vipType As EnumVipType, ByVal 
 
     Exit Function
 End Function
+
+'//Vip Settings do editor do servidor.
+Public Sub LoadVipSettings()
+    Dim filename As String, i As Long
+
+    filename = App.Path & "\data\vipsettings.ini"
+
+    If Not FileExist(filename) Then
+
+        For i = 0 To EnumVipType.VipCount - 1
+            With VipSettings(i)
+                .VipExp = (i * 10)
+                .VipCoin = (i * 10)
+                .VipDrop = (i * 10)
+                .VipShopPrice = 100
+                .VipDeathPenalty = 100
+            End With
+        Next i
+
+        SaveVipSettings
+        Exit Sub
+    End If
+
+    For i = 0 To EnumVipType.VipCount - 1
+        With VipSettings(i)
+            .VipExp = CInt(GetVar(filename, CStr(i), "VipExp"))
+            .VipCoin = CInt(GetVar(filename, CStr(i), "VipCoin"))
+            .VipDrop = CInt(GetVar(filename, CStr(i), "VipDrop"))
+            .VipShopPrice = CInt(GetVar(filename, CStr(i), "VipShopPrice"))
+            .VipDeathPenalty = CInt(GetVar(filename, CStr(i), "VipDeathPenalty"))
+        End With
+    Next i
+End Sub
+
+Public Sub SaveVipSettings()
+    Dim filename As String, i As Long
+    filename = App.Path & "\data\vipsettings.ini"
+    
+    If FileExist(filename) Then
+        For i = 0 To EnumVipType.VipCount - 1
+            PutVar filename, CStr(i), "VipExp", CStr(VipSettings(i).VipExp)
+            PutVar filename, CStr(i), "VipCoin", CStr(VipSettings(i).VipCoin)
+            PutVar filename, CStr(i), "VipDrop", CStr(VipSettings(i).VipDrop)
+            PutVar filename, CStr(i), "VipShopPrice", CStr(VipSettings(i).VipShopPrice)
+            PutVar filename, CStr(i), "VipDeathPenalty", CStr(VipSettings(i).VipDeathPenalty)
+        Next i
+    End If
+End Sub
+
+
+Sub SendVipAdvantageTo(ByVal index As Long)
+    Dim buffer As clsBuffer
+    Dim i As Long
+
+    If Not IsPlaying(index) Then Exit Sub
+    If TempPlayer(index).UseChar <= 0 Then Exit Sub
+
+    If GetPlayerVipStatus(index) > EnumVipType.None Then
+    
+        Set buffer = New clsBuffer
+        buffer.WriteLong SVipAdvantage
+        
+        buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipExp
+        buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipCoin
+        buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipDrop
+        buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(index)).VipShopPrice
+        buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(index)).VipDeathPenalty
+        
+        SendDataTo index, buffer.ToArray()
+
+        buffer.Flush: Set buffer = Nothing
+    End If
+End Sub
+
+Sub SendVipAdvantageToAll()
+    Dim buffer As clsBuffer
+    Dim index As Long
+
+    For index = 1 To Player_HighIndex
+        If IsPlaying(index) And TempPlayer(index).UseChar > 0 Then
+
+            If GetPlayerVipStatus(index) > EnumVipType.None Then
+
+                Set buffer = New clsBuffer
+                buffer.WriteLong SVipAdvantage
+
+                buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipExp
+                buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipCoin
+                buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipDrop
+                buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(index)).VipShopPrice
+                buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(index)).VipDeathPenalty
+
+                SendDataTo index, buffer.ToArray()
+
+                buffer.Flush: Set buffer = Nothing
+            End If
+        End If
+    Next index
+End Sub

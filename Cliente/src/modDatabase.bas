@@ -63,7 +63,7 @@ Dim FileName As String
     On Error GoTo errorHandler
 
     '//Find our file
-    FileName = App.Path & "\data\config\setting.ini"
+    FileName = App.path & "\data\config\setting.ini"
   
     '//Check if our file exist
     If Not FileExist(FileName) Then
@@ -121,7 +121,7 @@ Public Sub SaveSetting()
 Dim FileName As String
 
     '//Find our file
-    FileName = App.Path & "\data\config\setting.ini"
+    FileName = App.path & "\data\config\setting.ini"
     
     '//Make sure that file doesn't duplicate
     If FileExist(FileName) Then DeleteFile FileName
@@ -269,6 +269,10 @@ Public Sub ResetGui()
         .OrigX = (Screen_Width / 2) - (.Width / 2)
         .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
+    With GUI(GuiEnum.GUI_VIPADVANTAGE)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
+    End With
     With Button(ButtonEnum.Game_Pokedex)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 6)
         .y = Screen_Height - .Height - 10
@@ -348,8 +352,9 @@ Dim FileName As String
             Case GuiEnum.GUI_BADGE: FileTitle = "badge"
             Case GuiEnum.GUI_RANK: FileTitle = "rank"
             Case GuiEnum.GUI_VIRTUALSHOP: FileTitle = "virtualShop-window"
+            Case GuiEnum.GUI_VIPADVANTAGE: FileTitle = "vipadvantage-window"
         End Select
-        FileName = App.Path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\" & FileTitle & ".ini"
+        FileName = App.path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\" & FileTitle & ".ini"
         If FileExist(FileName) Then
             With GUI(i)
                 .Pic = Val(GetVar(FileName, "GENERAL", "Pic"))
@@ -363,7 +368,7 @@ Dim FileName As String
         End If
     Next
     
-    FileName = App.Path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\buttons-setup.ini"
+    FileName = App.path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\buttons-setup.ini"
     If FileExist(FileName) Then
         For i = 1 To ButtonEnum.Button_Count - 1
             Select Case i
@@ -415,6 +420,7 @@ Dim FileName As String
                 Case ButtonEnum.MoveReplace_Cancel: FileTitle = "MoveReplace_Cancel"
                 Case ButtonEnum.Trainer_Close: FileTitle = "Trainer_Close"
                 Case ButtonEnum.Trainer_Badge: FileTitle = "Trainer_Badge"
+                Case ButtonEnum.Trainer_VipAdvantage: FileTitle = "Trainer_VipAdvantage"
                 Case ButtonEnum.InvStorage_Close: FileTitle = "InvStorage_Close"
                 Case ButtonEnum.InvStorage_Slot1: FileTitle = "InvStorage_Slot1"
                 Case ButtonEnum.InvStorage_Slot2: FileTitle = "InvStorage_Slot2"
@@ -484,7 +490,7 @@ Dim GotRev As Long
 
     On Error GoTo errorHandler
 
-    FileName = App.Path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
+    FileName = App.path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
     f = FreeFile
     
     If Not FileExist(FileName) Then
@@ -520,7 +526,7 @@ Dim f As Long
 Dim X As Long, y As Long
 Dim i As Long, a As Byte
 
-    FileName = App.Path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
+    FileName = App.path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
     f = FreeFile
     
     If Not FileExist(FileName) Then
@@ -603,7 +609,7 @@ Dim f As Long
 Dim X As Long, y As Long
 Dim i As Long, a As Long
 
-    FileName = App.Path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
+    FileName = App.path & "\data\cache\maps\map_cache_" & MapNum & ".dat"
     f = FreeFile
     
     If FileExist(FileName) Then DeleteFile FileName
@@ -825,7 +831,7 @@ Dim i As Long
 
     On Error GoTo errorHandler
 
-    FileName = App.Path & "\data\config\controlkey.ini"
+    FileName = App.path & "\data\config\controlkey.ini"
     
     If Not FileExist(FileName) Then
         Call ClearControlKey
@@ -850,7 +856,7 @@ Public Sub SaveControlKey()
 Dim FileName As String
 Dim i As Long
 
-    FileName = App.Path & "\data\config\controlkey.ini"
+    FileName = App.path & "\data\config\controlkey.ini"
     
     If FileExist(FileName) Then
         DeleteFile FileName

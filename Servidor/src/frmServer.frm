@@ -38,21 +38,36 @@ Begin VB.Form frmServer
       TabPicture(1)   =   "frmServer.frx":001C
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "lvwInfo"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Administrativo"
       TabPicture(2)   =   "frmServer.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "chkStaffOnly"
-      Tab(2).Control(1)=   "frmInfo"
-      Tab(2).Control(2)=   "lblCPS"
-      Tab(2).Control(3)=   "lblGameTime"
+      Tab(2).Control(0)=   "lblGameTime"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "lblCPS"
+      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(2)=   "frmInfo"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "chkStaffOnly"
+      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).ControlCount=   4
       TabCaption(3)   =   "Editores"
       TabPicture(3)   =   "frmServer.frx":0054
       Tab(3).ControlEnabled=   -1  'True
       Tab(3).Control(0)=   "cmdEditStore"
       Tab(3).Control(0).Enabled=   0   'False
-      Tab(3).ControlCount=   1
+      Tab(3).Control(1)=   "cmdVipSettings"
+      Tab(3).Control(1).Enabled=   0   'False
+      Tab(3).ControlCount=   2
+      Begin VB.CommandButton cmdVipSettings 
+         Caption         =   "Edit Vip Settings"
+         Height          =   375
+         Left            =   360
+         TabIndex        =   20
+         Top             =   1440
+         Width           =   1335
+      End
       Begin VB.CommandButton cmdEditStore 
          Caption         =   "Edit Store"
          Height          =   375
@@ -207,7 +222,7 @@ Begin VB.Form frmServer
          Height          =   2655
          Left            =   -74880
          TabIndex        =   15
-         Top             =   780
+         Top             =   480
          Width           =   6495
          _ExtentX        =   11456
          _ExtentY        =   4683
@@ -476,6 +491,11 @@ End Sub
 
 Private Sub frmUser_DragDrop(Source As Control, x As Single, Y As Single)
 
+End Sub
+
+Private Sub cmdVipSettings_Click()
+    
+    frmEditor_Vip.Show vbModeless, frmServer
 End Sub
 
 Private Sub Command1_Click()

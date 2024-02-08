@@ -387,6 +387,8 @@ Public Function CanShowButton(ByVal ButtonNum As ButtonEnum) As Boolean
             Else
                 If YourTrade.TradeMoney = Val(TradeInputMoney) Then CanShowButton = False
             End If
+        Case ButtonEnum.Trainer_VipAdvantage
+            If GetPlayerVipStatus(MyIndex) <= EnumVipType.None Then CanShowButton = False
         Case Else: '//None
     End Select
 End Function

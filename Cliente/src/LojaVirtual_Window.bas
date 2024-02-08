@@ -78,7 +78,7 @@ Public Function ResetState_VirtualShopSlot()
 
 End Function
 
-Private Function GetIndexFromVirtualShop() As Byte
+Public Function GetIndexFromVirtualShop() As Byte
     Dim i As Long
     For i = 1 To CountTabs - 1
         If VirtualShop(i).SelectedWindow = True Then
@@ -231,7 +231,6 @@ Public Sub DrawVirtualShop()
 
                             '//Background
                             'Call VirtualShop_Background(XX, YY)
-
                             '//Renderiza o BackGround do item
                             Select Case VirtalShopSlot_State(X)
                             Case ButtonState.StateNormal: RenderTexture Tex_Gui(.Pic), XX, YY, 65, 319, 127, 46, 127, 46

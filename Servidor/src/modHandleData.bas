@@ -2345,6 +2345,13 @@ Private Sub HandleBuyItem(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
         ShopValue = (Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Price * ShopVal)
         IsCash = Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).IsCash
 
+        '//Vip Discount
+        If GetPlayerVipStatus(Index) > EnumVipType.None Then
+            If ShopValue > 0 Then
+                ShopValue = ShopValue - ((ShopValue / 100) * VipSettings(GetPlayerVipStatus(Index)).VipShopPrice)
+            End If
+        End If
+
         If IsCash = YES Then
             If .Cash >= ShopValue Then
                 If TryGivePlayerItem(Index, Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
@@ -2354,7 +2361,7 @@ Private Sub HandleBuyItem(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
                     Case LANG_EN: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
                     Case LANG_ES: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
                     End Select
-                    
+
                     Call SendPlayerCash(Index)
                 End If
             End If
@@ -2367,7 +2374,7 @@ Private Sub HandleBuyItem(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
                     Case LANG_EN: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
                     Case LANG_ES: AddAlert Index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num).Name), White
                     End Select
-                    
+
                     Call SendPlayerCash(Index)
                 End If
             End If

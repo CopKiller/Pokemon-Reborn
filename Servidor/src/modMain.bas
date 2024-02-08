@@ -112,6 +112,8 @@ Dim filename As String
     SpawnAllMapPokemon
     TextAdd frmServer.txtLog, "Add All Pokes Fish By Mapnum..."
     AddPokemonsFishing
+    TextAdd frmServer.txtLog, "Loading Vip Settings..."
+    LoadVipSettings
     
     frmServer.Caption = GAME_NAME & " Server"
     

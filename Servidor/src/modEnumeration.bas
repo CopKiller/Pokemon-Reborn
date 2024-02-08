@@ -114,6 +114,7 @@ Public Enum ServerPackets
     SSendVirtualShop
     SFishMode
     SMapReport
+    SVipAdvantage
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum

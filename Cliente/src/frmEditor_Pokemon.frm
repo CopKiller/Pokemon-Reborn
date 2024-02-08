@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form frmEditor_Pokemon 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Pokemon Editor"
-   ClientHeight    =   9120
+   ClientHeight    =   9540
    ClientLeft      =   150
    ClientTop       =   795
    ClientWidth     =   14025
@@ -11,7 +11,7 @@ Begin VB.Form frmEditor_Pokemon
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   608
+   ScaleHeight     =   636
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   935
    StartUpPosition =   3  'Windows Default
@@ -27,14 +27,14 @@ Begin VB.Form frmEditor_Pokemon
          Caption         =   "Find"
          Height          =   255
          Left            =   2040
-         TabIndex        =   79
+         TabIndex        =   77
          Top             =   240
          Width           =   735
       End
       Begin VB.TextBox txtIndexSearch 
          Height          =   285
          Left            =   120
-         TabIndex        =   78
+         TabIndex        =   76
          Top             =   240
          Width           =   1815
       End
@@ -50,7 +50,7 @@ Begin VB.Form frmEditor_Pokemon
    End
    Begin VB.Frame Frame2 
       Caption         =   "Properties"
-      Height          =   9015
+      Height          =   9375
       Left            =   3120
       TabIndex        =   0
       Top             =   0
@@ -59,7 +59,7 @@ Begin VB.Form frmEditor_Pokemon
          Caption         =   "Lendary?"
          Height          =   255
          Left            =   4920
-         TabIndex        =   99
+         TabIndex        =   96
          Top             =   1560
          Width           =   975
       End
@@ -67,7 +67,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   315
          Left            =   1200
          Style           =   2  'Dropdown List
-         TabIndex        =   98
+         TabIndex        =   95
          Top             =   1440
          Width           =   3495
       End
@@ -76,14 +76,14 @@ Begin VB.Form frmEditor_Pokemon
          Left            =   4800
          Max             =   200
          Min             =   -200
-         TabIndex        =   96
+         TabIndex        =   93
          Top             =   120
          Width           =   135
       End
       Begin VB.TextBox txtID 
          Height          =   285
          Left            =   2880
-         TabIndex        =   92
+         TabIndex        =   89
          Top             =   720
          Width           =   735
       End
@@ -91,13 +91,13 @@ Begin VB.Form frmEditor_Pokemon
          Caption         =   "Item Moveset"
          Height          =   2055
          Left            =   6120
-         TabIndex        =   86
+         TabIndex        =   84
          Top             =   4800
          Width           =   4575
          Begin VB.ListBox lstItemMoveset 
             Height          =   840
             Left            =   120
-            TabIndex        =   90
+            TabIndex        =   87
             Top             =   240
             Width           =   4335
          End
@@ -107,30 +107,31 @@ Begin VB.Form frmEditor_Pokemon
             Left            =   1800
             List            =   "frmEditor_Pokemon.frx":0006
             Style           =   2  'Dropdown List
-            TabIndex        =   89
+            TabIndex        =   86
             Top             =   1560
             Width           =   2655
-         End
-         Begin VB.CommandButton cmdItemMoveFind 
-            Caption         =   "Find"
-            Height          =   255
-            Left            =   3480
-            TabIndex        =   88
-            Top             =   1200
-            Width           =   975
          End
          Begin VB.TextBox txtItemMoveFind 
             Height          =   285
             Left            =   1800
-            TabIndex        =   87
+            TabIndex        =   85
             Top             =   1200
-            Width           =   1575
+            Width           =   2535
+         End
+         Begin VB.Label Label30 
+            AutoSize        =   -1  'True
+            Caption         =   "Find:"
+            Height          =   195
+            Left            =   1320
+            TabIndex        =   99
+            Top             =   1200
+            Width           =   345
          End
          Begin VB.Label Label28 
             Caption         =   "Move:"
             Height          =   255
             Left            =   120
-            TabIndex        =   91
+            TabIndex        =   88
             Top             =   1560
             Width           =   2175
          End
@@ -139,20 +140,20 @@ Begin VB.Form frmEditor_Pokemon
          Caption         =   "Item Drop"
          Height          =   1815
          Left            =   6120
-         TabIndex        =   80
+         TabIndex        =   78
          Top             =   7080
          Width           =   4575
          Begin VB.TextBox txtItemSearch 
             Height          =   285
-            Left            =   1200
-            TabIndex        =   94
+            Left            =   840
+            TabIndex        =   91
             Top             =   1080
-            Width           =   615
+            Width           =   975
          End
          Begin VB.TextBox txtItemDropRate 
             Height          =   285
             Left            =   1800
-            TabIndex        =   85
+            TabIndex        =   83
             Text            =   "0"
             Top             =   1440
             Width           =   2655
@@ -161,14 +162,14 @@ Begin VB.Form frmEditor_Pokemon
             Height          =   315
             Left            =   1800
             Style           =   2  'Dropdown List
-            TabIndex        =   83
+            TabIndex        =   81
             Top             =   1080
             Width           =   2655
          End
          Begin VB.ListBox lstItemDrop 
             Height          =   840
             Left            =   120
-            TabIndex        =   81
+            TabIndex        =   79
             Top             =   240
             Width           =   4335
          End
@@ -176,40 +177,50 @@ Begin VB.Form frmEditor_Pokemon
             Caption         =   "Rarity 0% - 100%"
             Height          =   255
             Left            =   120
-            TabIndex        =   84
+            TabIndex        =   82
             Top             =   1440
             Width           =   4335
          End
          Begin VB.Label Label26 
-            Caption         =   "Item:"
+            Caption         =   "Item Find:"
             Height          =   255
             Left            =   120
-            TabIndex        =   82
+            TabIndex        =   80
             Top             =   1080
             Width           =   1815
          End
       End
       Begin VB.Frame fraEvolve 
          Caption         =   "Evolve - 1"
-         Height          =   1815
+         Height          =   2175
          Left            =   120
          TabIndex        =   62
          Top             =   5400
          Width           =   5775
+         Begin VB.PictureBox picEvolve 
+            BorderStyle     =   0  'None
+            Height          =   975
+            Left            =   4560
+            ScaleHeight     =   975
+            ScaleWidth      =   1095
+            TabIndex        =   97
+            Top             =   1080
+            Width           =   1095
+         End
          Begin VB.TextBox txtSearch 
             Height          =   285
-            Left            =   4680
-            TabIndex        =   93
+            Left            =   2640
+            TabIndex        =   90
             Top             =   720
-            Width           =   855
+            Width           =   975
          End
          Begin VB.HScrollBar scrlEvolveCondition 
             Height          =   255
-            Left            =   3000
+            Left            =   120
             Max             =   0
             TabIndex        =   70
-            Top             =   1440
-            Width           =   2655
+            Top             =   1800
+            Width           =   1935
          End
          Begin VB.TextBox txtEvolveLevel 
             Height          =   285
@@ -229,11 +240,11 @@ Begin VB.Form frmEditor_Pokemon
          End
          Begin VB.HScrollBar scrlEvolve 
             Height          =   255
-            Left            =   2400
+            Left            =   3600
             Max             =   0
             TabIndex        =   64
             Top             =   720
-            Width           =   2175
+            Width           =   2055
          End
          Begin VB.HScrollBar scrlEvolveIndex 
             Height          =   255
@@ -248,9 +259,9 @@ Begin VB.Form frmEditor_Pokemon
          Begin VB.Label lblEvolveCondition 
             Caption         =   "Condition: None"
             Height          =   255
-            Left            =   3000
+            Left            =   2160
             TabIndex        =   71
-            Top             =   1080
+            Top             =   1800
             Width           =   2655
          End
          Begin VB.Label Label21 
@@ -289,14 +300,14 @@ Begin VB.Form frmEditor_Pokemon
          Left            =   1560
          Max             =   10
          TabIndex        =   60
-         Top             =   8640
+         Top             =   9000
          Width           =   4335
       End
       Begin VB.TextBox txtSpecies 
          Height          =   285
          Left            =   1560
          TabIndex        =   58
-         Top             =   8280
+         Top             =   8640
          Width           =   4335
       End
       Begin VB.TextBox txtPokedexEntry 
@@ -306,7 +317,7 @@ Begin VB.Form frmEditor_Pokemon
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   57
-         Top             =   7320
+         Top             =   7680
          Width           =   4335
       End
       Begin VB.Frame Frame6 
@@ -319,17 +330,9 @@ Begin VB.Form frmEditor_Pokemon
          Begin VB.TextBox txtEggMoveFind 
             Height          =   285
             Left            =   1800
-            TabIndex        =   77
+            TabIndex        =   75
             Top             =   1200
-            Width           =   1575
-         End
-         Begin VB.CommandButton cmdEggMoveFind 
-            Caption         =   "Find"
-            Height          =   255
-            Left            =   3480
-            TabIndex        =   76
-            Top             =   1200
-            Width           =   975
+            Width           =   2655
          End
          Begin VB.ComboBox cmbEggMoveNum 
             Height          =   315
@@ -364,20 +367,12 @@ Begin VB.Form frmEditor_Pokemon
          TabIndex        =   49
          Top             =   240
          Width           =   4575
-         Begin VB.CommandButton cmdFind 
-            Caption         =   "Find"
-            Height          =   255
-            Left            =   3480
-            TabIndex        =   75
-            Top             =   1320
-            Width           =   975
-         End
          Begin VB.TextBox txtFind 
             Height          =   285
             Left            =   1800
             TabIndex        =   74
             Top             =   1320
-            Width           =   1575
+            Width           =   2655
          End
          Begin VB.ComboBox cmbMoveNum 
             Height          =   315
@@ -403,6 +398,15 @@ Begin VB.Form frmEditor_Pokemon
             TabIndex        =   50
             Top             =   240
             Width           =   4335
+         End
+         Begin VB.Label Label29 
+            AutoSize        =   -1  'True
+            Caption         =   "Find:"
+            Height          =   195
+            Left            =   1320
+            TabIndex        =   98
+            Top             =   1320
+            Width           =   345
          End
          Begin VB.Label lblMovesetNum 
             Caption         =   "Move: "
@@ -703,7 +707,7 @@ Begin VB.Form frmEditor_Pokemon
          Caption         =   "Cries:"
          Height          =   255
          Left            =   240
-         TabIndex        =   97
+         TabIndex        =   94
          Top             =   1440
          Width           =   735
       End
@@ -711,7 +715,7 @@ Begin VB.Form frmEditor_Pokemon
          Caption         =   "Name OffSetY: 0"
          Height          =   255
          Left            =   3120
-         TabIndex        =   95
+         TabIndex        =   92
          Top             =   120
          Width           =   1455
       End
@@ -720,7 +724,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   61
-         Top             =   8640
+         Top             =   9000
          Width           =   1695
       End
       Begin VB.Label Label25 
@@ -728,7 +732,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   59
-         Top             =   8280
+         Top             =   8640
          Width           =   1455
       End
       Begin VB.Label Label24 
@@ -736,7 +740,7 @@ Begin VB.Form frmEditor_Pokemon
          Height          =   255
          Left            =   120
          TabIndex        =   56
-         Top             =   7320
+         Top             =   7680
          Width           =   1695
       End
       Begin VB.Line Line2 
@@ -1026,38 +1030,6 @@ Dim stringLength As Long
     End If
 End Sub
 
-Private Sub cmdFind_Click()
-Dim FindChar As String
-Dim clBound As Long, cuBound As Long
-Dim i As Long
-Dim ComboText As String
-Dim indexString As String
-Dim stringLength As Long
-
-    If Len(Trim$(txtFind.Text)) > 0 Then
-        FindChar = Trim$(txtFind.Text)
-        clBound = 0
-        cuBound = MAX_POKEMON_MOVE
-        
-        For i = clBound To cuBound
-            If cmbMoveNum.List(i) <> "None" Then
-                ComboText = Trim$(cmbMoveNum.List(i))
-                indexString = i & ": "
-                stringLength = Len(ComboText) - Len(indexString)
-                If stringLength >= 0 Then
-                    ComboText = Mid$(ComboText, Len(indexString) + 1, stringLength)
-                    If LCase(ComboText) = LCase(FindChar) Then
-                        cmbMoveNum.ListIndex = i
-                        Exit Sub
-                    End If
-                End If
-            End If
-        Next
-        
-        MsgBox "Index not found", vbCritical
-    End If
-End Sub
-
 Private Sub cmdIndexSearch_Click()
 Dim FindChar As String
 Dim clBound As Long, cuBound As Long
@@ -1080,38 +1052,6 @@ Dim stringLength As Long
                 If LCase(ComboText) = LCase(FindChar) Then
                     lstIndex.ListIndex = (i - 1)
                     Exit Sub
-                End If
-            End If
-        Next
-        
-        MsgBox "Index not found", vbCritical
-    End If
-End Sub
-
-Private Sub cmdItemMoveFind_Click()
-Dim FindChar As String
-Dim clBound As Long, cuBound As Long
-Dim i As Long
-Dim ComboText As String
-Dim indexString As String
-Dim stringLength As Long
-
-    If Len(Trim$(txtItemMoveFind.Text)) > 0 Then
-        FindChar = Trim$(txtItemMoveFind.Text)
-        clBound = 0
-        cuBound = MAX_POKEMON_MOVE
-        
-        For i = clBound To cuBound
-            If cmbItemMove.List(i) <> "None" Then
-                ComboText = Trim$(cmbItemMove.List(i))
-                indexString = i & ": "
-                stringLength = Len(ComboText) - Len(indexString)
-                If stringLength >= 0 Then
-                    ComboText = Mid$(ComboText, Len(indexString) + 1, stringLength)
-                    If LCase(ComboText) = LCase(FindChar) Then
-                        cmbItemMove.ListIndex = i
-                        Exit Sub
-                    End If
                 End If
             End If
         Next
@@ -1320,6 +1260,50 @@ Private Sub txtFemaleRate_Change()
     End If
 End Sub
 
+Private Sub txtFind_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+    
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_POKEMON_MOVE
+    
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+    
+    ' Nome deste controle
+    If Not IsNumeric(txtFind) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtFind))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                ' Atribuição da estrutura em procura
+                If InStr(1, UCase$(Trim$(PokemonMove(i).Name)), Find) > 0 Then
+                    ' Nome do controle a ser alterado
+                    cmbMoveNum.ListIndex = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        ' Nome deste controle
+        If txtFind > MAX_INDEX Then
+            ' Nome deste controle
+            txtFind = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtFind <= 0 Then
+            ' Nome deste controle
+            txtFind = 1
+        End If
+        ' Nome do controle a ser alterado & Nome deste controle
+        cmbMoveNum.ListIndex = txtFind
+    End If
+End Sub
+
 Private Sub txtHeight_Change()
     If IsNumeric(txtHeight.Text) Then
         Pokemon(EditorIndex).Height = Val(txtHeight.Text)
@@ -1360,6 +1344,50 @@ Dim tmpIndex As Long
     End If
     lstItemDrop.ListIndex = tmpIndex
     EditorChange = True
+End Sub
+
+Private Sub txtItemMoveFind_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+    
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_POKEMON_MOVE
+    
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+    
+    ' Nome deste controle
+    If Not IsNumeric(txtItemMoveFind) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtItemMoveFind))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                ' Atribuição da estrutura em procura
+                If InStr(1, UCase$(Trim$(PokemonMove(i).Name)), Find) > 0 Then
+                    ' Nome do controle a ser alterado
+                    cmbMoveNum.ListIndex = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        ' Nome deste controle
+        If txtItemMoveFind > MAX_INDEX Then
+            ' Nome deste controle
+            txtItemMoveFind = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtItemMoveFind <= 0 Then
+            ' Nome deste controle
+            txtItemMoveFind = 1
+        End If
+        ' Nome do controle a ser alterado & Nome deste controle
+        cmbMoveNum.ListIndex = txtItemMoveFind
+    End If
 End Sub
 
 Private Sub txtItemSearch_Change()

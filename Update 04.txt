@@ -10,13 +10,14 @@ OK-Adicionar alterações na loja virtual.
 	Ok-Vip Gold tem uma medalha de ouro em pixel renderizando ao lado do nome do personagem.
 	Ok-Vip por tempo, mostrando o tempo no treiner card.
 	Ok-Vip por item, usa o item e vira vip.
-	-Vip beneficios: Vip Silver 10% exp, pokemoedas 10%, drop 10%.
-	-Vip beneficios: Vip Gold 20% exp, pokemoedas 20%, drop 20%, 10% desconto em item da loja ingame do jogo, -50% de perda 	de dinheiro ao morrer para pokemon selvagem.
-	-Vip exp mostra os bonus totais que estão ativos no jogador na tela.
+	Ok-Vip beneficios: Vip Silver 10% exp, pokemoedas 10%, drop 10%.
+	Ok-Vip beneficios: Vip Gold 20% exp, pokemoedas 20%, drop 20%, 10% desconto em item da loja ingame do jogo, -50% de 		perda de dinheiro ao morrer para pokemon selvagem.
+	Ok-Vip editor no servidor, para alterar bonus.
+	Ok-Vip exp mostra os bonus totais que estão ativos no jogador em uma janela ao clikar no nome do vip no trainer card.
 
 -Editor de pokemons
-	-Adicionar foto da evolução do poke.
-	-Consertar as box de pesquisa por nome, do moveset e item moveset no editor de pokemon
+	Ok-Adicionar foto da evolução do poke.
+	Ok-Consertar as box de pesquisa por nome, do moveset e item moveset no editor de pokemon
 
 -Adicionar skins de personagens.
 	-Skins todas serão unissex.

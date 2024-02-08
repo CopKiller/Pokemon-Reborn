@@ -112,6 +112,7 @@ Public Enum ServerPackets
     SSendVirtualShop
     SFishMode
     SMapReport
+    SVipAdvantage
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -494,6 +495,7 @@ Public Enum GuiEnum
     GUI_BADGE
     GUI_RANK
     GUI_VIRTUALSHOP
+    GUI_VIPADVANTAGE
     '//Make sure that Gui_Count is below everything else
     Gui_Count
 End Enum
@@ -548,6 +550,7 @@ Public Enum ButtonEnum
     MoveReplace_Cancel
     Trainer_Close
     Trainer_Badge
+    Trainer_VipAdvantage
     InvStorage_Close
     InvStorage_Slot1
     InvStorage_Slot2

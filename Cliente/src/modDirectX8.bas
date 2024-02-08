@@ -477,7 +477,7 @@ Private Sub CacheTextures()
         Case 23: TextureName = "badge"
         Case 24: TextureName = "virtualShop-window"
         Case 25: TextureName = "rank"
-        Case 26: TextureName = "bottom-login"
+        Case 26: TextureName = "vipadvantage-window"
         Case Else: TextureName = i
         End Select
 
@@ -1234,7 +1234,7 @@ End Sub
 Private Sub Render_Game()
     Dim X As Long, y As Long
     Dim i As Long
-    Dim Addy As Long
+    Dim AddY As Long
 
     '//Optional: If GettingMap, Show a getting map screen, Other: Just pure black
     'If GettingMap Then Exit Sub '//PURE BLACK
@@ -1243,7 +1243,7 @@ Private Sub Render_Game()
         UpdateCamera
 
         '//reset
-        Addy = 0
+        AddY = 0
 
         '//Lower Tiles
         For X = TileView.Left To TileView.Right
@@ -1423,20 +1423,20 @@ Private Sub Render_Game()
         '//Loc
         If ShowLoc Then
             If GameSetting.ShowFPS = YES And GameSetting.ShowPing = YES Then
-                Addy = Addy + 110
+                AddY = AddY + 110
             ElseIf GameSetting.ShowFPS = YES Or GameSetting.ShowPing = YES Then
-                Addy = Addy + 95
+                AddY = AddY + 95
             Else
-                Addy = Addy + 65
+                AddY = AddY + 65
             End If
             'If GameSetting.ShowPing = YES Then AddY = AddY + 65
 
-            RenderText Font_Default, "[Player Position]", 10, Addy + 10, White
-            RenderText Font_Default, "Map#: " & Player(MyIndex).Map, 10, Addy + 25, White
-            RenderText Font_Default, "X: " & Player(MyIndex).X & " Y: " & Player(MyIndex).y, 10, Addy + 40, White
-            RenderText Font_Default, "[Cursor Position]", 10, Addy + 55, White
-            RenderText Font_Default, "Cursor X: " & CursorX & " Cursor Y: " & CursorY, 10, Addy + 70, White
-            RenderText Font_Default, "Tile X: " & curTileX & " Tile Y: " & curTileY, 10, Addy + 85, White
+            RenderText Font_Default, "[Player Position]", 10, AddY + 10, White
+            RenderText Font_Default, "Map#: " & Player(MyIndex).Map, 10, AddY + 25, White
+            RenderText Font_Default, "X: " & Player(MyIndex).X & " Y: " & Player(MyIndex).y, 10, AddY + 40, White
+            RenderText Font_Default, "[Cursor Position]", 10, AddY + 55, White
+            RenderText Font_Default, "Cursor X: " & CursorX & " Cursor Y: " & CursorY, 10, AddY + 70, White
+            RenderText Font_Default, "Tile X: " & curTileX & " Tile Y: " & curTileY, 10, AddY + 85, White
         End If
 
         '//Move Selector
@@ -1444,6 +1444,8 @@ Private Sub Render_Game()
 
         '//Hud
         DrawHud
+        
+        
 
         '//Buttons
         For i = ButtonEnum.Game_Pokedex To ButtonEnum.Game_Evolve
@@ -1504,6 +1506,7 @@ Private Sub Render_Game()
                         Case GuiEnum.GUI_BADGE: DrawBadge
                         Case GuiEnum.GUI_RANK: DrawRank
                         Case GuiEnum.GUI_VIRTUALSHOP: DrawVirtualShop
+                        Case GuiEnum.GUI_VIPADVANTAGE: DrawVipAdvantage
                         End Select
                     End If
                 Next
@@ -1528,18 +1531,18 @@ Private Sub Render_Game()
     End If
 
     '//reset
-    Addy = 0
-    If GameSetting.ShowFPS = YES Then Addy = Addy + 15
+    AddY = 0
+    If GameSetting.ShowFPS = YES Then AddY = AddY + 15
 
     '//Ping
     If GameSetting.ShowPing = YES Then
-        RenderText Font_Default, "Ping: ", 10, Addy + 85, White
+        RenderText Font_Default, "Ping: ", 10, AddY + 85, White
         If Ping <= 255 Then
-            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, Addy + 85, BrightGreen
+            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, AddY + 85, BrightGreen
         ElseIf Ping >= 256 And Ping <= 600 Then
-            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, Addy + 85, Yellow
+            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, AddY + 85, Yellow
         Else
-            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, Addy + 85, Red
+            RenderText Font_Default, Ping & "ms", GetTextWidth(Font_Default, "Ping: ") + 10 + 3, AddY + 85, Red
         End If
     End If
 
@@ -1559,16 +1562,67 @@ Private Sub Render_Game()
 End Sub
 
 Private Sub DrawEvents()
-    Dim Addy As Integer
+    Dim AddY As Integer
     If ExpMultiply > 0 Then
-        Addy = 2
-        RenderTexture Tex_Gui(Hud), 180, Addy, 59, 241, 165, 20, 165, 1
-        RenderText Font_Default, "Evento Exp Mult: " & ExpMultiply & "x", 190, Addy, Yellow
-        Addy = 21
+        AddY = 2
+        RenderTexture Tex_Gui(Hud), 180, AddY, 59, 241, 165, 20, 165, 1
+        RenderText Font_Default, "Evento Exp Mult: " & ExpMultiply & "x", 190, AddY, Yellow
+        AddY = 21
         
-        RenderTexture Tex_Gui(Hud), 180, Addy, 59, 241, 165, 20, 165, 1, D3DColorARGB(150, 255, 255, 255)
-        RenderText Font_Default, "Timer: " & SecondsToHMS(ExpSecs), 190, Addy, White
+        RenderTexture Tex_Gui(Hud), 180, AddY, 59, 241, 165, 20, 165, 1, D3DColorARGB(150, 255, 255, 255)
+        RenderText Font_Default, "Timer: " & SecondsToHMS(ExpSecs), 190, AddY, White
     End If
+End Sub
+
+Private Sub DrawVipAdvantage()
+    Dim i As Long, YPos As Long
+
+    With GUI(GuiEnum.GUI_VIPADVANTAGE)
+        '//Make sure it's visible
+        If Not .Visible Then Exit Sub
+
+        '//Render the window
+        RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
+        '177, 184
+
+        '//Vip
+        YPos = .y + 41
+
+        RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 17, 17, 17, 17, 17
+        RenderText Font_Default, VipAdvantage.Exp, .X + 30, YPos, White
+        If VipAdvantage.ExpValue > 0 Then
+            RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 34, 17, 17, 17, 17
+        End If
+        YPos = YPos + 31
+
+        RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 17, 17, 17, 17, 17
+        RenderText Font_Default, VipAdvantage.Drop, .X + 30, YPos, White
+        If VipAdvantage.DropValue > 0 Then
+            RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 34, 17, 17, 17, 17
+        End If
+        YPos = YPos + 31
+
+        RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 17, 17, 17, 17, 17
+        RenderText Font_Default, VipAdvantage.Coin, .X + 30, YPos, White
+        If VipAdvantage.CoinValue > 0 Then
+            RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 34, 17, 17, 17, 17
+        End If
+        YPos = YPos + 31
+
+        RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 17, 17, 17, 17, 17
+        RenderText Font_Default, VipAdvantage.ShopPrice, .X + 30, YPos, White
+        If VipAdvantage.ShopPriceValue > 0 Then
+            RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 34, 17, 17, 17, 17
+        End If
+        YPos = YPos + 31
+
+        RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 17, 17, 17, 17, 17
+        RenderText Font_Default, VipAdvantage.DeathPenalty, .X + 30, YPos, White
+        If VipAdvantage.DeathPenaltyValue > 0 Then
+            RenderTexture Tex_Gui(.Pic), .X + 5, YPos, 203, 34, 17, 17, 17, 17
+        End If
+        YPos = YPos + 31
+    End With
 End Sub
 
 '//This render all graphics of Menu
@@ -1740,7 +1794,7 @@ Dim AnimMapTile As Byte
     End If
 End Sub
 
-Private Sub DrawPlayer(ByVal index As Long)
+Private Sub DrawPlayer(ByVal Index As Long)
     Dim oWidth As Long, oHeight As Long
     Dim X As Long, y As Long
     Dim Anim As Long, rDir As Byte
@@ -1748,10 +1802,10 @@ Private Sub DrawPlayer(ByVal index As Long)
     Dim DrawAlpha As Long
 
     '//Check error
-    If index <= 0 Or index > MAX_PLAYER Then Exit Sub
-    If Not IsPlaying(index) Then Exit Sub
+    If Index <= 0 Or Index > MAX_PLAYER Then Exit Sub
+    If Not IsPlaying(Index) Then Exit Sub
 
-    With Player(index)
+    With Player(Index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -1854,7 +1908,7 @@ Private Sub DrawPlayer(ByVal index As Long)
         End Select
 
         If .StealthMode = YES Then
-            If index <> MyIndex Then
+            If Index <> MyIndex Then
                 DrawAlpha = 0
             Else
                 DrawAlpha = 70
@@ -2109,7 +2163,7 @@ Dim Name As String
     End With
 End Sub
 
-Private Sub DrawPlayerPokemon(ByVal index As Long)
+Private Sub DrawPlayerPokemon(ByVal Index As Long)
 Dim Width As Long, Height As Long
 Dim oWidth As Long, oHeight As Long
 Dim X As Long, y As Long
@@ -2121,10 +2175,10 @@ Dim SpriteAnim As Long
 Dim SpritePos As Byte
 
     '//Check error
-    If index <= 0 Or index > MAX_PLAYER Then Exit Sub
-    If PlayerPokemon(index).Num <= 0 Then Exit Sub
+    If Index <= 0 Or Index > MAX_PLAYER Then Exit Sub
+    If PlayerPokemon(Index).Num <= 0 Then Exit Sub
     
-    With PlayerPokemon(index)
+    With PlayerPokemon(Index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -2240,7 +2294,7 @@ Dim SpritePos As Byte
     End With
 End Sub
 
-Private Sub DrawMapNpcPokemon(ByVal index As Long)
+Private Sub DrawMapNpcPokemon(ByVal Index As Long)
 Dim Width As Long, Height As Long
 Dim oWidth As Long, oHeight As Long
 Dim X As Long, y As Long
@@ -2252,10 +2306,10 @@ Dim SpriteAnim As Long
 Dim SpritePos As Byte
 
     '//Check error
-    If index <= 0 Or index > MAX_MAP_NPC Then Exit Sub
-    If MapNpcPokemon(index).Num <= 0 Then Exit Sub
+    If Index <= 0 Or Index > MAX_MAP_NPC Then Exit Sub
+    If MapNpcPokemon(Index).Num <= 0 Then Exit Sub
     
-    With MapNpcPokemon(index)
+    With MapNpcPokemon(Index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -2371,55 +2425,55 @@ Dim SpritePos As Byte
     End With
 End Sub
 
-Private Sub DrawActionMsg(ByVal index As Integer)
+Private Sub DrawActionMsg(ByVal Index As Integer)
 Dim X As Long, y As Long, i As Long
 Dim Alpha As Long
 Dim time As Long
 
     '//Exit out of there's no message
-    If ActionMsg(index).Msg = vbNullString Then Exit Sub
+    If ActionMsg(Index).Msg = vbNullString Then Exit Sub
 
     '//Set the timer
     time = 1500
-    If ActionMsg(index).y > 0 Then
-        X = ActionMsg(index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(index).Msg)) / 2)
-        y = ActionMsg(index).y - (TILE_Y / 2) - 2 - (ActionMsg(index).Scroll * 0.3)
-        ActionMsg(index).Scroll = ActionMsg(index).Scroll + 1
+    If ActionMsg(Index).y > 0 Then
+        X = ActionMsg(Index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(Index).Msg)) / 2)
+        y = ActionMsg(Index).y - (TILE_Y / 2) - 2 - (ActionMsg(Index).Scroll * 0.3)
+        ActionMsg(Index).Scroll = ActionMsg(Index).Scroll + 1
     Else
-        X = ActionMsg(index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(index).Msg)) / 2)
-        y = ActionMsg(index).y - (TILE_Y / 2) + 18 + (ActionMsg(index).Scroll * 0.3)
-        ActionMsg(index).Scroll = ActionMsg(index).Scroll + 1
+        X = ActionMsg(Index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(Index).Msg)) / 2)
+        y = ActionMsg(Index).y - (TILE_Y / 2) + 18 + (ActionMsg(Index).Scroll * 0.3)
+        ActionMsg(Index).Scroll = ActionMsg(Index).Scroll + 1
     End If
 
     '//Fade while scrolling
-    ActionMsg(index).Alpha = ActionMsg(index).Alpha - 1
-    If ActionMsg(index).Alpha <= 0 Then ClearActionMsg index: Exit Sub
+    ActionMsg(Index).Alpha = ActionMsg(Index).Alpha - 1
+    If ActionMsg(Index).Alpha <= 0 Then ClearActionMsg Index: Exit Sub
     
     X = ConvertMapX(X)
     y = ConvertMapY(y)
 
-    If GetTickCount < ActionMsg(index).Created + time Then
-        RenderText Font_Default, ActionMsg(index).Msg, X, y, ActionMsg(index).Color, True, ActionMsg(index).Alpha
+    If GetTickCount < ActionMsg(Index).Created + time Then
+        RenderText Font_Default, ActionMsg(Index).Msg, X, y, ActionMsg(Index).Color, True, ActionMsg(Index).Alpha
     Else
-        ClearActionMsg index
+        ClearActionMsg Index
     End If
 End Sub
 
 '//Animation
-Public Sub DrawAnimation(ByVal index As Long, ByVal Layer As Long)
+Public Sub DrawAnimation(ByVal Index As Long, ByVal Layer As Long)
 Dim Sprite As Long, FrameCount As Long
 Dim Width As Long, Height As Long, X As Long, y As Long
 Dim sRect As RECT
 
-    If AnimInstance(index).Animation = 0 Then
-        ClearAnimInstance index
+    If AnimInstance(Index).Animation = 0 Then
+        ClearAnimInstance Index
         Exit Sub
     End If
     
-    Sprite = Animation(AnimInstance(index).Animation).Sprite(Layer)
+    Sprite = Animation(AnimInstance(Index).Animation).Sprite(Layer)
     If Sprite < 1 Or Sprite > Count_Animation Then Exit Sub
     
-    FrameCount = Animation(AnimInstance(index).Animation).Frames(Layer)
+    FrameCount = Animation(AnimInstance(Index).Animation).Frames(Layer)
     If FrameCount <= 0 Then Exit Sub
     
     '//total width divided by frame count
@@ -2429,13 +2483,13 @@ Dim sRect As RECT
     With sRect
         .top = 0 '(Height * ((AnimInstance(Index).frameIndex(Layer) - 1) \ AnimColumns)) '0
         .bottom = Height
-        .Left = (AnimInstance(index).frameIndex(Layer) - 1) * Width '(Width * (((AnimInstance(Index).frameIndex(Layer) - 1) Mod AnimColumns))) '(AnimInstance(Index).frameIndex(Layer) - 1) * Width
+        .Left = (AnimInstance(Index).frameIndex(Layer) - 1) * Width '(Width * (((AnimInstance(Index).frameIndex(Layer) - 1) Mod AnimColumns))) '(AnimInstance(Index).frameIndex(Layer) - 1) * Width
         .Right = sRect.Left + Width 'Width 'sRect.Left + Width
     End With
     
     '//no lock, default x + y
-    X = (AnimInstance(index).X * 32) + 16 - (Width / 2)
-    y = (AnimInstance(index).y * 32) + 16 - (Height / 2)
+    X = (AnimInstance(Index).X * 32) + 16 - (Width / 2)
+    y = (AnimInstance(Index).y * 32) + 16 - (Height / 2)
     
     '//Clipping
     If y < 0 Then
@@ -3180,7 +3234,7 @@ Private Sub DrawHud()
     Dim expWidth As Long
     Dim initAnim As Byte
     Dim Sprite As Long
-    Dim Addy As Long
+    Dim AddY As Long
     Dim MaxWidth As Long, Height As Long, Width As Long
 
     If Editor = EDITOR_MAP Then Exit Sub
@@ -3354,12 +3408,12 @@ Private Sub DrawHud()
         '//Render your name first
         RenderTexture Tex_Gui(Hud), 0, 159, 59, 241, 165, 20, 165, 1
         RenderText Font_Default, "Party Member", 10, 160, Yellow
-        Addy = 21
+        AddY = 21
         For i = 1 To MAX_PARTY
             If Len(Trim$(PartyName(i))) > 0 Then
-                RenderTexture Tex_Gui(Hud), 0, 159 + Addy, 59, 241, 165, 20, 165, 1, D3DColorARGB(150, 255, 255, 255)
-                RenderText Font_Default, Trim$(PartyName(i)), 10, 160 + Addy, White
-                Addy = Addy + 21
+                RenderTexture Tex_Gui(Hud), 0, 159 + AddY, 59, 241, 165, 20, 165, 1, D3DColorARGB(150, 255, 255, 255)
+                RenderText Font_Default, Trim$(PartyName(i)), 10, 160 + AddY, White
+                AddY = AddY + 21
             End If
         Next
     End If
@@ -3428,8 +3482,8 @@ Dim i As Long, YPos As Long
         RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
         
         '//Buttons
-        For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_Badge
-            If CanShowButton(i) Then
+        For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_VipAdvantage
+            If CanShowButton(i) And i <> ButtonEnum.Trainer_VipAdvantage Then
                 RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .y + Button(i).y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
@@ -3478,7 +3532,7 @@ Private Function GivePlayerVipString() As String
         Case EnumVipType.VipSilver
             GivePlayerVipString = ColourChar & Grey & Space(1) & "Silver" & ColourChar & White & ", " & GetPlayerVipDays(MyIndex) & " Days."
         Case EnumVipType.VipGold
-            GivePlayerVipString = ColourChar & Gold & "Gold," & ColourChar & White & ", " & GetPlayerVipDays(MyIndex) & " Days."
+            GivePlayerVipString = ColourChar & Gold & "Gold" & ColourChar & White & ", " & GetPlayerVipDays(MyIndex) & " Days."
     End Select
 End Function
 
@@ -3776,17 +3830,17 @@ Dim scaleWidth As Long, scaleHeight As Long
 End Sub
 
 Private Sub DrawShop()
-Dim i As Long
-Dim DrawX As Long, DrawY As Long
-Dim Sprite As Long
-Dim pricetext As String
+    Dim i As Long
+    Dim DrawX As Long, DrawY As Long
+    Dim Sprite As Long
+    Dim pricetext As String
 
     With GUI(GuiEnum.GUI_SHOP)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         '//Render the window
-        RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height ', D3DColorRGBA(255, 255, 255, 255)
+        RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height    ', D3DColorRGBA(255, 255, 255, 255)
 
         '//Buttons
         For i = ButtonEnum.Shop_Close To ButtonEnum.Shop_ScrollDown
@@ -3794,17 +3848,17 @@ Dim pricetext As String
                 RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .y + Button(i).y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
-        
+
         '//Items
         For i = ShopAddY To ShopAddY + 8
             If i > 0 And i <= MAX_SHOP_ITEM Then
                 DrawX = (31 + ((4 + 127) * (((((i + 1) - ShopAddY) - 1) Mod 3))))
                 DrawY = (42 + ((4 + 78) * ((((i + 1) - ShopAddY) - 1) \ 3)))
-                    
+
                 '//Check if item exist
                 If Shop(ShopNum).ShopItem(i).Num > 0 Then
                     RenderTexture Tex_Gui(.Pic), .X + DrawX, .y + DrawY, 194, 348, 127, 78, 127, 78
-                    
+
                     '//Render icon
                     Sprite = Item(Shop(ShopNum).ShopItem(i).Num).Sprite
                     If Sprite > 0 And Sprite <= Count_Item Then
@@ -3812,43 +3866,55 @@ Dim pricetext As String
                         DrawY = DrawY
                         RenderTexture Tex_Item(Sprite), .X + DrawX + 9 + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), .y + DrawY + 6 + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
                     End If
-                    
+
                     '//Price
                     '//ToDo: Convert, 1k, 1m , etc.
                     pricetext = Item(Shop(ShopNum).ShopItem(i).Num).Price
+                    If pricetext > 0 Then
+                        If GetPlayerVipStatus(MyIndex) > EnumVipType.None Then
+                            pricetext = pricetext - ((pricetext / 100) * VipAdvantage.ShopPriceValue)
+                        End If
+                    End If
+
                     Dim IDValue As Integer
                     If Item(Shop(ShopNum).ShopItem(i).Num).IsCash = YES Then
                         IDValue = IDCash
                     Else
                         IDValue = IDMoney
                     End If
-                    
-                    
+
+
                     '//Button
                     If ShopButtonHover = i Then
-                        If ShopButtonState = 1 Then '//Hover
+                        If ShopButtonState = 1 Then    '//Hover
                             RenderTexture Tex_Gui(.Pic), .X + DrawX + 12, .y + DrawY + 44, 33, 375, 103, 25, 103, 25
                             RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.y + DrawY + 44) + 1, D3DColorARGB(255, 150, 150, 255), False
-                        ElseIf ShopButtonState = 2 Then '//Click
+                        ElseIf ShopButtonState = 2 Then    '//Click
                             RenderTexture Tex_Gui(.Pic), .X + DrawX + 12, .y + DrawY + 44, 33, 400, 103, 25, 103, 25
                             RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.y + DrawY + 44) + 3, White
                         Else
-                            RenderTexture Tex_Gui(.Pic), .X + DrawX + 12, .y + DrawY + 44, 33, 350, 103, 25, 103, 25 '//Normal
+                            RenderTexture Tex_Gui(.Pic), .X + DrawX + 12, .y + DrawY + 44, 33, 350, 103, 25, 103, 25    '//Normal
                             RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.y + DrawY + 44) + 1, White
                         End If
                     Else
-                        RenderTexture Tex_Gui(.Pic), .X + DrawX + 12, .y + DrawY + 44, 33, 350, 103, 25, 103, 25 '//Normal
+                        RenderTexture Tex_Gui(.Pic), .X + DrawX + 12, .y + DrawY + 44, 33, 350, 103, 25, 103, 25    '//Normal
                         RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.y + DrawY + 44) + 1, D3DColorRGBA(100, 100, 100, 255), False
                     End If
-                    
+
+                    If GetPlayerVipStatus(MyIndex) > EnumVipType.None Then
+                        If VipAdvantage.ShopPriceValue > 0 Then
+                            RenderText Ui_Default, "-" & VipAdvantage.ShopPriceValue & "%", .X + DrawX + 95, .y + DrawY + 55, Yellow, True
+                        End If
+                    End If
+
                     '//Item Name
                     RenderText Font_Default, Trim$(Item(Shop(ShopNum).ShopItem(i).Num).Name), .X + DrawX + 44, .y + DrawY + 10, DarkGrey, True
-                     ' Render Money or Cash Icon
+                    ' Render Money or Cash Icon
                     RenderTexture Tex_Item(IDValue), (.X + DrawX) + ((70 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.y + DrawY + 44) + 1, 0, 0, 20, 20, 24, 24
                 End If
             End If
         Next
-        
+
         '//Title
         RenderText Ui_Default, "Shop", .X + 10, .y + 4, D3DColorARGB(180, 255, 255, 255), False
     End With
@@ -4186,7 +4252,7 @@ Private Sub DrawPokemonSummary()
                 ' Move Name
                 RenderText Ui_Default, Trim$(PokemonMove(MoveNum).Name), .X + 22, .y + 190 + (i * 30 - 32), White
                 ' PP
-                RenderText Ui_Default, "PP: " & PokeDate.Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 45, .y + 205 + (i * 30 - 32), White
+                RenderText Ui_Default, "PP: " & PokeDate.Moveset(i).CurPP & "/" & PokemonMove(MoveNum).PP, .X + 50, .y + 205 + (i * 30 - 32), White
                 ' POWER
                 RenderText Ui_Default, PokemonMove(MoveNum).Power, .X + 26, .y + 205 + (i * 30 - 32), Yellow
                 ' Moves Type texture
@@ -4374,6 +4440,7 @@ Private Sub DrawGDI()
     End If
     If frmEditor_Pokemon.Visible And Editor = EDITOR_POKEMON Then
         GDIPokemon
+        GDIPokemonEvolve
     End If
     If frmEditor_Item.Visible And Editor = EDITOR_ITEM Then
         GDIItem
@@ -4488,6 +4555,39 @@ Dim sWidth As Integer, sHeight As Integer
         '//End the rendering
         D3DDevice.EndScene
         D3DDevice.Present desRect, desRect, .picSprite.hwnd, ByVal 0
+    End With
+End Sub
+
+Private Sub GDIPokemonEvolve()
+Dim desRect As D3DRECT              '//Rendering Area
+Dim Sprite As Long
+Dim sWidth As Integer, sHeight As Integer
+
+    With frmEditor_Pokemon
+        '//Exit if form is not open
+        If Not .Visible Then Exit Sub
+        
+        Sprite = .scrlEvolve
+        If Sprite <= 0 Or Sprite > Count_Pokemon Then
+            .picEvolve.Cls
+            Exit Sub
+        End If
+        
+        desRect.x2 = .picEvolve.scaleWidth
+        desRect.Y2 = .picEvolve.scaleHeight
+        sWidth = GetPicWidth(Tex_Pokemon(Sprite))
+        sHeight = GetPicHeight(Tex_Pokemon(Sprite))
+        
+        
+        '//Start rendering
+        D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, D3DColorARGB(255, 240, 240, 240), 1#, 0
+        D3DDevice.BeginScene
+        
+        RenderTexture Tex_Pokemon(Sprite), 0, 0, (sWidth / 34) * 3, 0, sWidth / 34, 64, sWidth / 34, sHeight
+        
+        '//End the rendering
+        D3DDevice.EndScene
+        D3DDevice.Present desRect, desRect, .picEvolve.hwnd, ByVal 0
     End With
 End Sub
 
