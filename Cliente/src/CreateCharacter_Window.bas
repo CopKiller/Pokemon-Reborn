@@ -11,7 +11,7 @@ Dim TextUIBoxSize As Long
 Public Sub DrawCharacterCreate()
 Dim i As Long
 Dim Sprite As Long
-Dim Width As Long, Height As Long
+Dim Width As Long, Height As Long, SString As String
 
     With GUI(GuiEnum.GUI_CHARACTERCREATE)
     
@@ -31,50 +31,58 @@ Dim Width As Long, Height As Long
         TextUIBoxSize = 104
         
         ' Desenha a janela
-        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
+        RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
         
         ' Botões
         For i = ButtonEnum.CharCreate_Confirm To ButtonEnum.CharCreate_Close
             If CanShowButton(i) Then
-                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
+                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .y + Button(i).y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
         
         ' Desenha o texto do username
-        RenderText Font_Default, TextUICreateCharacterUsername, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUICreateCharacterUsername) / 2) - 2, (.Y + PaddingTop) + 13, White, , 255
+        RenderText Font_Default, TextUICreateCharacterUsername, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUICreateCharacterUsername) / 2) - 2, (.y + PaddingTop) + 13, White, , 255
         
         ' Desenha o texto do botão criar
-        RenderText Font_Default, TextUICreateCharacterCreateButton, .X + 10 + (254 / 2) - (GetTextWidth(Font_Default, TextUICreateCharacterCreateButton) / 2) - 2, .Y + (PaddingTop + 142) + 34 / 2 - 12, White, , 255
+        RenderText Font_Default, TextUICreateCharacterCreateButton, .X + 10 + (254 / 2) - (GetTextWidth(Font_Default, TextUICreateCharacterCreateButton) / 2) - 2, .y + (PaddingTop + 142) + 34 / 2 - 12, White, , 255
         
         ' Textbox
-        RenderText Font_Default, UpdateChatText(Font_Default, CharName, 110) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 13), Dark, , 255
+        RenderText Font_Default, UpdateChatText(Font_Default, CharName, 110) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 13), Dark, , 255
         
         ' Seleção do gênero
         If SelGender = GENDER_MALE Then
-            RenderTexture Tex_Gui(.Pic), .X + 26, .Y + 78, 288, 114, 107, 87, 107, 87
-            RenderTexture Tex_Gui(.Pic), .X + 142, .Y + 78, 396, 114, 107, 87, 107, 87
+            RenderTexture Tex_Gui(.Pic), .X + 26, .y + 78, 288, 114, 107, 87, 107, 87
+            RenderTexture Tex_Gui(.Pic), .X + 142, .y + 78, 396, 114, 107, 87, 107, 87
             
             Sprite = 1
             Width = (GetPicWidth(Tex_Character(Sprite)) / 3) * 2
             Height = (GetPicHeight(Tex_Character(Sprite)) / 4) * 2
-            RenderTexture Tex_Character(Sprite), .X + 26 + ((114 / 2) - (Width / 2)) - 2, .Y + 78 + ((107 / 2) - (Height / 2)) - 20, (Width / 2) * GenderAnim, 0, Width, Height, Width / 2, Height / 2
+            RenderTexture Tex_Character(Sprite), .X + 26 + ((114 / 2) - (Width / 2)) - 2, .y + 78 + ((107 / 2) - (Height / 2)) - 20, (Width / 2) * GenderAnim, 0, Width, Height, Width / 2, Height / 2
             Sprite = 2
             Width = (GetPicWidth(Tex_Character(Sprite)) / 3) * 2
             Height = (GetPicHeight(Tex_Character(Sprite)) / 4) * 2
-            RenderTexture Tex_Character(Sprite), .X + 142 + ((114 / 2) - (Width / 2)) - 2, .Y + 78 + ((107 / 2) - (Height / 2)) - 20, (Width / 2), 0, Width, Height, Width / 2, Height / 2
+            RenderTexture Tex_Character(Sprite), .X + 142 + ((114 / 2) - (Width / 2)) - 2, .y + 78 + ((107 / 2) - (Height / 2)) - 20, (Width / 2), 0, Width, Height, Width / 2, Height / 2
         ElseIf SelGender = GENDER_FEMALE Then
-            RenderTexture Tex_Gui(.Pic), .X + 26, .Y + 78, 396, 114, 107, 87, 107, 87
-            RenderTexture Tex_Gui(.Pic), .X + 142, .Y + 78, 288, 114, 107, 87, 107, 87
+            RenderTexture Tex_Gui(.Pic), .X + 26, .y + 78, 396, 114, 107, 87, 107, 87
+            RenderTexture Tex_Gui(.Pic), .X + 142, .y + 78, 288, 114, 107, 87, 107, 87
             
             Sprite = 1
             Width = (GetPicWidth(Tex_Character(Sprite)) / 3) * 2
             Height = (GetPicHeight(Tex_Character(Sprite)) / 4) * 2
-            RenderTexture Tex_Character(Sprite), .X + 26 + ((114 / 2) - (Width / 2)) - 2, .Y + 78 + ((107 / 2) - (Height / 2)) - 20, (Width / 2), 0, Width, Height, Width / 2, Height / 2
+            RenderTexture Tex_Character(Sprite), .X + 26 + ((114 / 2) - (Width / 2)) - 2, .y + 78 + ((107 / 2) - (Height / 2)) - 20, (Width / 2), 0, Width, Height, Width / 2, Height / 2
             Sprite = 2
             Width = (GetPicWidth(Tex_Character(Sprite)) / 3) * 2
             Height = (GetPicHeight(Tex_Character(Sprite)) / 4) * 2
-            RenderTexture Tex_Character(Sprite), .X + 142 + ((114 / 2) - (Width / 2)) - 2, .Y + 78 + ((107 / 2) - (Height / 2)) - 20, (Width / 2) * GenderAnim, 0, Width, Height, Width / 2, Height / 2
+            RenderTexture Tex_Character(Sprite), .X + 142 + ((114 / 2) - (Width / 2)) - 2, .y + 78 + ((107 / 2) - (Height / 2)) - 20, (Width / 2) * GenderAnim, 0, Width, Height, Width / 2, Height / 2
         End If
+        
+        ' Mensagem título da janela
+        Select Case tmpCurLanguage
+        Case LANG_PT: SString = "Selecione o gênero"
+        Case LANG_EN: SString = "Select Gender"
+        Case LANG_ES: SString = "Select Gender"
+        End Select
+        RenderText Font_Default, SString, .X + 65, .y + 5, White
 
     End With
 End Sub
@@ -120,7 +128,7 @@ Public Sub CharacterCreateKeyPress(KeyAscii As Integer)
     If (isNameLegal(KeyAscii, True) And Len(CharName) < (NAME_LENGTH - 1)) Or KeyAscii = vbKeyBack Then CharName = InputText(CharName, KeyAscii)
 End Sub
 
-Public Sub CharacterCreateMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub CharacterCreateMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_CHARACTERCREATE)
@@ -134,7 +142,7 @@ Dim i As Long
         ' Verifica todos os itens
         For i = ButtonEnum.CharCreate_Confirm To ButtonEnum.CharCreate_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -143,7 +151,7 @@ Dim i As Long
         Next
         
         ' Gênero
-        If CursorY >= .Y + 78 And CursorY <= .Y + 78 + 87 Then
+        If CursorY >= .y + 78 And CursorY <= .y + 78 + 87 Then
             If CursorX >= .X + 26 And CursorX <= .X + 26 + 114 Then
                 SelGender = GENDER_MALE
             ElseIf CursorX >= .X + 142 And CursorX <= .X + 142 + 114 Then
@@ -153,14 +161,14 @@ Dim i As Long
         
         ' Verifica se foi movido
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Public Sub CharacterCreateMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub CharacterCreateMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim tmpX As Long, tmpY As Long
 
@@ -177,7 +185,7 @@ Dim tmpX As Long, tmpY As Long
         ' Verifica todos os itens
         For i = ButtonEnum.CharCreate_Confirm To ButtonEnum.CharCreate_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
         
@@ -189,7 +197,7 @@ Dim tmpX As Long, tmpY As Long
         Next
         
         ' Gênero
-        If CursorY >= .Y + 78 And CursorY <= .Y + 78 + 87 Then
+        If CursorY >= .y + 78 And CursorY <= .y + 78 + 87 Then
             If CursorX >= .X + 26 And CursorX <= .X + 26 + 114 Then
                 IsHovering = True
                 MouseIcon = 1
@@ -200,7 +208,7 @@ Dim tmpX As Long, tmpY As Long
         End If
 
         ' Passa o mouse pela textbox
-        If CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 120 And CursorY >= .Y + (PaddingTop + 13) And CursorY <= .Y + (PaddingTop + 13) + 23 Then
+        If CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 120 And CursorY >= .y + (PaddingTop + 13) And CursorY <= .y + (PaddingTop + 13) + 23 Then
             IsHovering = True
             MouseIcon = 2
         End If
@@ -216,13 +224,13 @@ Dim tmpX As Long, tmpY As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
 
-Public Sub CharacterCreateMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub CharacterCreateMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim FoundError As Boolean
 
@@ -237,7 +245,7 @@ Dim FoundError As Boolean
         ' Verifica todos os itens
         For i = ButtonEnum.CharCreate_Confirm To ButtonEnum.CharCreate_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i

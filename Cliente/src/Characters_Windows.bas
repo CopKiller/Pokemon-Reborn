@@ -8,7 +8,7 @@ Dim PaddingTop As Long
 Public Sub DrawCharacterSelect()
 Dim i As Long
 Dim CharNameText As String
-Dim Sprite As Long
+Dim Sprite As Long, SString As String
 
     With GUI(GuiEnum.GUI_CHARACTERSELECT)
     
@@ -25,7 +25,7 @@ Dim Sprite As Long
         PaddingTop = 32
         
         ' Desenha a janela
-        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
+        RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
         
         Select Case RandBackPlayer
             Case 1
@@ -55,12 +55,12 @@ Dim Sprite As Long
         End Select
     
         ' Desenha o Background
-        RenderTexture Tex_Gui(.Pic), .X + 2, .Y + 32, BackPlayerX, BackPlayerY, 199, 183, 199, 183
+        RenderTexture Tex_Gui(.Pic), .X + 2, .y + 32, BackPlayerX, BackPlayerY, 199, 183, 199, 183
         
         ' Botões
         For i = ButtonEnum.Character_SwitchLeft To ButtonEnum.Character_Delete
             If CanShowButton(i) Then
-                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
+                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .y + Button(i).y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
 
@@ -69,32 +69,38 @@ Dim Sprite As Long
             CharNameText = Trim$(pCharName(CurChar))
             
             ' Desenha o texto do botão usar personagem
-            RenderText Font_Default, TextUICharactersUse, .X + PaddingLeft + (125 / 2) - (GetTextWidth(Font_Default, TextUICharactersUse) / 2), (.Y + PaddingTop) + 146, White, , 255
+            RenderText Font_Default, TextUICharactersUse, .X + PaddingLeft + (125 / 2) - (GetTextWidth(Font_Default, TextUICharactersUse) / 2), (.y + PaddingTop) + 146, White, , 255
             
             ' Desenha o texto do botão apagar personagem
-            RenderText Font_Default, TextUICharactersDelete, .X + 141 + (50 / 2) - (GetTextWidth(Font_Default, TextUICharactersDelete) / 2) - 2, (.Y + PaddingTop) + 146, White, , 255
+            RenderText Font_Default, TextUICharactersDelete, .X + 141 + (50 / 2) - (GetTextWidth(Font_Default, TextUICharactersDelete) / 2) - 2, (.y + PaddingTop) + 146, White, , 255
         Else
             CharNameText = TextUICharactersNone
             
             ' Desenha o texto do botão novo personagem
-            RenderText Font_Default, TextUICharactersNew, .X + PaddingLeft + (178 / 2) - (GetTextWidth(Font_Default, TextUICharactersNew) / 2) - 2, (.Y + PaddingTop) + 146, White, , 255
+            RenderText Font_Default, TextUICharactersNew, .X + PaddingLeft + (178 / 2) - (GetTextWidth(Font_Default, TextUICharactersNew) / 2) - 2, (.y + PaddingTop) + 146, White, , 255
         End If
         
-        RenderText Font_Default, CharNameText, .X + PaddingLeft + (178 / 2) - ((GetTextWidth(Font_Default, CharNameText) / 2)) - 2, .Y + 37, D3DColorARGB(180, 250, 250, 250), False
+        RenderText Font_Default, CharNameText, .X + PaddingLeft + (178 / 2) - ((GetTextWidth(Font_Default, CharNameText) / 2)) - 2, .y + 37, D3DColorARGB(180, 250, 250, 250), False
         
         ' Sprite do personagem
         If pCharInUsed(CurChar) Then
             Sprite = pCharSprite(CurChar)
             If Sprite > 0 Then
-                RenderTexture Tex_Character(Sprite), .X + ((.Width / 2) - (((GetPicWidth(Tex_Character(Sprite)) / 3) * 2) / 2)) - 2, .Y + 75, (GetPicWidth(Tex_Character(Sprite)) / 3), 0, (GetPicWidth(Tex_Character(Sprite)) / 3) * 2, (GetPicHeight(Tex_Character(Sprite)) / 4) * 2, GetPicWidth(Tex_Character(Sprite)) / 3, GetPicHeight(Tex_Character(Sprite)) / 4, D3DColorARGB(255, 255, 255, 255)
+                RenderTexture Tex_Character(Sprite), .X + ((.Width / 2) - (((GetPicWidth(Tex_Character(Sprite)) / 3) * 2) / 2)) - 2, .y + 75, (GetPicWidth(Tex_Character(Sprite)) / 3), 0, (GetPicWidth(Tex_Character(Sprite)) / 3) * 2, (GetPicHeight(Tex_Character(Sprite)) / 4) * 2, GetPicWidth(Tex_Character(Sprite)) / 3, GetPicHeight(Tex_Character(Sprite)) / 4, D3DColorARGB(255, 255, 255, 255)
             End If
         End If
         
-    
+        ' Mensagem título da janela
+        Select Case tmpCurLanguage
+        Case LANG_PT: SString = "Iniciar Aventura!"
+        Case LANG_EN: SString = "Start Adventure!"
+        Case LANG_ES: SString = "Start Adventure!"
+        End Select
+        RenderText Font_Default, SString, .X + 45, .y + 5, White
     End With
 End Sub
 
-Public Sub CharacterSelectMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub CharacterSelectMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_CHARACTERSELECT)
@@ -108,7 +114,7 @@ Dim i As Long
         ' Verifica todos os itens
         For i = ButtonEnum.Character_SwitchLeft To ButtonEnum.Character_Delete
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -118,14 +124,14 @@ Dim i As Long
         
         ' Verifica se foi movido
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Public Sub CharacterSelectMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub CharacterSelectMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim tmpX As Long, tmpY As Long
 
@@ -142,7 +148,7 @@ Dim tmpX As Long, tmpY As Long
         ' Verifica todos os itens
         For i = ButtonEnum.Character_SwitchLeft To ButtonEnum.Character_Delete
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
                         
@@ -164,12 +170,12 @@ Dim tmpX As Long, tmpY As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Public Sub CharacterSelectMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub CharacterSelectMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_CHARACTERSELECT)
@@ -183,7 +189,7 @@ Dim i As Long
         ' Verifica todos os itens
         For i = ButtonEnum.Character_SwitchLeft To ButtonEnum.Character_Delete
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i

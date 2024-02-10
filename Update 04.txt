@@ -1,10 +1,10 @@
-Ok-Criar um novo repositório no git, com a versão do pokereborn, e ignorar pastas de mapas, etc...
+OK-Criar um novo repositório no git, com a versão do pokereborn, e ignorar pastas de mapas, etc...
 
 OK-Adicionar alterações na loja virtual.
 	Ok-Release Option(Mostra uma animação de "New" no item da loja).
 	Ok-Contador de um item ou montaria adicionado na loja, para ir removendo a quantidade disponível.
 
--Adicionar sistema de Vip.
+OK-Adicionar sistema de Vip.
 	Ok-Vip Silver & Vip Gold.
 	Ok-Vip Silver tem uma medalha de prata em pixel renderizando ao lado do nome do personagem.
 	Ok-Vip Gold tem uma medalha de ouro em pixel renderizando ao lado do nome do personagem.
@@ -15,27 +15,26 @@ OK-Adicionar alterações na loja virtual.
 	Ok-Vip editor no servidor, para alterar bonus.
 	Ok-Vip exp mostra os bonus totais que estão ativos no jogador em uma janela ao clikar no nome do vip no trainer card.
 
--Editor de pokemons
+OK-Editor de pokemons
 	Ok-Adicionar foto da evolução do poke.
 	Ok-Consertar as box de pesquisa por nome, do moveset e item moveset no editor de pokemon
 
--Adicionar skins de personagens.
-	-Skins todas serão unissex.
-	-Cada skin tera sua montaria.
-	-Realizar a criação das skins baseada
-	-Organização ficará > players-sprites > Skins > Mounts
+OK-Adicionar skins de personagens.
+	Ok-Skins todas serão unissex.
+	Ok-Cada skin tera sua montaria.
+	Ok-Remover zoom da sprite no código, fazer o aumento pelo photoshop
 
 Alteração básica:
 	Login
-	-"Bem Vindo ao Pokémon Reborn" funcionando em três linguagens.
-	-Localização na aba de login.
+	OK-"Bem Vindo ao Pokémon Reborn" funcionando em três linguagens.
+	OK-Localização na aba de login.
 	
 	Char
-	-Adicionar "Selecionar Personagem" funcionando em três linguagens
+	OK-Adicionar "Selecionar Personagem" funcionando em três linguagens
 	-Alterar imagem de fundo, deixar um fundo padrão.
 	-Deixar 1 personagem por conta.
-	-Criação do personagem, adicionar uma frase "Escolha o gênero" no topo vermelho da janela, nas 3 linguagens.
-	-Alterar o título da janela quando vai usar o char, adicionar "Iniciar Aventura".
+	OK-Criação do personagem, adicionar uma frase "Escolha o gênero" no topo vermelho da janela, nas 3 linguagens.
+	OK-Alterar o título da janela quando vai usar o char, adicionar "Iniciar Aventura".
 
 	Config
-	-Adicionar um titulo à janela em três linguagens.
+	OK-Adicionar um titulo à janela em três linguagens.
