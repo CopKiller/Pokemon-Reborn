@@ -383,6 +383,9 @@ Public Type PlayerRec
     
     '//Vip System
     Vip As PlayerVipRec
+    
+    '//Skin System
+    Skin As PlayerSkinRec
 End Type
 
 ' *****************

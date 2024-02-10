@@ -160,7 +160,7 @@ Public Sub DrawVirtualShop()
     With GUI(GuiEnum.GUI_VIRTUALSHOP)
         '//Verifica se a janela está visivel.
         If Not .Visible Then Exit Sub
-
+        
         '//Render the window
         RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
 

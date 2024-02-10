@@ -220,13 +220,13 @@ Dim buffer As clsBuffer
     Debug.Print Now & Msg
 End Sub
 
-Public Sub SendLoginOk(ByVal index As Long, Optional ByVal Data1 As Byte = 0)
+Public Sub SendLoginOk(ByVal index As Long, Optional ByVal data1 As Byte = 0)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong SLoginOk
     buffer.WriteLong index
-    buffer.WriteByte Data1
+    buffer.WriteByte data1
     SendDataTo index, buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -267,7 +267,8 @@ Dim i As Long
     
     With Player(index, TempPlayer(index).UseChar)
         buffer.WriteString Trim$(.Name)
-        buffer.WriteLong .Sprite
+        buffer.WriteLong GetPlayerHaveSkinOrSprite(index)
+        buffer.WriteLong GetPlayerOriginalSprite(index)
         buffer.WriteByte .Access
         buffer.WriteLong .Map
         buffer.WriteLong .x
@@ -391,8 +392,8 @@ Dim i As Long, a As Byte
                 Next
                 '//Tile Data
                 buffer.WriteByte .Attribute
-                buffer.WriteLong .Data1
-                buffer.WriteLong .Data2
+                buffer.WriteLong .data1
+                buffer.WriteLong .data2
                 buffer.WriteLong .Data3
                 buffer.WriteLong .Data4
             End With

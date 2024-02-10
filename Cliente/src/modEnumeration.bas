@@ -411,6 +411,7 @@ Public Enum ItemTypeEnum
     Items
     MysteryBox
     Vip
+    Skin
 End Enum
 
 '//Ball Type

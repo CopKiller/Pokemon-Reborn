@@ -997,6 +997,15 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
         Else
             .fraVip.Visible = False
         End If
+        
+        If Item(xIndex).Type = ItemTypeEnum.Skin Then
+            .fraSkin.Visible = True
+            .txtSkinNum.Text = Item(xIndex).Data1
+            .scrlSkinNum.max = Count_PlayerSprite_N
+            .scrlSkinNum.value = Item(xIndex).Data1
+        Else
+            .fraVip.Visible = False
+        End If
 
         .txtPrice.Text = Item(xIndex).Price
 

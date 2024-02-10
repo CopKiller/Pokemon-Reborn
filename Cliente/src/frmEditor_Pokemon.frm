@@ -197,6 +197,14 @@ Begin VB.Form frmEditor_Pokemon
          TabIndex        =   62
          Top             =   5400
          Width           =   5775
+         Begin VB.TextBox txtFindItem 
+            Enabled         =   0   'False
+            Height          =   285
+            Left            =   3000
+            TabIndex        =   100
+            Top             =   1440
+            Width           =   1215
+         End
          Begin VB.PictureBox picEvolve 
             BorderStyle     =   0  'None
             Height          =   975
@@ -255,6 +263,15 @@ Begin VB.Form frmEditor_Pokemon
             Top             =   240
             Value           =   1
             Width           =   5535
+         End
+         Begin VB.Label lblFindItem 
+            AutoSize        =   -1  'True
+            Caption         =   "Item:"
+            Height          =   195
+            Left            =   3000
+            TabIndex        =   101
+            Top             =   1200
+            Width           =   345
          End
          Begin VB.Label lblEvolveCondition 
             Caption         =   "Condition: None"
@@ -1160,12 +1177,13 @@ Private Sub scrlEvolve_Change()
 End Sub
 
 Private Sub scrlEvolveCondition_Change()
+    txtFindItem.Enabled = False
     Select Case scrlEvolveCondition.value
         Case EVOLVE_CONDT_TIME: lblEvolveCondition.Caption = "Condition: Time"
         Case EVOLVE_CONDT_HAPPINESS: lblEvolveCondition.Caption = "Condition: Happiness"
         Case EVOLVE_CONDT_TRADE: lblEvolveCondition.Caption = "Condition: Trade"
         Case EVOLVE_CONDT_GENDER: lblEvolveCondition.Caption = "Condition: Gender"
-        Case EVOLVE_CONDT_ITEM: lblEvolveCondition.Caption = "Condition: Item"
+        Case EVOLVE_CONDT_ITEM: lblEvolveCondition.Caption = "Condition: Item": txtFindItem.Enabled = True
         Case EVOLVE_CONDT_KNOWMOVE: lblEvolveCondition.Caption = "Condition: Know Move"
         Case EVOLVE_CONDT_AREA: lblEvolveCondition.Caption = "Condition: Area"
         Case Else: lblEvolveCondition.Caption = "Condition: None"
@@ -1304,6 +1322,52 @@ Private Sub txtFind_Change()
     End If
 End Sub
 
+Private Sub txtFindItem_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+    
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_ITEM
+    
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+    
+    ' Nome deste controle
+    If Not IsNumeric(txtFindItem) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtFindItem))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                ' Atribuição da estrutura em procura
+                If InStr(1, UCase$(Trim$(Item(i).Name)), Find) > 0 Then
+                    ' Nome do controle a ser alterado
+                    txtEvolveConditionData = i
+                    lblFindItem = "Item: " & Trim$(Item(i).Name)
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        ' Nome deste controle
+        If txtFindItem > MAX_INDEX Then
+            ' Nome deste controle
+            txtFindItem = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtFindItem <= 0 Then
+            ' Nome deste controle
+            txtFindItem = 1
+        End If
+        ' Nome do controle a ser alterado & Nome deste controle
+        txtEvolveConditionData = txtFindItem
+        lblFindItem = "Item: " & Trim$(Item(txtFindItem).Name)
+    End If
+End Sub
+
 Private Sub txtHeight_Change()
     If IsNumeric(txtHeight.Text) Then
         Pokemon(EditorIndex).Height = Val(txtHeight.Text)
@@ -1370,7 +1434,7 @@ Private Sub txtItemMoveFind_Change()
                 ' Atribuição da estrutura em procura
                 If InStr(1, UCase$(Trim$(PokemonMove(i).Name)), Find) > 0 Then
                     ' Nome do controle a ser alterado
-                    cmbMoveNum.ListIndex = i
+                    cmbItemMove.ListIndex = i
                     Exit Sub
                 End If
             End If
@@ -1386,7 +1450,7 @@ Private Sub txtItemMoveFind_Change()
             txtItemMoveFind = 1
         End If
         ' Nome do controle a ser alterado & Nome deste controle
-        cmbMoveNum.ListIndex = txtItemMoveFind
+        cmbItemMove.ListIndex = txtItemMoveFind
     End If
 End Sub
 

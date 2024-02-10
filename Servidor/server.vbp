@@ -26,6 +26,7 @@ Form=src\frmEditor_Store.frm
 Module=modFish; src\modFish.bas
 Module=modVip; src\modVip.bas
 Form=src\frmEditor_Vip.frm
+Module=modSkins; src\modSkins.bas
 Startup="Sub Main"
 HelpFile=""
 Title="server"

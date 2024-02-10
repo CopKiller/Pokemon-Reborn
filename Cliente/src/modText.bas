@@ -86,7 +86,7 @@ Dim FilePath As String
 Dim FontName As String
 Dim SizeX As Long, SizeY As Long
 
-    'On Error GoTo errHandler
+    On Error GoTo errHandler
     
     '//Check if we have the device
     If D3DDevice.TestCooperativeLevel <> D3D_OK Then Exit Sub
@@ -552,11 +552,11 @@ Dim DrawX As Long
     End If
 End Sub
 
-Public Sub DrawPlayerName(ByVal index As Long)
+Public Sub DrawPlayerName(ByVal Index As Long)
     Dim textX As Long, textY As Long
     Dim Color As Long, Name As String
 
-    With Player(index)
+    With Player(Index)
         '//Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -582,7 +582,7 @@ Public Sub DrawPlayerName(ByVal index As Long)
             If .Sprite < 1 Or .Sprite > Count_Character Then
                 textY = ConvertMapY(.y * (TILE_Y)) + .yOffset
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 4)
+                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 3.5)
             End If
         Case TEMP_SPRITE_GROUP_DIVE
             '//calc pos
@@ -590,7 +590,7 @@ Public Sub DrawPlayerName(ByVal index As Long)
             If .Sprite < 1 Or .Sprite > Count_Character Then
                 textY = ConvertMapY(.y * TILE_Y) + .yOffset
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 4)
+                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 3.5)
             End If
         Case TEMP_SPRITE_GROUP_MOUNT
             '//calc pos
@@ -606,13 +606,13 @@ Public Sub DrawPlayerName(ByVal index As Long)
             If .Sprite < 1 Or .Sprite > Count_Character Then
                 textY = ConvertMapY(.y * TILE_Y) + .yOffset
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 4)
+                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 3.5)
             End If
         End Select
 
         '//Draw name
         If .StealthMode = YES Then
-            If index = MyIndex Then
+            If Index = MyIndex Then
                 RenderTexture Tex_System(gSystemEnum.UserInterface), textX - 2, textY, 0, 8, GetTextWidth(Font_Default, Name) + 8, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
                 RenderText Font_Default, Name, textX, textY, Color
                 '//Status
@@ -621,8 +621,8 @@ Public Sub DrawPlayerName(ByVal index As Long)
                 End If
 
                 '//Vip
-                If GetPlayerVipStatus(index) > EnumVipType.None Then
-                    RenderTexture Tex_Misc(Misc_Vip), (textX - 2) + (((GetTextWidth(Font_Default, Name) + 8) / 2) - 10), textY + 10 + 2, (GetPlayerVipStatus(index) - 1) * 10, 0, 21, 16, 21, 16
+                If GetPlayerVipStatus(Index) > EnumVipType.None Then
+                    RenderTexture Tex_Misc(Misc_Vip), (textX - 2) + (((GetTextWidth(Font_Default, Name) + 8) / 2) - 10), textY + 10 + 2, (GetPlayerVipStatus(Index) - 1) * 10, 0, 21, 16, 21, 16
                 End If
             End If
         Else
@@ -634,9 +634,9 @@ Public Sub DrawPlayerName(ByVal index As Long)
             End If
 
             '//Vip
-            If GetPlayerVipStatus(index) > EnumVipType.None Then
+            If GetPlayerVipStatus(Index) > EnumVipType.None Then
                 RenderTexture Tex_System(gSystemEnum.UserInterface), textX - 21, textY, 0, 8, 10 + 8, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
-                RenderTexture Tex_Misc(Misc_Vip), (textX - 17), textY + 1, (GetPlayerVipStatus(index) - 1) * 10, 0, 10, 16, 10, 16
+                RenderTexture Tex_Misc(Misc_Vip), (textX - 17), textY + 1, (GetPlayerVipStatus(Index) - 1) * 10, 0, 10, 16, 10, 16
             End If
         End If
     End With
@@ -717,11 +717,11 @@ Private Function ConvertInverse(ByVal value As Integer) As Integer
     End If
 End Function
 
-Public Sub DrawPlayerPokemonName(ByVal index As Long)
+Public Sub DrawPlayerPokemonName(ByVal Index As Long)
 Dim textX As Long, textY As Long
 Dim Color As Long, Name As String
     
-    With PlayerPokemon(index)
+    With PlayerPokemon(Index)
         If .Num <= 0 Then Exit Sub
         
         '//Check if Player is within screen area
@@ -744,7 +744,7 @@ Dim Color As Long, Name As String
         End If
         
         '//Draw name
-        If Player(index).StealthMode = NO Then
+        If Player(Index).StealthMode = NO Then
             RenderTexture Tex_System(gSystemEnum.UserInterface), textX - 2, textY, 0, 8, GetTextWidth(Font_Default, Name) + 8, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
             RenderText Font_Default, Name, textX, textY, Color
             '//Status
@@ -1167,14 +1167,14 @@ Dim tx As Long, ty As Long
     End If
 End Function
 
-Public Sub DrawChatBubble(ByVal index As Long)
+Public Sub DrawChatBubble(ByVal Index As Long)
 Dim theArray() As String
 Dim X As Long, y As Long
 Dim x2 As Long, Y2 As Long
 Dim MaxWidth As Long
 Dim i As Long
     
-    With chatBubble(index)
+    With chatBubble(Index)
         '//Set Default
         X = ConvertMapX(.X * TILE_X) + 16
         y = ConvertMapY(.y * TILE_Y) - 28

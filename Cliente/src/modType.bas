@@ -296,6 +296,9 @@ Public Type PlayerRec
     IdleTimer As Long
     IdleFrameTmr As Long
     IdleAnim As Byte
+    
+    '//Original Sprite
+    LastPlayerSpriteNum As Long
 End Type
 
 ' *****************
@@ -326,7 +329,7 @@ End Type
 
 Private Type PlayerInvStorageSlotRec
     Unlocked As Byte
-    data(1 To MAX_STORAGE) As PlayerInvStorageDataRec
+    Data(1 To MAX_STORAGE) As PlayerInvStorageDataRec
 End Type
 
 Public Type PlayerPokemonsRec
@@ -373,7 +376,7 @@ End Type
 
 Private Type PlayerPokemonStorageSlotRec
     Unlocked As Byte
-    data(1 To MAX_STORAGE) As PlayerPokemonsRec
+    Data(1 To MAX_STORAGE) As PlayerPokemonsRec
 End Type
 
 Private Type PlayerPokedexRec
@@ -729,7 +732,7 @@ Public Type TradeDataRec
 End Type
 
 Public Type TradeRec
-    data(1 To MAX_TRADE) As TradeDataRec
+    Data(1 To MAX_TRADE) As TradeDataRec
     TradeMoney As Long
     TradeSet As Byte
 End Type

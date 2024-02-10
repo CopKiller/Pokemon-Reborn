@@ -816,7 +816,7 @@ Private Function SetTexturePath(ByVal path As String) As Long
     GlobalTexture(GlobalTextureCount).Loaded = False
 End Function
 
-Public Sub LoadTextureFile(ByVal path As String, ByRef data() As Byte)
+Public Sub LoadTextureFile(ByVal path As String, ByRef Data() As Byte)
     Dim Length As Long
     Dim f As Long
 
@@ -838,12 +838,12 @@ Public Sub LoadTextureFile(ByVal path As String, ByRef data() As Byte)
 
     If InStr(Len(path) - Len(ENC_EXT), path, ENC_EXT, vbTextCompare) > 0 Then
         Get #f, , Length
-        ReDim data(Length)
-        Get #f, , data
-        data = DecryptFile(data, Length)
+        ReDim Data(Length)
+        Get #f, , Data
+        Data = DecryptFile(Data, Length)
     Else
-        ReDim data(0 To LOF(f) - 1)
-        Get #f, , data
+        ReDim Data(0 To LOF(f) - 1)
+        Get #f, , Data
     End If
 
     Close #f
@@ -851,17 +851,17 @@ End Sub
 
 Private Sub LoadTexture(ByVal TextureNum As Long)
 Dim Tex_Info As D3DXIMAGE_INFO_A
-Dim data() As Byte
+Dim Data() As Byte
 'Dim path As String
 
     '//Set Texture path
     'path = GlobalTexture(TextureNum).path
     
-    Call LoadTextureFile(GlobalTexture(TextureNum).path, data)
+    Call LoadTextureFile(GlobalTexture(TextureNum).path, Data)
     
     '//Load the texture
     'Set GlobalTexture(TextureNum).Texture = D3DX.CreateTextureFromFileEx(D3DDevice, path, D3DX_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_POINT, D3DX_FILTER_NONE, RGB(255, 0, 255), Tex_Info, ByVal 0)
-    Set GlobalTexture(TextureNum).Texture = D3DX.CreateTextureFromFileInMemoryEx(D3DDevice, data(0), AryCount(data), D3DX_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_POINT, D3DX_FILTER_NONE, RGB(255, 0, 255), Tex_Info, ByVal 0)
+    Set GlobalTexture(TextureNum).Texture = D3DX.CreateTextureFromFileInMemoryEx(D3DDevice, Data(0), AryCount(Data), D3DX_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_POINT, D3DX_FILTER_NONE, RGB(255, 0, 255), Tex_Info, ByVal 0)
     '//Update the texture info size
     GlobalTexture(TextureNum).Height = Tex_Info.Height
     GlobalTexture(TextureNum).Width = Tex_Info.Width
@@ -1852,6 +1852,7 @@ Private Sub DrawPlayer(ByVal Index As Long)
 
         Select Case .TempSprite
         Case TEMP_SPRITE_GROUP_BIKE
+            Sprite = .LastPlayerSpriteNum
             '//Empty sprite? then exit out
             If Sprite <= 0 Or Sprite > Count_PlayerSprite_B Then Exit Sub
             '//Check sprite size
@@ -1862,6 +1863,7 @@ Private Sub DrawPlayer(ByVal Index As Long)
             X = (.X * TILE_X) + .xOffset - (((oWidth * 2) - TILE_X) / 2)
             y = (.y * TILE_Y) + .yOffset - ((oHeight * 2) - TILE_Y)
         Case TEMP_SPRITE_GROUP_DIVE
+            Sprite = .LastPlayerSpriteNum
             '//Empty sprite? then exit out
             If Sprite <= 0 Or Sprite > Count_PlayerSprite_D Then Exit Sub
             '//Check sprite size
@@ -1872,6 +1874,7 @@ Private Sub DrawPlayer(ByVal Index As Long)
             X = (.X * TILE_X) + .xOffset - (((oWidth * 2) - TILE_X) / 2)
             y = (.y * TILE_Y) + .yOffset - ((oHeight * 2) - TILE_Y)
         Case TEMP_SPRITE_GROUP_MOUNT
+            'Sprite = .LastPlayerSpriteNum
             '//Empty sprite? then exit out
             If Sprite <= 0 Or Sprite > UBound(Count_PlayerSprite_M) Then Exit Sub
             If .TempSpriteID <= 0 Or .TempSpriteID > Count_PlayerSprite_M(Sprite) Then Exit Sub
@@ -1958,7 +1961,7 @@ Private Sub DrawPlayer(ByVal Index As Long)
                 RenderTexture Tex_Misc(Misc_Fish), ConvertMapX(X), ConvertMapY(y + 42), rDir * 24, .FishRod * 24, 32, 32, 24, 24, D3DColorARGB(DrawAlpha, 255, 255, 255)
             End If
         Case Else
-            RenderTexture Tex_PlayerSprite_N(Sprite), ConvertMapX(X - 8), ConvertMapY(y - 32), Anim * oWidth, rDir * oHeight, oWidth * 2, oHeight * 2, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
+            RenderTexture Tex_PlayerSprite_N(Sprite), ConvertMapX(X - 8), ConvertMapY(y), Anim * oWidth, rDir * oHeight, oWidth * 1, oHeight * 1, oWidth, oHeight, D3DColorARGB(DrawAlpha, 255, 255, 255)
             '//Fish System
             If .FishMode = YES Then
                 Select Case .Dir
@@ -3611,8 +3614,8 @@ Dim DrawX As Long, DrawY As Long
         '//Items
         For i = 1 To MAX_STORAGE
             If i <> DragStorageSlot Then
-                If PlayerInvStorage(InvCurSlot).data(i).Num > 0 Then
-                    Sprite = Item(PlayerInvStorage(InvCurSlot).data(i).Num).Sprite
+                If PlayerInvStorage(InvCurSlot).Data(i).Num > 0 Then
+                    Sprite = Item(PlayerInvStorage(InvCurSlot).Data(i).Num).Sprite
                     
                     DrawX = .X + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
                     DrawY = .y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
@@ -3625,8 +3628,8 @@ Dim DrawX As Long, DrawY As Long
                     RenderTexture Tex_System(gSystemEnum.UserInterface), DrawX, DrawY, 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(20, 0, 0, 0)
                     
                     '//Count
-                    If PlayerInvStorage(InvCurSlot).data(i).value > 1 Then
-                        RenderText Font_Default, PlayerInvStorage(InvCurSlot).data(i).value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInvStorage(InvCurSlot).data(i).value)), DrawY + 14, White
+                    If PlayerInvStorage(InvCurSlot).Data(i).value > 1 Then
+                        RenderText Font_Default, PlayerInvStorage(InvCurSlot).Data(i).value, DrawX + 28 - (GetTextWidth(Font_Default, PlayerInvStorage(InvCurSlot).Data(i).value)), DrawY + 14, White
                     End If
                 End If
             End If
@@ -3686,8 +3689,8 @@ Private Sub DrawPokemonStorage()
         For i = 1 To MAX_STORAGE
             If i <> DragPokeSlot Then
 
-                If PlayerPokemonStorage(PokemonCurSlot).data(i).Num > 0 Then
-                    Sprite = Pokemon(PlayerPokemonStorage(PokemonCurSlot).data(i).Num).Sprite
+                If PlayerPokemonStorage(PokemonCurSlot).Data(i).Num > 0 Then
+                    Sprite = Pokemon(PlayerPokemonStorage(PokemonCurSlot).Data(i).Num).Sprite
 
                     DrawX = .X + (98 + ((5 + TILE_X) * (((i - 1) Mod 7))))
                     DrawY = .y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
@@ -3696,13 +3699,13 @@ Private Sub DrawPokemonStorage()
                     If Sprite > 0 And Sprite <= Count_PokemonIcon Then
                         RenderTexture Tex_PokemonIcon(Sprite), DrawX, DrawY, MapAnim * 32, 0, 32, 32, 32, 32
                         '//Held Item
-                        If PlayerPokemonStorage(PokemonCurSlot).data(i).HeldItem > 0 And PlayerPokemonStorage(PokemonCurSlot).data(i).HeldItem <= MAX_ITEM Then
+                        If PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem > 0 And PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem <= MAX_ITEM Then
                             RenderTexture Tex_Item(PokeUseHeld), DrawX - 4, DrawY + 21, 0, 0, 13, 13, 24, 24
                         End If
 
                         ' Poke Gender - Female Rate = 0 -> Is Lendary -> Not Render Sex
-                        If Pokemon(PlayerPokemonStorage(PokemonCurSlot).data(i).Num).Lendary = NO Then
-                            DrawGender DrawX + 24, DrawY, PlayerPokemonStorage(PokemonCurSlot).data(i).Gender, 0
+                        If Pokemon(PlayerPokemonStorage(PokemonCurSlot).Data(i).Num).Lendary = NO Then
+                            DrawGender DrawX + 24, DrawY, PlayerPokemonStorage(PokemonCurSlot).Data(i).Gender, 0
                         End If
 
                         ' Using in PokeStorage to select Pokes.
@@ -3735,8 +3738,8 @@ Private Sub DrawDragIcon()
         End If
     End If
     If DragStorageSlot > 0 Then
-        If PlayerInvStorage(InvCurSlot).data(DragStorageSlot).Num > 0 Then
-            Sprite = Item(PlayerInvStorage(InvCurSlot).data(DragStorageSlot).Num).Sprite
+        If PlayerInvStorage(InvCurSlot).Data(DragStorageSlot).Num > 0 Then
+            Sprite = Item(PlayerInvStorage(InvCurSlot).Data(DragStorageSlot).Num).Sprite
 
             '//Draw Icon
             If Sprite > 0 And Sprite <= Count_Item Then
@@ -3745,8 +3748,8 @@ Private Sub DrawDragIcon()
         End If
     End If
     If DragPokeSlot > 0 Then
-        If PlayerPokemonStorage(PokemonCurSlot).data(DragPokeSlot).Num > 0 Then
-            Sprite = Pokemon(PlayerPokemonStorage(PokemonCurSlot).data(DragPokeSlot).Num).Sprite
+        If PlayerPokemonStorage(PokemonCurSlot).Data(DragPokeSlot).Num > 0 Then
+            Sprite = Pokemon(PlayerPokemonStorage(PokemonCurSlot).Data(DragPokeSlot).Num).Sprite
 
             '//Draw Icon
             If Sprite > 0 And Sprite <= Count_PokemonIcon Then
@@ -3963,26 +3966,26 @@ Dim currencyText As String
         '//Trade Items
         For i = 1 To MAX_TRADE
             '//Your Trade
-            If YourTrade.data(i).TradeType > 0 Then
+            If YourTrade.Data(i).TradeType > 0 Then
                 DrawX = .X + (12 + ((3 + 44) * ((i - 1) Mod 4)))
                 DrawY = .y + (71 + ((3 + 46) * ((i - 1) \ 4)))
                     
-                If YourTrade.data(i).Num > 0 Then
+                If YourTrade.Data(i).Num > 0 Then
                     RenderTexture Tex_Gui(.Pic), DrawX, DrawY, 459, 395, 44, 46, 44, 46
                         
                     '//Icon
-                    If YourTrade.data(i).TradeType = 1 Then  '//Item
-                        Sprite = Item(YourTrade.data(i).Num).Sprite
+                    If YourTrade.Data(i).TradeType = 1 Then  '//Item
+                        Sprite = Item(YourTrade.Data(i).Num).Sprite
                         If Sprite > 0 And Sprite <= Count_Item Then
                             RenderTexture Tex_Item(Sprite), DrawX + 7 + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + 7 + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
                         End If
                         
                         '//Count
-                        If YourTrade.data(i).value > 1 Then
-                            RenderText Font_Default, YourTrade.data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, YourTrade.data(i).value)), DrawY + 7 + 14, White
+                        If YourTrade.Data(i).value > 1 Then
+                            RenderText Font_Default, YourTrade.Data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, YourTrade.Data(i).value)), DrawY + 7 + 14, White
                         End If
-                    ElseIf YourTrade.data(i).TradeType = 2 Then  '//Pokemon
-                        Sprite = Pokemon(YourTrade.data(i).Num).Sprite
+                    ElseIf YourTrade.Data(i).TradeType = 2 Then  '//Pokemon
+                        Sprite = Pokemon(YourTrade.Data(i).Num).Sprite
                         If Sprite > 0 And Sprite <= Count_PokemonIcon Then
                             RenderTexture Tex_PokemonIcon(Sprite), DrawX + 7, DrawY + 7, MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
                         End If
@@ -3991,26 +3994,26 @@ Dim currencyText As String
             End If
             
             '//Their Trade
-            If TheirTrade.data(i).TradeType > 0 Then
+            If TheirTrade.Data(i).TradeType > 0 Then
                 DrawX = .X + (222 + ((3 + 44) * ((i - 1) Mod 4)))
                 DrawY = .y + (71 + ((3 + 46) * ((i - 1) \ 4)))
                     
-                If TheirTrade.data(i).Num > 0 Then
+                If TheirTrade.Data(i).Num > 0 Then
                     RenderTexture Tex_Gui(.Pic), DrawX, DrawY, 459, 395, 44, 46, 44, 46
                         
                     '//Icon
-                    If TheirTrade.data(i).TradeType = 1 Then '//Item
-                        Sprite = Item(TheirTrade.data(i).Num).Sprite
+                    If TheirTrade.Data(i).TradeType = 1 Then '//Item
+                        Sprite = Item(TheirTrade.Data(i).Num).Sprite
                         If Sprite > 0 And Sprite <= Count_Item Then
                             RenderTexture Tex_Item(Sprite), DrawX + 7 + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + 7 + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
                         End If
                         
                         '//Count
-                        If TheirTrade.data(i).value > 1 Then
-                            RenderText Font_Default, TheirTrade.data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, TheirTrade.data(i).value)), DrawY + 7 + 14, White
+                        If TheirTrade.Data(i).value > 1 Then
+                            RenderText Font_Default, TheirTrade.Data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, TheirTrade.Data(i).value)), DrawY + 7 + 14, White
                         End If
-                    ElseIf TheirTrade.data(i).TradeType = 2 Then '//Pokemon
-                        Sprite = Pokemon(TheirTrade.data(i).Num).Sprite
+                    ElseIf TheirTrade.Data(i).TradeType = 2 Then '//Pokemon
+                        Sprite = Pokemon(TheirTrade.Data(i).Num).Sprite
                         If Sprite > 0 And Sprite <= Count_PokemonIcon Then
                             RenderTexture Tex_PokemonIcon(Sprite), DrawX + 7, DrawY + 7, MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
                         End If
@@ -4149,7 +4152,7 @@ Private Sub DrawPokemonSummary()
                 End If
             Case 2    ' MyStorage
                 If SummaryData > 0 Then
-                    PokeDate = PlayerPokemonStorage(SummaryData).data(SummarySlot)
+                    PokeDate = PlayerPokemonStorage(SummaryData).Data(SummarySlot)
                 Else
                     Exit Sub
                 End If
@@ -4157,11 +4160,11 @@ Private Sub DrawPokemonSummary()
                 Dim PokeTrade As TradeDataRec
 
                 If CheckingTrade = 2 Then    ' Their
-                    If TheirTrade.data(SummarySlot).TradeType <> 2 Then Exit Sub
-                    PokeTrade = TheirTrade.data(SummarySlot)
+                    If TheirTrade.Data(SummarySlot).TradeType <> 2 Then Exit Sub
+                    PokeTrade = TheirTrade.Data(SummarySlot)
                 ElseIf CheckingTrade = 1 Then    ' Your
-                    If YourTrade.data(SummarySlot).TradeType <> 2 Then Exit Sub
-                    PokeTrade = YourTrade.data(SummarySlot)
+                    If YourTrade.Data(SummarySlot).TradeType <> 2 Then Exit Sub
+                    PokeTrade = YourTrade.Data(SummarySlot)
                 Else
                     Exit Sub
                 End If
@@ -4444,6 +4447,9 @@ Private Sub DrawGDI()
     End If
     If frmEditor_Item.Visible And Editor = EDITOR_ITEM Then
         GDIItem
+        If frmEditor_Item.cmbType.ListIndex = ItemTypeEnum.Skin Then
+            GDIPlayerSkin
+        End If
     End If
     If frmEditor_Animation.Visible And Editor = EDITOR_ANIMATION Then
         GDI_Animation
@@ -4620,6 +4626,36 @@ Dim Sprite As Long
     End With
 End Sub
 
+Private Sub GDIPlayerSkin()
+Dim desRect As D3DRECT              '//Rendering Area
+Dim Sprite As Long
+
+    With frmEditor_Item
+        '//Exit if form is not open
+        If Not .Visible Then Exit Sub
+        
+        Sprite = .scrlSkinNum
+        If Sprite <= 0 Or Sprite > Count_PlayerSprite_N Then
+            .picPlayerSkin.Cls
+            Exit Sub
+        End If
+        
+        desRect.x2 = .picPlayerSkin.scaleWidth
+        desRect.Y2 = .picPlayerSkin.scaleHeight
+        
+        '//Start rendering
+        D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, D3DColorARGB(255, 240, 240, 240), 1#, 0
+        D3DDevice.BeginScene
+        
+        RenderTexture Tex_PlayerSprite_N(Sprite), 0, 0, 0, 0, 32, 32, 32, 32
+        
+        '//End the rendering
+        D3DDevice.EndScene
+        D3DDevice.Present desRect, desRect, .picPlayerSkin.hwnd, ByVal 0
+    End With
+End Sub
+
+
 Private Sub GDI_Animation()
 Dim AnimationNum As Long
 Dim sX As Long, sY As Long
@@ -4729,7 +4765,7 @@ Public Sub DrawItemDesc()
         If StorageItemDesc <= 0 Or StorageItemDesc > MAX_STORAGE Then Exit Sub
         If StorageItemDescTimer + 400 > GetTickCount Then Exit Sub
         StorageItemDescShow = True
-        ItemID = PlayerInvStorage(InvCurSlot).data(StorageItemDesc).Num
+        ItemID = PlayerInvStorage(InvCurSlot).Data(StorageItemDesc).Num
         StartX = CursorX
         StartY = CursorY
     ElseIf TradeItemDesc > 0 Then    ' Trade
@@ -4738,9 +4774,9 @@ Public Sub DrawItemDesc()
         TradeItemDescShow = True
         If TradeItemDescType = 1 Then    ' Item
             If TradeItemDescOwner = 1 Then 'ME
-                ItemID = TheirTrade.data(TradeItemDesc).Num
+                ItemID = TheirTrade.Data(TradeItemDesc).Num
             ElseIf TradeItemDescOwner = 2 Then 'YOUR
-                ItemID = YourTrade.data(TradeItemDesc).Num
+                ItemID = YourTrade.Data(TradeItemDesc).Num
             End If
         End If
         StartX = CursorX

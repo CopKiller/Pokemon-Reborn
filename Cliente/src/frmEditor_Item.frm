@@ -71,6 +71,49 @@ Begin VB.Form frmEditor_Item
       TabIndex        =   0
       Top             =   0
       Width           =   6015
+      Begin VB.Frame fraSkin 
+         Caption         =   "Skin Properties"
+         Height          =   1815
+         Left            =   960
+         TabIndex        =   85
+         Top             =   2280
+         Visible         =   0   'False
+         Width           =   4335
+         Begin VB.PictureBox picPlayerSkin 
+            BorderStyle     =   0  'None
+            Height          =   735
+            Left            =   2880
+            ScaleHeight     =   735
+            ScaleWidth      =   855
+            TabIndex        =   89
+            Top             =   600
+            Width           =   855
+         End
+         Begin VB.VScrollBar scrlSkinNum 
+            Height          =   255
+            Left            =   1920
+            Max             =   500
+            TabIndex        =   88
+            Top             =   840
+            Width           =   255
+         End
+         Begin VB.TextBox txtSkinNum 
+            Height          =   285
+            Left            =   360
+            TabIndex        =   86
+            Text            =   "0"
+            Top             =   840
+            Width           =   1575
+         End
+         Begin VB.Label Label18 
+            Caption         =   "SkinNum:"
+            Height          =   255
+            Left            =   360
+            TabIndex        =   87
+            Top             =   600
+            Width           =   855
+         End
+      End
       Begin VB.Frame fraVip 
          Caption         =   "Vip Properties"
          Height          =   1815
@@ -198,7 +241,7 @@ Begin VB.Form frmEditor_Item
          Height          =   315
          ItemData        =   "frmEditor_Item.frx":0004
          Left            =   1200
-         List            =   "frmEditor_Item.frx":0026
+         List            =   "frmEditor_Item.frx":0029
          Style           =   2  'Dropdown List
          TabIndex        =   9
          Top             =   1200
@@ -277,9 +320,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbKeyItemType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0090
+            ItemData        =   "frmEditor_Item.frx":0099
             Left            =   2280
-            List            =   "frmEditor_Item.frx":009A
+            List            =   "frmEditor_Item.frx":00A3
             Style           =   2  'Dropdown List
             TabIndex        =   32
             Top             =   360
@@ -471,9 +514,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbPowerType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":00B1
+            ItemData        =   "frmEditor_Item.frx":00BA
             Left            =   1440
-            List            =   "frmEditor_Item.frx":00CA
+            List            =   "frmEditor_Item.frx":00D3
             Style           =   2  'Dropdown List
             TabIndex        =   50
             Top             =   360
@@ -506,9 +549,9 @@ Begin VB.Form frmEditor_Item
          Width           =   4695
          Begin VB.ComboBox cmbBerrieType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0119
+            ItemData        =   "frmEditor_Item.frx":0122
             Left            =   1440
-            List            =   "frmEditor_Item.frx":0132
+            List            =   "frmEditor_Item.frx":013B
             Style           =   2  'Dropdown List
             TabIndex        =   44
             Top             =   360
@@ -557,9 +600,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbMoveList 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":015D
+            ItemData        =   "frmEditor_Item.frx":0166
             Left            =   1440
-            List            =   "frmEditor_Item.frx":015F
+            List            =   "frmEditor_Item.frx":0168
             Style           =   2  'Dropdown List
             TabIndex        =   39
             Top             =   360
@@ -648,9 +691,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbMedicineType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0161
+            ItemData        =   "frmEditor_Item.frx":016A
             Left            =   1440
-            List            =   "frmEditor_Item.frx":017D
+            List            =   "frmEditor_Item.frx":0186
             Style           =   2  'Dropdown List
             TabIndex        =   20
             Top             =   360
@@ -798,8 +841,8 @@ Private Sub chkTakeItem_Click()
     EditorChange = True
 End Sub
 
-Private Sub chkVipType_Click(index As Integer)
-    Item(EditorIndex).Data1 = index
+Private Sub chkVipType_Click(Index As Integer)
+    Item(EditorIndex).Data1 = Index
     EditorChange = True
 End Sub
 
@@ -883,6 +926,13 @@ Private Sub cmbType_Click()
         fraVip.Visible = True
     Else
         fraVip.Visible = False
+    End If
+    
+    If Item(EditorIndex).Type = ItemTypeEnum.Skin Then
+        fraSkin.Visible = True
+        scrlSkinNum.max = Count_PlayerSprite_N
+    Else
+        fraSkin.Visible = False
     End If
     
     EditorChange = True
@@ -1011,8 +1061,8 @@ Dim i As Long
     'CloseItemEditor
 End Sub
 
-Private Sub OptData_Click(index As Integer)
-    Item(EditorIndex).Data1 = index
+Private Sub OptData_Click(Index As Integer)
+    Item(EditorIndex).Data1 = Index
     EditorChange = True
 End Sub
 
@@ -1031,6 +1081,12 @@ End Sub
 Private Sub scrlFish_Change()
     lblFish = "Sprite: " & scrlFish
     Item(EditorIndex).Data3 = scrlFish.value
+    EditorChange = True
+End Sub
+
+Private Sub scrlSkinNum_Change()
+    txtSkinNum = scrlSkinNum
+    Item(EditorIndex).Data1 = scrlSkinNum.value
     EditorChange = True
 End Sub
 
@@ -1154,6 +1210,20 @@ Private Sub txtPrice_Change()
         Item(EditorIndex).Price = Val(txtPrice.Text)
         EditorChange = True
     End If
+End Sub
+
+Private Sub txtSkinNum_Change()
+    If Not IsNumeric(txtSkinNum) Then
+        txtSkinNum = scrlSkinNum
+    End If
+    If txtSkinNum < 0 Then
+        txtSkinNum = 0
+    End If
+    If txtSkinNum > Count_PlayerSprite_N Then
+        txtSkinNum = Count_PlayerSprite_N
+    End If
+    
+    scrlSkinNum = txtSkinNum
 End Sub
 
 Private Sub txtValue_Change()
