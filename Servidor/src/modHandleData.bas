@@ -4182,7 +4182,6 @@ Dim i As Long, a As Byte
                 With Player(i, TempPlayer(i).UseChar)
                     If .Map = mapNum Then
                         Call PlayerWarp(i, mapNum, .X, .Y, .Dir)
-                        Call SendUpdatePlayerMapTravel(i, mapNum)
                     End If
                 End With
             End If

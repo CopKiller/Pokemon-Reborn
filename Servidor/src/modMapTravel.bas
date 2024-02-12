@@ -36,7 +36,7 @@ Public Sub CheckMapTravel(ByVal index As Long, ByVal mapNum As Long)
 
     If GetMapTravel(mapNum) Then
         If GetPlayerMapUnlocked(index, mapNum) = NO Then
-            Call SetPlayerMapUnlocked(index, mapNum, False)
+            Call SetPlayerMapUnlocked(index, mapNum, YES)
             Call SendUpdatePlayerMapTravel(index, mapNum)
 
             Select Case TempPlayer(index).CurLanguage

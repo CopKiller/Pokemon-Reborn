@@ -50,6 +50,7 @@ Public Sub InitPlayerMapTravel()
             Player(MyIndex).PlayerTravel(i).SrcHeight = CLng(Trim$(GetVar(filename, CStr(i), "SrcHeight")))
             Player(MyIndex).PlayerTravel(i).IconPosX = CLng(Trim$(GetVar(filename, CStr(i), "IconPosX")))
             Player(MyIndex).PlayerTravel(i).IconPosY = CLng(Trim$(GetVar(filename, CStr(i), "IconPosY")))
+            
             Player(MyIndex).PlayerTravel(i).DataExist = True
     
             DoEvents

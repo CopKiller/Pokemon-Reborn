@@ -78,11 +78,11 @@ Public Sub PlayerWarp(ByVal index As Long, ByVal mapNum As Long, ByVal X As Long
             PlayerOnMap(OldMap) = NO
             Map(OldMap).CurWeather = Map(OldMap).StartWeather
         End If
-        
-        Call CheckMapTravel(index, mapNum)
 
         TempPlayer(index).MapSwitchTmr = YES
     End If
+    
+    Call CheckMapTravel(index, mapNum)
 
     '//Add log
     AddLog Trim$(Player(index, TempPlayer(index).UseChar).Name) & " has been warped on Map#" & mapNum & " x:" & X & " y:" & Y
