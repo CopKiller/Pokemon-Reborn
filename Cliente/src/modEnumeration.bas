@@ -113,6 +113,7 @@ Public Enum ServerPackets
     SFishMode
     SMapReport
     SVipAdvantage
+    SPlayerTravel
     '//Make sure SMSG_COUNT is below everything else
     SMSG_Count
 End Enum
@@ -235,6 +236,7 @@ Public Enum ClientPackets
     CRequestVirtualShop
     CPurchaseVirtualShop
     CMapReport
+    CPlayerTravel
     '//Make sure CMSG_COUNT is below everything else
     CMSG_Count
 End Enum
@@ -497,6 +499,7 @@ Public Enum GuiEnum
     GUI_RANK
     GUI_VIRTUALSHOP
     GUI_VIPADVANTAGE
+    GUI_MAP
     '//Make sure that Gui_Count is below everything else
     Gui_Count
 End Enum
@@ -536,7 +539,7 @@ Public Enum ButtonEnum
     Game_Pokedex
     Game_Bag
     Game_Card
-    Game_CheckIn
+    Game_Map
     Game_Rank
     Game_VirtualShop
     Game_Menu
@@ -590,6 +593,7 @@ Public Enum ButtonEnum
     VirtualShop_Buy
     VirtualShop_ScrollDown
     VirtualShop_ScrollUp
+    MapTravel_Close
     '//Make sure that Gui_Count is below everything else
     Button_Count
 End Enum

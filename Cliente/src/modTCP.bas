@@ -30,8 +30,8 @@ Public Sub DestroyTCP()
     frmMain.Socket.close
 End Sub
 
-Public Function IsPlaying(ByVal Index As Long) As Boolean
-    If Len(Trim$(Player(Index).Name)) > 0 Then
+Public Function IsPlaying(ByVal index As Long) As Boolean
+    If Len(Trim$(Player(index).Name)) > 0 Then
         IsPlaying = True
     End If
 End Function
@@ -180,7 +180,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong CPlayerMove
     buffer.WriteByte Player(MyIndex).Dir
     buffer.WriteLong Player(MyIndex).X
-    buffer.WriteLong Player(MyIndex).y
+    buffer.WriteLong Player(MyIndex).Y
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -237,23 +237,23 @@ Dim buffer As clsBuffer
     Set buffer = Nothing
 End Sub
 
-Public Sub SendWarpTo(ByVal MapNum As Long)
+Public Sub SendWarpTo(ByVal mapNum As Long)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong CWarpTo
-    buffer.WriteLong MapNum
+    buffer.WriteLong mapNum
     SendData buffer.ToArray
     Set buffer = Nothing
 End Sub
 
-Public Sub AdminWarp(ByVal X As Long, ByVal y As Long)
+Public Sub AdminWarp(ByVal X As Long, ByVal Y As Long)
 Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong CAdminWarp
     buffer.WriteLong X
-    buffer.WriteLong y
+    buffer.WriteLong Y
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -296,7 +296,7 @@ Dim buffer As clsBuffer
     buffer.WriteLong CPlayerPokemonMove
     buffer.WriteByte PlayerPokemon(MyIndex).Dir
     buffer.WriteLong PlayerPokemon(MyIndex).X
-    buffer.WriteLong PlayerPokemon(MyIndex).y
+    buffer.WriteLong PlayerPokemon(MyIndex).Y
     SendData buffer.ToArray()
     Set buffer = Nothing
 End Sub
@@ -883,7 +883,7 @@ End Sub
 
 Public Sub SendMap()
 Dim buffer As clsBuffer
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 Dim i As Long, a As Byte
 
     If Player(MyIndex).Access < ACCESS_MAPPER Then Exit Sub
@@ -904,8 +904,8 @@ Dim i As Long, a As Byte
     
     '//Tiles
     For X = 0 To Map.MaxX
-        For y = 0 To Map.MaxY
-            With Map.Tile(X, y)
+        For Y = 0 To Map.MaxY
+            With Map.Tile(X, Y)
                 '//Layer
                 For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                     For a = MapLayerType.Normal To MapLayerType.Animated
@@ -948,6 +948,11 @@ Dim i As Long, a As Byte
         buffer.WriteByte .SpriteType
         buffer.WriteByte .StartWeather
         buffer.WriteByte .NoCure
+        
+        buffer.WriteByte .MapTravel.IsTravel
+        buffer.WriteLong .MapTravel.CostValue
+        buffer.WriteLong .MapTravel.X
+        buffer.WriteLong .MapTravel.Y
     End With
     
     SendData buffer.ToArray

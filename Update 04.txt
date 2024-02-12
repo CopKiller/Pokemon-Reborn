@@ -38,3 +38,56 @@ Alteração básica:
 
 	Config
 	OK-Adicionar um titulo à janela em três linguagens.
+
+Total 150.
+PAGO.
+
+
+-Alterar a janela de criação de conta, adicionar um título ao topo para descrever.
+
+Ok-140-Player Travel System:
+	-Falta incluir requisito de insignia.
+
+Alteração no sistema de outfit
+	-Para ter bonus de experiência no editor de item da outfit.
+
+Alteração na sprite visual do pokemon da hud
+	-Adicionar as frames animadas dos shinys, só tem deles normais.
+	-Alterações aqui refletem tanto na hud, banco, etc...
+
+Adicionar para pokemons shiny ter 2 IV perfeitos de forma aleatória ao capturar.
+
+Criar tipo de item, que se baseie na Gacha Box, só que tenha 100% de chances de vir tudo que foi adicionado.
+	-Se possivel, alterar o Gacha Box, com uma checkbox, que identifica que é pra vir todos os items ali configurados.
+
+Alteração na leitura das montarias, quando usar skin, puxar a montaria padrão da sprite base.
+
+Adicionar um bloqueio no mapa, com requerimento de insignia para passar.
+
+Alteração no Shop Editor.
+	-Adicionar procura de item pelo nome ou id.
+	-Adicionar para usar money ou um item específico, para negociar pelo item do shop.
+	-Adicionar no shop, para carregar a foto do item que vai ser a moeda de troca.
+
+Sistema de incubadora.
+	-Botão na hud para abrir uma janela de incubação de ovos.
+	-a janela da incubadora vai possuir 8 slots, 3 slots free e 5 pago, com preço por cash para desbloquear por 5 cash.
+	-vai ter um relógio com o tempo de cada incubação sendo configurado por segundos ao invés do tickcount, para contar o 	tempo apenas com o jogador online.
+	-ao clikar com o segundo botão no egg na bolsa, aparecer a opção para adicionar na incubadora se for um item egg e estiver com a janela da incubadora aberta.
+	-Usar o editor de quest ja feito, para fazer um editor de egg
+	-Cada ovo poderá comportar até 30 slots de pokemons que poderão vir.
+	-Cada pokemon cadastrado no egg, pode ter suas especificidades de IV, e chance de vir o pokemon, o resto randomizar.
+	-Opção de quantos IV podem vir perfeito, max value de cada até 31.
+	-Ter o tempo em segundos, de quanto cada ovo vai demorar na incubadora para poder colher.
+	-Tipo de item Egg, para escolher a configuração do egg, vinculada àquele item.
+	-Jogador pode recolher o poke da incubadora após o tempo, se não tiver espaço no time vai pro poke storage.
+	-Manter a maioria das configurações no editor de egg.
+
+Adicionar nome do mapa em que o pokemon está configurado no spawn editor, ao lado do nome dele na list index.
+	-Exemplo: 25: Pidgey - Viridian City.
+	-Busca find em cima, buscando pelo numero do mapa ou nome do pokemon.
+	-Ao adicionar um numero de mapa no spawn editor do poke, alterar o nome dele automaticamente no listindex.
+
+Alterar o botão de créditos para ser o número da versão atual ali, e quando passar o mouse mudar a cor também.
+
+Adicionar icones no menu, para direcionamento para discord, whatsapp, site.

@@ -478,6 +478,7 @@ Private Sub CacheTextures()
         Case 24: TextureName = "virtualShop-window"
         Case 25: TextureName = "rank"
         Case 26: TextureName = "vipadvantage-window"
+        Case 27: TextureName = "map-window"
         Case Else: TextureName = i
         End Select
 
@@ -1463,10 +1464,10 @@ Private Sub Render_Game()
                     If GUI(GuiEnum.GUI_TRAINER).Visible Then
                         Button(i).State = ButtonState.StateClick
                     End If
-                'Case ButtonEnum.Game_CheckIn
-                '    If GUI(GuiEnum.GUI_CHECKIN).Visible Then
-                '        Button(i).State = ButtonState.StateClick
-                '    End If
+                Case ButtonEnum.Game_Map
+                    If GUI(GuiEnum.GUI_MAP).Visible Then
+                        Button(i).State = ButtonState.StateClick
+                    End If
                 Case ButtonEnum.Game_Rank
                     If GUI(GuiEnum.GUI_RANK).Visible Then
                         Button(i).State = ButtonState.StateClick
@@ -1507,6 +1508,7 @@ Private Sub Render_Game()
                         Case GuiEnum.GUI_RANK: DrawRank
                         Case GuiEnum.GUI_VIRTUALSHOP: DrawVirtualShop
                         Case GuiEnum.GUI_VIPADVANTAGE: DrawVipAdvantage
+                        Case GuiEnum.GUI_MAP: DrawPlayerTravel
                         End Select
                     End If
                 Next
@@ -1794,7 +1796,7 @@ Dim AnimMapTile As Byte
     End If
 End Sub
 
-Private Sub DrawPlayer(ByVal Index As Long)
+Private Sub DrawPlayer(ByVal index As Long)
     Dim oWidth As Long, oHeight As Long
     Dim X As Long, y As Long
     Dim Anim As Long, rDir As Byte
@@ -1802,10 +1804,10 @@ Private Sub DrawPlayer(ByVal Index As Long)
     Dim DrawAlpha As Long
 
     '//Check error
-    If Index <= 0 Or Index > MAX_PLAYER Then Exit Sub
-    If Not IsPlaying(Index) Then Exit Sub
+    If index <= 0 Or index > MAX_PLAYER Then Exit Sub
+    If Not IsPlaying(index) Then Exit Sub
 
-    With Player(Index)
+    With Player(index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -1911,7 +1913,7 @@ Private Sub DrawPlayer(ByVal Index As Long)
         End Select
 
         If .StealthMode = YES Then
-            If Index <> MyIndex Then
+            If index <> MyIndex Then
                 DrawAlpha = 0
             Else
                 DrawAlpha = 70
@@ -2166,7 +2168,7 @@ Dim Name As String
     End With
 End Sub
 
-Private Sub DrawPlayerPokemon(ByVal Index As Long)
+Private Sub DrawPlayerPokemon(ByVal index As Long)
 Dim Width As Long, Height As Long
 Dim oWidth As Long, oHeight As Long
 Dim X As Long, y As Long
@@ -2178,10 +2180,10 @@ Dim SpriteAnim As Long
 Dim SpritePos As Byte
 
     '//Check error
-    If Index <= 0 Or Index > MAX_PLAYER Then Exit Sub
-    If PlayerPokemon(Index).Num <= 0 Then Exit Sub
+    If index <= 0 Or index > MAX_PLAYER Then Exit Sub
+    If PlayerPokemon(index).Num <= 0 Then Exit Sub
     
-    With PlayerPokemon(Index)
+    With PlayerPokemon(index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -2297,7 +2299,7 @@ Dim SpritePos As Byte
     End With
 End Sub
 
-Private Sub DrawMapNpcPokemon(ByVal Index As Long)
+Private Sub DrawMapNpcPokemon(ByVal index As Long)
 Dim Width As Long, Height As Long
 Dim oWidth As Long, oHeight As Long
 Dim X As Long, y As Long
@@ -2309,10 +2311,10 @@ Dim SpriteAnim As Long
 Dim SpritePos As Byte
 
     '//Check error
-    If Index <= 0 Or Index > MAX_MAP_NPC Then Exit Sub
-    If MapNpcPokemon(Index).Num <= 0 Then Exit Sub
+    If index <= 0 Or index > MAX_MAP_NPC Then Exit Sub
+    If MapNpcPokemon(index).Num <= 0 Then Exit Sub
     
-    With MapNpcPokemon(Index)
+    With MapNpcPokemon(index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -2428,55 +2430,55 @@ Dim SpritePos As Byte
     End With
 End Sub
 
-Private Sub DrawActionMsg(ByVal Index As Integer)
+Private Sub DrawActionMsg(ByVal index As Integer)
 Dim X As Long, y As Long, i As Long
 Dim Alpha As Long
 Dim time As Long
 
     '//Exit out of there's no message
-    If ActionMsg(Index).Msg = vbNullString Then Exit Sub
+    If ActionMsg(index).Msg = vbNullString Then Exit Sub
 
     '//Set the timer
     time = 1500
-    If ActionMsg(Index).y > 0 Then
-        X = ActionMsg(Index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(Index).Msg)) / 2)
-        y = ActionMsg(Index).y - (TILE_Y / 2) - 2 - (ActionMsg(Index).Scroll * 0.3)
-        ActionMsg(Index).Scroll = ActionMsg(Index).Scroll + 1
+    If ActionMsg(index).y > 0 Then
+        X = ActionMsg(index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(index).Msg)) / 2)
+        y = ActionMsg(index).y - (TILE_Y / 2) - 2 - (ActionMsg(index).Scroll * 0.3)
+        ActionMsg(index).Scroll = ActionMsg(index).Scroll + 1
     Else
-        X = ActionMsg(Index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(Index).Msg)) / 2)
-        y = ActionMsg(Index).y - (TILE_Y / 2) + 18 + (ActionMsg(Index).Scroll * 0.3)
-        ActionMsg(Index).Scroll = ActionMsg(Index).Scroll + 1
+        X = ActionMsg(index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(index).Msg)) / 2)
+        y = ActionMsg(index).y - (TILE_Y / 2) + 18 + (ActionMsg(index).Scroll * 0.3)
+        ActionMsg(index).Scroll = ActionMsg(index).Scroll + 1
     End If
 
     '//Fade while scrolling
-    ActionMsg(Index).Alpha = ActionMsg(Index).Alpha - 1
-    If ActionMsg(Index).Alpha <= 0 Then ClearActionMsg Index: Exit Sub
+    ActionMsg(index).Alpha = ActionMsg(index).Alpha - 1
+    If ActionMsg(index).Alpha <= 0 Then ClearActionMsg index: Exit Sub
     
     X = ConvertMapX(X)
     y = ConvertMapY(y)
 
-    If GetTickCount < ActionMsg(Index).Created + time Then
-        RenderText Font_Default, ActionMsg(Index).Msg, X, y, ActionMsg(Index).Color, True, ActionMsg(Index).Alpha
+    If GetTickCount < ActionMsg(index).Created + time Then
+        RenderText Font_Default, ActionMsg(index).Msg, X, y, ActionMsg(index).Color, True, ActionMsg(index).Alpha
     Else
-        ClearActionMsg Index
+        ClearActionMsg index
     End If
 End Sub
 
 '//Animation
-Public Sub DrawAnimation(ByVal Index As Long, ByVal Layer As Long)
+Public Sub DrawAnimation(ByVal index As Long, ByVal Layer As Long)
 Dim Sprite As Long, FrameCount As Long
 Dim Width As Long, Height As Long, X As Long, y As Long
 Dim sRect As RECT
 
-    If AnimInstance(Index).Animation = 0 Then
-        ClearAnimInstance Index
+    If AnimInstance(index).Animation = 0 Then
+        ClearAnimInstance index
         Exit Sub
     End If
     
-    Sprite = Animation(AnimInstance(Index).Animation).Sprite(Layer)
+    Sprite = Animation(AnimInstance(index).Animation).Sprite(Layer)
     If Sprite < 1 Or Sprite > Count_Animation Then Exit Sub
     
-    FrameCount = Animation(AnimInstance(Index).Animation).Frames(Layer)
+    FrameCount = Animation(AnimInstance(index).Animation).Frames(Layer)
     If FrameCount <= 0 Then Exit Sub
     
     '//total width divided by frame count
@@ -2486,13 +2488,13 @@ Dim sRect As RECT
     With sRect
         .top = 0 '(Height * ((AnimInstance(Index).frameIndex(Layer) - 1) \ AnimColumns)) '0
         .bottom = Height
-        .Left = (AnimInstance(Index).frameIndex(Layer) - 1) * Width '(Width * (((AnimInstance(Index).frameIndex(Layer) - 1) Mod AnimColumns))) '(AnimInstance(Index).frameIndex(Layer) - 1) * Width
+        .Left = (AnimInstance(index).frameIndex(Layer) - 1) * Width '(Width * (((AnimInstance(Index).frameIndex(Layer) - 1) Mod AnimColumns))) '(AnimInstance(Index).frameIndex(Layer) - 1) * Width
         .Right = sRect.Left + Width 'Width 'sRect.Left + Width
     End With
     
     '//no lock, default x + y
-    X = (AnimInstance(Index).X * 32) + 16 - (Width / 2)
-    y = (AnimInstance(Index).y * 32) + 16 - (Height / 2)
+    X = (AnimInstance(index).X * 32) + 16 - (Width / 2)
+    y = (AnimInstance(index).y * 32) + 16 - (Height / 2)
     
     '//Clipping
     If y < 0 Then

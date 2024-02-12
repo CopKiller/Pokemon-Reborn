@@ -323,12 +323,12 @@ Public Sub FormKeyUp(KeyCode As Integer, Shift As Integer)
                         Button(ButtonEnum.Game_Card).State = 0
                     End If
                     CanOpenMenu = False
-                'Case GuiEnum.GUI_CHECKIN
-                '    If GUI(GuiEnum.GUI_CHECKIN).Visible = True Then
-                '        GuiState GUI_CHECKIN, False
-                '        Button(ButtonEnum.Game_CheckIn).State = 0
-                '    End If
-                '    CanOpenMenu = False
+                Case GuiEnum.GUI_MAP
+                    If GUI(GuiEnum.GUI_MAP).Visible = True Then
+                        GuiState GUI_MAP, False
+                        Button(ButtonEnum.Game_Map).State = 0
+                    End If
+                    CanOpenMenu = False
                 Case GuiEnum.GUI_POKEMONSUMMARY
                     If GUI(GuiEnum.GUI_POKEMONSUMMARY).Visible = True Then
                         GuiState GUI_POKEMONSUMMARY, False
@@ -698,6 +698,12 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As
                                             DidClick = True
                                             Exit For
                                         End If
+                                    Case GuiEnum.GUI_MAP
+                                        If Not DidClick Then
+                                            PlayerTravelMouseDown Buttons, Shift, X, y
+                                            DidClick = True
+                                            Exit For
+                                        End If
                                     End Select
                                 End If
                             End If
@@ -866,10 +872,10 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As
                                     If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                         PreventAction = True
                                     End If
-                                Case ButtonEnum.Game_CheckIn
-                                    'If GUI(GuiEnum.GUI_CHECKIN).Visible Then
-                                    '    PreventAction = True
-                                    'End If
+                                Case ButtonEnum.Game_Map
+                                    If GUI(GuiEnum.GUI_MAP).Visible Then
+                                        PreventAction = True
+                                    End If
                                 Case ButtonEnum.Game_Rank
                                     If GUI(GuiEnum.GUI_RANK).Visible Then
                                         PreventAction = True
@@ -1038,6 +1044,7 @@ Dim PreventAction As Boolean
                             Case GuiEnum.GUI_RANK:              RankMouseMove Buttons, Shift, X, y
                             Case GuiEnum.GUI_VIRTUALSHOP:       VirtualShopMouseMove Buttons, Shift, X, y
                             Case GuiEnum.GUI_VIPADVANTAGE:      VipAdvantageMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_MAP:               PlayerTravelMouseMove Buttons, Shift, X, y
                         End Select
                     End If
                 End If
@@ -1079,10 +1086,10 @@ Dim PreventAction As Boolean
                                         If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                             PreventAction = True
                                         End If
-                                    Case ButtonEnum.Game_CheckIn
-                                        'If GUI(GuiEnum.GUI_CHECKIN).Visible Then
-                                        '    PreventAction = True
-                                        'End If
+                                    Case ButtonEnum.Game_Map
+                                        If GUI(GuiEnum.GUI_MAP).Visible Then
+                                            PreventAction = True
+                                        End If
                                     Case ButtonEnum.Game_Rank
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
                                             PreventAction = True
@@ -1181,6 +1188,7 @@ Dim x2 As Long, Y2 As Long
                                 Case GuiEnum.GUI_RANK:              RankMouseUp Buttons, Shift, X, y
                                 Case GuiEnum.GUI_VIRTUALSHOP:       VirtualShopMouseUp Buttons, Shift, X, y
                                 Case GuiEnum.GUI_VIPADVANTAGE:      VipAdvantageMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_MAP:               PlayerTravelMouseUp Buttons, Shift, X, y
                             End Select
                         End If
                     End If
@@ -1217,10 +1225,10 @@ Dim x2 As Long, Y2 As Long
                                         If GUI(GuiEnum.GUI_TRAINER).Visible Then
                                             PreventAction = True
                                         End If
-                                    Case ButtonEnum.Game_CheckIn
-                                        'If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible Then
-                                        '    PreventAction = True
-                                        'End If
+                                    Case ButtonEnum.Game_Map
+                                        If GUI(GuiEnum.GUI_MAP).Visible Then
+                                            PreventAction = True
+                                        End If
                                     Case ButtonEnum.Game_Rank
                                         If GUI(GuiEnum.GUI_RANK).Visible Then
                                             PreventAction = True
@@ -1252,11 +1260,10 @@ Dim x2 As Long, Y2 As Long
                                                 If GUI(GuiEnum.GUI_TRAINER).Visible = False Then
                                                     GuiState GUI_TRAINER, True
                                                 End If
-                                            Case ButtonEnum.Game_CheckIn
-                                                'If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible = False Then
-                                                '    Call RequestVirtualShop
-                                                '    GuiState GUI_VIRTUALSHOP, True
-                                                'End If
+                                            Case ButtonEnum.Game_Map
+                                                If GUI(GuiEnum.GUI_MAP).Visible = False Then
+                                                    GuiState GUI_MAP, True
+                                                End If
                                             Case ButtonEnum.Game_Rank
                                                 If GUI(GuiEnum.GUI_RANK).Visible = False Then
                                                     SendRequestRank
@@ -2035,8 +2042,8 @@ Private Sub InputBoxKeyPress(KeyAscii As Integer)
         Case IB_WITHDRAW
             If IsNumeric(KeyAscii) Then
                 InputBoxText = InputText(InputBoxText, KeyAscii)
-                If Val(InputBoxText) > PlayerInvStorage(InvCurSlot).data(InputBoxData1).value Then
-                    InputBoxText = PlayerInvStorage(InvCurSlot).data(InputBoxData1).value
+                If Val(InputBoxText) > PlayerInvStorage(InvCurSlot).Data(InputBoxData1).value Then
+                    InputBoxText = PlayerInvStorage(InvCurSlot).Data(InputBoxData1).value
                 End If
             End If
         Case IB_DEPOSIT
@@ -3387,7 +3394,7 @@ Dim i As Long
             MouseIcon = 1 '//Select
             If Not TradeItemDesc = i Then
                 TradeItemDesc = i
-                TradeItemDescType = YourTrade.data(TradeItemDesc).TradeType
+                TradeItemDescType = YourTrade.Data(TradeItemDesc).TradeType
                 TradeItemDescTimer = GetTickCount + 400
                 TradeItemDescShow = False
                 TradeItemDescOwner = 2
@@ -3399,7 +3406,7 @@ Dim i As Long
             MouseIcon = 1 '//Select
             If Not TradeItemDesc = i Then
                 TradeItemDesc = i
-                TradeItemDescType = TheirTrade.data(TradeItemDesc).TradeType
+                TradeItemDescType = TheirTrade.Data(TradeItemDesc).TradeType
                 TradeItemDescTimer = GetTickCount + 400
                 TradeItemDescShow = False
                 TradeItemDescOwner = 1

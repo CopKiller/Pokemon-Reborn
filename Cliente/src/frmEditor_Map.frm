@@ -24,6 +24,72 @@ Begin VB.Form frmEditor_Map
       Top             =   120
       Visible         =   0   'False
       Width           =   7215
+      Begin VB.Frame Frame5 
+         Caption         =   "Map Travel"
+         Height          =   2055
+         Left            =   240
+         TabIndex        =   107
+         Top             =   3960
+         Width           =   2415
+         Begin VB.TextBox txtStartY 
+            Height          =   285
+            Left            =   1080
+            TabIndex        =   114
+            Text            =   "0"
+            Top             =   1440
+            Width           =   1095
+         End
+         Begin VB.TextBox txtStartX 
+            Height          =   285
+            Left            =   1080
+            TabIndex        =   113
+            Text            =   "0"
+            Top             =   1080
+            Width           =   1095
+         End
+         Begin VB.TextBox txtCostValue 
+            Height          =   285
+            Left            =   1080
+            TabIndex        =   109
+            Text            =   "0"
+            Top             =   720
+            Width           =   1095
+         End
+         Begin VB.CheckBox chkIsTravel 
+            Caption         =   "Is Travel?"
+            Height          =   195
+            Left            =   240
+            TabIndex        =   108
+            Top             =   360
+            Width           =   1215
+         End
+         Begin VB.Label Label7 
+            AutoSize        =   -1  'True
+            Caption         =   "Start Y:"
+            Height          =   195
+            Left            =   120
+            TabIndex        =   112
+            Top             =   1440
+            Width           =   525
+         End
+         Begin VB.Label Label6 
+            AutoSize        =   -1  'True
+            Caption         =   "Start X:"
+            Height          =   195
+            Left            =   120
+            TabIndex        =   111
+            Top             =   1080
+            Width           =   525
+         End
+         Begin VB.Label Label5 
+            Caption         =   "Cost Value:"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   110
+            Top             =   720
+            Width           =   855
+         End
+      End
       Begin VB.CheckBox chkNoCure 
          Caption         =   "No Medicine?"
          Height          =   255
@@ -953,12 +1019,12 @@ Private Sub chkAnimated_Click()
     IsAnimated = chkAnimated.value
 End Sub
 
-Private Sub cmdAttributeCancel_Click(Index As Integer)
+Private Sub cmdAttributeCancel_Click(index As Integer)
     ClearMapAttribute
 End Sub
 
-Private Sub cmdAttributeOkay_Click(Index As Integer)
-    Select Case Index
+Private Sub cmdAttributeOkay_Click(index As Integer)
+    Select Case index
         Case 1 '//NpcSpawn
             EditorData1 = cmbNpcSpawn.ListIndex + 1
             EditorData2 = cmbNpcSpawnDir.ListIndex
@@ -1072,7 +1138,7 @@ End Sub
 
 Private Sub cmdPropertiesSave_Click()
 Dim X As Long, x2 As Long
-Dim y As Long, Y2 As Long
+Dim Y As Long, Y2 As Long
 Dim tempArr() As TileRec
 Dim i As Long
     '//Input Data
@@ -1109,8 +1175,8 @@ Dim i As Long
     ReDim Map.Tile(0 To Map.MaxX, 0 To Map.MaxY)
 
     For X = 0 To x2
-        For y = 0 To Y2
-            Map.Tile(X, y) = tempArr(X, y)
+        For Y = 0 To Y2
+            Map.Tile(X, Y) = tempArr(X, Y)
         Next
     Next
     
@@ -1135,6 +1201,11 @@ Dim i As Long
     Map.StartWeather = cmbWeather.ListIndex
     
     Map.NoCure = chkNoCure.value
+    
+    Map.MapTravel.IsTravel = chkIsTravel.value
+    Map.MapTravel.CostValue = txtCostValue.Text
+    Map.MapTravel.X = txtStartX.Text
+    Map.MapTravel.Y = txtStartY.Text
     
     '//Hide properties
     mnuData.Visible = True
@@ -1229,6 +1300,11 @@ Dim i As Long
     cmbWeather.ListIndex = Map.StartWeather
     
     chkNoCure.value = Map.NoCure
+    
+    chkIsTravel.value = Map.MapTravel.IsTravel
+    txtCostValue.Text = Map.MapTravel.CostValue
+    txtStartX.Text = Map.MapTravel.X
+    txtStartY.Text = Map.MapTravel.Y
 
     '//Init
     mnuData.Visible = False
@@ -1240,12 +1316,12 @@ Private Sub mnuSave_Click()
     MapEditorSend
 End Sub
 
-Private Sub optAttribute_Click(Index As Integer)
-    CurAttribute = Index
+Private Sub optAttribute_Click(index As Integer)
+    CurAttribute = index
     
     ClearMapAttribute
     
-    Select Case Index
+    Select Case index
         Case MapAttribute.NpcSpawn
             fraAttribute.Visible = True
             fraNpcSpawn.Visible = True
@@ -1276,26 +1352,26 @@ Private Sub optAttribute_Click(Index As Integer)
     End Select
 End Sub
 
-Private Sub optLayer_Click(Index As Integer)
-    CurLayer = Index
+Private Sub optLayer_Click(index As Integer)
+    CurLayer = index
 End Sub
 
-Private Sub optType_Click(Index As Integer)
+Private Sub optType_Click(index As Integer)
     fraLayers.Visible = False
     fraAttributes.Visible = False
     
-    Select Case Index
+    Select Case index
         Case 1: fraLayers.Visible = True
         Case 2: fraAttributes.Visible = True
     End Select
 End Sub
 
-Private Sub picTileset_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
-    Call MapEditorChooseTile(Button, X, y)
+Private Sub picTileset_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Call MapEditorChooseTile(Button, X, Y)
 End Sub
 
-Private Sub picTileset_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
-    Call MapEditorChooseTile(Button, X, y, True)
+Private Sub picTileset_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Call MapEditorChooseTile(Button, X, Y, True)
 End Sub
 
 Private Sub scrlCaveLight_Change()
@@ -1403,3 +1479,20 @@ Private Sub scrlCheckY_Change()
     lblCheckY.Caption = "Y: " & scrlCheckY.value
 End Sub
 
+Private Sub txtCostValue_Change()
+    If Not IsNumeric(txtCostValue.Text) Then
+        txtCostValue = 0
+    End If
+End Sub
+
+Private Sub txtStartX_Change()
+    If Not IsNumeric(txtStartX.Text) Then
+        txtStartX = 0
+    End If
+End Sub
+
+Private Sub txtStartY_Change()
+    If Not IsNumeric(txtStartY.Text) Then
+        txtStartY = 0
+    End If
+End Sub

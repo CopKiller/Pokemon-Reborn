@@ -299,6 +299,9 @@ Public Type PlayerRec
     
     '//Original Sprite
     LastPlayerSpriteNum As Long
+    
+    '//Travel System
+    PlayerTravel(1 To MAX_MAP) As PlayerTravelRec
 End Type
 
 ' *****************
@@ -439,6 +442,8 @@ Private Type MapRec
     StartWeather As Byte
     
     NoCure As Byte
+    
+    MapTravel As MapTravelRec
 End Type
 
 ' Client Only | Fill Bucket Array
@@ -599,7 +604,7 @@ Public Type SpawnRec
     SpawnTimeMax As Long
     
     '//Location
-    MapNum As Long
+    mapNum As Long
     randomMap As Byte
     randomXY As Byte
     MapX As Long

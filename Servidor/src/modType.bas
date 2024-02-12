@@ -386,6 +386,9 @@ Public Type PlayerRec
     
     '//Skin System
     Skin As PlayerSkinRec
+    
+    '//Travel System
+    PlayerTravel(1 To MAX_MAP) As PlayerTravelRec
 End Type
 
 ' *****************
@@ -577,6 +580,8 @@ Private Type MapRec
     
     '//Server Side
     CurWeather As Byte
+    
+    MapTravel As MapTravelRec
 End Type
 
 Private Type NpcRec
@@ -732,7 +737,7 @@ Private Type SpawnRec
     SpawnTimeMax As Long
     
     '//Location
-    MapNum As Long
+    mapNum As Long
     randomMap As Byte
     randomXY As Byte
     MapX As Long
