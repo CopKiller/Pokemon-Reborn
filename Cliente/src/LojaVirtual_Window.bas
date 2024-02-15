@@ -160,7 +160,7 @@ Public Sub DrawVirtualShop()
     With GUI(GuiEnum.GUI_VIRTUALSHOP)
         '//Verifica se a janela está visivel.
         If Not .Visible Then Exit Sub
-        
+
         '//Render the window
         RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
 
@@ -180,6 +180,24 @@ Public Sub DrawVirtualShop()
         ' Desenha o Scroll
         If (VirtualShopMaxViewLine - 1) > (VirtualShopViewLine * VirtualShopViewLines) Then
             RenderTexture Tex_Gui(.Pic), .X + 4, .y + VirtualShopScrollStartY + ((VirtualShopScrollEndY - VirtualShopScrollSize) - VirtualShopScrollY), 328, 310, 19, 35, 19, 35
+        End If
+
+        If VirtualShopNewTimer <= GetTickCount + 50 Then
+            If VirtualShopNewStep = 0 Then    ' remove opacidade
+                If VirtualShopNewOpacity <= 10 Then
+                    VirtualShopNewStep = 1
+                Else
+                    VirtualShopNewOpacity = VirtualShopNewOpacity - 10
+                End If
+            ElseIf VirtualShopNewStep = 1 Then    ' adiciona opacidade
+                If VirtualShopNewOpacity >= 250 Then
+                    VirtualShopNewStep = 0
+                Else
+                    VirtualShopNewOpacity = VirtualShopNewOpacity + 2
+                End If
+            End If
+
+            VirtualShopNewTimer = GetTickCount
         End If
 
         '//Buttons
@@ -237,7 +255,7 @@ Public Sub DrawVirtualShop()
                             Case ButtonState.StateHover: RenderTexture Tex_Gui(.Pic), XX, YY, 65, 365, 127, 46, 127, 46
                             Case ButtonState.StateClick: RenderTexture Tex_Gui(.Pic), XX, YY, 65, 411, 127, 46, 127, 46
                             End Select
-                            
+
                             '//Icone do item
                             If Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite > 0 Then
                                 RenderTexture Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite), XX + 13, YY + 10, 0, 0, GetPicWidth(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicHeight(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicWidth(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), GetPicHeight(Tex_Item(Item(VirtualShop(VirtualShopIndex).Items(X).ItemNum).Sprite)), ColourOpacity
@@ -247,7 +265,7 @@ Public Sub DrawVirtualShop()
 
                             '//Renderiza a quantidade do item
                             RenderText Ui_Default, KeepTwoDigit(VirtualShop(VirtualShopIndex).Items(X).ItemQuant), XX + 12, YY + 27, White, , 255
-                            
+
                             '//Item com quantidade limitada
                             If VirtualShop(VirtualShopIndex).Items(X).IsLimited = YES Then
                                 '//Renderiza a quantidade disponível do item
@@ -256,24 +274,6 @@ Public Sub DrawVirtualShop()
 
                             '//Renderiza animação do item "New" se foi configurado.
                             If VirtualShop(VirtualShopIndex).Items(X).IsNew = YES Then
-                                If VirtualShopNewTimer <= GetTickCount + 50 Then
-                                    If VirtualShopNewStep = 0 Then    ' remove opacidade
-                                        If VirtualShopNewOpacity <= 10 Then
-                                            VirtualShopNewStep = 1
-                                        Else
-                                            VirtualShopNewOpacity = VirtualShopNewOpacity - 10
-                                        End If
-                                    ElseIf VirtualShopNewStep = 1 Then    ' adiciona opacidade
-                                        If VirtualShopNewOpacity >= 250 Then
-                                            VirtualShopNewStep = 0
-                                        Else
-                                            VirtualShopNewOpacity = VirtualShopNewOpacity + 2
-                                        End If
-                                    End If
-
-                                    VirtualShopNewTimer = GetTickCount
-                                End If
-
                                 RenderTexture Tex_Misc(Misc_New), XX + 95, YY - 5, 0, 0, 32, 32, GetPicWidth(Tex_Misc(Misc_New)), GetPicHeight(Tex_Misc(Misc_New)), D3DColorARGB(VirtualShopNewOpacity, 255, 255, 255)
                             End If
                         End If

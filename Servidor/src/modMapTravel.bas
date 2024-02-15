@@ -8,63 +8,65 @@ End Type
 Public Type MapTravelRec
     IsTravel As Byte
     CostValue As Long
-    X As Long
+    x As Long
     Y As Long
+    BadgeReq As Byte
 End Type
 
-Private Function GetPlayerMapUnlocked(ByVal index As Long, ByVal mapNum As Long) As Byte
-    If Not IsPlaying(index) Then Exit Function
-    If TempPlayer(index).UseChar <= 0 Then Exit Function
+Private Function GetPlayerMapUnlocked(ByVal Index As Long, ByVal MapNum As Long) As Byte
+    If Not IsPlaying(Index) Then Exit Function
+    If TempPlayer(Index).UseChar <= 0 Then Exit Function
 
-    GetPlayerMapUnlocked = Player(index, TempPlayer(index).UseChar).PlayerTravel(mapNum).Unlocked
+    GetPlayerMapUnlocked = Player(Index, TempPlayer(Index).UseChar).PlayerTravel(MapNum).Unlocked
 End Function
 
-Private Sub SetPlayerMapUnlocked(ByVal index As Long, ByVal mapNum As Long, ByVal Unlocked As Byte)
-    If Not IsPlaying(index) Then Exit Sub
-    If TempPlayer(index).UseChar <= 0 Then Exit Sub
+Private Sub SetPlayerMapUnlocked(ByVal Index As Long, ByVal MapNum As Long, ByVal Unlocked As Byte)
+    If Not IsPlaying(Index) Then Exit Sub
+    If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     
-    Player(index, TempPlayer(index).UseChar).PlayerTravel(mapNum).Unlocked = Unlocked
+    Player(Index, TempPlayer(Index).UseChar).PlayerTravel(MapNum).Unlocked = Unlocked
 End Sub
 
-Private Function GetMapTravel(ByVal mapNum As Long) As Boolean
-    If Map(mapNum).MapTravel.IsTravel = YES Then GetMapTravel = True
+Private Function GetMapTravel(ByVal MapNum As Long) As Boolean
+    If Map(MapNum).MapTravel.IsTravel = YES Then GetMapTravel = True
 End Function
 
-Public Sub CheckMapTravel(ByVal index As Long, ByVal mapNum As Long)
-    If Not IsPlaying(index) Then Exit Sub
-    If TempPlayer(index).UseChar <= 0 Then Exit Sub
+Public Sub CheckMapTravel(ByVal Index As Long, ByVal MapNum As Long)
+    If Not IsPlaying(Index) Then Exit Sub
+    If TempPlayer(Index).UseChar <= 0 Then Exit Sub
 
-    If GetMapTravel(mapNum) Then
-        If GetPlayerMapUnlocked(index, mapNum) = NO Then
-            Call SetPlayerMapUnlocked(index, mapNum, YES)
-            Call SendUpdatePlayerMapTravel(index, mapNum)
+    If GetMapTravel(MapNum) Then
+        If GetPlayerMapUnlocked(Index, MapNum) = NO Then
+            Call SetPlayerMapUnlocked(Index, MapNum, YES)
+            Call SendUpdatePlayerMapTravel(Index, MapNum)
 
-            Select Case TempPlayer(index).CurLanguage
-            Case LANG_PT: AddAlert index, "Você desbloqueou " & Trim$(Map(mapNum).Name), White
-            Case LANG_EN: AddAlert index, "You Unlocked " & Trim$(Map(mapNum).Name), White
-            Case LANG_ES: AddAlert index, "You Unlocked " & Trim$(Map(mapNum).Name), White
+            Select Case TempPlayer(Index).CurLanguage
+            Case LANG_PT: AddAlert Index, "Você desbloqueou " & Trim$(Map(MapNum).Name), White
+            Case LANG_EN: AddAlert Index, "You Unlocked " & Trim$(Map(MapNum).Name), White
+            Case LANG_ES: AddAlert Index, "You Unlocked " & Trim$(Map(MapNum).Name), White
             End Select
         End If
     End If
 End Sub
 
-Public Sub SendUpdatePlayerMapTravel(ByVal index As Long, ByVal mapNum As Long)
+Public Sub SendUpdatePlayerMapTravel(ByVal Index As Long, ByVal MapNum As Long)
     Dim buffer As clsBuffer
 
     Set buffer = New clsBuffer
     buffer.WriteLong SPlayerTravel
 
-    If GetMapTravel(mapNum) Then
-        buffer.WriteLong mapNum
-        buffer.WriteByte GetPlayerMapUnlocked(index, mapNum)
-        buffer.WriteString Trim$(Map(mapNum).Name)
+    If GetMapTravel(MapNum) Then
+        buffer.WriteLong MapNum
+        buffer.WriteByte GetPlayerMapUnlocked(Index, MapNum)
+        buffer.WriteString Trim$(Map(MapNum).Name)
+        buffer.WriteLong Map(i).MapTravel.CostValue
     End If
 
-    SendDataTo index, buffer.ToArray()
+    SendDataTo Index, buffer.ToArray()
     Set buffer = Nothing
 End Sub
 
-Public Sub SendUpdatePlayerMapTravelAll(ByVal index As Long)
+Public Sub SendUpdatePlayerMapTravelAll(ByVal Index As Long)
     Dim buffer As clsBuffer
     Dim i As Long
 
@@ -74,44 +76,45 @@ Public Sub SendUpdatePlayerMapTravelAll(ByVal index As Long)
     For i = 1 To MAX_MAP
         If GetMapTravel(i) Then
             buffer.WriteLong i
-            buffer.WriteByte GetPlayerMapUnlocked(index, i)
+            buffer.WriteByte GetPlayerMapUnlocked(Index, i)
             buffer.WriteString Trim$(Map(i).Name)
+            buffer.WriteLong Map(i).MapTravel.CostValue
         End If
     Next i
 
-    SendDataTo index, buffer.ToArray()
+    SendDataTo Index, buffer.ToArray()
     Set buffer = Nothing
 End Sub
 
-Public Sub HandlePlayerTravel(ByVal index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+Public Sub HandlePlayerTravel(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
     Dim buffer As clsBuffer
     Dim travelSlot As Long
 
-    If Not IsPlaying(index) Then Exit Sub
-    If TempPlayer(index).UseChar <= 0 Then Exit Sub
+    If Not IsPlaying(Index) Then Exit Sub
+    If TempPlayer(Index).UseChar <= 0 Then Exit Sub
 
-    If TempPlayer(index).StorageType > 0 Then
+    If TempPlayer(Index).StorageType > 0 Then
         Exit Sub
     End If
-    If TempPlayer(index).InShop > 0 Then
+    If TempPlayer(Index).InShop > 0 Then
         Exit Sub
     End If
-    If TempPlayer(index).PlayerRequest > 0 Then
+    If TempPlayer(Index).PlayerRequest > 0 Then
         Exit Sub
     End If
-    If TempPlayer(index).InDuel > 0 Then
+    If TempPlayer(Index).InDuel > 0 Then
         Exit Sub
     End If
-    If TempPlayer(index).InTrade > 0 Then
+    If TempPlayer(Index).InTrade > 0 Then
         Exit Sub
     End If
-    If TempPlayer(index).CurConvoNum > 0 Then
+    If TempPlayer(Index).CurConvoNum > 0 Then
         Exit Sub
     End If
-    If TempPlayer(index).InNpcDuel > 0 Then
+    If TempPlayer(Index).InNpcDuel > 0 Then
         Exit Sub
     End If
-    If Player(index, TempPlayer(index).UseChar).Action > 0 Then
+    If Player(Index, TempPlayer(Index).UseChar).Action > 0 Then
         Exit Sub
     End If
 
@@ -120,26 +123,37 @@ Public Sub HandlePlayerTravel(ByVal index As Long, ByRef Data() As Byte, ByVal S
     travelSlot = buffer.ReadLong
     Set buffer = Nothing
 
-    With Player(index, TempPlayer(index).UseChar)
+    With Player(Index, TempPlayer(Index).UseChar)
         If GetMapTravel(travelSlot) Then
-            If GetPlayerMapUnlocked(index, travelSlot) = YES Then
+            If GetPlayerMapUnlocked(Index, travelSlot) = YES Then
 
                 If .Money >= Map(travelSlot).MapTravel.CostValue Then
-                    .Money = .Money - Map(travelSlot).MapTravel.CostValue
 
-                    Select Case TempPlayer(index).CurLanguage
-                    Case LANG_PT: AddAlert index, "Você foi teleportado para " & Trim$(Map(travelSlot).Name), White
-                    Case LANG_EN: AddAlert index, "Você foi teleportado para " & Trim$(Map(travelSlot).Name), White
-                    Case LANG_ES: AddAlert index, "Você foi teleportado para " & Trim$(Map(travelSlot).Name), White
-                    End Select
+                    If Map(travelSlot).MapTravel.BadgeReq > 0 Then
+                        If .Badge(Map(travelSlot).MapTravel.BadgeReq) = NO Then
+                            Select Case TempPlayer(Index).CurLanguage
+                            Case LANG_PT: AddAlert Index, "Você precisa da insignia de " & Trim$(Map(travelSlot).Name), White
+                            Case LANG_EN: AddAlert Index, "Você precisa da insignia de " & Trim$(Map(travelSlot).Name), White
+                            Case LANG_ES: AddAlert Index, "Você precisa da insignia de " & Trim$(Map(travelSlot).Name), White
+                            End Select
+                            Exit Sub
+                        End If
+                    End If
+
+                    .Money = .Money - Map(travelSlot).MapTravel.CostValue
+                    Call PlayerWarp(Index, travelSlot, Map(travelSlot).MapTravel.x, Map(travelSlot).MapTravel.Y, DIR_DOWN)
+                    Call SendPlayerCash(Index)
                     
-                    Call PlayerWarp(index, travelSlot, Map(travelSlot).MapTravel.X, Map(travelSlot).MapTravel.Y, DIR_DOWN)
-                    Call SendPlayerCash(index)
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "Você foi teleportado para " & Trim$(Map(travelSlot).Name), White
+                    Case LANG_EN: AddAlert Index, "Você foi teleportado para " & Trim$(Map(travelSlot).Name), White
+                    Case LANG_ES: AddAlert Index, "Você foi teleportado para " & Trim$(Map(travelSlot).Name), White
+                    End Select
                 Else
-                    Select Case TempPlayer(index).CurLanguage
-                    Case LANG_PT: AddAlert index, "Você precisa de " & Trim$(Map(travelSlot).MapTravel.CostValue) & " para teleportar!", White
-                    Case LANG_EN: AddAlert index, "Você precisa de " & Trim$(Map(travelSlot).MapTravel.CostValue) & " para teleportar!", White
-                    Case LANG_ES: AddAlert index, "Você precisa de " & Trim$(Map(travelSlot).MapTravel.CostValue) & " para teleportar!", White
+                    Select Case TempPlayer(Index).CurLanguage
+                    Case LANG_PT: AddAlert Index, "Você precisa de " & Trim$(Map(travelSlot).MapTravel.CostValue) & " para teleportar!", White
+                    Case LANG_EN: AddAlert Index, "Você precisa de " & Trim$(Map(travelSlot).MapTravel.CostValue) & " para teleportar!", White
+                    Case LANG_ES: AddAlert Index, "Você precisa de " & Trim$(Map(travelSlot).MapTravel.CostValue) & " para teleportar!", White
                     End Select
                 End If
 

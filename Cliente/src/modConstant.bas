@@ -225,6 +225,7 @@ Public Const CB_RELEASE As Byte = 7
 Public Const CB_BUYSLOT As Byte = 8
 Public Const CB_FLY As Byte = 9
 Public Const CB_BUYINV As Byte = 10
+Public Const CB_TRAVEL As Byte = 11
 
 '//InputBox
 Public Const IB_NEWPASSWORD As Byte = 1

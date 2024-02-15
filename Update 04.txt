@@ -91,3 +91,5 @@ Adicionar nome do mapa em que o pokemon está configurado no spawn editor, ao la
 Alterar o botão de créditos para ser o número da versão atual ali, e quando passar o mouse mudar a cor também.
 
 Adicionar icones no menu, para direcionamento para discord, whatsapp, site.
+
+Adicionar atalho nos menus que faltam na hud, com teclas do teclado para abertura.

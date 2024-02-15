@@ -25,9 +25,9 @@ Public Sub ChkDir(ByVal tDir As String, ByVal tName As String)
 End Sub
 
 '//This check if the file exist
-Public Function FileExist(ByVal filename As String) As Boolean
+Public Function FileExist(ByVal FileName As String) As Boolean
     ' Checking if File Exist
-    If LenB(Dir(filename)) > 0 Then FileExist = True
+    If LenB(Dir(FileName)) > 0 Then FileExist = True
 End Function
 
 Public Function DirExist(ByVal tDir As String) As Boolean
@@ -43,9 +43,9 @@ Public Function DirExist(ByVal tDir As String) As Boolean
 End Function
 
 '//This sub delete the file, if it doesn't exist then it will ignore it
-Public Sub DeleteFile(ByVal filename As String)
+Public Sub DeleteFile(ByVal FileName As String)
     On Error Resume Next
-    Kill filename
+    Kill FileName
 End Sub
 
 ' ************************
@@ -58,15 +58,15 @@ Public Sub ClearSetting()
 End Sub
 
 Public Sub LoadSetting()
-Dim filename As String
+Dim FileName As String
 
     On Error GoTo errorHandler
 
     '//Find our file
-    filename = App.path & "\data\config\setting.ini"
+    FileName = App.path & "\data\config\setting.ini"
   
     '//Check if our file exist
-    If Not FileExist(filename) Then
+    If Not FileExist(FileName) Then
         '//Clear the data first so we will have the default data before saving
         Call ClearSetting
         Call SaveSetting
@@ -75,32 +75,32 @@ Dim filename As String
 
     With GameSetting
         '//GUI
-        .ThemePath = Trim$(GetVar(filename, "GUI", "Path"))
+        .ThemePath = Trim$(GetVar(FileName, "GUI", "Path"))
 
         '//Video
-        .Fullscreen = GetVar(filename, "Video", "Fullscreen")
-        .Width = GetVar(filename, "Video", "Width")
-        .Height = GetVar(filename, "Video", "Height")
+        .Fullscreen = GetVar(FileName, "Video", "Fullscreen")
+        .Width = GetVar(FileName, "Video", "Width")
+        .Height = GetVar(FileName, "Video", "Height")
   
         '//Others
-        .SkipBootUp = GetVar(filename, "Other", "SkipBootUp")
-        .ShowFPS = GetVar(filename, "Other", "ShowFPS")
-        .ShowPing = GetVar(filename, "Other", "ShowPing")
-        .ShowName = GetVar(filename, "Other", "ShowName")
-        .ShowPP = GetVar(filename, "Other", "ShowPP")
+        .SkipBootUp = GetVar(FileName, "Other", "SkipBootUp")
+        .ShowFPS = GetVar(FileName, "Other", "ShowFPS")
+        .ShowPing = GetVar(FileName, "Other", "ShowPing")
+        .ShowName = GetVar(FileName, "Other", "ShowName")
+        .ShowPP = GetVar(FileName, "Other", "ShowPP")
 
         '//Account
-        .Username = Trim$(GetVar(filename, "Account", "Username"))
-        .Password = Trim$(GetVar(filename, "Account", "Password"))
-        .SavePass = GetVar(filename, "Account", "SavePass")
+        .Username = Trim$(GetVar(FileName, "Account", "Username"))
+        .Password = Trim$(GetVar(FileName, "Account", "Password"))
+        .SavePass = GetVar(FileName, "Account", "SavePass")
 
         '//Sound
-        .Background = GetVar(filename, "Sound", "Background")
-        .SoundEffect = GetVar(filename, "Sound", "SoundEffect")
-        .MenuMusic = Trim$(GetVar(filename, "Sound", "MenuMusic"))
+        .Background = GetVar(FileName, "Sound", "Background")
+        .SoundEffect = GetVar(FileName, "Sound", "SoundEffect")
+        .MenuMusic = Trim$(GetVar(FileName, "Sound", "MenuMusic"))
     
         '//Language
-        .CurLanguage = GetVar(filename, "Language", "CurLanguage")
+        .CurLanguage = GetVar(FileName, "Language", "CurLanguage")
     End With
     
     '//Update interface base on settings
@@ -118,42 +118,42 @@ errorHandler:
 End Sub
 
 Public Sub SaveSetting()
-Dim filename As String
+Dim FileName As String
 
     '//Find our file
-    filename = App.path & "\data\config\setting.ini"
+    FileName = App.path & "\data\config\setting.ini"
     
     '//Make sure that file doesn't duplicate
-    If FileExist(filename) Then DeleteFile filename
+    If FileExist(FileName) Then DeleteFile FileName
     
     With GameSetting
         '//GUI
-        Call PutVar(filename, "GUI", "Path", Trim$(.ThemePath))
+        Call PutVar(FileName, "GUI", "Path", Trim$(.ThemePath))
         
         '//Video
-        Call PutVar(filename, "Video", "Fullscreen", Str(.Fullscreen))
-        Call PutVar(filename, "Video", "Width", Str(.Width))
-        Call PutVar(filename, "Video", "Height", Str(.Height))
+        Call PutVar(FileName, "Video", "Fullscreen", Str(.Fullscreen))
+        Call PutVar(FileName, "Video", "Width", Str(.Width))
+        Call PutVar(FileName, "Video", "Height", Str(.Height))
         
         '//Others
-        Call PutVar(filename, "Other", "SkipBootUp", Str(.SkipBootUp))
-        Call PutVar(filename, "Other", "ShowFPS", Str(.ShowFPS))
-        Call PutVar(filename, "Other", "ShowPing", Str(.ShowPing))
-        Call PutVar(filename, "Other", "ShowName", Str(.ShowName))
-        Call PutVar(filename, "Other", "ShowPP", Str(.ShowPP))
+        Call PutVar(FileName, "Other", "SkipBootUp", Str(.SkipBootUp))
+        Call PutVar(FileName, "Other", "ShowFPS", Str(.ShowFPS))
+        Call PutVar(FileName, "Other", "ShowPing", Str(.ShowPing))
+        Call PutVar(FileName, "Other", "ShowName", Str(.ShowName))
+        Call PutVar(FileName, "Other", "ShowPP", Str(.ShowPP))
         
         '//Account
-        Call PutVar(filename, "Account", "Username", Trim$(.Username))
-        Call PutVar(filename, "Account", "Password", Trim$(.Password))
-        Call PutVar(filename, "Account", "SavePass", Str(.SavePass))
+        Call PutVar(FileName, "Account", "Username", Trim$(.Username))
+        Call PutVar(FileName, "Account", "Password", Trim$(.Password))
+        Call PutVar(FileName, "Account", "SavePass", Str(.SavePass))
         
         '//Sound
-        Call PutVar(filename, "Sound", "Background", Str(.Background))
-        Call PutVar(filename, "Sound", "SoundEffect", Str(.SoundEffect))
-        Call PutVar(filename, "Sound", "MenuMusic", Trim$(.MenuMusic))
+        Call PutVar(FileName, "Sound", "Background", Str(.Background))
+        Call PutVar(FileName, "Sound", "SoundEffect", Str(.SoundEffect))
+        Call PutVar(FileName, "Sound", "MenuMusic", Trim$(.MenuMusic))
         
         '//Language
-        Call PutVar(filename, "Language", "CurLanguage", Str(.CurLanguage))
+        Call PutVar(FileName, "Language", "CurLanguage", Str(.CurLanguage))
     End With
 End Sub
 
@@ -172,7 +172,7 @@ End Sub
 Public Sub ResetGuiLocation(ByVal vGui As GuiEnum)
     '// Starting Location will be given by code
     GUI(vGui).X = GUI(vGui).OrigX
-    GUI(vGui).Y = GUI(vGui).OrigY
+    GUI(vGui).y = GUI(vGui).OrigY
 End Sub
 
 Public Sub ResetGui()
@@ -281,49 +281,49 @@ Public Sub ResetGui()
     End With
     With Button(ButtonEnum.Game_Pokedex)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 6)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Bag)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Card)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 4)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Map)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Rank)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_VirtualShop)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Menu)
         .X = Screen_Width - .Width - 10
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     
     With Button(ButtonEnum.Game_Evolve)
         .X = 180
-        .Y = 19
+        .y = 19
     End With
     
     With Button(ButtonEnum.Convo_Reply1)
         .X = (Screen_Width / 2) - (.Width / 2)
-        .Y = (Screen_Height / 2) - (111 / 2)
+        .y = (Screen_Height / 2) - (111 / 2)
     End With
     With Button(ButtonEnum.Convo_Reply2)
         .X = (Screen_Width / 2) - (.Width / 2)
-        .Y = (Screen_Height / 2) - (111 / 2) + 37
+        .y = (Screen_Height / 2) - (111 / 2) + 37
     End With
     With Button(ButtonEnum.Convo_Reply3)
         .X = (Screen_Width / 2) - (.Width / 2)
-        .Y = (Screen_Height / 2) - (111 / 2) + 74
+        .y = (Screen_Height / 2) - (111 / 2) + 74
     End With
 End Sub
 
@@ -331,7 +331,7 @@ End Sub
 Public Sub LoadGui()
 Dim i As Long, X As Byte
 Dim FileTitle As String
-Dim filename As String
+Dim FileName As String
 
     For i = 1 To GuiEnum.Gui_Count - 1
         Select Case i
@@ -361,22 +361,22 @@ Dim filename As String
             Case GuiEnum.GUI_VIPADVANTAGE: FileTitle = "vipadvantage-window"
             Case GuiEnum.GUI_MAP: FileTitle = "map-window"
         End Select
-        filename = App.path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\" & FileTitle & ".ini"
-        If FileExist(filename) Then
+        FileName = App.path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\" & FileTitle & ".ini"
+        If FileExist(FileName) Then
             With GUI(i)
-                .Pic = Val(GetVar(filename, "GENERAL", "Pic"))
+                .Pic = Val(GetVar(FileName, "GENERAL", "Pic"))
                 
-                .StartX = Val(GetVar(filename, "GENERAL", "StartX"))
-                .StartY = Val(GetVar(filename, "GENERAL", "StartY"))
+                .StartX = Val(GetVar(FileName, "GENERAL", "StartX"))
+                .StartY = Val(GetVar(FileName, "GENERAL", "StartY"))
                 
-                .Width = Val(GetVar(filename, "GENERAL", "Width"))
-                .Height = Val(GetVar(filename, "GENERAL", "Height"))
+                .Width = Val(GetVar(FileName, "GENERAL", "Width"))
+                .Height = Val(GetVar(FileName, "GENERAL", "Height"))
             End With
         End If
     Next
     
-    filename = App.path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\buttons-setup.ini"
-    If FileExist(filename) Then
+    FileName = App.path & Texture_Path & Trim$(GameSetting.ThemePath) & "\ui\buttons-setup.ini"
+    If FileExist(FileName) Then
         For i = 1 To ButtonEnum.Button_Count - 1
             Select Case i
                 Case ButtonEnum.Login_Confirm: FileTitle = "Login_Confirm"
@@ -471,15 +471,15 @@ Dim filename As String
             
             With Button(i)
                 For X = ButtonState.StateNormal To ButtonState.StateClick
-                    .StartX(X) = Val(GetVar(filename, FileTitle, "StartX_" & X))
-                    .StartY(X) = Val(GetVar(filename, FileTitle, "StartY_" & X))
+                    .StartX(X) = Val(GetVar(FileName, FileTitle, "StartX_" & X))
+                    .StartY(X) = Val(GetVar(FileName, FileTitle, "StartY_" & X))
                 Next
                 
-                .Width = Val(GetVar(filename, FileTitle, "Width"))
-                .Height = Val(GetVar(filename, FileTitle, "Height"))
+                .Width = Val(GetVar(FileName, FileTitle, "Width"))
+                .Height = Val(GetVar(FileName, FileTitle, "Height"))
                 
-                .X = Val(GetVar(filename, FileTitle, "X"))
-                .Y = Val(GetVar(filename, FileTitle, "Y"))
+                .X = Val(GetVar(FileName, FileTitle, "X"))
+                .y = Val(GetVar(FileName, FileTitle, "Y"))
             End With
         Next
     End If
@@ -492,21 +492,21 @@ End Sub
 ' ** Map Properties **
 ' ********************
 Public Function CheckRev(ByVal mapNum As Long, ByVal Rev As Long) As Boolean
-Dim filename As String
+Dim FileName As String
 Dim f As Long
 Dim GotRev As Long
 
     On Error GoTo errorHandler
 
-    filename = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
+    FileName = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
     f = FreeFile
     
-    If Not FileExist(filename) Then
+    If Not FileExist(FileName) Then
         CheckRev = False
         Exit Function
     End If
     
-    Open filename For Binary As #f
+    Open FileName For Binary As #f
         Get #f, , GotRev
     Close #f
     
@@ -529,21 +529,21 @@ Public Sub ClearMap()
 End Sub
 
 Public Sub LoadMap(ByVal mapNum As Long)
-Dim filename As String
+Dim FileName As String
 Dim f As Long
-Dim X As Long, Y As Long
+Dim X As Long, y As Long
 Dim i As Long, a As Byte
 
-    filename = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
+    FileName = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
     f = FreeFile
     
-    If Not FileExist(filename) Then
+    If Not FileExist(FileName) Then
         MsgBox "Failed to load map cache. Exiting...", vbCritical
         UnloadMain
         Exit Sub
     End If
     
-    Open filename For Binary As #f
+    Open FileName For Binary As #f
         With Map
             '//General
             Get #f, , .Revision
@@ -562,8 +562,8 @@ Dim i As Long, a As Byte
         
         '//Tiles
         For X = 0 To Map.MaxX
-            For Y = 0 To Map.MaxY
-                With Map.Tile(X, Y)
+            For y = 0 To Map.MaxY
+                With Map.Tile(X, y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -608,26 +608,27 @@ Dim i As Long, a As Byte
             Get #f, , .NoCure
             
             Get #f, , .MapTravel.IsTravel
-            Get #f, , .MapTravel.CostValue
+            Get #f, , .MapTravel.costValue
             Get #f, , .MapTravel.X
-            Get #f, , .MapTravel.Y
+            Get #f, , .MapTravel.y
+            Get #f, , .MapTravel.BadgeReq
         End With
     Close #f
     DoEvents
 End Sub
 
 Public Sub SaveMap(ByVal mapNum As Long)
-Dim filename As String
+Dim FileName As String
 Dim f As Long
-Dim X As Long, Y As Long
+Dim X As Long, y As Long
 Dim i As Long, a As Long
 
-    filename = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
+    FileName = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
     f = FreeFile
     
-    If FileExist(filename) Then DeleteFile filename
+    If FileExist(FileName) Then DeleteFile FileName
     
-    Open filename For Binary As #f
+    Open FileName For Binary As #f
         With Map
             '//General
             Put #f, , .Revision
@@ -641,8 +642,8 @@ Dim i As Long, a As Long
         
         '//Tiles
         For X = 0 To Map.MaxX
-            For Y = 0 To Map.MaxY
-                With Map.Tile(X, Y)
+            For y = 0 To Map.MaxY
+                With Map.Tile(X, y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -688,9 +689,10 @@ Dim i As Long, a As Long
             Put #f, , .NoCure
             
             Put #f, , .MapTravel.IsTravel
-            Put #f, , .MapTravel.CostValue
+            Put #f, , .MapTravel.costValue
             Put #f, , .MapTravel.X
-            Put #f, , .MapTravel.Y
+            Put #f, , .MapTravel.y
+            Put #f, , .MapTravel.BadgeReq
         End With
     Close #f
     DoEvents
@@ -699,10 +701,10 @@ End Sub
 ' ***********************
 ' ** Player Properties **
 ' ***********************
-Public Sub ClearPlayer(ByVal index As Long)
-    Call ZeroMemory(ByVal VarPtr(Player(index)), LenB(Player(index)))
-    Call ZeroMemory(ByVal VarPtr(PlayerPokemon(index)), LenB(PlayerPokemon(index)))
-    Player(index).Name = vbNullString
+Public Sub ClearPlayer(ByVal Index As Long)
+    Call ZeroMemory(ByVal VarPtr(Player(Index)), LenB(Player(Index)))
+    Call ZeroMemory(ByVal VarPtr(PlayerPokemon(Index)), LenB(PlayerPokemon(Index)))
+    Player(Index).Name = vbNullString
 End Sub
 
 Public Sub ClearPlayers()
@@ -844,14 +846,14 @@ Dim Control As Long
 End Sub
 
 Public Sub LoadControlKey()
-Dim filename As String
+Dim FileName As String
 Dim i As Long
 
     On Error GoTo errorHandler
 
-    filename = App.path & "\data\config\controlkey.ini"
+    FileName = App.path & "\data\config\controlkey.ini"
     
-    If Not FileExist(filename) Then
+    If Not FileExist(FileName) Then
         Call ClearControlKey
         Call SaveControlKey
         Exit Sub
@@ -859,7 +861,7 @@ Dim i As Long
     
     For i = 1 To ControlEnum.Control_Count - 1
         With ControlKey(i)
-            .cAsciiKey = GetVar(filename, Trim$(.keyName), "KeyAscii")
+            .cAsciiKey = GetVar(FileName, Trim$(.keyName), "KeyAscii")
         End With
     Next
     
@@ -871,18 +873,18 @@ errorHandler:
 End Sub
 
 Public Sub SaveControlKey()
-Dim filename As String
+Dim FileName As String
 Dim i As Long
 
-    filename = App.path & "\data\config\controlkey.ini"
+    FileName = App.path & "\data\config\controlkey.ini"
     
-    If FileExist(filename) Then
-        DeleteFile filename
+    If FileExist(FileName) Then
+        DeleteFile FileName
     End If
     
     For i = 1 To ControlEnum.Control_Count - 1
         With ControlKey(i)
-            Call PutVar(filename, Trim$(.keyName), "KeyAscii", Str(.cAsciiKey))
+            Call PutVar(FileName, Trim$(.keyName), "KeyAscii", Str(.cAsciiKey))
         End With
     Next
 End Sub
@@ -960,8 +962,8 @@ Dim i As Long
     Next
 End Sub
 
-Public Sub ClearPlayerPokemon(ByVal index As Long)
-    Call ZeroMemory(ByVal VarPtr(PlayerPokemon(index)), LenB(PlayerPokemon(index)))
+Public Sub ClearPlayerPokemon(ByVal Index As Long)
+    Call ZeroMemory(ByVal VarPtr(PlayerPokemon(Index)), LenB(PlayerPokemon(Index)))
 End Sub
 
 Public Sub ClearPlayerPokemons()
@@ -1053,14 +1055,14 @@ End Sub
 ' ** Conversation **
 ' ***************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim X As Byte, y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
     For X = 1 To MAX_CONV_DATA
-        For Y = 1 To MAX_LANGUAGE
-            Conversation(ConversationNum).ConvData(X).TextLang(Y).Text = vbNullString
+        For y = 1 To MAX_LANGUAGE
+            Conversation(ConversationNum).ConvData(X).TextLang(y).Text = vbNullString
             For z = 1 To 3
-                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(z) = vbNullString
+                Conversation(ConversationNum).ConvData(X).TextLang(y).tReply(z) = vbNullString
             Next
         Next
     Next
@@ -1078,7 +1080,7 @@ End Sub
 ' ** Shop **
 ' ***************
 Public Sub ClearShop(ByVal ShopNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim X As Byte, y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Shop(ShopNum)), LenB(Shop(ShopNum)))
 End Sub
@@ -1095,7 +1097,7 @@ End Sub
 ' ** Quest **
 ' ***************
 Public Sub ClearQuest(ByVal QuestNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim X As Byte, y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Quest(QuestNum)), LenB(Quest(QuestNum)))
 End Sub
@@ -1129,8 +1131,8 @@ Public Sub ClearSelMenu()
 End Sub
 
 '//Animation
-Public Sub ClearAnimInstance(ByVal index As Long)
-    Call ZeroMemory(ByVal VarPtr(AnimInstance(index)), LenB(AnimInstance(index)))
+Public Sub ClearAnimInstance(ByVal Index As Long)
+    Call ZeroMemory(ByVal VarPtr(AnimInstance(Index)), LenB(AnimInstance(Index)))
 End Sub
 
 ' *************
@@ -1161,7 +1163,7 @@ Dim i As Long
     
     For i = 0 To CreditTextCount
         Credit(i).Text = CreditText(i)
-        Credit(i).Y = (Screen_Height - 40) + (20 * i)
+        Credit(i).y = (Screen_Height - 40) + (20 * i)
         Credit(i).StartY = (Screen_Height - 40) + (20 * i)
     Next
 End Sub

@@ -26,11 +26,18 @@ Begin VB.Form frmEditor_Map
       Width           =   7215
       Begin VB.Frame Frame5 
          Caption         =   "Map Travel"
-         Height          =   2055
+         Height          =   2415
          Left            =   240
          TabIndex        =   107
          Top             =   3960
          Width           =   2415
+         Begin VB.HScrollBar scrlBadgeReq 
+            Height          =   255
+            Left            =   240
+            TabIndex        =   115
+            Top             =   2040
+            Width           =   1935
+         End
          Begin VB.TextBox txtStartY 
             Height          =   285
             Left            =   1080
@@ -62,6 +69,15 @@ Begin VB.Form frmEditor_Map
             TabIndex        =   108
             Top             =   360
             Width           =   1215
+         End
+         Begin VB.Label lblBadgeReq 
+            AutoSize        =   -1  'True
+            Caption         =   "Badge Req: 0"
+            Height          =   195
+            Left            =   240
+            TabIndex        =   116
+            Top             =   1800
+            Width           =   990
          End
          Begin VB.Label Label7 
             AutoSize        =   -1  'True
@@ -1019,12 +1035,12 @@ Private Sub chkAnimated_Click()
     IsAnimated = chkAnimated.value
 End Sub
 
-Private Sub cmdAttributeCancel_Click(index As Integer)
+Private Sub cmdAttributeCancel_Click(Index As Integer)
     ClearMapAttribute
 End Sub
 
-Private Sub cmdAttributeOkay_Click(index As Integer)
-    Select Case index
+Private Sub cmdAttributeOkay_Click(Index As Integer)
+    Select Case Index
         Case 1 '//NpcSpawn
             EditorData1 = cmbNpcSpawn.ListIndex + 1
             EditorData2 = cmbNpcSpawnDir.ListIndex
@@ -1138,7 +1154,7 @@ End Sub
 
 Private Sub cmdPropertiesSave_Click()
 Dim X As Long, x2 As Long
-Dim Y As Long, Y2 As Long
+Dim y As Long, Y2 As Long
 Dim tempArr() As TileRec
 Dim i As Long
     '//Input Data
@@ -1175,8 +1191,8 @@ Dim i As Long
     ReDim Map.Tile(0 To Map.MaxX, 0 To Map.MaxY)
 
     For X = 0 To x2
-        For Y = 0 To Y2
-            Map.Tile(X, Y) = tempArr(X, Y)
+        For y = 0 To Y2
+            Map.Tile(X, y) = tempArr(X, y)
         Next
     Next
     
@@ -1203,9 +1219,10 @@ Dim i As Long
     Map.NoCure = chkNoCure.value
     
     Map.MapTravel.IsTravel = chkIsTravel.value
-    Map.MapTravel.CostValue = txtCostValue.Text
+    Map.MapTravel.costValue = txtCostValue.Text
     Map.MapTravel.X = txtStartX.Text
-    Map.MapTravel.Y = txtStartY.Text
+    Map.MapTravel.y = txtStartY.Text
+    Map.MapTravel.BadgeReq = scrlBadgeReq.value
     
     '//Hide properties
     mnuData.Visible = True
@@ -1302,9 +1319,13 @@ Dim i As Long
     chkNoCure.value = Map.NoCure
     
     chkIsTravel.value = Map.MapTravel.IsTravel
-    txtCostValue.Text = Map.MapTravel.CostValue
+    txtCostValue.Text = Map.MapTravel.costValue
     txtStartX.Text = Map.MapTravel.X
-    txtStartY.Text = Map.MapTravel.Y
+    txtStartY.Text = Map.MapTravel.y
+    
+    scrlBadgeReq.max = MAX_BADGE
+    scrlBadgeReq.value = Map.MapTravel.BadgeReq
+    
 
     '//Init
     mnuData.Visible = False
@@ -1316,12 +1337,12 @@ Private Sub mnuSave_Click()
     MapEditorSend
 End Sub
 
-Private Sub optAttribute_Click(index As Integer)
-    CurAttribute = index
+Private Sub optAttribute_Click(Index As Integer)
+    CurAttribute = Index
     
     ClearMapAttribute
     
-    Select Case index
+    Select Case Index
         Case MapAttribute.NpcSpawn
             fraAttribute.Visible = True
             fraNpcSpawn.Visible = True
@@ -1352,26 +1373,30 @@ Private Sub optAttribute_Click(index As Integer)
     End Select
 End Sub
 
-Private Sub optLayer_Click(index As Integer)
-    CurLayer = index
+Private Sub optLayer_Click(Index As Integer)
+    CurLayer = Index
 End Sub
 
-Private Sub optType_Click(index As Integer)
+Private Sub optType_Click(Index As Integer)
     fraLayers.Visible = False
     fraAttributes.Visible = False
     
-    Select Case index
+    Select Case Index
         Case 1: fraLayers.Visible = True
         Case 2: fraAttributes.Visible = True
     End Select
 End Sub
 
-Private Sub picTileset_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    Call MapEditorChooseTile(Button, X, Y)
+Private Sub picTileset_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+    Call MapEditorChooseTile(Button, X, y)
 End Sub
 
-Private Sub picTileset_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    Call MapEditorChooseTile(Button, X, Y, True)
+Private Sub picTileset_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+    Call MapEditorChooseTile(Button, X, y, True)
+End Sub
+
+Private Sub scrlBadgeReq_Change()
+    lblBadgeReq.Caption = "Badge Req: " & scrlBadgeReq.value
 End Sub
 
 Private Sub scrlCaveLight_Change()

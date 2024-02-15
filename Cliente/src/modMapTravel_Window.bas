@@ -10,24 +10,23 @@ Public Sub DrawPlayerTravel()
         If Not .Visible Then Exit Sub
 
         '//Render the window
-        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
-        
+        RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
+
         ' Titulo da janela
         Select Case tmpCurLanguage
-        Case LANG_PT: SString = "Atalhar pelo mapa!"
-        Case LANG_EN: SString = "Player travel map!"
-        Case LANG_ES: SString = "Player travel map!"
+        Case LANG_PT: SString = "Kanto Região!"
+        Case LANG_EN: SString = "Kanto Region!"
+        Case LANG_ES: SString = "Kanto Region!"
         End Select
-        RenderText Font_Default, SString, .X + 25, .Y + 5, White
+        RenderText Font_Default, SString, .X + 25, .y + 5, White
 
         i = ButtonEnum.MapTravel_Close
         If CanShowButton(i) Then
             '//Close Button
-            RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
+            RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .y + Button(i).y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
         End If
-        
-        For i = 1 To MAX_MAP
 
+        For i = 1 To MAX_MAP
             If Player(MyIndex).PlayerTravel(i).DataExist And Player(MyIndex).PlayerTravel(i).mapName <> vbNullString Then
                 SrcIconX = Player(MyIndex).PlayerTravel(i).SrcPosX
                 SrcIconY = Player(MyIndex).PlayerTravel(i).SrcPosY
@@ -35,17 +34,22 @@ Public Sub DrawPlayerTravel()
                 SrcHeight = Player(MyIndex).PlayerTravel(i).SrcHeight
                 IconX = Player(MyIndex).PlayerTravel(i).IconPosX
                 IconY = Player(MyIndex).PlayerTravel(i).IconPosY
-                
-                If GetPlayerMapUnlocked(i) = False Then Colour = BrightRed Else: Colour = Yellow
 
-                RenderText Font_Default, Player(MyIndex).PlayerTravel(i).mapName, .X + IconX - (GetTextWidth(Font_Default, Player(MyIndex).PlayerTravel(i).mapName) / 2), .Y + IconY - 22, Colour
-                RenderTexture Tex_Gui(.Pic), .X + IconX, .Y + IconY, SrcIconX, SrcIconY, SrcWidth, SrcHeight, SrcWidth, SrcHeight
+                If GetPlayerMapUnlocked(i) = False Then
+                    Colour = BrightRed
+                Else
+                    Colour = Yellow
+
+                    RenderTexture Tex_Gui(.Pic), .X + IconX, .y + IconY, SrcIconX, SrcIconY, SrcWidth, SrcHeight, SrcWidth, SrcHeight
+                End If
+
+                RenderText Ui_Default, Player(MyIndex).PlayerTravel(i).mapName, .X + IconX - (GetTextWidth(Ui_Default, Player(MyIndex).PlayerTravel(i).mapName) / 2) + (SrcWidth / 2), .y + IconY - 22, Colour
             End If
         Next i
     End With
 End Sub
 
-Public Sub PlayerTravelMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub PlayerTravelMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long, IconX As Long, IconY As Long, SrcIconX As Long, SrcIconY As Long, SrcWidth As Long, SrcHeight As Long
 
     With GUI(GuiEnum.GUI_MAP)
@@ -57,7 +61,7 @@ Public Sub PlayerTravelMouseDown(Buttons As Integer, Shift As Integer, X As Sing
 
         i = ButtonEnum.MapTravel_Close
         If CanShowButton(i) Then
-            If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+            If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                 If Button(i).State = ButtonState.StateHover Then
                     Button(i).State = ButtonState.StateClick
                 End If
@@ -65,7 +69,7 @@ Public Sub PlayerTravelMouseDown(Buttons As Integer, Shift As Integer, X As Sing
         End If
 
         For i = 1 To MAX_MAP
-            If Player(MyIndex).PlayerTravel(i).DataExist Then
+            If Player(MyIndex).PlayerTravel(i).DataExist And Player(MyIndex).PlayerTravel(i).mapName <> vbNullString Then
                 If GetPlayerMapUnlocked(i) = True Then
                     SrcIconX = Player(MyIndex).PlayerTravel(i).SrcPosX
                     SrcIconY = Player(MyIndex).PlayerTravel(i).SrcPosY
@@ -74,11 +78,16 @@ Public Sub PlayerTravelMouseDown(Buttons As Integer, Shift As Integer, X As Sing
                     IconX = Player(MyIndex).PlayerTravel(i).IconPosX
                     IconY = Player(MyIndex).PlayerTravel(i).IconPosY
 
-                    If CursorX >= .X + IconX And CursorX <= .X + IconX + SrcWidth And CursorY >= .Y + IconY And CursorY <= .Y + IconY + SrcHeight Then
+                    If CursorX >= .X + IconX And CursorX <= .X + IconX + SrcWidth And CursorY >= .y + IconY And CursorY <= .y + IconY + SrcHeight Then
+                        
                         'Add process to warp
-                        If IsHovering Then
-                            Call SendPlayerTravel(i)
-                        End If
+                        PlayerTravelSlot = i
+                        Select Case tmpCurLanguage
+                        Case LANG_PT: OpenChoiceBox "Deseja teleportar até " & Player(MyIndex).PlayerTravel(i).mapName & " por " & GetPlayerMapCostValue(i) & " Moneys?", CB_TRAVEL
+                        Case LANG_EN: OpenChoiceBox "Deseja teleportar até " & Player(MyIndex).PlayerTravel(i).mapName & " por " & GetPlayerMapCostValue(i) & " Moneys?", CB_TRAVEL
+                        Case LANG_ES: OpenChoiceBox "Deseja teleportar até " & Player(MyIndex).PlayerTravel(i).mapName & " por " & GetPlayerMapCostValue(i) & " Moneys?", CB_TRAVEL
+                        
+                        End Select
                     End If
                 End If
             End If
@@ -86,14 +95,14 @@ Public Sub PlayerTravelMouseDown(Buttons As Integer, Shift As Integer, X As Sing
 
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Public Sub PlayerTravelMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub PlayerTravelMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim tmpX As Long, tmpY As Long
     Dim i As Long, IconX As Long, IconY As Long, SrcIconX As Long, SrcIconY As Long, SrcWidth As Long, SrcHeight As Long
 
@@ -108,7 +117,7 @@ Public Sub PlayerTravelMouseMove(Buttons As Integer, Shift As Integer, X As Sing
 
         i = ButtonEnum.MapTravel_Close
         If CanShowButton(i) Then
-            If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+            If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                 If Button(i).State = ButtonState.StateNormal Then
                     Button(i).State = ButtonState.StateHover
 
@@ -128,7 +137,7 @@ Public Sub PlayerTravelMouseMove(Buttons As Integer, Shift As Integer, X As Sing
                     IconX = Player(MyIndex).PlayerTravel(i).IconPosX
                     IconY = Player(MyIndex).PlayerTravel(i).IconPosY
 
-                    If CursorX >= .X + IconX And CursorX <= .X + IconX + SrcWidth And CursorY >= .Y + IconY And CursorY <= .Y + IconY + SrcHeight Then
+                    If CursorX >= .X + IconX And CursorX <= .X + IconX + SrcWidth And CursorY >= .y + IconY And CursorY <= .y + IconY + SrcHeight Then
                         'Add process to mousemove
                         IsHovering = True
                         MouseIcon = 1    '//Select
@@ -151,12 +160,12 @@ Public Sub PlayerTravelMouseMove(Buttons As Integer, Shift As Integer, X As Sing
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
 
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Public Sub PlayerTravelMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub PlayerTravelMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
 
     With GUI(GuiEnum.GUI_MAP)
@@ -168,7 +177,7 @@ Public Sub PlayerTravelMouseUp(Buttons As Integer, Shift As Integer, X As Single
 
         i = ButtonEnum.MapTravel_Close
         If CanShowButton(i) Then
-            If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+            If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                 If Button(i).State = ButtonState.StateClick Then
                     Button(i).State = ButtonState.StateNormal
                     If GUI(GuiEnum.GUI_MAP).Visible = True Then

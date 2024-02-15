@@ -1455,6 +1455,10 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                                 SendFlyToBadge FlyBadgeSlot
                                 FlyBadgeSlot = 0
                                 CloseChoiceBox
+                            Case CB_TRAVEL
+                                SendPlayerTravel PlayerTravelSlot
+                                PlayerTravelSlot = 0
+                                CloseChoiceBox
                             End Select
                         Case ButtonEnum.ChoiceBox_No
                             Select Case ChoiceBoxType
@@ -1480,6 +1484,9 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
                                 CloseChoiceBox
                             Case CB_FLY
                                 FlyBadgeSlot = 0
+                                CloseChoiceBox
+                            Case CB_TRAVEL
+                                PlayerTravelSlot = 0
                                 CloseChoiceBox
                             Case Else
                                 CloseChoiceBox
