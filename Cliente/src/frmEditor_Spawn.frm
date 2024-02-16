@@ -350,6 +350,13 @@ Begin VB.Form frmEditor_Spawn
       TabIndex        =   0
       Top             =   0
       Width           =   2655
+      Begin VB.TextBox txtFind2 
+         Height          =   285
+         Left            =   120
+         TabIndex        =   46
+         Top             =   480
+         Width           =   2415
+      End
       Begin VB.CommandButton Command2 
          Caption         =   "Paste"
          Height          =   255
@@ -367,11 +374,20 @@ Begin VB.Form frmEditor_Spawn
          Width           =   975
       End
       Begin VB.ListBox lstMapPokemon 
-         Height          =   5130
+         Height          =   4350
          Left            =   120
          TabIndex        =   1
-         Top             =   240
+         Top             =   840
          Width           =   2415
+      End
+      Begin VB.Label Label14 
+         AutoSize        =   -1  'True
+         Caption         =   "Find By MapId or Name"
+         Height          =   195
+         Left            =   480
+         TabIndex        =   45
+         Top             =   240
+         Width           =   1665
       End
    End
    Begin VB.Menu mnuData 
@@ -435,16 +451,22 @@ Private Sub cmbNature_Click()
 End Sub
 
 Private Sub cmbPokemonNum_Click()
-Dim tmpIndex As Long
+    Dim tmpIndex As Long
 
     If EditorIndex = 0 Then Exit Sub
     tmpIndex = lstMapPokemon.ListIndex
-    lstMapPokemon.RemoveItem EditorIndex - 1
+    Debug.Print Val(lstMapPokemon.List(lstMapPokemon.ListIndex))
+    lstMapPokemon.RemoveItem lstMapPokemon.ListIndex
     Spawn(EditorIndex).PokeNum = cmbPokemonNum.ListIndex
     If cmbPokemonNum.ListIndex > 0 Then
-        lstMapPokemon.AddItem EditorIndex & ": " & Trim$(Pokemon(cmbPokemonNum.ListIndex).Name), EditorIndex - 1
+        If Spawn(EditorIndex).mapNum > 0 And Spawn(EditorIndex).mapNum <= MAX_MAP Then
+            lstMapPokemon.AddItem EditorIndex & ": " & Trim$(Pokemon(cmbPokemonNum.ListIndex).Name) & ": Map:" & Spawn(EditorIndex).mapNum & "-" & MapReport(Spawn(EditorIndex).mapNum), tmpIndex
+        Else
+            lstMapPokemon.AddItem EditorIndex & ": " & Trim$(Pokemon(cmbPokemonNum.ListIndex).Name) & ": No Map Or Random", tmpIndex
+        End If
+            'lstMapPokemon.AddItem EditorIndex & ": " & Trim$(Pokemon(cmbPokemonNum.ListIndex).Name), tmpIndex
     Else
-        lstMapPokemon.AddItem EditorIndex & ": ", EditorIndex - 1
+        lstMapPokemon.AddItem EditorIndex & ": ", tmpIndex
     End If
     lstMapPokemon.ListIndex = tmpIndex
     EditorChange = True
@@ -496,7 +518,7 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub lstMapPokemon_Click()
-    SpawnEditorLoadIndex lstMapPokemon.ListIndex + 1
+    SpawnEditorLoadIndex Val(lstMapPokemon.List(lstMapPokemon.ListIndex))
 End Sub
 
 Private Sub mnuCancel_Click()
@@ -583,9 +605,85 @@ Private Sub txtFind_LostFocus()
     txtFind.ForeColor = vbGrayText    ' Altera a cor do texto para cinza para indicar que é uma mensagem descritiva
 End Sub
 
+Private Sub txtFind2_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_GAME_POKEMON
+
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+
+    ' Clear the list
+    lstMapPokemon.Clear
+
+    ' Nome deste controle
+    If Not IsNumeric(txtFind2) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtFind2))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                If Spawn(i).PokeNum > 0 Then
+                    ' Atribuição da estrutura em procura
+                    If InStr(1, UCase$(Trim$(Pokemon(Spawn(i).PokeNum).Name)), Find) > 0 Then
+                        ' Nome do controle a ser alterado
+                        If Spawn(i).mapNum > 0 Then
+                            lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ": Map:" & Spawn(i).mapNum & "-" & MapReport(Spawn(i).mapNum)
+                        Else
+                            lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ": No Map Or Random"
+                        End If
+                    End If
+                End If
+            Else
+                If Spawn(i).PokeNum > 0 Then
+                    If Spawn(i).mapNum > 0 And Spawn(i).mapNum <= MAX_MAP Then
+                        lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ": Map:" & Spawn(i).mapNum & "-" & MapReport(Spawn(i).mapNum)
+                    Else
+                        lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ": No Map Or Random"
+                    End If
+                Else
+                    lstMapPokemon.AddItem i & ": " & vbNullString
+                End If
+            End If
+        Next
+
+        If lstMapPokemon.ListCount > 0 Then lstMapPokemon.ListIndex = 0
+    Else
+        ' Nome deste controle
+        If txtFind2 > MAX_INDEX Then
+            ' Nome deste controle
+            txtFind2 = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtFind2 <= 0 Then
+            ' Nome deste controle
+            txtFind2 = 1
+        End If
+
+        For i = 1 To MAX_INDEX
+            ' Atribuição da estrutura em procura
+            If Spawn(i).mapNum = txtFind2 Then
+                ' Nome do controle a ser alterado
+                If Spawn(i).mapNum > 0 Then
+                    lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ": Map:" & Spawn(i).mapNum & "-" & MapReport(Spawn(i).mapNum)
+                Else
+                    lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ": No Map Or Random"
+                End If
+            End If
+        Next
+
+        If lstMapPokemon.ListCount > 0 Then lstMapPokemon.ListIndex = 0
+    End If
+End Sub
+
 Private Sub txtMap_Change()
     If IsNumeric(txtMap.Text) Then
-        Spawn(EditorIndex).MapNum = Val(txtMap.Text)
+        Spawn(EditorIndex).mapNum = Val(txtMap.Text)
         EditorChange = True
     End If
 End Sub

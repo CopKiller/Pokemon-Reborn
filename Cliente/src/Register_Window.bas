@@ -30,30 +30,38 @@ Dim PassColor As Long
         TextUIBoxSize = 104
         
         ' Desenha a janela
-        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
+        RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
+        
+        ' Titulo da janela de registro
+        Select Case tmpCurLanguage
+        Case LANG_PT: SString = "Criar nova conta!"
+        Case LANG_EN: SString = "Create a new account"
+        Case LANG_ES: SString = "Create a new account"
+        End Select
+        RenderText Font_Default, SString, .X + 25, .y + 5, White
         
         ' Desenha o texto do username
-        RenderText Font_Default, TextUIRegisterUsername, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUIRegisterUsername) / 2) - 2, (.Y + PaddingTop) + 13, White, , 255
+        RenderText Font_Default, TextUIRegisterUsername, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUIRegisterUsername) / 2) - 2, (.y + PaddingTop) + 13, White, , 255
         
         ' Desenha o texto da password
-        RenderText Font_Default, TextUIRegisterPassword, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUIRegisterPassword) / 2) - 2, (.Y + PaddingTop) + 55, White, , 255
+        RenderText Font_Default, TextUIRegisterPassword, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUIRegisterPassword) / 2) - 2, (.y + PaddingTop) + 55, White, , 255
         
         ' Desenha o texto da checkbox
-        RenderText Font_Default, TextUIRegisterCheckBox, .X + (PaddingLeft + 19), (.Y + PaddingTop) + 107, White, , 255
+        RenderText Font_Default, TextUIRegisterCheckBox, .X + (PaddingLeft + 19), (.y + PaddingTop) + 107, White, , 255
         
         ' Desenha o texto da password
-        RenderText Font_Default, TextUIRegisterEmail, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUIRegisterEmail) / 2) - 2, (.Y + PaddingTop) + 135, White, , 255
+        RenderText Font_Default, TextUIRegisterEmail, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUIRegisterEmail) / 2) - 2, (.y + PaddingTop) + 135, White, , 255
         
         ' Desenha os botões
         For i = ButtonEnum.Register_Confirm To ButtonEnum.Register_Close
             If CanShowButton(i) Then
                 ' Desenha o Botão
-                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
+                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .y + Button(i).y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
         
         ' Desenha o texto do botão
-        RenderText Font_Default, TextUIRegisterConfirm, .X + 23 + (254 / 2) - (GetTextWidth(Font_Default, TextUIRegisterConfirm) / 2) - 2, (.Y + 200) + 34 / 2 - 12, White, , 255
+        RenderText Font_Default, TextUIRegisterConfirm, .X + 23 + (254 / 2) - (GetTextWidth(Font_Default, TextUIRegisterConfirm) / 2) - 2, (.y + 200) + 34 / 2 - 12, White, , 255
                 
         ' Verificar se a confirmação de senha é a mesma
         If Len(Pass2) > 0 Then
@@ -69,81 +77,81 @@ Dim PassColor As Long
         ' Desenha as textbox
         Select Case CurTextbox
             Case 1 ' User
-                RenderText Font_Default, UpdateChatText(Font_Default, User, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 14), Dark
+                RenderText Font_Default, UpdateChatText(Font_Default, User, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 14), Dark
                 If ShowPass = YES Then
-                    RenderText Font_Default, UpdateChatText(Font_Default, Pass, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 47), PassColor
-                    RenderText Font_Default, UpdateChatText(Font_Default, Pass2, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 68), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, Pass, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 47), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, Pass2, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 68), PassColor
                 Else
-                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 47), PassColor
-                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass2), 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 68), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 47), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass2), 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 68), PassColor
                 End If
-                RenderText Font_Default, UpdateChatText(Font_Default, Email, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 135), Dark
+                RenderText Font_Default, UpdateChatText(Font_Default, Email, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 135), Dark
             Case 2 ' Pass
-                RenderText Font_Default, UpdateChatText(Font_Default, User, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 14), Dark
+                RenderText Font_Default, UpdateChatText(Font_Default, User, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 14), Dark
                 If ShowPass = YES Then
-                    RenderText Font_Default, UpdateChatText(Font_Default, Pass, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 47), PassColor
-                    RenderText Font_Default, UpdateChatText(Font_Default, Pass2, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 68), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, Pass, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 47), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, Pass2, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 68), PassColor
                 Else
-                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 47), PassColor
-                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass2), 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 68), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 47), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass2), 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 68), PassColor
                 End If
-                RenderText Font_Default, UpdateChatText(Font_Default, Email, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 135), Dark
+                RenderText Font_Default, UpdateChatText(Font_Default, Email, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 135), Dark
             Case 3 ' Retype Pass
-                RenderText Font_Default, UpdateChatText(Font_Default, User, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 14), Dark
+                RenderText Font_Default, UpdateChatText(Font_Default, User, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 14), Dark
                 If ShowPass = YES Then
-                    RenderText Font_Default, UpdateChatText(Font_Default, Pass, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 47), PassColor
-                    RenderText Font_Default, UpdateChatText(Font_Default, Pass2, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 68), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, Pass, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 47), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, Pass2, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 68), PassColor
                 Else
-                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 47), PassColor
-                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass2), 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 68), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 47), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass2), 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 68), PassColor
                 End If
-                RenderText Font_Default, UpdateChatText(Font_Default, Email, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 135), Dark
+                RenderText Font_Default, UpdateChatText(Font_Default, Email, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 135), Dark
             Case 4 ' Email
-                RenderText Font_Default, UpdateChatText(Font_Default, User, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 14), Dark
+                RenderText Font_Default, UpdateChatText(Font_Default, User, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 14), Dark
                 If ShowPass = YES Then
-                    RenderText Font_Default, UpdateChatText(Font_Default, Pass, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 47), PassColor
-                    RenderText Font_Default, UpdateChatText(Font_Default, Pass2, 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 68), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, Pass, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 47), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, Pass2, 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 68), PassColor
                 Else
-                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 47), PassColor
-                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass2), 130), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 68), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass), 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 47), PassColor
+                    RenderText Font_Default, UpdateChatText(Font_Default, CensorWord(Pass2), 130), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 68), PassColor
                 End If
-                RenderText Font_Default, UpdateChatText(Font_Default, Email, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 135), Dark
+                RenderText Font_Default, UpdateChatText(Font_Default, Email, 130) & TextLine, .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 135), Dark
         End Select
         
         ' Desenha as barras de senha forte
         If Len(Pass) > 0 Then
             If Len(Pass) >= 0 And Len(Pass) < ((NAME_LENGTH - 1) / 4) Then
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 237, 28, 36)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 237, 28, 36)
             ElseIf Len(Pass) >= ((NAME_LENGTH - 1) / 4) And Len(Pass) < ((NAME_LENGTH - 1) / 4) * 2 Then
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 198, 153, 0)
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38, .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 198, 153, 0)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 198, 153, 0)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38, .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 198, 153, 0)
             ElseIf Len(Pass) >= ((NAME_LENGTH - 1) / 4) * 2 And Len(Pass) < ((NAME_LENGTH - 1) / 4) * 3 Then
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 53, 165, 51)
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38, .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 53, 165, 51)
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38 * 2, .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 53, 165, 51)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 53, 165, 51)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38, .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 53, 165, 51)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38 * 2, .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 53, 165, 51)
             ElseIf Len(Pass) >= ((NAME_LENGTH - 1) / 4) * 3 And Len(Pass) < ((NAME_LENGTH - 1) + 5) Then
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize), .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 0, 162, 232)
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38, .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 0, 162, 232)
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38 * 2, .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 0, 162, 232)
-                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38 * 3, .Y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 0, 162, 232)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize), .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 0, 162, 232)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38, .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 0, 162, 232)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38 * 2, .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 0, 162, 232)
+                RenderTexture Tex_System(gSystemEnum.UserInterface), .X + (PaddingLeft + TextUIBoxSize) + 38 * 3, .y + (PaddingTop + 93), 0, 8, 36, 4, 1, 1, D3DColorARGB(255, 0, 162, 232)
             End If
         End If
         
         ' Checkbox para mostrar a senha
-        If CursorX >= .X + PaddingLeft And CursorX <= .X + (PaddingLeft + 17) And CursorY >= .Y + (PaddingTop + 107) And CursorY <= .Y + (PaddingTop + 107) + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_REGISTER Then
-            RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + (PaddingTop + 107), 319, 125 + 17, 17, 17, 17, 17
+        If CursorX >= .X + PaddingLeft And CursorX <= .X + (PaddingLeft + 17) And CursorY >= .y + (PaddingTop + 107) And CursorY <= .y + (PaddingTop + 107) + 17 And GuiZOrder(GuiVisibleCount) = GuiEnum.GUI_REGISTER Then
+            RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .y + (PaddingTop + 107), 319, 125 + 17, 17, 17, 17, 17
         Else
-            RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + (PaddingTop + 107), 319, 125, 17, 17, 17, 17
+            RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .y + (PaddingTop + 107), 319, 125, 17, 17, 17, 17
         End If
         
         If ShowPass = YES Then
-            RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .Y + (PaddingTop + 107), 319, 125 + 34, 17, 17, 17, 17
+            RenderTexture Tex_Gui(.Pic), .X + PaddingLeft, .y + (PaddingTop + 107), 319, 125 + 34, 17, 17, 17, 17
         End If
     End With
 End Sub
 
 ' Método dos cliques na janela
-Public Sub RegisterMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub RegisterMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Byte
 
     With GUI(GuiEnum.GUI_REGISTER)
@@ -157,7 +165,7 @@ Dim i As Byte
         ' Verifica todos os itens
         For i = ButtonEnum.Register_Confirm To ButtonEnum.Register_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -166,18 +174,18 @@ Dim i As Byte
         Next
         
         ' Clique na textbox
-        If CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .Y + (PaddingTop + 13) And CursorY <= .Y + (PaddingTop + 13) + 21 Then
+        If CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .y + (PaddingTop + 13) And CursorY <= .y + (PaddingTop + 13) + 21 Then
             CurTextbox = 1
-        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .Y + (PaddingTop + 46) And CursorY <= .Y + (PaddingTop + 46) + 21 Then
+        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .y + (PaddingTop + 46) And CursorY <= .y + (PaddingTop + 46) + 21 Then
             CurTextbox = 2
-        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .Y + (PaddingTop + 67) And CursorY <= .Y + (PaddingTop + 67) + 21 Then
+        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .y + (PaddingTop + 67) And CursorY <= .y + (PaddingTop + 67) + 21 Then
             CurTextbox = 3
-        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .Y + (PaddingTop + 134) And CursorY <= .Y + (PaddingTop + 134) + 21 Then
+        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .y + (PaddingTop + 134) And CursorY <= .y + (PaddingTop + 134) + 21 Then
             CurTextbox = 4
         End If
         
         ' Clique na checkbox
-        If CursorX >= .X + PaddingLeft And CursorX <= .X + (PaddingLeft + 17) And CursorY >= .Y + (PaddingTop + 107) And CursorY <= .Y + (PaddingTop + 107) + 17 Then
+        If CursorX >= .X + PaddingLeft And CursorX <= .X + (PaddingLeft + 17) And CursorY >= .y + (PaddingTop + 107) And CursorY <= .y + (PaddingTop + 107) + 17 Then
             If ShowPass = YES Then
                 ShowPass = NO
             Else
@@ -187,7 +195,7 @@ Dim i As Byte
         
         ' Verifica se foi movido
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
@@ -195,7 +203,7 @@ Dim i As Byte
 End Sub
 
 ' Método ao passar o mouse por cima dos itens
-Public Sub RegisterMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub RegisterMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Byte
 Dim tmpX As Long, tmpY As Long
 
@@ -212,7 +220,7 @@ Dim tmpX As Long, tmpY As Long
         ' Verifica todos os itens
         For i = ButtonEnum.Register_Confirm To ButtonEnum.Register_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
                         
@@ -224,22 +232,22 @@ Dim tmpX As Long, tmpY As Long
         Next
         
         ' Passar o mouse por cima das textbox
-        If CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .Y + (PaddingTop + 13) And CursorY <= .Y + (PaddingTop + 11) + 23 Then
+        If CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .y + (PaddingTop + 13) And CursorY <= .y + (PaddingTop + 11) + 23 Then
             IsHovering = True
             MouseIcon = 2
-        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .Y + (PaddingTop + 46) And CursorY <= .Y + (PaddingTop + 44) + 23 Then
+        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .y + (PaddingTop + 46) And CursorY <= .y + (PaddingTop + 44) + 23 Then
             IsHovering = True
             MouseIcon = 2
-        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .Y + (PaddingTop + 67) And CursorY <= .Y + (PaddingTop + 65) + 23 Then
+        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .y + (PaddingTop + 67) And CursorY <= .y + (PaddingTop + 65) + 23 Then
             IsHovering = True
             MouseIcon = 2
-        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .Y + (PaddingTop + 134) And CursorY <= .Y + (PaddingTop + 132) + 23 Then
+        ElseIf CursorX >= .X + (PaddingLeft + TextUIBoxSize) And CursorX <= .X + (PaddingLeft + TextUIBoxSize) + 148 And CursorY >= .y + (PaddingTop + 134) And CursorY <= .y + (PaddingTop + 132) + 23 Then
             IsHovering = True
             MouseIcon = 2
         End If
         
         ' Passar o mouse por cima da checkbox
-        If CursorX >= .X + PaddingLeft And CursorX <= .X + (PaddingLeft + 17) And CursorY >= .Y + (PaddingTop + 107) And CursorY <= .Y + (PaddingTop + 107) + 17 Then
+        If CursorX >= .X + PaddingLeft And CursorX <= .X + (PaddingLeft + 17) And CursorY >= .y + (PaddingTop + 107) And CursorY <= .y + (PaddingTop + 107) + 17 Then
             IsHovering = True
             MouseIcon = 1
         End If
@@ -255,7 +263,7 @@ Dim tmpX As Long, tmpY As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
@@ -336,7 +344,7 @@ Dim FoundError As Boolean
     End Select
 End Sub
 
-Public Sub RegisterMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub RegisterMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Byte
 Dim FoundError As Boolean
 
@@ -350,7 +358,7 @@ Dim FoundError As Boolean
         
         For i = ButtonEnum.Register_Confirm To ButtonEnum.Register_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         

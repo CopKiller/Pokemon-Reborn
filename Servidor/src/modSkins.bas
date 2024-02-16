@@ -4,14 +4,16 @@ Option Explicit
 Public Type PlayerSkinRec
     skinNum As Long
     LastPlayerSpriteNum As Long
+    ExpBonus As Long
 End Type
 
-Public Sub UseSkin(index, ByVal data1 As Long)
+Public Sub UseSkin(index, ByVal data1 As Long, ByVal data2 As Long)
     If GetPlayerSkin(index) > 0 Then
         Call ClearPlayerSkin(index)
     Else
         Call SetPlayerOriginalSprite(index, GetPlayerSprite(index))
         Call SetPlayerSkin(index, data1)
+        Call SetPlayerSkinExp(index, data2)
     End If
     
     Call SendPlayerData(index)
@@ -29,6 +31,7 @@ Private Sub ClearPlayerSkin(ByVal index As Long)
     If TempPlayer(index).UseChar <= 0 Then Exit Sub
     
     Call SetPlayerSkin(index, 0)
+    Call SetPlayerSkinExp(index, 0)
 End Sub
 
 Private Sub SetPlayerSkin(ByVal index As Long, ByVal skinNum As Long)
@@ -43,6 +46,20 @@ Private Function GetPlayerSkin(ByVal index As Long) As Long
     If TempPlayer(index).UseChar <= 0 Then Exit Function
     
     GetPlayerSkin = Player(index, TempPlayer(index).UseChar).Skin.skinNum
+End Function
+
+Public Sub SetPlayerSkinExp(ByVal index As Long, ByVal BonusExp As Long)
+    If Not IsPlaying(index) Then Exit Sub
+    If TempPlayer(index).UseChar <= 0 Then Exit Sub
+    
+    Player(index, TempPlayer(index).UseChar).Skin.ExpBonus = BonusExp
+End Sub
+
+Public Function GetPlayerSkinExp(ByVal index As Long) As Long
+    If Not IsPlaying(index) Then Exit Function
+    If TempPlayer(index).UseChar <= 0 Then Exit Function
+    
+    GetPlayerSkin = Player(index, TempPlayer(index).UseChar).Skin.ExpBonus
 End Function
 
 Public Function GetPlayerHaveSkinOrSprite(ByVal index As Long) As Long

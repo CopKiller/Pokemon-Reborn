@@ -81,7 +81,7 @@ Private Type RankRec
 End Type
 
 '//Stats
-Private Type StatDataRec
+Public Type StatDataRec
     Value As Long
     EV As Long
     IV As Long
@@ -538,8 +538,8 @@ Private Type TileRec
     Layer(MapLayer.Ground To MapLayer.MapLayer_Count - 1, MapLayerType.Normal To MapLayerType.Animated) As LayerRec
     '//Tile Data
     Attribute As Byte
-    Data1 As Long
-    Data2 As Long
+    data1 As Long
+    data2 As Long
     Data3 As Long
     Data4 As Long
 End Type
@@ -611,8 +611,8 @@ Private Type ItemRec
     Sprite As Long
     Stock As Byte
     Type As Byte
-    Data1 As Long
-    Data2 As Long
+    data1 As Long
+    data2 As Long
     Price As Long
     Data3 As Long
     Desc As String * 255
@@ -737,7 +737,7 @@ Private Type SpawnRec
     SpawnTimeMax As Long
     
     '//Location
-    mapNum As Long
+    MapNum As Long
     randomMap As Byte
     randomXY As Byte
     MapX As Long
@@ -827,6 +827,9 @@ Private Type OptionRec
     
     '//Dados Pokemon p/ GlobalMsg
     Rarity As Integer
+    
+    '//Dois Ivs perfeitos ao capturar um shiny, pode deixar on ou off.
+    ShinyIvPerfectsAleatory As Byte
 End Type
 
 Private Type DataRec

@@ -25,24 +25,23 @@ Begin VB.Form frmServer
       _ExtentY        =   5953
       _Version        =   393216
       Tabs            =   4
-      Tab             =   3
+      Tab             =   2
       TabsPerRow      =   4
       TabHeight       =   520
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtCommand"
-      Tab(0).Control(1)=   "txtLog"
+      Tab(0).Control(0)=   "txtLog"
+      Tab(0).Control(1)=   "txtCommand"
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
       TabPicture(1)   =   "frmServer.frx":001C
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "lvwInfo"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Administrativo"
       TabPicture(2)   =   "frmServer.frx":0038
-      Tab(2).ControlEnabled=   0   'False
+      Tab(2).ControlEnabled=   -1  'True
       Tab(2).Control(0)=   "lblGameTime"
       Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "lblCPS"
@@ -54,16 +53,14 @@ Begin VB.Form frmServer
       Tab(2).ControlCount=   4
       TabCaption(3)   =   "Editores"
       TabPicture(3)   =   "frmServer.frx":0054
-      Tab(3).ControlEnabled=   -1  'True
-      Tab(3).Control(0)=   "cmdEditStore"
-      Tab(3).Control(0).Enabled=   0   'False
-      Tab(3).Control(1)=   "cmdVipSettings"
-      Tab(3).Control(1).Enabled=   0   'False
+      Tab(3).ControlEnabled=   0   'False
+      Tab(3).Control(0)=   "cmdVipSettings"
+      Tab(3).Control(1)=   "cmdEditStore"
       Tab(3).ControlCount=   2
       Begin VB.CommandButton cmdVipSettings 
          Caption         =   "Edit Vip Settings"
          Height          =   375
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   20
          Top             =   1440
          Width           =   1335
@@ -71,7 +68,7 @@ Begin VB.Form frmServer
       Begin VB.CommandButton cmdEditStore 
          Caption         =   "Edit Store"
          Height          =   375
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   16
          Top             =   840
          Width           =   1335
@@ -79,17 +76,25 @@ Begin VB.Form frmServer
       Begin VB.CheckBox chkStaffOnly 
          Caption         =   "Modo Desenvolvedor"
          Height          =   255
-         Left            =   -70440
+         Left            =   4560
          TabIndex        =   10
          Top             =   480
          Width           =   2175
       End
       Begin VB.Frame frmInfo 
          Height          =   2535
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   4
          Top             =   720
          Width           =   6615
+         Begin VB.CommandButton Command2 
+            Caption         =   "Recarregar as Options.ini"
+            Height          =   375
+            Left            =   720
+            TabIndex        =   21
+            Top             =   1560
+            Width           =   2295
+         End
          Begin VB.CommandButton cmdShutdown 
             Caption         =   "Desligar Servidor"
             Height          =   375
@@ -103,7 +108,7 @@ Begin VB.Form frmServer
             Height          =   375
             Left            =   720
             TabIndex        =   17
-            Top             =   360
+            Top             =   120
             Width           =   2295
          End
          Begin VB.CommandButton cmdExp 
@@ -139,7 +144,7 @@ Begin VB.Form frmServer
             Index           =   0
             Left            =   720
             TabIndex        =   7
-            Top             =   720
+            Top             =   480
             Width           =   2295
          End
          Begin VB.CommandButton btnReload 
@@ -148,7 +153,7 @@ Begin VB.Form frmServer
             Index           =   1
             Left            =   720
             TabIndex        =   6
-            Top             =   1080
+            Top             =   840
             Width           =   2295
          End
          Begin VB.CommandButton btnReload 
@@ -157,7 +162,7 @@ Begin VB.Form frmServer
             Index           =   2
             Left            =   720
             TabIndex        =   5
-            Top             =   1440
+            Top             =   1200
             Width           =   2295
          End
          Begin VB.Label Label2 
@@ -275,7 +280,7 @@ Begin VB.Form frmServer
          Caption         =   "CPS: 0"
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   -73080
+         Left            =   1920
          TabIndex        =   18
          Top             =   480
          Width           =   2415
@@ -284,7 +289,7 @@ Begin VB.Form frmServer
          AutoSize        =   -1  'True
          Caption         =   "Time:"
          Height          =   195
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   3
          Top             =   480
          Width           =   390
@@ -344,10 +349,10 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub btnReload_Click(Index As Integer)
+Private Sub btnReload_Click(index As Integer)
 Dim i As Long
     
-    Select Case Index
+    Select Case index
         Case 0
             Call LoadMaps
             TextAdd frmServer.txtLog, "Os mapas foram atualizados!"
@@ -502,6 +507,10 @@ Private Sub Command1_Click()
     AddPokemonsFishing
 End Sub
 
+Private Sub Command2_Click()
+    LoadOption
+End Sub
+
 Private Sub lvwInfo_ColumnClick(ByVal ColumnHeader As MSComctlLib.ColumnHeader)
 
 'When a ColumnHeader object is clicked, the ListView control is sorted by the subitems of that column.
@@ -513,7 +522,7 @@ Private Sub lvwInfo_ColumnClick(ByVal ColumnHeader As MSComctlLib.ColumnHeader)
         lvwInfo.SortOrder = lvwAscending
     End If
 
-    lvwInfo.SortKey = ColumnHeader.Index - 1
+    lvwInfo.SortKey = ColumnHeader.index - 1
     lvwInfo.Sorted = True
 End Sub
 
@@ -537,7 +546,7 @@ End Sub
 ' ********************
 ' ** Winsock object **
 ' ********************
-Private Sub Socket_ConnectionRequest(Index As Integer, ByVal requestID As Long)
+Private Sub Socket_ConnectionRequest(index As Integer, ByVal requestID As Long)
 Dim count As Byte
 Dim i As Long
 
@@ -545,17 +554,17 @@ Dim i As Long
     count = 0
     For i = 1 To MAX_PLAYER
         If IsConnected(i) Then
-            If GetPlayerIP(i) = Socket(Index).RemoteHostIP Then
+            If GetPlayerIP(i) = Socket(index).RemoteHostIP Then
                 count = count + 1
                 If count >= 5 Then Exit Sub
             End If
         End If
     Next
     
-    Call AcceptConnection(Index, requestID)
+    Call AcceptConnection(index, requestID)
 End Sub
 
-Private Sub Socket_Accept(Index As Integer, SocketId As Integer)
+Private Sub Socket_Accept(index As Integer, SocketId As Integer)
 Dim count As Byte
 Dim i As Long
 
@@ -563,24 +572,24 @@ Dim i As Long
     count = 0
     For i = 1 To MAX_PLAYER
         If IsConnected(i) Then
-            If GetPlayerIP(i) = Socket(Index).RemoteHostIP Then
+            If GetPlayerIP(i) = Socket(index).RemoteHostIP Then
                 count = count + 1
                 If count >= 5 Then Exit Sub
             End If
         End If
     Next
     
-    Call AcceptConnection(Index, SocketId)
+    Call AcceptConnection(index, SocketId)
 End Sub
 
-Private Sub Socket_DataArrival(Index As Integer, ByVal bytesTotal As Long)
-    If IsConnected(Index) Then
-        Call IncomingData(Index, bytesTotal)
+Private Sub Socket_DataArrival(index As Integer, ByVal bytesTotal As Long)
+    If IsConnected(index) Then
+        Call IncomingData(index, bytesTotal)
     End If
 End Sub
 
-Private Sub Socket_Close(Index As Integer)
-    Call CloseSocket(Index)
+Private Sub Socket_Close(index As Integer)
+    Call CloseSocket(index)
 End Sub
 
 ' *****************
@@ -592,7 +601,7 @@ End Sub
 
 Sub mnuDisconnect_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.Index
+    i = frmServer.lvwInfo.SelectedItem.index
 
     If IsConnected(i) Then
         If GetPlayerIP(i) <> vbNullString Then
@@ -604,7 +613,7 @@ End Sub
 
 Sub mnuBanChar_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.Index
+    i = frmServer.lvwInfo.SelectedItem.index
     
     ' Banir o Character
     If IsPlaying(i) Then
@@ -615,7 +624,7 @@ End Sub
 
 Sub mnuBanIp_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.Index
+    i = frmServer.lvwInfo.SelectedItem.index
 
     If IsConnected(i) Then
         BanIP GetPlayerIP(i)
@@ -626,7 +635,7 @@ End Sub
 
 Sub mnuBan_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.Index
+    i = frmServer.lvwInfo.SelectedItem.index
 
     If IsPlaying(i) Then
         BanCharacter Player(i, TempPlayer(i).UseChar).Name
@@ -641,7 +650,7 @@ End Sub
 
 Sub mnuRemove_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.Index
+    i = frmServer.lvwInfo.SelectedItem.index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -654,7 +663,7 @@ End Sub
 
 Sub mnuMod_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.Index
+    i = frmServer.lvwInfo.SelectedItem.index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -667,7 +676,7 @@ End Sub
 
 Sub mnuMapper_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.Index
+    i = frmServer.lvwInfo.SelectedItem.index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -680,7 +689,7 @@ End Sub
 
 Sub mnuDev_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.Index
+    i = frmServer.lvwInfo.SelectedItem.index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -693,7 +702,7 @@ End Sub
 
 Sub mnuOwner_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.Index
+    i = frmServer.lvwInfo.SelectedItem.index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -705,7 +714,7 @@ Sub mnuOwner_click()
 End Sub
 
 Private Sub txtCommand_KeyPress(KeyAscii As Integer)
-Dim Index As Long
+Dim index As Long
 Dim Command() As String
 Dim chatMsg As String
 Dim CurLanguage As Byte
@@ -737,13 +746,13 @@ Dim CurLanguage As Byte
                     Case LANG_ES: Call SendGlobalMsg("[SERVIDOR]: " + txtCommand.Text, White)
                 End Select
 
-                For Index = 1 To MAX_PLAYER
-                    If IsPlaying(Index) Then
-                        If TempPlayer(Index).UseChar > 0 Then
+                For index = 1 To MAX_PLAYER
+                    If IsPlaying(index) Then
+                        If TempPlayer(index).UseChar > 0 Then
                             Select Case CurLanguage
-                                Case LANG_PT: AddAlert Index, "Servidor:" + txtCommand.Text, White
-                                Case LANG_EN: AddAlert Index, "Server:" + txtCommand.Text, White
-                                Case LANG_ES: AddAlert Index, "Servidor:" + txtCommand.Text, White
+                                Case LANG_PT: AddAlert index, "Servidor:" + txtCommand.Text, White
+                                Case LANG_EN: AddAlert index, "Server:" + txtCommand.Text, White
+                                Case LANG_ES: AddAlert index, "Servidor:" + txtCommand.Text, White
                             End Select
                         End If
                     End If

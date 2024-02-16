@@ -19,7 +19,7 @@ Begin VB.Form frmEditor_Map
    Begin VB.Frame fraProperties 
       Caption         =   "Properties"
       Height          =   7335
-      Left            =   7560
+      Left            =   12480
       TabIndex        =   11
       Top             =   120
       Visible         =   0   'False
@@ -355,11 +355,54 @@ Begin VB.Form frmEditor_Map
    End
    Begin VB.Frame fraAttribute 
       Height          =   7335
-      Left            =   7560
+      Left            =   5520
       TabIndex        =   41
-      Top             =   7680
+      Top             =   120
       Visible         =   0   'False
       Width           =   7215
+      Begin VB.Frame fraReqBadge 
+         Caption         =   "Requeriment Of Badge"
+         Height          =   1575
+         Left            =   1680
+         TabIndex        =   118
+         Top             =   2280
+         Visible         =   0   'False
+         Width           =   3855
+         Begin VB.HScrollBar scrlReqBadge 
+            Height          =   255
+            Left            =   1440
+            Max             =   0
+            TabIndex        =   121
+            Top             =   360
+            Width           =   2175
+         End
+         Begin VB.CommandButton cmdAttributeOkay 
+            Caption         =   "Okay"
+            Height          =   375
+            Index           =   5
+            Left            =   240
+            TabIndex        =   120
+            Top             =   960
+            Width           =   1695
+         End
+         Begin VB.CommandButton cmdAttributeCancel 
+            Caption         =   "Cancel"
+            Height          =   375
+            Index           =   0
+            Left            =   1920
+            TabIndex        =   119
+            Top             =   960
+            Width           =   1695
+         End
+         Begin VB.Label lblReqBadge 
+            Caption         =   "Badge: 0"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   122
+            Top             =   360
+            Width           =   855
+         End
+      End
       Begin VB.Frame fraCheckpoint 
          Caption         =   "Warp Properties"
          Height          =   2535
@@ -738,9 +781,9 @@ Begin VB.Form frmEditor_Map
    Begin VB.Frame fraLayers 
       Caption         =   "Layers"
       Height          =   6375
-      Left            =   5520
+      Left            =   7920
       TabIndex        =   0
-      Top             =   120
+      Top             =   240
       Visible         =   0   'False
       Width           =   1815
       Begin VB.OptionButton optLayer 
@@ -873,6 +916,15 @@ Begin VB.Form frmEditor_Map
       Top             =   120
       Visible         =   0   'False
       Width           =   1815
+      Begin VB.OptionButton optAttribute 
+         Caption         =   "Req Badge"
+         Height          =   255
+         Index           =   14
+         Left            =   120
+         TabIndex        =   117
+         Top             =   3360
+         Width           =   1335
+      End
       Begin VB.OptionButton optAttribute 
          Caption         =   "Fish Spot"
          Height          =   255
@@ -1056,6 +1108,8 @@ Private Sub cmdAttributeOkay_Click(Index As Integer)
             EditorData2 = scrlCheckX.value
             EditorData3 = scrlCheckY.value
             EditorData4 = scrlCheckDir.value
+        Case 5 '//Req Badge
+            EditorData1 = scrlReqBadge.value
     End Select
     
     fraAttribute.Visible = False
@@ -1242,6 +1296,7 @@ Private Sub Form_Load()
     scrlWarpMap.max = MAX_MAP
     scrlCheckMap.max = MAX_MAP
     scrlConvoTileNum.max = MAX_CONVERSATION
+    scrlReqBadge.max = MAX_BADGE
     
     txtName.MaxLength = NAME_LENGTH
 End Sub
@@ -1370,6 +1425,12 @@ Private Sub optAttribute_Click(Index As Integer)
             scrlCheckX.value = 0
             scrlCheckY.value = 0
             scrlCheckDir.value = 0
+        Case MapAttribute.ReqBadge
+            fraAttribute.Visible = True
+            fraReqBadge.Visible = True
+            
+            scrlReqBadge.value = 0
+            
     End Select
 End Sub
 
@@ -1422,6 +1483,10 @@ Private Sub scrlMapAnim_Change()
         lblMapAnim.Caption = "Map Anim: None"
     End If
     editorMapAnim = scrlMapAnim.value
+End Sub
+
+Private Sub scrlReqBadge_Change()
+    lblReqBadge.Caption = "Badge: " & scrlReqBadge.value
 End Sub
 
 Private Sub scrlSpriteType_Change()

@@ -277,6 +277,7 @@ Public Enum MapAttribute
     Checkpoint
     WarpCheckpoint
     FishSpot
+    ReqBadge
     '//Make sure MapAttribute_Count is below everything else
     MapAttribute_Count
 End Enum

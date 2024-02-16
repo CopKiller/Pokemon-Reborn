@@ -1159,6 +1159,9 @@ Dim tx As Long, ty As Long
                             Case MapAttribute.FishSpot
                                 RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
                                 RenderText Font_Default, "F", tx, ty, Green
+                            Case MapAttribute.ReqBadge
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
+                                RenderText Font_Default, "BD", tx, ty, Red
                         End Select
                     End With
                 End If

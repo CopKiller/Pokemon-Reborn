@@ -985,6 +985,8 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
             .lblChance = "Chance total: " & Chance & "%"
             .lblChanceF = "Faltam: " & (100 - Chance) & "%"
             
+            .chkGiveAll.value = Item(xIndex).Data1
+            
             .lstItems.ListIndex = 0
         Else
             .fraMysteryBox.Visible = False
@@ -1003,6 +1005,7 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
             .txtSkinNum.Text = Item(xIndex).Data1
             .scrlSkinNum.max = Count_PlayerSprite_N
             .scrlSkinNum.value = Item(xIndex).Data1
+            .scrlExpBonus.value = Item(xIndex).Data2
         Else
             .fraVip.Visible = False
         End If
@@ -1277,7 +1280,7 @@ Dim i As Long
         '//location
         .chkRandomMap.value = Spawn(xIndex).randomMap
         .chkRandomXY.value = Spawn(xIndex).randomXY
-        .txtMap.Text = Spawn(xIndex).MapNum
+        .txtMap.Text = Spawn(xIndex).mapNum
         .txtX.Text = Spawn(xIndex).MapX
         .txtY.Text = Spawn(xIndex).MapY
         .chkCanCatch.value = Spawn(xIndex).CanCatch

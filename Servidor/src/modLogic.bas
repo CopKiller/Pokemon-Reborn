@@ -320,10 +320,10 @@ Dim DidSpawn As Boolean
                 For x = 0 To Map(MapNum).MaxX
                     For Y = 0 To Map(MapNum).MaxY
                         If Map(MapNum).Tile(x, Y).Attribute = MapAttribute.NpcSpawn Then
-                            If Map(MapNum).Tile(x, Y).Data1 = MapNpcNum Then
+                            If Map(MapNum).Tile(x, Y).data1 = MapNpcNum Then
                                 .x = x
                                 .Y = Y
-                                .Dir = Map(MapNum).Tile(x, Y).Data2
+                                .Dir = Map(MapNum).Tile(x, Y).data2
                                 DidSpawn = True
                                 GoTo Continue
                             End If
@@ -863,7 +863,7 @@ Dim i As Long
     Next
 End Sub
 
-Public Function FindNpcDropSlotHaveItem(ByVal Index As Long, ByVal TargetIndex As Long) As Byte
+Public Function FindNpcDropSlotHaveItem(ByVal index As Long, ByVal TargetIndex As Long) As Byte
     Dim i As Byte
     
     For i = 1 To MAX_DROP
@@ -884,53 +884,53 @@ Public Function GetAtributeName(Atributte As StatEnum) As String
     End Select
 End Function
 
-Public Sub BuyInvSlot(ByVal Index As Long, ByVal InvNum As Byte)
+Public Sub BuyInvSlot(ByVal index As Long, ByVal InvNum As Byte)
     If InvNum <= 0 Or InvNum > MAX_PLAYER_INV Then
         Exit Sub
     End If
-    If TempPlayer(Index).UseChar <= 0 Then
+    If TempPlayer(index).UseChar <= 0 Then
         Exit Sub
     End If
 
-    With PlayerInv(Index).Data(InvNum)
+    With PlayerInv(index).Data(InvNum)
         If .Locked = YES Then
-            If IsNextInvSlotToBuy(Index, InvNum) = True Then
-                If Player(Index, TempPlayer(Index).UseChar).Cash >= INV_SLOTS_PRICE Then
+            If IsNextInvSlotToBuy(index, InvNum) = True Then
+                If Player(index, TempPlayer(index).UseChar).Cash >= INV_SLOTS_PRICE Then
 
                     .Locked = NO
-                    Player(Index, TempPlayer(Index).UseChar).Cash = Player(Index, TempPlayer(Index).UseChar).Cash - INV_SLOTS_PRICE
-                    Call SendPlayerInvSlot(Index, InvNum)
-                    Call SendPlayerCash(Index)
+                    Player(index, TempPlayer(index).UseChar).Cash = Player(index, TempPlayer(index).UseChar).Cash - INV_SLOTS_PRICE
+                    Call SendPlayerInvSlot(index, InvNum)
+                    Call SendPlayerCash(index)
 
-                    Select Case TempPlayer(Index).CurLanguage
-                    Case LANG_PT: AddAlert Index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
-                    Case LANG_EN: AddAlert Index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
-                    Case LANG_ES: AddAlert Index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
+                    Select Case TempPlayer(index).CurLanguage
+                    Case LANG_PT: AddAlert index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
+                    Case LANG_EN: AddAlert index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
+                    Case LANG_ES: AddAlert index, "Você desbloqueou o slot " & InvNum & " da sua bag", White
                     End Select
                 Else
-                    Select Case TempPlayer(Index).CurLanguage
-                    Case LANG_PT: AddAlert Index, "Você não possui " & INV_SLOTS_PRICE & " de Cash", White
-                    Case LANG_EN: AddAlert Index, "Você não possui " & INV_SLOTS_PRICE & " de Cash", White
-                    Case LANG_ES: AddAlert Index, "Você não possui " & INV_SLOTS_PRICE & " de Cash", White
+                    Select Case TempPlayer(index).CurLanguage
+                    Case LANG_PT: AddAlert index, "Você não possui " & INV_SLOTS_PRICE & " de Cash", White
+                    Case LANG_EN: AddAlert index, "Você não possui " & INV_SLOTS_PRICE & " de Cash", White
+                    Case LANG_ES: AddAlert index, "Você não possui " & INV_SLOTS_PRICE & " de Cash", White
                     End Select
                 End If
             Else
-                Select Case TempPlayer(Index).CurLanguage
-                Case LANG_PT: AddAlert Index, "O Slot " & InvNum & " da sua bag já está liberado", White
-                Case LANG_EN: AddAlert Index, "O Slot " & InvNum & " da sua bag já está liberado", White
-                Case LANG_ES: AddAlert Index, "O Slot " & InvNum & " da sua bag já está liberado", White
+                Select Case TempPlayer(index).CurLanguage
+                Case LANG_PT: AddAlert index, "O Slot " & InvNum & " da sua bag já está liberado", White
+                Case LANG_EN: AddAlert index, "O Slot " & InvNum & " da sua bag já está liberado", White
+                Case LANG_ES: AddAlert index, "O Slot " & InvNum & " da sua bag já está liberado", White
                 End Select
             End If
         End If
     End With
 End Sub
 
-Private Function IsNextInvSlotToBuy(ByVal Index As Long, ByVal i As Byte) As Boolean
+Private Function IsNextInvSlotToBuy(ByVal index As Long, ByVal i As Byte) As Boolean
     Dim l As Byte
 
     IsNextInvSlotToBuy = False
     For l = 1 To MAX_PLAYER_INV
-        If PlayerInv(Index).Data(l).Locked = YES Then
+        If PlayerInv(index).Data(l).Locked = YES Then
             If l = i Then
                 IsNextInvSlotToBuy = True
                 Exit Function

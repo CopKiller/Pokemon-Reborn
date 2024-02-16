@@ -1,10 +1,10 @@
 OK-Criar um novo repositório no git, com a versão do pokereborn, e ignorar pastas de mapas, etc...
 
-OK-Adicionar alterações na loja virtual.
+OK-Adicionar alterações na loja virtual. 15
 	Ok-Release Option(Mostra uma animação de "New" no item da loja).
 	Ok-Contador de um item ou montaria adicionado na loja, para ir removendo a quantidade disponível.
 
-OK-Adicionar sistema de Vip.
+OK-Adicionar sistema de Vip. 150
 	Ok-Vip Silver & Vip Gold.
 	Ok-Vip Silver tem uma medalha de prata em pixel renderizando ao lado do nome do personagem.
 	Ok-Vip Gold tem uma medalha de ouro em pixel renderizando ao lado do nome do personagem.
@@ -15,54 +15,64 @@ OK-Adicionar sistema de Vip.
 	Ok-Vip editor no servidor, para alterar bonus.
 	Ok-Vip exp mostra os bonus totais que estão ativos no jogador em uma janela ao clikar no nome do vip no trainer card.
 
-OK-Editor de pokemons
+OK-Editor de pokemons. 5
 	Ok-Adicionar foto da evolução do poke.
 	Ok-Consertar as box de pesquisa por nome, do moveset e item moveset no editor de pokemon
 
-OK-Adicionar skins de personagens.
+OK-Adicionar skins de personagens. 45
 	Ok-Skins todas serão unissex.
 	Ok-Cada skin tera sua montaria.
 	Ok-Remover zoom da sprite no código, fazer o aumento pelo photoshop
 
-Alteração básica:
+Alteração básica. 36
 	Login
 	OK-"Bem Vindo ao Pokémon Reborn" funcionando em três linguagens.
 	OK-Localização na aba de login.
 	
 	Char
 	OK-Adicionar "Selecionar Personagem" funcionando em três linguagens
-	-Alterar imagem de fundo, deixar um fundo padrão.
-	-Deixar 1 personagem por conta.
 	OK-Criação do personagem, adicionar uma frase "Escolha o gênero" no topo vermelho da janela, nas 3 linguagens.
 	OK-Alterar o título da janela quando vai usar o char, adicionar "Iniciar Aventura".
 
 	Config
 	OK-Adicionar um titulo à janela em três linguagens.
+	
+	New Account
+	OK-Adicionar titulo à janela.
 
-Total 150.
-PAGO.
 
 
--Alterar a janela de criação de conta, adicionar um título ao topo para descrever.
+Ok-Player Travel System. 150
 
-Ok-140-Player Travel System:
-	-Falta incluir requisito de insignia.
-
-Alteração no sistema de outfit
+Ok- Alteração no sistema de outfit. 15
 	-Para ter bonus de experiência no editor de item da outfit.
 
-Alteração na sprite visual do pokemon da hud
+Ok- Alteração na sprite visual do pokemon da hud. 25
+	-Redução dos tamanhos de todas as frames animadas do shiny no photoshop
 	-Adicionar as frames animadas dos shinys, só tem deles normais.
 	-Alterações aqui refletem tanto na hud, banco, etc...
 
-Adicionar para pokemons shiny ter 2 IV perfeitos de forma aleatória ao capturar.
+Ok- Adicionar para pokemons shiny ter IVs perfeitos de forma aleatória ao capturar. 30
+	-Arquivo localizado em "/data/option.ini" no servidor
+	-tem a opção de configurar quantos IVs serão perfeitos do Shiny.
 
-Criar tipo de item, que se baseie na Gacha Box, só que tenha 100% de chances de vir tudo que foi adicionado.
+Ok- Criar tipo de item, que se baseie na Gacha Box, só que tenha 100% de chances de vir tudo que foi adicionado. 10
 	-Se possivel, alterar o Gacha Box, com uma checkbox, que identifica que é pra vir todos os items ali configurados.
+	-Essa alteração vai permitir a compra de pacotes completos e receber tudo que tem ali.
 
-Alteração na leitura das montarias, quando usar skin, puxar a montaria padrão da sprite base.
+Ok- Alteração na leitura das montarias, quando usar skin, puxar a montaria padrão da sprite base. 10
+	-O sistema foi mantido, apenas desativado, poderá ser reativado em futuras atualizações, após ter todas as montarias
+	para as skins.
 
-Adicionar um bloqueio no mapa, com requerimento de insignia para passar.
+Ok- Adicionar um bloqueio no mapa, com requerimento de insignia para passar. 15
+
+Ok- Adicionar nome do mapa em que o pokemon está configurado no spawn editor, ao lado do nome dele na list index. 25
+	-Exemplo: 25: Pidgey - Viridian City.
+	-Busca find em cima, buscando pelo numero do mapa ou nome do pokemon.
+	-Ao adicionar um numero de mapa no spawn editor do poke, alterar o nome dele automaticamente no listindex.
+
+Pago 250 de 531
+Em aberto 281
 
 Alteração no Shop Editor.
 	-Adicionar procura de item pelo nome ou id.
@@ -82,11 +92,6 @@ Sistema de incubadora.
 	-Tipo de item Egg, para escolher a configuração do egg, vinculada àquele item.
 	-Jogador pode recolher o poke da incubadora após o tempo, se não tiver espaço no time vai pro poke storage.
 	-Manter a maioria das configurações no editor de egg.
-
-Adicionar nome do mapa em que o pokemon está configurado no spawn editor, ao lado do nome dele na list index.
-	-Exemplo: 25: Pidgey - Viridian City.
-	-Busca find em cima, buscando pelo numero do mapa ou nome do pokemon.
-	-Ao adicionar um numero de mapa no spawn editor do poke, alterar o nome dele automaticamente no listindex.
 
 Alterar o botão de créditos para ser o número da versão atual ali, e quando passar o mouse mudar a cor também.
 

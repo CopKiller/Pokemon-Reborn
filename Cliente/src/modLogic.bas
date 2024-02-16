@@ -489,11 +489,11 @@ Dim i As Long
 End Function
 
 Private Function CanMove(Optional ByVal DirInput As Long = -1, Optional ByVal ForceMove As Boolean = False) As Boolean
-Dim X As Long, y As Long, Dir As Byte
-Dim oldDir As Byte
-Dim dX As Long, dY As Long
-Dim setDir As Byte
-Dim rndNum As Long
+    Dim X As Long, y As Long, Dir As Byte
+    Dim oldDir As Byte
+    Dim dX As Long, dY As Long
+    Dim setDir As Byte
+    Dim rndNum As Long
 
     CanMove = True
 
@@ -503,12 +503,12 @@ Dim rndNum As Long
             CanMove = False
             Exit Function
         End If
-        
+
         If PlayerPokemon(MyIndex).Init = YES Then
             CanMove = False
             Exit Function
         End If
-        
+
         If PlayerPokemon(MyIndex).Status = StatusEnum.Sleep Then
             CanMove = False
             Exit Function
@@ -518,16 +518,17 @@ Dim rndNum As Long
             Exit Function
         End If
     Else
+
         If Player(MyIndex).Moving <> 0 Then
             CanMove = False
             Exit Function
         End If
-        
+
         If InNpcDuel > 0 Then
             CanMove = False
             Exit Function
         End If
-        
+
         If Not ForceMove Then
             If Player(MyIndex).Action > 0 Then
                 CanMove = False
@@ -535,17 +536,17 @@ Dim rndNum As Long
             End If
         End If
     End If
-    
+
     If GettingMap Then
         CanMove = False
         Exit Function
     End If
-    
+
     If ChatOn Then
         CanMove = False
         Exit Function
     End If
-    
+
     If StorageType > 0 Then
         CanMove = False
         Exit Function
@@ -568,7 +569,7 @@ Dim rndNum As Long
         CanMove = False
         Exit Function
     End If
-    
+
     '//Input data
     If PlayerPokemon(MyIndex).Num > 0 Then
         X = PlayerPokemon(MyIndex).X
@@ -579,7 +580,7 @@ Dim rndNum As Long
         y = Player(MyIndex).y
         Dir = Player(MyIndex).Dir
     End If
-    
+
     If UpKey Then setDir = DIR_UP
     If DownKey Then setDir = DIR_DOWN
     If LeftKey Then setDir = DIR_LEFT
@@ -602,14 +603,14 @@ Dim rndNum As Long
     If DirInput >= 0 Then
         setDir = DirInput
     End If
-    
+
     If setDir = DIR_UP Then
         If PlayerPokemon(MyIndex).Num > 0 Then
             PlayerPokemon(MyIndex).Dir = DIR_UP
         Else
             Player(MyIndex).Dir = DIR_UP
         End If
-        
+
         '//Check to see if they are trying to go out of bounds
         If y > 0 Then
             If CheckDirection(DIR_UP) Then
@@ -620,13 +621,13 @@ Dim rndNum As Long
                         SendPlayerDir
                     End If
                 End If
-                
+
                 If PlayerPokemon(MyIndex).Num <= 0 Then
                     If Player(MyIndex).Action > 0 Then
                         Player(MyIndex).Action = 0
                     End If
                 End If
-                
+
                 CanMove = False
                 Exit Function
             End If
@@ -635,7 +636,7 @@ Dim rndNum As Long
                 If Player(MyIndex).Action > 0 Then
                     Player(MyIndex).Action = 0
                 End If
-                
+
                 If Map.LinkUp > 0 Then
                     If Editor = 0 Then
                         SendPlayerMove
@@ -644,20 +645,20 @@ Dim rndNum As Long
                     End If
                 End If
             End If
-            
+
             CanMove = False
             Exit Function
         End If
-        
+
         '//Check Distance
         If PlayerPokemon(MyIndex).Num > 0 Then
             dX = PlayerPokemon(MyIndex).X - Player(MyIndex).X
             dY = (PlayerPokemon(MyIndex).y - 1) - Player(MyIndex).y
-            
+
             '//Make sure we get a positive value
             If dX < 0 Then dX = dX * -1
             If dY < 0 Then dY = dY * -1
-            
+
             If Not (dX <= MAX_DISTANCE And dY <= MAX_DISTANCE) Then
                 If Dir <> DIR_UP Then
                     SendPlayerPokemonDir
@@ -674,7 +675,7 @@ Dim rndNum As Long
         Else
             Player(MyIndex).Dir = DIR_DOWN
         End If
-        
+
         '//Check to see if they are trying to go out of bounds
         If y < Map.MaxY Then
             If CheckDirection(DIR_DOWN) Then
@@ -685,13 +686,13 @@ Dim rndNum As Long
                         SendPlayerDir
                     End If
                 End If
-                
+
                 If PlayerPokemon(MyIndex).Num <= 0 Then
                     If Player(MyIndex).Action > 0 Then
                         Player(MyIndex).Action = 0
                     End If
                 End If
-                
+
                 CanMove = False
                 Exit Function
             End If
@@ -700,7 +701,7 @@ Dim rndNum As Long
                 If Player(MyIndex).Action > 0 Then
                     Player(MyIndex).Action = 0
                 End If
-            
+
                 If Map.LinkDown > 0 Then
                     If Editor = 0 Then
                         SendPlayerMove
@@ -712,16 +713,16 @@ Dim rndNum As Long
             CanMove = False
             Exit Function
         End If
-        
+
         '//Check Distance
         If PlayerPokemon(MyIndex).Num > 0 Then
             dX = PlayerPokemon(MyIndex).X - Player(MyIndex).X
             dY = (PlayerPokemon(MyIndex).y + 1) - Player(MyIndex).y
-            
+
             '//Make sure we get a positive value
             If dX < 0 Then dX = dX * -1
             If dY < 0 Then dY = dY * -1
-            
+
             If Not (dX <= MAX_DISTANCE And dY <= MAX_DISTANCE) Then
                 If Dir <> DIR_DOWN Then
                     SendPlayerPokemonDir
@@ -731,14 +732,14 @@ Dim rndNum As Long
             End If
         End If
     End If
-    
+
     If setDir = DIR_LEFT Then
         If PlayerPokemon(MyIndex).Num > 0 Then
             PlayerPokemon(MyIndex).Dir = DIR_LEFT
         Else
             Player(MyIndex).Dir = DIR_LEFT
         End If
-        
+
         '//Check to see if they are trying to go out of bounds
         If X > 0 Then
             If CheckDirection(DIR_LEFT) Then
@@ -749,13 +750,13 @@ Dim rndNum As Long
                         SendPlayerDir
                     End If
                 End If
-                
+
                 If PlayerPokemon(MyIndex).Num <= 0 Then
                     If Player(MyIndex).Action > 0 Then
                         Player(MyIndex).Action = 0
                     End If
                 End If
-                
+
                 CanMove = False
                 Exit Function
             End If
@@ -764,7 +765,7 @@ Dim rndNum As Long
                 If Player(MyIndex).Action > 0 Then
                     Player(MyIndex).Action = 0
                 End If
-                
+
                 If Map.LinkLeft > 0 Then
                     If Editor = 0 Then
                         SendPlayerMove
@@ -776,16 +777,16 @@ Dim rndNum As Long
             CanMove = False
             Exit Function
         End If
-        
+
         '//Check Distance
         If PlayerPokemon(MyIndex).Num > 0 Then
             dX = (PlayerPokemon(MyIndex).X - 1) - Player(MyIndex).X
             dY = PlayerPokemon(MyIndex).y - Player(MyIndex).y
-            
+
             '//Make sure we get a positive value
             If dX < 0 Then dX = dX * -1
             If dY < 0 Then dY = dY * -1
-            
+
             If Not (dX <= MAX_DISTANCE And dY <= MAX_DISTANCE) Then
                 If Dir <> DIR_LEFT Then
                     SendPlayerPokemonDir
@@ -795,14 +796,14 @@ Dim rndNum As Long
             End If
         End If
     End If
-    
+
     If setDir = DIR_RIGHT Then
         If PlayerPokemon(MyIndex).Num > 0 Then
             PlayerPokemon(MyIndex).Dir = DIR_RIGHT
         Else
             Player(MyIndex).Dir = DIR_RIGHT
         End If
-        
+
         '//Check to see if they are trying to go out of bounds
         If X < Map.MaxX Then
             If CheckDirection(DIR_RIGHT) Then
@@ -813,13 +814,13 @@ Dim rndNum As Long
                         SendPlayerDir
                     End If
                 End If
-                
+
                 If PlayerPokemon(MyIndex).Num <= 0 Then
                     If Player(MyIndex).Action > 0 Then
                         Player(MyIndex).Action = 0
                     End If
                 End If
-                
+
                 CanMove = False
                 Exit Function
             End If
@@ -828,7 +829,7 @@ Dim rndNum As Long
                 If Player(MyIndex).Action > 0 Then
                     Player(MyIndex).Action = 0
                 End If
-                
+
                 If Map.LinkRight > 0 Then
                     If Editor = 0 Then
                         SendPlayerMove
@@ -840,22 +841,48 @@ Dim rndNum As Long
             CanMove = False
             Exit Function
         End If
-        
+
         '//Check Distance
         If PlayerPokemon(MyIndex).Num > 0 Then
             dX = (PlayerPokemon(MyIndex).X + 1) - Player(MyIndex).X
             dY = PlayerPokemon(MyIndex).y - Player(MyIndex).y
-            
+
             '//Make sure we get a positive value
             If dX < 0 Then dX = dX * -1
             If dY < 0 Then dY = dY * -1
-            
+
             If Not (dX <= MAX_DISTANCE And dY <= MAX_DISTANCE) Then
                 If Dir <> DIR_RIGHT Then
                     SendPlayerPokemonDir
                 End If
                 CanMove = False
                 Exit Function
+            End If
+        End If
+    End If
+
+    '// Faz parte da verificação de badge req do mapa
+    If PlayerPokemon(MyIndex).Num <= 0 Then
+        Select Case Player(MyIndex).Dir
+        Case DIR_UP: dX = Player(MyIndex).X: dY = Player(MyIndex).y - 1
+        Case DIR_DOWN: dX = Player(MyIndex).X: dY = Player(MyIndex).y + 1
+        Case DIR_LEFT: dX = Player(MyIndex).X - 1: dY = Player(MyIndex).y
+        Case DIR_RIGHT: dX = Player(MyIndex).X + 1: dY = Player(MyIndex).y
+        End Select
+        If dX >= 0 And dY >= 0 And dX <= Map.MaxX And dY <= Map.MaxY Then
+            If Map.Tile(dX, dY).Attribute = MapAttribute.ReqBadge Then
+                If Map.Tile(dX, dY).Data1 > 0 Then
+                    If Player(MyIndex).Badge(Map.Tile(dX, dY).Data1) = NO Then
+                        Select Case tmpCurLanguage
+                        Case LANG_PT: AddAlert "Você precisa da insignia do ginásio anterior!", White
+                        Case LANG_EN: AddAlert "Você precisa da insignia do ginásio anterior!", White
+                        Case LANG_ES: AddAlert "Você precisa da insignia do ginásio anterior!", White
+                        End Select
+
+                        CanMove = False
+                        Exit Function
+                    End If
+                End If
             End If
         End If
     End If

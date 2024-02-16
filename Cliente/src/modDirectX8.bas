@@ -71,6 +71,7 @@ Public Tex_ShinyPokemon() As Long
 Public Tex_Item() As Long
 Public Tex_Misc() As Long
 Public Tex_PokemonIcon() As Long
+Public Tex_PokemonIcon_s() As Long
 Public Tex_Animation() As Long
 Public Tex_Weather() As Long
 Public Tex_PokemonPortrait() As Long
@@ -98,6 +99,7 @@ Public Count_ShinyPokemon As Long
 Public Count_Item As Long
 Public Count_Misc As Long
 Public Count_PokemonIcon As Long
+Public Count_PokemonIcon_s As Long
 Public Count_Animation As Long
 Public Count_Weather As Long
 Public Count_PokemonPortrait As Long
@@ -706,6 +708,18 @@ Private Sub CacheTextures()
             Count_PokemonIcon = i
             ReDim Preserve Tex_PokemonIcon(1 To i)
             Tex_PokemonIcon(i) = SetTexturePath(path)
+            i = i + 1
+        Else
+            i = 0
+        End If
+    Loop While i > 0
+    i = 1 ' Shiny
+    Do
+        path = App.path & PokemonIcon_Path & i & "_icon_s" & GFX_EXT
+        If FileCheck(path) Then
+            Count_PokemonIcon_s = i
+            ReDim Preserve Tex_PokemonIcon_s(1 To i)
+            Tex_PokemonIcon_s(i) = SetTexturePath(path)
             i = i + 1
         Else
             i = 0
@@ -1445,8 +1459,6 @@ Private Sub Render_Game()
 
         '//Hud
         DrawHud
-        
-        
 
         '//Buttons
         For i = ButtonEnum.Game_Pokedex To ButtonEnum.Game_Evolve
@@ -1796,7 +1808,7 @@ Dim AnimMapTile As Byte
     End If
 End Sub
 
-Private Sub DrawPlayer(ByVal index As Long)
+Private Sub DrawPlayer(ByVal Index As Long)
     Dim oWidth As Long, oHeight As Long
     Dim X As Long, y As Long
     Dim Anim As Long, rDir As Byte
@@ -1804,10 +1816,10 @@ Private Sub DrawPlayer(ByVal index As Long)
     Dim DrawAlpha As Long
 
     '//Check error
-    If index <= 0 Or index > MAX_PLAYER Then Exit Sub
-    If Not IsPlaying(index) Then Exit Sub
+    If Index <= 0 Or Index > MAX_PLAYER Then Exit Sub
+    If Not IsPlaying(Index) Then Exit Sub
 
-    With Player(index)
+    With Player(Index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -1876,8 +1888,9 @@ Private Sub DrawPlayer(ByVal index As Long)
             X = (.X * TILE_X) + .xOffset - (((oWidth * 2) - TILE_X) / 2)
             y = (.y * TILE_Y) + .yOffset - ((oHeight * 2) - TILE_Y)
         Case TEMP_SPRITE_GROUP_MOUNT
-            'Sprite = .LastPlayerSpriteNum
             '//Empty sprite? then exit out
+            Sprite = .LastPlayerSpriteNum
+            
             If Sprite <= 0 Or Sprite > UBound(Count_PlayerSprite_M) Then Exit Sub
             If .TempSpriteID <= 0 Or .TempSpriteID > Count_PlayerSprite_M(Sprite) Then Exit Sub
             '//Check sprite size
@@ -1913,7 +1926,7 @@ Private Sub DrawPlayer(ByVal index As Long)
         End Select
 
         If .StealthMode = YES Then
-            If index <> MyIndex Then
+            If Index <> MyIndex Then
                 DrawAlpha = 0
             Else
                 DrawAlpha = 70
@@ -2168,7 +2181,7 @@ Dim Name As String
     End With
 End Sub
 
-Private Sub DrawPlayerPokemon(ByVal index As Long)
+Private Sub DrawPlayerPokemon(ByVal Index As Long)
 Dim Width As Long, Height As Long
 Dim oWidth As Long, oHeight As Long
 Dim X As Long, y As Long
@@ -2180,10 +2193,10 @@ Dim SpriteAnim As Long
 Dim SpritePos As Byte
 
     '//Check error
-    If index <= 0 Or index > MAX_PLAYER Then Exit Sub
-    If PlayerPokemon(index).Num <= 0 Then Exit Sub
+    If Index <= 0 Or Index > MAX_PLAYER Then Exit Sub
+    If PlayerPokemon(Index).Num <= 0 Then Exit Sub
     
-    With PlayerPokemon(index)
+    With PlayerPokemon(Index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -2299,7 +2312,7 @@ Dim SpritePos As Byte
     End With
 End Sub
 
-Private Sub DrawMapNpcPokemon(ByVal index As Long)
+Private Sub DrawMapNpcPokemon(ByVal Index As Long)
 Dim Width As Long, Height As Long
 Dim oWidth As Long, oHeight As Long
 Dim X As Long, y As Long
@@ -2311,10 +2324,10 @@ Dim SpriteAnim As Long
 Dim SpritePos As Byte
 
     '//Check error
-    If index <= 0 Or index > MAX_MAP_NPC Then Exit Sub
-    If MapNpcPokemon(index).Num <= 0 Then Exit Sub
+    If Index <= 0 Or Index > MAX_MAP_NPC Then Exit Sub
+    If MapNpcPokemon(Index).Num <= 0 Then Exit Sub
     
-    With MapNpcPokemon(index)
+    With MapNpcPokemon(Index)
         ' Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
         If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
@@ -2430,55 +2443,55 @@ Dim SpritePos As Byte
     End With
 End Sub
 
-Private Sub DrawActionMsg(ByVal index As Integer)
+Private Sub DrawActionMsg(ByVal Index As Integer)
 Dim X As Long, y As Long, i As Long
 Dim Alpha As Long
 Dim time As Long
 
     '//Exit out of there's no message
-    If ActionMsg(index).Msg = vbNullString Then Exit Sub
+    If ActionMsg(Index).Msg = vbNullString Then Exit Sub
 
     '//Set the timer
     time = 1500
-    If ActionMsg(index).y > 0 Then
-        X = ActionMsg(index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(index).Msg)) / 2)
-        y = ActionMsg(index).y - (TILE_Y / 2) - 2 - (ActionMsg(index).Scroll * 0.3)
-        ActionMsg(index).Scroll = ActionMsg(index).Scroll + 1
+    If ActionMsg(Index).y > 0 Then
+        X = ActionMsg(Index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(Index).Msg)) / 2)
+        y = ActionMsg(Index).y - (TILE_Y / 2) - 2 - (ActionMsg(Index).Scroll * 0.3)
+        ActionMsg(Index).Scroll = ActionMsg(Index).Scroll + 1
     Else
-        X = ActionMsg(index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(index).Msg)) / 2)
-        y = ActionMsg(index).y - (TILE_Y / 2) + 18 + (ActionMsg(index).Scroll * 0.3)
-        ActionMsg(index).Scroll = ActionMsg(index).Scroll + 1
+        X = ActionMsg(Index).X + (TILE_X / 2) - (GetTextWidth(Font_Default, Trim$(ActionMsg(Index).Msg)) / 2)
+        y = ActionMsg(Index).y - (TILE_Y / 2) + 18 + (ActionMsg(Index).Scroll * 0.3)
+        ActionMsg(Index).Scroll = ActionMsg(Index).Scroll + 1
     End If
 
     '//Fade while scrolling
-    ActionMsg(index).Alpha = ActionMsg(index).Alpha - 1
-    If ActionMsg(index).Alpha <= 0 Then ClearActionMsg index: Exit Sub
+    ActionMsg(Index).Alpha = ActionMsg(Index).Alpha - 1
+    If ActionMsg(Index).Alpha <= 0 Then ClearActionMsg Index: Exit Sub
     
     X = ConvertMapX(X)
     y = ConvertMapY(y)
 
-    If GetTickCount < ActionMsg(index).Created + time Then
-        RenderText Font_Default, ActionMsg(index).Msg, X, y, ActionMsg(index).Color, True, ActionMsg(index).Alpha
+    If GetTickCount < ActionMsg(Index).Created + time Then
+        RenderText Font_Default, ActionMsg(Index).Msg, X, y, ActionMsg(Index).Color, True, ActionMsg(Index).Alpha
     Else
-        ClearActionMsg index
+        ClearActionMsg Index
     End If
 End Sub
 
 '//Animation
-Public Sub DrawAnimation(ByVal index As Long, ByVal Layer As Long)
+Public Sub DrawAnimation(ByVal Index As Long, ByVal Layer As Long)
 Dim Sprite As Long, FrameCount As Long
 Dim Width As Long, Height As Long, X As Long, y As Long
 Dim sRect As RECT
 
-    If AnimInstance(index).Animation = 0 Then
-        ClearAnimInstance index
+    If AnimInstance(Index).Animation = 0 Then
+        ClearAnimInstance Index
         Exit Sub
     End If
     
-    Sprite = Animation(AnimInstance(index).Animation).Sprite(Layer)
+    Sprite = Animation(AnimInstance(Index).Animation).Sprite(Layer)
     If Sprite < 1 Or Sprite > Count_Animation Then Exit Sub
     
-    FrameCount = Animation(AnimInstance(index).Animation).Frames(Layer)
+    FrameCount = Animation(AnimInstance(Index).Animation).Frames(Layer)
     If FrameCount <= 0 Then Exit Sub
     
     '//total width divided by frame count
@@ -2488,13 +2501,13 @@ Dim sRect As RECT
     With sRect
         .top = 0 '(Height * ((AnimInstance(Index).frameIndex(Layer) - 1) \ AnimColumns)) '0
         .bottom = Height
-        .Left = (AnimInstance(index).frameIndex(Layer) - 1) * Width '(Width * (((AnimInstance(Index).frameIndex(Layer) - 1) Mod AnimColumns))) '(AnimInstance(Index).frameIndex(Layer) - 1) * Width
+        .Left = (AnimInstance(Index).frameIndex(Layer) - 1) * Width '(Width * (((AnimInstance(Index).frameIndex(Layer) - 1) Mod AnimColumns))) '(AnimInstance(Index).frameIndex(Layer) - 1) * Width
         .Right = sRect.Left + Width 'Width 'sRect.Left + Width
     End With
     
     '//no lock, default x + y
-    X = (AnimInstance(index).X * 32) + 16 - (Width / 2)
-    y = (AnimInstance(index).y * 32) + 16 - (Height / 2)
+    X = (AnimInstance(Index).X * 32) + 16 - (Width / 2)
+    y = (AnimInstance(Index).y * 32) + 16 - (Height / 2)
     
     '//Clipping
     If y < 0 Then
@@ -3245,7 +3258,7 @@ Private Sub DrawHud()
     If Editor = EDITOR_MAP Then Exit Sub
 
     IsHovering = False
-    
+
     '//Hp Hud
     MaxWidth = GetPicWidth(Tex_Misc(Misc_Bar))
     Height = GetPicHeight(Tex_Misc(Misc_Bar)) / 2
@@ -3262,25 +3275,25 @@ Private Sub DrawHud()
                 '//Mostrar vida do pokemon na hud superior direita
                 If PlayerPokemon(MyIndex).Slot <> i Then
                     'If PlayerPokemons(i).CurHP < PlayerPokemons(i).MaxHP Then
-                        '//get position
-                        Width = (PlayerPokemons(i).CurHP / (MaxWidth - 15)) / (PlayerPokemons(i).MaxHP / (MaxWidth - 15)) * (MaxWidth - 15)
-                        'X = ((PlayerPokemon(i).X * TILE_X) + PlayerPokemon(i).xOffset) - ((MaxWidth / 2) - (TILE_X / 2)) - 50
-                        'y = ((PlayerPokemon(i).y * TILE_Y) + PlayerPokemon(i).yOffset) - ((Height / 2) - (TILE_Y / 2)) + 25 - 50
+                    '//get position
+                    Width = (PlayerPokemons(i).CurHP / (MaxWidth - 15)) / (PlayerPokemons(i).MaxHP / (MaxWidth - 15)) * (MaxWidth - 15)
+                    'X = ((PlayerPokemon(i).X * TILE_X) + PlayerPokemon(i).xOffset) - ((MaxWidth / 2) - (TILE_X / 2)) - 50
+                    'y = ((PlayerPokemon(i).y * TILE_Y) + PlayerPokemon(i).yOffset) - ((Height / 2) - (TILE_Y / 2)) + 25 - 50
 
-                        '//Get color
-                        Select Case Width
-                        Case (MaxWidth - 15) * 0.7 To (MaxWidth - 15)
-                            Alpha = D3DColorARGB(255, 34, 177, 76)
-                        Case (MaxWidth - 15) * 0.3 To (MaxWidth - 15) * 0.7
-                            Alpha = D3DColorARGB(255, 255, 255, 0)
-                        Case Else
-                            Alpha = D3DColorARGB(255, 255, 0, 0)
-                        End Select
-                        
-                        '//placeholder
-                        RenderTexture Tex_Misc(Misc_Bar), X, y - 5, 0, 0, MaxWidth - 15, Height - 7, MaxWidth, Height
-                        '//Bar
-                        RenderTexture Tex_Misc(Misc_Bar), X + 3, y - 5, 3, Height, Width - 5, Height - 7, (MaxWidth - 6), Height, Alpha
+                    '//Get color
+                    Select Case Width
+                    Case (MaxWidth - 15) * 0.7 To (MaxWidth - 15)
+                        Alpha = D3DColorARGB(255, 34, 177, 76)
+                    Case (MaxWidth - 15) * 0.3 To (MaxWidth - 15) * 0.7
+                        Alpha = D3DColorARGB(255, 255, 255, 0)
+                    Case Else
+                        Alpha = D3DColorARGB(255, 255, 0, 0)
+                    End Select
+
+                    '//placeholder
+                    RenderTexture Tex_Misc(Misc_Bar), X, y - 5, 0, 0, MaxWidth - 15, Height - 7, MaxWidth, Height
+                    '//Bar
+                    RenderTexture Tex_Misc(Misc_Bar), X + 3, y - 5, 3, Height, Width - 5, Height - 7, (MaxWidth - 6), Height, Alpha
                     'End If
                 End If
 
@@ -3308,7 +3321,11 @@ Private Sub DrawHud()
 
             '//Icon
             If Pokemon(PlayerPokemons(i).Num).Sprite > 0 And Pokemon(PlayerPokemons(i).Num).Sprite <= Count_PokemonIcon Then
-                RenderTexture Tex_PokemonIcon(Pokemon(PlayerPokemons(i).Num).Sprite), X + 1, y + 1, initAnim * 32, 0, 32, 32, 32, 32, D3DColorARGB(Alpha, 255, 255, 255)
+                If PlayerPokemons(i).IsShiny = YES And Count_PokemonIcon_s >= Pokemon(PlayerPokemons(i).Num).Sprite Then
+                    RenderTexture Tex_PokemonIcon_s(Pokemon(PlayerPokemons(i).Num).Sprite), X + 1, y + 1, initAnim * 32, 0, 32, 32, 32, 32, D3DColorARGB(Alpha, 255, 255, 255)
+                Else
+                    RenderTexture Tex_PokemonIcon(Pokemon(PlayerPokemons(i).Num).Sprite), X + 1, y + 1, initAnim * 32, 0, 32, 32, 32, 32, D3DColorARGB(Alpha, 255, 255, 255)
+                End If
                 '//Poke Using item texture
                 If PlayerPokemons(i).HeldItem > 0 And PlayerPokemons(i).HeldItem <= MAX_ITEM Then
                     RenderTexture Tex_Item(PokeUseHeld), X - 2, y - 2, 0, 0, 14, 14, 24, 24, D3DColorARGB(Alpha, 255, 255, 255)
@@ -3382,7 +3399,11 @@ Private Sub DrawHud()
 
         '//Icon
         If Pokemon(PlayerPokemon(MyIndex).Num).Sprite > 0 And Pokemon(PlayerPokemon(MyIndex).Num).Sprite < Count_PokemonIcon Then
-            RenderTexture Tex_PokemonIcon(Pokemon(PlayerPokemon(MyIndex).Num).Sprite), 6, 3, MapAnim * 32, 0, 32, 32, 32, 32
+            If PlayerPokemon(MyIndex).IsShiny = YES And Count_PokemonIcon_s >= Pokemon(PlayerPokemon(MyIndex).Num).Sprite Then
+                RenderTexture Tex_PokemonIcon_s(Pokemon(PlayerPokemon(MyIndex).Num).Sprite), 6, 3, MapAnim * 32, 0, 32, 32, 32, 32
+            Else
+                RenderTexture Tex_PokemonIcon(Pokemon(PlayerPokemon(MyIndex).Num).Sprite), 6, 3, MapAnim * 32, 0, 32, 32, 32, 32
+            End If
         End If
 
         '//Name
@@ -3699,7 +3720,12 @@ Private Sub DrawPokemonStorage()
 
                     '//Icon
                     If Sprite > 0 And Sprite <= Count_PokemonIcon Then
-                        RenderTexture Tex_PokemonIcon(Sprite), DrawX, DrawY, MapAnim * 32, 0, 32, 32, 32, 32
+
+                        If PlayerPokemonStorage(PokemonCurSlot).Data(i).IsShiny = YES And Count_PokemonIcon_s >= Sprite Then
+                            RenderTexture Tex_PokemonIcon_s(Sprite), DrawX, DrawY, MapAnim * 32, 0, 32, 32, 32, 32
+                        Else
+                            RenderTexture Tex_PokemonIcon(Sprite), DrawX, DrawY, MapAnim * 32, 0, 32, 32, 32, 32
+                        End If
                         '//Held Item
                         If PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem > 0 And PlayerPokemonStorage(PokemonCurSlot).Data(i).HeldItem <= MAX_ITEM Then
                             RenderTexture Tex_Item(PokeUseHeld), DrawX - 4, DrawY + 21, 0, 0, 13, 13, 24, 24
@@ -3755,7 +3781,11 @@ Private Sub DrawDragIcon()
 
             '//Draw Icon
             If Sprite > 0 And Sprite <= Count_PokemonIcon Then
-                RenderTexture Tex_PokemonIcon(Sprite), CursorX - (TILE_X / 2), CursorY - (TILE_Y / 2), MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
+                If PlayerPokemonStorage(PokemonCurSlot).Data(DragPokeSlot).IsShiny = YES And Count_PokemonIcon_s >= Sprite Then
+                    RenderTexture Tex_PokemonIcon_s(Sprite), CursorX - (TILE_X / 2), CursorY - (TILE_Y / 2), MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
+                Else
+                    RenderTexture Tex_PokemonIcon(Sprite), CursorX - (TILE_X / 2), CursorY - (TILE_Y / 2), MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
+                End If
             End If
         End If
     End If
@@ -3926,62 +3956,62 @@ Private Sub DrawShop()
 End Sub
 
 Private Sub DrawTrade()
-Dim i As Long
-Dim DrawX As Long, DrawY As Long
-Dim Sprite As Long
-Dim currencyText As String
+    Dim i As Long
+    Dim DrawX As Long, DrawY As Long
+    Dim Sprite As Long
+    Dim currencyText As String
 
     With GUI(GuiEnum.GUI_TRADE)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         '//Render the window
         RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
-        
+
         '//Buttons
         Dim ButtonText As String, DrawText As Boolean
         For i = ButtonEnum.Trade_Close To ButtonEnum.Trade_AddMoney
             If CanShowButton(i) Then
                 RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .y + Button(i).y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
-                
+
                 '//Render Button Text
                 Select Case i
-                    Case ButtonEnum.Trade_Set
-                        If YourTrade.TradeSet = YES Then
-                            ButtonText = "Cancel"
-                        Else
-                            ButtonText = "Set"
-                        End If
-                        DrawText = True
-                    Case Else: DrawText = False
+                Case ButtonEnum.Trade_Set
+                    If YourTrade.TradeSet = YES Then
+                        ButtonText = "Cancel"
+                    Else
+                        ButtonText = "Set"
+                    End If
+                    DrawText = True
+                Case Else: DrawText = False
                 End Select
                 If DrawText Then
                     Select Case Button(i).State
-                        Case ButtonState.StateNormal: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.y + Button(i).y) + ((Button(i).Height / 2) - (8)) - 4, D3DColorARGB(255, 100, 100, 100), False
-                        Case ButtonState.StateHover: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.y + Button(i).y) + ((Button(i).Height / 2) - (8)) - 4, D3DColorARGB(255, 100, 200, 100), False
-                        Case ButtonState.StateClick: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.y + Button(i).y) + ((Button(i).Height / 2) - (8)) - 4 + 3, D3DColorARGB(255, 255, 255, 255), False
+                    Case ButtonState.StateNormal: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.y + Button(i).y) + ((Button(i).Height / 2) - (8)) - 4, D3DColorARGB(255, 100, 100, 100), False
+                    Case ButtonState.StateHover: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.y + Button(i).y) + ((Button(i).Height / 2) - (8)) - 4, D3DColorARGB(255, 100, 200, 100), False
+                    Case ButtonState.StateClick: RenderText Font_Default, ButtonText, (.X + Button(i).X) + ((Button(i).Width / 2) - (GetTextWidth(Font_Default, ButtonText) / 2)) - 2, (.y + Button(i).y) + ((Button(i).Height / 2) - (8)) - 4 + 3, D3DColorARGB(255, 255, 255, 255), False
                     End Select
                 End If
             End If
         Next
-        
+
         '//Trade Items
         For i = 1 To MAX_TRADE
             '//Your Trade
             If YourTrade.Data(i).TradeType > 0 Then
                 DrawX = .X + (12 + ((3 + 44) * ((i - 1) Mod 4)))
                 DrawY = .y + (71 + ((3 + 46) * ((i - 1) \ 4)))
-                    
+
                 If YourTrade.Data(i).Num > 0 Then
                     RenderTexture Tex_Gui(.Pic), DrawX, DrawY, 459, 395, 44, 46, 44, 46
-                        
+
                     '//Icon
                     If YourTrade.Data(i).TradeType = 1 Then  '//Item
                         Sprite = Item(YourTrade.Data(i).Num).Sprite
                         If Sprite > 0 And Sprite <= Count_Item Then
                             RenderTexture Tex_Item(Sprite), DrawX + 7 + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + 7 + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
                         End If
-                        
+
                         '//Count
                         If YourTrade.Data(i).value > 1 Then
                             RenderText Font_Default, YourTrade.Data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, YourTrade.Data(i).value)), DrawY + 7 + 14, White
@@ -3989,41 +4019,49 @@ Dim currencyText As String
                     ElseIf YourTrade.Data(i).TradeType = 2 Then  '//Pokemon
                         Sprite = Pokemon(YourTrade.Data(i).Num).Sprite
                         If Sprite > 0 And Sprite <= Count_PokemonIcon Then
-                            RenderTexture Tex_PokemonIcon(Sprite), DrawX + 7, DrawY + 7, MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
+                            If YourTrade.Data(i).IsShiny = YES And Count_PokemonIcon_s >= Sprite Then
+                                RenderTexture Tex_PokemonIcon_s(Sprite), DrawX + 7, DrawY + 7, MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
+                            Else
+                                RenderTexture Tex_PokemonIcon(Sprite), DrawX + 7, DrawY + 7, MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
+                            End If
                         End If
                     End If
                 End If
             End If
-            
+
             '//Their Trade
             If TheirTrade.Data(i).TradeType > 0 Then
                 DrawX = .X + (222 + ((3 + 44) * ((i - 1) Mod 4)))
                 DrawY = .y + (71 + ((3 + 46) * ((i - 1) \ 4)))
-                    
+
                 If TheirTrade.Data(i).Num > 0 Then
                     RenderTexture Tex_Gui(.Pic), DrawX, DrawY, 459, 395, 44, 46, 44, 46
-                        
+
                     '//Icon
-                    If TheirTrade.Data(i).TradeType = 1 Then '//Item
+                    If TheirTrade.Data(i).TradeType = 1 Then    '//Item
                         Sprite = Item(TheirTrade.Data(i).Num).Sprite
                         If Sprite > 0 And Sprite <= Count_Item Then
                             RenderTexture Tex_Item(Sprite), DrawX + 7 + ((32 / 2) - (GetPicWidth(Tex_Item(Sprite)) / 2)), DrawY + 7 + ((32 / 2) - (GetPicHeight(Tex_Item(Sprite)) / 2)), 0, 0, GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite)), GetPicWidth(Tex_Item(Sprite)), GetPicHeight(Tex_Item(Sprite))
                         End If
-                        
+
                         '//Count
                         If TheirTrade.Data(i).value > 1 Then
                             RenderText Font_Default, TheirTrade.Data(i).value, DrawX + 7 + 28 - (GetTextWidth(Font_Default, TheirTrade.Data(i).value)), DrawY + 7 + 14, White
                         End If
-                    ElseIf TheirTrade.Data(i).TradeType = 2 Then '//Pokemon
+                    ElseIf TheirTrade.Data(i).TradeType = 2 Then    '//Pokemon
                         Sprite = Pokemon(TheirTrade.Data(i).Num).Sprite
                         If Sprite > 0 And Sprite <= Count_PokemonIcon Then
-                            RenderTexture Tex_PokemonIcon(Sprite), DrawX + 7, DrawY + 7, MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
+                            If TheirTrade.Data(i).IsShiny = YES And Count_PokemonIcon_s >= Sprite Then
+                                RenderTexture Tex_PokemonIcon_s(Sprite), DrawX + 7, DrawY + 7, MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
+                            Else
+                                RenderTexture Tex_PokemonIcon(Sprite), DrawX + 7, DrawY + 7, MapAnim * TILE_X, 0, TILE_X, TILE_Y, TILE_X, TILE_Y
+                            End If
                         End If
                     End If
                 End If
             End If
         Next
-        
+
         '//Set
         If YourTrade.TradeSet Then
             RenderTexture Tex_Gui(.Pic), .X + 2, .y + 36, 12, 469, 199, 24, 199, 24
@@ -4031,11 +4069,11 @@ Dim currencyText As String
         If TheirTrade.TradeSet Then
             RenderTexture Tex_Gui(.Pic), .X + 218, .y + 36, 12, 494, 199, 24, 199, 24
         End If
-        
+
         '//Name
         RenderText Font_Default, Trim$(Player(MyIndex).Name) & "'s Trade", .X + 15, .y + 39, DarkGrey
         RenderText Font_Default, Trim$(Player(TradeIndex).Name) & "'s Trade", .X + 400 - (GetTextWidth(Font_Default, Trim$(Player(TradeIndex).Name) & "'s Trade")) - 4, .y + 39, DarkGrey
-        
+
         '//Text
         If EditInputMoney Then
             currencyText = "$" & TradeInputMoney & TextLine
@@ -4049,45 +4087,45 @@ Dim currencyText As String
                 RenderArrayText Font_Default, UpdateChatText(Font_Default, currencyText, 135), .X + 66, .y + 279, 250, White
             End If
         End If
-        
+
         currencyText = "$" & TheirTrade.TradeMoney
         RenderArrayText Font_Default, UpdateChatText(Font_Default, currencyText, 135), .X + 276, .y + 279, 250, White
     End With
 End Sub
 
 Private Sub DrawPokedex()
-Dim i As Long
-Dim DrawX As Long, DrawY As Long
-Dim pokeDexIndex As Long
-Dim DescText() As String
-Dim MaxY As Long, PosY As Long, PosX As Long
+    Dim i As Long
+    Dim DrawX As Long, DrawY As Long
+    Dim pokeDexIndex As Long
+    Dim DescText() As String
+    Dim MaxY As Long, PosY As Long, PosX As Long
 
     With GUI(GuiEnum.GUI_POKEDEX)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        
+
         '//Render the window
         RenderTexture Tex_Gui(.Pic), .X, .y, .StartX, .StartY, .Width, .Height, .Width, .Height
-    
+
         '//Buttons
         For i = ButtonEnum.Pokedex_Close To ButtonEnum.Pokedex_ScrollDown
             If CanShowButton(i) Then
                 RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .y + Button(i).y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
-        
+
         '//Scroll
         RenderTexture Tex_Gui(.Pic), .X + 7, .y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY), 159, 300, 19, 35, 19, 35
-    
+
         '//Icon
         For i = (PokedexViewCount * 8) To (PokedexViewCount * 8) + 31
             If i >= 0 And i <= PokedexHighIndex Then
                 pokeDexIndex = i + 1
                 DrawX = (31 + ((4 + 44) * (((((i + 1) - (PokedexViewCount * 8)) - 1) Mod 8))))
                 DrawY = (42 + ((4 + 46) * ((((i + 1) - (PokedexViewCount * 8)) - 1) \ 8)))
-                
+
                 RenderTexture Tex_Gui(.Pic), .X + DrawX, .y + DrawY, 369, 290, 44, 46, 44, 46
-                
+
                 If PlayerPokedex(pokeDexIndex).Obtained = YES Then
                     '//Icon
                     If Pokemon(pokeDexIndex).Sprite > 0 And Pokemon(pokeDexIndex).Sprite <= Count_PokemonIcon Then
@@ -4106,14 +4144,14 @@ Dim MaxY As Long, PosY As Long, PosX As Long
                 End If
             End If
         Next
-        
+
         If PokedexInfoIndex > 0 And PokedexShowTimer <= GetTickCount Then
             If PlayerPokedex(PokedexInfoIndex).Obtained = YES Then
                 WordWrap_Array Font_Default, Trim$(Pokemon(PokedexInfoIndex).PokeDexEntry), 250, DescText
                 MaxY = UBound(DescText) + 2
                 PosY = (.y + 39) + ((202 * 0.5) - ((MaxY * 20) * 0.5))
                 RenderTexture Tex_System(gSystemEnum.UserInterface), .X + 28, .y + 39, 0, 8, 386, 202, 1, 1, D3DColorARGB(200, 0, 0, 0)
-                
+
                 PosX = (.X + 28) + ((386 * 0.5) - (GetTextWidth(Font_Default, Trim$(Pokemon(PokedexInfoIndex).Name)) * 0.5))
                 RenderText Font_Default, Trim$(Pokemon(PokedexInfoIndex).Name), PosX, PosY, White
                 For i = 1 To UBound(DescText)
