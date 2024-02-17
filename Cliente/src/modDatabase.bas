@@ -79,8 +79,8 @@ Dim FileName As String
 
         '//Video
         .Fullscreen = GetVar(FileName, "Video", "Fullscreen")
-        .Width = GetVar(FileName, "Video", "Width")
-        .Height = GetVar(FileName, "Video", "Height")
+        .width = GetVar(FileName, "Video", "Width")
+        .height = GetVar(FileName, "Video", "Height")
   
         '//Others
         .SkipBootUp = GetVar(FileName, "Other", "SkipBootUp")
@@ -132,8 +132,8 @@ Dim FileName As String
         
         '//Video
         Call PutVar(FileName, "Video", "Fullscreen", Str(.Fullscreen))
-        Call PutVar(FileName, "Video", "Width", Str(.Width))
-        Call PutVar(FileName, "Video", "Height", Str(.Height))
+        Call PutVar(FileName, "Video", "Width", Str(.width))
+        Call PutVar(FileName, "Video", "Height", Str(.height))
         
         '//Others
         Call PutVar(FileName, "Other", "SkipBootUp", Str(.SkipBootUp))
@@ -172,63 +172,63 @@ End Sub
 Public Sub ResetGuiLocation(ByVal vGui As GuiEnum)
     '// Starting Location will be given by code
     GUI(vGui).X = GUI(vGui).OrigX
-    GUI(vGui).y = GUI(vGui).OrigY
+    GUI(vGui).Y = GUI(vGui).OrigY
 End Sub
 
 Public Sub ResetGui()
     '//GUI
     With GUI(GuiEnum.GUI_LOGIN)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_REGISTER)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_CHARACTERSELECT)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_CHARACTERCREATE)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_CHOICEBOX)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2)
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2)
     End With
     With GUI(GuiEnum.GUI_GLOBALMENU)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2)
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2)
     End With
     With GUI(GuiEnum.GUI_OPTION)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2)
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2)
     End With
     With GUI(GuiEnum.GUI_CHATBOX)
         .OrigX = 10
-        .OrigY = Screen_Height - .Height - 10
+        .OrigY = Screen_Height - .height - 10
     End With
     With GUI(GuiEnum.GUI_MOVEREPLACE)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2)
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2)
     End With
     With GUI(GuiEnum.GUI_INPUTBOX)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2)
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2)
     End With
     With GUI(GuiEnum.GUI_INVENTORY)
-        .OrigX = Screen_Width - .Width - Rand(10, 30) - 25
+        .OrigX = Screen_Width - .width - Rand(10, 30) - 25
         .OrigY = 120
     End With
     With GUI(GuiEnum.GUI_TRAINER)
-        .OrigX = Screen_Width - .Width - Rand(10, 30)
+        .OrigX = Screen_Width - .width - Rand(10, 30)
         .OrigY = 100 + Rand(10, 40)
     End With
     
     With GUI(GuiEnum.GUI_MAP)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2)
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2)
     End With
     
     With GUI(GuiEnum.GUI_INVSTORAGE)
@@ -240,8 +240,8 @@ Public Sub ResetGui()
         .OrigY = 20 + Rand(10, 40)
     End With
     With GUI(GuiEnum.GUI_CONVO)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = Screen_Height - .Height - (.Height / 2)
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = Screen_Height - .height - (.height / 2)
     End With
     With GUI(GuiEnum.GUI_SHOP)
         .OrigX = Rand(10, 30) + 25
@@ -260,70 +260,70 @@ Public Sub ResetGui()
         .OrigY = 20 + Rand(10, 40) + 25
     End With
     With GUI(GuiEnum.GUI_RELEARN)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2)
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2)
     End With
     With GUI(GuiEnum.GUI_BADGE)
-        .OrigX = Screen_Width - .Width - Rand(10, 30)
+        .OrigX = Screen_Width - .width - Rand(10, 30)
         .OrigY = 100 + Rand(10, 40)
     End With
     With GUI(GuiEnum.GUI_RANK)
-        .OrigX = (Screen_Width - .Width)
+        .OrigX = (Screen_Width - .width)
         .OrigY = 120
     End With
     With GUI(GuiEnum.GUI_VIRTUALSHOP)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_VIPADVANTAGE)
-        .OrigX = (Screen_Width / 2) - (.Width / 2)
-        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.width / 2)
+        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
     End With
     With Button(ButtonEnum.Game_Pokedex)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 6)
-        .y = Screen_Height - .Height - 10
+        .X = Screen_Width - .width - 10 - ((.width + 5) * 6)
+        .Y = Screen_Height - .height - 10
     End With
     With Button(ButtonEnum.Game_Bag)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
-        .y = Screen_Height - .Height - 10
+        .X = Screen_Width - .width - 10 - ((.width + 5) * 5)
+        .Y = Screen_Height - .height - 10
     End With
     With Button(ButtonEnum.Game_Card)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 4)
-        .y = Screen_Height - .Height - 10
+        .X = Screen_Width - .width - 10 - ((.width + 5) * 4)
+        .Y = Screen_Height - .height - 10
     End With
     With Button(ButtonEnum.Game_Map)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
-        .y = Screen_Height - .Height - 10
+        .X = Screen_Width - .width - 10 - ((.width + 5) * 3)
+        .Y = Screen_Height - .height - 10
     End With
     With Button(ButtonEnum.Game_Rank)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
-        .y = Screen_Height - .Height - 10
+        .X = Screen_Width - .width - 10 - ((.width + 5) * 2)
+        .Y = Screen_Height - .height - 10
     End With
     With Button(ButtonEnum.Game_VirtualShop)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
-        .y = Screen_Height - .Height - 10
+        .X = Screen_Width - .width - 10 - ((.width + 5) * 1)
+        .Y = Screen_Height - .height - 10
     End With
     With Button(ButtonEnum.Game_Menu)
-        .X = Screen_Width - .Width - 10
-        .y = Screen_Height - .Height - 10
+        .X = Screen_Width - .width - 10
+        .Y = Screen_Height - .height - 10
     End With
     
     With Button(ButtonEnum.Game_Evolve)
         .X = 180
-        .y = 19
+        .Y = 19
     End With
     
     With Button(ButtonEnum.Convo_Reply1)
-        .X = (Screen_Width / 2) - (.Width / 2)
-        .y = (Screen_Height / 2) - (111 / 2)
+        .X = (Screen_Width / 2) - (.width / 2)
+        .Y = (Screen_Height / 2) - (111 / 2)
     End With
     With Button(ButtonEnum.Convo_Reply2)
-        .X = (Screen_Width / 2) - (.Width / 2)
-        .y = (Screen_Height / 2) - (111 / 2) + 37
+        .X = (Screen_Width / 2) - (.width / 2)
+        .Y = (Screen_Height / 2) - (111 / 2) + 37
     End With
     With Button(ButtonEnum.Convo_Reply3)
-        .X = (Screen_Width / 2) - (.Width / 2)
-        .y = (Screen_Height / 2) - (111 / 2) + 74
+        .X = (Screen_Width / 2) - (.width / 2)
+        .Y = (Screen_Height / 2) - (111 / 2) + 74
     End With
 End Sub
 
@@ -369,8 +369,8 @@ Dim FileName As String
                 .StartX = Val(GetVar(FileName, "GENERAL", "StartX"))
                 .StartY = Val(GetVar(FileName, "GENERAL", "StartY"))
                 
-                .Width = Val(GetVar(FileName, "GENERAL", "Width"))
-                .Height = Val(GetVar(FileName, "GENERAL", "Height"))
+                .width = Val(GetVar(FileName, "GENERAL", "Width"))
+                .height = Val(GetVar(FileName, "GENERAL", "Height"))
             End With
         End If
     Next
@@ -475,11 +475,11 @@ Dim FileName As String
                     .StartY(X) = Val(GetVar(FileName, FileTitle, "StartY_" & X))
                 Next
                 
-                .Width = Val(GetVar(FileName, FileTitle, "Width"))
-                .Height = Val(GetVar(FileName, FileTitle, "Height"))
+                .width = Val(GetVar(FileName, FileTitle, "Width"))
+                .height = Val(GetVar(FileName, FileTitle, "Height"))
                 
                 .X = Val(GetVar(FileName, FileTitle, "X"))
-                .y = Val(GetVar(FileName, FileTitle, "Y"))
+                .Y = Val(GetVar(FileName, FileTitle, "Y"))
             End With
         Next
     End If
@@ -531,7 +531,7 @@ End Sub
 Public Sub LoadMap(ByVal mapNum As Long)
 Dim FileName As String
 Dim f As Long
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 Dim i As Long, a As Byte
 
     FileName = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
@@ -562,8 +562,8 @@ Dim i As Long, a As Byte
         
         '//Tiles
         For X = 0 To Map.MaxX
-            For y = 0 To Map.MaxY
-                With Map.Tile(X, y)
+            For Y = 0 To Map.MaxY
+                With Map.Tile(X, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -610,7 +610,7 @@ Dim i As Long, a As Byte
             Get #f, , .MapTravel.IsTravel
             Get #f, , .MapTravel.costValue
             Get #f, , .MapTravel.X
-            Get #f, , .MapTravel.y
+            Get #f, , .MapTravel.Y
             Get #f, , .MapTravel.BadgeReq
         End With
     Close #f
@@ -620,7 +620,7 @@ End Sub
 Public Sub SaveMap(ByVal mapNum As Long)
 Dim FileName As String
 Dim f As Long
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 Dim i As Long, a As Long
 
     FileName = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
@@ -642,8 +642,8 @@ Dim i As Long, a As Long
         
         '//Tiles
         For X = 0 To Map.MaxX
-            For y = 0 To Map.MaxY
-                With Map.Tile(X, y)
+            For Y = 0 To Map.MaxY
+                With Map.Tile(X, Y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -691,7 +691,7 @@ Dim i As Long, a As Long
             Put #f, , .MapTravel.IsTravel
             Put #f, , .MapTravel.costValue
             Put #f, , .MapTravel.X
-            Put #f, , .MapTravel.y
+            Put #f, , .MapTravel.Y
             Put #f, , .MapTravel.BadgeReq
         End With
     Close #f
@@ -822,6 +822,24 @@ Dim Control As Long
         .keyName = TextUIOptionPokedex
         .cAsciiKey = 80
     End With
+    
+    With ControlKey(ControlEnum.KeyTrainer)
+        .keyName = TextUIOptionTrainer
+        .cAsciiKey = 84
+    End With
+    With ControlKey(ControlEnum.KeyMap)
+        .keyName = TextUIOptionMap
+        .cAsciiKey = 77
+    End With
+    With ControlKey(ControlEnum.KeyRank)
+        .keyName = TextUIOptionRank
+        .cAsciiKey = 82
+    End With
+    With ControlKey(ControlEnum.KeyShop)
+        .keyName = TextUIOptionShop
+        .cAsciiKey = 79
+    End With
+    
     With ControlKey(ControlEnum.KeyInteract)
         .keyName = TextUIOptionInteract
         .cAsciiKey = 32
@@ -1055,14 +1073,14 @@ End Sub
 ' ** Conversation **
 ' ***************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim X As Byte, y As Byte, z As Byte
+Dim X As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
     For X = 1 To MAX_CONV_DATA
-        For y = 1 To MAX_LANGUAGE
-            Conversation(ConversationNum).ConvData(X).TextLang(y).Text = vbNullString
+        For Y = 1 To MAX_LANGUAGE
+            Conversation(ConversationNum).ConvData(X).TextLang(Y).Text = vbNullString
             For z = 1 To 3
-                Conversation(ConversationNum).ConvData(X).TextLang(y).tReply(z) = vbNullString
+                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(z) = vbNullString
             Next
         Next
     Next
@@ -1080,7 +1098,7 @@ End Sub
 ' ** Shop **
 ' ***************
 Public Sub ClearShop(ByVal ShopNum As Long)
-Dim X As Byte, y As Byte, z As Byte
+Dim X As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Shop(ShopNum)), LenB(Shop(ShopNum)))
 End Sub
@@ -1097,7 +1115,7 @@ End Sub
 ' ** Quest **
 ' ***************
 Public Sub ClearQuest(ByVal QuestNum As Long)
-Dim X As Byte, y As Byte, z As Byte
+Dim X As Byte, Y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Quest(QuestNum)), LenB(Quest(QuestNum)))
 End Sub
@@ -1163,7 +1181,7 @@ Dim i As Long
     
     For i = 0 To CreditTextCount
         Credit(i).Text = CreditText(i)
-        Credit(i).y = (Screen_Height - 40) + (20 * i)
+        Credit(i).Y = (Screen_Height - 40) + (20 * i)
         Credit(i).StartY = (Screen_Height - 40) + (20 * i)
     Next
 End Sub

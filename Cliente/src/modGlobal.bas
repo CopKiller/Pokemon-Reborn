@@ -461,6 +461,10 @@ Public TextUIOptionHotbarSlot4 As String
 Public TextUIOptionHotbarSlot5 As String
 Public TextUIOptionInventory As String
 Public TextUIOptionPokedex As String
+Public TextUIOptionTrainer As String
+Public TextUIOptionMap As String
+Public TextUIOptionRank As String
+Public TextUIOptionShop As String
 Public TextUIOptionInteract As String
 Public TextUIOptionConvoChoice1 As String
 Public TextUIOptionConvoChoice2 As String

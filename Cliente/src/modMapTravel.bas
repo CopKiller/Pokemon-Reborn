@@ -44,10 +44,6 @@ Public Function GetPlayerMapCostValue(ByVal mapNum As Long) As Long
     GetPlayerMapCostValue = Player(MyIndex).PlayerTravel(mapNum).costValue
 End Function
 
-Private Function GetMapTravel(ByVal mapNum As Long) As Boolean
-    If Map(mapNum).MapTravel.IsTravel = YES Then GetMapTravel = True
-End Function
-
 Public Sub InitPlayerMapTravel()
     Dim i As Long, FileName As String
 

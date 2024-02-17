@@ -5,7 +5,7 @@ Begin VB.Form frmEditor_Item
    ClientHeight    =   4260
    ClientLeft      =   150
    ClientTop       =   795
-   ClientWidth     =   9225
+   ClientWidth     =   9120
    ControlBox      =   0   'False
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
@@ -13,7 +13,7 @@ Begin VB.Form frmEditor_Item
    MinButton       =   0   'False
    ScaleHeight     =   284
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   615
+   ScaleWidth      =   608
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
    Begin VB.Frame Frame1 
@@ -70,7 +70,7 @@ Begin VB.Form frmEditor_Item
       Left            =   3120
       TabIndex        =   0
       Top             =   0
-      Width           =   6015
+      Width           =   5895
       Begin VB.TextBox txtDelay 
          Height          =   285
          Left            =   4200
@@ -105,9 +105,10 @@ Begin VB.Form frmEditor_Item
       Begin VB.CheckBox chkIsCash 
          Caption         =   "Is Cash?"
          Height          =   195
-         Left            =   4920
+         Left            =   6120
          TabIndex        =   35
          Top             =   1200
+         Visible         =   0   'False
          Width           =   975
       End
       Begin VB.TextBox txtDesc 
@@ -120,10 +121,10 @@ Begin VB.Form frmEditor_Item
       End
       Begin VB.TextBox txtPrice 
          Height          =   285
-         Left            =   3960
+         Left            =   4320
          TabIndex        =   18
          Text            =   "0"
-         Top             =   1150
+         Top             =   1200
          Width           =   975
       End
       Begin VB.Frame Frame3 
@@ -179,6 +180,97 @@ Begin VB.Form frmEditor_Item
          TabIndex        =   1
          Top             =   840
          Width           =   1935
+      End
+      Begin VB.Frame fraKeyItem 
+         Caption         =   "Key Item Properties"
+         Height          =   1815
+         Left            =   240
+         TabIndex        =   28
+         Top             =   2280
+         Visible         =   0   'False
+         Width           =   5535
+         Begin VB.CheckBox chkPassiva 
+            Caption         =   "Usar passiva de corrida com Shift?"
+            Height          =   195
+            Left            =   360
+            TabIndex        =   75
+            Top             =   1440
+            Visible         =   0   'False
+            Width           =   2775
+         End
+         Begin VB.HScrollBar scrlExp 
+            Height          =   255
+            Left            =   1680
+            Max             =   200
+            TabIndex        =   74
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   1335
+         End
+         Begin VB.HScrollBar scrlFish 
+            Height          =   255
+            Left            =   3840
+            Max             =   2
+            TabIndex        =   55
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   1455
+         End
+         Begin VB.ComboBox cmbKeyItemType 
+            Height          =   315
+            ItemData        =   "frmEditor_Item.frx":0099
+            Left            =   2280
+            List            =   "frmEditor_Item.frx":00A3
+            Style           =   2  'Dropdown List
+            TabIndex        =   32
+            Top             =   360
+            Width           =   3015
+         End
+         Begin VB.HScrollBar scrlSpriteType 
+            Height          =   255
+            Left            =   2280
+            Max             =   5
+            TabIndex        =   29
+            Top             =   720
+            Width           =   3015
+         End
+         Begin VB.Label lblExp 
+            AutoSize        =   -1  'True
+            Caption         =   "Exp Bonus%:"
+            Height          =   195
+            Left            =   240
+            TabIndex        =   73
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   930
+         End
+         Begin VB.Label lblFish 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Sprite:"
+            Height          =   195
+            Left            =   3120
+            TabIndex        =   54
+            Top             =   1080
+            Visible         =   0   'False
+            Width           =   450
+         End
+         Begin VB.Label Label8 
+            Caption         =   "Key Item Type:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   31
+            Top             =   360
+            Width           =   1215
+         End
+         Begin VB.Label lblSpriteType 
+            Caption         =   "Sprite Type: None"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   30
+            Top             =   720
+            Width           =   5055
+         End
       End
       Begin VB.Frame fraMysteryBox 
          Caption         =   "Mystery Box"
@@ -329,9 +421,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbPowerType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0099
+            ItemData        =   "frmEditor_Item.frx":00BA
             Left            =   1440
-            List            =   "frmEditor_Item.frx":00B2
+            List            =   "frmEditor_Item.frx":00D3
             Style           =   2  'Dropdown List
             TabIndex        =   50
             Top             =   360
@@ -364,9 +456,9 @@ Begin VB.Form frmEditor_Item
          Width           =   4695
          Begin VB.ComboBox cmbBerrieType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0101
+            ItemData        =   "frmEditor_Item.frx":0122
             Left            =   1440
-            List            =   "frmEditor_Item.frx":011A
+            List            =   "frmEditor_Item.frx":013B
             Style           =   2  'Dropdown List
             TabIndex        =   44
             Top             =   360
@@ -415,9 +507,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbMoveList 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0145
+            ItemData        =   "frmEditor_Item.frx":0166
             Left            =   1440
-            List            =   "frmEditor_Item.frx":0147
+            List            =   "frmEditor_Item.frx":0168
             Style           =   2  'Dropdown List
             TabIndex        =   39
             Top             =   360
@@ -506,9 +598,9 @@ Begin VB.Form frmEditor_Item
          End
          Begin VB.ComboBox cmbMedicineType 
             Height          =   315
-            ItemData        =   "frmEditor_Item.frx":0149
+            ItemData        =   "frmEditor_Item.frx":016A
             Left            =   1440
-            List            =   "frmEditor_Item.frx":0165
+            List            =   "frmEditor_Item.frx":0186
             Style           =   2  'Dropdown List
             TabIndex        =   20
             Top             =   360
@@ -649,96 +741,6 @@ Begin VB.Form frmEditor_Item
             Width           =   855
          End
       End
-      Begin VB.Frame fraKeyItem 
-         Caption         =   "Key Item Properties"
-         Height          =   1815
-         Left            =   240
-         TabIndex        =   28
-         Top             =   2280
-         Visible         =   0   'False
-         Width           =   5535
-         Begin VB.CheckBox chkPassiva 
-            Caption         =   "Usar passiva de corrida com Shift?"
-            Height          =   195
-            Left            =   360
-            TabIndex        =   75
-            Top             =   1440
-            Visible         =   0   'False
-            Width           =   2775
-         End
-         Begin VB.HScrollBar scrlExp 
-            Height          =   255
-            Left            =   1680
-            Max             =   200
-            TabIndex        =   74
-            Top             =   1080
-            Visible         =   0   'False
-            Width           =   1335
-         End
-         Begin VB.HScrollBar scrlFish 
-            Height          =   255
-            Left            =   3840
-            Max             =   2
-            TabIndex        =   55
-            Top             =   1080
-            Visible         =   0   'False
-            Width           =   1455
-         End
-         Begin VB.ComboBox cmbKeyItemType 
-            Height          =   315
-            ItemData        =   "frmEditor_Item.frx":01C3
-            Left            =   2280
-            List            =   "frmEditor_Item.frx":01CD
-            Style           =   2  'Dropdown List
-            TabIndex        =   32
-            Top             =   360
-            Width           =   3015
-         End
-         Begin VB.HScrollBar scrlSpriteType 
-            Height          =   255
-            Left            =   2280
-            Max             =   5
-            TabIndex        =   29
-            Top             =   720
-            Width           =   3015
-         End
-         Begin VB.Label lblExp 
-            AutoSize        =   -1  'True
-            Caption         =   "Exp Bonus%:"
-            Height          =   195
-            Left            =   240
-            TabIndex        =   73
-            Top             =   1080
-            Visible         =   0   'False
-            Width           =   930
-         End
-         Begin VB.Label lblFish 
-            BackStyle       =   0  'Transparent
-            Caption         =   "Sprite:"
-            Height          =   255
-            Left            =   3120
-            TabIndex        =   54
-            Top             =   1080
-            Visible         =   0   'False
-            Width           =   615
-         End
-         Begin VB.Label Label8 
-            Caption         =   "Key Item Type:"
-            Height          =   255
-            Left            =   240
-            TabIndex        =   31
-            Top             =   360
-            Width           =   1215
-         End
-         Begin VB.Label lblSpriteType 
-            Caption         =   "Sprite Type: None"
-            Height          =   255
-            Left            =   240
-            TabIndex        =   30
-            Top             =   720
-            Width           =   5055
-         End
-      End
       Begin VB.Label Label15 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -769,7 +771,7 @@ Begin VB.Form frmEditor_Item
          AutoSize        =   -1  'True
          Caption         =   "Price:"
          Height          =   195
-         Left            =   3480
+         Left            =   3720
          TabIndex        =   17
          Top             =   1200
          Width           =   405
@@ -978,11 +980,11 @@ Private Sub cmdAdd_Click()
     ' make sure it's not a clear
     If Not cmbItems.List(cmbItems.ListIndex) = "No Items" Then
         Item(EditorIndex).Item(lstItems.ListIndex + 1) = cmbItems.ListIndex
-        Item(EditorIndex).ItemValue(lstItems.ListIndex + 1) = txtQuant.Text
+        Item(EditorIndex).itemValue(lstItems.ListIndex + 1) = txtQuant.Text
         Item(EditorIndex).ItemChance(lstItems.ListIndex + 1) = txtChance.Text
     Else
         Item(EditorIndex).Item(lstItems.ListIndex + 1) = 0
-        Item(EditorIndex).ItemValue(lstItems.ListIndex + 1) = 0
+        Item(EditorIndex).itemValue(lstItems.ListIndex + 1) = 0
         Item(EditorIndex).ItemChance(lstItems.ListIndex + 1) = 0
     End If
 
@@ -991,7 +993,7 @@ Private Sub cmdAdd_Click()
     lstItems.Clear
     For X = 1 To MAX_MYSTERY_BOX
         If Item(EditorIndex).Item(X) > 0 Then
-            lstItems.AddItem X & ": " & Item(EditorIndex).ItemValue(X) & "x - " & Trim$(Item(Item(EditorIndex).Item(X)).Name) & Item(EditorIndex).ItemChance(X) & "%"
+            lstItems.AddItem X & ": " & Item(EditorIndex).itemValue(X) & "x - " & Trim$(Item(Item(EditorIndex).Item(X)).Name) & Item(EditorIndex).ItemChance(X) & "%"
             Chance = Chance + Item(EditorIndex).ItemChance(X)
         Else
             lstItems.AddItem X & ": No Items"

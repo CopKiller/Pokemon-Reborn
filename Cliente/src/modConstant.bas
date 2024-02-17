@@ -12,7 +12,7 @@ Public Declare Sub CopyMemory Lib "kernel32.dll" Alias "RtlMoveMemory" (Destinat
 '//This use for clearing data
 Public Declare Sub ZeroMemory Lib "kernel32.dll" Alias "RtlZeroMemory" (Destination As Any, ByVal Length As Long)
 '//Use for setting Window zOrder
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 '//Text API
 Public Declare Function WritePrivateProfileString Lib "Kernel32" Alias "WritePrivateProfileStringA" (ByVal lpApplicationname As String, ByVal lpKeyname As Any, ByVal lpString As String, ByVal lpfilename As String) As Long
 Public Declare Function GetPrivateProfileString Lib "Kernel32" Alias "GetPrivateProfileStringA" (ByVal lpApplicationname As String, ByVal lpKeyname As Any, ByVal lpdefault As String, ByVal lpreturnedstring As String, ByVal nsize As Long, ByVal lpfilename As String) As Long
@@ -25,6 +25,11 @@ Public Declare Function GetAsyncKeyState Lib "user32" (ByVal vKey As Long) As In
 Public Declare Function GetKeyState Lib "user32" (ByVal nVirtKey As Long) As Integer
 '//Checking of window is currently active
 Public Declare Function GetForegroundWindow Lib "user32" () As Long
+
+Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, _
+ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, _
+ByVal nShowCmd As Long) As Long
+Public Const conSwNormal = 1
 
 Public Const SM_CXSCREEN = 0
 Public Const SM_CYSCREEN = 1

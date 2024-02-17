@@ -618,6 +618,7 @@ Public Enum gSurfaceEnum
     CompanyScreen = 1
     TitleScreen
     Background
+    MenuIcons
 End Enum
 
 '//Control KeyEnum
@@ -645,6 +646,10 @@ Public Enum ControlEnum
     KeyHotbarSlot5
     KeyInventory
     KeyPokedex
+    KeyTrainer
+    KeyMap
+    KeyRank
+    KeyShop
     KeyInteract
     KeyConvo1
     KeyConvo2

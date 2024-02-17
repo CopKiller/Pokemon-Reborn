@@ -59,7 +59,7 @@ Public Function GetPlayerSkinExp(ByVal index As Long) As Long
     If Not IsPlaying(index) Then Exit Function
     If TempPlayer(index).UseChar <= 0 Then Exit Function
     
-    GetPlayerSkin = Player(index, TempPlayer(index).UseChar).Skin.ExpBonus
+    GetPlayerSkinExp = Player(index, TempPlayer(index).UseChar).Skin.ExpBonus
 End Function
 
 Public Function GetPlayerHaveSkinOrSprite(ByVal index As Long) As Long

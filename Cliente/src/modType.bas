@@ -54,7 +54,7 @@ Private Type MapPokemonRec
     '//Location
     Map As Long
     X As Long
-    y As Long
+    Y As Long
     Dir As Byte
     
     '//Vital
@@ -92,7 +92,7 @@ Private Type MapNpcPokemonRec
     
     '//Location
     X As Long
-    y As Long
+    Y As Long
     Dir As Byte
     
     '//Vital
@@ -139,7 +139,7 @@ Private Type MapNpcRec
     
     '//Location
     X As Long
-    y As Long
+    Y As Long
     Dir As Byte
     
     '//Client Only
@@ -155,7 +155,7 @@ Public Type PlayerPokemonRec
     
     '//Location
     X As Long
-    y As Long
+    Y As Long
     Dir As Byte
     
     '//For own index
@@ -231,7 +231,7 @@ Public Type PlayerRec
     '//Location
     Map As Long
     X As Long
-    y As Long
+    Y As Long
     Dir As Byte
 
     '//Vital
@@ -451,7 +451,7 @@ Public Type TilePosRec
     Used As Boolean
     ' Position of tile
     X As Integer
-    y As Integer
+    Y As Integer
 End Type
 
 Private Type NpcRec
@@ -525,7 +525,7 @@ Private Type PokemonRec
     EvYeildVal As Byte
     BaseExp As Long
     GrowthRate As Byte
-    Height As Long
+    height As Long
     Weight As Long
     Species As String * NAME_LENGTH
     PokeDexEntry As String * 250
@@ -649,6 +649,8 @@ End Type
 Private Type ShopItemRec
     Num As Long
     Price As Long
+    SellValueId As Long
+    SellValueType As Byte
 End Type
 
 Private Type ShopRec
@@ -746,7 +748,7 @@ Private Type CatchBallRec
     InUsed As Boolean
     Pic As Byte
     X As Long
-    y As Long
+    Y As Long
     State As Byte
     Frame As Byte
     FrameState As Byte
@@ -757,7 +759,7 @@ Private Type WeatherDropRec
     Pic As Long
     PicType As Byte
     X As Long
-    y As Long
+    Y As Long
     SpeedY As Long
 End Type
 
@@ -771,7 +773,7 @@ End Type
 
 Private Type CreditRec
     Text As String
-    y As Long
+    Y As Long
     StartY As Long
 End Type
 
@@ -787,11 +789,11 @@ Private Type ButtonRec
     
     '//Location
     X As Long
-    y As Long
+    Y As Long
     
     '//Size
-    Height As Long
-    Width As Long
+    height As Long
+    width As Long
     
     '//State
     State As Byte
@@ -804,15 +806,15 @@ Private Type GuiRec
     
     '//Location
     X As Long
-    y As Long
+    Y As Long
     OrigX As Long
     OrigY As Long
     
     '//Size
     StartX As Long
     StartY As Long
-    Height As Long
-    Width As Long
+    height As Long
+    width As Long
     
     '//Dragable
     InDrag As Boolean
@@ -821,8 +823,8 @@ Private Type GuiRec
 End Type
 
 Private Type ResolutionDataRec
-    Width As Long
-    Height As Long
+    width As Long
+    height As Long
 End Type
 
 Private Type ResolutionRec
@@ -837,8 +839,8 @@ Private Type SettingRec
     '//Video
     'Resolution As Byte
     Fullscreen As Byte
-    Width As Long
-    Height As Long
+    width As Long
+    height As Long
     
     '//Network
     RemoteHost As String
@@ -874,8 +876,8 @@ Private Type AlertRec
     Color As Long
     
     '//Size and Location
-    Width As Long
-    Height As Long
+    width As Long
+    height As Long
     
     SetYPos As Long
     CurYPos As Long
@@ -890,7 +892,7 @@ Public Type ChatBubbleRec
     target As Long
     targetType As Byte
     X As Long
-    y As Long
+    Y As Long
     
     '//Client data only
     timer As Long
@@ -904,7 +906,7 @@ Private Type SelMenuRec
     
     '//Location
     X As Long
-    y As Long
+    Y As Long
     
     '//Text
     MaxText As Byte
@@ -922,7 +924,7 @@ Private Type ActionMsgRec
     Color As Long
     Scroll As Long
     X As Long
-    y As Long
+    Y As Long
     timer As Long
     Alpha As Long
 End Type
@@ -931,7 +933,7 @@ End Type
 Private Type AnimInstanceRec
     Animation As Long
     X As Long
-    y As Long
+    Y As Long
     '//timing
     timer(0 To 1) As Long
     '//rendering check

@@ -118,7 +118,7 @@ Dim SetWidth As Long
     CanShowCursor = False
     InitCursorTimer = False
     If GameSetting.SkipBootUp = YES Then
-        InitGameState InMenu ', True
+        InitGameState InMenu
         CanShowCursor = True
         InitCursorTimer = True
     Else

@@ -781,6 +781,8 @@ End Type
 Private Type ShopItemRec
     Num As Long
     Price As Long
+    SellValueId As Long
+    SellValueType As Byte
 End Type
 
 Private Type ShopRec

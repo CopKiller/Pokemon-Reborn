@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form frmEditorShop 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Shop Editor"
-   ClientHeight    =   3930
+   ClientHeight    =   5775
    ClientLeft      =   150
    ClientTop       =   795
    ClientWidth     =   9270
@@ -11,41 +11,107 @@ Begin VB.Form frmEditorShop
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3930
+   ScaleHeight     =   5775
    ScaleWidth      =   9270
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
    Begin VB.Frame Frame2 
       Caption         =   "Properties"
-      Height          =   3735
+      Height          =   5655
       Left            =   3120
       TabIndex        =   2
       Top             =   0
       Width           =   6015
-      Begin VB.CheckBox Check1 
-         Caption         =   "Is Cash?"
-         Height          =   255
-         Left            =   2520
-         TabIndex        =   13
-         Top             =   3120
-         Visible         =   0   'False
-         Width           =   975
-      End
-      Begin VB.TextBox txtPrice 
+      Begin VB.TextBox txtFind 
          Height          =   285
-         Left            =   2760
-         TabIndex        =   12
-         Text            =   "0"
-         Top             =   3360
-         Visible         =   0   'False
-         Width           =   3255
+         Left            =   3720
+         TabIndex        =   15
+         Top             =   3000
+         Width           =   1935
+      End
+      Begin VB.Frame Frame4 
+         Caption         =   "Moeda de Troca"
+         Height          =   1815
+         Left            =   240
+         TabIndex        =   11
+         Top             =   3480
+         Width           =   5535
+         Begin VB.TextBox txtFind2 
+            Height          =   285
+            Left            =   3000
+            TabIndex        =   21
+            Top             =   1320
+            Width           =   1935
+         End
+         Begin VB.OptionButton optValue 
+            Caption         =   "Item"
+            Height          =   255
+            Index           =   1
+            Left            =   240
+            TabIndex        =   19
+            Top             =   720
+            Width           =   975
+         End
+         Begin VB.OptionButton optValue 
+            Caption         =   "Money"
+            Height          =   255
+            Index           =   0
+            Left            =   240
+            TabIndex        =   18
+            Top             =   360
+            Value           =   -1  'True
+            Width           =   975
+         End
+         Begin VB.HScrollBar scrlSellItemNum 
+            Height          =   255
+            Left            =   240
+            Max             =   0
+            TabIndex        =   17
+            Top             =   1320
+            Width           =   2295
+         End
+         Begin VB.TextBox txtPrice 
+            Height          =   285
+            Left            =   2160
+            TabIndex        =   12
+            Text            =   "0"
+            Top             =   600
+            Width           =   2055
+         End
+         Begin VB.Label Label5 
+            AutoSize        =   -1  'True
+            Caption         =   "Find:"
+            Height          =   195
+            Left            =   3000
+            TabIndex        =   20
+            Top             =   1080
+            Width           =   345
+         End
+         Begin VB.Label Label4 
+            AutoSize        =   -1  'True
+            Caption         =   "Item: None"
+            Height          =   195
+            Left            =   240
+            TabIndex        =   16
+            Top             =   1080
+            Width           =   780
+         End
+         Begin VB.Label lblMoney 
+            AutoSize        =   -1  'True
+            Caption         =   "Money"
+            Height          =   195
+            Left            =   1560
+            TabIndex        =   13
+            Top             =   600
+            Width           =   480
+         End
       End
       Begin VB.HScrollBar scrlItemNum 
          Height          =   255
-         Left            =   2520
+         Left            =   240
          Max             =   0
          TabIndex        =   10
-         Top             =   2760
+         Top             =   3000
          Width           =   3255
       End
       Begin VB.ListBox lstShopItem 
@@ -83,22 +149,22 @@ Begin VB.Form frmEditorShop
          Top             =   1440
          Width           =   135
       End
-      Begin VB.Label lblMoney 
-         AutoSize        =   -1  'True
-         Caption         =   "Money"
-         Height          =   195
-         Left            =   240
-         TabIndex        =   11
-         Top             =   3120
-         Width           =   480
+      Begin VB.Label Label3 
+         Caption         =   "Find:"
+         Height          =   255
+         Left            =   3720
+         TabIndex        =   14
+         Top             =   2760
+         Width           =   495
       End
       Begin VB.Label lblItemNum 
+         AutoSize        =   -1  'True
          Caption         =   "Item: None"
-         Height          =   255
+         Height          =   195
          Left            =   240
          TabIndex        =   9
          Top             =   2760
-         Width           =   5535
+         Width           =   780
       End
       Begin VB.Label Label2 
          Caption         =   "Shop Items"
@@ -119,13 +185,13 @@ Begin VB.Form frmEditorShop
    End
    Begin VB.Frame Frame1 
       Caption         =   "Index"
-      Height          =   3735
+      Height          =   5655
       Left            =   120
       TabIndex        =   0
       Top             =   0
       Width           =   2895
       Begin VB.ListBox lstIndex 
-         Height          =   3180
+         Height          =   5130
          Left            =   120
          TabIndex        =   1
          Top             =   240
@@ -172,7 +238,13 @@ End Sub
 
 Private Sub lstShopItem_Click()
     scrlItemNum.value = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Num
-    'txtPrice.Text = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Price
+    txtPrice.Text = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).Price
+    
+    scrlSellItemNum.max = MAX_ITEM
+    
+    If Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).SellValueType = 1 Then
+        scrlSellItemNum.value = Shop(EditorIndex).ShopItem(lstShopItem.ListIndex + 1).SellValueId
+    End If
 End Sub
 
 Private Sub mnuCancel_Click()
@@ -203,10 +275,29 @@ Dim i As Long
     'CloseShopEditor
 End Sub
 
+Private Sub optValue_Click(Index As Integer)
+    Dim shopIndex As Long
+    
+    shopIndex = lstShopItem.ListIndex + 1
+    If shopIndex = 0 Then Exit Sub
+    
+    Select Case Index
+        Case 0
+            lblMoney.Caption = "Money:"
+            scrlSellItemNum.Enabled = False
+            txtFind2.Enabled = False
+        Case 1
+            lblMoney.Caption = "Quant:"
+            scrlSellItemNum.Enabled = True
+            txtFind2.Enabled = True
+    End Select
+    
+    Shop(EditorIndex).ShopItem(shopIndex).SellValueType = Index
+End Sub
+
 Private Sub scrlItemNum_Change()
-Dim tmpIndex As Long
-Dim shopIndex As Long
-Dim Nomenclatura As String
+    Dim tmpIndex As Long
+    Dim shopIndex As Long
 
     shopIndex = lstShopItem.ListIndex + 1
     If shopIndex = 0 Then Exit Sub
@@ -214,16 +305,11 @@ Dim Nomenclatura As String
     Shop(EditorIndex).ShopItem(shopIndex).Num = scrlItemNum.value
     lstShopItem.RemoveItem shopIndex - 1
     If Shop(EditorIndex).ShopItem(shopIndex).Num > 0 Then
-    
-        Nomenclatura = "Money:"
-        If Item(Shop(EditorIndex).ShopItem(shopIndex).Num).IsCash = YES Then Nomenclatura = "Cash:"
-        
-        lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - " & Nomenclatura & "$" & Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price, shopIndex - 1
-        lblItemNum.Caption = "Item: " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name)
-        If Item(Shop(EditorIndex).ShopItem(shopIndex).Num).IsCash = YES Then
-            lblMoney.Caption = "Cash: " & Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price
+        If Shop(EditorIndex).ShopItem(shopIndex).SellValueType = 1 Then
+            lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - Item>" & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).SellValueId).Name) & ">" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
         Else
-            lblMoney.Caption = "Money: " & Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price
+            lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - $ " & Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price, shopIndex - 1
+            txtPrice.Text = Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price
         End If
     Else
         lstShopItem.AddItem shopIndex & ": None - Price: $ 0", shopIndex - 1
@@ -232,6 +318,114 @@ Dim Nomenclatura As String
     End If
     lstShopItem.ListIndex = tmpIndex
     EditorChange = True
+End Sub
+
+Private Sub scrlSellItemNum_Change()
+    Dim tmpIndex As Long
+    Dim shopIndex As Long
+
+    shopIndex = lstShopItem.ListIndex + 1
+    If shopIndex = 0 Then Exit Sub
+    If Shop(EditorIndex).ShopItem(shopIndex).SellValueType <> 1 Then Exit Sub
+
+    tmpIndex = lstShopItem.ListIndex
+    Shop(EditorIndex).ShopItem(shopIndex).SellValueId = scrlSellItemNum.value
+    lstShopItem.RemoveItem shopIndex - 1
+    If Shop(EditorIndex).ShopItem(shopIndex).Num > 0 Then
+        lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - Item" & ">" & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).SellValueId).Name) & ">" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
+    Else
+        lstShopItem.AddItem shopIndex & ": None - Item>>", shopIndex - 1
+    End If
+    lstShopItem.ListIndex = tmpIndex
+    EditorChange = True
+End Sub
+
+Private Sub txtFind_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_ITEM
+
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+
+    ' Nome deste controle
+    If Not IsNumeric(txtFind) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtFind))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                ' Atribuição da estrutura em procura
+                If InStr(1, UCase$(Trim$(Item(i).Name)), Find) > 0 Then
+                    ' Nome do controle a ser alterado
+                    scrlItemNum = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        ' Nome deste controle
+        If txtFind > MAX_INDEX Then
+            ' Nome deste controle
+            txtFind = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtFind <= 0 Then
+            ' Nome deste controle
+            txtFind = 1
+        End If
+        ' Nome do controle a ser alterado & Nome deste controle
+        scrlItemNum = txtFind
+    End If
+End Sub
+
+Private Sub txtFind2_Change()
+    Dim Find As String, i As Long
+    Dim MAX_INDEX As Integer, MinChar As Byte
+
+    ' Maior Índice  \/
+    MAX_INDEX = MAX_ITEM
+
+    ' Quantidade Mínima de caracteres pra procurar
+    MinChar = 2
+
+    ' Nome deste controle
+    If Not IsNumeric(txtFind2) Then
+        ' Nome deste controle
+        Find = UCase$(Trim$(txtFind2))
+        If Len(Find) <= MinChar And Not Find = "" Then
+            'lblAPoke = "Adicione mais letras."
+            Exit Sub
+        End If
+
+        For i = 1 To MAX_INDEX
+            If Not Find = "" Then
+                ' Atribuição da estrutura em procura
+                If InStr(1, UCase$(Trim$(Item(i).Name)), Find) > 0 Then
+                    ' Nome do controle a ser alterado
+                    scrlSellItemNum = i
+                    Exit Sub
+                End If
+            End If
+        Next
+    Else
+        ' Nome deste controle
+        If txtFind2 > MAX_INDEX Then
+            ' Nome deste controle
+            txtFind2 = MAX_INDEX
+            ' Nome deste controle
+        ElseIf txtFind2 <= 0 Then
+            ' Nome deste controle
+            txtFind2 = 1
+        End If
+        ' Nome do controle a ser alterado & Nome deste controle
+        scrlSellItemNum = txtFind2
+    End If
 End Sub
 
 Private Sub txtName_Validate(Cancel As Boolean)
@@ -247,23 +441,26 @@ Dim tmpIndex As Long
 End Sub
 
 Private Sub txtPrice_Change()
-'Dim tmpIndex As Long
-'Dim shopIndex As Long
+Dim tmpIndex As Long
+Dim shopIndex As Long
 
-'    shopIndex = lstShopItem.ListIndex + 1
-'    If shopIndex = 0 Then Exit Sub
-'    tmpIndex = lstShopItem.ListIndex
-'    If IsNumeric(txtPrice.Text) Then
-'        Shop(EditorIndex).ShopItem(shopIndex).Price = Val(txtPrice.Text)
-'    End If
-'    lstShopItem.RemoveItem shopIndex - 1
-'    If Shop(EditorIndex).ShopItem(shopIndex).Num > 0 Then
-'        lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
-'        lblItemNum.Caption = "Item: " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name)
-'    Else
-'        lstShopItem.AddItem shopIndex & ": None - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
-'        lblItemNum.Caption = "Item: None"
-'    End If
-'    lstShopItem.ListIndex = tmpIndex
-'    EditorChange = True
+    shopIndex = lstShopItem.ListIndex + 1
+    If shopIndex = 0 Then Exit Sub
+    tmpIndex = lstShopItem.ListIndex
+    If IsNumeric(txtPrice.Text) Then
+        Shop(EditorIndex).ShopItem(shopIndex).Price = Val(txtPrice.Text)
+    End If
+    lstShopItem.RemoveItem shopIndex - 1
+    If Shop(EditorIndex).ShopItem(shopIndex).Num > 0 Then
+
+        If Shop(EditorIndex).ShopItem(shopIndex).SellValueType = 1 Then
+            lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - Item>" & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & ">" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
+        Else
+            lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
+        End If
+    Else
+        lstShopItem.AddItem shopIndex & ": None - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
+    End If
+    lstShopItem.ListIndex = tmpIndex
+    EditorChange = True
 End Sub

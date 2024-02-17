@@ -2326,7 +2326,8 @@ End Sub
 
 Private Sub HandleBuyItem(ByVal index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
     Dim buffer As clsBuffer
-    Dim ShopSlot As Byte, ShopVal As Long, MoneyValue As Long, IsCash As Byte, ShopValue As Long
+    Dim ShopSlot As Byte, ShopVal As Long, MoneyValue As Long, ShopValue As Long
+    Dim playerItemInvSlot As Byte
 
     If Not IsPlaying(index) Then Exit Sub
     If TempPlayer(index).UseChar <= 0 Then Exit Sub
@@ -2344,29 +2345,17 @@ Private Sub HandleBuyItem(ByVal index As Long, ByRef Data() As Byte, ByVal Start
     '//Give Item
     With Player(index, TempPlayer(index).UseChar)
         ShopValue = (Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).Price * ShopVal)
-        IsCash = Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).IsCash
 
-        '//Vip Discount
-        If GetPlayerVipStatus(index) > EnumVipType.None Then
-            If ShopValue > 0 Then
-                ShopValue = ShopValue - ((ShopValue / 100) * VipSettings(GetPlayerVipStatus(index)).VipShopPrice)
-            End If
-        End If
+        Select Case Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).SellValueType
+        Case 0    'Money
 
-        If IsCash = YES Then
-            If .Cash >= ShopValue Then
-                If TryGivePlayerItem(index, Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
-                    .Cash = .Cash - ShopValue
-                    Select Case TempPlayer(index).CurLanguage
-                    Case LANG_PT: AddAlert index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).Name), White
-                    Case LANG_EN: AddAlert index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).Name), White
-                    Case LANG_ES: AddAlert index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).Name), White
-                    End Select
-
-                    Call SendPlayerCash(index)
+            '//Vip Discount
+            If GetPlayerVipStatus(index) > EnumVipType.None Then
+                If ShopValue > 0 Then
+                    ShopValue = ShopValue - ((ShopValue / 100) * VipSettings(GetPlayerVipStatus(index)).VipShopPrice)
                 End If
             End If
-        Else
+
             If .Money >= ShopValue Then
                 If TryGivePlayerItem(index, Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
                     .Money = .Money - ShopValue
@@ -2379,7 +2368,34 @@ Private Sub HandleBuyItem(ByVal index As Long, ByRef Data() As Byte, ByVal Start
                     Call SendPlayerCash(index)
                 End If
             End If
-        End If
+
+        Case 1    'Item
+
+            If Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).SellValueId > 0 Then
+                playerItemInvSlot = checkItem(index, Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).SellValueId)
+
+                If playerItemInvSlot > 0 Then
+                    If PlayerInv(index).Data(playerItemInvSlot).Value < Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Price Then
+                        Exit Sub
+                    Else
+                        If TryGivePlayerItem(index, Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
+                            
+                            PlayerInv(index).Data(playerItemInvSlot).Value = 0
+                            PlayerInv(index).Data(playerItemInvSlot).Num = 0
+                            PlayerInv(index).Data(playerItemInvSlot).TmrCooldown = 0
+                            Call SendPlayerInvSlot(index, playerItemInvSlot)
+                            
+                            Select Case TempPlayer(index).CurLanguage
+                            Case LANG_PT: AddAlert index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).Name), White
+                            Case LANG_EN: AddAlert index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).Name), White
+                            Case LANG_ES: AddAlert index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).Name), White
+                            End Select
+                        End If
+                    End If
+                End If
+            End If
+        End Select
+
     End With
 End Sub
 

@@ -99,8 +99,8 @@ Public Sub InitEditor_Map()
 End Sub
 
 Public Sub LoadTileset(ByVal tilesetNum As Long)
-Dim X As Long, y As Long
-Dim Width As Long, Height As Long
+Dim X As Long, Y As Long
+Dim width As Long, height As Long
     
     '//exit if there's no data
     If tilesetNum <= 0 Then Exit Sub
@@ -117,25 +117,25 @@ Dim Width As Long, Height As Long
         CurTileset = tilesetNum
         
         '//Set Scroll
-        Width = GetPicWidth(Tex_Tileset(CurTileset)) * 2
-        Height = GetPicHeight(Tex_Tileset(CurTileset)) * 2
-        X = (Width \ TILE_X) - (.picTileset.scaleWidth \ TILE_X)
+        width = GetPicWidth(Tex_Tileset(CurTileset)) * 2
+        height = GetPicHeight(Tex_Tileset(CurTileset)) * 2
+        X = (width \ TILE_X) - (.picTileset.scaleWidth \ TILE_X)
         If X >= 0 Then .scrlTileX.max = X
-        y = (Height \ TILE_Y) - (.picTileset.scaleHeight \ TILE_Y)
-        If y >= 0 Then .scrlTileY.max = y
+        Y = (height \ TILE_Y) - (.picTileset.scaleHeight \ TILE_Y)
+        If Y >= 0 Then .scrlTileY.max = Y
         
         .scrlTileX.value = 0
         .scrlTileY.value = 0
         EditorScrollX = 0
         EditorScrollY = 0
         '//horizontal scrolling
-        If Width < .picTileset.scaleWidth Then
+        If width < .picTileset.scaleWidth Then
             .scrlTileX.Enabled = False
         Else
             .scrlTileX.Enabled = True
         End If
         '//vertical scrolling
-        If Height < .picTileset.scaleHeight Then
+        If height < .picTileset.scaleHeight Then
             .scrlTileY.Enabled = False
         Else
             .scrlTileY.Enabled = True
@@ -143,13 +143,13 @@ Dim Width As Long, Height As Long
     End With
 End Sub
 
-Public Sub MapEditorChooseTile(Button As Integer, X As Single, y As Single, Optional ByVal Multiple As Boolean = False)
-Dim Width As Long, Height As Long
+Public Sub MapEditorChooseTile(Button As Integer, X As Single, Y As Single, Optional ByVal Multiple As Boolean = False)
+Dim width As Long, height As Long
 
     With frmEditor_Map
         '//Update X and Y value based on Scroll
         X = X + (EditorScrollX * TILE_X)
-        y = y + (EditorScrollY * TILE_Y)
+        Y = Y + (EditorScrollY * TILE_Y)
         
         If Button = vbLeftButton Then
             If Not Multiple Then
@@ -159,37 +159,37 @@ Dim Width As Long, Height As Long
                 
                 '//set data
                 EditorTileX = X \ TILE_X
-                EditorTileY = y \ TILE_Y
+                EditorTileY = Y \ TILE_Y
             Else
                 '//convert the pixel number to tile number
                 X = (X \ TILE_X) + 1
-                y = (y \ TILE_Y) + 1
+                Y = (Y \ TILE_Y) + 1
                 
                 '//check it's not out of bounds
-                Width = GetPicWidth(Tex_Tileset(CurTileset)) * 2
-                Height = GetPicHeight(Tex_Tileset(CurTileset)) * 2
+                width = GetPicWidth(Tex_Tileset(CurTileset)) * 2
+                height = GetPicHeight(Tex_Tileset(CurTileset)) * 2
                 If X < 0 Then X = 0
-                If X > Width / TILE_X Then X = Width / TILE_X
-                If y < 0 Then y = 0
-                If y > Height / TILE_Y Then y = Height / TILE_Y
+                If X > width / TILE_X Then X = width / TILE_X
+                If Y < 0 Then Y = 0
+                If Y > height / TILE_Y Then Y = height / TILE_Y
                 
                 '//find out what to set the width + height of map editor to
                 If X > EditorTileX Then ' drag right
                     EditorTileWidth = X - EditorTileX
                 End If
-                If y > EditorTileY Then ' drag down
-                    EditorTileHeight = y - EditorTileY
+                If Y > EditorTileY Then ' drag down
+                    EditorTileHeight = Y - EditorTileY
                 End If
             End If
         End If
     End With
 End Sub
 
-Public Sub MapEditorSetTile(ByVal X As Long, ByVal y As Long)
+Public Sub MapEditorSetTile(ByVal X As Long, ByVal Y As Long)
 Dim x2 As Long, Y2 As Long
     
     If EditorTileWidth = 1 And EditorTileHeight = 1 Then '//single
-        With Map.Tile(X, y)
+        With Map.Tile(X, Y)
             '//set layer
             .Layer(CurLayer, IsAnimated).Tile = CurTileset
             .Layer(CurLayer, IsAnimated).TileX = EditorTileX
@@ -198,12 +198,12 @@ Dim x2 As Long, Y2 As Long
         End With
     Else '//multitile
         Y2 = 0 '//starting tile for y axis
-        For y = curTileY To curTileY + EditorTileHeight - 1
+        For Y = curTileY To curTileY + EditorTileHeight - 1
             x2 = 0 '//re-set x count every y loop
             For X = curTileX To curTileX + EditorTileWidth - 1
                 If X >= 0 And X <= Map.MaxX Then
-                    If y >= 0 And y <= Map.MaxY Then
-                        With Map.Tile(X, y)
+                    If Y >= 0 And Y <= Map.MaxY Then
+                        With Map.Tile(X, Y)
                             .Layer(CurLayer, IsAnimated).Tile = CurTileset
                             .Layer(CurLayer, IsAnimated).TileX = EditorTileX + x2
                             .Layer(CurLayer, IsAnimated).TileY = EditorTileY + Y2
@@ -259,12 +259,12 @@ Dim TempFill As LayerRec
 End Sub
 
 Public Sub MapEditorFillLayer()
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 
     If MsgBox("Are you sure that you want to fill all tiles in this layer?", vbYesNo) = vbYes Then
         For X = 0 To Map.MaxX
-            For y = 0 To Map.MaxY
-                With Map.Tile(X, y)
+            For Y = 0 To Map.MaxY
+                With Map.Tile(X, Y)
                     '//set layer
                     .Layer(CurLayer, IsAnimated).Tile = CurTileset
                     .Layer(CurLayer, IsAnimated).TileX = EditorTileX
@@ -277,12 +277,12 @@ Dim X As Long, y As Long
 End Sub
 
 Public Sub MapEditorClearLayer()
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 
     If MsgBox("Are you sure that you want to clear all tiles in this layer?", vbYesNo) = vbYes Then
         For X = 0 To Map.MaxX
-            For y = 0 To Map.MaxY
-                With Map.Tile(X, y)
+            For Y = 0 To Map.MaxY
+                With Map.Tile(X, Y)
                     '//set layer
                     .Layer(CurLayer, IsAnimated).Tile = 0
                     .Layer(CurLayer, IsAnimated).TileX = 0
@@ -295,12 +295,12 @@ Dim X As Long, y As Long
 End Sub
 
 Public Sub MapEditorFillAttribute()
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 
     If MsgBox("Are you sure that you want to fill all attribute in this layer?", vbYesNo) = vbYes Then
         For X = 0 To Map.MaxX
-            For y = 0 To Map.MaxY
-                With Map.Tile(X, y)
+            For Y = 0 To Map.MaxY
+                With Map.Tile(X, Y)
                     '//set attribute
                     .Attribute = CurAttribute
                     .Data1 = EditorData1
@@ -314,12 +314,12 @@ Dim X As Long, y As Long
 End Sub
 
 Public Sub MapEditorClearAttribute()
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 
     If MsgBox("Are you sure that you want to clear all attribute in this layer?", vbYesNo) = vbYes Then
         For X = 0 To Map.MaxX
-            For y = 0 To Map.MaxY
-                With Map.Tile(X, y)
+            For Y = 0 To Map.MaxY
+                With Map.Tile(X, Y)
                     '//set attribute
                     .Attribute = 0
                     .Data1 = 0
@@ -333,15 +333,15 @@ Dim X As Long, y As Long
 End Sub
 
 Public Sub RandomPlaceLayer(ByVal Seed As Long)
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 Dim i As Long
 
     For i = 1 To Seed
         X = Rand(0, Map.MaxX)
-        y = Rand(0, Map.MaxY)
+        Y = Rand(0, Map.MaxY)
         
-        If IsValidMapPoint(X, y) Then
-            With Map.Tile(X, y)
+        If IsValidMapPoint(X, Y) Then
+            With Map.Tile(X, Y)
                 '//set layer
                 .Layer(CurLayer, IsAnimated).Tile = CurTileset
                 .Layer(CurLayer, IsAnimated).TileX = EditorTileX
@@ -410,19 +410,19 @@ Public Sub MapEditorSend()
     GettingMap = True
 End Sub
 
-Private Function CheckSameArea(ByRef ArrayData() As TilePosRec, ByVal X As Long, ByVal y As Long)
+Private Function CheckSameArea(ByRef ArrayData() As TilePosRec, ByVal X As Long, ByVal Y As Long)
 Dim i As Long
 
     For i = LBound(ArrayData) To UBound(ArrayData)
         If ArrayData(i).Used Then
-            If ArrayData(i).X = X And ArrayData(i).y = y Then
+            If ArrayData(i).X = X And ArrayData(i).Y = Y Then
                 CheckSameArea = True
             End If
         End If
     Next
 End Function
 
-Private Sub CheckTileMatch(ByRef ArrayData() As TilePosRec, ByVal X As Long, ByVal y As Long, ByRef CheckTile As LayerRec, ByRef TargetTile As LayerRec, ByRef Size As Long, ByRef Count As Long)
+Private Sub CheckTileMatch(ByRef ArrayData() As TilePosRec, ByVal X As Long, ByVal Y As Long, ByRef CheckTile As LayerRec, ByRef TargetTile As LayerRec, ByRef Size As Long, ByRef Count As Long)
 Dim TileMatched As Boolean
 
     ' Check matching
@@ -431,7 +431,7 @@ Dim TileMatched As Boolean
     End If
     
     ' Check if we already check this part
-    If Not CheckSameArea(ArrayData, X, y) Then
+    If Not CheckSameArea(ArrayData, X, Y) Then
         If TileMatched Then
             Count = Count + 1
             If Count >= Size Then
@@ -439,7 +439,7 @@ Dim TileMatched As Boolean
                 ReDim Preserve ArrayData(Size) As TilePosRec
             End If
             ArrayData(Count).Used = True
-            ArrayData(Count).y = y
+            ArrayData(Count).Y = Y
             ArrayData(Count).X = X
         End If
     End If
@@ -515,26 +515,26 @@ Dim CurSize As Long, Resized As Long
         ' Check if array in used
         If ArrayData(LoopCount).Used Then
                 ' Fill the tile
-                Map.Tile(ArrayData(LoopCount).X, ArrayData(LoopCount).y).Layer(Layer, LayerAnim) = ReplaceTile
+                Map.Tile(ArrayData(LoopCount).X, ArrayData(LoopCount).Y).Layer(Layer, LayerAnim) = ReplaceTile
             
                 ' ///////////////////////
                 ' //// Check Connect ////
                 ' ///////////////////////
                 ' Check north
-                If (ArrayData(LoopCount).y - 1) >= 0 Then
+                If (ArrayData(LoopCount).Y - 1) >= 0 Then
                     ' Check tile num
-                    ConnectLayer = Map.Tile(ArrayData(LoopCount).X, (ArrayData(LoopCount).y - 1)).Layer(Layer, LayerAnim)
-                    CheckTileMatch ArrayData, ArrayData(LoopCount).X, ArrayData(LoopCount).y - 1, CheckLayer, ConnectLayer, Size, Count
+                    ConnectLayer = Map.Tile(ArrayData(LoopCount).X, (ArrayData(LoopCount).Y - 1)).Layer(Layer, LayerAnim)
+                    CheckTileMatch ArrayData, ArrayData(LoopCount).X, ArrayData(LoopCount).Y - 1, CheckLayer, ConnectLayer, Size, Count
                     If CurSize <> Size Then
                         Resized = Resized + 1
                         CurSize = Size
                     End If
                 End If
                 ' Check south
-                If (ArrayData(LoopCount).y + 1) <= Map.MaxY Then
+                If (ArrayData(LoopCount).Y + 1) <= Map.MaxY Then
                     ' Check tile num
-                    ConnectLayer = Map.Tile(ArrayData(LoopCount).X, (ArrayData(LoopCount).y + 1)).Layer(Layer, LayerAnim)
-                    CheckTileMatch ArrayData, ArrayData(LoopCount).X, ArrayData(LoopCount).y + 1, CheckLayer, ConnectLayer, Size, Count
+                    ConnectLayer = Map.Tile(ArrayData(LoopCount).X, (ArrayData(LoopCount).Y + 1)).Layer(Layer, LayerAnim)
+                    CheckTileMatch ArrayData, ArrayData(LoopCount).X, ArrayData(LoopCount).Y + 1, CheckLayer, ConnectLayer, Size, Count
                     If CurSize <> Size Then
                         Resized = Resized + 1
                         CurSize = Size
@@ -543,8 +543,8 @@ Dim CurSize As Long, Resized As Long
                 ' Check west
                 If (ArrayData(LoopCount).X - 1) >= 0 Then
                     ' Check tile num
-                    ConnectLayer = Map.Tile((ArrayData(LoopCount).X - 1), ArrayData(LoopCount).y).Layer(Layer, LayerAnim)
-                    CheckTileMatch ArrayData, ArrayData(LoopCount).X - 1, ArrayData(LoopCount).y, CheckLayer, ConnectLayer, Size, Count
+                    ConnectLayer = Map.Tile((ArrayData(LoopCount).X - 1), ArrayData(LoopCount).Y).Layer(Layer, LayerAnim)
+                    CheckTileMatch ArrayData, ArrayData(LoopCount).X - 1, ArrayData(LoopCount).Y, CheckLayer, ConnectLayer, Size, Count
                     If CurSize <> Size Then
                         Resized = Resized + 1
                         CurSize = Size
@@ -553,8 +553,8 @@ Dim CurSize As Long, Resized As Long
                 ' Check east
                 If (ArrayData(LoopCount).X + 1) <= Map.MaxX Then
                     ' Check tile num
-                    ConnectLayer = Map.Tile((ArrayData(LoopCount).X + 1), ArrayData(LoopCount).y).Layer(Layer, LayerAnim)
-                    CheckTileMatch ArrayData, ArrayData(LoopCount).X + 1, ArrayData(LoopCount).y, CheckLayer, ConnectLayer, Size, Count
+                    ConnectLayer = Map.Tile((ArrayData(LoopCount).X + 1), ArrayData(LoopCount).Y).Layer(Layer, LayerAnim)
+                    CheckTileMatch ArrayData, ArrayData(LoopCount).X + 1, ArrayData(LoopCount).Y, CheckLayer, ConnectLayer, Size, Count
                     If CurSize <> Size Then
                         Resized = Resized + 1
                         CurSize = Size
@@ -774,7 +774,7 @@ Dim X As Byte
         .txtEVYeildVal.Text = Pokemon(xIndex).EvYeildVal
         .txtBaseExp.Text = Pokemon(xIndex).BaseExp
         .cmbGrowthRate.ListIndex = Pokemon(xIndex).GrowthRate
-        .txtHeight.Text = Pokemon(xIndex).Height
+        .txtHeight.Text = Pokemon(xIndex).height
         .txtWeight.Text = Pokemon(xIndex).Weight
         .txtSpecies.Text = Trim$(Pokemon(xIndex).Species)
         .txtPokedexEntry.Text = Trim$(Pokemon(xIndex).PokeDexEntry)
@@ -1327,7 +1327,7 @@ Dim i As Long
             .lstIndex.AddItem i & ": " & Trim$(Conversation(i).Name)
         Next
         .lstIndex.ListIndex = 0
-        ItemEditorLoadIndex .lstIndex.ListIndex + 1
+        ConversationEditorLoadIndex .lstIndex.ListIndex + 1
         
         '//No edit done
         EditorChange = False
@@ -1392,7 +1392,7 @@ Dim i As Long
             .lstIndex.AddItem i & ": " & Trim$(Shop(i).Name)
         Next
         .lstIndex.ListIndex = 0
-        ItemEditorLoadIndex .lstIndex.ListIndex + 1
+        ShopEditorLoadIndex .lstIndex.ListIndex + 1
         
         '//No edit done
         EditorChange = False
@@ -1403,7 +1403,6 @@ End Sub
 
 Public Sub ShopEditorLoadIndex(ByVal xIndex As Long)
 Dim i As Byte
-Dim Nomenclatura As String
 
     EditorIndex = xIndex
     
@@ -1415,19 +1414,22 @@ Dim Nomenclatura As String
         .lstShopItem.Clear
         For i = 1 To MAX_SHOP_ITEM
             If Shop(xIndex).ShopItem(i).Num > 0 Then
-            
-                Nomenclatura = "Money:"
-                If Item(Shop(xIndex).ShopItem(i).Num).IsCash = YES Then Nomenclatura = "Cash:"
-                
-                .lstShopItem.AddItem i & ": " & Trim$(Item(Shop(xIndex).ShopItem(i).Num).Name) & " - " & Nomenclatura & "$" & Shop(xIndex).ShopItem(i).Price
+                If Shop(xIndex).ShopItem(i).SellValueType = 1 Then
+                    .lstShopItem.AddItem i & ": " & Trim$(Item(Shop(xIndex).ShopItem(i).Num).Name) & " - Item>" & Shop(xIndex).ShopItem(i).Price
+                Else
+                    .lstShopItem.AddItem i & ": " & Trim$(Item(Shop(xIndex).ShopItem(i).Num).Name) & " - $ " & Shop(xIndex).ShopItem(i).Price
+                End If
             Else
-                .lstShopItem.AddItem i & ": None - Price: $0"
+                .lstShopItem.AddItem i & ": None - $ 0"
             End If
         Next
         .lstShopItem.ListIndex = 0
         
         .scrlItemNum.value = Shop(xIndex).ShopItem(1).Num
-        '.txtPrice.Text = Shop(xIndex).ShopItem(1).Price
+        .optValue(Shop(xIndex).ShopItem(1).SellValueType).value = True
+        
+        .scrlSellItemNum.max = MAX_ITEM
+        .scrlItemNum.max = MAX_ITEM
     End With
     
     ShopChange(xIndex) = True
