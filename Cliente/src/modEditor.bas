@@ -976,7 +976,7 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
             .lstItems.Clear
             For i = 1 To MAX_MYSTERY_BOX
                 If Item(EditorIndex).Item(i) > 0 Then
-                    .lstItems.AddItem i & ": " & Item(EditorIndex).itemValue(i) & "x - " & Trim$(Item(Item(EditorIndex).Item(i)).Name) & Item(EditorIndex).ItemChance(i) & "%"
+                    .lstItems.AddItem i & ": " & Item(EditorIndex).ItemValue(i) & "x - " & Trim$(Item(Item(EditorIndex).Item(i)).Name) & Item(EditorIndex).ItemChance(i) & "%"
                     Chance = Chance + Item(EditorIndex).ItemChance(i)
                 Else
                     .lstItems.AddItem i & ": No Items"
@@ -1236,6 +1236,8 @@ Public Sub InitEditor_Spawn()
                 Else
                     .lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ": No Map Or Random"
                 End If
+            Else
+                .lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ":"
             End If
         Next
 
