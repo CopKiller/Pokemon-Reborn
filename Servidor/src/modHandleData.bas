@@ -2375,12 +2375,12 @@ Private Sub HandleBuyItem(ByVal index As Long, ByRef Data() As Byte, ByVal Start
                 playerItemInvSlot = checkItem(index, Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).SellValueId)
 
                 If playerItemInvSlot > 0 Then
-                    If PlayerInv(index).Data(playerItemInvSlot).Value < Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Price Then
+                    If (PlayerInv(index).Data(playerItemInvSlot).Value * ShopVal) < Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Price Then
                         Exit Sub
                     Else
                         If TryGivePlayerItem(index, Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
 
-                            PlayerInv(index).Data(playerItemInvSlot).Value = PlayerInv(index).Data(playerItemInvSlot).Value - Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Price
+                            PlayerInv(index).Data(playerItemInvSlot).Value = PlayerInv(index).Data(playerItemInvSlot).Value - (Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Price * ShopVal)
 
                             If PlayerInv(index).Data(playerItemInvSlot).Value <= 0 Then
                                 PlayerInv(index).Data(playerItemInvSlot).Num = 0

@@ -1237,7 +1237,7 @@ Public Sub InitEditor_Spawn()
                     .lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ": No Map Or Random"
                 End If
             Else
-                .lstMapPokemon.AddItem i & ": " & Trim$(Pokemon(Spawn(i).PokeNum).Name) & ":"
+                .lstMapPokemon.AddItem i & ": "
             End If
         Next
 
