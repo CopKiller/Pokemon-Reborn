@@ -117,6 +117,14 @@ Public Sub HandlePlayerTravel(ByVal index As Long, ByRef Data() As Byte, ByVal S
     If Player(index, TempPlayer(index).UseChar).Action > 0 Then
         Exit Sub
     End If
+    If PlayerPokemon(index).Num <> 0 Then
+        Select Case TempPlayer(index).CurLanguage
+        Case LANG_PT: AddAlert index, "Remova seu pokemon do mapa antes!", White
+        Case LANG_EN: AddAlert index, "Remova seu pokemon do mapa antes!", White
+        Case LANG_ES: AddAlert index, "Remova seu pokemon do mapa antes!", White
+        End Select
+        Exit Sub
+    End If
 
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
@@ -143,7 +151,7 @@ Public Sub HandlePlayerTravel(ByVal index As Long, ByRef Data() As Byte, ByVal S
                     .Money = .Money - Map(travelSlot).MapTravel.CostValue
                     Call PlayerWarp(index, travelSlot, Map(travelSlot).MapTravel.x, Map(travelSlot).MapTravel.Y, DIR_DOWN)
                     Call SendPlayerCash(index)
-                    
+
                     Select Case TempPlayer(index).CurLanguage
                     Case LANG_PT: AddAlert index, "Você foi teleportado para " & Trim$(Map(travelSlot).Name), White
                     Case LANG_EN: AddAlert index, "Você foi teleportado para " & Trim$(Map(travelSlot).Name), White

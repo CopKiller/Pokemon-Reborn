@@ -2379,12 +2379,15 @@ Private Sub HandleBuyItem(ByVal index As Long, ByRef Data() As Byte, ByVal Start
                         Exit Sub
                     Else
                         If TryGivePlayerItem(index, Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
-                            
-                            PlayerInv(index).Data(playerItemInvSlot).Value = 0
-                            PlayerInv(index).Data(playerItemInvSlot).Num = 0
-                            PlayerInv(index).Data(playerItemInvSlot).TmrCooldown = 0
+
+                            PlayerInv(index).Data(playerItemInvSlot).Value = PlayerInv(index).Data(playerItemInvSlot).Value - Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Price
+
+                            If PlayerInv(index).Data(playerItemInvSlot).Value <= 0 Then
+                                PlayerInv(index).Data(playerItemInvSlot).Num = 0
+                                PlayerInv(index).Data(playerItemInvSlot).TmrCooldown = 0
+                            End If
                             Call SendPlayerInvSlot(index, playerItemInvSlot)
-                            
+
                             Select Case TempPlayer(index).CurLanguage
                             Case LANG_PT: AddAlert index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).Name), White
                             Case LANG_EN: AddAlert index, "You have successfully bought x" & ShopVal & " " & Trim$(Item(Shop(TempPlayer(index).InShop).ShopItem(ShopSlot).Num).Name), White
