@@ -85,6 +85,10 @@ Ok- Alteração no Shop Editor. 35
 	-Adicionar para usar money ou um item específico, para negociar pelo item do shop.
 	-Adicionar no shop, para carregar a foto do item que vai ser a moeda de troca.
 
+Ok- Correção no trade, não tinha verificação de tipo adicionado ao trade verificando se o slot selecionado ja estava em trade. 15
+
+Ok- Correções gerais em bugs. 0
+
 Total 601
 Pago 250
 

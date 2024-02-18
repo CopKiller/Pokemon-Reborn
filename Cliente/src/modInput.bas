@@ -2117,11 +2117,20 @@ Private Sub InputBoxKeyPress(KeyAscii As Integer)
                 Dim itemHandler As Long
                 itemHandler = CheckPlayerHasItemValue(Shop(ShopNum).ShopItem(InputBoxData1).SellValueId, Shop(ShopNum).ShopItem(InputBoxData1).Price)
                 If (Shop(ShopNum).ShopItem(InputBoxData1).Price * Val(InputBoxText)) > itemHandler Then
-                    InputBoxText = Round(itemHandler / Shop(ShopNum).ShopItem(InputBoxData1).Price, 0)
+                    InputBoxText = Round(itemHandler \ Shop(ShopNum).ShopItem(InputBoxData1).Price, 0)
                 End If
             Else
-                If (Shop(ShopNum).ShopItem(InputBoxData1).Price * Val(InputBoxText)) > Player(MyIndex).Money Then
-                    InputBoxText = Round(Player(MyIndex).Money / Shop(ShopNum).ShopItem(InputBoxData1).Price, 0)
+                Dim priceDescount As Long
+                priceDescount = Shop(ShopNum).ShopItem(InputBoxData1).Price
+
+                If GetPlayerVipStatus(MyIndex) > EnumVipType.None Then
+                    If VipAdvantage.ShopPriceValue > 0 Then
+                        priceDescount = priceDescount - ((priceDescount / 100) * VipAdvantage.ShopPriceValue)
+                    End If
+                End If
+
+                If (priceDescount * Val(InputBoxText)) > Player(MyIndex).Money Then
+                    InputBoxText = Round(Player(MyIndex).Money \ priceDescount, 0)
                 End If
             End If
         End If
@@ -2135,14 +2144,14 @@ Private Sub InputBoxKeyPress(KeyAscii As Integer)
     End Select
 End Sub
 
-Public Function CheckPlayerHasItemValue(ByVal ItemNum As Long, ByVal itemValue As Long) As Long
+Public Function CheckPlayerHasItemValue(ByVal ItemNum As Long, ByVal ItemValue As Long) As Long
     Dim i As Long
     
     CheckPlayerHasItemValue = 0
     
     For i = 1 To MAX_PLAYER_INV
         If PlayerInv(i).Num = ItemNum Then
-            If PlayerInv(i).value >= itemValue Then
+            If PlayerInv(i).value >= ItemValue Then
                 CheckPlayerHasItemValue = PlayerInv(i).value
             End If
         End If

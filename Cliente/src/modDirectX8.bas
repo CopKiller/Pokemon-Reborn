@@ -3908,11 +3908,11 @@ Private Sub DrawShop()
                     '//Price
                     '//ToDo: Convert, 1k, 1m , etc.
                     pricetext = Shop(ShopNum).ShopItem(i).Price
+                    
+                    
                     If pricetext > 0 Then
                         If Shop(ShopNum).ShopItem(i).SellValueType = 0 Then
-                            If GetPlayerVipStatus(MyIndex) > EnumVipType.None Then
-                                pricetext = pricetext - ((pricetext / 100) * VipAdvantage.ShopPriceValue)
-                            End If
+                            pricetext = GetVipDiscountValue(pricetext)
                         End If
                     End If
 
@@ -3940,9 +3940,11 @@ Private Sub DrawShop()
                         RenderText Font_Default, pricetext, (.X + DrawX + 12) + ((103 / 2) - (GetTextWidth(Font_Default, pricetext) / 2)), (.y + DrawY + 44) + 1, D3DColorRGBA(100, 100, 100, 255), False
                     End If
 
-                    If GetPlayerVipStatus(MyIndex) > EnumVipType.None Then
-                        If VipAdvantage.ShopPriceValue > 0 Then
-                            RenderText Ui_Default, "-" & VipAdvantage.ShopPriceValue & "%", .X + DrawX + 95, .y + DrawY + 55, Yellow, True
+                    If Shop(ShopNum).ShopItem(i).SellValueType = 0 Then
+                        If GetPlayerVipStatus(MyIndex) > EnumVipType.None Then
+                            If VipAdvantage.ShopPriceValue > 0 Then
+                                RenderText Ui_Default, "-" & VipAdvantage.ShopPriceValue & "%", .X + DrawX + 95, .y + DrawY + 55, Yellow, True
+                            End If
                         End If
                     End If
 

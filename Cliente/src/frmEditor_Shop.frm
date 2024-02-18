@@ -305,12 +305,13 @@ Private Sub scrlItemNum_Change()
     Shop(EditorIndex).ShopItem(shopIndex).Num = scrlItemNum.value
     lstShopItem.RemoveItem shopIndex - 1
     If Shop(EditorIndex).ShopItem(shopIndex).Num > 0 Then
-        If Shop(EditorIndex).ShopItem(shopIndex).SellValueType = 1 Then
+        If Shop(EditorIndex).ShopItem(shopIndex).SellValueType = 1 And Shop(EditorIndex).ShopItem(shopIndex).SellValueId > 0 Then
             lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - Item>" & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).SellValueId).Name) & ">" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
         Else
-            lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - $ " & Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price, shopIndex - 1
-            txtPrice.Text = Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price
+            lstShopItem.AddItem shopIndex & ": " & Trim$(Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Name) & " - $ " & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
         End If
+        Shop(EditorIndex).ShopItem(shopIndex).Price = Item(Shop(EditorIndex).ShopItem(shopIndex).Num).Price
+        txtPrice.Text = Shop(EditorIndex).ShopItem(shopIndex).Price
     Else
         lstShopItem.AddItem shopIndex & ": None - Price: $ 0", shopIndex - 1
         lblItemNum.Caption = "Item: None"
@@ -461,6 +462,7 @@ Dim shopIndex As Long
     Else
         lstShopItem.AddItem shopIndex & ": None - Price: $" & Shop(EditorIndex).ShopItem(shopIndex).Price, shopIndex - 1
     End If
+    
     lstShopItem.ListIndex = tmpIndex
     EditorChange = True
 End Sub

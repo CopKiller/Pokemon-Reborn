@@ -622,7 +622,8 @@ Public Sub DrawPlayerName(ByVal Index As Long)
 
                 '//Vip
                 If GetPlayerVipStatus(Index) > EnumVipType.None Then
-                    RenderTexture Tex_Misc(Misc_Vip), (textX - 2) + (((GetTextWidth(Font_Default, Name) + 8) / 2) - 10), textY + 10 + 2, (GetPlayerVipStatus(Index) - 1) * 10, 0, 21, 16, 21, 16
+                    RenderTexture Tex_System(gSystemEnum.UserInterface), textX - 21, textY, 0, 8, 10 + 8, 18, 1, 1, D3DColorARGB(100, 0, 0, 0)
+                    RenderTexture Tex_Misc(Misc_Vip), (textX - 17), textY + 1, (GetPlayerVipStatus(Index) - 1) * 10, 0, 10, 16, 10, 16
                 End If
             End If
         Else

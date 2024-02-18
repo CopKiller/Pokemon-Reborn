@@ -47,3 +47,19 @@ End Function
 Public Sub SetPlayerVipDays(ByVal Index As Long, ByVal daysValue As Long)
     Player(Index).Vip.VipDays = daysValue
 End Sub
+
+
+Public Function GetVipDiscountValue(ByVal value As Long) As Long
+    GetVipDiscountValue = value
+
+    If GetPlayerVipStatus(MyIndex) > EnumVipType.None Then
+        If value > 0 Then
+
+            value = value - ((value / 100) * VipAdvantage.ShopPriceValue)
+
+            If value <= GetVipDiscountValue Then
+                GetVipDiscountValue = value
+            End If
+        End If
+    End If
+End Function

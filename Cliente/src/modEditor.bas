@@ -1419,8 +1419,8 @@ Dim i As Byte
         .lstShopItem.Clear
         For i = 1 To MAX_SHOP_ITEM
             If Shop(xIndex).ShopItem(i).Num > 0 Then
-                If Shop(xIndex).ShopItem(i).SellValueType = 1 Then
-                    .lstShopItem.AddItem i & ": " & Trim$(Item(Shop(xIndex).ShopItem(i).Num).Name) & " - Item>" & Shop(xIndex).ShopItem(i).Price
+                If Shop(xIndex).ShopItem(i).SellValueType = 1 And Shop(xIndex).ShopItem(i).SellValueId > 0 Then
+                    .lstShopItem.AddItem i & ": " & Trim$(Item(Shop(xIndex).ShopItem(i).Num).Name) & " - Item>" & Trim$(Item(Shop(xIndex).ShopItem(i).SellValueId).Name) & ">" & Shop(xIndex).ShopItem(i).Price
                 Else
                     .lstShopItem.AddItem i & ": " & Trim$(Item(Shop(xIndex).ShopItem(i).Num).Name) & " - $ " & Shop(xIndex).ShopItem(i).Price
                 End If

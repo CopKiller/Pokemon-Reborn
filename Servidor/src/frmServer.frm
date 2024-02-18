@@ -1,7 +1,7 @@
 VERSION 5.00
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "Mswinsck.ocx"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "Tabctl32.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form frmServer 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "PokeNew "
@@ -31,8 +31,8 @@ Begin VB.Form frmServer
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtLog"
-      Tab(0).Control(1)=   "txtCommand"
+      Tab(0).Control(0)=   "txtCommand"
+      Tab(0).Control(1)=   "txtLog"
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
       TabPicture(1)   =   "frmServer.frx":001C
@@ -54,8 +54,8 @@ Begin VB.Form frmServer
       TabCaption(3)   =   "Editores"
       TabPicture(3)   =   "frmServer.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "cmdVipSettings"
-      Tab(3).Control(1)=   "cmdEditStore"
+      Tab(3).Control(0)=   "cmdEditStore"
+      Tab(3).Control(1)=   "cmdVipSettings"
       Tab(3).ControlCount=   2
       Begin VB.CommandButton cmdVipSettings 
          Caption         =   "Edit Vip Settings"
@@ -438,15 +438,13 @@ Private Sub cmdExp_Click()
                 For i = 1 To Player_HighIndex
                     If IsPlaying(i) Then
                         If TempPlayer(i).UseChar > 0 Then
-                            If Player(i, TempPlayer(i).UseChar).Access <= 0 Then
-                                Select Case TempPlayer(i).CurLanguage
-                                Case LANG_PT: AddAlert i, "Event Exp Activated.", White
-                                Case LANG_EN: AddAlert i, "Event Exp Activated.", White
-                                Case LANG_ES: AddAlert i, "Event Exp Activated.", White
-                                End Select
+                            Select Case TempPlayer(i).CurLanguage
+                            Case LANG_PT: AddAlert i, "Event Exp Activated.", White
+                            Case LANG_EN: AddAlert i, "Event Exp Activated.", White
+                            Case LANG_ES: AddAlert i, "Event Exp Activated.", White
+                            End Select
 
-                                SendEventInfo i
-                            End If
+                            SendEventInfo i
                         End If
                     End If
                 Next
@@ -465,15 +463,13 @@ Private Sub cmdExp_Click()
                 For i = 1 To Player_HighIndex
                     If IsPlaying(i) Then
                         If TempPlayer(i).UseChar > 0 Then
-                            If Player(i, TempPlayer(i).UseChar).Access <= 0 Then
-                                Select Case TempPlayer(i).CurLanguage
-                                Case LANG_PT: AddAlert i, "Event Exp Desactivated.", BrightRed
-                                Case LANG_EN: AddAlert i, "Event Exp Desactivated.", BrightRed
-                                Case LANG_ES: AddAlert i, "Event Exp Desactivated.", BrightRed
-                                End Select
+                            Select Case TempPlayer(i).CurLanguage
+                            Case LANG_PT: AddAlert i, "Event Exp Desactivated.", BrightRed
+                            Case LANG_EN: AddAlert i, "Event Exp Desactivated.", BrightRed
+                            Case LANG_ES: AddAlert i, "Event Exp Desactivated.", BrightRed
+                            End Select
 
-                                SendEventInfo i
-                            End If
+                            SendEventInfo i
                         End If
                     End If
                 Next

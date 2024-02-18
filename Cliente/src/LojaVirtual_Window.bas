@@ -457,9 +457,11 @@ Public Sub VirtualShopMouseDown(Buttons As Integer, Shift As Integer, X As Singl
                         End If
 
                     Case ButtonEnum.VirtualShop_Buy
-                        If PlayerHaveCashValue(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemPrice) = True Then
-                            PurchaseVirtualShop VirtualShopIndex, VirtualShopSlot
-                            SetSlotSelectedFromVirtualShop 0
+                        If VirtualShopSlot > 0 Then
+                            If PlayerHaveCashValue(VirtualShop(VirtualShopIndex).Items(VirtualShopSlot).ItemPrice) = True Then
+                                PurchaseVirtualShop VirtualShopIndex, VirtualShopSlot
+                                SetSlotSelectedFromVirtualShop 0
+                            End If
                         End If
                     End Select
                 End If

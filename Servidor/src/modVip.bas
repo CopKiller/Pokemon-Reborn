@@ -30,115 +30,134 @@ End Type
 Private CheckVipTimer As Long
 Private Const CheckcVipInterval As Long = 3600000 ' A cada 1 hora verifica o vip de todos os jogadores
 
-Public Function GetPlayerVipStatus(ByVal index As Long) As Byte
-    GetPlayerVipStatus = Player(index, TempPlayer(index).UseChar).Vip.vipType
+Public Function GetPlayerVipStatus(ByVal Index As Long) As Byte
+    GetPlayerVipStatus = Player(Index, TempPlayer(Index).UseChar).Vip.vipType
 End Function
 
-Private Sub SetPlayerVipStatus(ByVal index As Long, ByVal vipValue As EnumVipType)
-    Player(index, TempPlayer(index).UseChar).Vip.vipType = vipValue
+Private Sub SetPlayerVipStatus(ByVal Index As Long, ByVal vipValue As EnumVipType)
+    Player(Index, TempPlayer(Index).UseChar).Vip.vipType = vipValue
 End Sub
 
-Private Function GetPlayerVipDate(ByVal index As Long) As Date
-    GetPlayerVipDate = Player(index, TempPlayer(index).UseChar).Vip.VipDate
+Private Function GetPlayerVipDate(ByVal Index As Long) As Date
+    GetPlayerVipDate = Player(Index, TempPlayer(Index).UseChar).Vip.VipDate
 End Function
 
-Private Sub SetPlayerVipDate(ByVal index As Long, ByVal dateValue As Date)
-    Player(index, TempPlayer(index).UseChar).Vip.VipDate = dateValue
+Private Sub SetPlayerVipDate(ByVal Index As Long, ByVal dateValue As Date)
+    Player(Index, TempPlayer(Index).UseChar).Vip.VipDate = dateValue
 End Sub
 
 '//Vip days usado para comparações na lógica
-Private Function GetPlayerVipDays(ByVal index As Long) As Long
-    GetPlayerVipDays = Player(index, TempPlayer(index).UseChar).Vip.VipDays
+Private Function GetPlayerVipDays(ByVal Index As Long) As Long
+    GetPlayerVipDays = Player(Index, TempPlayer(Index).UseChar).Vip.VipDays
 End Function
 
 '//Vip days para obter quantos dias faltam para acabar o vip do jogador
-Public Function GetPlayerVipDaysNow(ByVal index As Long) As Long
-    GetPlayerVipDaysNow = Player(index, TempPlayer(index).UseChar).Vip.VipDays - DateDiff("d", GetPlayerVipDate(index), Date)
+Public Function GetPlayerVipDaysNow(ByVal Index As Long) As Long
+    GetPlayerVipDaysNow = Player(Index, TempPlayer(Index).UseChar).Vip.VipDays - DateDiff("d", GetPlayerVipDate(Index), Date)
 End Function
 
-Private Sub SetPlayerVipDays(ByVal index As Long, ByVal daysValue As Long)
-    Player(index, TempPlayer(index).UseChar).Vip.VipDays = daysValue
+Private Sub SetPlayerVipDays(ByVal Index As Long, ByVal daysValue As Long)
+    Player(Index, TempPlayer(Index).UseChar).Vip.VipDays = daysValue
 End Sub
 
+
+
+
+Public Function GetVipDiscountValue(ByVal Index As Long, ByVal value As Long) As Long
+    GetVipDiscountValue = value
+
+    If GetPlayerVipStatus(Index) > EnumVipType.None Then
+        If value > 0 Then
+
+            value = ((value / 100) * VipSettings(GetPlayerVipStatus(Index)).VipShopPrice)
+
+            If value <= GetVipDiscountValue Then
+                GetVipDiscountValue = value
+            End If
+        End If
+    End If
+End Function
+
+
 Public Sub CheckVipLoop()
-    Dim index As Long
+    Dim Index As Long
     If CheckVipTimer <= GetTickCount Then
-        For index = 1 To Player_HighIndex
-            If IsPlaying(index) Then
+        For Index = 1 To Player_HighIndex
+            If IsPlaying(Index) Then
                 ' Check Vip
-                If GetPlayerVipStatus(index) > EnumVipType.None Then
-                    If DateDiff("d", GetPlayerVipDate(index), Date) >= GetPlayerVipDays(index) Then
-                        Call SetPlayerVipStatus(index, None)
-                        Call SetPlayerVipDays(index, 0)
-                        Call SendPlayerData(index)
-                        Select Case TempPlayer(index).CurLanguage
-                        Case LANG_PT: SendPlayerMsg index, "Seus dias de VIP acabaram...", BrightRed
-                        Case LANG_EN: SendPlayerMsg index, "Seus dias de VIP acabaram...", BrightRed
-                        Case LANG_ES: SendPlayerMsg index, "Seus dias de VIP acabaram...", BrightRed
+                If GetPlayerVipStatus(Index) > EnumVipType.None Then
+                    If DateDiff("d", GetPlayerVipDate(Index), Date) >= GetPlayerVipDays(Index) Then
+                        Call SetPlayerVipStatus(Index, None)
+                        Call SetPlayerVipDays(Index, 0)
+                        Call SendPlayerData(Index)
+                        Select Case TempPlayer(Index).CurLanguage
+                        Case LANG_PT: SendPlayerMsg Index, "Seus dias de VIP acabaram...", BrightRed
+                        Case LANG_EN: SendPlayerMsg Index, "Seus dias de VIP acabaram...", BrightRed
+                        Case LANG_ES: SendPlayerMsg Index, "Seus dias de VIP acabaram...", BrightRed
                         End Select
                     End If
                 End If
             End If
-        Next index
+        Next Index
 
         CheckVipTimer = GetTickCount + CheckcVipInterval
     End If
 End Sub
 
-Public Sub CheckVipJoinGame(ByVal index As Long)
+Public Sub CheckVipJoinGame(ByVal Index As Long)
 ' Check Vip
-    If GetPlayerVipStatus(index) > EnumVipType.None Then
-        If DateDiff("d", GetPlayerVipDate(index), Date) < GetPlayerVipDays(index) Then
+    If GetPlayerVipStatus(Index) > EnumVipType.None Then
+        If DateDiff("d", GetPlayerVipDate(Index), Date) < GetPlayerVipDays(Index) Then
         
-            Select Case TempPlayer(index).CurLanguage
-            Case LANG_PT: SendPlayerMsg index, "Obrigado por adquirir seu VIP, bom jogo!", White
-            Case LANG_EN: SendPlayerMsg index, "Obrigado por adquirir seu VIP, bom jogo!", White
-            Case LANG_ES: SendPlayerMsg index, "Obrigado por adquirir seu VIP, bom jogo!", White
+            Select Case TempPlayer(Index).CurLanguage
+            Case LANG_PT: SendPlayerMsg Index, "Obrigado por adquirir seu VIP, bom jogo!", White
+            Case LANG_EN: SendPlayerMsg Index, "Obrigado por adquirir seu VIP, bom jogo!", White
+            Case LANG_ES: SendPlayerMsg Index, "Obrigado por adquirir seu VIP, bom jogo!", White
             End Select
             
-        ElseIf DateDiff("d", GetPlayerVipDate(index), Date) >= GetPlayerVipDays(index) Then
-            Call SetPlayerVipStatus(index, None)
-            Call SetPlayerVipDays(index, 0)
+        ElseIf DateDiff("d", GetPlayerVipDate(Index), Date) >= GetPlayerVipDays(Index) Then
+            Call SetPlayerVipStatus(Index, None)
+            Call SetPlayerVipDays(Index, 0)
             
-            Select Case TempPlayer(index).CurLanguage
-            Case LANG_PT: SendPlayerMsg index, "Seus dias de VIP acabaram... bom jogo!", BrightRed
-            Case LANG_EN: SendPlayerMsg index, "Seus dias de VIP acabaram... bom jogo!", BrightRed
-            Case LANG_ES: SendPlayerMsg index, "Seus dias de VIP acabaram... bom jogo!", BrightRed
+            Select Case TempPlayer(Index).CurLanguage
+            Case LANG_PT: SendPlayerMsg Index, "Seus dias de VIP acabaram... bom jogo!", BrightRed
+            Case LANG_EN: SendPlayerMsg Index, "Seus dias de VIP acabaram... bom jogo!", BrightRed
+            Case LANG_ES: SendPlayerMsg Index, "Seus dias de VIP acabaram... bom jogo!", BrightRed
             End Select
         End If
     End If
 End Sub
 
-Public Function AddVip(ByVal index As Long, ByVal vipType As EnumVipType, ByVal daysValue As Long) As Boolean
+Public Function AddVip(ByVal Index As Long, ByVal vipType As EnumVipType, ByVal daysValue As Long) As Boolean
 
-    If IsPlaying(index) Then
-        If GetPlayerVipStatus(index) > EnumVipType.None Then
+    If IsPlaying(Index) Then
+        If GetPlayerVipStatus(Index) > EnumVipType.None Then
 
-            If GetPlayerVipStatus(index) <> vipType Then
-                Select Case TempPlayer(index).CurLanguage
-                Case LANG_PT: SendPlayerMsg index, "Vip diferente do atual, aguarde o seu finalizar!", White
-                Case LANG_EN: SendPlayerMsg index, "Vip diferente do atual, aguarde o seu finalizar!", White
-                Case LANG_ES: SendPlayerMsg index, "Vip diferente do atual, aguarde o seu finalizar!", White
+            If GetPlayerVipStatus(Index) <> vipType Then
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: SendPlayerMsg Index, "Vip diferente do atual, aguarde o seu finalizar!", White
+                Case LANG_EN: SendPlayerMsg Index, "Vip diferente do atual, aguarde o seu finalizar!", White
+                Case LANG_ES: SendPlayerMsg Index, "Vip diferente do atual, aguarde o seu finalizar!", White
                 End Select
                 Exit Function
             Else
-                Call SetPlayerVipDays(index, GetPlayerVipDays(index) + daysValue)
-                Call SendPlayerData(index)
+                Call SetPlayerVipDays(Index, GetPlayerVipDays(Index) + daysValue)
+                Call SendPlayerData(Index)
                 AddVip = True
-                Select Case TempPlayer(index).CurLanguage
-                Case LANG_PT: SendPlayerMsg index, "Foi acrescentado em seu vip " & daysValue & " dias!", White
-                Case LANG_EN: SendPlayerMsg index, "Foi acrescentado em seu vip " & daysValue & " dias!", White
-                Case LANG_ES: SendPlayerMsg index, "Foi acrescentado em seu vip " & daysValue & " dias!", White
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: SendPlayerMsg Index, "Foi acrescentado em seu vip " & daysValue & " dias!", White
+                Case LANG_EN: SendPlayerMsg Index, "Foi acrescentado em seu vip " & daysValue & " dias!", White
+                Case LANG_ES: SendPlayerMsg Index, "Foi acrescentado em seu vip " & daysValue & " dias!", White
                 End Select
             End If
         Else
-            Call SetPlayerVipStatus(index, vipType)
-            Call SetPlayerVipDate(index, Date)
-            Call SetPlayerVipDays(index, daysValue)
-            Call SendVipAdvantageTo(index)
-            Call SendPlayerData(index)
+            Call SetPlayerVipStatus(Index, vipType)
+            Call SetPlayerVipDate(Index, Date)
+            Call SetPlayerVipDays(Index, daysValue)
+            Call SendVipAdvantageTo(Index)
+            Call SendPlayerData(Index)
             AddVip = True
-            Call SendGlobalMsg("Player " & GetPlayerName(index) & " became VIP!", Green)
+            Call SendGlobalMsg("Player " & GetPlayerName(Index) & " became VIP!", Green)
         End If
     End If
 
@@ -194,25 +213,25 @@ Public Sub SaveVipSettings()
 End Sub
 
 
-Sub SendVipAdvantageTo(ByVal index As Long)
+Sub SendVipAdvantageTo(ByVal Index As Long)
     Dim buffer As clsBuffer
     Dim i As Long
 
-    If Not IsPlaying(index) Then Exit Sub
-    If TempPlayer(index).UseChar <= 0 Then Exit Sub
+    If Not IsPlaying(Index) Then Exit Sub
+    If TempPlayer(Index).UseChar <= 0 Then Exit Sub
 
-    If GetPlayerVipStatus(index) > EnumVipType.None Then
+    If GetPlayerVipStatus(Index) > EnumVipType.None Then
     
         Set buffer = New clsBuffer
         buffer.WriteLong SVipAdvantage
         
-        buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipExp
-        buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipCoin
-        buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipDrop
-        buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(index)).VipShopPrice
-        buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(index)).VipDeathPenalty
+        buffer.WriteInteger VipSettings(GetPlayerVipStatus(Index)).VipExp
+        buffer.WriteInteger VipSettings(GetPlayerVipStatus(Index)).VipCoin
+        buffer.WriteInteger VipSettings(GetPlayerVipStatus(Index)).VipDrop
+        buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(Index)).VipShopPrice
+        buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(Index)).VipDeathPenalty
         
-        SendDataTo index, buffer.ToArray()
+        SendDataTo Index, buffer.ToArray()
 
         buffer.Flush: Set buffer = Nothing
     End If
@@ -220,26 +239,26 @@ End Sub
 
 Sub SendVipAdvantageToAll()
     Dim buffer As clsBuffer
-    Dim index As Long
+    Dim Index As Long
 
-    For index = 1 To Player_HighIndex
-        If IsPlaying(index) And TempPlayer(index).UseChar > 0 Then
+    For Index = 1 To Player_HighIndex
+        If IsPlaying(Index) And TempPlayer(Index).UseChar > 0 Then
 
-            If GetPlayerVipStatus(index) > EnumVipType.None Then
+            If GetPlayerVipStatus(Index) > EnumVipType.None Then
 
                 Set buffer = New clsBuffer
                 buffer.WriteLong SVipAdvantage
 
-                buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipExp
-                buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipCoin
-                buffer.WriteInteger VipSettings(GetPlayerVipStatus(index)).VipDrop
-                buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(index)).VipShopPrice
-                buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(index)).VipDeathPenalty
+                buffer.WriteInteger VipSettings(GetPlayerVipStatus(Index)).VipExp
+                buffer.WriteInteger VipSettings(GetPlayerVipStatus(Index)).VipCoin
+                buffer.WriteInteger VipSettings(GetPlayerVipStatus(Index)).VipDrop
+                buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(Index)).VipShopPrice
+                buffer.WriteInteger 100 - VipSettings(GetPlayerVipStatus(Index)).VipDeathPenalty
 
-                SendDataTo index, buffer.ToArray()
+                SendDataTo Index, buffer.ToArray()
 
                 buffer.Flush: Set buffer = Nothing
             End If
         End If
-    Next index
+    Next Index
 End Sub
