@@ -1575,11 +1575,11 @@ Dim itemSlot As Byte
                             itemSlot = checkItem(Index, Pokemon(.Num).EvolveConditionData(EvolveSlot))
                             If itemSlot > 0 Then
                                 '//Take Item
-                                PlayerInv(Index).Data(itemSlot).value = PlayerInv(Index).Data(itemSlot).value - 1
-                                If PlayerInv(Index).Data(itemSlot).value <= 0 Then
+                                PlayerInv(Index).Data(itemSlot).Value = PlayerInv(Index).Data(itemSlot).Value - 1
+                                If PlayerInv(Index).Data(itemSlot).Value <= 0 Then
                                     '//Clear Item
                                     PlayerInv(Index).Data(itemSlot).Num = 0
-                                    PlayerInv(Index).Data(itemSlot).value = 0
+                                    PlayerInv(Index).Data(itemSlot).Value = 0
                                     PlayerInv(Index).Data(itemSlot).TmrCooldown = 0
                                 End If
                                 SendPlayerInvSlot Index, itemSlot
@@ -1598,10 +1598,10 @@ Dim itemSlot As Byte
                 .Num = EvolveNum
                 '//Calculate new stat
                 For statNu = 1 To StatEnum.Stat_Count - 1
-                    .Stat(statNu).value = CalculatePokemonStat(statNu, .Num, .Level, .Stat(statNu).EV, .Stat(statNu).IV, .Nature)
+                    .Stat(statNu).Value = CalculatePokemonStat(statNu, .Num, .Level, .Stat(statNu).EV, .Stat(statNu).IV, .Nature)
                 Next
                 
-                .MaxHp = .Stat(StatEnum.HP).value
+                .MaxHp = .Stat(StatEnum.HP).Value
                 
                 '//Send Animation
                 SendPlayAnimation Player(Index, TempPlayer(Index).UseChar).Map, 76, PlayerPokemon(Index).x, PlayerPokemon(Index).Y ' ToDo: Change to 76
@@ -1879,11 +1879,11 @@ Private Sub HandleGotData(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
 
         '//Take Item
         If Not NotTake Then ' -> P/ usar com o revive
-            PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).value = PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).value - 1
-            If PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).value <= 0 Then
+            PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value = PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value - 1
+            If PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value <= 0 Then
                 '//Clear Item
                 PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Num = 0
-                PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).value = 0
+                PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).Value = 0
                 PlayerInv(Index).Data(TempPlayer(Index).TmpUseInvSlot).TmrCooldown = 0
             End If
             SendPlayerInvSlot Index, TempPlayer(Index).TmpUseInvSlot
@@ -1950,10 +1950,10 @@ Private Sub HandleDepositItemTo(ByVal Index As Long, ByRef Data() As Byte, ByVal
     
     '//Place item to that part
     If TryGiveStorageItem(Index, StorageSlot, PlayerInv(Index).Data(InvSlot).Num, gameValue, PlayerInv(Index).Data(InvSlot).TmrCooldown, MsgFrom) Then
-        PlayerInv(Index).Data(InvSlot).value = PlayerInv(Index).Data(InvSlot).value - gameValue
-        If PlayerInv(Index).Data(InvSlot).value <= 0 Then
+        PlayerInv(Index).Data(InvSlot).Value = PlayerInv(Index).Data(InvSlot).Value - gameValue
+        If PlayerInv(Index).Data(InvSlot).Value <= 0 Then
             PlayerInv(Index).Data(InvSlot).Num = 0
-            PlayerInv(Index).Data(InvSlot).value = 0
+            PlayerInv(Index).Data(InvSlot).Value = 0
             PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
         End If
 
@@ -2025,10 +2025,10 @@ Private Sub HandleWithdrawItemTo(ByVal Index As Long, ByRef Data() As Byte, ByVa
     End If
 
     If TryGivePlayerItem(Index, PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Num, gameValue, PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).TmrCooldown) Then
-        PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).value = PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).value - gameValue
-        If PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).value <= 0 Then
+        PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value = PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value - gameValue
+        If PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value <= 0 Then
             PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Num = 0
-            PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).value = 0
+            PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value = 0
             PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).TmrCooldown = 0
         End If
         '//Update
@@ -2371,14 +2371,14 @@ Private Sub HandleBuyItem(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
                 playerItemInvSlot = checkItem(Index, Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).SellValueId)
 
                 If playerItemInvSlot > 0 Then
-                    If (PlayerInv(Index).Data(playerItemInvSlot).value * ShopVal) < Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Price Then
+                    If (PlayerInv(Index).Data(playerItemInvSlot).Value * ShopVal) < Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Price Then
                         Exit Sub
                     Else
                         If TryGivePlayerItem(Index, Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Num, ShopVal) Then
 
-                            PlayerInv(Index).Data(playerItemInvSlot).value = PlayerInv(Index).Data(playerItemInvSlot).value - (Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Price * ShopVal)
+                            PlayerInv(Index).Data(playerItemInvSlot).Value = PlayerInv(Index).Data(playerItemInvSlot).Value - (Shop(TempPlayer(Index).InShop).ShopItem(ShopSlot).Price * ShopVal)
 
-                            If PlayerInv(Index).Data(playerItemInvSlot).value <= 0 Then
+                            If PlayerInv(Index).Data(playerItemInvSlot).Value <= 0 Then
                                 PlayerInv(Index).Data(playerItemInvSlot).Num = 0
                                 PlayerInv(Index).Data(playerItemInvSlot).TmrCooldown = 0
                             End If
@@ -2438,7 +2438,7 @@ Private Sub HandleSellItem(ByVal Index As Long, ByRef Data() As Byte, ByVal Star
 
     '//Give Item
     With Player(Index, TempPlayer(Index).UseChar)
-        If PlayerInv(Index).Data(InvSlot).value < InvVal Then
+        If PlayerInv(Index).Data(InvSlot).Value < InvVal Then
             Select Case TempPlayer(Index).CurLanguage
             Case LANG_PT: AddAlert Index, "Invalid amount", White
             Case LANG_EN: AddAlert Index, "Invalid amount", White
@@ -2452,10 +2452,10 @@ Private Sub HandleSellItem(ByVal Index As Long, ByRef Data() As Byte, ByVal Star
                 Case LANG_EN: AddAlert Index, "You have successfully sold x" & InvVal & " " & Trim$(Item(PlayerInv(Index).Data(InvSlot).Num).Name) & " for $" & aPrice, White
                 Case LANG_ES: AddAlert Index, "You have successfully sold x" & InvVal & " " & Trim$(Item(PlayerInv(Index).Data(InvSlot).Num).Name) & " for $" & aPrice, White
                 End Select
-                PlayerInv(Index).Data(InvSlot).value = PlayerInv(Index).Data(InvSlot).value - InvVal
-                If PlayerInv(Index).Data(InvSlot).value <= 0 Then
+                PlayerInv(Index).Data(InvSlot).Value = PlayerInv(Index).Data(InvSlot).Value - InvVal
+                If PlayerInv(Index).Data(InvSlot).Value <= 0 Then
                     PlayerInv(Index).Data(InvSlot).Num = 0
-                    PlayerInv(Index).Data(InvSlot).value = 0
+                    PlayerInv(Index).Data(InvSlot).Value = 0
                     PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
                 End If
                 SendPlayerInvSlot Index, InvSlot
@@ -2870,10 +2870,10 @@ Private Sub HandleAddTrade(ByVal Index As Long, ByRef Data() As Byte, ByVal Star
                 End If
 
                 .Num = PlayerInv(Index).Data(TradeSlot).Num
-                If TradeData > PlayerInv(Index).Data(TradeSlot).value Then
-                    .value = PlayerInv(Index).Data(TradeSlot).value
+                If TradeData > PlayerInv(Index).Data(TradeSlot).Value Then
+                    .Value = PlayerInv(Index).Data(TradeSlot).Value
                 Else
-                    .value = TradeData
+                    .Value = TradeData
                 End If
 
                 .Level = 0
@@ -2915,11 +2915,11 @@ Private Sub HandleAddTrade(ByVal Index As Long, ByRef Data() As Byte, ByVal Star
                 End If
 
                 .Num = PlayerPokemons(Index).Data(TradeSlot).Num
-                .value = 0
+                .Value = 0
 
                 .Level = PlayerPokemons(Index).Data(TradeSlot).Level
                 For i = 1 To StatEnum.Stat_Count - 1
-                    .Stat(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).value
+                    .Stat(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).Value
                     .StatIV(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).IV
                     .StatEV(i) = PlayerPokemons(Index).Data(TradeSlot).Stat(i).EV
                 Next
@@ -3035,196 +3035,233 @@ Dim tSet As Byte
 End Sub
 
 Private Sub HandleTradeState(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim buffer As clsBuffer
-Dim tState As Byte
-Dim i As Byte
-Dim tradeIndex As Long
-Dim pokemonCount(1 To 2) As Long, itemCount(1 To 2) As Long
-Dim countPoke As Long, countItem As Long
-Dim PokeSlot As Long
+    Dim buffer As clsBuffer
+    Dim tState As Byte
+    Dim i As Byte
+    Dim tradeIndex As Long
+    Dim pokemonCount(1 To 2) As Long, itemCount(1 To 2) As Long
+    Dim countPoke As Long, countItem As Long
+    Dim PokeSlot As Long
+
+    Dim tempPokePlayer1 As PlayerPokemonsRec
+    Dim tempInvPlayer1 As PlayerInvRec
+
+    Dim tempPokePlayer2 As PlayerPokemonsRec
+    Dim tempinvPlayer2 As PlayerInvRec
+
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     If TempPlayer(Index).InTrade <= 0 Then Exit Sub
-    
+
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
     tState = buffer.ReadByte
     Set buffer = Nothing
-    
+
     tradeIndex = TempPlayer(Index).InTrade
-    If tState = 1 Then '//Accept
+    If tState = 1 Then    '//Accept
         TempPlayer(Index).TradeAccept = YES
         Select Case TempPlayer(tradeIndex).CurLanguage
-            Case LANG_PT: AddAlert tradeIndex, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
-            Case LANG_EN: AddAlert tradeIndex, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
-            Case LANG_ES: AddAlert tradeIndex, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
+        Case LANG_PT: AddAlert tradeIndex, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
+        Case LANG_EN: AddAlert tradeIndex, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
+        Case LANG_ES: AddAlert tradeIndex, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
         End Select
         Select Case TempPlayer(Index).CurLanguage
-            Case LANG_PT: AddAlert Index, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
-            Case LANG_EN: AddAlert Index, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
-            Case LANG_ES: AddAlert Index, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
+        Case LANG_PT: AddAlert Index, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
+        Case LANG_EN: AddAlert Index, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
+        Case LANG_ES: AddAlert Index, Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " accepted the trade", White
         End Select
         '//Check if continue
         If TempPlayer(tradeIndex).TradeAccept = YES Then
+
+            'Inventory Temporario Player 1
+            Call CopyMemory(ByVal VarPtr(tempInvPlayer1), ByVal VarPtr(PlayerInv(Index)), LenB(PlayerInv(Index)))
+            'Pokes Temporario Player 1
+            Call CopyMemory(ByVal VarPtr(tempPokePlayer1), ByVal VarPtr(PlayerPokemons(Index)), LenB(PlayerPokemons(Index)))
+
+            'Inventory Temporario Player 2
+            Call CopyMemory(ByVal VarPtr(tempinvPlayer2), ByVal VarPtr(PlayerInv(tradeIndex)), LenB(PlayerInv(tradeIndex)))
+            'Pokes Temporario Player 2
+            Call CopyMemory(ByVal VarPtr(tempPokePlayer2), ByVal VarPtr(PlayerPokemons(tradeIndex)), LenB(PlayerPokemons(tradeIndex)))
+
+            '//Take Items
+            For i = 1 To MAX_TRADE
+                With TempPlayer(Index).TradeItem(i)
+                    If .Type = 1 Then    '//Item
+                        PlayerInv(Index).Data(.TradeSlot).Value = PlayerInv(Index).Data(.TradeSlot).Value - .Value
+                        If PlayerInv(Index).Data(.TradeSlot).Value <= 0 Then
+                            PlayerInv(Index).Data(.TradeSlot).Num = 0
+                            PlayerInv(Index).Data(.TradeSlot).Value = 0
+                            PlayerInv(Index).Data(.TradeSlot).TmrCooldown = 0
+                        End If
+                        '//Update
+                        SendPlayerInvSlot Index, .TradeSlot
+                    ElseIf .Type = 2 Then    '//Pokemon
+                        Call ZeroMemory(ByVal VarPtr(PlayerPokemons(Index).Data(.TradeSlot)), LenB(PlayerPokemons(Index).Data(.TradeSlot)))
+                        '//reupdate order
+                        UpdatePlayerPokemonOrder Index
+                        '//update
+                        SendPlayerPokemons Index
+                    End If
+                End With
+                With TempPlayer(tradeIndex).TradeItem(i)
+                    If .Type = 1 Then    '//Item
+                        '//Take item from index
+                        PlayerInv(tradeIndex).Data(.TradeSlot).Value = PlayerInv(tradeIndex).Data(.TradeSlot).Value - .Value
+                        If PlayerInv(tradeIndex).Data(.TradeSlot).Value <= 0 Then
+                            PlayerInv(tradeIndex).Data(.TradeSlot).Num = 0
+                            PlayerInv(tradeIndex).Data(.TradeSlot).Value = 0
+                            PlayerInv(tradeIndex).Data(.TradeSlot).TmrCooldown = 0
+                        End If
+                        '//Update
+                        SendPlayerInvSlot tradeIndex, .TradeSlot
+                    ElseIf .Type = 2 Then    '//Pokemon
+                        Call ZeroMemory(ByVal VarPtr(PlayerPokemons(tradeIndex).Data(.TradeSlot)), LenB(PlayerPokemons(tradeIndex).Data(.TradeSlot)))
+                        '//reupdate order
+                        UpdatePlayerPokemonOrder tradeIndex
+                        '//update
+                        SendPlayerPokemons tradeIndex
+                    End If
+                End With
+            Next i
+
             '//Continue trading their items
             pokemonCount(1) = 0
             itemCount(1) = 0
             pokemonCount(2) = 0
             itemCount(2) = 0
             For i = 1 To MAX_TRADE
+                ' Player 01
                 If TempPlayer(Index).TradeItem(i).Num > 0 Then
-                    If TempPlayer(Index).TradeItem(i).Type = 1 Then '//Item
+                    If TempPlayer(Index).TradeItem(i).Type = 1 Then    '//Item
                         itemCount(1) = itemCount(1) + 1
-                    ElseIf TempPlayer(Index).TradeItem(i).Type = 2 Then '//Pokemon
+                    ElseIf TempPlayer(Index).TradeItem(i).Type = 2 Then    '//Pokemon
                         pokemonCount(1) = pokemonCount(1) + 1
                     End If
                 End If
+                ' Player 02
                 If TempPlayer(tradeIndex).TradeItem(i).Num > 0 Then
-                    If TempPlayer(tradeIndex).TradeItem(i).Type = 1 Then '//Item
+                    If TempPlayer(tradeIndex).TradeItem(i).Type = 1 Then    '//Item
                         itemCount(2) = itemCount(2) + 1
-                    ElseIf TempPlayer(tradeIndex).TradeItem(i).Type = 2 Then '//Pokemon
+                    ElseIf TempPlayer(tradeIndex).TradeItem(i).Type = 2 Then    '//Pokemon
                         pokemonCount(2) = pokemonCount(2) + 1
                     End If
                 End If
-            Next
-            
+            Next i
+
             '//Check if player can receive item/pokemon
-            countPoke = MAX_PLAYER_POKEMON - CountPlayerPokemon(tradeIndex)
-            countItem = CountFreeInvSlot(tradeIndex)
-            If countItem < itemCount(1) Then
-                '//Error
-                Select Case TempPlayer(tradeIndex).CurLanguage
-                    Case LANG_PT: AddAlert tradeIndex, "You don't have enough inventory slot", White
-                    Case LANG_EN: AddAlert tradeIndex, "You don't have enough inventory slot", White
-                    Case LANG_ES: AddAlert tradeIndex, "You don't have enough inventory slot", White
-                End Select
-                Select Case TempPlayer(Index).CurLanguage
-                    Case LANG_PT: AddAlert Index, "Trade Error", White
-                    Case LANG_EN: AddAlert Index, "Trade Error", White
-                    Case LANG_ES: AddAlert Index, "Trade Error", White
-                End Select
-                TempPlayer(Index).TradeAccept = NO
-                TempPlayer(tradeIndex).TradeAccept = NO
-                TempPlayer(Index).TradeSet = 0
-                TempPlayer(tradeIndex).TradeSet = 0
-                SendSetTradeState Index, Index
-                SendSetTradeState tradeIndex, Index
-                Exit Sub
-            End If
-            If countPoke < pokemonCount(1) Then
-                '//Error
-                Select Case TempPlayer(tradeIndex).CurLanguage
-                    Case LANG_PT: AddAlert tradeIndex, "You don't have enough pokemon slot", White
-                    Case LANG_EN: AddAlert tradeIndex, "You don't have enough pokemon slot", White
-                    Case LANG_ES: AddAlert tradeIndex, "You don't have enough pokemon slot", White
-                End Select
-                Select Case TempPlayer(Index).CurLanguage
-                    Case LANG_PT: AddAlert Index, "Trade Error", White
-                    Case LANG_EN: AddAlert Index, "Trade Error", White
-                    Case LANG_ES: AddAlert Index, "Trade Error", White
-                End Select
-                TempPlayer(Index).TradeAccept = NO
-                TempPlayer(tradeIndex).TradeAccept = NO
-                TempPlayer(Index).TradeSet = 0
-                TempPlayer(tradeIndex).TradeSet = 0
-                SendSetTradeState Index, Index
-                SendSetTradeState tradeIndex, Index
-                Exit Sub
-            End If
-            If CountPlayerPokemon(tradeIndex) <= pokemonCount(2) Then
-                '//Error
-                Select Case TempPlayer(tradeIndex).CurLanguage
-                    Case LANG_PT: AddAlert tradeIndex, "You can't trade all your available pokemon", White
-                    Case LANG_EN: AddAlert tradeIndex, "You can't trade all your available pokemon", White
-                    Case LANG_ES: AddAlert tradeIndex, "You can't trade all your available pokemon", White
-                End Select
-                Select Case TempPlayer(Index).CurLanguage
-                    Case LANG_PT: AddAlert Index, "Trade Error", White
-                    Case LANG_EN: AddAlert Index, "Trade Error", White
-                    Case LANG_ES: AddAlert Index, "Trade Error", White
-                End Select
-                TempPlayer(Index).TradeAccept = NO
-                TempPlayer(tradeIndex).TradeAccept = NO
-                TempPlayer(Index).TradeSet = 0
-                TempPlayer(tradeIndex).TradeSet = 0
-                SendSetTradeState Index, Index
-                SendSetTradeState tradeIndex, Index
-                Exit Sub
-            End If
-            countPoke = MAX_PLAYER_POKEMON - CountPlayerPokemon(Index)
-            countItem = CountFreeInvSlot(Index)
+            ' Player 01
+            countPoke = MAX_PLAYER_POKEMON - CountPlayerPokemon(Index) + pokemonCount(1)
+            countItem = CountFreeInvSlot(Index) + itemCount(1)
             If countItem < itemCount(2) Then
                 '//Error
                 Select Case TempPlayer(Index).CurLanguage
-                    Case LANG_PT: AddAlert Index, "You don't have enough inventory slot", White
-                    Case LANG_EN: AddAlert Index, "You don't have enough inventory slot", White
-                    Case LANG_ES: AddAlert Index, "You don't have enough inventory slot", White
+                Case LANG_PT: AddAlert Index, "You don't have enough inventory slot", White
+                Case LANG_EN: AddAlert Index, "You don't have enough inventory slot", White
+                Case LANG_ES: AddAlert Index, "You don't have enough inventory slot", White
                 End Select
                 Select Case TempPlayer(tradeIndex).CurLanguage
-                    Case LANG_PT: AddAlert tradeIndex, "Trade Error", White
-                    Case LANG_EN: AddAlert tradeIndex, "Trade Error", White
-                    Case LANG_ES: AddAlert tradeIndex, "Trade Error", White
+                Case LANG_PT: AddAlert tradeIndex, "Trade Error", White
+                Case LANG_EN: AddAlert tradeIndex, "Trade Error", White
+                Case LANG_ES: AddAlert tradeIndex, "Trade Error", White
                 End Select
-                TempPlayer(Index).TradeAccept = NO
-                TempPlayer(tradeIndex).TradeAccept = NO
-                TempPlayer(Index).TradeSet = 0
-                TempPlayer(tradeIndex).TradeSet = 0
-                SendSetTradeState Index, Index
-                SendSetTradeState tradeIndex, Index
-                Exit Sub
+
+                GoTo ErrorTrade
             End If
             If countPoke < pokemonCount(2) Then
                 '//Error
                 Select Case TempPlayer(Index).CurLanguage
-                    Case LANG_PT: AddAlert Index, "You don't have enough pokemon slot", White
-                    Case LANG_EN: AddAlert Index, "You don't have enough pokemon slot", White
-                    Case LANG_ES: AddAlert Index, "You don't have enough pokemon slot", White
+                Case LANG_PT: AddAlert Index, "You don't have enough pokemon slot", White
+                Case LANG_EN: AddAlert Index, "You don't have enough pokemon slot", White
+                Case LANG_ES: AddAlert Index, "You don't have enough pokemon slot", White
                 End Select
                 Select Case TempPlayer(tradeIndex).CurLanguage
-                    Case LANG_PT: AddAlert tradeIndex, "Trade Error", White
-                    Case LANG_EN: AddAlert tradeIndex, "Trade Error", White
-                    Case LANG_ES: AddAlert tradeIndex, "Trade Error", White
+                Case LANG_PT: AddAlert tradeIndex, "Trade Error", White
+                Case LANG_EN: AddAlert tradeIndex, "Trade Error", White
+                Case LANG_ES: AddAlert tradeIndex, "Trade Error", White
                 End Select
-                TempPlayer(Index).TradeAccept = NO
-                TempPlayer(tradeIndex).TradeAccept = NO
-                TempPlayer(Index).TradeSet = 0
-                TempPlayer(tradeIndex).TradeSet = 0
-                SendSetTradeState Index, Index
-                SendSetTradeState tradeIndex, Index
-                Exit Sub
+
+                GoTo ErrorTrade
             End If
-            If CountPlayerPokemon(Index) <= pokemonCount(1) Then
+            If CountPlayerPokemon(Index) + pokemonCount(2) <= 0 Then
                 '//Error
                 Select Case TempPlayer(Index).CurLanguage
-                    Case LANG_PT: AddAlert Index, "You can't trade all your available pokemon", White
-                    Case LANG_EN: AddAlert Index, "You can't trade all your available pokemon", White
-                    Case LANG_ES: AddAlert Index, "You can't trade all your available pokemon", White
+                Case LANG_PT: AddAlert Index, "You can't trade all your available pokemon", White
+                Case LANG_EN: AddAlert Index, "You can't trade all your available pokemon", White
+                Case LANG_ES: AddAlert Index, "You can't trade all your available pokemon", White
                 End Select
                 Select Case TempPlayer(tradeIndex).CurLanguage
-                    Case LANG_PT: AddAlert tradeIndex, "Trade Error", White
-                    Case LANG_EN: AddAlert tradeIndex, "Trade Error", White
-                    Case LANG_ES: AddAlert tradeIndex, "Trade Error", White
+                Case LANG_PT: AddAlert tradeIndex, "Trade Error", White
+                Case LANG_EN: AddAlert tradeIndex, "Trade Error", White
+                Case LANG_ES: AddAlert tradeIndex, "Trade Error", White
                 End Select
-                TempPlayer(Index).TradeAccept = NO
-                TempPlayer(tradeIndex).TradeAccept = NO
-                TempPlayer(Index).TradeSet = 0
-                TempPlayer(tradeIndex).TradeSet = 0
-                SendSetTradeState Index, Index
-                SendSetTradeState tradeIndex, Index
-                Exit Sub
+
+                GoTo ErrorTrade
             End If
-            
+
+            ' Player 02
+            countPoke = MAX_PLAYER_POKEMON - CountPlayerPokemon(tradeIndex) + pokemonCount(2)
+            countItem = CountFreeInvSlot(tradeIndex) + itemCount(2)
+            If countItem < itemCount(1) Then
+                '//Error
+                Select Case TempPlayer(tradeIndex).CurLanguage
+                Case LANG_PT: AddAlert tradeIndex, "You don't have enough inventory slot", White
+                Case LANG_EN: AddAlert tradeIndex, "You don't have enough inventory slot", White
+                Case LANG_ES: AddAlert tradeIndex, "You don't have enough inventory slot", White
+                End Select
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Trade Error", White
+                Case LANG_EN: AddAlert Index, "Trade Error", White
+                Case LANG_ES: AddAlert Index, "Trade Error", White
+                End Select
+
+                GoTo ErrorTrade
+            End If
+            If countPoke < pokemonCount(1) Then
+                '//Error
+                Select Case TempPlayer(tradeIndex).CurLanguage
+                Case LANG_PT: AddAlert tradeIndex, "You don't have enough pokemon slot", White
+                Case LANG_EN: AddAlert tradeIndex, "You don't have enough pokemon slot", White
+                Case LANG_ES: AddAlert tradeIndex, "You don't have enough pokemon slot", White
+                End Select
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Trade Error", White
+                Case LANG_EN: AddAlert Index, "Trade Error", White
+                Case LANG_ES: AddAlert Index, "Trade Error", White
+                End Select
+
+                GoTo ErrorTrade
+            End If
+            If CountPlayerPokemon(tradeIndex) + pokemonCount(1) <= 0 Then
+                '//Error
+                Select Case TempPlayer(tradeIndex).CurLanguage
+                Case LANG_PT: AddAlert tradeIndex, "You can't trade all your available pokemon", White
+                Case LANG_EN: AddAlert tradeIndex, "You can't trade all your available pokemon", White
+                Case LANG_ES: AddAlert tradeIndex, "You can't trade all your available pokemon", White
+                End Select
+                Select Case TempPlayer(Index).CurLanguage
+                Case LANG_PT: AddAlert Index, "Trade Error", White
+                Case LANG_EN: AddAlert Index, "Trade Error", White
+                Case LANG_ES: AddAlert Index, "Trade Error", White
+                End Select
+
+                GoTo ErrorTrade
+            End If
+
             '//Continue Trading
             For i = 1 To MAX_TRADE
                 '//Give Items
                 With TempPlayer(Index).TradeItem(i)
-                    If .Type = 1 Then '//Item
-                        Call TryGivePlayerItem(tradeIndex, PlayerInv(Index).Data(.TradeSlot).Num, .value)
-                    ElseIf .Type = 2 Then '//Pokemon
+                    If .Type = 1 Then    '//Item
+                        Call TryGivePlayerItem(tradeIndex, tempInvPlayer1.Data(.TradeSlot).Num, .Value)
+                        '//Update
+                        SendPlayerInvSlot Index, .TradeSlot
+                    ElseIf .Type = 2 Then    '//Pokemon
                         PokeSlot = FindOpenPokeSlot(tradeIndex)
                         If PokeSlot > 0 Then
-                            Call CopyMemory(ByVal VarPtr(PlayerPokemons(tradeIndex).Data(PokeSlot)), ByVal VarPtr(PlayerPokemons(Index).Data(.TradeSlot)), LenB(PlayerPokemons(Index).Data(.TradeSlot)))
+                            ' Add
+                            Call CopyMemory(ByVal VarPtr(PlayerPokemons(tradeIndex).Data(PokeSlot)), ByVal VarPtr(tempPokePlayer1.Data(.TradeSlot)), LenB(tempPokePlayer1.Data(.TradeSlot)))
                             '//Add Pokedex
                             AddPlayerPokedex tradeIndex, PlayerPokemons(tradeIndex).Data(PokeSlot).Num, YES, YES
                             '//reupdate order
@@ -3235,12 +3272,14 @@ Dim PokeSlot As Long
                     End If
                 End With
                 With TempPlayer(tradeIndex).TradeItem(i)
-                    If .Type = 1 Then '//Item
-                        Call TryGivePlayerItem(Index, PlayerInv(tradeIndex).Data(.TradeSlot).Num, .value)
-                    ElseIf .Type = 2 Then '//Pokemon
+                    If .Type = 1 Then    '//Item
+                        Call TryGivePlayerItem(Index, tempinvPlayer2.Data(.TradeSlot).Num, .Value)
+                        '//Update
+                        SendPlayerInvSlot Index, .TradeSlot
+                    ElseIf .Type = 2 Then    '//Pokemon
                         PokeSlot = FindOpenPokeSlot(Index)
                         If PokeSlot > 0 Then
-                            Call CopyMemory(ByVal VarPtr(PlayerPokemons(Index).Data(PokeSlot)), ByVal VarPtr(PlayerPokemons(tradeIndex).Data(.TradeSlot)), LenB(PlayerPokemons(tradeIndex).Data(.TradeSlot)))
+                            Call CopyMemory(ByVal VarPtr(PlayerPokemons(Index).Data(PokeSlot)), ByVal VarPtr(tempPokePlayer2.Data(.TradeSlot)), LenB(tempPokePlayer2.Data(.TradeSlot)))
                             '//Add Pokedex
                             AddPlayerPokedex Index, PlayerPokemons(Index).Data(PokeSlot).Num, YES, YES
                             '//reupdate order
@@ -3250,47 +3289,8 @@ Dim PokeSlot As Long
                         End If
                     End If
                 End With
-                
-                '//Take Items
-                With TempPlayer(Index).TradeItem(i)
-                    If .Type = 1 Then '//Item
-                        PlayerInv(Index).Data(.TradeSlot).value = PlayerInv(Index).Data(.TradeSlot).value - .value
-                        If PlayerInv(Index).Data(.TradeSlot).value <= 0 Then
-                            PlayerInv(Index).Data(.TradeSlot).Num = 0
-                            PlayerInv(Index).Data(.TradeSlot).value = 0
-                            PlayerInv(Index).Data(.TradeSlot).TmrCooldown = 0
-                        End If
-                        '//Update
-                        SendPlayerInvSlot Index, .TradeSlot
-                    ElseIf .Type = 2 Then '//Pokemon
-                        Call ZeroMemory(ByVal VarPtr(PlayerPokemons(Index).Data(.TradeSlot)), LenB(PlayerPokemons(Index).Data(.TradeSlot)))
-                        '//reupdate order
-                        UpdatePlayerPokemonOrder Index
-                        '//update
-                        SendPlayerPokemons Index
-                    End If
-                End With
-                With TempPlayer(tradeIndex).TradeItem(i)
-                    If .Type = 1 Then '//Item
-                        '//Take item from index
-                        PlayerInv(tradeIndex).Data(.TradeSlot).value = PlayerInv(tradeIndex).Data(.TradeSlot).value - .value
-                        If PlayerInv(tradeIndex).Data(.TradeSlot).value <= 0 Then
-                            PlayerInv(tradeIndex).Data(.TradeSlot).Num = 0
-                            PlayerInv(tradeIndex).Data(.TradeSlot).value = 0
-                            PlayerInv(tradeIndex).Data(.TradeSlot).TmrCooldown = 0
-                        End If
-                        '//Update
-                        SendPlayerInvSlot tradeIndex, .TradeSlot
-                    ElseIf .Type = 2 Then '//Pokemon
-                        Call ZeroMemory(ByVal VarPtr(PlayerPokemons(tradeIndex).Data(.TradeSlot)), LenB(PlayerPokemons(tradeIndex).Data(.TradeSlot)))
-                        '//reupdate order
-                        UpdatePlayerPokemonOrder tradeIndex
-                        '//update
-                        SendPlayerPokemons tradeIndex
-                    End If
-                End With
-            Next
-            
+            Next i
+
             If TempPlayer(Index).TradeMoney > 0 And TempPlayer(Index).TradeMoney <= Player(Index, TempPlayer(Index).UseChar).Money Then
                 Player(tradeIndex, TempPlayer(tradeIndex).UseChar).Money = Player(tradeIndex, TempPlayer(tradeIndex).UseChar).Money + TempPlayer(Index).TradeMoney
                 If Player(tradeIndex, TempPlayer(tradeIndex).UseChar).Money >= MAX_MONEY Then
@@ -3315,7 +3315,7 @@ Dim PokeSlot As Long
                 SendPlayerData Index
                 SendPlayerData tradeIndex
             End If
-            
+
             '//Exit Trade
             TempPlayer(Index).InTrade = 0
             TempPlayer(tradeIndex).InTrade = 0
@@ -3334,21 +3334,21 @@ Dim PokeSlot As Long
             TempPlayer(Index).RequestType = 0
             TempPlayer(tradeIndex).RequestType = 0
             Select Case TempPlayer(Index).CurLanguage
-                Case LANG_PT: AddAlert Index, "Trade success", White
-                Case LANG_EN: AddAlert Index, "Trade success", White
-                Case LANG_ES: AddAlert Index, "Trade success", White
+            Case LANG_PT: AddAlert Index, "Trade success", White
+            Case LANG_EN: AddAlert Index, "Trade success", White
+            Case LANG_ES: AddAlert Index, "Trade success", White
             End Select
             Select Case TempPlayer(tradeIndex).CurLanguage
-                Case LANG_PT: AddAlert tradeIndex, "Trade success", White
-                Case LANG_EN: AddAlert tradeIndex, "Trade success", White
-                Case LANG_ES: AddAlert tradeIndex, "Trade success", White
+            Case LANG_PT: AddAlert tradeIndex, "Trade success", White
+            Case LANG_EN: AddAlert tradeIndex, "Trade success", White
+            Case LANG_ES: AddAlert tradeIndex, "Trade success", White
             End Select
             SendCloseTrade tradeIndex
             SendCloseTrade Index
             SendRequest tradeIndex
             SendRequest Index
         End If
-    Else '//Decline
+    Else    '//Decline
         TempPlayer(Index).InTrade = 0
         TempPlayer(tradeIndex).InTrade = 0
         For i = 1 To MAX_TRADE
@@ -3366,21 +3366,50 @@ Dim PokeSlot As Long
         TempPlayer(Index).RequestType = 0
         TempPlayer(tradeIndex).RequestType = 0
         Select Case TempPlayer(Index).CurLanguage
-            Case LANG_PT: AddAlert Index, "You have decline the trade", White
-            Case LANG_EN: AddAlert Index, "You have decline the trade", White
-            Case LANG_ES: AddAlert Index, "You have decline the trade", White
+        Case LANG_PT: AddAlert Index, "You have decline the trade", White
+        Case LANG_EN: AddAlert Index, "You have decline the trade", White
+        Case LANG_ES: AddAlert Index, "You have decline the trade", White
         End Select
         Select Case TempPlayer(tradeIndex).CurLanguage
-            Case LANG_PT: AddAlert tradeIndex, "The trade was declined", White
-            Case LANG_EN: AddAlert tradeIndex, "The trade was declined", White
-            Case LANG_ES: AddAlert tradeIndex, "The trade was declined", White
+        Case LANG_PT: AddAlert tradeIndex, "The trade was declined", White
+        Case LANG_EN: AddAlert tradeIndex, "The trade was declined", White
+        Case LANG_ES: AddAlert tradeIndex, "The trade was declined", White
         End Select
         SendCloseTrade tradeIndex
         SendCloseTrade Index
         SendRequest tradeIndex
         SendRequest Index
     End If
+
+    Exit Sub
+
+ErrorTrade:
+    '// Devolve o inventário e os pokemons para seus devidos donos.
+    Call CopyMemory(ByVal VarPtr(PlayerInv(Index)), ByVal VarPtr(tempInvPlayer1), LenB(tempInvPlayer1))
+    Call CopyMemory(ByVal VarPtr(PlayerPokemons(Index)), ByVal VarPtr(tempPokePlayer1), LenB(tempPokePlayer1))
+
+    Call CopyMemory(ByVal VarPtr(PlayerInv(tradeIndex)), ByVal VarPtr(tempinvPlayer2), LenB(tempinvPlayer2))
+    Call CopyMemory(ByVal VarPtr(PlayerPokemons(tradeIndex)), ByVal VarPtr(tempPokePlayer2), LenB(tempPokePlayer2))
+
+    SendPlayerInv Index
+    SendPlayerPokemons Index
+
+    SendPlayerInv tradeIndex
+    SendPlayerPokemons tradeIndex
+
+    TempPlayer(Index).TradeAccept = NO
+    TempPlayer(tradeIndex).TradeAccept = NO
+    TempPlayer(Index).TradeSet = 0
+    TempPlayer(tradeIndex).TradeSet = 0
+    
+    SendSetTradeState Index, Index
+    SendSetTradeState tradeIndex, tradeIndex
+    
+    SendSetTradeState tradeIndex, Index
+    SendSetTradeState Index, tradeIndex
+    Exit Sub
 End Sub
+    
 
 Private Sub HandleScanPokedex(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
 Dim buffer As clsBuffer
@@ -3769,11 +3798,11 @@ Dim InvSlot As Long
             '//Check if have the required item
             If InvSlot > 0 Then
                 '//Take Item
-                PlayerInv(Index).Data(InvSlot).value = PlayerInv(Index).Data(InvSlot).value - 1
-                If PlayerInv(Index).Data(InvSlot).value <= 0 Then
+                PlayerInv(Index).Data(InvSlot).Value = PlayerInv(Index).Data(InvSlot).Value - 1
+                If PlayerInv(Index).Data(InvSlot).Value <= 0 Then
                     '//Clear Item
                     PlayerInv(Index).Data(InvSlot).Num = 0
-                    PlayerInv(Index).Data(InvSlot).value = 0
+                    PlayerInv(Index).Data(InvSlot).Value = 0
                     PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
                 End If
                 SendPlayerInvSlot Index, InvSlot
@@ -3830,11 +3859,11 @@ Dim InvSlot As Long, PokeSlot As Byte
         InvSlot = FindInvItemSlot(Index, ReviveItemNum)
         If InvSlot > 0 Then
             '//Take Item
-            PlayerInv(Index).Data(InvSlot).value = PlayerInv(Index).Data(InvSlot).value - 1
-            If PlayerInv(Index).Data(InvSlot).value <= 0 Then
+            PlayerInv(Index).Data(InvSlot).Value = PlayerInv(Index).Data(InvSlot).Value - 1
+            If PlayerInv(Index).Data(InvSlot).Value <= 0 Then
                 '//Clear Item
                 PlayerInv(Index).Data(InvSlot).Num = 0
-                PlayerInv(Index).Data(InvSlot).value = 0
+                PlayerInv(Index).Data(InvSlot).Value = 0
                 PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
             End If
             SendPlayerInvSlot Index, InvSlot
@@ -3859,11 +3888,11 @@ Dim InvSlot As Long, PokeSlot As Byte
         InvSlot = FindInvItemSlot(Index, ReviveItemNum)
         If InvSlot > 0 Then
             '//Take Item
-            PlayerInv(Index).Data(InvSlot).value = PlayerInv(Index).Data(InvSlot).value - 1
-            If PlayerInv(Index).Data(InvSlot).value <= 0 Then
+            PlayerInv(Index).Data(InvSlot).Value = PlayerInv(Index).Data(InvSlot).Value - 1
+            If PlayerInv(Index).Data(InvSlot).Value <= 0 Then
                 '//Clear Item
                 PlayerInv(Index).Data(InvSlot).Num = 0
-                PlayerInv(Index).Data(InvSlot).value = 0
+                PlayerInv(Index).Data(InvSlot).Value = 0
                 PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
             End If
             SendPlayerInvSlot Index, InvSlot
@@ -3900,7 +3929,7 @@ Dim InvSlot As Long
     
     If InvSlot <= 0 Or InvSlot > MAX_PLAYER_INV Then Exit Sub
     If PlayerInv(Index).Data(InvSlot).Num <= 0 Then Exit Sub
-    If PlayerInv(Index).Data(InvSlot).value < 1 Then Exit Sub
+    If PlayerInv(Index).Data(InvSlot).Value < 1 Then Exit Sub
     
     ' Item não pode ser um held para o pokemon
     If Item(PlayerInv(Index).Data(InvSlot).Num).NotEquipable = YES Then
@@ -3944,11 +3973,11 @@ Dim InvSlot As Long
     SendPlayerPokemonSlot Index, PlayerPokemon(Index).slot
     
     '//Take Item
-    PlayerInv(Index).Data(InvSlot).value = PlayerInv(Index).Data(InvSlot).value - 1
-    If PlayerInv(Index).Data(InvSlot).value <= 0 Then
+    PlayerInv(Index).Data(InvSlot).Value = PlayerInv(Index).Data(InvSlot).Value - 1
+    If PlayerInv(Index).Data(InvSlot).Value <= 0 Then
         '//Clear Item
         PlayerInv(Index).Data(InvSlot).Num = 0
-        PlayerInv(Index).Data(InvSlot).value = 0
+        PlayerInv(Index).Data(InvSlot).Value = 0
         PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
     End If
     SendPlayerInvSlot Index, InvSlot
@@ -4895,7 +4924,7 @@ End Sub
 
 Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
     Dim buffer As clsBuffer
-    Dim FindP As Integer, YesNo As Byte, value As Long
+    Dim FindP As Integer, YesNo As Byte, Value As Long
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
@@ -4906,7 +4935,7 @@ Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
     buffer.WriteBytes Data()
     FindP = FindPlayer(buffer.ReadString)
     YesNo = buffer.ReadByte
-    value = buffer.ReadLong
+    Value = buffer.ReadLong
     Set buffer = Nothing
 
     If FindP = 0 Then
@@ -4920,21 +4949,21 @@ Private Sub HandleSetCash(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
 
         If YesNo = YES Then
             On Error GoTo TrataErro1
-            If value >= MAX_CASH Or Player(FindP, TempPlayer(FindP).UseChar).Cash + value >= MAX_CASH Then
+            If Value >= MAX_CASH Or Player(FindP, TempPlayer(FindP).UseChar).Cash + Value >= MAX_CASH Then
                 Player(FindP, TempPlayer(FindP).UseChar).Cash = MAX_CASH
             Else
-                Player(FindP, TempPlayer(FindP).UseChar).Cash = Player(FindP, TempPlayer(FindP).UseChar).Cash + value
+                Player(FindP, TempPlayer(FindP).UseChar).Cash = Player(FindP, TempPlayer(FindP).UseChar).Cash + Value
             End If
 
             Select Case TempPlayer(FindP).CurLanguage
-            Case LANG_PT: AddAlert FindP, "Congratulations! Your Reiceved " & value & Space(1) & "Cash!", White
-            Case LANG_EN: AddAlert FindP, "Congratulations! Your Reiceved " & value & Space(1) & "Cash!", White
-            Case LANG_ES: AddAlert FindP, "Congratulations! Your Reiceved " & value & Space(1) & "Cash!", White
+            Case LANG_PT: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Cash!", White
+            Case LANG_EN: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Cash!", White
+            Case LANG_ES: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Cash!", White
             End Select
             Select Case TempPlayer(Index).CurLanguage
-            Case LANG_PT: AddAlert Index, "O jogador recebeu " & value & " Cash!", White
-            Case LANG_EN: AddAlert Index, "O jogador recebeu " & value & " Cash!", White
-            Case LANG_ES: AddAlert Index, "O jogador recebeu " & value & " Cash!", White
+            Case LANG_PT: AddAlert Index, "O jogador recebeu " & Value & " Cash!", White
+            Case LANG_EN: AddAlert Index, "O jogador recebeu " & Value & " Cash!", White
+            Case LANG_ES: AddAlert Index, "O jogador recebeu " & Value & " Cash!", White
             End Select
 
             Call SendRequestCash(Index, FindP, True)
@@ -4947,21 +4976,21 @@ TrataErro1:
         Player(FindP, TempPlayer(FindP).UseChar).Cash = MAX_CASH
         Else
             On Error GoTo TrataErro2
-            If value >= MAX_MONEY Or Player(FindP, TempPlayer(FindP).UseChar).Money + value >= MAX_MONEY Then
+            If Value >= MAX_MONEY Or Player(FindP, TempPlayer(FindP).UseChar).Money + Value >= MAX_MONEY Then
                 Player(FindP, TempPlayer(FindP).UseChar).Money = MAX_MONEY
             Else
-                Player(FindP, TempPlayer(FindP).UseChar).Money = Player(FindP, TempPlayer(FindP).UseChar).Money + value
+                Player(FindP, TempPlayer(FindP).UseChar).Money = Player(FindP, TempPlayer(FindP).UseChar).Money + Value
             End If
             
             Select Case TempPlayer(FindP).CurLanguage
-            Case LANG_PT: AddAlert FindP, "Congratulations! Your Reiceved " & value & Space(1) & "Money!", White
-            Case LANG_EN: AddAlert FindP, "Congratulations! Your Reiceved " & value & Space(1) & "Money!", White
-            Case LANG_ES: AddAlert FindP, "Congratulations! Your Reiceved " & value & Space(1) & "Money!", White
+            Case LANG_PT: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Money!", White
+            Case LANG_EN: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Money!", White
+            Case LANG_ES: AddAlert FindP, "Congratulations! Your Reiceved " & Value & Space(1) & "Money!", White
             End Select
             Select Case TempPlayer(Index).CurLanguage
-            Case LANG_PT: AddAlert Index, "O jogador recebeu " & value & " Money!", White
-            Case LANG_EN: AddAlert Index, "O jogador recebeu " & value & " Money!", White
-            Case LANG_ES: AddAlert Index, "O jogador recebeu " & value & " Money!", White
+            Case LANG_PT: AddAlert Index, "O jogador recebeu " & Value & " Money!", White
+            Case LANG_EN: AddAlert Index, "O jogador recebeu " & Value & " Money!", White
+            Case LANG_ES: AddAlert Index, "O jogador recebeu " & Value & " Money!", White
             End Select
             
             Call SendRequestCash(Index, FindP, False)

@@ -1430,8 +1430,8 @@ Dim i As Byte
         Next
         .lstShopItem.ListIndex = 0
         
-        .scrlItemNum.value = Shop(xIndex).ShopItem(1).Num
-        .optValue(Shop(xIndex).ShopItem(1).SellValueType).value = True
+        '.scrlItemNum.value = Shop(xIndex).ShopItem(1).Num
+        '.optValue(Shop(xIndex).ShopItem(1).SellValueType).value = True
         
         .scrlSellItemNum.max = MAX_ITEM
         .scrlItemNum.max = MAX_ITEM

@@ -5,10 +5,10 @@ Sub Main()
 Dim i As Long
 Dim SetWidth As Long
 
-    If App.PrevInstance = True Then
-        MsgBox "Client is already running...", vbCritical
-        End
-    End If
+    'If App.PrevInstance = True Then
+    '    MsgBox "Client is already running...", vbCritical
+    '    End
+    'End If
     
     '// Inicializa a Cryptografia
     InitCryptographyKey

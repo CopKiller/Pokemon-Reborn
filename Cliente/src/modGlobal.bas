@@ -316,6 +316,9 @@ Public ReleaseStorageData As Byte
 '//Fly
 Public FlyBadgeSlot As Byte
 
+'//Timer Badge msg
+Public BadgeTimer As Long
+
 '//Travel
 Public PlayerTravelSlot As Long
 

@@ -89,10 +89,15 @@ Ok- Correção no trade, não tinha verificação de tipo adicionado ao trade ve
 
 Ok- Correções gerais em bugs. 0
 
-Total 601
+Ok- Pode negociar toda a equipe de pokemon por trade e receber toda ela por trade. 45
+	-Houve reformulação em todo o sistema.
+
+Ok- Correção do editor do shop. 0
+
+Total 661
 Pago 250
 
-Em aberto 351
+Em aberto 411
 
 Sistema de incubadora.
 	-Botão na hud para abrir uma janela de incubação de ovos.

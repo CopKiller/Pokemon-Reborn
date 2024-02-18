@@ -27,6 +27,9 @@ Public Shop(1 To MAX_SHOP) As ShopRec
 Public Quest(1 To MAX_QUEST) As QuestRec
 Public Rank(1 To MAX_RANK) As RankRec
 
+'//Empty Data Values
+Public EmptyPokemonData(1 To MAX_PLAYER_POKEMON) As PlayerPokemonsDataRec
+
 '//Fishing system
 Public Fishing(1 To MAX_MAP) As FishingRec
 
@@ -470,7 +473,7 @@ Public Type PlayerPokemonStorageRec
 End Type
 
 '//Player Pokemon
-Private Type PlayerPokemonsDataRec
+Public Type PlayerPokemonsDataRec
     Num As Long
     
     '//Stats
