@@ -2688,17 +2688,17 @@ Public Function FindFreePokeStorageSlot(ByVal index As Long, ByVal StorageSlot A
 End Function
 
 Private Sub SortPokemonIvPerfect(Stats() As StatDataRec)
-    Dim i As Long, rand As Byte
+    Dim i As Long, Rand As Byte
 
 Try:
-    rand = Random(1, (StatEnum.Stat_Count - 1))
+    Rand = Random(1, (StatEnum.Stat_Count - 1))
     ' Verificamos se o atributo sortido ja não está cheio.
-    If Stats(rand).IV <> 32 Then
-        Stats(rand).IV = 32
+    If Stats(Rand).IV <> 31 Then
+        Stats(Rand).IV = 31
     Else
     ' Agora verificamos se todos os atributos do pokemon ja não é perfeito.
         For i = 1 To StatEnum.Stat_Count - 1
-            If Stats(i).IV <> 32 Then
+            If Stats(i).IV <> 31 Then
                 GoTo Try
             End If
         Next
