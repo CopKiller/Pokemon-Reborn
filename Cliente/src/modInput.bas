@@ -219,6 +219,7 @@ Dim Slot As Long
     '//zOrdering of gui
     If GUI(GuiEnum.GUI_INPUTBOX).Visible Then
         InputBoxKeyPress KeyAscii
+        Exit Sub
     Else
         If Not IsLoading Then
             If GuiVisibleCount > 0 Then

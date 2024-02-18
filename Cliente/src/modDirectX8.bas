@@ -4228,6 +4228,7 @@ Private Sub DrawPokemonSummary()
                         Exit Sub
                     End If
                 Else
+                    GUI(GuiEnum.GUI_POKEMONSUMMARY).Visible = False
                     Exit Sub
                 End If
 

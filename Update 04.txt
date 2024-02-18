@@ -94,10 +94,12 @@ Ok- Pode negociar toda a equipe de pokemon por trade e receber toda ela por trad
 
 Ok- Correção do editor do shop. 0
 
-Total 661
+Ok- Log de compra de items. 5
+
+Total 666
 Pago 250
 
-Em aberto 411
+Em aberto 416
 
 Sistema de incubadora.
 	-Botão na hud para abrir uma janela de incubação de ovos.

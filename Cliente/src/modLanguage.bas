@@ -5,7 +5,6 @@ Public Sub Language()
 
         ' Português
     Case 0
-
         ' Janlea de login
         TextUILoginUsername = "Usuário"
         TextUILoginPassword = "Senha"

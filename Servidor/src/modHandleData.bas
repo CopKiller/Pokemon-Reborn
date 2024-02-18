@@ -5082,11 +5082,11 @@ Private Sub HandlePurchaseVirtualShop(ByVal Index As Long, ByRef Data() As Byte,
         End If
     End If
 
-    '//Verificação se o jogador possui o valor de cash pra comprar o item
+    '// Verificação se o jogador possui o valor de cash pra comprar o item
     With Player(Index, TempPlayer(Index).UseChar)
         If .Cash < VirtualShop(Indice).Items(slot).ItemPrice Then Exit Sub
 
-        '//Tentativa de entrega do item, e retirada do cash.
+        '// Tentativa de entrega do item, e retirada do cash.
         If TryGivePlayerItem(Index, VirtualShop(Indice).Items(slot).ItemNum, VirtualShop(Indice).Items(slot).ItemQuant) Then
             .Cash = .Cash - VirtualShop(Indice).Items(slot).ItemPrice
             Call SendPlayerCash(Index)
@@ -5096,12 +5096,14 @@ Private Sub HandlePurchaseVirtualShop(ByVal Index As Long, ByRef Data() As Byte,
                 Call SendVirtualShopTo(Index)
             End If
 
-            '//Enviar uma mensagem, que tudo ocorreu com sucesso.
+            '// Enviar uma mensagem, que tudo ocorreu com sucesso.
             Select Case TempPlayer(Index).CurLanguage
             Case LANG_PT: AddAlert Index, "Parabens, você acaba de receber um item!", White
             Case LANG_EN: AddAlert Index, "Congratulations, You received a item!", White
             Case LANG_ES: AddAlert Index, "Congratulations, You received a item!", White
             End Select
+            
+            AddLog Trim$(Player(Index, TempPlayer(Index).UseChar).Name) & " Buy item by virtual shop#" & Trim$(Item(VirtualShop(Indice).Items(slot).ItemNum).Name)
         End If
     End With
 End Sub
