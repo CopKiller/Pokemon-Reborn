@@ -4027,8 +4027,8 @@ Private Sub HandleWhosOnline(ByVal Index As Long, ByRef Data() As Byte, ByVal St
 End Sub
 
 Private Sub HandleRequestRank(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
+
     SendRankTo Index
-    
     UpdateRank Trim$(Player(Index, TempPlayer(Index).UseChar).Name), Player(Index, TempPlayer(Index).UseChar).Level, Player(Index, TempPlayer(Index).UseChar).CurExp
 End Sub
 

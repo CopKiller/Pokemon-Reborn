@@ -235,6 +235,7 @@ Public Enum ClientPackets
     CBuyInvSlot
     CRequestVirtualShop
     CPurchaseVirtualShop
+    CRequestIncubator
     CMapReport
     CPlayerTravel
     '//Make sure CMSG_COUNT is below everything else
@@ -499,8 +500,10 @@ Public Enum GuiEnum
     GUI_BADGE
     GUI_RANK
     GUI_VIRTUALSHOP
+    GUI_INCUBATOR
     GUI_VIPADVANTAGE
     GUI_MAP
+    
     '//Make sure that Gui_Count is below everything else
     Gui_Count
 End Enum
@@ -543,6 +546,7 @@ Public Enum ButtonEnum
     Game_Map
     Game_Rank
     Game_VirtualShop
+    Game_Incubator
     Game_Menu
     Game_Evolve
     Inventory_Close
@@ -595,6 +599,7 @@ Public Enum ButtonEnum
     VirtualShop_ScrollDown
     VirtualShop_ScrollUp
     MapTravel_Close
+    Incubator_Close
     '//Make sure that Gui_Count is below everything else
     Button_Count
 End Enum
@@ -650,6 +655,7 @@ Public Enum ControlEnum
     KeyMap
     KeyRank
     KeyShop
+    KeyIncubator
     KeyInteract
     KeyConvo1
     KeyConvo2

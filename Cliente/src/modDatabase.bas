@@ -79,8 +79,8 @@ Dim FileName As String
 
         '//Video
         .Fullscreen = GetVar(FileName, "Video", "Fullscreen")
-        .width = GetVar(FileName, "Video", "Width")
-        .height = GetVar(FileName, "Video", "Height")
+        .Width = GetVar(FileName, "Video", "Width")
+        .Height = GetVar(FileName, "Video", "Height")
   
         '//Others
         .SkipBootUp = GetVar(FileName, "Other", "SkipBootUp")
@@ -132,8 +132,8 @@ Dim FileName As String
         
         '//Video
         Call PutVar(FileName, "Video", "Fullscreen", Str(.Fullscreen))
-        Call PutVar(FileName, "Video", "Width", Str(.width))
-        Call PutVar(FileName, "Video", "Height", Str(.height))
+        Call PutVar(FileName, "Video", "Width", Str(.Width))
+        Call PutVar(FileName, "Video", "Height", Str(.Height))
         
         '//Others
         Call PutVar(FileName, "Other", "SkipBootUp", Str(.SkipBootUp))
@@ -178,57 +178,57 @@ End Sub
 Public Sub ResetGui()
     '//GUI
     With GUI(GuiEnum.GUI_LOGIN)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_REGISTER)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_CHARACTERSELECT)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_CHARACTERCREATE)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_CHOICEBOX)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2)
     End With
     With GUI(GuiEnum.GUI_GLOBALMENU)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2)
     End With
     With GUI(GuiEnum.GUI_OPTION)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2)
     End With
     With GUI(GuiEnum.GUI_CHATBOX)
         .OrigX = 10
-        .OrigY = Screen_Height - .height - 10
+        .OrigY = Screen_Height - .Height - 10
     End With
     With GUI(GuiEnum.GUI_MOVEREPLACE)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2)
     End With
     With GUI(GuiEnum.GUI_INPUTBOX)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2)
     End With
     With GUI(GuiEnum.GUI_INVENTORY)
-        .OrigX = Screen_Width - .width - Rand(10, 30) - 25
+        .OrigX = Screen_Width - .Width - Rand(10, 30) - 25
         .OrigY = 120
     End With
     With GUI(GuiEnum.GUI_TRAINER)
-        .OrigX = Screen_Width - .width - Rand(10, 30)
+        .OrigX = Screen_Width - .Width - Rand(10, 30)
         .OrigY = 100 + Rand(10, 40)
     End With
     
     With GUI(GuiEnum.GUI_MAP)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2)
     End With
     
     With GUI(GuiEnum.GUI_INVSTORAGE)
@@ -240,8 +240,8 @@ Public Sub ResetGui()
         .OrigY = 20 + Rand(10, 40)
     End With
     With GUI(GuiEnum.GUI_CONVO)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = Screen_Height - .height - (.height / 2)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = Screen_Height - .Height - (.Height / 2)
     End With
     With GUI(GuiEnum.GUI_SHOP)
         .OrigX = Rand(10, 30) + 25
@@ -260,52 +260,60 @@ Public Sub ResetGui()
         .OrigY = 20 + Rand(10, 40) + 25
     End With
     With GUI(GuiEnum.GUI_RELEARN)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2)
     End With
     With GUI(GuiEnum.GUI_BADGE)
-        .OrigX = Screen_Width - .width - Rand(10, 30)
+        .OrigX = Screen_Width - .Width - Rand(10, 30)
         .OrigY = 100 + Rand(10, 40)
     End With
     With GUI(GuiEnum.GUI_RANK)
-        .OrigX = (Screen_Width - .width)
+        .OrigX = (Screen_Width - .Width)
         .OrigY = 120
     End With
     With GUI(GuiEnum.GUI_VIRTUALSHOP)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
+    End With
+    With GUI(GuiEnum.GUI_INCUBATOR)
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With GUI(GuiEnum.GUI_VIPADVANTAGE)
-        .OrigX = (Screen_Width / 2) - (.width / 2)
-        .OrigY = (Screen_Height / 2) - (.height / 2) '+ 100
+        .OrigX = (Screen_Width / 2) - (.Width / 2)
+        .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With Button(ButtonEnum.Game_Pokedex)
-        .X = Screen_Width - .width - 10 - ((.width + 5) * 6)
-        .Y = Screen_Height - .height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 7)
+        .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Bag)
-        .X = Screen_Width - .width - 10 - ((.width + 5) * 5)
-        .Y = Screen_Height - .height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 6)
+        .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Card)
-        .X = Screen_Width - .width - 10 - ((.width + 5) * 4)
-        .Y = Screen_Height - .height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
+        .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Map)
-        .X = Screen_Width - .width - 10 - ((.width + 5) * 3)
-        .Y = Screen_Height - .height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 4)
+        .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Rank)
-        .X = Screen_Width - .width - 10 - ((.width + 5) * 2)
-        .Y = Screen_Height - .height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
+        .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_VirtualShop)
-        .X = Screen_Width - .width - 10 - ((.width + 5) * 1)
-        .Y = Screen_Height - .height - 10
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
+        .Y = Screen_Height - .Height - 10
+    End With
+    With Button(ButtonEnum.Game_Incubator)
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
+        .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Menu)
-        .X = Screen_Width - .width - 10
-        .Y = Screen_Height - .height - 10
+        .X = Screen_Width - .Width - 10
+        .Y = Screen_Height - .Height - 10
     End With
     
     With Button(ButtonEnum.Game_Evolve)
@@ -314,15 +322,15 @@ Public Sub ResetGui()
     End With
     
     With Button(ButtonEnum.Convo_Reply1)
-        .X = (Screen_Width / 2) - (.width / 2)
+        .X = (Screen_Width / 2) - (.Width / 2)
         .Y = (Screen_Height / 2) - (111 / 2)
     End With
     With Button(ButtonEnum.Convo_Reply2)
-        .X = (Screen_Width / 2) - (.width / 2)
+        .X = (Screen_Width / 2) - (.Width / 2)
         .Y = (Screen_Height / 2) - (111 / 2) + 37
     End With
     With Button(ButtonEnum.Convo_Reply3)
-        .X = (Screen_Width / 2) - (.width / 2)
+        .X = (Screen_Width / 2) - (.Width / 2)
         .Y = (Screen_Height / 2) - (111 / 2) + 74
     End With
 End Sub
@@ -358,6 +366,7 @@ Dim FileName As String
             Case GuiEnum.GUI_BADGE: FileTitle = "badge"
             Case GuiEnum.GUI_RANK: FileTitle = "rank"
             Case GuiEnum.GUI_VIRTUALSHOP: FileTitle = "virtualShop-window"
+            Case GuiEnum.GUI_INCUBATOR: FileTitle = "incubator-window"
             Case GuiEnum.GUI_VIPADVANTAGE: FileTitle = "vipadvantage-window"
             Case GuiEnum.GUI_MAP: FileTitle = "map-window"
         End Select
@@ -369,8 +378,8 @@ Dim FileName As String
                 .StartX = Val(GetVar(FileName, "GENERAL", "StartX"))
                 .StartY = Val(GetVar(FileName, "GENERAL", "StartY"))
                 
-                .width = Val(GetVar(FileName, "GENERAL", "Width"))
-                .height = Val(GetVar(FileName, "GENERAL", "Height"))
+                .Width = Val(GetVar(FileName, "GENERAL", "Width"))
+                .Height = Val(GetVar(FileName, "GENERAL", "Height"))
             End With
         End If
     Next
@@ -415,6 +424,7 @@ Dim FileName As String
                 Case ButtonEnum.Game_Map: FileTitle = "Game_Map"
                 Case ButtonEnum.Game_Rank: FileTitle = "Game_Rank"
                 Case ButtonEnum.Game_VirtualShop: FileTitle = "Game_VirtualShop"
+                Case ButtonEnum.Game_Incubator: FileTitle = "Game_Incubator"
                 Case ButtonEnum.Game_Menu: FileTitle = "Game_Menu"
                 Case ButtonEnum.Game_Evolve: FileTitle = "Game_Evolve"
                 Case ButtonEnum.Inventory_Close: FileTitle = "Inventory_Close"
@@ -475,8 +485,8 @@ Dim FileName As String
                     .StartY(X) = Val(GetVar(FileName, FileTitle, "StartY_" & X))
                 Next
                 
-                .width = Val(GetVar(FileName, FileTitle, "Width"))
-                .height = Val(GetVar(FileName, FileTitle, "Height"))
+                .Width = Val(GetVar(FileName, FileTitle, "Width"))
+                .Height = Val(GetVar(FileName, FileTitle, "Height"))
                 
                 .X = Val(GetVar(FileName, FileTitle, "X"))
                 .Y = Val(GetVar(FileName, FileTitle, "Y"))
@@ -839,7 +849,10 @@ Dim Control As Long
         .keyName = TextUIOptionShop
         .cAsciiKey = 79
     End With
-    
+    With ControlKey(ControlEnum.KeyIncubator)
+        .keyName = TextUIOptionIncubator
+        .cAsciiKey = 89
+    End With
     With ControlKey(ControlEnum.KeyInteract)
         .keyName = TextUIOptionInteract
         .cAsciiKey = 32

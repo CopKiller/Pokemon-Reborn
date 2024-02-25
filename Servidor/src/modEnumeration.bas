@@ -235,6 +235,7 @@ Public Enum ClientPackets
     CBuyInvSlot
     CRequestVirtualShop
     CPurchaseVirtualShop
+    CRequestIncubator
     CMapReport
     CPlayerTravel
     '//Make sure CMSG_COUNT is below everything else
