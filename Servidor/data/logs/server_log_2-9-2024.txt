@@ -1,0 +1,227 @@
+[17:36] Server closed
+[17:36] Server saving players...
+[17:36] Server saving complete...
+[17:37] Server started up
+[17:39] Server started up
+[17:41] Rodorfo has been warped on Map#4 x:14 y:11
+[17:42] Rodorfo requested to edit Item
+[17:45] Rodorfo has been warped on Map#4 x:16 y:11
+[17:45] Rodorfo requested to edit Item
+[17:46] Rodorfo requested Item data
+[17:49] Rodorfo requested to edit Item
+[17:57] Rodorfo has been warped on Map#4 x:16 y:11
+[17:57] Rodorfo requested to edit Item
+[18:02] Rodorfo has been warped on Map#4 x:16 y:11
+[18:02] Rodorfo requested to edit Item
+[18:03] Rodorfo save item#1 data
+[18:03] Rodorfo save item#116 data
+[18:03] Rodorfo save item#117 data
+[18:03] Rodorfo requested to edit Item
+[18:03] Rodorfo requested Item data
+[18:03] Rodorfo , Admin Rights: Get Item#117 x1
+[18:03] Rodorfo use item Gold 10 dias
+[18:03] Rodorfo use item Avalugg
+[18:03] Rodorfo use item Rampardos
+[18:03] Rodorfo use item Rampardos
+[18:03] Rodorfo use item Kabutops
+[18:03] Rodorfo use item Kabutops
+[18:03] Rodorfo use item Flygon
+[18:03] Rodorfo use item Flygon
+[18:03] Rodorfo use item Rhyhorn
+[18:03] Rodorfo use item Rhyhorn
+[18:03] Rodorfo use item Skin Policial
+[18:03] Rodorfo use item Skin Policial
+[18:04] Rodorfo use item Skin Policial
+[18:04] Rodorfo requested to edit Item
+[18:04] Rodorfo save item#1 data
+[18:04] Rodorfo save item#117 data
+[18:04] Rodorfo requested to edit Item
+[18:04] Rodorfo requested Item data
+[18:04] Rodorfo use item Skin Policial
+[18:05] Rodorfo use item Skin Policial
+[18:05] Rodorfo use item Rhyhorn
+[18:05] Rodorfo use item Rhyhorn
+[18:05] Rodorfo use item Skin Policial
+[18:07] Rodorfo use item Skin Policial
+[18:15] Server started up
+[18:15] Rodorfo has been warped on Map#4 x:16 y:11
+[18:15] Rodorfo has been warped on Map#4 x:16 y:11
+[18:15] Rodorfo use item Rhyhorn
+[18:15] Rodorfo , Admin Rights: Get Item#117 x1
+[18:15] Rodorfo use item Skin Policial
+[18:15] Rodorfo use item Skin Policial
+[18:15] Rodorfo use item Skin Policial
+[18:15] Rodorfo use item Gogoat
+[18:15] Rodorfo use item Gogoat
+[18:16] Rodorfo , Admin Rights: Get Item#83 x1
+[18:16] Rodorfo use item Bike
+[18:16] Rodorfo use item Bike
+[18:16] Rodorfo use item Bike
+[18:18] Server started up
+[18:18] Rodorfo has been warped on Map#4 x:16 y:11
+[18:20] Rodorfo , Admin Rights: Get Item#117 x1
+[18:20] Rodorfo use item Skin Policial
+[18:21] Rodorfo use item Skin Policial
+[18:21] Rodorfo use item Gogoat
+[18:21] Rodorfo use item Skin Policial
+[18:21] Rodorfo , Admin Rights: Get Item#83 x1
+[18:21] Rodorfo use item Bike
+[18:21] Rodorfo use item Bike
+[18:22] Server closed
+[18:22] Server saving players...
+[18:22] Server saving complete...
+[18:52] Server started up
+[18:52] Rodorfo has been warped on Map#4 x:15 y:12
+[18:52] Rodorfo requested to edit Item
+[18:56] Rodorfo has been warped on Map#4 x:15 y:12
+[18:56] Rodorfo requested to edit Item
+[19:00] Rodorfo has been warped on Map#4 x:15 y:11
+[19:00] Rodorfo requested to edit Item
+[19:01] Rodorfo save item#1 data
+[19:01] Rodorfo save item#120 data
+[19:01] Rodorfo save item#134 data
+[19:01] Rodorfo save item#135 data
+[19:01] Rodorfo requested to edit Item
+[19:02] Rodorfo save item#1 data
+[19:02] Rodorfo save item#135 data
+[19:02] Rodorfo requested to edit Item
+[19:02] Rodorfo requested Item data
+[19:02] Rodorfo , Admin Rights: Get Item#135 x1
+[19:02] Rodorfo use item Charizard
+[19:02] Rodorfo use item Charizard
+[19:02] Rodorfo use item Bike
+[19:02] Rodorfo use item Bike
+[19:03] Rodorfo has been warped on Map#4 x:15 y:13
+[19:03] Rodorfo use item Charizard
+[19:03] Rodorfo requested to edit Item
+[19:03] Rodorfo save item#1 data
+[19:03] Rodorfo save item#130 data
+[19:03] Rodorfo save item#131 data
+[19:03] Rodorfo save item#132 data
+[19:03] Rodorfo save item#134 data
+[19:03] Rodorfo save item#135 data
+[19:03] Rodorfo requested to edit Item
+[19:03] Rodorfo requested Item data
+[19:04] Rodorfo use item Charizard
+[19:04] Rodorfo use item Charizard
+[19:05] Rodorfo use item Charizard
+[19:07] Rodorfo use item Charizard
+[19:07] Rodorfo use item Hipopotas
+[19:07] Rodorfo use item Hipopotas
+[19:07] Rodorfo use item Bike
+[19:07] Rodorfo use item Bike
+[19:10] Rodorfo has been warped on Map#4 x:15 y:13
+[19:11] Rodorfo use item Charizard
+[19:13] Rodorfo use item Charizard
+[19:13] Rodorfo use item Gogoat
+[19:13] Rodorfo use item Gogoat
+[19:13] Rodorfo use item Skin Policial
+[19:13] Rodorfo use item Gogoat
+[19:15] Rodorfo use item Charizard
+[19:15] Rodorfo use item Charizard
+[19:16] Rodorfo use item Charizard
+[19:16] Rodorfo use item Skin Policial
+[19:16] Rodorfo use item Charizard
+[19:22] Rodorfo has been warped on Map#4 x:16 y:12
+[19:22] Rodorfo use item Skin Policial
+[19:22] Rodorfo use item Skin Policial
+[19:22] Rodorfo use item Charizard
+[19:24] Rodorfo requested to edit Pokemon
+[19:24] Rodorfo requested Pokemon data
+[19:25] Rodorfo has been warped on Map#4 x:17 y:11
+[19:26] Rodorfo requested to edit Pokemon
+[19:26] Rodorfo requested Pokemon data
+[19:27] Rodorfo requested to edit Item
+[19:27] Rodorfo requested to edit Item
+[19:33] Rodorfo has been warped on Map#4 x:17 y:11
+[19:37] Rodorfo has been warped on Map#4 x:17 y:10
+[19:48] Rodorfo has been warped on Map#4 x:17 y:14
+[19:48] Rodorfo requested to edit Pokemon
+[19:50] Rodorfo has been warped on Map#4 x:17 y:14
+[19:51] Rodorfo requested to edit Pokemon
+[19:52] Rodorfo has been warped on Map#4 x:17 y:14
+[19:52] Rodorfo requested to edit Pokemon
+[19:56] Rodorfo requested Pokemon data
+[20:00] Rodorfo has been warped on Map#4 x:17 y:14
+[20:07] Rodorfo has been warped on Map#4 x:17 y:13
+[20:07] Rodorfo requested to edit Item
+[20:08] Rodorfo save item#1 data
+[20:08] Rodorfo save item#117 data
+[20:08] Rodorfo save item#118 data
+[20:08] Rodorfo save item#119 data
+[20:08] Rodorfo , Admin Rights: Get Item#118 x1
+[20:09] Rodorfo requested to edit Item
+[20:09] Rodorfo save item#1 data
+[20:09] Rodorfo save item#118 data
+[20:09] Rodorfo use item Skin Lance
+[20:09] Rodorfo use item Skin Lance
+[20:09] Rodorfo use item Skin Lance
+[20:09] Rodorfo use item Skin Policial
+[20:09] Rodorfo use item Skin Lance
+[20:09] Rodorfo use item Skin Lance
+[20:09] Rodorfo use item Skin Lance
+[20:09] Rodorfo use item Skin Lance
+[20:18] Rodorfo has been warped on Map#4 x:16 y:11
+[20:18] Rodorfo use item Skin Lance
+[20:18] Rodorfo use item Skin Lance
+[20:26] Rodorfo has been warped on Map#4 x:16 y:10
+[20:26] Rodorfo use item Skin Lance
+[20:26] Rodorfo use item Skin Lance
+[20:26] Rodorfo use item Skin Lance
+[20:27] Rodorfo use item Skin Lance
+[20:27] Rodorfo use item Skin Lance
+[20:27] Rodorfo use item Skin Lance
+[20:27] Rodorfo use item Skin Lance
+[20:27] Rodorfo use item Skin Lance
+[20:28] Rodorfo use item Skin Policial
+[20:28] Rodorfo use item Skin Policial
+[20:28] Rodorfo use item Charizard
+[20:28] Rodorfo use item Bike
+[20:28] Rodorfo use item Bike
+[20:28] Rodorfo use item Skin Policial
+[20:28] Rodorfo use item Bike
+[20:28] Rodorfo use item Bike
+[20:29] Rodorfo use item Skin Policial
+[20:29] Rodorfo use item Bike
+[20:29] Rodorfo use item Bike
+[20:29] Rodorfo use item Skin Policial
+[20:30] Rodorfo use item Skin Policial
+[20:30] Rodorfo use item Skin Policial
+[20:30] Rodorfo use item Bike
+[20:30] Rodorfo use item Bike
+[20:30] Rodorfo use item Bike
+[20:30] Rodorfo use item Bike
+[20:32] Rodorfo use item Skin Lance
+[20:32] Rodorfo use item Skin Lance
+[20:32] Rodorfo use item Skin Lance
+[20:32] Rodorfo use item Skin Lance
+[20:32] Rodorfo use item Skin Lance
+[20:32] Rodorfo use item Skin Lance
+[20:32] Rodorfo use item Bike
+[20:33] Rodorfo use item Skin Policial
+[20:33] Rodorfo use item Skin Policial
+[20:33] Rodorfo use item Skin Lance
+[20:33] Rodorfo use item Bike
+[20:33] Rodorfo use item Skin Policial
+[20:33] Rodorfo use item Skin Policial
+[20:33] Rodorfo use item Bike
+[20:33] Rodorfo use item Bike
+[20:33] Rodorfo use item Bike
+[20:33] Rodorfo use item Bike
+[20:33] Rodorfo use item Charizard
+[20:33] Rodorfo use item Bike
+[20:33] Rodorfo use item Charizard
+[20:33] Rodorfo use item Charizard
+[20:33] Rodorfo use item Bike
+[20:33] Rodorfo use item Charizard
+[20:33] Rodorfo use item Charizard
+[20:33] Rodorfo use item Skin Lance
+[20:34] Rodorfo use item Skin Lance
+[20:34] Rodorfo use item Bike
+[20:34] Rodorfo use item Bike
+[20:34] Rodorfo use item Skin Lance
+[20:34] Rodorfo use item Skin Lance
+[20:34] Rodorfo use item Skin Lance
+[20:38] Server closed
+[20:38] Server saving players...
+[20:38] Server saving complete...

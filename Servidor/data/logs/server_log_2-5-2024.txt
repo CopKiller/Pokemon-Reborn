@@ -1,0 +1,101 @@
+[17:17] Server started up
+[17:19] Account 'rodorfo' has been created
+[17:19] Character 'Rodorfo' has been created from Account 'rodorfo
+[17:19] Rodorfo has been warped on Map#5 x:10 y:7
+[17:20] Rodorfo has been warped on Map#3 x:24 y:23
+[17:42] Server started up
+[17:43] Server closed
+[17:43] Server saving players...
+[17:43] Server saving complete...
+[17:43] Server started up
+[17:43] Server closed
+[17:43] Server saving players...
+[17:43] Server saving complete...
+[18:22] Server started up
+[18:22] Rodorfo has been warped on Map#3 x:18 y:18
+[18:32] Server closed
+[18:32] Server saving players...
+[18:32] Server saving complete...
+[19:03] Server started up
+[19:03] Rodorfo has been warped on Map#3 x:18 y:18
+[19:21] Server closed
+[19:21] Server saving players...
+[19:21] Server saving complete...
+[22:52] Server started up
+[22:53] Rodorfo has been warped on Map#3 x:18 y:18
+[22:54] Server started up
+[22:54] Rodorfo has been warped on Map#3 x:18 y:18
+[22:55] Server started up
+[22:56] Rodorfo has been warped on Map#3 x:18 y:18
+[22:56] Rodorfo has been warped on Map#3 x:18 y:18
+[22:57] Rodorfo requested to edit Item
+[22:58] Rodorfo has been warped on Map#3 x:17 y:19
+[22:58] Rodorfo requested to edit Item
+[23:00] Rodorfo has been warped on Map#3 x:17 y:19
+[23:00] Rodorfo requested to edit Item
+[23:00] Rodorfo save item#1 data
+[23:00] Rodorfo save item#111 data
+[23:00] Rodorfo , Admin Rights: Get Item#111 x1
+[23:01] Rodorfo use item Vip 10 dias
+[23:16] Rodorfo requested to edit Item
+[23:16] Rodorfo requested Item data
+[23:16] Rodorfo , Admin Rights: Get Item#128 x1
+[23:16] Rodorfo , Admin Rights: Get Item#129 x1
+[23:16] Rodorfo , Admin Rights: Get Item#130 x1
+[23:16] Rodorfo , Admin Rights: Get Item#131 x1
+[23:16] Rodorfo use item Lanturn
+[23:16] Rodorfo use item Lanturn
+[23:16] Rodorfo use item Lapras
+[23:17] Rodorfo use item Gogoat
+[23:17] Rodorfo use item Gogoat
+[23:17] Rodorfo use item Avalugg
+[23:17] Rodorfo use item Avalugg
+[23:17] Rodorfo , Admin Rights: Get Item#132 x1
+[23:17] Rodorfo , Admin Rights: Get Item#133 x1
+[23:17] Rodorfo , Admin Rights: Get Item#126 x1
+[23:17] Rodorfo , Admin Rights: Get Item#125 x1
+[23:17] Rodorfo , Admin Rights: Get Item#124 x1
+[23:17] Rodorfo , Admin Rights: Get Item#123 x1
+[23:17] Rodorfo use item Araquanid
+[23:17] Rodorfo use item Araquanid
+[23:25] Rodorfo use item Lanturn
+[23:25] Rodorfo use item Rampardos
+[23:27] Rodorfo has been warped on Map#4 x:23 y:50
+[23:27] Rodorfo , Admin Rights: Get Item#122 x1
+[23:27] Rodorfo , Admin Rights: Get Item#120 x1
+[23:27] Rodorfo use item Kabutops
+[23:27] Rodorfo use item Kabutops
+[23:28] Server started up
+[23:29] Rodorfo has been warped on Map#3 x:17 y:19
+[23:29] Rodorfo , Admin Rights: Get Item#120 x1
+[23:29] Rodorfo , Admin Rights: Get Item#121 x1
+[23:29] Rodorfo , Admin Rights: Get Item#122 x1
+[23:29] Rodorfo , Admin Rights: Get Item#123 x1
+[23:29] Rodorfo , Admin Rights: Get Item#124 x1
+[23:29] Rodorfo , Admin Rights: Get Item#125 x1
+[23:29] Rodorfo , Admin Rights: Get Item#126 x1
+[23:29] Rodorfo , Admin Rights: Get Item#127 x1
+[23:29] Rodorfo , Admin Rights: Get Item#128 x1
+[23:29] Rodorfo , Admin Rights: Get Item#129 x1
+[23:29] Rodorfo , Admin Rights: Get Item#130 x1
+[23:29] Rodorfo , Admin Rights: Get Item#131 x1
+[23:29] Rodorfo , Admin Rights: Get Item#132 x1
+[23:29] Rodorfo , Admin Rights: Get Item#133 x1
+[23:29] Rodorfo , Admin Rights: Get Item#134 x1
+[23:30] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#3 Level10
+[23:30] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#6 Level10
+[23:30] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#9 Level10
+[23:30] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#12 Level10
+[23:30] Rodorfo requested to edit Pokemon
+[23:31] Rodorfo save pokemon#1 data
+[23:31] Rodorfo save pokemon#9 data
+[23:31] Rodorfo save pokemon#10 data
+[23:31] Rodorfo save pokemon#11 data
+[23:31] Rodorfo save pokemon#12 data
+[23:31] Rodorfo requested to edit Pokemon
+[23:32] Rodorfo , Admin Rights: Get Item#111 x1
+[23:32] Rodorfo use item Vip 10 dias
+[23:32] Rodorfo use item Kabutops
+[23:45] Rodorfo has been warped on Map#3 x:15 y:16
+[23:51] Rodorfo has been warped on Map#3 x:15 y:16
+[23:57] Rodorfo has been warped on Map#3 x:15 y:16

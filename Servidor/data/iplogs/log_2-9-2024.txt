@@ -1,0 +1,197 @@
+[17:39] Receiving connection from 127.0.0.1
+[17:39] Connection from 127.0.0.1 was terminated
+[17:41] Receiving connection from 127.0.0.1
+[17:41] Account 'rodorfo' has logged in on IP 127.0.0.1
+[17:44] Connection from 127.0.0.1 was terminated
+[17:45] Receiving connection from 127.0.0.1
+[17:45] Connection from 127.0.0.1 was terminated
+[17:45] Receiving connection from 127.0.0.1
+[17:45] Account 'rodorfo' has logged in on IP 127.0.0.1
+[17:57] Receiving connection from 127.0.0.1
+[17:57] Connection from 127.0.0.1 was terminated
+[17:57] Connection from 127.0.0.1 was terminated
+[17:57] Account 'rodorfo' has logged in on IP 127.0.0.1
+[17:57] Connection from 127.0.0.1 was terminated
+[17:57] Receiving connection from 127.0.0.1
+[17:57] Account 'rodorfo' has logged in on IP 127.0.0.1
+[18:00] Connection from 127.0.0.1 was terminated
+[18:01] Receiving connection from 127.0.0.1
+[18:02] Connection from 127.0.0.1 was terminated
+[18:02] Receiving connection from 127.0.0.1
+[18:02] Account 'rodorfo' has logged in on IP 127.0.0.1
+[18:15] Receiving connection from 127.0.0.1
+[18:15] Account 'rodorfo' has logged in on IP 127.0.0.1
+[18:15] Connection from 127.0.0.1 was terminated
+[18:15] Receiving connection from 127.0.0.1
+[18:15] Connection from 127.0.0.1 was terminated
+[18:15] Receiving connection from 127.0.0.1
+[18:15] Account 'rodorfo' has logged in on IP 127.0.0.1
+[18:18] Receiving connection from 127.0.0.1
+[18:18] Connection from 127.0.0.1 was terminated
+[18:18] Receiving connection from 127.0.0.1
+[18:18] Account 'rodorfo' has logged in on IP 127.0.0.1
+[18:21] Connection from 127.0.0.1 was terminated
+[18:52] Receiving connection from 127.0.0.1
+[18:52] Account 'rodorfo' has logged in on IP 127.0.0.1
+[18:55] Connection from 127.0.0.1 was terminated
+[18:56] Receiving connection from 127.0.0.1
+[18:56] Connection from 127.0.0.1 was terminated
+[18:56] Receiving connection from 127.0.0.1
+[18:56] Account 'rodorfo' has logged in on IP 127.0.0.1
+[18:57] Connection from 127.0.0.1 was terminated
+[19:00] Receiving connection from 127.0.0.1
+[19:00] Connection from 127.0.0.1 was terminated
+[19:00] Receiving connection from 127.0.0.1
+[19:00] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:03] Connection from 127.0.0.1 was terminated
+[19:03] Receiving connection from 127.0.0.1
+[19:03] Connection from 127.0.0.1 was terminated
+[19:03] Receiving connection from 127.0.0.1
+[19:03] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:08] Receiving connection from 178.128.176.241
+[19:08] Connection from 178.128.176.241 was terminated
+[19:08] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:09] Connection from 178.128.176.241 was terminated
+[19:09] Receiving connection from 178.128.176.241
+[19:10] Connection from 178.128.176.241 was terminated
+[19:10] Receiving connection from 178.128.176.241
+[19:10] Connection from 178.128.176.241 was terminated
+[19:10] Receiving connection from 178.128.176.241
+[19:10] Connection from 178.128.176.241 was terminated
+[19:10] Receiving connection from 178.128.176.241
+[19:10] Connection from 178.128.176.241 was terminated
+[19:10] Receiving connection from 178.128.176.241
+[19:10] Connection from 178.128.176.241 was terminated
+[19:10] Receiving connection from 178.128.176.241
+[19:10] Connection from 178.128.176.241 was terminated
+[19:10] Receiving connection from 178.128.176.241
+[19:10] Connection from 178.128.176.241 was terminated
+[19:10] Receiving connection from 178.128.176.241
+[19:10] Connection from 178.128.176.241 was terminated
+[19:10] Receiving connection from 178.128.176.241
+[19:10] Connection from 178.128.176.241 was terminated
+[19:10] Connection from 127.0.0.1 was terminated
+[19:10] Receiving connection from 127.0.0.1
+[19:10] Connection from 127.0.0.1 was terminated
+[19:10] Receiving connection from 127.0.0.1
+[19:10] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:22] Connection from 127.0.0.1 was terminated
+[19:22] Receiving connection from 127.0.0.1
+[19:22] Connection from 127.0.0.1 was terminated
+[19:22] Receiving connection from 127.0.0.1
+[19:22] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:25] Connection from 127.0.0.1 was terminated
+[19:25] Receiving connection from 127.0.0.1
+[19:25] Connection from 127.0.0.1 was terminated
+[19:25] Receiving connection from 127.0.0.1
+[19:25] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:33] Connection from 127.0.0.1 was terminated
+[19:33] Receiving connection from 127.0.0.1
+[19:33] Connection from 127.0.0.1 was terminated
+[19:33] Receiving connection from 127.0.0.1
+[19:33] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:37] Receiving connection from 127.0.0.1
+[19:37] Connection from 127.0.0.1 was terminated
+[19:37] Connection from 127.0.0.1 was terminated
+[19:37] Receiving connection from 127.0.0.1
+[19:37] Connection from 127.0.0.1 was terminated
+[19:37] Receiving connection from 127.0.0.1
+[19:37] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:43] Connection from 127.0.0.1 was terminated
+[19:48] Receiving connection from 127.0.0.1
+[19:48] Connection from 127.0.0.1 was terminated
+[19:48] Receiving connection from 127.0.0.1
+[19:48] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:49] Connection from 127.0.0.1 was terminated
+[19:50] Receiving connection from 127.0.0.1
+[19:50] Connection from 127.0.0.1 was terminated
+[19:50] Receiving connection from 127.0.0.1
+[19:50] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:51] Connection from 127.0.0.1 was terminated
+[19:51] Receiving connection from 127.0.0.1
+[19:51] Connection from 127.0.0.1 was terminated
+[19:51] Receiving connection from 127.0.0.1
+[19:51] Account 'rodorfo' has logged in on IP 127.0.0.1
+[19:56] Connection from 127.0.0.1 was terminated
+[20:00] Receiving connection from 127.0.0.1
+[20:00] Connection from 127.0.0.1 was terminated
+[20:00] Receiving connection from 127.0.0.1
+[20:00] Account 'rodorfo' has logged in on IP 127.0.0.1
+[20:07] Connection from 127.0.0.1 was terminated
+[20:07] Receiving connection from 127.0.0.1
+[20:07] Connection from 127.0.0.1 was terminated
+[20:07] Receiving connection from 127.0.0.1
+[20:07] Account 'rodorfo' has logged in on IP 127.0.0.1
+[20:11] Receiving connection from 162.216.149.9
+[20:11] Receiving connection from 162.216.149.9
+[20:11] Connection from 162.216.149.9 was terminated
+[20:11] Connection from 162.216.149.9 was terminated
+[20:18] Connection from 127.0.0.1 was terminated
+[20:18] Receiving connection from 127.0.0.1
+[20:18] Connection from 127.0.0.1 was terminated
+[20:18] Receiving connection from 127.0.0.1
+[20:18] Account 'rodorfo' has logged in on IP 127.0.0.1
+[20:19] Connection from 127.0.0.1 was terminated
+[20:26] Receiving connection from 127.0.0.1
+[20:26] Connection from 127.0.0.1 was terminated
+[20:26] Receiving connection from 127.0.0.1
+[20:26] Account 'rodorfo' has logged in on IP 127.0.0.1
+[20:37] Connection from 127.0.0.1 was terminated

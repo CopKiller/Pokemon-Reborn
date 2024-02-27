@@ -1,0 +1,201 @@
+[07:28] Server started up
+[07:29] Rodorfo has been warped on Map#4 x:11 y:21
+[07:29] Account 'rodo' has been created
+[07:29] Character 'Peixa' has been created from Account 'rodo
+[07:29] Peixa has been warped on Map#5 x:10 y:7
+[07:29] Peixa has been warped on Map#3 x:24 y:23
+[07:30] Peixa has been warped on Map#4 x:23 y:50
+[07:30] Peixa has been warped on Map#3 x:23 y:0
+[07:30] Peixa has been warped on Map#4 x:25 y:50
+[07:30] Peixa , Admin Rights: Get Item#2 x20
+[07:30] Peixa , Admin Rights: Get Item#21 x20
+[07:30] Peixa , Admin Rights: Get Item#23 x20
+[07:30] Peixa use item Elixir
+[07:31] Peixa , Admin Rights: Get Item#77 x1
+[07:31] Peixa , Admin Rights: Get Item#77 x1
+[07:31] Peixa requested to edit Item
+[07:31] Peixa save item#1 data
+[07:31] Peixa save item#76 data
+[07:31] Peixa save item#77 data
+[07:32] Peixa , Admin Rights: Get Item#77 x1
+[07:32] Peixa , Admin Rights: Get Item#77 x1
+[07:32] Peixa , Admin Rights: Give Pokemon To Peixa, Pokemon#3 Level1
+[07:32] Peixa , Admin Rights: Give Pokemon To Peixa, Pokemon#6 Level1
+[07:32] Peixa , Admin Rights: Give Pokemon To Peixa, Pokemon#9 Level1
+[07:33] Peixa requested to edit Pokemon
+[07:33] Peixa save pokemon#1 data
+[07:33] Peixa save pokemon#16 data
+[07:51] Rodorfo has been warped on Map#4 x:14 y:24
+[07:55] Rodorfo has been warped on Map#4 x:16 y:17
+[07:56] [Mapa]Rodorfo: a
+[07:56] Rodorfo has been warped on Map#4 x:24 y:18
+[07:57] Rodorfo requested to edit Item
+[07:58] Rodorfo save item#1 data
+[07:58] Rodorfo save item#120 data
+[07:58] Rodorfo save item#121 data
+[07:58] Rodorfo save item#122 data
+[07:58] Rodorfo save item#123 data
+[07:58] Rodorfo save item#124 data
+[07:58] Rodorfo save item#126 data
+[07:58] Rodorfo save item#127 data
+[07:58] Rodorfo save item#128 data
+[07:58] Rodorfo save item#129 data
+[07:58] Rodorfo save item#130 data
+[07:58] Rodorfo save item#131 data
+[07:58] Rodorfo save item#132 data
+[07:58] Rodorfo save item#133 data
+[07:58] Rodorfo save item#134 data
+[07:58] Rodorfo save item#135 data
+[08:02] Rodorfo use item Gold 10 dias
+[08:03] Rodorfo requested to edit Shop
+[08:03] Rodorfo save Shop#1 data
+[08:14] Rodorfo has been warped on Map#4 x:17 y:14
+[08:14] Rodorfo requested to edit Shop
+[08:16] Rodorfo requested Shop data
+[08:17] Rodorfo has been warped on Map#4 x:17 y:14
+[08:17] Rodorfo requested to edit Shop
+[08:21] Rodorfo requested Shop data
+[08:22] Server closed
+[08:22] Server saving players...
+[08:22] Server saving complete...
+[08:23] Server started up
+[08:23] Rodorfo has been warped on Map#4 x:17 y:14
+[08:24] Rodorfo requested to edit Shop
+[08:24] Rodorfo save Shop#1 data
+[08:25] Rodorfo requested to edit Item
+[08:25] Rodorfo requested Item data
+[09:18] Rodorfo requested to edit Shop
+[09:18] Rodorfo save Shop#1 data
+[09:18] Rodorfo , Admin Rights: Get Item#3 x189
+[09:19] Rodorfo , Admin Rights: Get Item#3 x1
+[09:19] Rodorfo , Admin Rights: Get Item#3 x2500
+[09:19] Rodorfo , Admin Rights: Get Item#3 x999
+[09:20] Rodorfo , Admin Rights: Get Item#3 x999
+[09:35] Server closed
+[09:35] Server saving players...
+[09:35] Server saving complete...
+[09:52] Server started up
+[09:53] Rodorfo has been warped on Map#4 x:17 y:15
+[14:17] Server started up
+[14:18] Rodorfo has been warped on Map#4 x:17 y:15
+[14:18] Peixa has been warped on Map#4 x:15 y:19
+[14:35] Server started up
+[14:35] Rodorfo has been warped on Map#4 x:17 y:15
+[14:35] Peixa has been warped on Map#4 x:15 y:19
+[14:35] Character 'Vaco' has been created from Account 'rodo
+[14:35] Vaco has been warped on Map#5 x:10 y:7
+[14:36] Vaco has been warped on Map#3 x:24 y:23
+[14:36] Vaco has been warped on Map#4 x:24 y:50
+[14:37] Vaco has been warped on Map#4 x:17 y:13
+[14:37] Vaco , Admin Rights: Give Pokemon To Vaco, Pokemon#1 Level1
+[14:37] Vaco , Admin Rights: Give Pokemon To Vaco, Pokemon#2 Level1
+[14:37] Vaco , Admin Rights: Give Pokemon To Vaco, Pokemon#5 Level1
+[14:37] Vaco , Admin Rights: Give Pokemon To Vaco, Pokemon#6 Level1
+[14:37] Vaco , Admin Rights: Give Pokemon To Vaco, Pokemon#7 Level1
+[14:38] Rodorfo has been warped on Map#3 x:24 y:0
+[14:38] [Mapa]Rodorfo: a
+[14:39] Vaco has been warped on Map#3 x:23 y:0
+[14:39] [Mapa]Vaco: qsasa
+[14:39] [Mapa]Rodorfo: a
+[14:39] [Mapa]Rodorfo: e
+[14:39] [Mapa]Rodorfo: f
+[14:46] Rodorfo has been warped on Map#3 x:24 y:6
+[14:46] Peixa has been warped on Map#4 x:15 y:19
+[14:46] Vaco has been warped on Map#3 x:25 y:7
+[14:46] Rodorfo requested to edit map#3
+[14:47] Rodorfo has been warped on Map#3 x:24 y:6
+[14:47] Vaco has been warped on Map#3 x:25 y:7
+[14:47] Rodorfo updated map#3
+[14:47] Rodorfo enter storage
+[14:47] Rodorfo enter storage
+[14:49] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#2 Level1
+[14:49] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#4 Level1
+[14:49] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#7 Level1
+[14:49] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#10 Level1
+[14:49] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#12 Level1
+[14:50] Vaco has been warped on Map#3 x:25 y:7
+[14:50] Rodorfo has been warped on Map#3 x:25 y:7
+[14:52] Server started up
+[14:53] Vaco has been warped on Map#3 x:25 y:7
+[14:54] Vaco has been warped on Map#3 x:25 y:7
+[14:54] Rodorfo has been warped on Map#3 x:25 y:7
+[14:54] [Mapa]Vaco: a
+[14:54] [Mapa]Vaco: d
+[14:55] [Mapa]Vaco: sa
+[14:55] Vaco has been warped on Map#4 x:24 y:50
+[14:55] Vaco has been warped on Map#3 x:24 y:0
+[14:55] Furdunsa has been warped on Map#4 x:12 y:15
+[14:55] Furdunsa has been warped on Map#3 x:25 y:0
+[15:04] Server started up
+[15:04] Vaco has been warped on Map#3 x:25 y:7
+[15:04] Rodorfo has been warped on Map#3 x:25 y:7
+[15:05] Rodorfo enter storage
+[15:05] Rodorfo enter storage
+[15:06] [Mapa]Rodorfo: a
+[15:07] Peixa has been warped on Map#4 x:15 y:19
+[15:07] Vaco has been warped on Map#3 x:26 y:7
+[15:07] Rodorfo has been warped on Map#3 x:24 y:9
+[15:07] Rodorfo enter storage
+[15:23] Server started up
+[15:23] Rodorfo has been warped on Map#3 x:24 y:9
+[15:24] Peixa has been warped on Map#4 x:25 y:49
+[15:24] Peixa has been warped on Map#3 x:25 y:0
+[15:24] Peixa enter storage
+[15:24] Peixa enter storage
+[15:24] Peixa , Admin Rights: Get Item#6 x1
+[15:24] Peixa , Admin Rights: Give Pokemon To Peixa, Pokemon#14 Level1
+[15:24] Peixa , Admin Rights: Give Pokemon To Peixa, Pokemon#15 Level1
+[15:31] [Mapa]Rodorfo: sasasa
+[15:33] Rodorfo enter storage
+[15:34] Rodorfo enter storage
+[15:38] Rodorfo enter storage
+[15:38] Rodorfo enter storage
+[15:38] Peixa enter storage
+[15:39] Peixa enter storage
+[15:40] Peixa enter storage
+[15:40] Peixa enter storage
+[15:50] Rodorfo enter storage
+[15:50] Rodorfo enter storage
+[16:08] Peixa has been warped on Map#4 x:24 y:50
+[16:08] Peixa , Admin Rights: Get Item#3 x1000
+[16:09] Peixa , Admin Rights: Get Item#3 x999
+[16:12] Peixa requested to edit Shop
+[16:14] Peixa has been warped on Map#4 x:26 y:45
+[16:14] Peixa requested to edit Shop
+[16:16] Peixa requested Shop data
+[16:16] Peixa requested to edit Shop
+[16:21] Peixa requested Shop data
+[16:21] Peixa requested to edit Shop
+[16:23] Peixa requested Shop data
+[16:23] Peixa requested to edit Shop
+[16:24] Peixa save Shop#1 data
+[16:25] Peixa requested to edit Shop
+[16:25] Peixa save Shop#1 data
+[16:25] Peixa requested to edit Shop
+[16:26] Peixa save Shop#1 data
+[16:26] Peixa requested to edit Shop
+[16:26] Peixa save Shop#1 data
+[16:26] Peixa requested to edit Shop
+[16:28] Peixa requested to edit Shop
+[16:29] Peixa save Shop#1 data
+[16:29] Peixa requested to edit Shop
+[16:30] Peixa requested to edit Shop
+[16:32] Peixa save Shop#1 data
+[16:32] Peixa requested to edit Shop
+[16:36] Peixa requested Shop data
+[16:36] Peixa requested to edit Shop
+[16:36] Peixa save Shop#1 data
+[16:36] Peixa requested to edit Shop
+[16:38] Peixa save Shop#1 data
+[16:38] Peixa requested to edit Shop
+[16:38] Peixa save Shop#1 data
+[16:38] Peixa requested to edit Shop
+[16:42] Peixa has been warped on Map#4 x:26 y:45
+[16:42] Peixa requested to edit map#4
+[16:44] Peixa has been warped on Map#4 x:26 y:45
+[16:44] Peixa updated map#4
+[16:45] Peixa has been warped on Map#4 x:24 y:43
+[16:46] Rodorfo has been warped on Map#3 x:24 y:5
+[16:46] Rodorfo has been warped on Map#4 x:24 y:50
+[16:48] Rodorfo has been warped on Map#4 x:23 y:45
+[16:49] Peixa has been warped on Map#4 x:24 y:43

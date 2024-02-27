@@ -1,0 +1,189 @@
+[19:03] Server started up
+[19:05] Rodorfo has been warped on Map#4 x:23 y:45
+[19:32] Server closed
+[19:32] Server saving players...
+[19:32] Server saving complete...
+[20:35] Server started up
+[20:35] Rodorfo has been warped on Map#4 x:26 y:42
+[20:35] Rodorfo use item Skin Policial
+[20:35] Rodorfo use item Skin Policial
+[20:53] Server started up
+[20:53] Rodorfo has been warped on Map#4 x:27 y:42
+[20:53] Rodorfo has been warped on Map#3 x:24 y:0
+[20:53] Rodorfo requested to edit Item
+[20:53] Rodorfo requested to edit Pokemon
+[20:53] Rodorfo has been warped on Map#4 x:24 y:50
+[20:54] Rodorfo has been warped on Map#4 x:34 y:18
+[20:56] Rodorfo warped to map#2
+[20:56] Rodorfo has been warped on Map#2 x:24 y:18
+[20:56] Rodorfo warped to map#3
+[20:56] Rodorfo has been warped on Map#3 x:24 y:18
+[20:56] Rodorfo warped to map#4
+[20:56] Rodorfo has been warped on Map#4 x:24 y:18
+[20:56] Rodorfo warped to map#4
+[20:56] Rodorfo has been warped on Map#4 x:24 y:18
+[20:56] Rodorfo warped to map#5
+[20:56] Rodorfo has been warped on Map#5 x:24 y:18
+[20:56] Rodorfo warped to map#7
+[20:56] Rodorfo has been warped on Map#7 x:24 y:18
+[20:56] Rodorfo warped to map#9
+[20:56] Rodorfo has been warped on Map#9 x:24 y:18
+[20:56] Rodorfo warped to map#16
+[20:56] Rodorfo has been warped on Map#16 x:24 y:18
+[20:56] Rodorfo warped to map#17
+[20:56] Rodorfo has been warped on Map#17 x:24 y:18
+[20:56] Rodorfo warped to map#19
+[20:56] Rodorfo has been warped on Map#19 x:24 y:18
+[20:56] Rodorfo warped to map#7
+[20:56] Rodorfo has been warped on Map#7 x:24 y:18
+[20:57] Rodorfo warped to map#3
+[20:57] Rodorfo has been warped on Map#3 x:22 y:13
+[21:00] Rodorfo has been warped on Map#3 x:26 y:45
+[21:00] Rodorfo has been warped on Map#4 x:26 y:50
+[21:00] Rodorfo has been warped on Map#3 x:25 y:0
+[21:00] Rodorfo requested to edit map#3
+[21:00] Rodorfo requested to edit map#3
+[21:02] Rodorfo has been warped on Map#3 x:25 y:3
+[21:02] Rodorfo requested to edit map#3
+[21:02] Rodorfo has been warped on Map#3 x:25 y:3
+[21:02] Rodorfo updated map#3
+[21:02] Rodorfo has been warped on Map#4 x:25 y:50
+[21:02] Rodorfo has been warped on Map#3 x:25 y:0
+[21:03] Rodorfo has been warped on Map#4 x:25 y:50
+[21:03] Rodorfo has been warped on Map#3 x:25 y:0
+[21:03] Rodorfo requested to edit map#3
+[21:03] Rodorfo has been warped on Map#3 x:25 y:1
+[21:03] Rodorfo updated map#3
+[21:03] Rodorfo has been warped on Map#4 x:24 y:50
+[21:03] Rodorfo has been warped on Map#7 x:27 y:50
+[21:03] Rodorfo has been warped on Map#17 x:21 y:50
+[21:03] Rodorfo requested to edit Conversation
+[21:08] Server closed
+[21:08] Server saving players...
+[21:08] Server saving complete...
+[21:09] Server started up
+[21:11] Rodorfo has been warped on Map#17 x:28 y:27
+[21:11] Rodorfo requested to edit Conversation
+[21:12] Rodorfo requested Conversation data
+[21:12] Rodorfo has been warped on Map#7 x:22 y:0
+[21:12] Rodorfo has been warped on Map#15 x:12 y:14
+[21:12] Rodorfo has been warped on Map#7 x:32 y:37
+[21:12] Rodorfo has been warped on Map#17 x:22 y:50
+[21:13] Rodorfo has been warped on Map#7 x:22 y:0
+[21:13] Rodorfo requested to edit Item
+[21:13] Rodorfo requested Item data
+[22:47] Rodorfo has been warped on Map#7 x:37 y:19
+[22:57] Rodorfo requested to edit Item
+[23:01] Rodorfo save item#1 data
+[23:01] Rodorfo save item#110 data
+[23:03] Rodorfo save item#110 data
+[23:03] Rodorfo save item#111 data
+[23:03] Rodorfo save item#110 data
+[23:03] Rodorfo save item#111 data
+[23:03] Rodorfo save item#112 data
+[23:03] Rodorfo save item#110 data
+[23:03] Rodorfo save item#111 data
+[23:04] Rodorfo save item#110 data
+[23:04] Rodorfo save item#111 data
+[23:04] Rodorfo save item#112 data
+[23:04] Rodorfo save item#113 data
+[23:04] Rodorfo save item#110 data
+[23:04] Rodorfo save item#111 data
+[23:04] Rodorfo save item#112 data
+[23:04] Rodorfo save item#113 data
+[23:09] Rodorfo requested to edit Item
+[23:09] Rodorfo save item#1 data
+[23:09] Rodorfo save item#110 data
+[23:09] Rodorfo save item#111 data
+[23:10] Rodorfo save item#112 data
+[23:10] Rodorfo save item#113 data
+[23:10] Rodorfo requested to edit Item
+[23:11] Rodorfo save item#1 data
+[23:11] Rodorfo save item#110 data
+[23:12] Rodorfo save item#110 data
+[23:12] Rodorfo save item#111 data
+[23:12] Rodorfo save item#112 data
+[23:12] Rodorfo save item#113 data
+[23:12] Rodorfo requested to edit Item
+[23:13] Rodorfo save item#1 data
+[23:13] Rodorfo save item#114 data
+[23:14] Server closed
+[23:14] Server saving players...
+[23:14] Server saving complete...
+[23:15] Server started up
+[23:16] Rodorfo has been warped on Map#7 x:31 y:16
+[23:17] Rodorfo requested to edit Item
+[23:17] Rodorfo save item#1 data
+[23:17] Rodorfo save item#3 data
+[23:17] Rodorfo save item#110 data
+[23:17] Rodorfo save item#120 data
+[23:18] Rodorfo save item#111 data
+[23:18] Rodorfo save item#116 data
+[23:18] Rodorfo save item#136 data
+[23:18] Rodorfo save item#140 data
+[23:18] Rodorfo save item#141 data
+[23:19] Rodorfo save item#140 data
+[23:19] Rodorfo requested to edit Item
+[23:19] Rodorfo requested to edit Item
+[23:20] Rodorfo save item#1 data
+[23:20] Rodorfo save item#140 data
+[23:20] Rodorfo save item#141 data
+[23:20] Rodorfo save item#142 data
+[23:20] Rodorfo save item#143 data
+[23:20] Rodorfo save item#144 data
+[23:21] Rodorfo save item#142 data
+[23:21] Rodorfo save item#143 data
+[23:21] Rodorfo save item#144 data
+[23:21] Rodorfo save item#145 data
+[23:22] Rodorfo save item#142 data
+[23:22] Rodorfo save item#143 data
+[23:22] Rodorfo save item#144 data
+[23:22] Rodorfo save item#145 data
+[23:22] Rodorfo save item#146 data
+[23:22] Rodorfo save item#147 data
+[23:22] Rodorfo save item#120 data
+[23:22] Rodorfo save item#121 data
+[23:22] Rodorfo save item#122 data
+[23:22] Rodorfo save item#133 data
+[23:22] Rodorfo save item#134 data
+[23:22] Rodorfo save item#135 data
+[23:22] Rodorfo save item#140 data
+[23:22] Rodorfo save item#141 data
+[23:22] Rodorfo save item#142 data
+[23:22] Rodorfo save item#143 data
+[23:22] Rodorfo save item#144 data
+[23:22] Rodorfo save item#145 data
+[23:22] Rodorfo save item#146 data
+[23:22] Rodorfo save item#147 data
+[23:23] Rodorfo save item#120 data
+[23:23] Rodorfo save item#121 data
+[23:23] Rodorfo save item#122 data
+[23:24] Rodorfo save item#120 data
+[23:24] Rodorfo save item#121 data
+[23:24] Rodorfo save item#122 data
+[23:24] Rodorfo save item#123 data
+[23:24] Rodorfo save item#124 data
+[23:24] Rodorfo save item#125 data
+[23:24] Rodorfo save item#126 data
+[23:24] Rodorfo save item#127 data
+[23:24] Rodorfo save item#128 data
+[23:24] Rodorfo save item#129 data
+[23:24] Rodorfo save item#130 data
+[23:24] Rodorfo save item#131 data
+[23:24] Rodorfo save item#132 data
+[23:24] Rodorfo save item#133 data
+[23:24] Rodorfo save item#134 data
+[23:24] Rodorfo save item#135 data
+[23:24] Rodorfo save item#117 data
+[23:24] Rodorfo save item#118 data
+[23:25] Rodorfo save item#111 data
+[23:25] Rodorfo save item#112 data
+[23:25] Rodorfo save item#113 data
+[23:25] Rodorfo save item#114 data
+[23:25] Rodorfo save item#115 data
+[23:25] Rodorfo save item#116 data
+[23:27] Rodorfo requested to edit Item
+[23:33] Rodorfo requested to edit Item
+[23:38] Server closed
+[23:38] Server saving players...
+[23:38] Server saving complete...

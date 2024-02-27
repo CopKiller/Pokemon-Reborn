@@ -1,0 +1,39 @@
+[00:03] Rodorfo has been warped on Map#4 x:17 y:16
+[00:15] Rodorfo has been warped on Map#4 x:17 y:16
+[00:18] Rodorfo has been warped on Map#4 x:17 y:16
+[00:43] Rodorfo has been warped on Map#4 x:17 y:16
+[00:46] Rodorfo requested to edit Item
+[00:46] Rodorfo requested Item data
+[01:04] Server closed
+[01:04] Server saving players...
+[01:04] Server saving complete...
+[19:05] Server started up
+[19:06] Rodorfo has been warped on Map#4 x:35 y:32
+[19:07] Rodorfo use item Charizard
+[19:07] Rodorfo use item Charizard
+[19:12] Rodorfo requested to edit Spawn
+[19:12] Rodorfo requested Spawn data
+[19:13] Rodorfo requested to edit Spawn
+[19:13] Rodorfo requested Spawn data
+[19:15] Rodorfo has been warped on Map#4 x:34 y:22
+[19:15] Rodorfo requested to edit Spawn
+[19:16] Rodorfo requested Spawn data
+[19:16] Rodorfo requested to edit Spawn
+[19:16] Server closed
+[19:16] Server saving players...
+[19:16] Server saving complete...
+[19:55] Server started up
+[19:55] Rodorfo has been warped on Map#4 x:34 y:22
+[19:57] Rodorfo , Admin Rights: Get Item#3 x60
+[20:00] Rodorfo , Admin Rights: Get Item#3 x40
+[20:02] Rodorfo , Admin Rights: Get Item#3 x40
+[20:02] Rodorfo , Admin Rights: Get Item#3 x10
+[20:02] Rodorfo , Admin Rights: Get Item#3 x50
+[20:04] Server closed
+[20:04] Server saving players...
+[20:04] Server saving complete...
+[20:13] Server started up
+[20:13] Rodorfo has been warped on Map#4 x:11 y:22
+[20:13] Server closed
+[20:13] Server saving players...
+[20:13] Server saving complete...

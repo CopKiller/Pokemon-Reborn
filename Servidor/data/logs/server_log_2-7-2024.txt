@@ -1,0 +1,89 @@
+[00:01] Furdunsa , Admin Rights: Get Item#121 x1
+[00:01] Furdunsa use item Flygon
+[00:03] Furdunsa's pokemon, Squirtle, learned the move Bubble replacing Tackle
+[00:07] Furdunsa requested to edit Spawn
+[00:07] Furdunsa save Spawn#1 data
+[00:07] Furdunsa save Spawn#2 data
+[00:07] Furdunsa save Spawn#8 data
+[00:07] Furdunsa save Spawn#9 data
+[00:07] Furdunsa save Spawn#16 data
+[00:07] Furdunsa save Spawn#17 data
+[00:07] Furdunsa save Spawn#18 data
+[00:07] Furdunsa save Spawn#19 data
+[00:07] Furdunsa save Spawn#20 data
+[00:07] Furdunsa save Spawn#21 data
+[00:07] Furdunsa save Spawn#22 data
+[00:07] Furdunsa save Spawn#23 data
+[00:07] Furdunsa save Spawn#24 data
+[00:07] Furdunsa save Spawn#25 data
+[00:07] Furdunsa save Spawn#26 data
+[00:07] Furdunsa save Spawn#27 data
+[00:07] Furdunsa save Spawn#28 data
+[00:08] Furdunsa requested to edit Pokemon
+[00:09] Furdunsa save pokemon#1 data
+[00:09] Furdunsa save pokemon#16 data
+[00:09] Furdunsa , Admin Rights: Get Item#38 x1
+[00:09] Furdunsa use item Hyper Potion
+[00:10] Furdunsa , Admin Rights: Get Item#38 x100
+[00:10] Furdunsa's pokemon, Squirtle, learned the move Bite replacing Water Gun
+[00:13] Furdunsa requested to edit Item
+[00:14] Furdunsa requested to edit Pokemon
+[00:14] Furdunsa save pokemon#1 data
+[00:14] Furdunsa save pokemon#16 data
+[00:15] Furdunsa requested to edit Pokemon
+[00:15] Furdunsa save pokemon#1 data
+[00:15] Furdunsa save pokemon#16 data
+[00:15] Furdunsa requested to edit Pokemon
+[00:15] Furdunsa requested Pokemon data
+[00:17] Furdunsa requested to edit Pokemon
+[00:18] Furdunsa requested Pokemon data
+[00:18] Furdunsa requested to edit Pokemon
+[00:20] Furdunsa's pokemon, Squirtle, learned the move Rapid Spin replacing Tail Whip
+[00:20] Furdunsa requested to edit Pokemon
+[00:20] Furdunsa save pokemon#1 data
+[00:20] Furdunsa save pokemon#16 data
+[00:20] Furdunsa save pokemon#17 data
+[00:24] Furdunsa requested to edit Item
+[00:25] Furdunsa save item#1 data
+[00:25] Furdunsa save item#56 data
+[00:26] Furdunsa requested to edit Pokemon
+[00:26] Furdunsa save pokemon#1 data
+[00:26] Furdunsa save pokemon#16 data
+[00:26] Furdunsa save pokemon#18 data
+[00:27] Furdunsa's pokemon, Squirtle, learned the move Protect replacing Bite
+[00:31] Furdunsa requested to edit Pokemon
+[00:31] Furdunsa requested to edit Pokemon
+[00:32] Furdunsa save pokemon#1 data
+[00:32] Furdunsa save pokemon#12 data
+[00:32] Furdunsa save pokemon#15 data
+[00:32] Furdunsa save pokemon#16 data
+[00:32] Furdunsa requested to edit Spawn
+[00:34] Furdunsa use item Hyper Potion
+[00:35] Server closed
+[00:35] Server saving players...
+[00:35] Server saving complete...
+[20:15] Server started up
+[20:15] Rodorfo has been warped on Map#4 x:11 y:15
+[20:21] Rodorfo has been warped on Map#4 x:11 y:15
+[20:44] Rodorfo has been warped on Map#4 x:11 y:15
+[20:57] Rodorfo has been warped on Map#4 x:11 y:15
+[21:03] Rodorfo has been warped on Map#4 x:12 y:14
+[21:05] Rodorfo has been warped on Map#4 x:12 y:14
+[21:06] Rodorfo has been warped on Map#4 x:12 y:14
+[21:19] Rodorfo has been warped on Map#4 x:12 y:14
+[21:19] Rodorfo requested to edit Pokemon
+[21:19] Rodorfo requested Pokemon data
+[21:19] Rodorfo has been warped on Map#4 x:12 y:14
+[21:19] Rodorfo requested to edit Pokemon
+[21:20] Rodorfo requested Pokemon data
+[21:49] Rodorfo has been warped on Map#4 x:12 y:14
+[21:49] Rodorfo requested to edit Pokemon
+[21:49] Rodorfo requested Pokemon data
+[21:59] Rodorfo has been warped on Map#4 x:12 y:14
+[22:02] Rodorfo use item Torkoal
+[22:02] Rodorfo use item Lapras
+[22:25] Server started up
+[22:26] Rodorfo has been warped on Map#4 x:12 y:14
+[23:50] Server closed
+[23:50] Server saving players...
+[23:50] Server saving complete...

@@ -1,0 +1,50 @@
+[21:54] Server closed
+[21:54] Server saving players...
+[21:54] Server saving complete...
+[23:20] Server started up
+[23:21] Server closed
+[23:21] Server saving players...
+[23:21] Server saving complete...
+[23:27] Server started up
+[23:27] Rodorfo has been warped on Map#4 x:23 y:45
+[23:30] Rodorfo has been warped on Map#4 x:23 y:45
+[23:32] Rodorfo has been warped on Map#4 x:23 y:45
+[23:47] Rodorfo has been warped on Map#4 x:23 y:45
+[23:52] Rodorfo has been warped on Map#4 x:23 y:45
+[23:56] Rodorfo use item Pokeball
+[23:56] Rodorfo has caught Pidgey
+[23:56] Rodorfo use item Pokeball
+[23:56] Rodorfo has caught Pidgey
+[23:56] Rodorfo use item Pokeball
+[23:56] Rodorfo has caught Pidgey
+[23:56] Rodorfo has been warped on Map#3 x:25 y:0
+[23:56] Rodorfo has been warped on Map#4 x:24 y:50
+[23:57] Rodorfo requested to edit Spawn
+[23:57] Rodorfo save Spawn#1 data
+[23:57] Rodorfo save Spawn#16 data
+[23:57] Rodorfo save Spawn#17 data
+[23:57] Rodorfo save Spawn#19 data
+[23:58] Rodorfo use item Pokeball
+[23:58] Rodorfo has caught Nidorina
+[23:59] Rodorfo requested to edit Item
+[23:59] Rodorfo save item#1 data
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo has caught Pidgey
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo requested to edit Item
+[23:59] Rodorfo save item#1 data
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo has caught Pidgey
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo has caught Pidgey
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo has caught Pidgey
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo use item Pokeball
+[23:59] Rodorfo requested to edit Spawn
+[23:59] Rodorfo requested to edit Pokemon

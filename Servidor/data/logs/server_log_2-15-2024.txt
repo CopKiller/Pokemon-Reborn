@@ -1,0 +1,151 @@
+[16:55] Server started up
+[17:18] Rodorfo has been warped on Map#3 x:18 y:22
+[17:18] Rodorfo requested to edit Item
+[17:18] Rodorfo requested Item data
+[18:19] Server started up
+[18:20] Rodorfo has been warped on Map#3 x:18 y:22
+[18:20] Rodorfo has been warped on Map#3 x:18 y:22
+[18:20] Rodorfo has been warped on Map#3 x:18 y:22
+[18:21] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#1 Level40
+[20:20] Server started up
+[20:20] Rodorfo has been warped on Map#3 x:18 y:22
+[20:22] Rodorfo use item Gogoat
+[20:22] Rodorfo use item Gogoat
+[20:23] Rodorfo use item Skin Policial
+[20:23] Rodorfo use item Skin Policial
+[20:25] Rodorfo has been warped on Map#3 x:18 y:25
+[20:25] Rodorfo use item Gogoat
+[20:25] Rodorfo use item Skin Policial
+[20:25] Rodorfo use item Skin Policial
+[20:25] Rodorfo use item Gogoat
+[20:25] Rodorfo use item Gogoat
+[20:25] Rodorfo use item Skin Policial
+[20:25] Rodorfo use item Swampert
+[20:25] Rodorfo use item Araquanid
+[20:25] Rodorfo requested to edit map#3
+[20:25] Rodorfo has been warped on Map#3 x:18 y:24
+[20:25] Rodorfo updated map#3
+[20:26] Rodorfo requested to edit map#3
+[20:27] Rodorfo has been warped on Map#3 x:18 y:24
+[20:27] Rodorfo has been warped on Map#3 x:18 y:24
+[20:27] Rodorfo has been warped on Map#3 x:18 y:24
+[20:29] Rodorfo has been warped on Map#3 x:18 y:24
+[20:36] Rodorfo requested to edit map#3
+[20:36] Rodorfo has been warped on Map#3 x:18 y:24
+[20:36] Rodorfo updated map#3
+[20:37] Rodorfo has been warped on Map#5 x:10 y:15
+[20:37] Rodorfo has been warped on Map#3 x:24 y:23
+[20:42] Rodorfo has been warped on Map#4 x:24 y:50
+[20:43] Rodorfo use item Pokeball
+[20:43] Rodorfo has caught Pidgey
+[20:43] Rodorfo requested to edit map#4
+[20:44] Rodorfo has been warped on Map#4 x:14 y:33
+[20:44] Rodorfo updated map#4
+[20:44] Rodorfo enter storage
+[20:45] Rodorfo enter storage
+[20:46] Server started up
+[20:46] Rodorfo has been warped on Map#4 x:14 y:33
+[20:47] Rodorfo use item Pokeball
+[20:47] Rodorfo has caught Pidgey
+[21:16] Server started up
+[21:16] Rodorfo has been warped on Map#4 x:14 y:33
+[21:17] Rodorfo use item Pokeball
+[21:17] Rodorfo use item Pokeball
+[21:17] Rodorfo use item Pokeball
+[21:17] Rodorfo has caught Pidgey
+[21:17] Rodorfo use item Pokeball
+[21:17] Rodorfo use item Pokeball
+[21:17] Rodorfo use item Pokeball
+[21:17] Rodorfo use item Pokeball
+[21:17] Rodorfo has caught Pidgey
+[21:40] Server started up
+[21:40] Rodorfo has been warped on Map#4 x:14 y:33
+[21:41] Rodorfo use item Pokeball
+[21:41] Rodorfo use item Pokeball
+[21:41] Rodorfo use item Pokeball
+[21:41] Rodorfo has caught Pidgey
+[21:42] Rodorfo use item Pokeball
+[21:43] Rodorfo use item Pokeball
+[21:43] Rodorfo has caught Pidgey
+[21:45] Server started up
+[21:46] Server closed
+[21:46] Server saving players...
+[21:46] Server saving complete...
+[21:46] Server started up
+[21:48] Server closed
+[21:48] Server saving players...
+[21:48] Server saving complete...
+[21:48] Server started up
+[21:48] Server closed
+[21:48] Server saving players...
+[21:48] Server saving complete...
+[21:59] Server started up
+[22:16] Rodorfo has been warped on Map#4 x:16 y:13
+[22:16] Rodorfo requested to edit Spawn
+[22:23] Rodorfo has been warped on Map#4 x:16 y:12
+[22:23] Rodorfo requested to edit Spawn
+[22:25] Rodorfo has been warped on Map#4 x:16 y:12
+[22:25] Rodorfo requested to edit Spawn
+[22:33] Rodorfo has been warped on Map#4 x:16 y:12
+[22:34] Rodorfo requested to edit Spawn
+[22:42] Rodorfo save Spawn#1 data
+[22:42] Rodorfo save Spawn#2 data
+[22:42] Rodorfo save Spawn#3 data
+[22:42] Rodorfo save Spawn#5 data
+[22:42] Rodorfo save Spawn#6 data
+[22:42] Rodorfo save Spawn#7 data
+[22:42] Rodorfo save Spawn#8 data
+[22:42] Rodorfo save Spawn#9 data
+[22:42] Rodorfo save Spawn#10 data
+[22:42] Rodorfo save Spawn#12 data
+[22:42] Rodorfo save Spawn#14 data
+[22:42] Rodorfo save Spawn#15 data
+[22:42] Rodorfo save Spawn#17 data
+[22:42] Rodorfo save Spawn#18 data
+[22:42] Rodorfo save Spawn#19 data
+[22:42] Rodorfo save Spawn#20 data
+[22:42] Rodorfo save Spawn#21 data
+[22:42] Rodorfo save Spawn#22 data
+[22:42] Rodorfo save Spawn#23 data
+[22:42] Rodorfo save Spawn#24 data
+[22:42] Rodorfo save Spawn#26 data
+[22:42] Rodorfo save Spawn#27 data
+[22:42] Rodorfo save Spawn#28 data
+[22:42] Rodorfo save Spawn#29 data
+[22:42] Rodorfo save Spawn#37 data
+[22:42] Rodorfo requested to edit Spawn
+[22:42] Rodorfo requested Spawn data
+[22:43] Rodorfo requested to edit Spawn
+[22:47] Rodorfo requested to edit Spawn
+[22:49] Rodorfo requested Spawn data
+[22:50] Rodorfo requested to edit Spawn
+[22:55] Rodorfo save Spawn#1 data
+[22:55] Rodorfo save Spawn#2 data
+[22:55] Rodorfo save Spawn#3 data
+[22:55] Rodorfo save Spawn#4 data
+[22:55] Rodorfo save Spawn#5 data
+[22:55] Rodorfo save Spawn#6 data
+[22:55] Rodorfo save Spawn#7 data
+[22:55] Rodorfo save Spawn#8 data
+[22:55] Rodorfo save Spawn#9 data
+[22:55] Rodorfo save Spawn#10 data
+[22:55] Rodorfo save Spawn#11 data
+[22:55] Rodorfo save Spawn#12 data
+[22:55] Rodorfo save Spawn#13 data
+[22:55] Rodorfo save Spawn#14 data
+[22:55] Rodorfo save Spawn#15 data
+[22:55] Rodorfo save Spawn#16 data
+[22:55] Rodorfo save Spawn#17 data
+[22:55] Rodorfo save Spawn#18 data
+[22:55] Rodorfo save Spawn#19 data
+[22:55] Rodorfo save Spawn#20 data
+[22:55] Rodorfo save Spawn#21 data
+[22:55] Rodorfo save Spawn#22 data
+[22:55] Rodorfo save Spawn#27 data
+[22:55] Rodorfo save Spawn#28 data
+[22:55] Rodorfo save Spawn#29 data
+[22:55] Rodorfo save Spawn#30 data
+[22:55] Rodorfo save Spawn#31 data
+[22:59] Server closed
+[22:59] Server saving players...
+[22:59] Server saving complete...

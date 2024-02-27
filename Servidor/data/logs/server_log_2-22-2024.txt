@@ -1,0 +1,41 @@
+[00:00] Rodorfo requested Pokemon data
+[00:00] Rodorfo requested to edit Pokemon
+[00:00] Rodorfo requested Pokemon data
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo use item Pokeball
+[00:01] Rodorfo requested to edit Pokemon
+[00:02] Rodorfo requested Pokemon data
+[00:02] Rodorfo requested to edit Spawn
+[00:02] Rodorfo save Spawn#1 data
+[00:02] Rodorfo save Spawn#15 data
+[00:02] Rodorfo save Spawn#16 data
+[00:02] Rodorfo use item Pokeball
+[00:02] Rodorfo use item Pokeball
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo has caught Nidorina
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo has caught Nidorina
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo use item Pokeball
+[00:03] Rodorfo has caught Pidgey

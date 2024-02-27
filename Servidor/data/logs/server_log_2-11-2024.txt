@@ -1,0 +1,88 @@
+[16:40] Server started up
+[16:41] Rodorfo has been warped on Map#4 x:16 y:11
+[16:45] Rodorfo has been warped on Map#4 x:16 y:11
+[19:23] Server started up
+[19:24] Rodorfo has been warped on Map#4 x:16 y:11
+[19:24] Rodorfo has been warped on Map#4 x:16 y:11
+[19:28] Rodorfo has been warped on Map#4 x:16 y:11
+[19:31] Rodorfo requested to edit map#4
+[19:31] Rodorfo has been warped on Map#3 x:27 y:0
+[19:32] Rodorfo has been warped on Map#3 x:39 y:11
+[19:32] Rodorfo has been warped on Map#3 x:30 y:11
+[19:32] Rodorfo warped to map#1
+[19:32] Rodorfo has been warped on Map#1 x:24 y:11
+[19:32] Rodorfo has been warped on Map#2 x:15 y:6
+[19:32] Rodorfo warped to map#2
+[19:32] Rodorfo has been warped on Map#2 x:15 y:6
+[19:32] Rodorfo warped to map#3
+[19:32] Rodorfo has been warped on Map#3 x:15 y:6
+[19:32] Rodorfo warped to map#3
+[19:32] Rodorfo has been warped on Map#3 x:15 y:6
+[19:32] Rodorfo warped to map#4
+[19:32] Rodorfo has been warped on Map#4 x:15 y:6
+[19:32] Rodorfo warped to map#5
+[19:32] Rodorfo has been warped on Map#5 x:15 y:6
+[19:32] Rodorfo has been warped on Map#3 x:24 y:23
+[19:32] Rodorfo has been warped on Map#5 x:10 y:15
+[19:32] Rodorfo has been warped on Map#3 x:24 y:23
+[19:32] Rodorfo has been warped on Map#5 x:10 y:15
+[19:32] Rodorfo has been warped on Map#3 x:24 y:23
+[19:32] Rodorfo warped to map#1
+[19:32] Rodorfo has been warped on Map#1 x:24 y:18
+[19:33] Rodorfo requested to edit map#1
+[19:33] Rodorfo has been warped on Map#1 x:12 y:10
+[19:33] Rodorfo updated map#1
+[19:33] Rodorfo requested to edit map#1
+[19:36] Rodorfo has been warped on Map#1 x:12 y:10
+[19:37] Rodorfo requested to edit map#1
+[19:37] Rodorfo has been warped on Map#1 x:12 y:10
+[19:37] Rodorfo updated map#1
+[19:37] Rodorfo requested to edit map#1
+[19:38] Server closed
+[19:38] Server saving players...
+[19:38] Server saving complete...
+[19:44] Server started up
+[19:44] Rodorfo has been warped on Map#1 x:12 y:10
+[19:44] Rodorfo requested to edit map#1
+[19:45] Rodorfo has been warped on Map#1 x:12 y:10
+[19:45] Rodorfo updated map#1
+[19:45] Rodorfo requested to edit map#1
+[19:45] Rodorfo has been warped on Map#1 x:12 y:10
+[19:45] Rodorfo requested to edit map#1
+[19:48] Rodorfo has been warped on Map#1 x:12 y:10
+[19:51] Rodorfo updated map#1
+[19:51] Rodorfo requested to edit map#1
+[19:52] Rodorfo has been warped on Map#1 x:12 y:10
+[19:52] Rodorfo updated map#1
+[20:02] Server started up
+[20:02] Rodorfo has been warped on Map#1 x:12 y:10
+[20:03] Rodorfo requested to edit map#1
+[20:03] Rodorfo has been warped on Map#1 x:12 y:10
+[20:03] Rodorfo updated map#1
+[20:04] Rodorfo warped to map#2
+[20:05] Rodorfo has been warped on Map#2 x:12 y:10
+[20:05] Rodorfo warped to map#1
+[20:05] Rodorfo has been warped on Map#1 x:12 y:10
+[20:15] Rodorfo has been warped on Map#1 x:12 y:10
+[20:21] Rodorfo has been warped on Map#1 x:12 y:10
+[20:23] Rodorfo warped to map#5
+[20:23] Rodorfo has been warped on Map#5 x:12 y:11
+[20:23] Rodorfo requested to edit map#5
+[20:24] Rodorfo has been warped on Map#5 x:12 y:11
+[20:24] Rodorfo updated map#5
+[20:24] Rodorfo has been warped on Map#3 x:24 y:23
+[20:24] Rodorfo has been warped on Map#5 x:10 y:15
+[20:25] Rodorfo has been warped on Map#3 x:24 y:23
+[20:25] Rodorfo has been warped on Map#5 x:10 y:15
+[20:25] Rodorfo has been warped on Map#3 x:24 y:23
+[20:25] Rodorfo has been warped on Map#5 x:10 y:15
+[20:25] Rodorfo has been warped on Map#5 x:10 y:10
+[20:25] Rodorfo requested to edit map#5
+[20:26] Rodorfo has been warped on Map#5 x:10 y:13
+[20:27] Character 'VacoLouco' has been created from Account 'rodorfo
+[20:27] VacoLouco has been warped on Map#5 x:10 y:7
+[20:28] Rodorfo has been warped on Map#5 x:11 y:13
+[20:28] VacoLouco has been warped on Map#5 x:10 y:7
+[20:35] VacoLouco requested to edit map#5
+[22:29] Rodorfo has been warped on Map#5 x:11 y:13
+[22:29] Rodorfo requested to edit Shop

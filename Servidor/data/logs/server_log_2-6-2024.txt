@@ -1,0 +1,116 @@
+[00:14] Rodorfo has been warped on Map#3 x:15 y:16
+[00:16] Rodorfo has been warped on Map#3 x:15 y:16
+[00:16] Rodorfo requested to edit Pokemon
+[00:17] Rodorfo use item Rampardos
+[00:17] Rodorfo use item Avalugg
+[00:17] Rodorfo use item Rhyhorn
+[00:17] Rodorfo use item Rhyhorn
+[00:17] Rodorfo use item Rhyhorn
+[00:17] Rodorfo use item Flygon
+[00:20] Rodorfo requested to edit Pokemon
+[00:22] Rodorfo has been warped on Map#3 x:17 y:16
+[00:23] Rodorfo requested to edit Pokemon
+[00:25] Rodorfo requested Pokemon data
+[00:27] Server closed
+[00:27] Server saving players...
+[00:27] Server saving complete...
+[19:21] Server started up
+[19:25] Server started up
+[20:07] Server closed
+[20:07] Server saving players...
+[20:07] Server saving complete...
+[20:44] Server started up
+[20:44] Rodorfo has been warped on Map#3 x:17 y:16
+[21:22] Server started up
+[21:22] Rodorfo has been warped on Map#3 x:17 y:16
+[21:26] Rodorfo has been warped on Map#3 x:19 y:19
+[21:30] Rodorfo has been warped on Map#3 x:19 y:19
+[21:32] Rodorfo has been warped on Map#3 x:19 y:19
+[21:33] Rodorfo has been warped on Map#3 x:19 y:19
+[21:34] Rodorfo has been warped on Map#3 x:19 y:19
+[21:34] Rodorfo has been warped on Map#3 x:19 y:19
+[21:35] Rodorfo has been warped on Map#3 x:19 y:19
+[21:35] Rodorfo has been warped on Map#3 x:19 y:19
+[21:36] Rodorfo has been warped on Map#3 x:19 y:19
+[22:12] Rodorfo has been warped on Map#3 x:19 y:19
+[22:15] Rodorfo has been warped on Map#3 x:19 y:19
+[22:25] Rodorfo has been warped on Map#3 x:19 y:19
+[22:43] Rodorfo has been warped on Map#4 x:23 y:50
+[22:48] Rodorfo's pokemon, Charizard, learned the move Dragon Rage replacing Ember
+[22:51] Rodorfo's pokemon, Blastoise, learned the move Bubble replacing Water Gun
+[23:00] Rodorfo requested to edit Shop
+[23:01] Rodorfo requested to edit map#4
+[23:01] Rodorfo requested to edit map#4
+[23:01] Rodorfo requested to edit Spawn
+[23:01] Rodorfo requested to edit Conversation
+[23:01] Rodorfo requested Conversation data
+[23:01] Rodorfo requested to edit map#4
+[23:02] Rodorfo has been warped on Map#4 x:8 y:24
+[23:02] Rodorfo updated map#4
+[23:07] Rodorfo has been warped on Map#4 x:10 y:25
+[23:15] Character 'Furdunsa' has been created from Account 'rodorfo
+[23:15] Furdunsa has been warped on Map#5 x:10 y:7
+[23:15] Furdunsa has been warped on Map#3 x:24 y:23
+[23:16] Furdunsa , Admin Rights: Get Item#111 x1
+[23:18] Furdunsa requested to edit Item
+[23:18] Furdunsa requested Item data
+[23:19] Furdunsa requested to edit Item
+[23:24] Furdunsa save item#1 data
+[23:24] Furdunsa save item#111 data
+[23:25] Furdunsa save item#111 data
+[23:25] Furdunsa save item#116 data
+[23:25] Furdunsa requested to edit Item
+[23:25] Furdunsa save item#1 data
+[23:25] Furdunsa save item#116 data
+[23:25] Furdunsa requested to edit Item
+[23:32] Rodorfo has been warped on Map#4 x:10 y:22
+[23:32] Rodorfo has been warped on Map#4 x:10 y:22
+[23:38] Rodorfo use item Gold 10 dias
+[23:38] Rodorfo use item Silver 10 dias
+[23:39] Rodorfo use item Gold 10 dias
+[23:39] Rodorfo requested to edit Item
+[23:39] Rodorfo save item#1 data
+[23:39] Rodorfo save item#111 data
+[23:39] Rodorfo save item#116 data
+[23:40] Rodorfo save item#111 data
+[23:40] Furdunsa has been warped on Map#3 x:18 y:22
+[23:42] Furdunsa use item Gold 10 dias
+[23:43] Furdunsa has been warped on Map#4 x:23 y:50
+[23:44] Furdunsa requested to edit map#4
+[23:44] Furdunsa has been warped on Map#4 x:25 y:44
+[23:44] Furdunsa updated map#4
+[23:44] Furdunsa requested to edit map#4
+[23:45] Furdunsa has been warped on Map#4 x:24 y:46
+[23:45] Furdunsa updated map#4
+[23:45] Furdunsa requested to edit Spawn
+[23:45] Furdunsa requested to edit npc
+[23:45] Furdunsa save npc#1 data
+[23:45] Furdunsa save npc#7 data
+[23:45] Furdunsa save npc#8 data
+[23:45] Furdunsa requested to edit map#4
+[23:45] Furdunsa has been warped on Map#4 x:24 y:46
+[23:45] Furdunsa updated map#4
+[23:45] Furdunsa requested to edit npc
+[23:46] Furdunsa requested to edit map#4
+[23:46] Furdunsa has been warped on Map#4 x:24 y:44
+[23:46] Furdunsa updated map#4
+[23:46] Furdunsa requested to edit npc
+[23:46] Furdunsa save npc#1 data
+[23:46] Furdunsa save npc#7 data
+[23:46] Furdunsa save npc#8 data
+[23:47] Furdunsa has been warped on Map#3 x:24 y:0
+[23:47] Furdunsa has been warped on Map#4 x:24 y:50
+[23:49] Furdunsa requested to edit map#4
+[23:49] Furdunsa has been warped on Map#4 x:24 y:42
+[23:49] Furdunsa updated map#4
+[23:49] Furdunsa requested to edit map#4
+[23:49] Furdunsa has been warped on Map#4 x:8 y:22
+[23:49] Furdunsa updated map#4
+[23:49] Furdunsa requested to edit map#4
+[23:49] Furdunsa has been warped on Map#4 x:24 y:44
+[23:49] Furdunsa updated map#4
+[23:49] Furdunsa requested to edit map#4
+[23:50] Furdunsa has been warped on Map#4 x:8 y:21
+[23:50] Furdunsa updated map#4
+[23:55] Furdunsa requested to edit Shop
+[23:55] Furdunsa requested to edit Item

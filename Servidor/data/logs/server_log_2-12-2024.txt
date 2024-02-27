@@ -1,0 +1,67 @@
+[00:23] Rodorfo use item Avalugg
+[00:23] Rodorfo use item Avalugg
+[00:23] Rodorfo use item Rampardos
+[00:23] Rodorfo use item Rampardos
+[00:23] Rodorfo use item Gold 10 dias
+[00:23] Rodorfo use item Rhyhorn
+[00:23] Rodorfo use item Rhyhorn
+[00:23] Rodorfo use item Rhyhorn
+[00:23] Rodorfo use item Skin Lance
+[00:23] Rodorfo use item Rhyhorn
+[00:23] Rodorfo use item Rhyhorn
+[00:23] Rodorfo use item Rhyhorn
+[00:23] Rodorfo use item Charizard
+[00:23] Rodorfo use item Charizard
+[00:46] Server closed
+[00:46] Server saving players...
+[00:46] Server saving complete...
+[20:03] Server started up
+[20:03] Rodorfo has been warped on Map#5 x:11 y:12
+[20:04] Rodorfo requested to edit map#5
+[20:05] Rodorfo has been warped on Map#5 x:10 y:13
+[20:05] Rodorfo updated map#5
+[20:05] Rodorfo has been warped on Map#3 x:24 y:23
+[20:05] Rodorfo requested to edit map#3
+[20:06] Rodorfo has been warped on Map#3 x:21 y:25
+[20:06] Rodorfo updated map#3
+[20:25] Rodorfo has been warped on Map#3 x:21 y:25
+[20:27] Rodorfo has been warped on Map#3 x:20 y:24
+[20:34] Rodorfo has been warped on Map#3 x:21 y:25
+[20:35] Rodorfo has been warped on Map#3 x:21 y:25
+[21:08] Server started up
+[21:08] Rodorfo has been warped on Map#3 x:21 y:25
+[21:13] Rodorfo has been warped on Map#3 x:21 y:25
+[21:13] Rodorfo has been warped on Map#3 x:21 y:25
+[21:13] Rodorfo has been warped on Map#3 x:21 y:25
+[21:27] Server started up
+[21:27] Rodorfo has been warped on Map#3 x:17 y:23
+[21:28] Rodorfo has been warped on Map#3 x:17 y:23
+[21:31] Rodorfo requested to edit Quest
+[21:31] Rodorfo save Quest#1 data
+[21:31] Rodorfo save Quest#4 data
+[21:31] Rodorfo requested to edit Quest
+[21:31] Rodorfo has been warped on Map#3 x:17 y:23
+[21:31] Rodorfo requested to edit Quest
+[21:31] Rodorfo requested to edit Spawn
+[21:45] Rodorfo has been warped on Map#3 x:17 y:23
+[22:08] Server started up
+[22:08] Rodorfo has been warped on Map#3 x:17 y:23
+[22:08] Rodorfo has been warped on Map#3 x:21 y:25
+[22:08] Rodorfo requested to edit map#3
+[22:09] Rodorfo has been warped on Map#3 x:19 y:22
+[22:09] Rodorfo updated map#3
+[22:09] Server closed
+[22:09] Server saving players...
+[22:09] Server saving complete...
+[22:10] Server started up
+[22:10] Rodorfo has been warped on Map#3 x:19 y:20
+[22:11] Rodorfo use item Skin Policial
+[22:11] Rodorfo use item Skin Policial
+[22:12] Rodorfo use item Flygon
+[22:12] Rodorfo use item Flygon
+[22:12] Rodorfo use item Kabutops
+[22:12] Rodorfo use item Kabutops
+[22:12] Rodorfo use item Charizard
+[22:13] Server closed
+[22:13] Server saving players...
+[22:13] Server saving complete...

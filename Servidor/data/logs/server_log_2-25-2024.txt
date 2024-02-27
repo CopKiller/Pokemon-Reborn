@@ -1,0 +1,489 @@
+[10:59] Server started up
+[10:59] Rodorfo has been warped on Map#7 x:31 y:16
+[11:00] Rodorfo requested to edit Item
+[11:01] Rodorfo requested to edit Item
+[11:05] Rodorfo has been warped on Map#7 x:22 y:13
+[11:05] Rodorfo requested to edit Item
+[11:05] Rodorfo save item#1 data
+[11:05] Rodorfo save item#118 data
+[11:06] Rodorfo requested to edit Item
+[11:12] Rodorfo requested to edit Item
+[11:12] Rodorfo requested to edit Item
+[11:13] Rodorfo save item#1 data
+[11:13] Rodorfo save item#120 data
+[11:13] Rodorfo save item#121 data
+[11:13] Rodorfo save item#122 data
+[11:13] Rodorfo save item#123 data
+[11:13] Rodorfo save item#124 data
+[11:13] Rodorfo save item#125 data
+[11:13] Rodorfo save item#126 data
+[11:13] Rodorfo save item#127 data
+[11:13] Rodorfo save item#128 data
+[11:13] Rodorfo save item#129 data
+[11:13] Rodorfo save item#130 data
+[11:13] Rodorfo save item#131 data
+[11:13] Rodorfo save item#132 data
+[11:13] Rodorfo save item#133 data
+[11:13] Rodorfo save item#134 data
+[11:13] Rodorfo save item#135 data
+[11:20] Rodorfo save item#136 data
+[11:20] Rodorfo save item#137 data
+[11:20] Rodorfo save item#138 data
+[11:20] Rodorfo save item#139 data
+[11:20] Rodorfo save item#140 data
+[11:22] Rodorfo save item#137 data
+[11:23] Rodorfo save item#149 data
+[11:25] Rodorfo requested to edit Item
+[11:26] Rodorfo save item#113 data
+[11:26] Rodorfo save item#114 data
+[11:26] Rodorfo save item#115 data
+[11:29] Rodorfo requested to edit Item
+[11:30] Rodorfo save item#1 data
+[11:30] Rodorfo save item#137 data
+[11:32] Rodorfo requested to edit Item
+[11:33] Rodorfo save item#1 data
+[11:33] Rodorfo save item#117 data
+[11:33] Rodorfo save item#118 data
+[11:35] Rodorfo has been warped on Map#7 x:24 y:15
+[11:35] Rodorfo requested to edit Item
+[11:39] Rodorfo save item#1 data
+[11:39] Rodorfo save item#7 data
+[11:39] Rodorfo save item#10 data
+[11:39] Rodorfo save item#20 data
+[11:39] Rodorfo save item#27 data
+[11:39] Rodorfo save item#36 data
+[11:39] Rodorfo save item#47 data
+[11:39] Rodorfo save item#112 data
+[11:39] Rodorfo save item#113 data
+[11:39] Rodorfo save item#114 data
+[11:39] Rodorfo save item#115 data
+[11:39] Rodorfo save item#117 data
+[11:39] Rodorfo save item#118 data
+[11:39] Rodorfo save item#119 data
+[11:39] Rodorfo save item#137 data
+[11:39] Rodorfo save item#138 data
+[11:39] Rodorfo save item#139 data
+[11:39] Rodorfo save item#140 data
+[11:40] Rodorfo save item#120 data
+[11:40] Rodorfo save item#121 data
+[11:40] Rodorfo save item#122 data
+[11:40] Rodorfo save item#123 data
+[11:40] Rodorfo save item#124 data
+[11:40] Rodorfo save item#125 data
+[11:40] Rodorfo save item#126 data
+[11:40] Rodorfo save item#127 data
+[11:40] Rodorfo save item#128 data
+[11:40] Rodorfo save item#129 data
+[11:40] Rodorfo save item#130 data
+[11:40] Rodorfo save item#131 data
+[11:40] Rodorfo save item#132 data
+[11:40] Rodorfo save item#133 data
+[11:40] Rodorfo save item#134 data
+[11:40] Rodorfo save item#135 data
+[11:40] Rodorfo save item#139 data
+[11:40] Rodorfo save item#140 data
+[11:40] Rodorfo save item#141 data
+[11:40] Rodorfo save item#142 data
+[11:40] Rodorfo save item#143 data
+[11:40] Rodorfo save item#144 data
+[11:40] Rodorfo save item#145 data
+[11:40] Rodorfo save item#146 data
+[11:40] Rodorfo save item#147 data
+[12:45] Rodorfo has been warped on Map#17 x:22 y:50
+[12:45] Rodorfo has been warped on Map#7 x:22 y:0
+[12:46] Rodorfo warped to map#3
+[12:46] Rodorfo has been warped on Map#3 x:22 y:11
+[12:53] Rodorfo has been warped on Map#3 x:24 y:11
+[13:12] Rodorfo has been warped on Map#3 x:23 y:11
+[13:15] Rodorfo requested to edit map#3
+[13:15] Rodorfo has been warped on Map#3 x:32 y:15
+[13:15] Rodorfo updated map#3
+[13:15] Rodorfo has been warped on Map#8 x:12 y:11
+[13:15] Rodorfo has been warped on Map#3 x:30 y:12
+[13:18] Rodorfo has been warped on Map#3 x:30 y:14
+[13:20] Rodorfo warped to map#7
+[13:20] Rodorfo has been warped on Map#7 x:30 y:14
+[13:21] Rodorfo requested to edit map#7
+[13:23] Rodorfo has been warped on Map#7 x:28 y:38
+[13:23] Rodorfo updated map#7
+[13:23] Rodorfo warped to map#19
+[13:23] Rodorfo has been warped on Map#19 x:28 y:38
+[13:25] Rodorfo requested to edit map#19
+[13:25] Rodorfo has been warped on Map#19 x:18 y:42
+[13:25] Rodorfo updated map#19
+[13:26] Rodorfo requested to edit map#19
+[13:26] Rodorfo has been warped on Map#19 x:18 y:42
+[13:26] Rodorfo updated map#19
+[13:32] Rodorfo warped to map#10
+[13:32] Rodorfo has been warped on Map#10 x:22 y:8
+[13:32] Rodorfo warped to map#11
+[13:32] Rodorfo has been warped on Map#11 x:22 y:8
+[13:32] Rodorfo warped to map#13
+[13:32] Rodorfo has been warped on Map#13 x:22 y:8
+[13:32] Rodorfo warped to map#13
+[13:32] Rodorfo has been warped on Map#13 x:22 y:8
+[13:32] Rodorfo warped to map#14
+[13:32] Rodorfo has been warped on Map#14 x:22 y:8
+[13:32] Rodorfo warped to map#16
+[13:32] Rodorfo has been warped on Map#16 x:22 y:8
+[13:32] Rodorfo warped to map#17
+[13:32] Rodorfo has been warped on Map#17 x:22 y:8
+[13:32] Rodorfo warped to map#18
+[13:32] Rodorfo has been warped on Map#18 x:22 y:8
+[13:34] Rodorfo warped to map#26
+[13:34] Rodorfo has been warped on Map#26 x:22 y:8
+[13:36] Rodorfo requested to edit map#26
+[13:38] Rodorfo has been warped on Map#26 x:26 y:33
+[13:38] Rodorfo updated map#26
+[13:39] Rodorfo warped to map#29
+[13:39] Rodorfo has been warped on Map#29 x:26 y:33
+[13:39] Rodorfo has been warped on Map#31 x:47 y:37
+[13:39] Rodorfo has been warped on Map#29 x:47 y:37
+[13:39] Rodorfo has been warped on Map#31 x:4 y:34
+[13:39] Rodorfo has been warped on Map#123 x:22 y:12
+[13:40] Rodorfo warped to map#32
+[13:40] Rodorfo has been warped on Map#32 x:13 y:18
+[13:40] Rodorfo has been warped on Map#33 x:10 y:4
+[13:40] Rodorfo has been warped on Map#34 x:0 y:10
+[13:40] Rodorfo has been warped on Map#33 x:50 y:10
+[13:40] Rodorfo warped to map#123
+[13:40] Rodorfo has been warped on Map#123 x:17 y:8
+[13:40] Rodorfo has been warped on Map#31 x:22 y:12
+[13:41] Rodorfo warped to map#32
+[13:41] Rodorfo has been warped on Map#32 x:22 y:12
+[13:41] Rodorfo warped to map#31
+[13:41] Rodorfo has been warped on Map#31 x:22 y:12
+[13:41] Rodorfo warped to map#30
+[13:41] Rodorfo has been warped on Map#30 x:22 y:12
+[13:41] Rodorfo has been warped on Map#29 x:50 y:21
+[13:41] Rodorfo has been warped on Map#28 x:42 y:2
+[13:41] Rodorfo has been warped on Map#29 x:25 y:47
+[13:41] Rodorfo requested to edit map#29
+[13:42] Rodorfo has been warped on Map#29 x:25 y:44
+[13:42] Rodorfo updated map#29
+[13:44] Rodorfo warped to map#40
+[13:44] Rodorfo has been warped on Map#40 x:25 y:44
+[13:46] Rodorfo requested to edit map#40
+[13:46] Rodorfo has been warped on Map#40 x:30 y:40
+[13:46] Rodorfo updated map#40
+[13:47] Rodorfo warped to map#55
+[13:47] Rodorfo has been warped on Map#55 x:30 y:40
+[13:48] Rodorfo requested to edit map#55
+[13:48] Rodorfo has been warped on Map#55 x:24 y:42
+[13:48] Rodorfo updated map#55
+[13:51] Rodorfo warped to map#80
+[13:51] Rodorfo has been warped on Map#80 x:24 y:42
+[13:52] Rodorfo has been warped on Map#128 x:13 y:12
+[13:52] Rodorfo has been warped on Map#80 x:24 y:46
+[13:52] Rodorfo requested to edit map#80
+[13:53] Rodorfo has been warped on Map#80 x:35 y:32
+[13:53] Rodorfo updated map#80
+[13:55] Rodorfo warped to map#174
+[13:55] Rodorfo has been warped on Map#174 x:35 y:32
+[13:55] Rodorfo has been warped on Map#175 x:21 y:50
+[13:55] Rodorfo has been warped on Map#177 x:31 y:50
+[13:55] Rodorfo has been warped on Map#161 x:0 y:28
+[13:56] Rodorfo warped to map#7
+[13:56] Rodorfo has been warped on Map#7 x:24 y:27
+[13:56] Rodorfo has been warped on Map#22 x:50 y:29
+[13:56] Rodorfo has been warped on Map#22 x:10 y:6
+[14:12] Server started up
+[14:15] Server closed
+[14:15] Server saving players...
+[14:15] Server saving complete...
+[14:16] Server started up
+[14:17] Rodorfo has been warped on Map#22 x:10 y:6
+[14:17] Rodorfo warped to map#313
+[14:17] Rodorfo has been warped on Map#313 x:10 y:6
+[14:17] Rodorfo warped to map#315
+[14:17] Rodorfo has been warped on Map#315 x:10 y:6
+[14:17] Rodorfo warped to map#305
+[14:17] Rodorfo has been warped on Map#305 x:10 y:6
+[14:17] Rodorfo warped to map#265
+[14:17] Rodorfo has been warped on Map#265 x:11 y:9
+[14:17] Rodorfo warped to map#265
+[14:17] Rodorfo has been warped on Map#265 x:11 y:9
+[14:17] Rodorfo warped to map#201
+[14:17] Rodorfo has been warped on Map#201 x:11 y:9
+[14:17] Rodorfo warped to map#202
+[14:17] Rodorfo has been warped on Map#202 x:11 y:9
+[14:17] Rodorfo warped to map#203
+[14:17] Rodorfo has been warped on Map#203 x:11 y:9
+[14:17] Rodorfo warped to map#203
+[14:17] Rodorfo has been warped on Map#203 x:11 y:9
+[14:17] Rodorfo warped to map#204
+[14:17] Rodorfo has been warped on Map#204 x:11 y:9
+[14:17] Rodorfo warped to map#205
+[14:17] Rodorfo has been warped on Map#205 x:11 y:9
+[14:17] Rodorfo warped to map#206
+[14:17] Rodorfo has been warped on Map#206 x:11 y:9
+[14:18] Rodorfo warped to map#207
+[14:18] Rodorfo has been warped on Map#207 x:11 y:9
+[14:18] Rodorfo warped to map#211
+[14:18] Rodorfo has been warped on Map#211 x:11 y:9
+[14:18] Rodorfo requested to edit npc
+[14:18] Rodorfo warped to map#306
+[14:18] Rodorfo has been warped on Map#306 x:11 y:9
+[14:18] Rodorfo warped to map#307
+[14:18] Rodorfo has been warped on Map#307 x:11 y:9
+[14:18] Rodorfo warped to map#294
+[14:18] Rodorfo has been warped on Map#294 x:11 y:9
+[14:18] Rodorfo warped to map#293
+[14:18] Rodorfo has been warped on Map#293 x:11 y:9
+[14:18] Rodorfo warped to map#290
+[14:18] Rodorfo has been warped on Map#290 x:11 y:9
+[14:18] Rodorfo warped to map#211
+[14:18] Rodorfo has been warped on Map#211 x:11 y:9
+[14:19] Rodorfo warped to map#213
+[14:19] Rodorfo has been warped on Map#213 x:11 y:9
+[14:19] Rodorfo warped to map#214
+[14:19] Rodorfo has been warped on Map#214 x:11 y:9
+[14:19] Rodorfo warped to map#215
+[14:19] Rodorfo has been warped on Map#215 x:11 y:9
+[14:19] Rodorfo warped to map#209
+[14:19] Rodorfo has been warped on Map#209 x:11 y:9
+[14:19] Rodorfo warped to map#208
+[14:19] Rodorfo has been warped on Map#208 x:11 y:9
+[14:19] Rodorfo warped to map#210
+[14:19] Rodorfo has been warped on Map#210 x:11 y:9
+[14:19] Rodorfo warped to map#309
+[14:19] Rodorfo has been warped on Map#309 x:11 y:9
+[14:19] Rodorfo warped to map#310
+[14:19] Rodorfo has been warped on Map#310 x:11 y:9
+[14:19] Rodorfo warped to map#311
+[14:19] Rodorfo has been warped on Map#311 x:11 y:9
+[14:19] Rodorfo warped to map#320
+[14:19] Rodorfo has been warped on Map#320 x:11 y:9
+[14:19] Rodorfo warped to map#321
+[14:19] Rodorfo has been warped on Map#321 x:11 y:9
+[14:19] Rodorfo warped to map#322
+[14:19] Rodorfo has been warped on Map#322 x:11 y:9
+[14:19] Rodorfo warped to map#323
+[14:19] Rodorfo has been warped on Map#323 x:11 y:9
+[14:19] Rodorfo warped to map#324
+[14:19] Rodorfo has been warped on Map#324 x:11 y:9
+[14:19] Rodorfo warped to map#323
+[14:19] Rodorfo has been warped on Map#323 x:11 y:9
+[14:21] Rodorfo warped to map#292
+[14:21] Rodorfo has been warped on Map#292 x:11 y:9
+[14:21] Rodorfo warped to map#288
+[14:21] Rodorfo has been warped on Map#288 x:11 y:9
+[14:23] Rodorfo warped to map#55
+[14:23] Rodorfo has been warped on Map#55 x:11 y:9
+[14:40] Server started up
+[14:40] Rodorfo has been warped on Map#22 x:10 y:6
+[14:40] Rodorfo has been warped on Map#204 x:12 y:13
+[14:40] Rodorfo has been warped on Map#400 x:10 y:47
+[14:41] Rodorfo warped to map#263
+[14:41] Rodorfo has been warped on Map#263 x:19 y:36
+[14:41] Rodorfo warped to map#366
+[14:41] Rodorfo has been warped on Map#366 x:19 y:18
+[14:41] Rodorfo warped to map#502
+[14:41] Rodorfo has been warped on Map#502 x:19 y:18
+[14:41] Rodorfo warped to map#503
+[14:41] Rodorfo has been warped on Map#503 x:19 y:18
+[14:41] Rodorfo warped to map#501
+[14:41] Rodorfo has been warped on Map#501 x:19 y:18
+[14:41] Rodorfo warped to map#500
+[14:41] Rodorfo has been warped on Map#500 x:19 y:18
+[14:41] Rodorfo warped to map#497
+[14:41] Rodorfo has been warped on Map#497 x:19 y:18
+[14:41] Rodorfo warped to map#496
+[14:41] Rodorfo has been warped on Map#496 x:19 y:18
+[14:41] Rodorfo warped to map#495
+[14:41] Rodorfo has been warped on Map#495 x:19 y:18
+[14:41] Rodorfo warped to map#492
+[14:41] Rodorfo has been warped on Map#492 x:19 y:18
+[14:41] Rodorfo warped to map#489
+[14:41] Rodorfo has been warped on Map#489 x:19 y:18
+[14:41] Rodorfo warped to map#488
+[14:41] Rodorfo has been warped on Map#488 x:19 y:18
+[14:41] Rodorfo warped to map#486
+[14:41] Rodorfo has been warped on Map#486 x:19 y:18
+[14:41] Rodorfo warped to map#484
+[14:41] Rodorfo has been warped on Map#484 x:19 y:18
+[14:41] Rodorfo warped to map#483
+[14:41] Rodorfo has been warped on Map#483 x:19 y:18
+[14:41] Rodorfo warped to map#478
+[14:41] Rodorfo has been warped on Map#478 x:19 y:18
+[14:41] Rodorfo warped to map#474
+[14:41] Rodorfo has been warped on Map#474 x:19 y:18
+[14:41] Rodorfo warped to map#472
+[14:41] Rodorfo has been warped on Map#472 x:19 y:18
+[14:41] Rodorfo warped to map#464
+[14:41] Rodorfo has been warped on Map#464 x:19 y:18
+[14:41] Rodorfo warped to map#462
+[14:41] Rodorfo has been warped on Map#462 x:19 y:18
+[14:41] Rodorfo warped to map#453
+[14:41] Rodorfo has been warped on Map#453 x:19 y:18
+[14:41] Rodorfo warped to map#450
+[14:41] Rodorfo has been warped on Map#450 x:19 y:18
+[14:41] Rodorfo warped to map#448
+[14:41] Rodorfo has been warped on Map#448 x:19 y:18
+[14:41] Rodorfo warped to map#445
+[14:41] Rodorfo has been warped on Map#445 x:19 y:18
+[14:41] Rodorfo warped to map#444
+[14:41] Rodorfo has been warped on Map#444 x:19 y:18
+[14:41] Rodorfo warped to map#451
+[14:41] Rodorfo has been warped on Map#451 x:19 y:18
+[14:41] Rodorfo warped to map#447
+[14:41] Rodorfo has been warped on Map#447 x:19 y:18
+[14:42] Rodorfo warped to map#451
+[14:42] Rodorfo has been warped on Map#451 x:19 y:18
+[14:42] Rodorfo warped to map#451
+[14:42] Rodorfo has been warped on Map#451 x:19 y:18
+[14:42] Rodorfo warped to map#447
+[14:42] Rodorfo has been warped on Map#447 x:19 y:18
+[14:42] Rodorfo has been warped on Map#451 x:3 y:46
+[14:42] Rodorfo warped to map#452
+[14:42] Rodorfo has been warped on Map#452 x:4 y:45
+[14:42] Rodorfo warped to map#455
+[14:42] Rodorfo has been warped on Map#455 x:4 y:45
+[14:42] Rodorfo warped to map#453
+[14:42] Rodorfo has been warped on Map#453 x:4 y:45
+[14:42] Rodorfo warped to map#447
+[14:42] Rodorfo has been warped on Map#447 x:4 y:45
+[14:42] Rodorfo has been warped on Map#313 x:41 y:7
+[14:43] Rodorfo warped to map#455
+[14:43] Rodorfo has been warped on Map#455 x:37 y:47
+[14:43] Rodorfo warped to map#7
+[14:43] Rodorfo has been warped on Map#7 x:37 y:47
+[14:43] Rodorfo has been warped on Map#22 x:50 y:29
+[14:43] Rodorfo has been warped on Map#204 x:12 y:13
+[14:43] Rodorfo has been warped on Map#400 x:10 y:47
+[14:44] Rodorfo has been warped on Map#455 x:45 y:45
+[14:44] Rodorfo has been warped on Map#400 x:6 y:36
+[14:44] Rodorfo requested to edit map#400
+[14:45] Rodorfo has been warped on Map#400 x:19 y:37
+[14:45] Rodorfo updated map#400
+[14:46] Rodorfo requested to edit map#400
+[14:46] Rodorfo has been warped on Map#400 x:19 y:36
+[14:46] Rodorfo updated map#400
+[14:47] Rodorfo warped to map#161
+[14:47] Rodorfo has been warped on Map#161 x:19 y:36
+[14:47] Rodorfo requested to edit map#161
+[14:47] Rodorfo has been warped on Map#161 x:27 y:40
+[14:47] Rodorfo updated map#161
+[14:47] Rodorfo warped to map#55
+[14:47] Rodorfo has been warped on Map#55 x:27 y:40
+[14:47] Rodorfo requested to edit map#55
+[14:48] Rodorfo warped to map#161
+[14:48] Rodorfo has been warped on Map#161 x:27 y:40
+[14:48] Rodorfo requested to edit map#161
+[14:48] Rodorfo has been warped on Map#161 x:27 y:40
+[14:48] Rodorfo updated map#161
+[14:55] Rodorfo requested to edit map#161
+[14:55] Rodorfo warped to map#80
+[14:55] Rodorfo has been warped on Map#80 x:27 y:39
+[14:55] Rodorfo warped to map#80
+[14:55] Rodorfo has been warped on Map#80 x:27 y:39
+[14:56] Rodorfo requested to edit map#80
+[14:56] Rodorfo has been warped on Map#80 x:34 y:32
+[14:56] Rodorfo updated map#80
+[14:57] Rodorfo warped to map#50
+[14:57] Rodorfo has been warped on Map#50 x:34 y:32
+[14:57] Rodorfo has been warped on Map#51 x:50 y:23
+[14:57] Rodorfo has been warped on Map#52 x:12 y:5
+[14:57] Rodorfo has been warped on Map#51 x:41 y:2
+[14:57] Rodorfo has been warped on Map#52 x:42 y:2
+[14:57] Rodorfo has been warped on Map#51 x:41 y:2
+[14:57] Rodorfo has been warped on Map#52 x:12 y:5
+[14:57] Rodorfo has been warped on Map#51 x:41 y:2
+[14:58] Rodorfo has been warped on Map#53 x:34 y:0
+[14:58] Rodorfo has been warped on Map#59 x:6 y:2
+[14:58] Rodorfo requested to edit map#59
+[14:59] Rodorfo has been warped on Map#59 x:22 y:28
+[14:59] Rodorfo updated map#59
+[15:00] Rodorfo warped to map#50
+[15:00] Rodorfo has been warped on Map#50 x:22 y:28
+[15:00] Rodorfo warped to map#53
+[15:00] Rodorfo has been warped on Map#53 x:8 y:40
+[15:00] Rodorfo has been warped on Map#59 x:6 y:2
+[15:00] Rodorfo has been warped on Map#53 x:33 y:47
+[15:00] Rodorfo warped to map#50
+[15:00] Rodorfo has been warped on Map#50 x:33 y:47
+[15:00] Rodorfo has been warped on Map#46 x:17 y:40
+[15:01] Rodorfo has been warped on Map#50 x:32 y:48
+[15:01] Rodorfo requested to edit map#50
+[15:02] Rodorfo has been warped on Map#50 x:32 y:46
+[15:02] Rodorfo updated map#50
+[15:02] Rodorfo requested to edit map#50
+[15:02] Rodorfo has been warped on Map#50 x:32 y:46
+[15:02] Rodorfo updated map#50
+[15:03] Rodorfo warped to map#95
+[15:03] Rodorfo has been warped on Map#95 x:32 y:45
+[15:08] Rodorfo requested to edit map#95
+[15:08] Rodorfo has been warped on Map#95 x:30 y:22
+[15:08] Rodorfo updated map#95
+[15:10] Rodorfo warped to map#130
+[15:10] Rodorfo has been warped on Map#130 x:30 y:22
+[15:11] Rodorfo requested to edit map#130
+[15:11] Rodorfo has been warped on Map#130 x:35 y:31
+[15:11] Rodorfo updated map#130
+[15:11] Rodorfo warped to map#113
+[15:11] Rodorfo has been warped on Map#113 x:35 y:31
+[15:11] Rodorfo requested to edit map#113
+[15:12] Rodorfo has been warped on Map#113 x:41 y:13
+[15:12] Rodorfo updated map#113
+[15:13] Rodorfo warped to map#348
+[15:13] Rodorfo has been warped on Map#348 x:24 y:13
+[15:13] Rodorfo has been warped on Map#276 x:45 y:23
+[15:13] Rodorfo has been warped on Map#370 x:11 y:14
+[15:13] Rodorfo has been warped on Map#276 x:39 y:14
+[15:13] Rodorfo has been warped on Map#355 x:12 y:14
+[15:13] Rodorfo has been warped on Map#276 x:27 y:3
+[15:13] Rodorfo has been warped on Map#355 x:12 y:14
+[15:13] Rodorfo has been warped on Map#277 x:27 y:48
+[15:13] Rodorfo has been warped on Map#355 x:12 y:5
+[15:13] Rodorfo has been warped on Map#276 x:27 y:3
+[15:13] Rodorfo has been warped on Map#370 x:11 y:14
+[15:13] Rodorfo has been warped on Map#276 x:39 y:14
+[15:13] Rodorfo requested to edit map#276
+[15:14] Rodorfo has been warped on Map#276 x:27 y:14
+[15:14] Rodorfo updated map#276
+[15:16] Rodorfo requested to edit map#276
+[15:16] Rodorfo has been warped on Map#276 x:27 y:14
+[15:16] Rodorfo updated map#276
+[15:29] Server closed
+[15:29] Server saving players...
+[15:29] Server saving complete...
+[18:42] Server started up
+[18:43] Rodorfo has been warped on Map#276 x:27 y:14
+[18:43] Rodorfo warped to map#1
+[18:43] Rodorfo has been warped on Map#1 x:24 y:18
+[18:43] Rodorfo has been warped on Map#2 x:15 y:6
+[18:43] Rodorfo has been warped on Map#3 x:15 y:13
+[18:43] Rodorfo use item Charizard
+[18:43] Rodorfo use item Charizard
+[18:43] Rodorfo use item Skin Policial
+[18:43] Rodorfo use item Skin Policial
+[18:43] Rodorfo use item Skin Lance
+[18:44] Rodorfo use item Skin Policial
+[18:44] Rodorfo use item Charizard
+[18:47] Rodorfo has been warped on Map#3 x:26 y:5
+[18:48] Rodorfo use item Pokeball
+[18:48] Furdunsa has been warped on Map#4 x:12 y:15
+[18:49] Furdunsa use item Pokeball
+[18:49] Furdunsa has caught Spearow
+[18:50] Furdunsa has been warped on Map#7 x:27 y:50
+[18:50] Furdunsa has been warped on Map#203 x:12 y:14
+[18:50] Furdunsa has been warped on Map#7 x:21 y:24
+[18:51] Furdunsa requested to edit Pokemon
+[18:52] Furdunsa requested Pokemon data
+[18:54] Furdunsa warped to map#291
+[18:54] Furdunsa has been warped on Map#291 x:36 y:33
+[18:54] Furdunsa warped to map#294
+[18:54] Furdunsa has been warped on Map#294 x:36 y:33
+[18:54] Furdunsa warped to map#459
+[18:54] Furdunsa has been warped on Map#459 x:36 y:33
+[18:54] Furdunsa warped to map#398
+[18:54] Furdunsa has been warped on Map#398 x:24 y:18
+[18:54] Furdunsa warped to map#130
+[18:54] Furdunsa has been warped on Map#130 x:24 y:18
+[18:56] Furdunsa warped to map#142
+[18:56] Furdunsa has been warped on Map#142 x:24 y:18
+[18:57] Furdunsa requested to edit Item
+[18:57] Furdunsa requested Item data
+[18:59] Server closed
+[18:59] Server saving players...
+[18:59] Server saving complete...

@@ -1,0 +1,47 @@
+[16:33] Server started up
+[18:20] Rodorfo has been warped on Map#4 x:16 y:12
+[18:20] Rodorfo use item Pokeball
+[19:44] Rodorfo has been warped on Map#4 x:16 y:12
+[19:52] Server started up
+[19:52] Rodorfo has been warped on Map#4 x:16 y:12
+[20:28] Rodorfo has been warped on Map#4 x:16 y:12
+[20:51] Rodorfo has been warped on Map#4 x:16 y:12
+[20:51] Rodorfo has been warped on Map#4 x:16 y:12
+[20:55] Rodorfo has been warped on Map#4 x:16 y:12
+[21:03] Server started up
+[21:04] Rodorfo has been warped on Map#4 x:16 y:12
+[21:04] Rodorfo requested to edit map#4
+[21:04] Rodorfo has been warped on Map#4 x:16 y:12
+[21:04] Rodorfo updated map#4
+[21:06] Rodorfo requested to edit Shop
+[22:31] Server started up
+[22:31] Rodorfo has been warped on Map#4 x:17 y:15
+[22:32] Rodorfo requested to edit Conversation
+[22:32] Rodorfo requested Conversation data
+[22:32] Rodorfo requested to edit Conversation
+[23:04] Server started up
+[23:04] Rodorfo has been warped on Map#4 x:17 y:15
+[23:08] Server started up
+[23:09] Rodorfo has been warped on Map#4 x:17 y:16
+[23:09] Rodorfo requested to edit Shop
+[23:13] Rodorfo has been warped on Map#4 x:17 y:16
+[23:13] Rodorfo requested to edit Shop
+[23:20] Rodorfo requested Shop data
+[23:21] Rodorfo has been warped on Map#4 x:17 y:16
+[23:21] Rodorfo requested to edit Shop
+[23:22] Rodorfo save Shop#1 data
+[23:23] Rodorfo requested to edit npc
+[23:23] Rodorfo requested npc data
+[23:23] Rodorfo requested to edit Conversation
+[23:23] Rodorfo requested Conversation data
+[23:26] Rodorfo has been warped on Map#4 x:17 y:16
+[23:26] Rodorfo requested to edit Shop
+[23:33] Rodorfo save Shop#1 data
+[23:33] Rodorfo requested to edit Shop
+[23:36] Rodorfo has been warped on Map#4 x:17 y:16
+[23:36] Rodorfo requested to edit Shop
+[23:37] Rodorfo requested Shop data
+[23:54] Rodorfo requested to edit Shop
+[23:55] Rodorfo requested to edit Item
+[23:56] Rodorfo requested to edit Shop
+[23:58] Rodorfo requested Shop data
