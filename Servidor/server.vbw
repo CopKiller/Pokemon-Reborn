@@ -1,10 +1,10 @@
-modMain = 200, 0, 1066, 787, Z
+modMain = 200, 0, 1066, 787, 
 clsBuffer = 50, 50, 765, 657, C
 modTCP = 313, 26, 1016, 633, 
 modHandleData = 149, 0, 852, 607, 
 modType = 14, 65, 717, 672, 
 modDatabase = 75, 75, 778, 682, 
-modLoop = 73, 67, 920, 578, 
+modLoop = 73, 67, 920, 578, C
 modLogic = 328, 98, 1176, 609, 
 modConstant = 25, 25, 873, 536, 
 modGlobal = 75, 75, 923, 586, C

@@ -80,10 +80,11 @@ Ok- Correção na descrição do item na bag, onde o money sobresaia na descriç
 Ok- Adicionar atalho nos menus que faltam na hud, com teclas do teclado para abertura. 10
 	-Teve que implementar também para o trainer card, que ja era sistema da engine.
 
-Ok- Alteração no Shop Editor. 35
+Ok- Reformulação no Shop Editor. 35
 	-Adicionar procura de item pelo nome ou id.
 	-Adicionar para usar money ou um item específico, para negociar pelo item do shop.
 	-Adicionar no shop, para carregar a foto do item que vai ser a moeda de troca.
+	-Correção na troca do item, que não estava puxando corretamente o valor disponível da moeda de troca
 
 Ok- Correção no trade, não tinha verificação de tipo adicionado ao trade verificando se o slot selecionado ja estava em trade. 15
 

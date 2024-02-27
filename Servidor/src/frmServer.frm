@@ -31,8 +31,8 @@ Begin VB.Form frmServer
       TabCaption(0)   =   "Chat"
       TabPicture(0)   =   "frmServer.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtCommand"
-      Tab(0).Control(1)=   "txtLog"
+      Tab(0).Control(0)=   "txtLog"
+      Tab(0).Control(1)=   "txtCommand"
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Players"
       TabPicture(1)   =   "frmServer.frx":001C
@@ -54,8 +54,8 @@ Begin VB.Form frmServer
       TabCaption(3)   =   "Editores"
       TabPicture(3)   =   "frmServer.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "cmdEditStore"
-      Tab(3).Control(1)=   "cmdVipSettings"
+      Tab(3).Control(0)=   "cmdVipSettings"
+      Tab(3).Control(1)=   "cmdEditStore"
       Tab(3).ControlCount=   2
       Begin VB.CommandButton cmdVipSettings 
          Caption         =   "Edit Vip Settings"
@@ -349,10 +349,10 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub btnReload_Click(index As Integer)
+Private Sub btnReload_Click(Index As Integer)
 Dim i As Long
     
-    Select Case index
+    Select Case Index
         Case 0
             Call LoadMaps
             TextAdd frmServer.txtLog, "Os mapas foram atualizados!"
@@ -396,7 +396,7 @@ End Sub
 Private Sub chkStaffOnly_Click()
 Dim i As Long
 
-    If chkStaffOnly.Value = YES Then
+    If chkStaffOnly.value = YES Then
         '//Disconnect all non staff members
         If Player_HighIndex > 0 Then
             For i = 1 To Player_HighIndex
@@ -479,6 +479,10 @@ Private Sub cmdExp_Click()
 End Sub
 
 Private Sub cmdShutdown_Click()
+    SaveMaps
+    
+    Exit Sub
+    
     If isShuttingDown Then
         isShuttingDown = False
         cmdShutdown.Caption = "Desligar Servidor"
@@ -518,7 +522,7 @@ Private Sub lvwInfo_ColumnClick(ByVal ColumnHeader As MSComctlLib.ColumnHeader)
         lvwInfo.SortOrder = lvwAscending
     End If
 
-    lvwInfo.SortKey = ColumnHeader.index - 1
+    lvwInfo.SortKey = ColumnHeader.Index - 1
     lvwInfo.Sorted = True
 End Sub
 
@@ -542,50 +546,50 @@ End Sub
 ' ********************
 ' ** Winsock object **
 ' ********************
-Private Sub Socket_ConnectionRequest(index As Integer, ByVal requestID As Long)
-Dim count As Byte
+Private Sub Socket_ConnectionRequest(Index As Integer, ByVal requestID As Long)
+Dim Count As Byte
 Dim i As Long
 
     ' Check connection
-    count = 0
+    Count = 0
     For i = 1 To MAX_PLAYER
         If IsConnected(i) Then
-            If GetPlayerIP(i) = Socket(index).RemoteHostIP Then
-                count = count + 1
-                If count >= 5 Then Exit Sub
+            If GetPlayerIP(i) = Socket(Index).RemoteHostIP Then
+                Count = Count + 1
+                If Count >= 5 Then Exit Sub
             End If
         End If
     Next
     
-    Call AcceptConnection(index, requestID)
+    Call AcceptConnection(Index, requestID)
 End Sub
 
-Private Sub Socket_Accept(index As Integer, SocketId As Integer)
-Dim count As Byte
+Private Sub Socket_Accept(Index As Integer, SocketId As Integer)
+Dim Count As Byte
 Dim i As Long
 
     ' Check connection
-    count = 0
+    Count = 0
     For i = 1 To MAX_PLAYER
         If IsConnected(i) Then
-            If GetPlayerIP(i) = Socket(index).RemoteHostIP Then
-                count = count + 1
-                If count >= 5 Then Exit Sub
+            If GetPlayerIP(i) = Socket(Index).RemoteHostIP Then
+                Count = Count + 1
+                If Count >= 5 Then Exit Sub
             End If
         End If
     Next
     
-    Call AcceptConnection(index, SocketId)
+    Call AcceptConnection(Index, SocketId)
 End Sub
 
-Private Sub Socket_DataArrival(index As Integer, ByVal bytesTotal As Long)
-    If IsConnected(index) Then
-        Call IncomingData(index, bytesTotal)
+Private Sub Socket_DataArrival(Index As Integer, ByVal bytesTotal As Long)
+    If IsConnected(Index) Then
+        Call IncomingData(Index, bytesTotal)
     End If
 End Sub
 
-Private Sub Socket_Close(index As Integer)
-    Call CloseSocket(index)
+Private Sub Socket_Close(Index As Integer)
+    Call CloseSocket(Index)
 End Sub
 
 ' *****************
@@ -597,7 +601,7 @@ End Sub
 
 Sub mnuDisconnect_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.index
+    i = frmServer.lvwInfo.SelectedItem.Index
 
     If IsConnected(i) Then
         If GetPlayerIP(i) <> vbNullString Then
@@ -609,7 +613,7 @@ End Sub
 
 Sub mnuBanChar_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.index
+    i = frmServer.lvwInfo.SelectedItem.Index
     
     ' Banir o Character
     If IsPlaying(i) Then
@@ -620,7 +624,7 @@ End Sub
 
 Sub mnuBanIp_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.index
+    i = frmServer.lvwInfo.SelectedItem.Index
 
     If IsConnected(i) Then
         BanIP GetPlayerIP(i)
@@ -631,7 +635,7 @@ End Sub
 
 Sub mnuBan_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.index
+    i = frmServer.lvwInfo.SelectedItem.Index
 
     If IsPlaying(i) Then
         BanCharacter Player(i, TempPlayer(i).UseChar).Name
@@ -646,7 +650,7 @@ End Sub
 
 Sub mnuRemove_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.index
+    i = frmServer.lvwInfo.SelectedItem.Index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -659,7 +663,7 @@ End Sub
 
 Sub mnuMod_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.index
+    i = frmServer.lvwInfo.SelectedItem.Index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -672,7 +676,7 @@ End Sub
 
 Sub mnuMapper_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.index
+    i = frmServer.lvwInfo.SelectedItem.Index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -685,7 +689,7 @@ End Sub
 
 Sub mnuDev_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.index
+    i = frmServer.lvwInfo.SelectedItem.Index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -698,7 +702,7 @@ End Sub
 
 Sub mnuOwner_click()
     Dim i As Long
-    i = frmServer.lvwInfo.SelectedItem.index
+    i = frmServer.lvwInfo.SelectedItem.Index
 
     If i > 0 Then
         If IsPlaying(i) Then
@@ -710,7 +714,7 @@ Sub mnuOwner_click()
 End Sub
 
 Private Sub txtCommand_KeyPress(KeyAscii As Integer)
-Dim index As Long
+Dim Index As Long
 Dim Command() As String
 Dim chatMsg As String
 Dim CurLanguage As Byte
@@ -742,13 +746,13 @@ Dim CurLanguage As Byte
                     Case LANG_ES: Call SendGlobalMsg("[SERVIDOR]: " + txtCommand.Text, White)
                 End Select
 
-                For index = 1 To MAX_PLAYER
-                    If IsPlaying(index) Then
-                        If TempPlayer(index).UseChar > 0 Then
+                For Index = 1 To MAX_PLAYER
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
                             Select Case CurLanguage
-                                Case LANG_PT: AddAlert index, "Servidor:" + txtCommand.Text, White
-                                Case LANG_EN: AddAlert index, "Server:" + txtCommand.Text, White
-                                Case LANG_ES: AddAlert index, "Servidor:" + txtCommand.Text, White
+                                Case LANG_PT: AddAlert Index, "Servidor:" + txtCommand.Text, White
+                                Case LANG_EN: AddAlert Index, "Server:" + txtCommand.Text, White
+                                Case LANG_ES: AddAlert Index, "Servidor:" + txtCommand.Text, White
                             End Select
                         End If
                     End If

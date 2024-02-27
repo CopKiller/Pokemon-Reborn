@@ -5,7 +5,7 @@ Begin VB.Form frmEditor_Map
    ClientHeight    =   13110
    ClientLeft      =   150
    ClientTop       =   795
-   ClientWidth     =   14910
+   ClientWidth     =   19305
    ControlBox      =   0   'False
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
@@ -13,13 +13,13 @@ Begin VB.Form frmEditor_Map
    MinButton       =   0   'False
    ScaleHeight     =   874
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   994
+   ScaleWidth      =   1287
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
    Begin VB.Frame fraProperties 
       Caption         =   "Properties"
       Height          =   7335
-      Left            =   12480
+      Left            =   7320
       TabIndex        =   11
       Top             =   120
       Visible         =   0   'False
@@ -355,7 +355,7 @@ Begin VB.Form frmEditor_Map
    End
    Begin VB.Frame fraAttribute 
       Height          =   7335
-      Left            =   5520
+      Left            =   7320
       TabIndex        =   41
       Top             =   120
       Visible         =   0   'False
@@ -781,9 +781,9 @@ Begin VB.Form frmEditor_Map
    Begin VB.Frame fraLayers 
       Caption         =   "Layers"
       Height          =   6375
-      Left            =   7920
+      Left            =   5400
       TabIndex        =   0
-      Top             =   240
+      Top             =   120
       Visible         =   0   'False
       Width           =   1815
       Begin VB.OptionButton optLayer 
@@ -911,7 +911,7 @@ Begin VB.Form frmEditor_Map
    Begin VB.Frame fraAttributes 
       Caption         =   "Attributes"
       Height          =   6375
-      Left            =   5520
+      Left            =   5400
       TabIndex        =   28
       Top             =   120
       Visible         =   0   'False

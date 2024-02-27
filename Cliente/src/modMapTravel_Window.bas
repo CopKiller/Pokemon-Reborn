@@ -3,7 +3,7 @@ Option Explicit
 
 Public Sub DrawPlayerTravel()
     Dim i As Long, IconX As Long, IconY As Long, SrcIconX As Long, SrcIconY As Long, SrcWidth As Long, SrcHeight As Long
-    Dim Colour As Long, SString As String
+    Dim colour As Long, SString As String
 
     With GUI(GuiEnum.GUI_MAP)
         '//Make sure it's visible
@@ -35,15 +35,17 @@ Public Sub DrawPlayerTravel()
                 IconX = Player(MyIndex).PlayerTravel(i).IconPosX
                 IconY = Player(MyIndex).PlayerTravel(i).IconPosY
 
-                If GetPlayerMapUnlocked(i) = False Then
-                    Colour = BrightRed
-                Else
-                    Colour = Yellow
-
+                If GetPlayerMapUnlocked(i) = True Then
                     RenderTexture Tex_Gui(.Pic), .X + IconX, .y + IconY, SrcIconX, SrcIconY, SrcWidth, SrcHeight, SrcWidth, SrcHeight
+
+                    colour = Yellow
+                Else
+                    colour = BrightRed
                 End If
 
-                RenderText Ui_Default, Player(MyIndex).PlayerTravel(i).mapName, .X + IconX - (GetTextWidth(Ui_Default, Player(MyIndex).PlayerTravel(i).mapName) / 2) + (SrcWidth / 2), .y + IconY - 22, Colour
+                If CursorX >= .X + IconX And CursorX <= .X + IconX + SrcWidth And CursorY >= .y + IconY And CursorY <= .y + IconY + SrcHeight Then
+                    RenderText Ui_Default, Player(MyIndex).PlayerTravel(i).mapName, .X + IconX - (GetTextWidth(Ui_Default, Player(MyIndex).PlayerTravel(i).mapName) / 2) + (SrcWidth / 2), .y + IconY - 22, colour
+                End If
             End If
         Next i
     End With
@@ -105,6 +107,7 @@ End Sub
 Public Sub PlayerTravelMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim tmpX As Long, tmpY As Long
     Dim i As Long, IconX As Long, IconY As Long, SrcIconX As Long, SrcIconY As Long, SrcWidth As Long, SrcHeight As Long
+    Dim colour As Long
 
     With GUI(GuiEnum.GUI_MAP)
         '//Make sure it's visible
@@ -141,6 +144,15 @@ Public Sub PlayerTravelMouseMove(Buttons As Integer, Shift As Integer, X As Sing
                         'Add process to mousemove
                         IsHovering = True
                         MouseIcon = 1    '//Select
+
+
+                        If GetPlayerMapUnlocked(i) = False Then
+                            colour = BrightRed
+                        Else
+                            colour = Yellow
+                        End If
+                        RenderText Ui_Default, Player(MyIndex).PlayerTravel(i).mapName, .X + IconX - (GetTextWidth(Ui_Default, Player(MyIndex).PlayerTravel(i).mapName) / 2) + (SrcWidth / 2), .y + IconY - 22, colour
+                    
                     End If
                 End If
             End If

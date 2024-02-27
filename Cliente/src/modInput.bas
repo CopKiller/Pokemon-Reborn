@@ -578,7 +578,7 @@ Public Sub FormKeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 '//This handle the main form's key event
-Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
     Dim DidClick As Boolean
     Dim x2 As Long, Y2 As Long
@@ -608,32 +608,32 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As
 
     '//Choice Box must be above all gui if visible
     If GUI(GuiEnum.GUI_CHOICEBOX).Visible Then
-        If CursorX >= GUI(GuiEnum.GUI_CHOICEBOX).X And CursorX <= GUI(GuiEnum.GUI_CHOICEBOX).X + GUI(GuiEnum.GUI_CHOICEBOX).Width And CursorY >= GUI(GuiEnum.GUI_CHOICEBOX).Y And CursorY <= GUI(GuiEnum.GUI_CHOICEBOX).Y + GUI(GuiEnum.GUI_CHOICEBOX).Height Then
+        If CursorX >= GUI(GuiEnum.GUI_CHOICEBOX).X And CursorX <= GUI(GuiEnum.GUI_CHOICEBOX).X + GUI(GuiEnum.GUI_CHOICEBOX).Width And CursorY >= GUI(GuiEnum.GUI_CHOICEBOX).y And CursorY <= GUI(GuiEnum.GUI_CHOICEBOX).y + GUI(GuiEnum.GUI_CHOICEBOX).Height Then
             If Not DidClick Then
-                ChoiceBoxMouseDown Buttons, Shift, X, Y
+                ChoiceBoxMouseDown Buttons, Shift, X, y
                 DidClick = True
             End If
         End If
     ElseIf GUI(GuiEnum.GUI_INPUTBOX).Visible Then
-        If CursorX >= GUI(GuiEnum.GUI_INPUTBOX).X And CursorX <= GUI(GuiEnum.GUI_INPUTBOX).X + GUI(GuiEnum.GUI_INPUTBOX).Width And CursorY >= GUI(GuiEnum.GUI_INPUTBOX).Y And CursorY <= GUI(GuiEnum.GUI_INPUTBOX).Y + GUI(GuiEnum.GUI_INPUTBOX).Height Then
+        If CursorX >= GUI(GuiEnum.GUI_INPUTBOX).X And CursorX <= GUI(GuiEnum.GUI_INPUTBOX).X + GUI(GuiEnum.GUI_INPUTBOX).Width And CursorY >= GUI(GuiEnum.GUI_INPUTBOX).y And CursorY <= GUI(GuiEnum.GUI_INPUTBOX).y + GUI(GuiEnum.GUI_INPUTBOX).Height Then
             If Not DidClick Then
-                InputBoxMouseDown Buttons, Shift, X, Y
+                InputBoxMouseDown Buttons, Shift, X, y
                 DidClick = True
             End If
         End If
     Else
         '//Global Menu must be above all gui except choice box
         If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
-            If CursorX >= GUI(GuiEnum.GUI_GLOBALMENU).X And CursorX <= GUI(GuiEnum.GUI_GLOBALMENU).X + GUI(GuiEnum.GUI_GLOBALMENU).Width And CursorY >= GUI(GuiEnum.GUI_GLOBALMENU).Y And CursorY <= GUI(GuiEnum.GUI_GLOBALMENU).Y + GUI(GuiEnum.GUI_GLOBALMENU).Height Then
+            If CursorX >= GUI(GuiEnum.GUI_GLOBALMENU).X And CursorX <= GUI(GuiEnum.GUI_GLOBALMENU).X + GUI(GuiEnum.GUI_GLOBALMENU).Width And CursorY >= GUI(GuiEnum.GUI_GLOBALMENU).y And CursorY <= GUI(GuiEnum.GUI_GLOBALMENU).y + GUI(GuiEnum.GUI_GLOBALMENU).Height Then
                 If Not DidClick Then
-                    GlobalMenuMouseDown Buttons, Shift, X, Y
+                    GlobalMenuMouseDown Buttons, Shift, X, y
                     DidClick = True
                 End If
             End If
         ElseIf GUI(GuiEnum.GUI_OPTION).Visible Then
-            If CursorX >= GUI(GuiEnum.GUI_OPTION).X And CursorX <= GUI(GuiEnum.GUI_OPTION).X + GUI(GuiEnum.GUI_OPTION).Width And CursorY >= GUI(GuiEnum.GUI_OPTION).Y And CursorY <= GUI(GuiEnum.GUI_OPTION).Y + GUI(GuiEnum.GUI_OPTION).Height Then
+            If CursorX >= GUI(GuiEnum.GUI_OPTION).X And CursorX <= GUI(GuiEnum.GUI_OPTION).X + GUI(GuiEnum.GUI_OPTION).Width And CursorY >= GUI(GuiEnum.GUI_OPTION).y And CursorY <= GUI(GuiEnum.GUI_OPTION).y + GUI(GuiEnum.GUI_OPTION).Height Then
                 If Not DidClick Then
-                    OptionMouseDown Buttons, Shift, X, Y
+                    OptionMouseDown Buttons, Shift, X, y
                     DidClick = True
                 End If
             End If
@@ -641,7 +641,7 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As
             If GUI(GuiEnum.GUI_CONVO).Visible Then
                 If Not DidClick Then
                     '//Handle Convo
-                    ConvoMouseDown Buttons, Shift, X, Y
+                    ConvoMouseDown Buttons, Shift, X, y
                     DidClick = True
                 End If
             Else
@@ -650,131 +650,131 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As
                     For i = GuiVisibleCount To 1 Step -1
                         If CanShowGui(GuiZOrder(i)) Then
                             If GuiZOrder(i) > 0 Then
-                                If CursorX >= GUI(GuiZOrder(i)).X And CursorX <= GUI(GuiZOrder(i)).X + GUI(GuiZOrder(i)).Width And CursorY >= GUI(GuiZOrder(i)).Y And CursorY <= GUI(GuiZOrder(i)).Y + GUI(GuiZOrder(i)).Height Then
+                                If CursorX >= GUI(GuiZOrder(i)).X And CursorX <= GUI(GuiZOrder(i)).X + GUI(GuiZOrder(i)).Width And CursorY >= GUI(GuiZOrder(i)).y And CursorY <= GUI(GuiZOrder(i)).y + GUI(GuiZOrder(i)).Height Then
                                     Select Case GuiZOrder(i)
                                     Case GuiEnum.GUI_LOGIN
                                         If Not DidClick Then
-                                            LoginMouseDown Buttons, Shift, X, Y
+                                            LoginMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_REGISTER
                                         If Not DidClick Then
-                                            RegisterMouseDown Buttons, Shift, X, Y
+                                            RegisterMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_CHARACTERSELECT
                                         If Not DidClick Then
-                                            CharacterSelectMouseDown Buttons, Shift, X, Y
+                                            CharacterSelectMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_CHARACTERCREATE
                                         If Not DidClick Then
-                                            CharacterCreateMouseDown Buttons, Shift, X, Y
+                                            CharacterCreateMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_CHATBOX
                                         If Not DidClick Then
-                                            ChatBoxMouseDown Buttons, Shift, X, Y
+                                            ChatBoxMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_INVENTORY
                                         If Not DidClick Then
-                                            InventoryMouseDown Buttons, Shift, X, Y
+                                            InventoryMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_MOVEREPLACE
                                         If Not DidClick Then
-                                            MoveReplaceMouseDown Buttons, Shift, X, Y
+                                            MoveReplaceMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_TRAINER
                                         If Not DidClick Then
-                                            TrainerMouseDown Buttons, Shift, X, Y
+                                            TrainerMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_INVSTORAGE
                                         If Not DidClick Then
-                                            InvStorageMouseDown Buttons, Shift, X, Y
+                                            InvStorageMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_POKEMONSTORAGE
                                         If Not DidClick Then
-                                            PokemonStorageMouseDown Buttons, Shift, X, Y
+                                            PokemonStorageMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_SHOP
                                         If Not DidClick Then
-                                            ShopMouseDown Buttons, Shift, X, Y
+                                            ShopMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_TRADE
                                         If Not DidClick Then
-                                            TradeMouseDown Buttons, Shift, X, Y
+                                            TradeMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_POKEDEX
                                         If Not DidClick Then
-                                            PokedexMouseDown Buttons, Shift, X, Y
+                                            PokedexMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_POKEMONSUMMARY
                                         If Not DidClick Then
-                                            PokemonSummaryMouseDown Buttons, Shift, X, Y
+                                            PokemonSummaryMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_RELEARN
                                         If Not DidClick Then
-                                            RelearnMouseDown Buttons, Shift, X, Y
+                                            RelearnMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_BADGE
                                         If Not DidClick Then
-                                            BadgeMouseDown Buttons, Shift, X, Y
+                                            BadgeMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_RANK
                                         If Not DidClick Then
-                                            RankMouseDown Buttons, Shift, X, Y
+                                            RankMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_VIRTUALSHOP
                                         If Not DidClick Then
-                                            VirtualShopMouseDown Buttons, Shift, X, Y
+                                            VirtualShopMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_INCUBATOR
                                         If Not DidClick Then
-                                            IncubatorMouseDown Buttons, Shift, X, Y
+                                            IncubatorMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_VIPADVANTAGE
                                         If Not DidClick Then
-                                            VipAdvantageMouseDown Buttons, Shift, X, Y
+                                            VipAdvantageMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
                                     Case GuiEnum.GUI_MAP
                                         If Not DidClick Then
-                                            PlayerTravelMouseDown Buttons, Shift, X, Y
+                                            PlayerTravelMouseDown Buttons, Shift, X, y
                                             DidClick = True
                                             Exit For
                                         End If
@@ -793,9 +793,9 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As
         If Not DidClick And Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible Then
 
             ' Botão do Footer
-            Y = Screen_Height
+            y = Screen_Height
             X = Screen_Width
-            textY = Y - 40
+            textY = y - 40
             Column = X / 3
 
             If Not GUI(GuiEnum.GUI_CHARACTERSELECT).Visible = True Then
@@ -930,7 +930,7 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As
                     '//Loop through all items
                     For i = ButtonEnum.Game_Pokedex To ButtonEnum.Game_Evolve
                         If CanShowButton(i) Then
-                            If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).Y And CursorY <= Button(i).Y + Button(i).Height Then
+                            If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).y And CursorY <= Button(i).y + Button(i).Height Then
                                 PreventAction = False
                                 Select Case i
                                 Case ButtonEnum.Game_Pokedex
@@ -984,13 +984,13 @@ Public Sub FormMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As
 End Sub
 
 '//This handle the main form's key event
-Public Sub FormMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub FormMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long, j As Long
 Dim PreventAction As Boolean
 
     '//Get Cursor Location
     CursorX = (Screen_Width / frmMain.scaleWidth) * X
-    CursorY = (Screen_Height / frmMain.scaleHeight) * Y
+    CursorY = (Screen_Height / frmMain.scaleHeight) * y
     
     '//Make sure that the cursor position is always inside the screen
     If CursorX < 0 Then CursorX = 0
@@ -1078,51 +1078,51 @@ Dim PreventAction As Boolean
     
     '//Choice Box must be above all gui if visible
     If GUI(GuiEnum.GUI_CHOICEBOX).Visible Then
-        ChoiceBoxMouseMove Buttons, Shift, X, Y
+        ChoiceBoxMouseMove Buttons, Shift, X, y
     ElseIf GUI(GuiEnum.GUI_INPUTBOX).Visible Then
-        InputBoxMouseMove Buttons, Shift, X, Y
+        InputBoxMouseMove Buttons, Shift, X, y
     Else
         If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
-            GlobalMenuMouseMove Buttons, Shift, X, Y
+            GlobalMenuMouseMove Buttons, Shift, X, y
         ElseIf GUI(GuiEnum.GUI_OPTION).Visible Then
-            OptionMouseMove Buttons, Shift, X, Y
+            OptionMouseMove Buttons, Shift, X, y
         Else
             If GUI(GuiEnum.GUI_CONVO).Visible Then
-                ConvoMouseMove Buttons, Shift, X, Y
+                ConvoMouseMove Buttons, Shift, X, y
             Else
                 '//zOrdering of gui
                 If GuiVisibleCount > 0 Then
                     If CanShowGui(GuiZOrder(GuiVisibleCount)) Then
                         Select Case GuiZOrder(GuiVisibleCount)
-                            Case GuiEnum.GUI_LOGIN:             LoginMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_REGISTER:          RegisterMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_CHARACTERSELECT:   CharacterSelectMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_CHARACTERCREATE:   CharacterCreateMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_CHATBOX:           ChatBoxMouseMove Buttons, Shift, X, Y
+                            Case GuiEnum.GUI_LOGIN:             LoginMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_REGISTER:          RegisterMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_CHARACTERSELECT:   CharacterSelectMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_CHARACTERCREATE:   CharacterCreateMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_CHATBOX:           ChatBoxMouseMove Buttons, Shift, X, y
                             Case GuiEnum.GUI_INVENTORY
-                                InventoryMouseMove Buttons, Shift, X, Y
+                                InventoryMouseMove Buttons, Shift, X, y
                                 If GUI(GuiEnum.GUI_INVSTORAGE).Visible Then
-                                    InvStorageMouseMove Buttons, Shift, X, Y
+                                    InvStorageMouseMove Buttons, Shift, X, y
                                 End If
-                            Case GuiEnum.GUI_MOVEREPLACE:       MoveReplaceMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_TRAINER:           TrainerMouseMove Buttons, Shift, X, Y
+                            Case GuiEnum.GUI_MOVEREPLACE:       MoveReplaceMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_TRAINER:           TrainerMouseMove Buttons, Shift, X, y
                             Case GuiEnum.GUI_INVSTORAGE
-                                InvStorageMouseMove Buttons, Shift, X, Y
+                                InvStorageMouseMove Buttons, Shift, X, y
                                 If GUI(GuiEnum.GUI_INVENTORY).Visible Then
-                                    InventoryMouseMove Buttons, Shift, X, Y
+                                    InventoryMouseMove Buttons, Shift, X, y
                                 End If
-                            Case GuiEnum.GUI_POKEMONSTORAGE:    PokemonStorageMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_SHOP:              ShopMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_TRADE:             TradeMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_POKEDEX:           PokedexMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_POKEMONSUMMARY:    PokemonSummaryMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_RELEARN:           RelearnMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_BADGE:             BadgeMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_RANK:              RankMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_VIRTUALSHOP:       VirtualShopMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_INCUBATOR:         IncubatorMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_VIPADVANTAGE:      VipAdvantageMouseMove Buttons, Shift, X, Y
-                            Case GuiEnum.GUI_MAP:               PlayerTravelMouseMove Buttons, Shift, X, Y
+                            Case GuiEnum.GUI_POKEMONSTORAGE:    PokemonStorageMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_SHOP:              ShopMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_TRADE:             TradeMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_POKEDEX:           PokedexMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_POKEMONSUMMARY:    PokemonSummaryMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_RELEARN:           RelearnMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_BADGE:             BadgeMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_RANK:              RankMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_VIRTUALSHOP:       VirtualShopMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_INCUBATOR:         IncubatorMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_VIPADVANTAGE:      VipAdvantageMouseMove Buttons, Shift, X, y
+                            Case GuiEnum.GUI_MAP:               PlayerTravelMouseMove Buttons, Shift, X, y
                         End Select
                     End If
                 End If
@@ -1150,7 +1150,7 @@ Dim PreventAction As Boolean
                 If Not GUI(GuiEnum.GUI_CHOICEBOX).Visible And Not GUI(GuiEnum.GUI_GLOBALMENU).Visible And Not GUI(GuiEnum.GUI_OPTION).Visible And Not GUI(GuiEnum.GUI_INPUTBOX).Visible And Not GUI(GuiEnum.GUI_CONVO).Visible Then
                     For i = ButtonEnum.Game_Pokedex To ButtonEnum.Game_Evolve
                         If CanShowButton(i) Then
-                            If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).Y And CursorY <= Button(i).Y + Button(i).Height Then
+                            If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).y And CursorY <= Button(i).y + Button(i).Height Then
                                 PreventAction = False
                                 Select Case i
                                     Case ButtonEnum.Game_Pokedex
@@ -1206,7 +1206,7 @@ Dim PreventAction As Boolean
 End Sub
 
 '//This handle the main form's key event
-Public Sub FormMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Public Sub FormMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim PreventAction As Boolean
 Dim x2 As Long, Y2 As Long
@@ -1235,44 +1235,44 @@ Dim x2 As Long, Y2 As Long
     
     '//Choice Box must be above all gui if visible
     If GUI(GuiEnum.GUI_CHOICEBOX).Visible Then
-        ChoiceBoxMouseUp Buttons, Shift, X, Y
+        ChoiceBoxMouseUp Buttons, Shift, X, y
     ElseIf GUI(GuiEnum.GUI_INPUTBOX).Visible Then
-        InputBoxMouseUp Buttons, Shift, X, Y
+        InputBoxMouseUp Buttons, Shift, X, y
     Else
         If GUI(GuiEnum.GUI_GLOBALMENU).Visible Then
-            GlobalMenuMouseUp Buttons, Shift, X, Y
+            GlobalMenuMouseUp Buttons, Shift, X, y
         ElseIf GUI(GuiEnum.GUI_OPTION).Visible Then
-            OptionMouseUp Buttons, Shift, X, Y
+            OptionMouseUp Buttons, Shift, X, y
         Else
             If GUI(GuiEnum.GUI_CONVO).Visible Then
-                ConvoMouseUp Buttons, Shift, X, Y
+                ConvoMouseUp Buttons, Shift, X, y
             Else
                 '//zOrdering of gui
                 If GuiVisibleCount > 0 Then
                     If CanShowGui(GuiZOrder(GuiVisibleCount)) Then
-                        If CursorX >= GUI(GuiZOrder(GuiVisibleCount)).X And CursorX <= GUI(GuiZOrder(GuiVisibleCount)).X + GUI(GuiZOrder(GuiVisibleCount)).Width And CursorY >= GUI(GuiZOrder(GuiVisibleCount)).Y And CursorY <= GUI(GuiZOrder(GuiVisibleCount)).Y + GUI(GuiZOrder(GuiVisibleCount)).Height Then
+                        If CursorX >= GUI(GuiZOrder(GuiVisibleCount)).X And CursorX <= GUI(GuiZOrder(GuiVisibleCount)).X + GUI(GuiZOrder(GuiVisibleCount)).Width And CursorY >= GUI(GuiZOrder(GuiVisibleCount)).y And CursorY <= GUI(GuiZOrder(GuiVisibleCount)).y + GUI(GuiZOrder(GuiVisibleCount)).Height Then
                             Select Case GuiZOrder(GuiVisibleCount)
-                                Case GuiEnum.GUI_LOGIN:             LoginMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_REGISTER:          RegisterMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_CHARACTERSELECT:   CharacterSelectMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_CHARACTERCREATE:   CharacterCreateMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_CHATBOX:           ChatBoxMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_INVENTORY:         InventoryMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_MOVEREPLACE:       MoveReplaceMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_TRAINER:           TrainerMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_INVSTORAGE:        InvStorageMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_POKEMONSTORAGE:    PokemonStorageMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_SHOP:              ShopMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_TRADE:             TradeMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_POKEDEX:           PokedexMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_POKEMONSUMMARY:    PokemonSummaryMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_RELEARN:           RelearnMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_BADGE:             BadgeMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_RANK:              RankMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_VIRTUALSHOP:       VirtualShopMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_INCUBATOR:         IncubatorMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_VIPADVANTAGE:      VipAdvantageMouseUp Buttons, Shift, X, Y
-                                Case GuiEnum.GUI_MAP:               PlayerTravelMouseUp Buttons, Shift, X, Y
+                                Case GuiEnum.GUI_LOGIN:             LoginMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_REGISTER:          RegisterMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_CHARACTERSELECT:   CharacterSelectMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_CHARACTERCREATE:   CharacterCreateMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_CHATBOX:           ChatBoxMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_INVENTORY:         InventoryMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_MOVEREPLACE:       MoveReplaceMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_TRAINER:           TrainerMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_INVSTORAGE:        InvStorageMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_POKEMONSTORAGE:    PokemonStorageMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_SHOP:              ShopMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_TRADE:             TradeMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_POKEDEX:           PokedexMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_POKEMONSUMMARY:    PokemonSummaryMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_RELEARN:           RelearnMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_BADGE:             BadgeMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_RANK:              RankMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_VIRTUALSHOP:       VirtualShopMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_INCUBATOR:         IncubatorMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_VIPADVANTAGE:      VipAdvantageMouseUp Buttons, Shift, X, y
+                                Case GuiEnum.GUI_MAP:               PlayerTravelMouseUp Buttons, Shift, X, y
                             End Select
                         End If
                     End If
@@ -1294,7 +1294,7 @@ Dim x2 As Long, Y2 As Long
                     '//Loop through all items
                     For i = ButtonEnum.Game_Pokedex To ButtonEnum.Game_Evolve
                         If CanShowButton(i) Then
-                            If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).Y And CursorY <= Button(i).Y + Button(i).Height Then
+                            If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).y And CursorY <= Button(i).y + Button(i).Height Then
                                 PreventAction = False
                                 Select Case i
                                     Case ButtonEnum.Game_Pokedex
@@ -1351,6 +1351,7 @@ Dim x2 As Long, Y2 As Long
                                             Case ButtonEnum.Game_Map
                                                 If GUI(GuiEnum.GUI_MAP).Visible = False Then
                                                     GuiState GUI_MAP, True
+                                                    InitPlayerMapTravel
                                                 End If
                                             Case ButtonEnum.Game_Rank
                                                 If GUI(GuiEnum.GUI_RANK).Visible = False Then
@@ -1405,7 +1406,7 @@ End Sub
 ' ***************
 ' ** ChoiceBox **
 ' ***************
-Private Sub ChoiceBoxMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ChoiceBoxMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_CHOICEBOX)
@@ -1418,7 +1419,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.ChoiceBox_Yes To ButtonEnum.ChoiceBox_No
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -1428,7 +1429,7 @@ Dim i As Long
     End With
 End Sub
 
-Private Sub ChoiceBoxMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ChoiceBoxMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_CHOICEBOX)
@@ -1441,7 +1442,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.ChoiceBox_Yes To ButtonEnum.ChoiceBox_No
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
         
@@ -1454,7 +1455,7 @@ Dim i As Long
     End With
 End Sub
 
-Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
     Dim z As Long
 
@@ -1466,7 +1467,7 @@ Private Sub ChoiceBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, 
         '//Loop through all items
         For i = ButtonEnum.ChoiceBox_Yes To ButtonEnum.ChoiceBox_No
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         '//Do function of the button
@@ -1699,7 +1700,7 @@ Private Sub ChatboxKeyPress(KeyAscii As Integer)
     End If
 End Sub
 
-Private Sub ChatBoxMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ChatBoxMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_CHATBOX)
@@ -1716,7 +1717,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Chatbox_ScrollUp To ButtonEnum.Chatbox_Minimize
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -1736,12 +1737,12 @@ Dim i As Long
             End If
         Next
         
-        If CursorX >= .X + 59 And CursorX <= .X + 59 + 314 And CursorY >= .Y + 144 And CursorY <= .Y + 144 + 19 Then
+        If CursorX >= .X + 59 And CursorX <= .X + 59 + 314 And CursorY >= .y + 144 And CursorY <= .y + 144 + 19 Then
             Language
             ChatOn = True
             EditTab = False
         End If
-        If CursorX >= .X + 6 And CursorX <= .X + 6 + 46 And CursorY >= .Y + 144 And CursorY <= .Y + 144 + 19 Then
+        If CursorX >= .X + 6 And CursorX <= .X + 6 + 46 And CursorY >= .y + 144 And CursorY <= .y + 144 + 19 Then
             EditTab = True
             ChatOn = False
             MyChat = vbNullString
@@ -1750,21 +1751,21 @@ Dim i As Long
         '//Chat Scroll
         If totalChatLines > MaxChatLine Then
             ' Chat scroll
-            If CursorX >= .X + chatScrollX And CursorX <= .X + chatScrollX + chatScrollW And CursorY >= .Y + chatScrollTop + (chatScrollL - chatScrollY) And CursorY <= .Y + chatScrollTop + (chatScrollL - chatScrollY) + chatScrollH Then
+            If CursorX >= .X + chatScrollX And CursorX <= .X + chatScrollX + chatScrollW And CursorY >= .y + chatScrollTop + (chatScrollL - chatScrollY) And CursorY <= .y + chatScrollTop + (chatScrollL - chatScrollY) + chatScrollH Then
                 ChatHold = True
             End If
         End If
         
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 137 And .OldMouseX >= 19 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub ChatBoxMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ChatBoxMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim MaxY As Long
 Dim tmpX As Long, tmpY As Long
@@ -1783,7 +1784,7 @@ Dim tmpX As Long, tmpY As Long
         '//Loop through all items
         For i = ButtonEnum.Chatbox_ScrollUp To ButtonEnum.Chatbox_Minimize
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
         
@@ -1795,17 +1796,17 @@ Dim tmpX As Long, tmpY As Long
         Next
         
         '//Hovering Textbox
-        If CursorX >= .X + 59 And CursorX <= .X + 59 + 314 And CursorY >= .Y + 144 And CursorY <= .Y + 144 + 19 Then
+        If CursorX >= .X + 59 And CursorX <= .X + 59 + 314 And CursorY >= .y + 144 And CursorY <= .y + 144 + 19 Then
             IsHovering = True
             MouseIcon = 2 '//I-Beam
         End If
-        If CursorX >= .X + 6 And CursorX <= .X + 6 + 46 And CursorY >= .Y + 144 And CursorY <= .Y + 144 + 19 Then
+        If CursorX >= .X + 6 And CursorX <= .X + 6 + 46 And CursorY >= .y + 144 And CursorY <= .y + 144 + 19 Then
             IsHovering = True
             MouseIcon = 2 '//I-Beam
         End If
         
         '//Hovering Chatscroll
-        If CursorX >= .X + chatScrollX And CursorX <= .X + chatScrollX + chatScrollW And CursorY >= .Y + chatScrollTop + (chatScrollL - chatScrollY) And CursorY <= .Y + chatScrollTop + (chatScrollL - chatScrollY) + chatScrollH Then
+        If CursorX >= .X + chatScrollX And CursorX <= .X + chatScrollX + chatScrollW And CursorY >= .y + chatScrollTop + (chatScrollL - chatScrollY) And CursorY <= .y + chatScrollTop + (chatScrollL - chatScrollY) + chatScrollH Then
             If totalChatLines > MaxChatLine Then
                 IsHovering = True
                 MouseIcon = 1 '//Select
@@ -1817,16 +1818,16 @@ Dim tmpX As Long, tmpY As Long
             '//Scroll moving
             If ChatHold Then
                 '//Upward
-                If CursorY < .Y + chatScrollTop + (chatScrollL - chatScrollY) + (chatScrollH / 2) Then
+                If CursorY < .y + chatScrollTop + (chatScrollL - chatScrollY) + (chatScrollH / 2) Then
                     If chatScrollY < chatScrollL Then
-                        chatScrollY = (CursorY - (.Y + chatScrollTop + chatScrollL) - (chatScrollH / 2)) * -1
+                        chatScrollY = (CursorY - (.y + chatScrollTop + chatScrollL) - (chatScrollH / 2)) * -1
                         If chatScrollY >= chatScrollL Then chatScrollY = chatScrollL
                     End If
                 End If
                 '//Downward
-                If CursorY > .Y + chatScrollTop + (chatScrollL - chatScrollY) + chatScrollH - (chatScrollH / 2) Then
+                If CursorY > .y + chatScrollTop + (chatScrollL - chatScrollY) + chatScrollH - (chatScrollH / 2) Then
                     If chatScrollY > 0 Then
-                        chatScrollY = (CursorY - (.Y + chatScrollTop + chatScrollL) - chatScrollH + (chatScrollH / 2)) * -1
+                        chatScrollY = (CursorY - (.y + chatScrollTop + chatScrollL) - chatScrollH + (chatScrollH / 2)) * -1
                         If chatScrollY <= 0 Then chatScrollY = 0
                     End If
                 End If
@@ -1854,14 +1855,14 @@ Dim tmpX As Long, tmpY As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
             
             UpdateChatArray
         End If
     End With
 End Sub
 
-Private Sub ChatBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ChatBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim FoundError As Boolean
 
@@ -1877,7 +1878,7 @@ Dim FoundError As Boolean
         '//Loop through all items
         For i = ButtonEnum.Chatbox_ScrollUp To ButtonEnum.Chatbox_Minimize
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                     End If
@@ -1911,9 +1912,9 @@ Private Sub SearchMouseDown(Buttons As Integer)
             For i = 1 To Pokemon_HighIndex
                 If MapPokemon(i).Num > 0 Then
                     If MapPokemon(i).Map = Player(MyIndex).Map Then
-                        If curTileX = MapPokemon(i).X And curTileY = MapPokemon(i).Y Then
+                        If curTileX = MapPokemon(i).X And curTileY = MapPokemon(i).y Then
                             If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
-                                If curTileY >= Player(MyIndex).Y - 4 And curTileY <= Player(MyIndex).Y + 4 Then
+                                If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
                                     '//Catch Poke
                                     InUsed = YES
                                     Data1 = i
@@ -1931,9 +1932,9 @@ Private Sub SearchMouseDown(Buttons As Integer)
             For i = 1 To Player_HighIndex
                 If PlayerPokemon(i).Num > 0 Then
                     If Player(i).Map = Player(MyIndex).Map Then
-                        If curTileX = PlayerPokemon(i).X And curTileY = PlayerPokemon(i).Y Then
+                        If curTileX = PlayerPokemon(i).X And curTileY = PlayerPokemon(i).y Then
                             If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
-                                If curTileY >= Player(MyIndex).Y - 4 And curTileY <= Player(MyIndex).Y + 4 Then
+                                If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
                                     AddAlert "You cannot catch this Pokemon", White
                                 End If
                             End If
@@ -1968,9 +1969,9 @@ Private Sub SearchMouseDown(Buttons As Integer)
     For i = 1 To Pokemon_HighIndex
         If MapPokemon(i).Num > 0 Then
             If MapPokemon(i).Map = Player(MyIndex).Map Then
-                If curTileX = MapPokemon(i).X And curTileY = MapPokemon(i).Y Then
+                If curTileX = MapPokemon(i).X And curTileY = MapPokemon(i).y Then
                     If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
-                        If curTileY >= Player(MyIndex).Y - 4 And curTileY <= Player(MyIndex).Y + 4 Then
+                        If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
                             '//Scan Pokedex
                             OpenSelMenu SelMenuType.PokedexMapPokemon, i
                         End If
@@ -1982,10 +1983,10 @@ Private Sub SearchMouseDown(Buttons As Integer)
 
     For i = 1 To Npc_HighIndex
         If MapNpc(i).Num > 0 Then
-            If curTileX = MapNpc(i).X And curTileY = MapNpc(i).Y Then
+            If curTileX = MapNpc(i).X And curTileY = MapNpc(i).y Then
                 '//Make sure in range
                 If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
-                    If curTileY >= Player(MyIndex).Y - 4 And curTileY <= Player(MyIndex).Y + 4 Then
+                    If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
                         If Npc(MapNpc(i).Num).Convo > 0 Then
                             OpenSelMenu SelMenuType.NPCChat, i
                         End If
@@ -2004,20 +2005,20 @@ Private Sub SearchMouseDown(Buttons As Integer)
             If IsPlaying(i) Then
                 If Player(i).Map = Player(MyIndex).Map Then
                     If PlayerPokemon(i).Num > 0 Then
-                        If curTileX = PlayerPokemon(i).X And curTileY = PlayerPokemon(i).Y Then
+                        If curTileX = PlayerPokemon(i).X And curTileY = PlayerPokemon(i).y Then
                             '//Make sure in range
                             If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
-                                If curTileY >= Player(MyIndex).Y - 4 And curTileY <= Player(MyIndex).Y + 4 Then
+                                If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
                                     OpenSelMenu SelMenuType.PokedexPlayerPokemon, i
                                     Exit For
                                 End If
                             End If
                         End If
                     End If
-                    If curTileX = Player(i).X And curTileY = Player(i).Y Then
+                    If curTileX = Player(i).X And curTileY = Player(i).y Then
                         '//Make sure in range
                         If curTileX >= Player(MyIndex).X - 4 And curTileX <= Player(MyIndex).X + 4 Then
-                            If curTileY >= Player(MyIndex).Y - 4 And curTileY <= Player(MyIndex).Y + 4 Then
+                            If curTileY >= Player(MyIndex).y - 4 And curTileY <= Player(MyIndex).y + 4 Then
                                 OpenSelMenu SelMenuType.PlayerMenu, i
                                 Exit For
                             Else
@@ -2033,7 +2034,7 @@ Private Sub SearchMouseDown(Buttons As Integer)
     End If
 
     If curTileX >= Player(MyIndex).X - 1 And curTileX <= Player(MyIndex).X + 1 Then
-        If curTileY >= Player(MyIndex).Y - 1 And curTileY <= Player(MyIndex).Y + 1 Then
+        If curTileY >= Player(MyIndex).y - 1 And curTileY <= Player(MyIndex).y + 1 Then
             If Editor = 0 Then
                 If curTileX <= Map.MaxX And curTileX >= 0 Then
                     If curTileY <= Map.MaxY And curTileY >= 0 Then
@@ -2073,14 +2074,14 @@ Dim i As Long
     For i = 1 To Player_HighIndex
         If IsPlaying(i) Then
             If Player(i).Map = Player(MyIndex).Map Then
-                If curTileX = Player(i).X And curTileY = Player(i).Y Then
+                If curTileX = Player(i).X And curTileY = Player(i).y Then
                     IsHovering = True
                     MouseIcon = 1    '//Select
                 End If
                 If i <> MyIndex Then
                     '//Player Pokemon
                     If PlayerPokemon(i).Num > 0 Then
-                        If curTileX = PlayerPokemon(i).X And curTileY = PlayerPokemon(i).Y Then
+                        If curTileX = PlayerPokemon(i).X And curTileY = PlayerPokemon(i).y Then
                             IsHovering = True
                             MouseIcon = 1    '//Select
                         End If
@@ -2091,7 +2092,7 @@ Dim i As Long
     Next
     For i = 1 To Npc_HighIndex
         If MapNpc(i).Num > 0 Then
-            If curTileX = MapNpc(i).X And curTileY = MapNpc(i).Y Then
+            If curTileX = MapNpc(i).X And curTileY = MapNpc(i).y Then
                 IsHovering = True
                 MouseIcon = 1    '//Select
             End If
@@ -2100,7 +2101,7 @@ Dim i As Long
     For i = 1 To Pokemon_HighIndex
         If MapPokemon(i).Num > 0 Then
             If MapPokemon(i).Map = Player(MyIndex).Map Then
-                If curTileX = MapPokemon(i).X And curTileY = MapPokemon(i).Y Then
+                If curTileX = MapPokemon(i).X And curTileY = MapPokemon(i).y Then
                     IsHovering = True
                     MouseIcon = 1    '//Select
                 End If
@@ -2109,7 +2110,7 @@ Dim i As Long
     Next
 
     If curTileX >= Player(MyIndex).X - 1 And curTileX <= Player(MyIndex).X + 1 Then
-        If curTileY >= Player(MyIndex).Y - 1 And curTileY <= Player(MyIndex).Y + 1 Then
+        If curTileY >= Player(MyIndex).y - 1 And curTileY <= Player(MyIndex).y + 1 Then
             If curTileX <= Map.MaxX And curTileX >= 0 Then
                 If curTileY <= Map.MaxY And curTileY >= 0 Then
                     If Editor = 0 Then
@@ -2201,7 +2202,7 @@ Public Function CheckPlayerHasItemValue(ByVal ItemNum As Long, ByVal ItemValue A
     Next i
 End Function
 
-Private Sub InputBoxMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub InputBoxMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_INPUTBOX)
@@ -2214,7 +2215,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.InputBox_Okay To ButtonEnum.InputBox_Cancel
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -2224,7 +2225,7 @@ Dim i As Long
     End With
 End Sub
 
-Private Sub InputBoxMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub InputBoxMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_INPUTBOX)
@@ -2237,7 +2238,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.InputBox_Okay To ButtonEnum.InputBox_Cancel
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
         
@@ -2249,14 +2250,14 @@ Dim i As Long
         Next
         
         '//Textbox
-        If CursorX >= .X + 22 And CursorX <= .X + 22 + 223 And CursorY >= .Y + 34 And CursorY <= .Y + 34 + 19 Then
+        If CursorX >= .X + 22 And CursorX <= .X + 22 + 223 And CursorY >= .y + 34 And CursorY <= .y + 34 + 19 Then
             IsHovering = True
             MouseIcon = 2 '//I-Beam
         End If
     End With
 End Sub
 
-Private Sub InputBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub InputBoxMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_INPUTBOX)
@@ -2267,7 +2268,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.InputBox_Okay To ButtonEnum.InputBox_Cancel
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         '//Do function of the button
@@ -2348,7 +2349,7 @@ End Sub
 ' ***************
 ' ** MoveReplace **
 ' ***************
-Private Sub MoveReplaceMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub MoveReplaceMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_MOVEREPLACE)
@@ -2361,7 +2362,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.MoveReplace_Slot1 To ButtonEnum.MoveReplace_Cancel
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -2371,14 +2372,14 @@ Dim i As Long
 
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub MoveReplaceMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub MoveReplaceMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim tmpX As Long, tmpY As Long
 Dim i As Long
 
@@ -2394,7 +2395,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.MoveReplace_Slot1 To ButtonEnum.MoveReplace_Cancel
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
         
@@ -2417,12 +2418,12 @@ Dim i As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Private Sub MoveReplaceMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub MoveReplaceMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim MoveSlot As Byte
 
@@ -2436,7 +2437,7 @@ Dim MoveSlot As Byte
         '//Loop through all items
         For i = ButtonEnum.MoveReplace_Slot1 To ButtonEnum.MoveReplace_Cancel
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
@@ -2461,7 +2462,7 @@ End Sub
 ' ***************
 ' ** VIP ADVAN **
 ' ***************
-Private Sub VipAdvantageMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub VipAdvantageMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
 
     With GUI(GuiEnum.GUI_VIPADVANTAGE)
@@ -2473,14 +2474,14 @@ Private Sub VipAdvantageMouseDown(Buttons As Integer, Shift As Integer, X As Sin
 
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub VipAdvantageMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub VipAdvantageMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim tmpX As Long, tmpY As Long
     Dim i As Long
 
@@ -2505,12 +2506,12 @@ Private Sub VipAdvantageMouseMove(Buttons As Integer, Shift As Integer, X As Sin
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
 
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Private Sub VipAdvantageMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub VipAdvantageMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_VIPADVANTAGE)
@@ -2528,7 +2529,7 @@ End Sub
 ' ***************
 ' ** Trainer **
 ' ***************
-Private Sub TrainerMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub TrainerMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
 
     With GUI(GuiEnum.GUI_TRAINER)
@@ -2541,7 +2542,7 @@ Private Sub TrainerMouseDown(Buttons As Integer, Shift As Integer, X As Single, 
         '//Loop through all items
         For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_VipAdvantage
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -2551,14 +2552,14 @@ Private Sub TrainerMouseDown(Buttons As Integer, Shift As Integer, X As Single, 
 
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub TrainerMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub TrainerMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim tmpX As Long, tmpY As Long
     Dim i As Long
 
@@ -2574,7 +2575,7 @@ Private Sub TrainerMouseMove(Buttons As Integer, Shift As Integer, X As Single, 
         '//Loop through all items
         For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_VipAdvantage
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
 
@@ -2597,12 +2598,12 @@ Private Sub TrainerMouseMove(Buttons As Integer, Shift As Integer, X As Single, 
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
 
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Private Sub TrainerMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub TrainerMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_TRAINER)
@@ -2615,7 +2616,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Trainer_Close To ButtonEnum.Trainer_VipAdvantage
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
@@ -2647,7 +2648,7 @@ End Sub
 ' ***************
 ' ** InvStorage **
 ' ***************
-Private Sub InvStorageMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub InvStorageMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_INVSTORAGE)
@@ -2661,7 +2662,7 @@ Dim i As Long
         For i = ButtonEnum.InvStorage_Close To ButtonEnum.InvStorage_Slot5
             If i <> InvCurSlot Then
                 If CanShowButton(i) Then
-                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateHover Then
                             Button(i).State = ButtonState.StateClick
                         End If
@@ -2689,21 +2690,21 @@ Dim i As Long
         
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub InvStorageMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub InvStorageMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim tmpX As Long, tmpY As Long
 Dim i As Long
 
     With GUI(GuiEnum.GUI_INVSTORAGE)
         '//Make sure it's visible
         If Not .Visible Then Exit Sub
-        If CursorX >= .X And CursorX <= .X + .Width And CursorY >= .Y And CursorY <= .Y + .Height Then
+        If CursorX >= .X And CursorX <= .X + .Width And CursorY >= .y And CursorY <= .y + .Height Then
         Else
             Exit Sub
         End If
@@ -2726,7 +2727,7 @@ Dim i As Long
         For i = ButtonEnum.InvStorage_Close To ButtonEnum.InvStorage_Slot5
             If i <> InvCurSlot Then
                 If CanShowButton(i) Then
-                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateNormal Then
                             Button(i).State = ButtonState.StateHover
             
@@ -2757,7 +2758,7 @@ Dim i As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
         
         '//Storage Item
@@ -2774,7 +2775,7 @@ Dim i As Long
     End With
 End Sub
 
-Private Sub InvStorageMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub InvStorageMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim slotNum As Long
 Dim Amount As Long
@@ -2790,7 +2791,7 @@ Dim Amount As Long
         For i = ButtonEnum.InvStorage_Close To ButtonEnum.InvStorage_Slot5
             If i <> InvCurSlot Then
                 If CanShowButton(i) Then
-                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateClick Then
                             Button(i).State = ButtonState.StateNormal
                             Select Case i
@@ -2854,7 +2855,7 @@ End Sub
 ' ***************
 ' ** PokemonStorage **
 ' ***************
-Private Sub PokemonStorageMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub PokemonStorageMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
     Dim slotNum As Long
 
@@ -2870,7 +2871,7 @@ Private Sub PokemonStorageMouseDown(Buttons As Integer, Shift As Integer, X As S
             slotNum = ((i + 1) - ButtonEnum.PokemonStorage_Slot1)
             If slotNum <> PokemonCurSlot Then
                 If CanShowButton(i) Then
-                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateHover Then
                             Button(i).State = ButtonState.StateClick
                         End If
@@ -2906,7 +2907,7 @@ Private Sub PokemonStorageMouseDown(Buttons As Integer, Shift As Integer, X As S
 
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
@@ -2934,7 +2935,7 @@ Public Function GetPokemonSelectedX(ByVal i As Byte) As Integer
 End Function
 
 Public Function GetPokemonSelectedY(ByVal i As Byte) As Integer
-    GetPokemonSelectedY = GUI(GuiEnum.GUI_POKEMONSTORAGE).Y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
+    GetPokemonSelectedY = GUI(GuiEnum.GUI_POKEMONSTORAGE).y + (37 + ((5 + TILE_Y) * ((i - 1) \ 7)))
 End Function
 
 Public Function IsPokemonSelected(ByVal i As Byte) As Boolean
@@ -2957,7 +2958,7 @@ Public Sub ClearPokemonsSelected()
     Next i
 End Sub
 
-Private Sub PokemonStorageMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub PokemonStorageMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim tmpX As Long, tmpY As Long
 Dim i As Long
 Dim slotNum As Long
@@ -2976,7 +2977,7 @@ Dim slotNum As Long
             slotNum = ((i + 1) - ButtonEnum.PokemonStorage_Slot1)
             If slotNum <> PokemonCurSlot Then
                 If CanShowButton(i) Then
-                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateNormal Then
                             Button(i).State = ButtonState.StateHover
             
@@ -3006,12 +3007,12 @@ Dim slotNum As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Private Sub PokemonStorageMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub PokemonStorageMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
     Dim slotNum As Long
     Dim Amount As Long
@@ -3028,7 +3029,7 @@ Private Sub PokemonStorageMouseUp(Buttons As Integer, Shift As Integer, X As Sin
             slotNum = ((i + 1) - ButtonEnum.PokemonStorage_Slot1)
             If slotNum <> PokemonCurSlot Then
                 If CanShowButton(i) Then
-                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateClick Then
                             Button(i).State = ButtonState.StateNormal
                             Select Case i
@@ -3094,7 +3095,7 @@ End Sub
 ' ***************
 ' ** Convo **
 ' ***************
-Private Sub ConvoMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ConvoMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_CONVO)
@@ -3105,7 +3106,7 @@ Dim i As Long
         If ConvoShowButton Then
             For i = ButtonEnum.Convo_Reply1 To ButtonEnum.Convo_Reply3
                 If CanShowButton(i) Then
-                    If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).Y And CursorY <= Button(i).Y + Button(i).Height Then
+                    If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).y And CursorY <= Button(i).y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateHover Then
                             Button(i).State = ButtonState.StateClick
                         End If
@@ -3117,7 +3118,7 @@ Dim i As Long
         '//Skip Scrolling Text
         If Not ConvoShowButton Then
             If ConvoNum > 0 Then
-                If CursorX >= .X And CursorX <= .X + .Width And CursorY >= .Y And CursorY <= .Y + .Height Then
+                If CursorX >= .X And CursorX <= .X + .Width And CursorY >= .y And CursorY <= .y + .Height Then
                     If Len(ConvoText) > ConvoDrawTextLen Then
                         ConvoDrawTextLen = Len(ConvoText)
                         ConvoRenderText = Left$(ConvoText, ConvoDrawTextLen)
@@ -3137,7 +3138,7 @@ Dim i As Long
     End With
 End Sub
 
-Private Sub ConvoMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ConvoMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_CONVO)
@@ -3150,7 +3151,7 @@ Dim i As Long
         If ConvoShowButton Then
             For i = ButtonEnum.Convo_Reply1 To ButtonEnum.Convo_Reply3
                 If CanShowButton(i) Then
-                    If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).Y And CursorY <= Button(i).Y + Button(i).Height Then
+                    If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).y And CursorY <= Button(i).y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateNormal Then
                             Button(i).State = ButtonState.StateHover
                 
@@ -3164,7 +3165,7 @@ Dim i As Long
         
         If Not ConvoShowButton Then
             If ConvoNum > 0 Then
-                If CursorX >= .X And CursorX <= .X + .Width And CursorY >= .Y And CursorY <= .Y + .Height Then
+                If CursorX >= .X And CursorX <= .X + .Width And CursorY >= .y And CursorY <= .y + .Height Then
                     IsHovering = True
                     MouseIcon = 1 '//Select
                 End If
@@ -3173,7 +3174,7 @@ Dim i As Long
     End With
 End Sub
 
-Private Sub ConvoMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ConvoMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_CONVO)
@@ -3184,7 +3185,7 @@ Dim i As Long
         If ConvoShowButton Then
             For i = ButtonEnum.Convo_Reply1 To ButtonEnum.Convo_Reply3
                 If CanShowButton(i) Then
-                    If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).Y And CursorY <= Button(i).Y + Button(i).Height Then
+                    If CursorX >= Button(i).X And CursorX <= Button(i).X + Button(i).Width And CursorY >= Button(i).y And CursorY <= Button(i).y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateClick Then
                             Button(i).State = ButtonState.StateNormal
                             Select Case i
@@ -3202,7 +3203,7 @@ End Sub
 ' ***************
 ' ** Shop **
 ' ***************
-Private Sub ShopMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ShopMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim DrawX As Long, DrawY As Long
 
@@ -3216,7 +3217,7 @@ Dim DrawX As Long, DrawY As Long
         '//Loop through all items
         For i = ButtonEnum.Shop_Close To ButtonEnum.Shop_ScrollDown
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -3229,7 +3230,7 @@ Dim DrawX As Long, DrawY As Long
             If i > 0 And i <= MAX_SHOP_ITEM Then
                 If Shop(ShopNum).ShopItem(i).Num > 0 Then
                     DrawX = .X + (31 + ((4 + 127) * (((((i + 1) - ShopAddY) - 1) Mod 3))))
-                    DrawY = .Y + (42 + ((4 + 78) * ((((i + 1) - ShopAddY) - 1) \ 3)))
+                    DrawY = .y + (42 + ((4 + 78) * ((((i + 1) - ShopAddY) - 1) \ 3)))
                     
                     '//Button
                     If CursorX >= DrawX + 12 And CursorX <= DrawX + 12 + 103 And CursorY >= DrawY + 44 And CursorY <= DrawY + 44 + 25 Then
@@ -3257,14 +3258,14 @@ Dim DrawX As Long, DrawY As Long
         
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub ShopMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ShopMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim tmpX As Long, tmpY As Long
     Dim i As Long
     Dim DrawX As Long, DrawY As Long
@@ -3282,7 +3283,7 @@ Private Sub ShopMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y A
         '//Loop through all items
         For i = ButtonEnum.Shop_Close To ButtonEnum.Shop_ScrollDown
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
 
@@ -3298,10 +3299,10 @@ Private Sub ShopMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y A
             If i > 0 And i <= MAX_SHOP_ITEM Then
                 If Shop(ShopNum).ShopItem(i).Num > 0 Then
                     DrawX = .X + (31 + ((4 + 127) * (((((i + 1) - ShopAddY) - 1) Mod 3))))
-                    DrawY = .Y + (42 + ((4 + 78) * ((((i + 1) - ShopAddY) - 1) \ 3)))
+                    DrawY = .y + (42 + ((4 + 78) * ((((i + 1) - ShopAddY) - 1) \ 3)))
 
                     '//Button
-                    If X >= DrawX + 12 And X <= DrawX + 12 + 103 And Y >= DrawY + 44 And Y <= DrawY + 44 + 25 Then
+                    If X >= DrawX + 12 And X <= DrawX + 12 + 103 And y >= DrawY + 44 And y <= DrawY + 44 + 25 Then
                         ShopButtonHover = i
                         If ShopButtonState = 0 Then
                             ShopButtonState = 1    '//Hover
@@ -3313,7 +3314,7 @@ Private Sub ShopMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y A
                     End If
 
                     '//Icon
-                    If X >= DrawX + 9 And X <= DrawX + 9 + 32 And Y >= DrawY + 6 And Y <= DrawY + 6 + 32 Then
+                    If X >= DrawX + 9 And X <= DrawX + 9 + 32 And y >= DrawY + 6 And y <= DrawY + 6 + 32 Then
                         IsHovering = True
                         MouseIcon = 1    '//Select
                     End If
@@ -3333,7 +3334,7 @@ Private Sub ShopMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y A
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
 
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
 
         '//Shop
@@ -3357,7 +3358,7 @@ Private Sub ShopMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y A
     End With
 End Sub
 
-Private Sub ShopMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub ShopMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_SHOP)
@@ -3370,7 +3371,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Shop_Close To ButtonEnum.Shop_ScrollDown
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
@@ -3416,7 +3417,7 @@ Private Sub TradeKeyPress(KeyAscii As Integer)
     End If
 End Sub
 
-Private Sub TradeMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub TradeMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim DrawX As Long, DrawY As Long
 
@@ -3430,7 +3431,7 @@ Dim DrawX As Long, DrawY As Long
         '//Loop through all items
         For i = ButtonEnum.Trade_Close To ButtonEnum.Trade_AddMoney
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -3455,11 +3456,11 @@ Dim DrawX As Long, DrawY As Long
         
         If YourTrade.TradeSet = NO Then
             If YourTrade.TradeMoney <> Val(TradeInputMoney) Then
-                If CursorX >= .X + 66 And CursorX <= .X + 66 + 112 And CursorY >= .Y + 279 And CursorY <= .Y + 279 + 19 Then
+                If CursorX >= .X + 66 And CursorX <= .X + 66 + 112 And CursorY >= .y + 279 And CursorY <= .y + 279 + 19 Then
                     EditInputMoney = True
                 End If
             Else
-                If CursorX >= .X + 66 And CursorX <= .X + 66 + 135 And CursorY >= .Y + 279 And CursorY <= .Y + 279 + 19 Then
+                If CursorX >= .X + 66 And CursorX <= .X + 66 + 135 And CursorY >= .y + 279 And CursorY <= .y + 279 + 19 Then
                     EditInputMoney = True
                 End If
             End If
@@ -3467,14 +3468,14 @@ Dim DrawX As Long, DrawY As Long
         
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub TradeMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub TradeMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim tmpX As Long, tmpY As Long
 Dim i As Long
 
@@ -3490,7 +3491,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Trade_Close To ButtonEnum.Trade_AddMoney
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
             
@@ -3502,12 +3503,12 @@ Dim i As Long
         Next
 
         If YourTrade.TradeMoney <> Val(TradeInputMoney) Then
-            If CursorX >= .X + 66 And CursorX <= .X + 66 + 112 And CursorY >= .Y + 279 And CursorY <= .Y + 279 + 19 Then
+            If CursorX >= .X + 66 And CursorX <= .X + 66 + 112 And CursorY >= .y + 279 And CursorY <= .y + 279 + 19 Then
                 IsHovering = True
                 MouseIcon = 2 '//I-Beam
             End If
         Else
-            If CursorX >= .X + 66 And CursorX <= .X + 66 + 135 And CursorY >= .Y + 279 And CursorY <= .Y + 279 + 19 Then
+            If CursorX >= .X + 66 And CursorX <= .X + 66 + 135 And CursorY >= .y + 279 And CursorY <= .y + 279 + 19 Then
                 IsHovering = True
                 MouseIcon = 2 '//I-Beam
             End If
@@ -3525,7 +3526,7 @@ Dim i As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
         
         '//Trade Item
@@ -3556,7 +3557,7 @@ Dim i As Long
     End With
 End Sub
 
-Private Sub TradeMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub TradeMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_TRADE)
@@ -3569,7 +3570,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Trade_Close To ButtonEnum.Trade_AddMoney
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
@@ -3605,7 +3606,7 @@ End Sub
 ' ***************
 ' ** Pokedex **
 ' ***************
-Private Sub PokedexMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub PokedexMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_POKEDEX)
@@ -3618,7 +3619,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Pokedex_Close To ButtonEnum.Pokedex_ScrollDown
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -3637,20 +3638,20 @@ Dim i As Long
         Next
         
         '//Check for scroll
-        If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .Y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) And CursorY <= .Y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) + PokedexScrollSize Then
+        If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) And CursorY <= .y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) + PokedexScrollSize Then
             PokedexScrollHold = True
         End If
         
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub PokedexMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub PokedexMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim tmpX As Long, tmpY As Long
 Dim i As Long
 
@@ -3666,7 +3667,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Pokedex_Close To ButtonEnum.Pokedex_ScrollDown
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
             
@@ -3678,12 +3679,12 @@ Dim i As Long
         Next
         
         '//Check for scroll
-        If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .Y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) And CursorY <= .Y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) + PokedexScrollSize Then
+        If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) And CursorY <= .y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) + PokedexScrollSize Then
             IsHovering = True
             MouseIcon = 1 '//Select
         End If
         
-        i = IsPokedexSlot(X, Y)
+        i = IsPokedexSlot(X, y)
         If i >= 0 Then
             IsHovering = True
             MouseIcon = 1 '//Select
@@ -3698,16 +3699,16 @@ Dim i As Long
         '//Scroll moving
         If PokedexScrollHold Then
             '//Upward
-            If CursorY < .Y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) + (PokedexScrollSize / 2) Then
+            If CursorY < .y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) + (PokedexScrollSize / 2) Then
                 If PokedexScrollY < PokedexScrollEndY - PokedexScrollSize Then
-                    PokedexScrollY = (CursorY - (.Y + PokedexScrollStartY + (PokedexScrollEndY - PokedexScrollSize)) - (PokedexScrollSize / 2)) * -1
+                    PokedexScrollY = (CursorY - (.y + PokedexScrollStartY + (PokedexScrollEndY - PokedexScrollSize)) - (PokedexScrollSize / 2)) * -1
                     If PokedexScrollY >= PokedexScrollEndY - PokedexScrollSize Then PokedexScrollY = PokedexScrollEndY - PokedexScrollSize
                 End If
             End If
             '//Downward
-            If CursorY > .Y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) + PokedexScrollSize - (PokedexScrollSize / 2) Then
+            If CursorY > .y + PokedexScrollStartY + ((PokedexScrollEndY - PokedexScrollSize) - PokedexScrollY) + PokedexScrollSize - (PokedexScrollSize / 2) Then
                 If PokedexScrollY > 0 Then
-                    PokedexScrollY = (CursorY - (.Y + PokedexScrollStartY + (PokedexScrollEndY - PokedexScrollSize)) - PokedexScrollSize + (PokedexScrollSize / 2)) * -1
+                    PokedexScrollY = (CursorY - (.y + PokedexScrollStartY + (PokedexScrollEndY - PokedexScrollSize)) - PokedexScrollSize + (PokedexScrollSize / 2)) * -1
                     If PokedexScrollY <= 0 Then PokedexScrollY = 0
                 End If
             End If
@@ -3728,12 +3729,12 @@ Dim i As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Private Sub PokedexMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub PokedexMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_POKEDEX)
@@ -3746,7 +3747,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Pokedex_Close To ButtonEnum.Pokedex_ScrollDown
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
@@ -3771,7 +3772,7 @@ End Sub
 ' ***************
 ' ** Pokemon Summary **
 ' ***************
-Private Sub PokemonSummaryMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub PokemonSummaryMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_POKEMONSUMMARY)
@@ -3784,7 +3785,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.PokemonSummary_Close To ButtonEnum.PokemonSummary_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -3794,14 +3795,14 @@ Dim i As Long
         
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub PokemonSummaryMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub PokemonSummaryMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim tmpX As Long, tmpY As Long
 Dim i As Long
 
@@ -3817,7 +3818,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.PokemonSummary_Close To ButtonEnum.PokemonSummary_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
             
@@ -3840,12 +3841,12 @@ Dim i As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Private Sub PokemonSummaryMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub PokemonSummaryMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_POKEMONSUMMARY)
@@ -3858,7 +3859,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.PokemonSummary_Close To ButtonEnum.PokemonSummary_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
@@ -3883,7 +3884,7 @@ End Sub
 ' *************
 ' ** Relearn **
 ' *************
-Private Sub RelearnMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub RelearnMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim CanHover As Boolean, MoveNum As Long, MN As Long
 Dim x2 As Long
@@ -3898,7 +3899,7 @@ Dim x2 As Long
         '//Loop through all items
         For i = ButtonEnum.Relearn_Close To ButtonEnum.Relearn_ScrollUp
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -3927,7 +3928,7 @@ Dim x2 As Long
                                     End If
                                     
                                     If CanHover Then
-                                        If CursorX >= .X + 36 And CursorX <= .X + 36 + 198 And CursorY >= .Y + 46 + ((i - 1) * 48) And CursorY <= .Y + 46 + ((i - 1) * 48) + 42 Then
+                                        If CursorX >= .X + 36 And CursorX <= .X + 36 + 198 And CursorY >= .y + 46 + ((i - 1) * 48) And CursorY <= .y + 46 + ((i - 1) * 48) + 42 Then
                                             SendRelearnMove MoveNum, MoveRelearnPokeSlot, MoveRelearnPokeNum
                                         End If
                                     End If
@@ -3941,14 +3942,14 @@ Dim x2 As Long
         
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub RelearnMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub RelearnMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim tmpX As Long, tmpY As Long
 Dim i As Long
 Dim CanHover As Boolean, MoveNum As Long, MN As Long
@@ -3965,7 +3966,7 @@ Dim CanHover As Boolean, MoveNum As Long, MN As Long
         '//Loop through all items
         For i = ButtonEnum.Relearn_Close To ButtonEnum.Relearn_ScrollUp
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
             
@@ -3996,7 +3997,7 @@ Dim CanHover As Boolean, MoveNum As Long, MN As Long
                                 End If
                                 
                                 If CanHover Then
-                                    If CursorX >= .X + 36 And CursorX <= .X + 36 + 198 And CursorY >= .Y + 46 + ((i - 1) * 48) And CursorY <= .Y + 46 + ((i - 1) * 48) + 42 Then
+                                    If CursorX >= .X + 36 And CursorX <= .X + 36 + 198 And CursorY >= .y + 46 + ((i - 1) * 48) And CursorY <= .y + 46 + ((i - 1) * 48) + 42 Then
                                         IsHovering = True
                                         MouseIcon = 1 '//Select
                                     End If
@@ -4020,12 +4021,12 @@ Dim CanHover As Boolean, MoveNum As Long, MN As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Private Sub RelearnMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub RelearnMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_RELEARN)
@@ -4038,7 +4039,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Relearn_Close To ButtonEnum.Relearn_ScrollUp
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
@@ -4068,7 +4069,7 @@ End Sub
 ' ***************
 ' ** Badge **
 ' ***************
-Private Sub BadgeMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub BadgeMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 Dim PosX As Long, PosY As Long
 
@@ -4082,7 +4083,7 @@ Dim PosX As Long, PosY As Long
         '//Loop through all items
         For i = ButtonEnum.Badge_Close To ButtonEnum.Badge_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
                     End If
@@ -4094,7 +4095,7 @@ Dim PosX As Long, PosY As Long
         For i = 1 To MAX_BADGE
             If Player(MyIndex).Badge(i) > 0 Then
                 PosX = .X + (84 + ((1 + 20) * (((i - 1) Mod 8))))
-                PosY = .Y + (42 + ((10 + 20) * ((i - 1) \ 8)))
+                PosY = .y + (42 + ((10 + 20) * ((i - 1) \ 8)))
 
                 '//Draw Icon
                 'RenderTexture Tex_Gui(.Pic), PosX, PosY, TexX, TexY, 20, 20, 20, 20
@@ -4108,14 +4109,14 @@ Dim PosX As Long, PosY As Long
         
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub BadgeMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub BadgeMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim tmpX As Long, tmpY As Long
 Dim i As Long
 
@@ -4131,7 +4132,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Badge_Close To ButtonEnum.Badge_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
             
@@ -4154,12 +4155,12 @@ Dim i As Long
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Private Sub BadgeMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub BadgeMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_BADGE)
@@ -4172,7 +4173,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Badge_Close To ButtonEnum.Badge_Close
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
@@ -4700,7 +4701,7 @@ End Sub
 ' **********
 ' ** Rank **
 ' **********
-Private Sub RankMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub RankMouseDown(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim i As Long
     Dim CanHover As Boolean, MoveNum As Long, MN As Long
     Dim x2 As Long
@@ -4715,7 +4716,7 @@ Private Sub RankMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y A
         '//Loop through all items
         For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_ScrollDown
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateHover Then
                         Button(i).State = ButtonState.StateClick
 
@@ -4735,20 +4736,20 @@ Private Sub RankMouseDown(Buttons As Integer, Shift As Integer, X As Single, Y A
         Next
 
         '//Check for scroll
-        If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) And CursorY <= .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + RankingScrollSize Then
+        If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) And CursorY <= .y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + RankingScrollSize Then
             RankingScrollHold = True
         End If
 
         '//Check for dragging
         .OldMouseX = CursorX - .X
-        .OldMouseY = CursorY - .Y
+        .OldMouseY = CursorY - .y
         If .OldMouseY >= 0 And .OldMouseY <= 31 Then
             .InDrag = True
         End If
     End With
 End Sub
 
-Private Sub RankMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub RankMouseMove(Buttons As Integer, Shift As Integer, X As Single, y As Single)
     Dim tmpX As Long, tmpY As Long
     Dim i As Long
     Dim CanHover As Boolean, MoveNum As Long, MN As Long
@@ -4765,7 +4766,7 @@ Private Sub RankMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y A
         '//Loop through all items
         For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_ScrollDown
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateNormal Then
                         Button(i).State = ButtonState.StateHover
 
@@ -4778,7 +4779,7 @@ Private Sub RankMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y A
 
         '//Check for scroll
         If RankingHighIndex > RankingScrollViewLine Then
-            If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) And CursorY <= .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + RankingScrollSize Then
+            If CursorX >= .X + 7 And CursorX <= .X + 7 + 19 And CursorY >= .y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) And CursorY <= .y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + RankingScrollSize Then
                 IsHovering = True
                 MouseIcon = 1    '//Select
             End If
@@ -4786,16 +4787,16 @@ Private Sub RankMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y A
             '//Scroll moving
             If RankingScrollHold Then
                 '//Upward
-                If CursorY < .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + (RankingScrollSize / 2) Then
+                If CursorY < .y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + (RankingScrollSize / 2) Then
                     If RankingScrollY < RankingScrollEndY - RankingScrollSize Then
-                        RankingScrollY = (CursorY - (.Y + RankingScrollStartY + (RankingScrollEndY - RankingScrollSize)) - (RankingScrollSize / 2)) * -1
+                        RankingScrollY = (CursorY - (.y + RankingScrollStartY + (RankingScrollEndY - RankingScrollSize)) - (RankingScrollSize / 2)) * -1
                         If RankingScrollY >= RankingScrollEndY - RankingScrollSize Then RankingScrollY = RankingScrollEndY - RankingScrollSize
                     End If
                 End If
                 '//Downward
-                If CursorY > .Y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + RankingScrollSize - (RankingScrollSize / 2) Then
+                If CursorY > .y + RankingScrollStartY + ((RankingScrollEndY - RankingScrollSize) - RankingScrollY) + RankingScrollSize - (RankingScrollSize / 2) Then
                     If RankingScrollY > 0 Then
-                        RankingScrollY = (CursorY - (.Y + RankingScrollStartY + (RankingScrollEndY - RankingScrollSize)) - RankingScrollSize + (RankingScrollSize / 2)) * -1
+                        RankingScrollY = (CursorY - (.y + RankingScrollStartY + (RankingScrollEndY - RankingScrollSize)) - RankingScrollSize + (RankingScrollSize / 2)) * -1
                         If RankingScrollY <= 0 Then RankingScrollY = 0
                     End If
                 End If
@@ -4817,12 +4818,12 @@ Private Sub RankMouseMove(Buttons As Integer, Shift As Integer, X As Single, Y A
             If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
 
             .X = tmpX
-            .Y = tmpY
+            .y = tmpY
         End If
     End With
 End Sub
 
-Private Sub RankMouseUp(Buttons As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub RankMouseUp(Buttons As Integer, Shift As Integer, X As Single, y As Single)
 Dim i As Long
 
     With GUI(GuiEnum.GUI_RANK)
@@ -4835,7 +4836,7 @@ Dim i As Long
         '//Loop through all items
         For i = ButtonEnum.Rank_Close To ButtonEnum.Rank_ScrollDown
             If CanShowButton(i) Then
-                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
+                If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .y + Button(i).y And CursorY <= .y + Button(i).y + Button(i).Height Then
                     If Button(i).State = ButtonState.StateClick Then
                         Button(i).State = ButtonState.StateNormal
                         Select Case i
@@ -4859,7 +4860,7 @@ End Sub
 
 Public Function FindFrontNPC() As Long
     Dim i As Long
-    Dim Y As Long, X As Long
+    Dim y As Long, X As Long
     
     If MyIndex <= 0 Or MyIndex > MAX_PLAYER Then Exit Function
     
@@ -4868,9 +4869,9 @@ Public Function FindFrontNPC() As Long
             Select Case Player(MyIndex).Dir
                 Case DIR_UP
                     X = Player(MyIndex).X
-                    For Y = Player(MyIndex).Y - 2 To Player(MyIndex).Y - 1
-                        If Y >= 0 And Y <= Map.MaxY Then
-                            If X = MapNpc(i).X And Y = MapNpc(i).Y Then
+                    For y = Player(MyIndex).y - 2 To Player(MyIndex).y - 1
+                        If y >= 0 And y <= Map.MaxY Then
+                            If X = MapNpc(i).X And y = MapNpc(i).y Then
                                 If Npc(MapNpc(i).Num).Convo > 0 Then
                                     FindFrontNPC = i
                                     Exit Function
@@ -4880,9 +4881,9 @@ Public Function FindFrontNPC() As Long
                     Next
                 Case DIR_DOWN
                     X = Player(MyIndex).X
-                    For Y = Player(MyIndex).Y + 1 To Player(MyIndex).Y + 2
-                        If Y >= 0 And Y <= Map.MaxY Then
-                            If X = MapNpc(i).X And Y = MapNpc(i).Y Then
+                    For y = Player(MyIndex).y + 1 To Player(MyIndex).y + 2
+                        If y >= 0 And y <= Map.MaxY Then
+                            If X = MapNpc(i).X And y = MapNpc(i).y Then
                                 If Npc(MapNpc(i).Num).Convo > 0 Then
                                     FindFrontNPC = i
                                     Exit Function
@@ -4891,10 +4892,10 @@ Public Function FindFrontNPC() As Long
                         End If
                     Next
                 Case DIR_LEFT
-                    Y = Player(MyIndex).Y
+                    y = Player(MyIndex).y
                     For X = Player(MyIndex).X - 2 To Player(MyIndex).X - 1
                         If X >= 0 And X <= Map.MaxX Then
-                            If X = MapNpc(i).X And Y = MapNpc(i).Y Then
+                            If X = MapNpc(i).X And y = MapNpc(i).y Then
                                 If Npc(MapNpc(i).Num).Convo > 0 Then
                                     FindFrontNPC = i
                                     Exit Function
@@ -4903,10 +4904,10 @@ Public Function FindFrontNPC() As Long
                         End If
                     Next
                 Case DIR_RIGHT
-                    Y = Player(MyIndex).Y
+                    y = Player(MyIndex).y
                     For X = Player(MyIndex).X + 1 To Player(MyIndex).X + 2
                         If X >= 0 And X <= Map.MaxX Then
-                            If X = MapNpc(i).X And Y = MapNpc(i).Y Then
+                            If X = MapNpc(i).X And y = MapNpc(i).y Then
                                 If Npc(MapNpc(i).Num).Convo > 0 Then
                                     FindFrontNPC = i
                                     Exit Function

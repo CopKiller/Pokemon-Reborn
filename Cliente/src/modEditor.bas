@@ -1007,7 +1007,7 @@ Public Sub ItemEditorLoadIndex(ByVal xIndex As Long)
             .scrlSkinNum.value = Item(xIndex).Data1
             .scrlExpBonus.value = Item(xIndex).Data2
         Else
-            .fraVip.Visible = False
+            .fraSkin.Visible = False
         End If
 
         .txtPrice.Text = Item(xIndex).Price

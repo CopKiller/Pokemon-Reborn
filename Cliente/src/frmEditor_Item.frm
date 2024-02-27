@@ -181,6 +181,125 @@ Begin VB.Form frmEditor_Item
          Top             =   840
          Width           =   1935
       End
+      Begin VB.Frame fraSkin 
+         Caption         =   "Skin Properties"
+         Height          =   1815
+         Left            =   960
+         TabIndex        =   85
+         Top             =   2280
+         Visible         =   0   'False
+         Width           =   4335
+         Begin VB.HScrollBar scrlExpBonus 
+            Height          =   255
+            Left            =   2520
+            TabIndex        =   90
+            Top             =   1200
+            Width           =   1575
+         End
+         Begin VB.PictureBox picPlayerSkin 
+            BorderStyle     =   0  'None
+            Height          =   735
+            Left            =   1440
+            ScaleHeight     =   735
+            ScaleWidth      =   855
+            TabIndex        =   89
+            Top             =   240
+            Width           =   855
+         End
+         Begin VB.VScrollBar scrlSkinNum 
+            Height          =   255
+            Left            =   1920
+            Max             =   500
+            TabIndex        =   88
+            Top             =   1200
+            Width           =   255
+         End
+         Begin VB.TextBox txtSkinNum 
+            Height          =   285
+            Left            =   360
+            TabIndex        =   86
+            Text            =   "0"
+            Top             =   1200
+            Width           =   1575
+         End
+         Begin VB.Label lblExpBonus 
+            AutoSize        =   -1  'True
+            Caption         =   "Exp Bonus %:"
+            Height          =   195
+            Left            =   2520
+            TabIndex        =   91
+            Top             =   960
+            Width           =   975
+         End
+         Begin VB.Label Label18 
+            Caption         =   "SkinNum:"
+            Height          =   255
+            Left            =   360
+            TabIndex        =   87
+            Top             =   840
+            Width           =   855
+         End
+      End
+      Begin VB.Frame fraVip 
+         Caption         =   "Vip Properties"
+         Height          =   1815
+         Left            =   840
+         TabIndex        =   78
+         Top             =   2280
+         Visible         =   0   'False
+         Width           =   4335
+         Begin VB.TextBox txtVipDays 
+            Height          =   285
+            Left            =   2400
+            TabIndex        =   83
+            Text            =   "0"
+            Top             =   960
+            Width           =   1695
+         End
+         Begin VB.Frame Frame6 
+            Caption         =   "Vip Type"
+            Height          =   1335
+            Left            =   240
+            TabIndex        =   79
+            Top             =   360
+            Width           =   1935
+            Begin VB.OptionButton chkVipType 
+               Caption         =   "Vip Gold"
+               Height          =   195
+               Index           =   2
+               Left            =   120
+               TabIndex        =   82
+               Top             =   1080
+               Width           =   1215
+            End
+            Begin VB.OptionButton chkVipType 
+               Caption         =   "Vip Silver"
+               Height          =   195
+               Index           =   1
+               Left            =   120
+               TabIndex        =   81
+               Top             =   720
+               Width           =   1695
+            End
+            Begin VB.OptionButton chkVipType 
+               Caption         =   "None"
+               Height          =   195
+               Index           =   0
+               Left            =   120
+               TabIndex        =   80
+               Top             =   360
+               Width           =   975
+            End
+         End
+         Begin VB.Label Label17 
+            Caption         =   "Dias:"
+            Height          =   255
+            Left            =   2400
+            TabIndex        =   84
+            Top             =   720
+            Width           =   855
+         End
+      End
       Begin VB.Frame fraKeyItem 
          Caption         =   "Key Item Properties"
          Height          =   1815
@@ -623,124 +742,6 @@ Begin VB.Form frmEditor_Item
             Width           =   1095
          End
       End
-      Begin VB.Frame fraSkin 
-         Caption         =   "Skin Properties"
-         Height          =   1815
-         Left            =   960
-         TabIndex        =   85
-         Top             =   2280
-         Visible         =   0   'False
-         Width           =   4335
-         Begin VB.HScrollBar scrlExpBonus 
-            Height          =   255
-            Left            =   2520
-            TabIndex        =   90
-            Top             =   1200
-            Width           =   1575
-         End
-         Begin VB.PictureBox picPlayerSkin 
-            BorderStyle     =   0  'None
-            Height          =   735
-            Left            =   1440
-            ScaleHeight     =   735
-            ScaleWidth      =   855
-            TabIndex        =   89
-            Top             =   240
-            Width           =   855
-         End
-         Begin VB.VScrollBar scrlSkinNum 
-            Height          =   255
-            Left            =   1920
-            Max             =   500
-            TabIndex        =   88
-            Top             =   1200
-            Width           =   255
-         End
-         Begin VB.TextBox txtSkinNum 
-            Height          =   285
-            Left            =   360
-            TabIndex        =   86
-            Text            =   "0"
-            Top             =   1200
-            Width           =   1575
-         End
-         Begin VB.Label lblExpBonus 
-            Caption         =   "Exp Bonus %:"
-            Height          =   255
-            Left            =   2520
-            TabIndex        =   91
-            Top             =   960
-            Width           =   975
-         End
-         Begin VB.Label Label18 
-            Caption         =   "SkinNum:"
-            Height          =   255
-            Left            =   360
-            TabIndex        =   87
-            Top             =   840
-            Width           =   855
-         End
-      End
-      Begin VB.Frame fraVip 
-         Caption         =   "Vip Properties"
-         Height          =   1815
-         Left            =   840
-         TabIndex        =   78
-         Top             =   2280
-         Visible         =   0   'False
-         Width           =   4335
-         Begin VB.TextBox txtVipDays 
-            Height          =   285
-            Left            =   2400
-            TabIndex        =   83
-            Text            =   "0"
-            Top             =   960
-            Width           =   1695
-         End
-         Begin VB.Frame Frame6 
-            Caption         =   "Vip Type"
-            Height          =   1335
-            Left            =   240
-            TabIndex        =   79
-            Top             =   360
-            Width           =   1935
-            Begin VB.OptionButton chkVipType 
-               Caption         =   "Vip Gold"
-               Height          =   195
-               Index           =   2
-               Left            =   120
-               TabIndex        =   82
-               Top             =   1080
-               Width           =   1215
-            End
-            Begin VB.OptionButton chkVipType 
-               Caption         =   "Vip Silver"
-               Height          =   195
-               Index           =   1
-               Left            =   120
-               TabIndex        =   81
-               Top             =   720
-               Width           =   1695
-            End
-            Begin VB.OptionButton chkVipType 
-               Caption         =   "None"
-               Height          =   195
-               Index           =   0
-               Left            =   120
-               TabIndex        =   80
-               Top             =   360
-               Width           =   975
-            End
-         End
-         Begin VB.Label Label17 
-            Caption         =   "Dias:"
-            Height          =   255
-            Left            =   2400
-            TabIndex        =   84
-            Top             =   720
-            Width           =   855
-         End
-      End
       Begin VB.Label Label15 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -980,11 +981,11 @@ Private Sub cmdAdd_Click()
     ' make sure it's not a clear
     If Not cmbItems.List(cmbItems.ListIndex) = "No Items" Then
         Item(EditorIndex).Item(lstItems.ListIndex + 1) = cmbItems.ListIndex
-        Item(EditorIndex).itemValue(lstItems.ListIndex + 1) = txtQuant.Text
+        Item(EditorIndex).ItemValue(lstItems.ListIndex + 1) = txtQuant.Text
         Item(EditorIndex).ItemChance(lstItems.ListIndex + 1) = txtChance.Text
     Else
         Item(EditorIndex).Item(lstItems.ListIndex + 1) = 0
-        Item(EditorIndex).itemValue(lstItems.ListIndex + 1) = 0
+        Item(EditorIndex).ItemValue(lstItems.ListIndex + 1) = 0
         Item(EditorIndex).ItemChance(lstItems.ListIndex + 1) = 0
     End If
 
@@ -993,7 +994,7 @@ Private Sub cmdAdd_Click()
     lstItems.Clear
     For X = 1 To MAX_MYSTERY_BOX
         If Item(EditorIndex).Item(X) > 0 Then
-            lstItems.AddItem X & ": " & Item(EditorIndex).itemValue(X) & "x - " & Trim$(Item(Item(EditorIndex).Item(X)).Name) & Item(EditorIndex).ItemChance(X) & "%"
+            lstItems.AddItem X & ": " & Item(EditorIndex).ItemValue(X) & "x - " & Trim$(Item(Item(EditorIndex).Item(X)).Name) & Item(EditorIndex).ItemChance(X) & "%"
             Chance = Chance + Item(EditorIndex).ItemChance(X)
         Else
             lstItems.AddItem X & ": No Items"
