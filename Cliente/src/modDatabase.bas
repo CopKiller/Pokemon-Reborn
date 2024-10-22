@@ -284,27 +284,27 @@ Public Sub ResetGui()
         .OrigY = (Screen_Height / 2) - (.Height / 2) '+ 100
     End With
     With Button(ButtonEnum.Game_Pokedex)
-        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 7)
-        .Y = Screen_Height - .Height - 10
-    End With
-    With Button(ButtonEnum.Game_Bag)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 6)
         .Y = Screen_Height - .Height - 10
     End With
-    With Button(ButtonEnum.Game_Card)
+    With Button(ButtonEnum.Game_Bag)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
         .Y = Screen_Height - .Height - 10
     End With
-    With Button(ButtonEnum.Game_Map)
+    With Button(ButtonEnum.Game_Card)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 4)
         .Y = Screen_Height - .Height - 10
     End With
-    With Button(ButtonEnum.Game_Rank)
+    With Button(ButtonEnum.Game_Map)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
         .Y = Screen_Height - .Height - 10
     End With
-    With Button(ButtonEnum.Game_VirtualShop)
+    With Button(ButtonEnum.Game_Rank)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
+        .Y = Screen_Height - .Height - 10
+    End With
+    With Button(ButtonEnum.Game_VirtualShop)
+        .X = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
         .Y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Incubator)

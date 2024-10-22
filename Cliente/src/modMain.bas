@@ -351,6 +351,9 @@ Public Function CanShowButton(ByVal ButtonNum As ButtonEnum) As Boolean
         Case ButtonEnum.Game_Pokedex To ButtonEnum.Game_Menu
             If IsLoading Then CanShowButton = False
             If Fade Then CanShowButton = False
+            
+            If ButtonNum = ButtonEnum.Game_Incubator Then CanShowButton = False
+            
         Case ButtonEnum.Game_Evolve
             If IsLoading Then CanShowButton = False
             If Fade Then CanShowButton = False
@@ -389,6 +392,7 @@ Public Function CanShowButton(ByVal ButtonNum As ButtonEnum) As Boolean
             End If
         Case ButtonEnum.Trainer_VipAdvantage
             If GetPlayerVipStatus(MyIndex) <= EnumVipType.None Then CanShowButton = False
+            
         Case Else: '//None
     End Select
 End Function

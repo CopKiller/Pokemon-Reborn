@@ -1,0 +1,77 @@
+[18:55] Server started up
+[18:56] Rodorfo has been warped on Map#3 x:18 y:26
+[19:08] Server closed
+[19:08] Server saving players...
+[19:08] Server saving complete...
+[19:45] Server started up
+[19:45] Rodorfo has been warped on Map#3 x:25 y:3
+[19:48] Rodorfo has been warped on Map#3 x:25 y:3
+[19:50] Rodorfo has been warped on Map#3 x:23 y:3
+[19:56] Rodorfo has been warped on Map#3 x:22 y:5
+[19:58] Rodorfo has been warped on Map#4 x:24 y:50
+[19:58] Rodorfo has been warped on Map#3 x:24 y:0
+[19:58] Rodorfo use item Pokeball
+[19:58] Rodorfo has been warped on Map#4 x:24 y:50
+[19:58] Rodorfo has been warped on Map#3 x:24 y:0
+[19:59] Rodorfo has been warped on Map#9 x:12 y:13
+[19:59] Rodorfo has been warped on Map#3 x:39 y:12
+[20:14] Rodorfo has been warped on Map#5 x:10 y:15
+[20:14] Rodorfo use item Pokeball
+[20:14] Rodorfo has been warped on Map#3 x:24 y:23
+[20:15] Rodorfo has been warped on Map#4 x:23 y:50
+[20:15] Rodorfo has been warped on Map#3 x:25 y:0
+[20:16] Rodorfo requested to edit Conversation
+[20:17] Rodorfo requested Conversation data
+[20:17] Rodorfo requested to edit npc
+[20:17] Rodorfo save npc#1 data
+[20:17] Rodorfo save npc#3 data
+[20:17] Rodorfo requested to edit Conversation
+[20:18] Rodorfo has been warped on Map#8 x:12 y:11
+[20:18] Rodorfo has been warped on Map#3 x:30 y:12
+[20:18] Rodorfo has been warped on Map#9 x:12 y:13
+[20:18] Rodorfo has been warped on Map#10 x:13 y:7
+[20:18] Rodorfo has been warped on Map#9 x:18 y:7
+[20:18] Rodorfo has been warped on Map#9 x:18 y:7
+[20:18] Rodorfo has been warped on Map#3 x:39 y:12
+[20:18] Rodorfo has been warped on Map#8 x:12 y:11
+[20:18] Rodorfo has been warped on Map#3 x:30 y:12
+[20:18] Rodorfo has been warped on Map#5 x:10 y:15
+[20:19] Rodorfo requested to edit Conversation
+[20:19] Rodorfo save Conversation#1 data
+[20:19] Rodorfo requested to edit Conversation
+[20:20] Rodorfo save Conversation#1 data
+[20:20] Rodorfo save Conversation#5 data
+[20:20] Rodorfo save Conversation#6 data
+[20:20] Rodorfo save Conversation#14 data
+[20:20] Rodorfo requested to edit npc
+[20:20] Rodorfo save npc#1 data
+[20:20] Rodorfo save npc#3 data
+[20:21] Rodorfo requested to edit Conversation
+[20:23] Rodorfo requested Conversation data
+[20:25] Rodorfo requested to edit Conversation
+[20:27] Rodorfo requested Conversation data
+[20:27] Rodorfo has been warped on Map#3 x:24 y:23
+[20:27] Rodorfo has been warped on Map#12 x:12 y:12
+[20:27] Rodorfo has been warped on Map#3 x:9 y:24
+[20:28] Rodorfo has been warped on Map#3 x:32 y:15
+[20:28] Rodorfo has been warped on Map#3 x:32 y:15
+[20:28] Rodorfo has been warped on Map#4 x:24 y:50
+[20:28] Rodorfo has been warped on Map#7 x:28 y:50
+[20:28] Rodorfo has been warped on Map#15 x:12 y:14
+[20:29] Rodorfo has been warped on Map#7 x:32 y:37
+[20:29] Rodorfo requested to edit map#7
+[20:29] Rodorfo has been warped on Map#7 x:36 y:32
+[20:29] Rodorfo updated map#7
+[20:29] Rodorfo requested to edit map#7
+[20:29] Rodorfo requested to edit map#7
+[20:29] Rodorfo has been warped on Map#7 x:36 y:31
+[20:29] Rodorfo updated map#7
+[20:30] Rodorfo has been warped on Map#17 x:21 y:50
+[20:31] Rodorfo has been warped on Map#7 x:28 y:0
+[20:32] Rodorfo has been warped on Map#16 x:11 y:12
+[20:34] Rodorfo requested to edit Shop
+[20:36] Rodorfo requested Shop data
+[20:37] Rodorfo requested to edit Shop
+[21:46] Server closed
+[21:46] Server saving players...
+[21:46] Server saving complete...

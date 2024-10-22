@@ -1,2 +1,4 @@
-Line 285: Class MSWinsockLib.Winsock of control Server_Socket was not a loaded control class.
-Line 292: Class MSWinsockLib.Winsock of control Socket was not a loaded control class.
+Line 18: Class TabDlg.SSTab of control SSTab1 was not a loaded control class.
+Line 226: Class MSComctlLib.ListView of control lvwInfo was not a loaded control class.
+Line 298: Class MSWinsockLib.Winsock of control Server_Socket was not a loaded control class.
+Line 305: Class MSWinsockLib.Winsock of control Socket was not a loaded control class.

@@ -739,7 +739,7 @@ Dim RndNum As Long
     '//ToFast
     If Player(Index, TempPlayer(Index).UseChar).MoveTmr > GetTickCount Then
         '//ToDo: Create something to prevent hacking
-        'SendPlayerXY index, True
+        'SendPlayerXY Index, True
         'Exit Sub
     End If
     
@@ -802,7 +802,7 @@ Dim RndNum As Long
         End If
     End If
 
-    Player(Index, TempPlayer(Index).UseChar).MoveTmr = GetTickCount + 200
+    Player(Index, TempPlayer(Index).UseChar).MoveTmr = GetTickCount + 100
     Call PlayerMove(Index, Dir)
 End Sub
 
@@ -1215,7 +1215,7 @@ Dim RndNum As Byte
     '//ToFast
     If PlayerPokemon(Index).MoveTmr > GetTickCount Then
         '//ToDo: Create something to prevent hacking
-        'SendPlayerPokemonXY index, True
+        'SendPlayerPokemonXY Index, True
         'Exit Sub
     End If
     'If PlayerPokemon(Index).QueueMove > 0 Then
@@ -1288,7 +1288,7 @@ Dim RndNum As Byte
         End If
     End If
     
-    PlayerPokemon(Index).MoveTmr = GetTickCount + 200
+    PlayerPokemon(Index).MoveTmr = GetTickCount + 100
     Call PlayerPokemonMove(Index, Dir)
 End Sub
 
