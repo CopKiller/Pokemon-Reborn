@@ -139,7 +139,8 @@ Public Const CONVO_SCRIPT_CHECKITEM As Byte = 16
 Public Const CONVO_SCRIPT_TAKEITEM As Byte = 17
 Public Const CONVO_SCRIPT_RESPAWNPOKE As Byte = 18
 Public Const CONVO_SCRIPT_CHECKLEVEL As Byte = 19
-Public Const MAX_CONVO_SCRIPT As Byte = 19
+Public Const CONVO_SCRIPT_CHECKSWITCH As Byte = 20
+Public Const MAX_CONVO_SCRIPT As Byte = 20
 
 '//Evolve Condition
 Public Const EVOLVE_CONDT_NONE As Byte = 0

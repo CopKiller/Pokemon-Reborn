@@ -12,7 +12,7 @@ Public Declare Sub CopyMemory Lib "kernel32.dll" Alias "RtlMoveMemory" (Destinat
 '//This use for clearing data
 Public Declare Sub ZeroMemory Lib "kernel32.dll" Alias "RtlZeroMemory" (Destination As Any, ByVal Length As Long)
 '//Use for setting Window zOrder
-Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 '//Text API
 Public Declare Function WritePrivateProfileString Lib "Kernel32" Alias "WritePrivateProfileStringA" (ByVal lpApplicationname As String, ByVal lpKeyname As Any, ByVal lpString As String, ByVal lpfilename As String) As Long
 Public Declare Function GetPrivateProfileString Lib "Kernel32" Alias "GetPrivateProfileStringA" (ByVal lpApplicationname As String, ByVal lpKeyname As Any, ByVal lpdefault As String, ByVal lpreturnedstring As String, ByVal nsize As Long, ByVal lpfilename As String) As Long
@@ -166,7 +166,8 @@ Public Const CONVO_SCRIPT_CHECKITEM As Byte = 16
 Public Const CONVO_SCRIPT_TAKEITEM As Byte = 17
 Public Const CONVO_SCRIPT_RESPAWNPOKE As Byte = 18
 Public Const CONVO_SCRIPT_CHECKLEVEL As Byte = 19
-Public Const MAX_CONVO_SCRIPT As Byte = 19
+Public Const CONVO_SCRIPT_CHECKSWITCH As Byte = 20
+Public Const MAX_CONVO_SCRIPT As Byte = 20
 
 '//Evolve Condition
 Public Const EVOLVE_CONDT_NONE As Byte = 0

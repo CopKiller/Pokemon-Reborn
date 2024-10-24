@@ -52,6 +52,7 @@ Module=modMapTravel_Window; src\modMapTravel_Window.bas
 Module=modMenu_Icons; src\modMenu_Icons.bas
 Module=modIncubator; src\modIncubator.bas
 Module=modIncubator_Window; src\modIncubator_Window.bas
+Module=modMouseWheel; src\modMouseWheel.bas
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""

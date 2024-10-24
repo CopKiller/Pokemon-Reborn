@@ -4,7 +4,7 @@ Option Explicit
 '//Custom Font Stuffs
 Private Type POINTAPI
     X As Long
-    y As Long
+    Y As Long
 End Type
 
 Private Type CharVA
@@ -99,7 +99,7 @@ Dim SizeX As Long, SizeY As Long
     SizeY = 256
     Set Font_Default.Texture = D3DX.CreateTextureFromFileEx(D3DDevice, FilePath & FontName & GFX_EXT, SizeX, SizeY, 0, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_POINT, D3DX_FILTER_POINT, RGB(255, 0, 255), ByVal 0, ByVal 0)
     Font_Default.TextureSize.X = SizeX
-    Font_Default.TextureSize.y = SizeY
+    Font_Default.TextureSize.Y = SizeY
     '//Load Font Settings
     LoadFontHeader Font_Default, FilePath & FontName & DATA_EXT
     
@@ -111,7 +111,7 @@ Dim SizeX As Long, SizeY As Long
     SizeY = 256
     Set Ui_Default.Texture = D3DX.CreateTextureFromFileEx(D3DDevice, FilePath & FontName & GFX_EXT, SizeX, SizeY, 0, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_POINT, D3DX_FILTER_POINT, RGB(255, 0, 255), ByVal 0, ByVal 0)
     Ui_Default.TextureSize.X = SizeX
-    Ui_Default.TextureSize.y = SizeY
+    Ui_Default.TextureSize.Y = SizeY
     '//Load Font Settings
     LoadFontHeader Ui_Default, FilePath & FontName & DATA_EXT
     
@@ -157,28 +157,28 @@ Dim v As Single
             .Vertex(0).tu = u
             .Vertex(0).tv = v
             .Vertex(0).X = 0
-            .Vertex(0).y = 0
+            .Vertex(0).Y = 0
             .Vertex(0).z = 0
             .Vertex(1).Color = D3DColorARGB(255, 0, 0, 0)
             .Vertex(1).rhw = 1
             .Vertex(1).tu = u + theFont.ColFactor
             .Vertex(1).tv = v
             .Vertex(1).X = theFont.HeaderInfo.CellWidth
-            .Vertex(1).y = 0
+            .Vertex(1).Y = 0
             .Vertex(1).z = 0
             .Vertex(2).Color = D3DColorARGB(255, 0, 0, 0)
             .Vertex(2).rhw = 1
             .Vertex(2).tu = u
             .Vertex(2).tv = v + theFont.RowFactor
             .Vertex(2).X = 0
-            .Vertex(2).y = theFont.HeaderInfo.CellHeight
+            .Vertex(2).Y = theFont.HeaderInfo.CellHeight
             .Vertex(2).z = 0
             .Vertex(3).Color = D3DColorARGB(255, 0, 0, 0)
             .Vertex(3).rhw = 1
             .Vertex(3).tu = u + theFont.ColFactor
             .Vertex(3).tv = v + theFont.RowFactor
             .Vertex(3).X = theFont.HeaderInfo.CellWidth
-            .Vertex(3).y = theFont.HeaderInfo.CellHeight
+            .Vertex(3).Y = theFont.HeaderInfo.CellHeight
             .Vertex(3).z = 0
         End With
     Next LoopChar
@@ -236,7 +236,7 @@ Public Function dx8Colour(ByVal colourNum As Long, Optional ByVal Alpha As Byte 
 End Function
 
 '//This render the given text on screen
-Public Sub RenderText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X As Long, ByVal y As Long, ByVal Color As Long, Optional ByVal isColorSet As Boolean = True, Optional ByVal Alpha As Long = 255, Optional ByVal Effect As Boolean)
+Public Sub RenderText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X As Long, ByVal Y As Long, ByVal Color As Long, Optional ByVal isColorSet As Boolean = True, Optional ByVal Alpha As Long = 255, Optional ByVal Effect As Boolean)
     Dim TempVA(0 To 3) As TLVERTEX, TempVAS(0 To 3) As TLVERTEX
     Dim TempColor As Long, ResetColor As Byte
     Dim v2 As D3DVECTOR2, v3 As D3DVECTOR2
@@ -264,7 +264,7 @@ Public Sub RenderText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X
     TempColor = Color
 
     'Fazer a Sombra
-    If Effect = True Then RenderText theFont, Text, X + 1, y + 1, Black
+    If Effect = True Then RenderText theFont, Text, X + 1, Y + 1, Black
 
     '//Set the texture
     D3DDevice.SetTexture 0, theFont.Texture
@@ -272,7 +272,7 @@ Public Sub RenderText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X
 
     '//Set Default Position
     X = X + 2
-    y = y + 2
+    Y = Y + 2
 
     '//Loop through each line if there are line breaks (vbCrLf)
     For i = 0 To UBound(TempStr)
@@ -305,13 +305,13 @@ Public Sub RenderText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X
 
                     '//Set up the verticies
                     TempVA(0).X = X + Count
-                    TempVA(0).y = y + yOffset
+                    TempVA(0).Y = Y + yOffset
                     TempVA(1).X = TempVA(1).X + X + Count
-                    TempVA(1).y = TempVA(0).y
+                    TempVA(1).Y = TempVA(0).Y
                     TempVA(2).X = TempVA(0).X
-                    TempVA(2).y = TempVA(2).y + TempVA(0).y
+                    TempVA(2).Y = TempVA(2).Y + TempVA(0).Y
                     TempVA(3).X = TempVA(1).X
-                    TempVA(3).y = TempVA(2).y
+                    TempVA(3).Y = TempVA(2).Y
 
                     '//Set the colors
                     TempVA(0).Color = TempColor
@@ -521,7 +521,7 @@ Dim i As Long, n As Long
     CheckNameInput = True
 End Function
 
-Public Sub RenderArrayText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X As Long, ByVal y As Long, ByVal MaxLineLen As Long, ByVal Colour As Long, Optional ByVal Alpha As Byte = 255, Optional ByVal KeepCentered As Boolean = False)
+Public Sub RenderArrayText(ByRef theFont As CustomFont, ByVal Text As String, ByVal X As Long, ByVal Y As Long, ByVal MaxLineLen As Long, ByVal colour As Long, Optional ByVal Alpha As Byte = 255, Optional ByVal KeepCentered As Boolean = False)
 Dim theArray() As String, i As Long, MaxLine As Long
 Dim DrawX As Long
 
@@ -537,9 +537,9 @@ Dim DrawX As Long
             Else
                 DrawX = X
             End If
-            RenderText theFont, theArray(i), DrawX, y, Colour, Alpha
+            RenderText theFont, theArray(i), DrawX, Y, colour, Alpha
             ' increase the y position by height of the font
-            y = y + 16
+            Y = Y + 16
         Next
     Else
         If KeepCentered Then
@@ -548,7 +548,7 @@ Dim DrawX As Long
             DrawX = X
         End If
         ' if line have one then render the text
-        RenderText theFont, Text, DrawX, y, Colour, Alpha
+        RenderText theFont, Text, DrawX, Y, colour, Alpha
     End If
 End Sub
 
@@ -559,7 +559,7 @@ Public Sub DrawPlayerName(ByVal Index As Long)
     With Player(Index)
         '//Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
-        If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
+        If .Y < TileView.top Or .Y > TileView.bottom Then Exit Sub
 
         Name = Trim$(.Name) + " " + Trim$(.Level)
         Select Case .Access
@@ -580,33 +580,33 @@ Public Sub DrawPlayerName(ByVal Index As Long)
             '//calc pos
             textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
             If .Sprite < 1 Or .Sprite > Count_Character Then
-                textY = ConvertMapY(.y * (TILE_Y)) + .yOffset
+                textY = ConvertMapY(.Y * (TILE_Y)) + .yOffset
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 3.5)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 3.5)
             End If
         Case TEMP_SPRITE_GROUP_DIVE
             '//calc pos
             textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
             If .Sprite < 1 Or .Sprite > Count_Character Then
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 3.5)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 3.5)
             End If
         Case TEMP_SPRITE_GROUP_MOUNT
             '//calc pos
             textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
             If .Sprite < 1 Or .Sprite > Count_Character Then
-                textY = ConvertMapY(.y * (TILE_Y)) + .yOffset
+                textY = ConvertMapY(.Y * (TILE_Y)) + .yOffset
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 2.3)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 2.3)
             End If
         Case Else
             '//calc pos
             textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
             If .Sprite < 1 Or .Sprite > Count_Character Then
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 3.5)
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(.Sprite)) / 3.5)
             End If
         End Select
 
@@ -652,7 +652,7 @@ Dim Color As Long, Name As String
         
         '//Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
-        If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
+        If .Y < TileView.top Or .Y > TileView.bottom Then Exit Sub
     
         Color = White
         Name = Trim$(Npc(.Num).Name)
@@ -660,9 +660,9 @@ Dim Color As Long, Name As String
         '//calc pos
         textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
         If Npc(.Num).Sprite < 1 Or Npc(.Num).Sprite > Count_Character Then
-            textY = ConvertMapY(.y * TILE_Y) + .yOffset
+            textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
-            textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(Npc(.Num).Sprite)) / 4)
+            textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Character(Npc(.Num).Sprite)) / 4)
         End If
         
         '//Draw name
@@ -681,7 +681,7 @@ Dim Color As Long, Name As String
         
         '//Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
-        If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
+        If .Y < TileView.top Or .Y > TileView.bottom Then Exit Sub
         
         If PlayerPokedex(.Num).Scanned = NO Then Exit Sub
             
@@ -691,12 +691,12 @@ Dim Color As Long, Name As String
         '//calc pos
         textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
         If Pokemon(.Num).Sprite < 1 Or Pokemon(.Num).Sprite > Count_Pokemon Then
-            textY = ConvertMapY(.y * TILE_Y) + .yOffset
+            textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + ConvertInverse(Pokemon(.Num).NameOffSetY)))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + ConvertInverse(Pokemon(.Num).NameOffSetY)))
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + ConvertInverse(Pokemon(.Num).NameOffSetY))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + ConvertInverse(Pokemon(.Num).NameOffSetY))
             End If
         End If
         
@@ -727,7 +727,7 @@ Dim Color As Long, Name As String
         
         '//Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
-        If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
+        If .Y < TileView.top Or .Y > TileView.bottom Then Exit Sub
     
         Color = White
         Name = Trim$(Pokemon(.Num).Name)
@@ -735,12 +735,12 @@ Dim Color As Long, Name As String
         '//calc pos
         textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
         If Pokemon(.Num).Sprite < 1 Or Pokemon(.Num).Sprite > Count_Pokemon Then
-            textY = ConvertMapY(.y * TILE_Y) + .yOffset
+            textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + ConvertInverse(Pokemon(.Num).NameOffSetY)))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + ConvertInverse(Pokemon(.Num).NameOffSetY)))
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + ConvertInverse(Pokemon(.Num).NameOffSetY))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + ConvertInverse(Pokemon(.Num).NameOffSetY))
             End If
         End If
         
@@ -765,7 +765,7 @@ Dim Color As Long, Name As String
         
         '//Check if Player is within screen area
         If .X < TileView.Left Or .X > TileView.Right Then Exit Sub
-        If .y < TileView.top Or .y > TileView.bottom Then Exit Sub
+        If .Y < TileView.top Or .Y > TileView.bottom Then Exit Sub
     
         Color = White
         Name = Trim$(Pokemon(.Num).Name)
@@ -773,12 +773,12 @@ Dim Color As Long, Name As String
         '//calc pos
         textX = ConvertMapX(.X * TILE_X) + .xOffset + ((TILE_X \ 2) - ((GetTextWidth(Font_Default, Name) \ 2) + 2))
         If Pokemon(.Num).Sprite < 1 Or Pokemon(.Num).Sprite > Count_Pokemon Then
-            textY = ConvertMapY(.y * TILE_Y) + .yOffset
+            textY = ConvertMapY(.Y * TILE_Y) + .yOffset
         Else
             If Pokemon(.Num).ScaleSprite = YES Then
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + ConvertInverse(Pokemon(.Num).NameOffSetY)))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - ((GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) + ConvertInverse(Pokemon(.Num).NameOffSetY)))
             Else
-                textY = ConvertMapY(.y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + ConvertInverse(Pokemon(.Num).NameOffSetY))
+                textY = ConvertMapY(.Y * TILE_Y) + .yOffset - (GetPicHeight(Tex_Pokemon(Pokemon(.Num).Sprite)) / 4 + ConvertInverse(Pokemon(.Num).NameOffSetY))
             End If
         End If
         
@@ -823,7 +823,7 @@ Dim pos As Long
 Dim u As Single
 Dim v As Single
 Dim X As Single
-Dim y As Single
+Dim Y As Single
 Dim Y2 As Single
 Dim i As Long
 Dim j As Long
@@ -863,7 +863,7 @@ Dim theFont As CustomFont
     
     '//Set the base position
     X = GUI(GuiEnum.GUI_CHATBOX).X + ChatOffsetX
-    y = GUI(GuiEnum.GUI_CHATBOX).y + ChatOffsetY
+    Y = GUI(GuiEnum.GUI_CHATBOX).Y + ChatOffsetY
 
     '//Loop through each buffer string
     For LoopC = (Chunk * ChatBufferChunk) - (MaxChatLine - 1) To Chunk * ChatBufferChunk
@@ -874,7 +874,7 @@ Dim theFont As CustomFont
         TempColor = ChatTextBuffer(LoopC).Color
         
         '//Set the Y position to be used
-        Y2 = y - (LoopC * yOffset) + (Chunk * ChatBufferChunk * yOffset) - 32
+        Y2 = Y - (LoopC * yOffset) + (Chunk * ChatBufferChunk * yOffset) - 32
         
         '//Loop through each line if there are line breaks (vbCrLf)
         Count = 0 'Counts the offset value we are on
@@ -893,7 +893,7 @@ Dim theFont As CustomFont
                 With ChatVA(0 + (6 * pos))
                     .Color = TempColor
                     .X = (X) + Count
-                    .y = (Y2)
+                    .Y = (Y2)
                     .tu = u
                     .tv = v
                     .rhw = 1
@@ -903,7 +903,7 @@ Dim theFont As CustomFont
                 With ChatVA(1 + (6 * pos))
                     .Color = TempColor
                     .X = (X) + Count
-                    .y = (Y2) + theFont.HeaderInfo.CellHeight
+                    .Y = (Y2) + theFont.HeaderInfo.CellHeight
                     .tu = u
                     .tv = v + theFont.RowFactor
                     .rhw = 1
@@ -913,7 +913,7 @@ Dim theFont As CustomFont
                 With ChatVA(2 + (6 * pos))
                     .Color = TempColor
                     .X = (X) + Count + theFont.HeaderInfo.CellWidth
-                    .y = (Y2) + theFont.HeaderInfo.CellHeight
+                    .Y = (Y2) + theFont.HeaderInfo.CellHeight
                     .tu = u + theFont.ColFactor
                     .tv = v + theFont.RowFactor
                     .rhw = 1
@@ -926,7 +926,7 @@ Dim theFont As CustomFont
                 With ChatVA(4 + (6 * pos))
                     .Color = TempColor
                     .X = (X) + Count + theFont.HeaderInfo.CellWidth
-                    .y = (Y2)
+                    .Y = (Y2)
                     .tu = u + theFont.ColFactor
                     .tv = v
                     .rhw = 1
@@ -1107,7 +1107,7 @@ End Sub
 
 '//Map Attribute
 Public Function DrawMapAttributes()
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 Dim tx As Long, ty As Long
 
     If frmEditor_Map.optType(2).value = True Then
@@ -1115,53 +1115,53 @@ Dim tx As Long, ty As Long
         RenderTexture Tex_System(gSystemEnum.UserInterface), 0, 0, 0, 8, Screen_Width, Screen_Height, 1, 1, D3DColorARGB(160, 0, 0, 0)
         
         For X = TileView.Left To TileView.Right
-            For y = TileView.top To TileView.bottom
-                If IsValidMapPoint(X, y) Then
-                    With Map.Tile(X, y)
+            For Y = TileView.top To TileView.bottom
+                If IsValidMapPoint(X, Y) Then
+                    With Map.Tile(X, Y)
                         tx = ((ConvertMapX(X * TILE_X)) - 4) + (TILE_X * 0.5)
-                        ty = ((ConvertMapY(y * TILE_Y)) - 7) + (TILE_Y * 0.5)
+                        ty = ((ConvertMapY(Y * TILE_Y)) - 7) + (TILE_Y * 0.5)
                         Select Case .Attribute
                             Case MapAttribute.Blocked
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 0, 0)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 0, 0)
                                 RenderText Font_Default, "B", tx, ty, BrightRed
                             Case MapAttribute.NpcSpawn
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 255, 255)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 255, 255)
                                 RenderText Font_Default, "N", tx, ty, White
                             Case MapAttribute.NpcAvoid
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 255, 255)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 255, 255)
                                 RenderText Font_Default, "A", tx, ty, Grey
                             Case MapAttribute.Warp
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
                                 RenderText Font_Default, "W", tx, ty, Cyan
                             Case MapAttribute.HealPokemon
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 181, 230, 29)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 181, 230, 29)
                                 RenderText Font_Default, "H", tx, ty, BrightGreen
                             Case MapAttribute.BothStorage
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 174, 201)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 174, 201)
                                 RenderText Font_Default, "B", tx, ty, Pink
                             Case MapAttribute.InvStorage
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 174, 201)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 174, 201)
                                 RenderText Font_Default, "I", tx, ty, Pink
                             Case MapAttribute.PokemonStorage
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 174, 201)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 174, 201)
                                 RenderText Font_Default, "P", tx, ty, Pink
                             Case MapAttribute.ConvoTile
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 255, 255)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 255, 255)
                                 RenderText Font_Default, "C", tx, ty, White
                             Case MapAttribute.Slide
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 255, 255)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 255, 255, 255)
                                 RenderText Font_Default, "S", tx, ty, White
                             Case MapAttribute.Checkpoint
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
                                 RenderText Font_Default, "C", tx, ty, Cyan
                             Case MapAttribute.WarpCheckpoint
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
                                 RenderText Font_Default, "WC", tx, ty, Cyan
                             Case MapAttribute.FishSpot
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
                                 RenderText Font_Default, "F", tx, ty, Green
                             Case MapAttribute.ReqBadge
-                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
                                 RenderText Font_Default, "BD", tx, ty, Red
                         End Select
                     End With
@@ -1173,7 +1173,7 @@ End Function
 
 Public Sub DrawChatBubble(ByVal Index As Long)
 Dim theArray() As String
-Dim X As Long, y As Long
+Dim X As Long, Y As Long
 Dim x2 As Long, Y2 As Long
 Dim MaxWidth As Long
 Dim i As Long
@@ -1181,7 +1181,7 @@ Dim i As Long
     With chatBubble(Index)
         '//Set Default
         X = ConvertMapX(.X * TILE_X) + 16
-        y = ConvertMapY(.y * TILE_Y) - 28
+        Y = ConvertMapY(.Y * TILE_Y) - 28
         
         '//Got target
         If .targetType = TARGET_TYPE_PLAYER And .target > 0 Then
@@ -1194,7 +1194,7 @@ Dim i As Long
                     
                     '//it's on our map - get co-ords
                     X = ConvertMapX((Player(.target).X * TILE_X) + Player(.target).xOffset) + 16
-                    y = ConvertMapY((Player(.target).y * TILE_Y) + Player(.target).yOffset) - 28
+                    Y = ConvertMapY((Player(.target).Y * TILE_Y) + Player(.target).yOffset) - 28
                 End If
             End If
         End If
@@ -1212,7 +1212,7 @@ Dim i As Long
                 
         '//calculate the new position
         x2 = X - (MaxWidth \ 2)
-        Y2 = y - (UBound(theArray) * 12)
+        Y2 = Y - (UBound(theArray) * 12)
                 
         ' **************
         ' ** Top-Left **
@@ -1229,15 +1229,15 @@ Dim i As Long
         ' *****************
         ' ** Bottom-Left **
         ' *****************
-        RenderTexture Tex_Misc(Misc_Chatbubble), x2 - 8, y, 0, 16, 8, 8, 8, 8
+        RenderTexture Tex_Misc(Misc_Chatbubble), x2 - 8, Y, 0, 16, 8, 8, 8, 8
         ' ******************
         ' ** Bottom-Right **
         ' ******************
-        RenderTexture Tex_Misc(Misc_Chatbubble), x2 + MaxWidth, y, 16, 16, 8, 8, 8, 8
+        RenderTexture Tex_Misc(Misc_Chatbubble), x2 + MaxWidth, Y, 16, 16, 8, 8, 8, 8
         ' ************
         ' ** Bottom **
         ' ************
-        RenderTexture Tex_Misc(Misc_Chatbubble), x2, y, 8, 16, MaxWidth, 8, 8, 8
+        RenderTexture Tex_Misc(Misc_Chatbubble), x2, Y, 8, 16, MaxWidth, 8, 8, 8
         ' **********
         ' ** Left **
         ' **********
@@ -1253,11 +1253,11 @@ Dim i As Long
         ' ***********
         ' ** Point **
         ' ***********
-        RenderTexture Tex_Misc(Misc_Chatbubble), X - 5, y, 24, 0, 8, 11, 8, 11
+        RenderTexture Tex_Misc(Misc_Chatbubble), X - 5, Y, 24, 0, 8, 11, 8, 11
         
         '//render each line centralised
         For i = 1 To UBound(theArray)
-            RenderText Font_Default, theArray(i), X - (GetTextWidth(Font_Default, theArray(i)) / 2) - 2, Y2 - 3, .Colour
+            RenderText Font_Default, theArray(i), X - (GetTextWidth(Font_Default, theArray(i)) / 2) - 2, Y2 - 3, .colour
             Y2 = Y2 + 12
         Next
         '//check if it's timed out - close it if so

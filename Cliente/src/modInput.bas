@@ -1412,6 +1412,57 @@ Dim x2 As Long, Y2 As Long
     End If
 End Sub
 
+Public Sub FormMouseScroll(ByVal Dir As ScrollDir)
+Dim i As Long
+Dim DidClick As Boolean
+
+    '//zOrdering of gui
+                If GuiVisibleCount > 0 Then
+                    For i = GuiVisibleCount To 1 Step -1
+                        If CanShowGui(GuiZOrder(i)) Then
+                            If GuiZOrder(i) > 0 Then
+                                If CursorX >= GUI(GuiZOrder(i)).X And CursorX <= GUI(GuiZOrder(i)).X + GUI(GuiZOrder(i)).Width And CursorY >= GUI(GuiZOrder(i)).Y And CursorY <= GUI(GuiZOrder(i)).Y + GUI(GuiZOrder(i)).Height Then
+                                    Select Case GuiZOrder(i)
+                                    
+                                    Case GuiEnum.GUI_CHATBOX
+                                        If Not DidClick Then
+                                            Window_Scroll GuiEnum.GUI_CHATBOX, Dir, ChatScrollDown, ChatScrollUp
+                                            DidClick = True
+                                            Exit Sub
+                                        End If
+                                        
+                                    Case GuiEnum.GUI_POKEDEX
+                                        If Not DidClick Then
+                                            Window_Scroll GuiEnum.GUI_POKEDEX, Dir, PokedexScrollDown, PokedexScrollUp
+                                            DidClick = True
+                                            Exit Sub
+                                        End If
+                                        
+                                    Case GuiEnum.GUI_RANK
+                                        If Not DidClick Then
+                                            Window_Scroll GuiEnum.GUI_RANK, Dir, RankingScrollDown, RankingScrollUp
+                                            DidClick = True
+                                            Exit Sub
+                                        End If
+                                        
+                                    Case GuiEnum.GUI_VIRTUALSHOP
+                                        If Not DidClick Then
+                                            Window_Scroll GuiEnum.GUI_VIRTUALSHOP, Dir, VirtualShopScrollDown, VirtualShopScrollUp
+                                            DidClick = True
+                                            Exit Sub
+                                        End If
+                                        
+                                    Case Else
+                                        Exit Sub
+                                        
+                                    End Select
+                                End If
+                            End If
+                        End If
+                    Next
+                End If
+End Sub
+
 ' ***************
 ' ** ChoiceBox **
 ' ***************

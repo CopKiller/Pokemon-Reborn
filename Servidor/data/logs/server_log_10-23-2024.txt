@@ -1,0 +1,105 @@
+[18:45] Server started up
+[18:51] Rodorfo has been warped on Map#16 x:11 y:6
+[18:51] Rodorfo requested to edit Conversation
+[18:57] Rodorfo save Conversation#1 data
+[19:11] Server started up
+[19:11] Rodorfo has been warped on Map#16 x:11 y:6
+[19:11] Rodorfo requested to edit Conversation
+[19:16] Rodorfo save Conversation#1 data
+[19:16] Rodorfo requested to edit Conversation
+[19:16] Rodorfo save Conversation#1 data
+[19:17] Rodorfo has been warped on Map#7 x:42 y:26
+[19:17] Rodorfo requested to edit Conversation
+[19:19] Rodorfo save Conversation#1 data
+[19:19] Rodorfo has been warped on Map#4 x:28 y:0
+[19:19] Rodorfo has been warped on Map#3 x:25 y:0
+[19:19] Rodorfo has been warped on Map#5 x:10 y:15
+[19:20] Rodorfo has been warped on Map#5 x:10 y:7
+[19:20] Rodorfo requested to edit Conversation
+[19:21] Rodorfo save Conversation#1 data
+[19:48] Rodorfo has been warped on Map#5 x:10 y:9
+[19:48] [Mapa]Rodorfo: testsasasa
+[19:48] [Mapa]Rodorfo: dfsadasdas
+[19:48] [Mapa]Rodorfo: dfsadsa
+[19:48] [Mapa]Rodorfo: dfsadsa
+[19:48] [Mapa]Rodorfo: fsadsadas
+[19:48] [Mapa]Rodorfo: fgdsafdasdfas
+[19:48] [Mapa]Rodorfo: fdasdfsadsa
+[19:48] [Mapa]Rodorfo: fdsadfsadas
+[19:48] [Mapa]Rodorfo: fasddsadas
+[19:48] [Mapa]Rodorfo: fgdsvfadsdas
+[19:54] Rodorfo has been warped on Map#5 x:10 y:9
+[19:54] [Mapa]Rodorfo: terdew
+[19:54] [Mapa]Rodorfo: fsdfdsf
+[19:54] [Mapa]Rodorfo: fadsfasfdas
+[19:54] [Mapa]Rodorfo: dasdsadas
+[19:54] [Mapa]Rodorfo: fdsfgdsfasdf
+[19:54] [Mapa]Rodorfo: fdsafsqads
+[19:54] [Mapa]Rodorfo: fdsadsa
+[19:54] [Mapa]Rodorfo: fdsfdsgfsdz
+[19:54] [Mapa]Rodorfo: gsdfgdsgdsf
+[19:54] [Mapa]Rodorfo: gdfsvfdvdsf
+[19:57] Rodorfo has been warped on Map#5 x:10 y:9
+[19:57] Rodorfo has been warped on Map#5 x:10 y:9
+[20:01] Rodorfo has been warped on Map#5 x:10 y:9
+[20:01] [Mapa]Rodorfo: dfasfdsafdas
+[20:01] [Mapa]Rodorfo: dfsadasdasd
+[20:01] [Mapa]Rodorfo: fadsdsadsa
+[20:02] Rodorfo has been warped on Map#5 x:10 y:9
+[20:04] Rodorfo has been warped on Map#5 x:10 y:9
+[20:04] [Mapa]Rodorfo: gdfsfdsfgds
+[20:04] [Mapa]Rodorfo: gsdffdsfds
+[20:04] [Mapa]Rodorfo: gdsfdsfds
+[20:04] [Mapa]Rodorfo: gdsfdsfds
+[20:04] [Mapa]Rodorfo: gerwgregfer
+[20:04] [Mapa]Rodorfo: gfsdgfsdgsf
+[20:04] [Mapa]Rodorfo: fdsfdsfds
+[20:04] [Mapa]Rodorfo: gvsdfvcsdfds
+[20:04] [Mapa]Rodorfo: vfsdgdsfdsfds
+[20:08] Rodorfo has been warped on Map#5 x:10 y:9
+[20:09] Rodorfo has been warped on Map#5 x:10 y:9
+[20:09] [Mapa]Rodorfo: refsdsf
+[20:09] [Mapa]Rodorfo: fdsfdsfsd
+[20:09] [Mapa]Rodorfo: fasdasdas
+[20:09] [Mapa]Rodorfo: fgdsfadsfs
+[20:09] [Mapa]Rodorfo: fdsfaddfas
+[20:09] [Mapa]Rodorfo: fdadsadsa
+[20:09] [Mapa]Rodorfo: fdadfsaas
+[20:09] [Mapa]Rodorfo: fasddsafas
+[20:09] [Mapa]Rodorfo: dfasdasdfas
+[20:10] [Mapa]Rodorfo: eadsadsa
+[20:10] [Mapa]Rodorfo: fdasdasdas
+[20:13] Rodorfo has been warped on Map#5 x:10 y:9
+[20:13] [Mapa]Rodorfo: fdsfdsfsd
+[20:13] [Mapa]Rodorfo: fdsfadsfads
+[20:13] [Mapa]Rodorfo: gvfsdfgdsfds
+[20:13] [Mapa]Rodorfo: gfdsfdasfads
+[20:13] [Mapa]Rodorfo: fgvdsfasdfdas
+[20:13] [Mapa]Rodorfo: fdsafasdsdf
+[20:13] [Mapa]Rodorfo: fadsdfas
+[20:13] [Mapa]Rodorfo: fdadsa
+[20:13] [Mapa]Rodorfo: fdsaadsas
+[20:13] [Mapa]Rodorfo: vdsafca
+[20:15] Rodorfo has been warped on Map#5 x:10 y:9
+[20:15] [Mapa]Rodorfo: sdadasa
+[20:15] [Mapa]Rodorfo: dsadas
+[20:15] [Mapa]Rodorfo: fdasfdas
+[20:15] [Mapa]Rodorfo: fdsfasDsa
+[20:15] [Mapa]Rodorfo: fdadsaD
+[20:15] [Mapa]Rodorfo: FDASFsd
+[20:16] [Mapa]Rodorfo: fdadsAD
+[20:16] [Mapa]Rodorfo: FDADFSAds
+[20:16] [Mapa]Rodorfo: FDASFSAds
+[20:41] Rodorfo has been warped on Map#5 x:10 y:9
+[20:41] [Mapa]Rodorfo: dsasafdasdas
+[20:41] [Mapa]Rodorfo: fadsdsad
+[20:41] [Mapa]Rodorfo: fdsafadfads
+[20:41] [Mapa]Rodorfo: dasdasdas
+[20:41] [Mapa]Rodorfo: fdsfaddfas
+[20:41] [Mapa]Rodorfo: fdsadfasdas
+[20:41] [Mapa]Rodorfo: fdsafdasdas
+[20:41] [Mapa]Rodorfo: fdsafasddas
+[20:41] [Mapa]Rodorfo: fdsafdasdfa
+[21:51] Server closed
+[21:51] Server saving players...
+[21:51] Server saving complete...

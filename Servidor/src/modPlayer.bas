@@ -11,34 +11,34 @@ End Function
 
 Private Function TotalPlayerOnMap(ByVal MapNum As Long) As Long
     Dim i As Long
-    Dim Count As Long
+    Dim count As Long
 
-    Count = 0
+    count = 0
     For i = 1 To Player_HighIndex
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
                 If Player(i, TempPlayer(i).UseChar).Map = MapNum Then
-                    Count = Count + 1
+                    count = count + 1
                 End If
             End If
         End If
     Next
-    TotalPlayerOnMap = Count
+    TotalPlayerOnMap = count
 End Function
 
 Public Function TotalPlayerOnline()
     Dim i As Long
-    Dim Count As Long
+    Dim count As Long
 
-    Count = 0
+    count = 0
     For i = 1 To Player_HighIndex
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End If
     Next
-    TotalPlayerOnline = Count
+    TotalPlayerOnline = count
 End Function
 
 Public Sub PlayerWarp(ByVal Index As Long, ByVal MapNum As Long, ByVal x As Long, ByVal Y As Long, ByVal Dir As Byte)
@@ -1033,10 +1033,10 @@ Public Function TryGivePlayerItem(ByVal Index As Long, ByVal ItemNum As Long, By
 End Function
 
 Public Function CountFreeInvSlot(ByVal Index As Long) As Long
-    Dim Count As Long, i As Long
+    Dim count As Long, i As Long
 
     CountFreeInvSlot = 0
-    Count = 0
+    count = 0
 
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
@@ -1044,12 +1044,12 @@ Public Function CountFreeInvSlot(ByVal Index As Long) As Long
     For i = 1 To MAX_PLAYER_INV
         With PlayerInv(Index).Data(i)
             If .Num = 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End With
     Next
 
-    CountFreeInvSlot = Count
+    CountFreeInvSlot = count
 End Function
 
 Public Function GiveItem(ByVal Index As Long, ByVal ItemNum As Long, ByRef ItemVal As Long, Optional ByVal TmrCooldown As Long = 0, Optional ByRef MsgFrom As String) As Boolean
@@ -1262,34 +1262,34 @@ End Sub
 
 Public Function CountPlayerPokemon(ByVal Index As Long) As Byte
     Dim i As Byte
-    Dim Count As Byte
+    Dim count As Byte
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         With PlayerPokemons(Index).Data(i)
             If .Num > 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End With
     Next
-    CountPlayerPokemon = Count
+    CountPlayerPokemon = count
 End Function
 
 Public Function CountPlayerPokemonAlive(ByVal Index As Long) As Byte
     Dim i As Byte
-    Dim Count As Byte
+    Dim count As Byte
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         With PlayerPokemons(Index).Data(i)
             If .Num > 0 Then
                 If .CurHp > 0 Then
-                    Count = Count + 1
+                    count = count + 1
                 End If
             End If
         End With
     Next
-    CountPlayerPokemonAlive = Count
+    CountPlayerPokemonAlive = count
 End Function
 
 '//Exp
@@ -2128,25 +2128,25 @@ End Function
 
 '//Count Free Pokemno slot
 Public Function CountFreePokemonSlot(ByVal Index As Long) As Long
-    Dim Count As Long
+    Dim count As Long
     Dim i As Byte, x As Byte
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         If PlayerPokemons(Index).Data(i).Num = 0 Then
-            Count = Count + 1
+            count = count + 1
         End If
     Next
     For i = 1 To MAX_STORAGE_SLOT
         If PlayerPokemonStorage(Index).slot(i).Unlocked = YES Then
             For x = 1 To MAX_STORAGE
                 If PlayerPokemonStorage(Index).slot(i).Data(x).Num = 0 Then
-                    Count = Count + 1
+                    count = count + 1
                 End If
             Next
         End If
     Next
-    CountFreePokemonSlot = Count
+    CountFreePokemonSlot = count
 End Function
 
 Public Function FindSameInvStorageSlot(ByVal Index As Long, ByVal StorageSlot As Byte, ByVal ItemNum As Long) As Byte
@@ -2263,10 +2263,10 @@ Private Function CheckStorageValues(ByVal Index As Long, ByVal StorageSlot As Lo
 End Function
 
 Public Function CountFreeStorageSlot(ByVal Index As Long, ByVal StorageSlot As Long) As Long
-    Dim Count As Long, i As Long
+    Dim count As Long, i As Long
 
     CountFreeStorageSlot = 0
-    Count = 0
+    count = 0
 
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
@@ -2274,12 +2274,12 @@ Public Function CountFreeStorageSlot(ByVal Index As Long, ByVal StorageSlot As L
     For i = 1 To MAX_STORAGE
         With PlayerInvStorage(Index).slot(StorageSlot).Data(i)
             If .Num = 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End With
     Next
 
-    CountFreeStorageSlot = Count
+    CountFreeStorageSlot = count
 End Function
 
 
@@ -2652,6 +2652,25 @@ startOver:
                         End If
                     End If
                 End If
+                
+            Case CONVO_SCRIPT_CHECKSWITCH
+                If .CustomScriptData > 0 And .CustomScriptData <= MAX_SWITCH Then
+                    If IsPlaying(Index) Then
+                        If TempPlayer(Index).UseChar > 0 Then
+                            
+                            
+                            If Player(Index, TempPlayer(Index).UseChar).Switches(.CustomScriptData) > 0 Then
+                                '//Next
+                                TempPlayer(Index).CurConvoData = .CustomScriptData2
+                                fixData = True
+                            Else
+                                TempPlayer(Index).CurConvoData = .CustomScriptData3
+                                fixData = True
+                            End If
+                        End If
+                    End If
+                End If
+                
             End Select
 
             '//Check if can init
@@ -3358,15 +3377,15 @@ Public Sub JoinParty(ByVal Index As Long, ByVal InviteIndex As Long)
 End Sub
 
 Public Function PartyCount(ByVal Index As Long) As Byte
-    Dim i As Long, Count As Long
+    Dim i As Long, count As Long
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PARTY
         If TempPlayer(Index).PartyIndex(i) > 0 Then
-            Count = Count + 1
+            count = count + 1
         End If
     Next
-    PartyCount = Count
+    PartyCount = count
 End Function
 
 Public Function IsPartyMember(ByVal Index As Long, ByVal i As Long) As Boolean

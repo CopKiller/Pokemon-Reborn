@@ -456,6 +456,7 @@ Dim Text As String
         Case CONVO_SCRIPT_TAKEITEM: Text = "Custom Script: Take Item"
         Case CONVO_SCRIPT_RESPAWNPOKE: Text = "Custom Script: Respawn Poke"
         Case CONVO_SCRIPT_CHECKLEVEL: Text = "Custom Script: Check Level"
+        Case CONVO_SCRIPT_CHECKSWITCH: Text = "Custom Script: Check Switch"
         Case Else: Text = "Custom Script: None"
     End Select
     lblCustomScript.Caption = Text

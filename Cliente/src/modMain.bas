@@ -138,6 +138,15 @@ Dim SetWidth As Long
     
     ForceExit = False
     AppRunning = True   '//Make sure that our application is actually running
+    
+    
+    myHWnd = frmMain.hwnd
+    
+    ' Do this only if we are running from a .exe. If run from IDE it messes up debugging
+    If App.LogMode = 1 Then HookForMouseWheel myHWnd
+    
+    
+    
     AppLoop             '//Start the loop
 End Sub
 
@@ -165,6 +174,9 @@ Sub UnloadMain()
     ClearSetting
     
     UnloadAllForms      '//Closing all forms
+    
+    Call UnHookMouseWheel
+    
     End                 '//Terminate the Program
 End Sub
 
