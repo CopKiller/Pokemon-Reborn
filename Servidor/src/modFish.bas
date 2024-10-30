@@ -29,7 +29,7 @@ RandomizaNovamente:
         If CountChances > 30 Then Exit Sub
         
         If IsWithinSpawnTime(pokemonIds.Item(Rand), GameHour) Then
-            Call SpawnMapPokemon(pokemonIds.Item(Rand), , , Index)
+            Call SpawnMapPokemon(pokemonIds.Item(Rand), , , , Index)
         Else
             GoTo RandomizaNovamente
             CountChances = CountChances + 1

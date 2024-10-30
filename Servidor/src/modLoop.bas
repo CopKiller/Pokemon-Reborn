@@ -147,7 +147,7 @@ End Sub
 Private Sub UpdatePlayerLogic()
     Dim i As Long
     Dim Tick As Long
-    Dim Value As Long
+    Dim value As Long
     Dim RandomNumber As Long
 
     For i = 1 To Player_HighIndex
@@ -202,9 +202,9 @@ Private Sub UpdatePlayerLogic()
                     If TempPlayer(i).TmpCatchTimer <= GetTickCount Then
                         If TempPlayer(i).TmpCatchTries < 3 Then
                             If TempPlayer(i).TmpCatchValue > 0 Then
-                                Value = 1048560 / Sqr(Sqr(16711680 / TempPlayer(i).TmpCatchValue))
+                                value = 1048560 / Sqr(Sqr(16711680 / TempPlayer(i).TmpCatchValue))
                                 RandomNumber = Random(0, 65535)
-                                If RandomNumber > Value Then
+                                If RandomNumber > value Then
                                     '//it Broke
                                     MapPokemon(TempPlayer(i).TmpCatchPokeNum).InCatch = NO
                                     MapPokemon(TempPlayer(i).TmpCatchPokeNum).targetType = TARGET_TYPE_PLAYER
@@ -756,17 +756,17 @@ Private Sub UpdatePokemonLogic()
         ' ** Respawn **
         ' *************
         '//Check If dead
-        If MapPokemon(MapPokeNum).Num <= 0 Then
-            '//Check if does exist
-            If MapPokemon(MapPokeNum).PokemonIndex > 0 Then
-                If Spawn(MapPokeNum).Fishing = NO Then    ' Não spawna pokemon de pesca automaticamente
-                    If MapPokemon(MapPokeNum).Respawn <= GetTickCount Then
-                        '//Spawn pokemon
-                        SpawnMapPokemon MapPokeNum
-                    End If
-                End If
-            End If
-        End If
+        'If MapPokemon(MapPokeNum).Num <= 0 Then
+        '    '//Check if does exist
+        '    If MapPokemon(MapPokeNum).PokemonIndex > 0 Then
+        '        If Spawn(MapPokeNum).Fishing = NO Then    ' Não spawna pokemon de pesca automaticamente
+        '            If MapPokemon(MapPokeNum).Respawn <= GetTickCount Then
+        '                '//Spawn pokemon
+        '                SpawnMapPokemon MapPokeNum
+        '            End If
+        '        End If
+        '    End If
+        'End If
 
         '//If Alive, Do event
         If MapPokemon(MapPokeNum).Num > 0 And MapPokemon(MapPokeNum).InCatch = NO Then
@@ -811,7 +811,13 @@ Private Sub UpdatePokemonLogic()
                                             '//Fish system
                                             If Spawn(MapPokeNum).Fishing = YES Then
                                                 ClearMapPokemon MapPokeNum
+                                            
+                                            '//Unique Enemy
+                                            ElseIf Spawn(MapPokeNum).UniqueEnemy = YES Then
+                                                ClearMapPokemon MapPokeNum
                                             End If
+                                                
+                                            
                                             ' Lost Target
                                             MapPokemon(MapPokeNum).targetType = 0
                                             MapPokemon(MapPokeNum).TargetIndex = 0
@@ -822,10 +828,15 @@ Private Sub UpdatePokemonLogic()
                                         End If
                                     End If
                                 Else
+                                
                                     '//Fish system
                                     If Spawn(MapPokeNum).Fishing = YES Then
                                         ClearMapPokemon MapPokeNum
+                                    '//Unique Enemy
+                                    ElseIf Spawn(MapPokeNum).UniqueEnemy = YES Then
+                                        ClearMapPokemon MapPokeNum
                                     End If
+                                    
                                     ' Lost Target
                                     MapPokemon(MapPokeNum).targetType = 0
                                     MapPokemon(MapPokeNum).TargetIndex = 0
@@ -835,10 +846,15 @@ Private Sub UpdatePokemonLogic()
                                     TargetY = 0
                                 End If
                             Else
+                            
                                 '//Fish system
                                 If Spawn(MapPokeNum).Fishing = YES Then
                                     ClearMapPokemon MapPokeNum
+                                '//Unique Enemy
+                                ElseIf Spawn(MapPokeNum).UniqueEnemy = YES Then
+                                    ClearMapPokemon MapPokeNum
                                 End If
+                                
                                 ' Lost Target
                                 MapPokemon(MapPokeNum).targetType = 0
                                 MapPokemon(MapPokeNum).TargetIndex = 0
@@ -848,10 +864,15 @@ Private Sub UpdatePokemonLogic()
                                 TargetY = 0
                             End If
                         Else
+                        
                             '//Fish system
                             If Spawn(MapPokeNum).Fishing = YES Then
                                 ClearMapPokemon MapPokeNum
+                            '//Unique Enemy
+                            ElseIf Spawn(MapPokeNum).UniqueEnemy = YES Then
+                                ClearMapPokemon MapPokeNum
                             End If
+                            
                             ' Lost Target
                             MapPokemon(MapPokeNum).targetType = 0
                             MapPokemon(MapPokeNum).TargetIndex = 0
@@ -875,6 +896,9 @@ Private Sub UpdatePokemonLogic()
                                 '//Fish system
                                 If Spawn(MapPokeNum).Fishing = YES Then
                                     ClearMapPokemon MapPokeNum
+                                '//Unique Enemy
+                                ElseIf Spawn(MapPokeNum).UniqueEnemy = YES Then
+                                    ClearMapPokemon MapPokeNum
                                 End If
                                 ' Lost Target
                                 MapPokemon(MapPokeNum).targetType = 0
@@ -890,6 +914,13 @@ Private Sub UpdatePokemonLogic()
                         End If
                     End Select
                 ElseIf MapPokemon(MapPokeNum).TargetIndex = 0 Then
+                
+                    '//Unique Enemy
+                    If Spawn(MapPokeNum).UniqueEnemy = YES Then
+                        ClearMapPokemon MapPokeNum
+                        Exit For
+                    End If
+                    
                     '//Checking Target
                     If Pokemon(MapPokemon(MapPokeNum).Num).Behaviour = 1 Or Pokemon(MapPokemon(MapPokeNum).Num).Behaviour = 3 Then    '//2 = Attack On Sight / 4 = Flee On Sight
                         For i = 1 To Player_HighIndex

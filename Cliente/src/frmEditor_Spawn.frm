@@ -21,6 +21,14 @@ Begin VB.Form frmEditor_Spawn
       TabIndex        =   2
       Top             =   0
       Width           =   5295
+      Begin VB.CheckBox chkUniqueEnemy 
+         Caption         =   "Has Unique Owner"
+         Height          =   195
+         Left            =   3000
+         TabIndex        =   47
+         Top             =   3000
+         Width           =   1815
+      End
       Begin VB.CheckBox chkFish 
          Caption         =   "Fishing?"
          Height          =   255
@@ -430,6 +438,11 @@ End Sub
 
 Private Sub chkRandomXY_Click()
     Spawn(EditorIndex).randomXY = chkRandomXY.value
+    EditorChange = True
+End Sub
+
+Private Sub chkUniqueEnemy_Click()
+    Spawn(EditorIndex).UniqueEnemy = chkUniqueEnemy.value
     EditorChange = True
 End Sub
 

@@ -1,7 +1,7 @@
 Attribute VB_Name = "modPokemon"
 Option Explicit
 
-Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO, Optional ByVal FishIndex As Long = 0)
+Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal UniqueEnemyIndex As Long = 0, Optional ByVal ForceSpawn As Boolean = False, Optional ByVal ForceShiny As Byte = NO, Optional ByVal FishIndex As Long = 0)
     Dim MapNum As Long, x As Long, Y As Long
     Dim RndNum As Long
     Dim x2 As Long, y2 As Long
@@ -101,6 +101,21 @@ Public Sub SpawnMapPokemon(ByVal MapPokeNum As Long, Optional ByVal ForceSpawn A
         If x >= Map(MapNum).MaxX Then x = Map(MapNum).MaxX
         If Y <= 0 Then Y = 0
         If Y >= Map(MapNum).MaxY Then Y = Map(MapNum).MaxY
+        
+        If Spawn(MapPokeNum).UniqueEnemy = YES Then
+        
+            If UniqueEnemyIndex > 0 Then
+                If IsPlaying(UniqueEnemyIndex) And GetPlayerMap(UniqueEnemyIndex) = MapNum Then
+                    x = GetPlayerX(UniqueEnemyIndex)
+                    Y = GetPlayerY(UniqueEnemyIndex)
+                    MapNum = GetPlayerMap(UniqueEnemyIndex)
+                Else
+                    MapPokemon(MapPokeNum).Respawn = GetTickCount + Spawn(MapPokeNum).Respawn
+                    Exit Sub
+                End If
+            End If
+                
+        End If
 
 
         'Debug.Print Pokemon(Spawn(MapPokeNum).PokeNum).Name
@@ -127,6 +142,48 @@ Function IsWithinSpawnTime(MapPokeNum As Long, hour As Byte) As Boolean
     End If
 End Function
 
+Public Sub ProcessPokeSpot(ByVal ownerIndex As Long, ByVal MapNum As Long, ByVal x As Long, ByVal Y As Long)
+Dim i As Long
+
+    For i = 1 To Pokemon_HighIndex
+        
+        If Spawn(i).PokeNum > 0 Then
+        
+            If Spawn(i).MapNum = MapNum Then
+            
+                If Spawn(i).Fishing = NO Then
+                
+                    If MapPokemon(i).Num = 0 Then
+                    
+                        If MapPokemon(i).PokemonIndex > 0 Then
+                        
+                            If MapPokemon(i).Respawn <= GetTickCount Then
+                            
+                                SpawnMapPokemon i, ownerIndex
+                                
+                                '// Set the owner
+                                If MapPokemon(i).Num > 0 Then
+                                    MapPokemon(i).TargetIndex = ownerIndex
+                                    MapPokemon(i).targetType = TARGET_TYPE_PLAYER
+                                    Exit Sub
+                                End If
+                                
+                            End If
+                            
+                        End If
+                        
+                    End If
+                    
+                End If
+                
+            End If
+            
+        End If
+        
+    Next i
+
+End Sub
+
 Public Sub SpawnAllMapPokemon()
 Dim i As Long
 
@@ -138,6 +195,9 @@ Dim i As Long
         MapPokemon(i).Respawn = GetTickCount
         '//Spawn
         If Spawn(i).Fishing = NO Then
+            SpawnMapPokemon i
+        '//Unique Enemy
+        ElseIf Spawn(i).UniqueEnemy = NO Then
             SpawnMapPokemon i
         End If
     Next
@@ -254,11 +314,11 @@ Public Function SpawnPokemon(ByVal slot As Long, ByVal PokemonNum As Long, ByVal
             .Stat(bs).IV = Random(1, 31)
             If .Stat(bs).IV > 31 Then .Stat(bs).IV = 31
             If .Stat(bs).IV < 1 Then .Stat(bs).IV = 1
-            .Stat(bs).Value = CalculatePokemonStat(bs, .Num, .Level, .Stat(bs).EV, .Stat(bs).IV, .Nature)
+            .Stat(bs).value = CalculatePokemonStat(bs, .Num, .Level, .Stat(bs).EV, .Stat(bs).IV, .Nature)
         Next
 
         '//Vital
-        .MaxHp = .Stat(StatEnum.HP).Value * Spawn(slot).pokeBuff
+        .MaxHp = .Stat(StatEnum.HP).value * Spawn(slot).pokeBuff
         .CurHp = .MaxHp
 
         '//Moveset

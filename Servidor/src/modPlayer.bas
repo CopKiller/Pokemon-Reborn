@@ -303,6 +303,11 @@ Public Sub PlayerMove(ByVal Index As Long, ByVal Dir As Byte, Optional ByVal sen
                         PlayerWarp Index, .Map, OldX, OldY, .Dir
                     End If
                 End If
+                
+            Case MapAttribute.PokeSpot
+            
+                ProcessPokeSpot Index, .Map, .x, .Y
+                
             End Select
         End If
     End With
@@ -579,7 +584,7 @@ Public Sub JoinGame(ByVal Index As Long, Optional ByVal CurLanguage As Byte = 0)
     frmServer.lvwInfo.ListItems(Index).SubItems(3) = Player(Index, TempPlayer(Index).UseChar).Name
 
     '//Check if staff only
-    If frmServer.chkStaffOnly.Value = YES Then
+    If frmServer.chkStaffOnly.value = YES Then
         If Player(Index, TempPlayer(Index).UseChar).Access <= 0 Then
             Select Case CurLanguage
             Case LANG_PT: AddAlert Index, "Server is available for Staff Members only", White
@@ -978,7 +983,7 @@ Private Function CheckInvValues(ByVal Index As Long, ByVal InvSlot As Long, ByVa
         Exit Function
     End If
 
-    If PlayerInv(Index).Data(InvSlot).Value >= MAX_AMOUNT Then
+    If PlayerInv(Index).Data(InvSlot).value >= MAX_AMOUNT Then
         Select Case TempPlayer(Index).CurLanguage
         Case LANG_PT: MsgFrom = "Quantidade Limite " & MAX_AMOUNT
         Case LANG_EN: MsgFrom = "Limit Quantity " & MAX_AMOUNT
@@ -989,9 +994,9 @@ Private Function CheckInvValues(ByVal Index As Long, ByVal InvSlot As Long, ByVa
         Exit Function
     End If
 
-    If (ItemVal + PlayerInv(Index).Data(InvSlot).Value) > MAX_AMOUNT Then
+    If (ItemVal + PlayerInv(Index).Data(InvSlot).value) > MAX_AMOUNT Then
         '//Altera o valor pra obter apenas o que couber
-        ItemVal = MAX_AMOUNT - PlayerInv(Index).Data(InvSlot).Value
+        ItemVal = MAX_AMOUNT - PlayerInv(Index).Data(InvSlot).value
 
         Select Case TempPlayer(Index).CurLanguage
         Case LANG_PT: MsgFrom = "Quantidade Excedida, você recebeu apenas (" & ItemVal & ")"
@@ -1062,7 +1067,7 @@ Public Function GiveItem(ByVal Index As Long, ByVal ItemNum As Long, ByRef ItemV
     If i > 0 Then
         With PlayerInv(Index).Data(i)
             .Num = ItemNum
-            .Value = .Value + ItemVal
+            .value = .value + ItemVal
             .TmrCooldown = TmrCooldown
         End With
         '//Update
@@ -1117,11 +1122,11 @@ Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal L
                 .Stat(x).EV = 0
                 .Stat(x).IV = 15    '//Default Stat
                 If IVFull > 0 Then .Stat(x).IV = 31    'Peronalização do painel admin
-                .Stat(x).Value = CalculatePokemonStat(x, .Num, .Level, .Stat(x).EV, .Stat(x).IV, .Nature)
+                .Stat(x).value = CalculatePokemonStat(x, .Num, .Level, .Stat(x).EV, .Stat(x).IV, .Nature)
             Next
 
             '//Vital
-            .MaxHp = .Stat(StatEnum.HP).Value
+            .MaxHp = .Stat(StatEnum.HP).value
             .CurHp = .MaxHp
 
             '//Ball Used
@@ -1191,11 +1196,11 @@ Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal L
                         .Stat(x).EV = 0
                         .Stat(x).IV = 15    '//Default Stat
                         If IVFull > 0 Then .Stat(x).IV = 31    'Peronalização do painel admin
-                        .Stat(x).Value = CalculatePokemonStat(x, .Num, .Level, .Stat(x).EV, .Stat(x).IV, .Nature)
+                        .Stat(x).value = CalculatePokemonStat(x, .Num, .Level, .Stat(x).EV, .Stat(x).IV, .Nature)
                     Next
 
                     '//Vital
-                    .MaxHp = .Stat(StatEnum.HP).Value
+                    .MaxHp = .Stat(StatEnum.HP).value
                     .CurHp = .MaxHp
 
                     '//Ball Used
@@ -1390,12 +1395,12 @@ Public Function GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As By
             If Exp > 0 Then    ' Valor Positivo
                 If .Stat(evStat).EV + Exp <= statMaxEv Then
                     .Stat(evStat).EV = .Stat(evStat).EV + Exp
-                    .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                    .Stat(evStat).value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
                     GivePlayerPokemonEVExp = Exp
                 Else
                     Sobra = statMaxEv - .Stat(evStat).EV
                     .Stat(evStat).EV = statMaxEv
-                    .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                    .Stat(evStat).value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
                     GivePlayerPokemonEVExp = Sobra
                 End If
             ElseIf Exp < 0 Then    ' Valor Negativo
@@ -1407,7 +1412,7 @@ Public Function GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As By
                     .Stat(evStat).EV = 0
                 End If
 
-                .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                .Stat(evStat).value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
                 GivePlayerPokemonEVExp = -Sobra
             End If
         Else
@@ -1417,26 +1422,26 @@ Public Function GivePlayerPokemonEVExp(ByVal Index As Long, ByVal PokeSlot As By
 
                 If .Stat(evStat).EV + Sobra <= statMaxEv Then
                     .Stat(evStat).EV = .Stat(evStat).EV + Sobra
-                    .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                    .Stat(evStat).value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
                     GivePlayerPokemonEVExp = Sobra
                 Else
                     .Stat(evStat).EV = statMaxEv
-                    .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                    .Stat(evStat).value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
                     GivePlayerPokemonEVExp = Sobra
                 End If
             ElseIf Exp < 0 Then    ' Valor Negativo
                 Sobra = .Stat(evStat).EV
                 .Stat(evStat).EV = 0
 
-                .Stat(evStat).Value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
+                .Stat(evStat).value = CalculatePokemonStat(evStat, .Num, .Level, .Stat(evStat).EV, .Stat(evStat).IV, .Nature)
                 GivePlayerPokemonEVExp = -Sobra
             End If
         End If
 
         ' Atualizações se for EV tipo HP
         If evStat = HP Then
-            If Not .Stat(evStat).Value = .MaxHp Then
-                .MaxHp = .Stat(evStat).Value
+            If Not .Stat(evStat).value = .MaxHp Then
+                .MaxHp = .Stat(evStat).value
                 SendPlayerPokemonSlot Index, PokeSlot
             End If
         End If
@@ -1475,9 +1480,9 @@ Private Sub CheckPlayerPokemonLevelUp(ByVal Index As Long, ByVal PokeSlot As Byt
 
             '//Calculate new stat
             For statNu = 1 To StatEnum.Stat_Count - 1
-                .Stat(statNu).Value = CalculatePokemonStat(statNu, .Num, .Level, .Stat(statNu).EV, .Stat(statNu).IV, .Nature)
+                .Stat(statNu).value = CalculatePokemonStat(statNu, .Num, .Level, .Stat(statNu).EV, .Stat(statNu).IV, .Nature)
             Next
-            .MaxHp = .Stat(StatEnum.HP).Value
+            .MaxHp = .Stat(StatEnum.HP).value
         Loop
         '//Send Update
         SendPlayerPokemonSlot Index, PokeSlot
@@ -1633,7 +1638,7 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
     If InvSlot <= 0 Or InvSlot > MAX_PLAYER_INV Then Exit Sub
     If PlayerInv(Index).Data(InvSlot).Num <= 0 Then Exit Sub
-    If PlayerInv(Index).Data(InvSlot).Value <= 0 Then Exit Sub
+    If PlayerInv(Index).Data(InvSlot).value <= 0 Then Exit Sub
     If TempPlayer(Index).InDuel > 0 Then Exit Sub
     If TempPlayer(Index).InNpcDuel > 0 Then Exit Sub
 
@@ -2024,11 +2029,11 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
 
     If TAKE = True Then
         '//Take Item
-        PlayerInv(Index).Data(InvSlot).Value = PlayerInv(Index).Data(InvSlot).Value - 1
-        If PlayerInv(Index).Data(InvSlot).Value <= 0 Then
+        PlayerInv(Index).Data(InvSlot).value = PlayerInv(Index).Data(InvSlot).value - 1
+        If PlayerInv(Index).Data(InvSlot).value <= 0 Then
             '//Clear Item
             PlayerInv(Index).Data(InvSlot).Num = 0
-            PlayerInv(Index).Data(InvSlot).Value = 0
+            PlayerInv(Index).Data(InvSlot).value = 0
             PlayerInv(Index).Data(InvSlot).TmrCooldown = 0
         End If
     Else
@@ -2234,7 +2239,7 @@ Private Function CheckStorageValues(ByVal Index As Long, ByVal StorageSlot As Lo
             Exit Function
         End If
 
-        If .Value >= MAX_AMOUNT Then
+        If .value >= MAX_AMOUNT Then
             Select Case TempPlayer(Index).CurLanguage
             Case LANG_PT: MsgFrom = "Quantidade Limite " & MAX_AMOUNT
             Case LANG_EN: MsgFrom = "Limit Quantity " & MAX_AMOUNT
@@ -2245,9 +2250,9 @@ Private Function CheckStorageValues(ByVal Index As Long, ByVal StorageSlot As Lo
             Exit Function
         End If
 
-        If (ItemVal + .Value) > MAX_AMOUNT Then
+        If (ItemVal + .value) > MAX_AMOUNT Then
             '//Altera o valor pra obter apenas o que couber
-            ItemVal = MAX_AMOUNT - .Value
+            ItemVal = MAX_AMOUNT - .value
 
             Select Case TempPlayer(Index).CurLanguage
             Case LANG_PT: MsgFrom = "Quantidade Excedida, você recebeu apenas (" & ItemVal & ")"
@@ -2318,7 +2323,7 @@ Public Function GiveStorageItem(ByVal Index As Long, ByVal StorageSlot As Byte, 
     If i > 0 Then
         With PlayerInvStorage(Index).slot(StorageSlot).Data(i)
             .Num = ItemNum
-            .Value = .Value + ItemVal
+            .value = .value + ItemVal
             .TmrCooldown = ItemCooldown
             GiveStorageItem = True
 
@@ -2598,7 +2603,7 @@ startOver:
                             i = checkItem(Index, .CustomScriptData)
                             If i > 0 Then
                                 '//Next
-                                If PlayerInv(Index).Data(i).Value >= .CustomScriptData2 Then
+                                If PlayerInv(Index).Data(i).value >= .CustomScriptData2 Then
                                     TempPlayer(Index).CurConvoData = .CustomScriptData3
                                     fixData = True
                                 Else
@@ -2619,11 +2624,11 @@ startOver:
                             i = checkItem(Index, .CustomScriptData)
                             If i > 0 Then
                                 '//Take Item
-                                PlayerInv(Index).Data(i).Value = PlayerInv(Index).Data(i).Value - .CustomScriptData2
-                                If PlayerInv(Index).Data(i).Value <= 0 Then
+                                PlayerInv(Index).Data(i).value = PlayerInv(Index).Data(i).value - .CustomScriptData2
+                                If PlayerInv(Index).Data(i).value <= 0 Then
                                     '//Clear Item
                                     PlayerInv(Index).Data(i).Num = 0
-                                    PlayerInv(Index).Data(i).Value = 0
+                                    PlayerInv(Index).Data(i).value = 0
                                     PlayerInv(Index).Data(i).TmrCooldown = 0
                                 End If
                                 SendPlayerInvSlot Index, i
@@ -2634,7 +2639,7 @@ startOver:
                 fixData = False
             Case CONVO_SCRIPT_RESPAWNPOKE
                 If .CustomScriptData > 0 And .CustomScriptData <= MAX_GAME_POKEMON Then
-                    SpawnMapPokemon .CustomScriptData, True
+                    SpawnMapPokemon .CustomScriptData, , True
                 End If
                 fixData = False
             Case CONVO_SCRIPT_CHECKLEVEL
@@ -2745,7 +2750,7 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
             '//Stats
             .Level = MapPokemon(MapPokeNum).Level
             For i = 1 To StatEnum.Stat_Count - 1
-                .Stat(i).Value = MapPokemon(MapPokeNum).Stat(i).Value
+                .Stat(i).value = MapPokemon(MapPokeNum).Stat(i).value
                 .Stat(i).IV = MapPokemon(MapPokeNum).Stat(i).IV
                 .Stat(i).EV = 0
             Next
@@ -2760,7 +2765,7 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
             End If
 
             '//Vital
-            .MaxHp = .Stat(StatEnum.HP).Value    'MapPokemon(MapPokeNum).MaxHP
+            .MaxHp = .Stat(StatEnum.HP).value    'MapPokemon(MapPokeNum).MaxHP
             .CurHp = .MaxHp
 
             '//Nature
@@ -2846,7 +2851,7 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
                     '//Stats
                     .Level = MapPokemon(MapPokeNum).Level
                     For i = 1 To StatEnum.Stat_Count - 1
-                        .Stat(i).Value = MapPokemon(MapPokeNum).Stat(i).Value
+                        .Stat(i).value = MapPokemon(MapPokeNum).Stat(i).value
                         .Stat(i).IV = MapPokemon(MapPokeNum).Stat(i).IV
                         .Stat(i).EV = 0
                     Next
@@ -3550,7 +3555,7 @@ Function GetPlayerInvItemValue(ByVal Index As Long, ByVal InvSlot As Long) As Lo
     If Index > Player_HighIndex Then Exit Function
     If InvSlot = 0 Then Exit Function
 
-    GetPlayerInvItemValue = PlayerInv(Index).Data(InvSlot).Value
+    GetPlayerInvItemValue = PlayerInv(Index).Data(InvSlot).value
 End Function
 
 Function HasStorageItem(ByVal Index As Long, ByVal StorageSlot As Byte, ByVal ItemNum As Long) As Long
@@ -3592,7 +3597,7 @@ Function GetPlayerStorageItemValue(ByVal Index As Long, ByVal StorageSlot As Lon
     If StorageSlot = 0 Then Exit Function
     If PlayerInvStorage(Index).slot(StorageSlot).Unlocked = NO Then Exit Function
 
-    GetPlayerStorageItemValue = PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).Value
+    GetPlayerStorageItemValue = PlayerInvStorage(Index).slot(StorageSlot).Data(StorageData).value
 End Function
 
 Sub SetPlayerFishMode(ByVal Index As Long, ByVal Mode As Byte)

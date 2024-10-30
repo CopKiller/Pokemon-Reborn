@@ -781,9 +781,9 @@ Begin VB.Form frmEditor_Map
    Begin VB.Frame fraLayers 
       Caption         =   "Layers"
       Height          =   6375
-      Left            =   5400
+      Left            =   8880
       TabIndex        =   0
-      Top             =   120
+      Top             =   0
       Visible         =   0   'False
       Width           =   1815
       Begin VB.OptionButton optLayer 
@@ -916,6 +916,15 @@ Begin VB.Form frmEditor_Map
       Top             =   120
       Visible         =   0   'False
       Width           =   1815
+      Begin VB.OptionButton optAttribute 
+         Caption         =   "Poke Spot"
+         Height          =   255
+         Index           =   15
+         Left            =   120
+         TabIndex        =   123
+         Top             =   3600
+         Width           =   1335
+      End
       Begin VB.OptionButton optAttribute 
          Caption         =   "Req Badge"
          Height          =   255
@@ -1208,7 +1217,7 @@ End Sub
 
 Private Sub cmdPropertiesSave_Click()
 Dim X As Long, x2 As Long
-Dim y As Long, Y2 As Long
+Dim Y As Long, Y2 As Long
 Dim tempArr() As TileRec
 Dim i As Long
     '//Input Data
@@ -1245,8 +1254,8 @@ Dim i As Long
     ReDim Map.Tile(0 To Map.MaxX, 0 To Map.MaxY)
 
     For X = 0 To x2
-        For y = 0 To Y2
-            Map.Tile(X, y) = tempArr(X, y)
+        For Y = 0 To Y2
+            Map.Tile(X, Y) = tempArr(X, Y)
         Next
     Next
     
@@ -1275,7 +1284,7 @@ Dim i As Long
     Map.MapTravel.IsTravel = chkIsTravel.value
     Map.MapTravel.costValue = txtCostValue.Text
     Map.MapTravel.X = txtStartX.Text
-    Map.MapTravel.y = txtStartY.Text
+    Map.MapTravel.Y = txtStartY.Text
     Map.MapTravel.BadgeReq = scrlBadgeReq.value
     
     '//Hide properties
@@ -1376,7 +1385,7 @@ Dim i As Long
     chkIsTravel.value = Map.MapTravel.IsTravel
     txtCostValue.Text = Map.MapTravel.costValue
     txtStartX.Text = Map.MapTravel.X
-    txtStartY.Text = Map.MapTravel.y
+    txtStartY.Text = Map.MapTravel.Y
     
     scrlBadgeReq.max = MAX_BADGE
     scrlBadgeReq.value = Map.MapTravel.BadgeReq
@@ -1448,12 +1457,12 @@ Private Sub optType_Click(Index As Integer)
     End Select
 End Sub
 
-Private Sub picTileset_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
-    Call MapEditorChooseTile(Button, X, y)
+Private Sub picTileset_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Call MapEditorChooseTile(Button, X, Y)
 End Sub
 
-Private Sub picTileset_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
-    Call MapEditorChooseTile(Button, X, y, True)
+Private Sub picTileset_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Call MapEditorChooseTile(Button, X, Y, True)
 End Sub
 
 Private Sub scrlBadgeReq_Change()

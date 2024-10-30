@@ -1163,6 +1163,9 @@ Dim tx As Long, ty As Long
                             Case MapAttribute.ReqBadge
                                 RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 16, 224, 237)
                                 RenderText Font_Default, "BD", tx, ty, Red
+                            Case MapAttribute.PokeSpot
+                                RenderTexture Tex_System(gSystemEnum.UserInterface), ConvertMapX(X * TILE_X), ConvertMapY(Y * TILE_Y), 0, 8, TILE_X, TILE_Y, 1, 1, D3DColorARGB(100, 0, 0, 0)
+                                RenderText Font_Default, "PS", tx, ty, Yellow
                         End Select
                     End With
                 End If

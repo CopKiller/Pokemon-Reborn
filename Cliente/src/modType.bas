@@ -41,7 +41,7 @@ End Type
 Public Type ServerInfoRec
     Player As Integer
     Status As String
-    Colour As Integer
+    colour As Integer
 End Type
 
 ' **************
@@ -525,7 +525,7 @@ Private Type PokemonRec
     EvYeildVal As Byte
     BaseExp As Long
     GrowthRate As Byte
-    height As Long
+    Height As Long
     Weight As Long
     Species As String * NAME_LENGTH
     PokeDexEntry As String * 250
@@ -619,6 +619,8 @@ Public Type SpawnRec
     Nature As Integer
     '//Fishing?
     Fishing As Byte
+    '//Unique Enemy?
+    UniqueEnemy As Byte
 End Type
 
 Private Type TextLangRec
@@ -792,8 +794,8 @@ Private Type ButtonRec
     Y As Long
     
     '//Size
-    height As Long
-    width As Long
+    Height As Long
+    Width As Long
     
     '//State
     State As Byte
@@ -813,8 +815,8 @@ Private Type GuiRec
     '//Size
     StartX As Long
     StartY As Long
-    height As Long
-    width As Long
+    Height As Long
+    Width As Long
     
     '//Dragable
     InDrag As Boolean
@@ -823,8 +825,8 @@ Private Type GuiRec
 End Type
 
 Private Type ResolutionDataRec
-    width As Long
-    height As Long
+    Width As Long
+    Height As Long
 End Type
 
 Private Type ResolutionRec
@@ -839,8 +841,8 @@ Private Type SettingRec
     '//Video
     'Resolution As Byte
     Fullscreen As Byte
-    width As Long
-    height As Long
+    Width As Long
+    Height As Long
     
     '//Network
     RemoteHost As String
@@ -876,8 +878,8 @@ Private Type AlertRec
     Color As Long
     
     '//Size and Location
-    width As Long
-    height As Long
+    Width As Long
+    Height As Long
     
     SetYPos As Long
     CurYPos As Long
@@ -888,7 +890,7 @@ End Type
 
 Public Type ChatBubbleRec
     Msg As String
-    Colour As Long
+    colour As Long
     target As Long
     targetType As Byte
     X As Long

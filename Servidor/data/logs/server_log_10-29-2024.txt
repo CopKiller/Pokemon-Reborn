@@ -1,0 +1,53 @@
+[22:21] Server started up
+[22:21] Rodorfo has been warped on Map#5 x:10 y:9
+[22:21] Rodorfo has been warped on Map#3 x:24 y:23
+[22:21] Rodorfo has been warped on Map#4 x:23 y:50
+[22:22] Rodorfo requested to edit Spawn
+[22:22] Rodorfo save Spawn#1 data
+[22:22] Rodorfo save Spawn#2 data
+[22:22] Rodorfo save Spawn#3 data
+[22:22] Rodorfo save Spawn#4 data
+[22:22] Rodorfo save Spawn#5 data
+[22:22] Rodorfo save Spawn#6 data
+[22:22] Rodorfo save Spawn#7 data
+[22:22] Rodorfo save Spawn#8 data
+[22:22] Rodorfo save Spawn#9 data
+[22:22] Rodorfo save Spawn#10 data
+[22:27] Server started up
+[22:27] Rodorfo has been warped on Map#5 x:10 y:9
+[22:27] Rodorfo has been warped on Map#3 x:24 y:23
+[22:27] Rodorfo has been warped on Map#4 x:24 y:50
+[22:28] Rodorfo has been warped on Map#3 x:25 y:0
+[22:28] Rodorfo has been warped on Map#4 x:25 y:50
+[22:33] Rodorfo requested to edit map#4
+[22:36] Rodorfo has been warped on Map#4 x:28 y:39
+[22:36] Rodorfo requested to edit map#4
+[22:38] Rodorfo has been warped on Map#4 x:28 y:39
+[22:38] Rodorfo updated map#4
+[22:40] Rodorfo requested to edit Pokemon
+[22:40] Rodorfo requested to edit Spawn
+[22:41] Rodorfo save Spawn#1 data
+[22:41] Rodorfo save Spawn#9 data
+[22:41] Rodorfo save Spawn#10 data
+[22:41] Rodorfo save Spawn#10 data
+[22:42] Server closed
+[22:42] Server saving players...
+[22:42] Server saving complete...
+[22:46] Server started up
+[22:46] Rodorfo has been warped on Map#4 x:36 y:44
+[23:02] Rodorfo has been warped on Map#3 x:26 y:0
+[23:02] Rodorfo has been warped on Map#4 x:26 y:50
+[23:04] Rodorfo requested to edit Spawn
+[23:05] Rodorfo save Spawn#1 data
+[23:05] Rodorfo save Spawn#9 data
+[23:05] Rodorfo save Spawn#10 data
+[23:08] Rodorfo requested to edit Spawn
+[23:08] Rodorfo save Spawn#1 data
+[23:08] Rodorfo save Spawn#8 data
+[23:08] Rodorfo save Spawn#9 data
+[23:08] Rodorfo save Spawn#10 data
+[23:08] Rodorfo requested to edit Spawn
+[23:09] Rodorfo requested Spawn data
+[23:10] Server closed
+[23:10] Server saving players...
+[23:10] Server saving complete...

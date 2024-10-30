@@ -85,7 +85,7 @@ End Type
 
 '//Stats
 Public Type StatDataRec
-    Value As Long
+    value As Long
     EV As Long
     IV As Long
 End Type
@@ -400,7 +400,7 @@ End Type
 '//Player Inv
 Public Type PlayerInvDataRec
     Num As Long
-    Value As Long
+    value As Long
     Locked As Byte
     TmrCooldown As Long
 End Type
@@ -411,7 +411,7 @@ End Type
 
 Public Type PlayerInvStorageDataRec
     Num As Long
-    Value As Long
+    value As Long
     TmrCooldown As Long
 End Type
 
@@ -754,6 +754,8 @@ Private Type SpawnRec
     Nature As Integer
     '//Fishing?
     Fishing As Byte
+    '//Unique Enemy?
+    UniqueEnemy As Byte
 End Type
 
 Private Type TextLangRec
@@ -856,7 +858,7 @@ Private Type TradeDataRec
     
     '//Data
     Num As Long
-    Value As Long
+    value As Long
 
     '//Stats
     Level As Byte
