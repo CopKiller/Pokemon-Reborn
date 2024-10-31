@@ -1729,6 +1729,24 @@ Private Sub HandleGotData(ByVal Index As Long, ByRef Data() As Byte, ByVal Start
             '//Check if exist on map
             If MapPokemon(data1).Num <= 0 Then GoTo Continue
             If Not MapPokemon(data1).Map = Player(Index, TempPlayer(Index).UseChar).Map Then GoTo Continue
+            
+            '//Unique Enemy
+            If Spawn(data1).PokeNum <= 0 Then GoTo Continue
+            If Spawn(data1).UniqueEnemy = YES Then
+                If MapPokemon(data1).targetType = TARGET_TYPE_PLAYER Then
+                
+                    If MapPokemon(data1).TargetIndex <> Index Then
+                        Select Case TempPlayer(Index).CurLanguage
+                        Case LANG_PT: AddAlert Index, "Voce nao é o invocador deste pokemon", White
+                        Case LANG_EN: AddAlert Index, "You not owner of this pokemon", White
+                        Case LANG_ES: AddAlert Index, "You not owner of this pokemon", White
+                        End Select
+                        
+                        GoTo Continue
+                    End If
+                    
+                End If
+            End If
 
             '//Check if inrange
             If MapPokemon(data1).x < Player(Index, TempPlayer(Index).UseChar).x - 4 Or MapPokemon(data1).x > Player(Index, TempPlayer(Index).UseChar).x + 4 Or MapPokemon(data1).Y < Player(Index, TempPlayer(Index).UseChar).Y - 4 Or MapPokemon(data1).Y > Player(Index, TempPlayer(Index).UseChar).Y + 4 Then

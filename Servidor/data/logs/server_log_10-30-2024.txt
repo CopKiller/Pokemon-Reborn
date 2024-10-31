@@ -1,0 +1,18 @@
+[22:30] Server started up
+[22:31] Rodorfo has been warped on Map#4 x:29 y:46
+[22:32] Rodorfo has been warped on Map#4 x:25 y:44
+[22:33] Peixa has been warped on Map#4 x:24 y:43
+[22:34] Rodorfo use item Pokeball
+[22:34] Rodorfo use item Pokeball
+[22:34] Rodorfo use item Pokeball
+[22:35] Rodorfo use item Pokeball
+[22:35] Rodorfo use item Pokeball
+[22:35] Rodorfo use item Pokeball
+[22:35] Rodorfo use item Pokeball
+[22:36] Rodorfo , Admin Rights: Give Pokemon To Rodorfo, Pokemon#3 Level40
+[22:37] Peixa has been warped on Map#5 x:10 y:7
+[22:38] Peixa has been warped on Map#3 x:24 y:23
+[22:38] Peixa has been warped on Map#4 x:23 y:50
+[22:41] Server closed
+[22:41] Server saving players...
+[22:41] Server saving complete...
