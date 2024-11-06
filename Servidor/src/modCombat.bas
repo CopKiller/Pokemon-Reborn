@@ -1828,7 +1828,7 @@ Public Sub ProcessPlayerMove(ByVal Index As Long, ByVal MoveNum As Long)
 
     '//Play Sound
     If Not Trim$(PokemonMove(MoveNum).Sound) = "None." Or Not Trim$(PokemonMove(MoveNum).Sound) = vbNullString Then
-        SendPlaySound Trim$(PokemonMove(MoveNum).Sound), MapNum
+        SendPlaySound Trim$(PokemonMove(MoveNum).Sound), MapNum, Index
     End If
 End Sub
 
@@ -2349,7 +2349,16 @@ Dim setBuff As Long
     
     '//Play Sound
     If Not Trim$(PokemonMove(MoveNum).Sound) = "None." Or Not Trim$(PokemonMove(MoveNum).Sound) = vbNullString Then
-        SendPlaySound Trim$(PokemonMove(MoveNum).Sound), MapNum
+    
+        If Spawn(MapPokemonNum).UniqueEnemy = YES Then
+            If MapPokemon(MapPokemonNum).TargetIndex > 0 And MapPokemon(MapPokemonNum).targetType = TARGET_TYPE_PLAYER Then
+                If IsPlaying(MapPokemon(MapPokemonNum).TargetIndex) Then
+                    SendPlaySound Trim$(PokemonMove(MoveNum).Sound), MapNum, MapPokemon(MapPokemonNum).TargetIndex
+                End If
+            End If
+        Else
+            SendPlaySound Trim$(PokemonMove(MoveNum).Sound), MapNum
+        End If
     End If
 End Sub
 
@@ -2382,7 +2391,17 @@ Private Sub AttackPlayer(i As Long, MoveNum As Long, _
         Else
             CanAttack = True
         End If
-
+        
+        '//Unique Enemy
+        If MapPokemon(MapPokemonNum).TargetIndex > 0 Then
+            If Spawn(MapPokemonNum).UniqueEnemy = YES Then
+                If MapPokemon(MapPokemonNum).TargetIndex <> i Then
+                    CanAttack = False
+                End If
+            End If
+        End If
+        
+        
         If CanAttack Then
             '//Check Location
             InRange = False

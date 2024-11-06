@@ -131,7 +131,9 @@ Begin VB.Form frmAdmin
       End
       Begin VB.ComboBox cmbNature 
          Height          =   315
+         ItemData        =   "frmAdmin.frx":0004
          Left            =   120
+         List            =   "frmAdmin.frx":0006
          TabIndex        =   62
          Top             =   3120
          Width           =   1815
@@ -679,6 +681,11 @@ Private Sub cmdASpawn_Click()
                 AddText "Quantidade não numerica.", BrightRed
                 Exit Sub
             End If
+            
+            If scrlAPoke = 0 Then
+                AddText "Adicione um Pokemon com ID maior que zero.", BrightRed
+                Exit Sub
+            End If
 
             SendGivePokemonTo txtBName, scrlAPoke, CLng(txtAmount), chkAShiny, chkAIv, cmbNature.ListIndex - 1, cmbBall.ListIndex
         Else
@@ -1041,6 +1048,8 @@ Private Sub Form_Load()
         Me.cmbNature.AddItem i & ": " & CheckNatureString(i)
         DoEvents
     Next i
+    Me.cmbNature.ListIndex = 0
+    Me.cmbBall.ListIndex = 0
     
     ' Poke Balls
     Me.cmbBall.Clear

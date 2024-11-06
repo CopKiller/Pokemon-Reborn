@@ -1,0 +1,22 @@
+[19:05] Server started up
+[19:24] Peixa has been warped on Map#4 x:27 y:42
+[19:25] Rodorfo has been warped on Map#4 x:39 y:40
+[19:26] Rodorfo has been warped on Map#15 x:12 y:10
+[19:27] Rodorfo has been warped on Map#7 x:32 y:37
+[19:27] Rodorfo has been warped on Map#4 x:28 y:0
+[19:27] Peixa has been warped on Map#5 x:10 y:7
+[19:27] Peixa has been warped on Map#3 x:24 y:23
+[19:27] Peixa has been warped on Map#4 x:24 y:50
+[19:33] Peixa has been warped on Map#5 x:10 y:7
+[19:47] Peixa has been warped on Map#3 x:24 y:23
+[19:47] Peixa has been warped on Map#4 x:25 y:50
+[19:49] Rodorfo has been warped on Map#7 x:28 y:50
+[19:49] Rodorfo has been warped on Map#15 x:12 y:14
+[19:49] Rodorfo has been warped on Map#7 x:32 y:37
+[19:49] Rodorfo has been warped on Map#4 x:27 y:0
+[19:51] Peixa has been warped on Map#5 x:10 y:7
+[19:56] Peixa has been warped on Map#3 x:24 y:23
+[19:56] Peixa has been warped on Map#4 x:24 y:50
+[19:57] Server closed
+[19:57] Server saving players...
+[19:57] Server saving complete...
