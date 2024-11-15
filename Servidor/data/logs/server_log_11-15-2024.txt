@@ -1,0 +1,3 @@
+[01:50] Server started up
+[01:52] Peixa has been warped on Map#4 x:26 y:43
+[01:52] Rodorfo has been warped on Map#4 x:30 y:43

@@ -1,6 +1,6 @@
 frmMain = 348, 50, 1067, 657, C, 125, 125, 828, 732, C
-modMain = 571, 82, 1274, 689, 
-modDirectX8 = 3, 1, 1389, 782, C
+modMain = 350, 81, 1053, 688, 
+modDirectX8 = 3, 1, 1389, 782, 
 modGlobal = 113, 11, 757, 799, 
 modConstant = 501, -12, 1204, 595, 
 modLoop = 1, 26, 851, 807, 
@@ -37,7 +37,7 @@ Footer_Window = 1, 1, 1032, 921,
 Credit_Window = 180, 80, 1488, 722, 
 GlobalMenu_Window = 5, 6, 1041, 926, 
 Inventory_Window = 78, 78, 1386, 720, 
-frmAdmin = 26, 26, 1048, 548, Z, 171, 83, 1193, 605, C
+frmAdmin = 26, 26, 1048, 548, , 171, 83, 1193, 605, C
 LojaVirtual_Window = 26, 26, 1038, 548, 
 frmMapReport = 156, 156, 1170, 678, C, 130, 130, 1144, 652, C
 modCryptography = 78, 78, 1080, 600, 

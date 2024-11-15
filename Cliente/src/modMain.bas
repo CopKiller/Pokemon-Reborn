@@ -471,6 +471,8 @@ Public Sub ClearGameData()
     ExpMultiply = 0
     ExpSecs = 0
     
+    InNpcDuel = 0
+    
     Erase PokemonsStorage_Select
 
     '//Clear Chat

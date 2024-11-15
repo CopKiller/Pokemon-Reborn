@@ -109,7 +109,7 @@ Public Const NAME_LENGTH As Byte = 25
 Public Const TEXT_LENGTH As Byte = 150
 
 '//Map Constant
-Public Const MAX_MAP As Long = 505
+Public Const MAX_MAP As Long = 30 '505
 Public Const MAX_MAPX As Byte = 24
 Public Const MAX_MAPY As Byte = 18
 

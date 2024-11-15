@@ -11,34 +11,34 @@ End Function
 
 Private Function TotalPlayerOnMap(ByVal MapNum As Long) As Long
     Dim i As Long
-    Dim count As Long
+    Dim Count As Long
 
-    count = 0
+    Count = 0
     For i = 1 To Player_HighIndex
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
                 If Player(i, TempPlayer(i).UseChar).Map = MapNum Then
-                    count = count + 1
+                    Count = Count + 1
                 End If
             End If
         End If
     Next
-    TotalPlayerOnMap = count
+    TotalPlayerOnMap = Count
 End Function
 
 Public Function TotalPlayerOnline()
     Dim i As Long
-    Dim count As Long
+    Dim Count As Long
 
-    count = 0
+    Count = 0
     For i = 1 To Player_HighIndex
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
-                count = count + 1
+                Count = Count + 1
             End If
         End If
     Next
-    TotalPlayerOnline = count
+    TotalPlayerOnline = Count
 End Function
 
 Public Sub PlayerWarp(ByVal Index As Long, ByVal MapNum As Long, ByVal x As Long, ByVal Y As Long, ByVal Dir As Byte)
@@ -828,7 +828,9 @@ Public Sub LeftGame(ByVal Index As Long)
         If TempPlayer(Index).InParty > 0 Then
             LeaveParty Index
         End If
-
+        
+        
+        TempPlayer(Index).InNpcDuel = 0
         TempPlayer(Index).InDuel = 0
         TempPlayer(Index).DuelTime = 0
         TempPlayer(Index).DuelTimeTmr = 0
@@ -843,6 +845,7 @@ Public Sub LeftGame(ByVal Index As Long)
         TempPlayer(Index).TradeSet = 0
         TempPlayer(Index).PlayerRequest = 0
         TempPlayer(Index).RequestType = 0
+        
 
         If Player(Index, TempPlayer(Index).UseChar).Access = ACCESS_NONE Then
             If TempPlayer(Index).UseChar > 0 Then
@@ -1038,10 +1041,10 @@ Public Function TryGivePlayerItem(ByVal Index As Long, ByVal ItemNum As Long, By
 End Function
 
 Public Function CountFreeInvSlot(ByVal Index As Long) As Long
-    Dim count As Long, i As Long
+    Dim Count As Long, i As Long
 
     CountFreeInvSlot = 0
-    count = 0
+    Count = 0
 
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
@@ -1049,12 +1052,12 @@ Public Function CountFreeInvSlot(ByVal Index As Long) As Long
     For i = 1 To MAX_PLAYER_INV
         With PlayerInv(Index).Data(i)
             If .Num = 0 Then
-                count = count + 1
+                Count = Count + 1
             End If
         End With
     Next
 
-    CountFreeInvSlot = count
+    CountFreeInvSlot = Count
 End Function
 
 Public Function GiveItem(ByVal Index As Long, ByVal ItemNum As Long, ByRef ItemVal As Long, Optional ByVal TmrCooldown As Long = 0, Optional ByRef MsgFrom As String) As Boolean
@@ -1091,7 +1094,7 @@ Public Function FindOpenPokeSlot(ByVal Index As Long) As Long
 End Function
 
 Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal Level As Long, ByVal BallUsed As Byte, Optional ByVal IsShiny As Byte = NO, _
-                             Optional ByVal IVFull As Byte = NO, Optional ByVal TheNature As Integer = -1)
+                             Optional ByVal IVFull As Byte = NO, Optional ByVal TheNature As Integer = -1, Optional ByVal HeldItem As Long = 0)
     Dim i As Long, x As Byte, m As Long, s As Byte, slot As Byte, StorageSlot As Byte, gotSlot As Byte
 
     i = FindOpenPokeSlot(Index)
@@ -1132,7 +1135,7 @@ Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal L
             '//Ball Used
             .BallUsed = BallUsed
 
-            .HeldItem = 0
+            .HeldItem = HeldItem
 
             '//Moveset
             If PokeNum > 0 Then
@@ -1206,7 +1209,7 @@ Public Sub GivePlayerPokemon(ByVal Index As Long, ByVal PokeNum As Long, ByVal L
                     '//Ball Used
                     .BallUsed = BallUsed
 
-                    .HeldItem = 0
+                    .HeldItem = HeldItem
 
                     '//Moveset
                     If PokeNum > 0 Then
@@ -1267,34 +1270,34 @@ End Sub
 
 Public Function CountPlayerPokemon(ByVal Index As Long) As Byte
     Dim i As Byte
-    Dim count As Byte
+    Dim Count As Byte
 
-    count = 0
+    Count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         With PlayerPokemons(Index).Data(i)
             If .Num > 0 Then
-                count = count + 1
+                Count = Count + 1
             End If
         End With
     Next
-    CountPlayerPokemon = count
+    CountPlayerPokemon = Count
 End Function
 
 Public Function CountPlayerPokemonAlive(ByVal Index As Long) As Byte
     Dim i As Byte
-    Dim count As Byte
+    Dim Count As Byte
 
-    count = 0
+    Count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         With PlayerPokemons(Index).Data(i)
             If .Num > 0 Then
                 If .CurHp > 0 Then
-                    count = count + 1
+                    Count = Count + 1
                 End If
             End If
         End With
     Next
-    CountPlayerPokemonAlive = count
+    CountPlayerPokemonAlive = Count
 End Function
 
 '//Exp
@@ -2133,25 +2136,25 @@ End Function
 
 '//Count Free Pokemno slot
 Public Function CountFreePokemonSlot(ByVal Index As Long) As Long
-    Dim count As Long
+    Dim Count As Long
     Dim i As Byte, x As Byte
 
-    count = 0
+    Count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         If PlayerPokemons(Index).Data(i).Num = 0 Then
-            count = count + 1
+            Count = Count + 1
         End If
     Next
     For i = 1 To MAX_STORAGE_SLOT
         If PlayerPokemonStorage(Index).slot(i).Unlocked = YES Then
             For x = 1 To MAX_STORAGE
                 If PlayerPokemonStorage(Index).slot(i).Data(x).Num = 0 Then
-                    count = count + 1
+                    Count = Count + 1
                 End If
             Next
         End If
     Next
-    CountFreePokemonSlot = count
+    CountFreePokemonSlot = Count
 End Function
 
 Public Function FindSameInvStorageSlot(ByVal Index As Long, ByVal StorageSlot As Byte, ByVal ItemNum As Long) As Byte
@@ -2268,10 +2271,10 @@ Private Function CheckStorageValues(ByVal Index As Long, ByVal StorageSlot As Lo
 End Function
 
 Public Function CountFreeStorageSlot(ByVal Index As Long, ByVal StorageSlot As Long) As Long
-    Dim count As Long, i As Long
+    Dim Count As Long, i As Long
 
     CountFreeStorageSlot = 0
-    count = 0
+    Count = 0
 
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
@@ -2279,12 +2282,12 @@ Public Function CountFreeStorageSlot(ByVal Index As Long, ByVal StorageSlot As L
     For i = 1 To MAX_STORAGE
         With PlayerInvStorage(Index).slot(StorageSlot).Data(i)
             If .Num = 0 Then
-                count = count + 1
+                Count = Count + 1
             End If
         End With
     Next
 
-    CountFreeStorageSlot = count
+    CountFreeStorageSlot = Count
 End Function
 
 
@@ -2892,7 +2895,7 @@ Public Function CatchMapPokemonData(ByVal Index As Long, ByVal MapPokeNum As Lon
                     '//Ball Used
                     .BallUsed = UsedBall
 
-                    .HeldItem = 0
+                    .HeldItem = MapPokemon(MapPokeNum).HeldItem
 
                     '//Add Pokedex
                     AddPlayerPokedex Index, .Num, YES, YES
@@ -3382,15 +3385,15 @@ Public Sub JoinParty(ByVal Index As Long, ByVal InviteIndex As Long)
 End Sub
 
 Public Function PartyCount(ByVal Index As Long) As Byte
-    Dim i As Long, count As Long
+    Dim i As Long, Count As Long
 
-    count = 0
+    Count = 0
     For i = 1 To MAX_PARTY
         If TempPlayer(Index).PartyIndex(i) > 0 Then
-            count = count + 1
+            Count = Count + 1
         End If
     Next
-    PartyCount = count
+    PartyCount = Count
 End Function
 
 Public Function IsPartyMember(ByVal Index As Long, ByVal i As Long) As Boolean

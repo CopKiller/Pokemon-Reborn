@@ -1,0 +1,45 @@
+[22:13] Server started up
+[22:13] Rodorfo has been warped on Map#4 x:18 y:13
+[22:22] Rodorfo has been warped on Map#4 x:16 y:15
+[22:23] Rodorfo has been warped on Map#4 x:16 y:15
+[22:23] Rodorfo requested to edit Item
+[22:25] Rodorfo has been warped on Map#4 x:16 y:15
+[22:26] Rodorfo requested Item data
+[22:26] Rodorfo use item Skin Lance
+[22:26] Rodorfo use item Skin Lance
+[22:26] Rodorfo use item Skin Policial
+[22:26] Rodorfo use item Skin Policial
+[22:26] Rodorfo use item Skin Policial
+[22:26] Rodorfo use item Skin Lance
+[22:27] Rodorfo requested to edit Item
+[22:27] Rodorfo save item#1 data
+[22:27] Rodorfo save item#117 data
+[22:27] Rodorfo save item#118 data
+[22:27] Rodorfo use item Skin Policial
+[22:27] Rodorfo use item Skin Lance
+[22:27] Rodorfo has been warped on Map#4 x:16 y:15
+[22:32] Rodorfo has been warped on Map#4 x:16 y:15
+[22:32] Rodorfo use item Skin Policial
+[22:32] Rodorfo requested to edit Item
+[22:32] Rodorfo save item#1 data
+[22:32] Rodorfo save item#117 data
+[22:32] Rodorfo use item Skin Policial
+[22:32] Rodorfo has been warped on Map#4 x:16 y:15
+[22:33] Rodorfo has been warped on Map#7 x:27 y:50
+[22:33] Rodorfo has been warped on Map#4 x:28 y:0
+[22:33] Peixa has been warped on Map#4 x:35 y:34
+[22:33] Peixa use item Elixir
+[22:33] Peixa use item Hyper Potion
+[22:33] Peixa use item Elixir
+[22:33] Peixa use item Elixir
+[22:34] Peixa use item Elixir
+[22:34] Peixa use item Master Ball
+[22:47] Rodorfo has been warped on Map#15 x:12 y:10
+[22:48] Peixa has been warped on Map#5 x:10 y:7
+[22:49] Peixa has been warped on Map#3 x:24 y:23
+[22:49] Peixa has been warped on Map#4 x:24 y:50
+[22:49] Rodorfo has been warped on Map#7 x:32 y:37
+[22:49] Rodorfo has been warped on Map#4 x:28 y:0
+[23:08] Server closed
+[23:08] Server saving players...
+[23:08] Server saving complete...

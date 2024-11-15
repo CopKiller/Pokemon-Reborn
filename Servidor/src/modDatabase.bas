@@ -119,26 +119,26 @@ Dim filename As String
     Else
         With Options
             '//Network
-            .Port = Val(GetVar(filename, "Network", "Port"))
+            .Port = val(GetVar(filename, "Network", "Port"))
             
             '//Debug Mode
-            .DebugMode = Val(GetVar(filename, "DebugMode", "DebugMode"))
+            .DebugMode = val(GetVar(filename, "DebugMode", "DebugMode"))
             
             '//Starting Location
-            .StartMap = Val(GetVar(filename, "StartingLocation", "StartMap"))
-            .startX = Val(GetVar(filename, "StartingLocation", "StartX"))
-            .startY = Val(GetVar(filename, "StartingLocation", "StartY"))
-            .StartDir = Val(GetVar(filename, "StartingLocation", "StartDir"))
+            .StartMap = val(GetVar(filename, "StartingLocation", "StartMap"))
+            .startX = val(GetVar(filename, "StartingLocation", "StartX"))
+            .startY = val(GetVar(filename, "StartingLocation", "StartY"))
+            .StartDir = val(GetVar(filename, "StartingLocation", "StartDir"))
             
             '//MOTD
             .MOTD = Trim$(GetVar(filename, "MOTD", "MOTD"))
             
-            .ShinyRarity = Val(GetVar(filename, "Others", "ShinyRarity"))
-            .ExpRate = Val(GetVar(filename, "Others", "ExpRate"))
-            .TradeLvlMin = Val(GetVar(filename, "Others", "TradeLvlMin"))
-            .SameIp = Val(GetVar(filename, "Others", "SameIp"))
-            .Rarity = Val(GetVar(filename, "Others", "CheckRarity"))
-            .ShinyIvPerfectsAleatory = Val(GetVar(filename, "Others", "ShinyIvPerfectsAleatory"))
+            .ShinyRarity = val(GetVar(filename, "Others", "ShinyRarity"))
+            .ExpRate = val(GetVar(filename, "Others", "ExpRate"))
+            .TradeLvlMin = val(GetVar(filename, "Others", "TradeLvlMin"))
+            .SameIp = val(GetVar(filename, "Others", "SameIp"))
+            .Rarity = val(GetVar(filename, "Others", "CheckRarity"))
+            .ShinyIvPerfectsAleatory = val(GetVar(filename, "Others", "ShinyIvPerfectsAleatory"))
         End With
     End If
 End Sub
@@ -533,12 +533,18 @@ Dim f As Long
         Get #f, , PlayerInv(Index)
     Close #f
     
-    'With PlayerInv(Index)
-    '    For i = 1 To MAX_PLAYER_INV
-    '        .Data(i).Num = Val(GetVar(FileName, "Inv_Slot_" & i, "Num"))
-    '        .Data(i).Value = Val(GetVar(FileName, "Inv_Slot_" & i, "Value"))
-    '    Next
-    'End With
+    
+    Dim val As Long
+    With PlayerInv(Index)
+        For i = 1 To MAX_PLAYER_INV
+            If .Data(i).Num > 0 Then
+                If .Data(i).TmrCooldown > 0 Then
+                    val = .Data(i).TmrCooldown + GetTickCount
+                    .Data(i).TmrCooldown = val
+                End If
+            End If
+        Next
+    End With
 End Sub
 
 Public Sub SavePlayerInv(ByVal Index As Long, ByVal CharSlot As Byte)
@@ -549,18 +555,23 @@ Dim f As Long
     '//Determine the file location
     filename = App.Path & "\data\accounts\" & Trim$(Account(Index).Username) & "\character_slot_" & CharSlot & "_inv.ini"
     
+    Dim val As Long
+    With PlayerInv(Index)
+        For i = 1 To MAX_PLAYER_INV
+            If .Data(i).Num > 0 Then
+                If .Data(i).TmrCooldown > 0 Then
+                    val = .Data(i).TmrCooldown - GetTickCount
+                    .Data(i).TmrCooldown = val
+                End If
+            End If
+        Next
+    End With
+    
     f = FreeFile
     
     Open filename For Binary As #f
         Put #f, , PlayerInv(Index)
     Close #f
-    
-    'With PlayerInv(Index)
-    '    For i = 1 To MAX_PLAYER_INV
-    '        Call PutVar(FileName, "Inv_Slot_" & i, "Num", Str(.Data(i).Num))
-    '        Call PutVar(FileName, "Inv_Slot_" & i, "Value", Str(.Data(i).Value))
-    '    Next
-    'End With
 End Sub
 
 Public Sub ClearPlayerPokemons(ByVal Index As Long)
@@ -1668,7 +1679,7 @@ Dim i As Byte
     
     For i = 1 To MAX_RANK
         Rank(i).Name = GetVar(filename, "RANK", "Name" & i)
-        Rank(i).Level = Val(GetVar(filename, "RANK", "Level" & i))
+        Rank(i).Level = val(GetVar(filename, "RANK", "Level" & i))
     Next
 End Sub
 
@@ -1736,20 +1747,20 @@ Dim x As Long
         Case VirtualShopTabsRec.Vips: filename = App.Path & "\data\virtualshop\vips.ini"
         End Select
         
-        VirtualShop(i).Max_Slots = Val(GetVar(filename, "INIT", "MAX_SLOTS"))
+        VirtualShop(i).Max_Slots = val(GetVar(filename, "INIT", "MAX_SLOTS"))
         
         
         ReDim VirtualShop(i).Items(1 To VirtualShop(i).Max_Slots)
         
         If VirtualShop(i).Max_Slots >= 1 Then
             For x = 1 To VirtualShop(i).Max_Slots
-                VirtualShop(i).Items(x).ItemNum = Val(Trim$(GetVar(filename, "Slot" & x, "ItemNum")))
-                VirtualShop(i).Items(x).ItemQuant = Val(Trim$(GetVar(filename, "Slot" & x, "ItemQuant")))
-                VirtualShop(i).Items(x).ItemPrice = Val(Trim$(GetVar(filename, "Slot" & x, "ItemPrice")))
-                VirtualShop(i).Items(x).CustomDesc = Val(Trim$(GetVar(filename, "Slot" & x, "CustomDesc")))
-                VirtualShop(i).Items(x).IsNew = Val(Trim$(GetVar(filename, "Slot" & x, "IsNew")))
-                VirtualShop(i).Items(x).IsLimited = Val(Trim$(GetVar(filename, "Slot" & x, "IsLimited")))
-                VirtualShop(i).Items(x).AvailableQuant = Val(Trim$(GetVar(filename, "Slot" & x, "AvailableQuant")))
+                VirtualShop(i).Items(x).ItemNum = val(Trim$(GetVar(filename, "Slot" & x, "ItemNum")))
+                VirtualShop(i).Items(x).ItemQuant = val(Trim$(GetVar(filename, "Slot" & x, "ItemQuant")))
+                VirtualShop(i).Items(x).ItemPrice = val(Trim$(GetVar(filename, "Slot" & x, "ItemPrice")))
+                VirtualShop(i).Items(x).CustomDesc = val(Trim$(GetVar(filename, "Slot" & x, "CustomDesc")))
+                VirtualShop(i).Items(x).IsNew = val(Trim$(GetVar(filename, "Slot" & x, "IsNew")))
+                VirtualShop(i).Items(x).IsLimited = val(Trim$(GetVar(filename, "Slot" & x, "IsLimited")))
+                VirtualShop(i).Items(x).AvailableQuant = val(Trim$(GetVar(filename, "Slot" & x, "AvailableQuant")))
             Next x
         End If
     Next i

@@ -1049,7 +1049,6 @@ Private Sub Form_Load()
         DoEvents
     Next i
     Me.cmbNature.ListIndex = 0
-    Me.cmbBall.ListIndex = 0
     
     ' Poke Balls
     Me.cmbBall.Clear
@@ -1057,6 +1056,8 @@ Private Sub Form_Load()
         Me.cmbBall.AddItem i & ": " & CheckPokeBallString(i)
         DoEvents
     Next i
+    
+    Me.cmbBall.ListIndex = 0
 End Sub
 
 Private Sub optGiveItem_Click()

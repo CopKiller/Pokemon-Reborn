@@ -462,6 +462,7 @@ Public Sub FormKeyUp(KeyCode As Integer, Shift As Integer)
                         Case ControlEnum.KeyShop
                             If ShortKeyTimer <= GetTickCount Then
                                 If GUI(GuiEnum.GUI_VIRTUALSHOP).Visible = False Then
+                                    Call RequestVirtualShop
                                     GuiState GuiEnum.GUI_VIRTUALSHOP, True
                                     '//Set to top most
                                     UpdateGuiOrder GUI_VIRTUALSHOP

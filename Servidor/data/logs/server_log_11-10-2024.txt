@@ -1,0 +1,77 @@
+[03:04] Server started up
+[03:05] Rodorfo has been warped on Map#4 x:30 y:38
+[03:05] Rodorfo has been warped on Map#3 x:27 y:0
+[03:05] Rodorfo has been warped on Map#5 x:10 y:15
+[03:06] Character 'Zapo' has been created from Account 'rodorfo
+[03:06] Rodorfo has been warped on Map#5 x:13 y:7
+[03:06] Rodorfo requested to edit Conversation
+[03:08] Rodorfo save Conversation#1 data
+[03:08] Rodorfo save Conversation#2 data
+[03:08] Rodorfo save Conversation#5 data
+[03:08] Character 'fdgssdgds' has been created from Account 'rodorfo
+[03:08] Rodorfo has been warped on Map#5 x:12 y:9
+[03:08] fdgssdgds has been warped on Map#5 x:10 y:7
+[03:16] fdgssdgds has been warped on Map#3 x:24 y:23
+[03:16] fdgssdgds has been warped on Map#5 x:10 y:15
+[03:16] fdgssdgds has been warped on Map#3 x:24 y:23
+[03:16] fdgssdgds has been warped on Map#5 x:10 y:15
+[03:18] fdgssdgds requested to edit Conversation
+[03:18] fdgssdgds save Conversation#1 data
+[03:18] fdgssdgds save Conversation#5 data
+[03:19] fdgssdgds has been warped on Map#3 x:24 y:23
+[03:19] fdgssdgds has been warped on Map#4 x:24 y:50
+[03:20] fdgssdgds has been warped on Map#3 x:26 y:0
+[03:20] fdgssdgds has been warped on Map#4 x:26 y:50
+[03:20] fdgssdgds has been warped on Map#5 x:10 y:7
+[03:20] fdgssdgds has been warped on Map#3 x:24 y:23
+[03:22] Rodorfo has been warped on Map#5 x:12 y:9
+[03:25] Rodorfo has been warped on Map#5 x:12 y:9
+[03:25] Rodorfo has been warped on Map#5 x:12 y:9
+[03:26] Rodorfo has been warped on Map#5 x:12 y:9
+[03:27] Rodorfo has been warped on Map#3 x:24 y:23
+[03:27] Rodorfo has been warped on Map#5 x:10 y:15
+[03:27] Rodorfo has been warped on Map#3 x:24 y:23
+[03:27] Rodorfo has been warped on Map#5 x:10 y:15
+[03:27] Rodorfo has been warped on Map#3 x:24 y:23
+[03:27] Rodorfo has been warped on Map#4 x:24 y:50
+[03:27] Rodorfo requested to edit Spawn
+[03:28] Rodorfo save Spawn#1 data
+[03:28] Rodorfo save Spawn#9 data
+[03:28] Rodorfo save Spawn#10 data
+[03:28] Rodorfo use item Ultra Ball
+[03:28] Rodorfo has caught Spearow
+[03:28] Rodorfo has been warped on Map#7 x:28 y:50
+[03:28] Rodorfo has been warped on Map#15 x:12 y:14
+[03:28] Rodorfo enter storage
+[03:31] Rodorfo enter storage
+[03:31] Rodorfo use item Skin Policial
+[03:31] Rodorfo has been warped on Map#7 x:32 y:37
+[03:44] Server started up
+[03:45] Rodorfo has been warped on Map#5 x:12 y:9
+[03:45] Rodorfo has been warped on Map#3 x:24 y:23
+[03:45] Rodorfo has been warped on Map#4 x:24 y:50
+[03:46] Rodorfo use item Ultra Ball
+[03:46] Rodorfo use item Ultra Ball
+[03:46] Rodorfo has caught Spearow
+[03:46] Rodorfo has been warped on Map#7 x:28 y:50
+[03:46] Rodorfo has been warped on Map#15 x:12 y:14
+[03:46] Rodorfo enter storage
+[03:46] Rodorfo enter storage
+[03:46] Rodorfo enter storage
+[03:47] Rodorfo enter storage
+[03:47] Rodorfo has been warped on Map#7 x:32 y:37
+[03:47] Rodorfo has been warped on Map#4 x:28 y:0
+[03:47] Rodorfo has been warped on Map#7 x:28 y:50
+[03:47] Rodorfo has been warped on Map#17 x:22 y:50
+[03:53] Rodorfo has been warped on Map#17 x:28 y:25
+[03:53] Rodorfo has been warped on Map#17 x:29 y:26
+[03:54] Rodorfo has been warped on Map#17 x:29 y:26
+[04:00] Rodorfo has been warped on Map#17 x:29 y:26
+[04:01] Rodorfo has been warped on Map#7 x:24 y:0
+[04:01] Rodorfo has been warped on Map#17 x:23 y:50
+[04:01] Rodorfo has been warped on Map#7 x:25 y:0
+[04:01] Rodorfo has been warped on Map#4 x:27 y:0
+[04:01] Rodorfo has been warped on Map#4 x:19 y:12
+[04:02] Server closed
+[04:02] Server saving players...
+[04:02] Server saving complete...
