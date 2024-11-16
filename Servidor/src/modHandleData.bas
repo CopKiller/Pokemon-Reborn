@@ -755,10 +755,6 @@ Dim RndNum As Long
         SendPlayerXY Index, True
         Exit Sub
     End If
-    If TempPlayer(Index).InDuel > 0 Then
-        SendPlayerXY Index, True
-        Exit Sub
-    End If
     If TempPlayer(Index).InTrade > 0 Then
         SendPlayerXY Index, True
         Exit Sub
@@ -767,7 +763,7 @@ Dim RndNum As Long
         SendPlayerXY Index, True
         Exit Sub
     End If
-    If TempPlayer(Index).InNpcDuel > 0 Then
+    If TempPlayer(Index).InDuel > 0 And (TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER Or TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER) Then
         SendPlayerXY Index, True
         Exit Sub
     End If
@@ -1358,7 +1354,7 @@ Dim PokeSlot As Byte
                 If PlayerPokemons(Index).Data(PokeSlot).CurHp > 0 Then
                     If TempPlayer(Index).DuelReset = YES Then
                         '//Check if in duel, reset timer
-                        If TempPlayer(Index).InDuel > 0 Then
+                        If TempPlayer(Index).InDuel > 0 And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER Then
                             If IsPlaying(TempPlayer(Index).InDuel) Then
                                 If TempPlayer(TempPlayer(Index).InDuel).UseChar > 0 Then
                                     TempPlayer(Index).DuelTime = 3
@@ -1368,7 +1364,7 @@ Dim PokeSlot As Byte
                                 End If
                             End If
                         End If
-                        If TempPlayer(Index).InNpcDuel > 0 Then
+                        If TempPlayer(Index).InDuel > 0 And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_NPC Then
                             TempPlayer(Index).DuelTime = 3
                             TempPlayer(Index).DuelTimeTmr = GetTickCount + 1000
                         End If
@@ -2761,11 +2757,15 @@ Dim i As Long
                                 '//Initiate duel
                                 If CountPlayerPokemonAlive(Index) > 0 Then
                                     TempPlayer(Index).InDuel = requestIndex
+                                    TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER
                                     TempPlayer(Index).DuelTime = 11
                                     TempPlayer(Index).DuelTimeTmr = GetTickCount + 1000
                                     TempPlayer(requestIndex).InDuel = Index
+                                    TempPlayer(requestIndex).InDuelTargetType = TARGET_TYPE_PLAYER
                                     TempPlayer(requestIndex).DuelTime = 11
                                     TempPlayer(requestIndex).DuelTimeTmr = GetTickCount + 1000
+                                    SendPlayerDuel Index
+                                    SendPlayerDuel requestIndex
                                     Select Case TempPlayer(Index).CurLanguage
                                         Case LANG_PT: AddAlert Index, "Duel invitation accepted", White
                                         Case LANG_EN: AddAlert Index, "Duel invitation accepted", White
@@ -3871,7 +3871,6 @@ Dim InvSlot As Long, PokeSlot As Byte
     If PlayerPokemons(Index).Data(PokeSlot).Num <= 0 Then Exit Sub
     If PlayerPokemons(Index).Data(PokeSlot).CurHp > 0 Then Exit Sub
     If TempPlayer(Index).InDuel > 0 Then Exit Sub
-    If TempPlayer(Index).InNpcDuel > 0 Then Exit Sub
     
     If IsMaxRev = YES Then
         ReviveItemNum = 48

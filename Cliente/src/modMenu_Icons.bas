@@ -15,24 +15,24 @@ End Enum
 
 Public Sub DrawMenuIcons()
     Dim i As Long
-    Dim X As Long, Y As Long, width As Long, height As Long
+    Dim X As Long, Y As Long, Width As Long, Height As Long
     Dim Count_Icons As Long
     
     Count_Icons = Count_Shortcut - 1
 
-    width = GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
-    height = GetPicHeight(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
+    Width = GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
+    Height = GetPicHeight(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
     Y = 5
-    X = (Screen_Width) - ((width * Count_Icons) / 1.9)
+    X = (Screen_Width) - ((Width * Count_Icons) / 1.9)
 
     ' Desenha o icone do provedor externo
     For i = 1 To Count_Icons
-        RenderTexture Tex_Surface(gSurfaceEnum.MenuIcons), X + (i * 40), Y, ((i - 1) * (GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) / Count_Icons)), 0, (width / Count_Icons), (height), (GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) / Count_Icons), GetPicHeight(Tex_Surface(gSurfaceEnum.MenuIcons))
+        RenderTexture Tex_Surface(gSurfaceEnum.MenuIcons), X + (i * 40), Y, ((i - 1) * (GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) / Count_Icons)), 0, (Width / Count_Icons), (Height), (GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) / Count_Icons), GetPicHeight(Tex_Surface(gSurfaceEnum.MenuIcons))
     Next i
 End Sub
 
 Public Sub MenuIconsMouseMove()
-    Dim i As Long, width As Long, height As Long, X As Long, Y As Long
+    Dim i As Long, Width As Long, Height As Long, X As Long, Y As Long
     Dim Count_Icons As Long
 
     IsHovering = False
@@ -41,13 +41,13 @@ Public Sub MenuIconsMouseMove()
 
     If MenuState <> MenuStateEnum.StateNormal Then Exit Sub
 
-    width = GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
-    height = GetPicHeight(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
+    Width = GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
+    Height = GetPicHeight(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
     Y = 5
-    X = (Screen_Width) - ((width * Count_Icons) / 1.9)
+    X = (Screen_Width) - ((Width * Count_Icons) / 1.9)
 
     For i = 1 To Count_Shortcut - 1
-        If CursorX >= X + (i * 40) And CursorX <= X + (i * 40) + (width / Count_Icons) And CursorY >= Y And CursorY <= Y + height Then
+        If CursorX >= X + (i * 40) And CursorX <= X + (i * 40) + (Width / Count_Icons) And CursorY >= Y And CursorY <= Y + Height Then
             IsHovering = True
             MouseIcon = 1    '//Select
         End If
@@ -55,20 +55,20 @@ Public Sub MenuIconsMouseMove()
 End Sub
 
 Public Sub MenuIconsMouseUp()
-    Dim i As Long, width As Long, height As Long, X As Long, Y As Long
+    Dim i As Long, Width As Long, Height As Long, X As Long, Y As Long
     Dim Count_Icons As Long
 
     If MenuState <> MenuStateEnum.StateNormal Then Exit Sub
     
     Count_Icons = Count_Shortcut - 1
 
-    width = GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
-    height = GetPicHeight(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
+    Width = GetPicWidth(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
+    Height = GetPicHeight(Tex_Surface(gSurfaceEnum.MenuIcons)) \ 2.5
     Y = 5
-    X = (Screen_Width) - ((width * Count_Icons) / 1.9)
+    X = (Screen_Width) - ((Width * Count_Icons) / 1.9)
 
     For i = 1 To Count_Shortcut - 1
-        If CursorX >= X + (i * 40) And CursorX <= X + (i * 40) + (width / Count_Icons) And CursorY >= Y And CursorY <= Y + height Then
+        If CursorX >= X + (i * 40) And CursorX <= X + (i * 40) + (Width / Count_Icons) And CursorY >= Y And CursorY <= Y + Height Then
             Select Case i
             Case ExternalShortcut.Discord
                 ShellExecute frmMain.hwnd, "open", DiscordLink, vbNullString, vbNullString, conSwNormal

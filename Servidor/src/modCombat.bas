@@ -1097,7 +1097,7 @@ Public Sub ProcessPlayerMove(ByVal Index As Long, ByVal MoveNum As Long)
 
                                     If InRange Then
                                         If Not i = Index Then
-                                            If (TempPlayer(Index).InDuel = i And TempPlayer(i).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(i, TempPlayer(i).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
+                                            If ((TempPlayer(Index).InDuel = i And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER) And TempPlayer(i).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(i, TempPlayer(i).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
                                                 If PlayerPokemon(i).slot > 0 Then
                                                     If PokemonMove(MoveNum).pStatus = 6 Then
                                                         PlayerPokemon(i).IsConfuse = YES
@@ -1164,7 +1164,7 @@ Public Sub ProcessPlayerMove(ByVal Index As Long, ByVal MoveNum As Long)
                                         Select Case PokemonMove(MoveNum).AttackType
                                         Case 1    '//Damage
                                             If Not i = Index Then
-                                                If (TempPlayer(Index).InDuel = i And TempPlayer(i).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(i, TempPlayer(i).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
+                                                If (TempPlayer(Index).InDuel = i And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER And TempPlayer(i).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(i, TempPlayer(i).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
                                                     '//Target and Do Damage
                                                     targetType = Pokemon(PlayerPokemon(i).Num).PrimaryType
                                                     targetType2 = Pokemon(PlayerPokemon(i).Num).SecondaryType
@@ -1232,7 +1232,7 @@ Public Sub ProcessPlayerMove(ByVal Index As Long, ByVal MoveNum As Long)
                                             End If
                                         Case 2    '//Buff/Debuff
                                             If Not i = Index Then
-                                                If (TempPlayer(Index).InDuel = i And TempPlayer(i).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(i, TempPlayer(i).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
+                                                If (TempPlayer(Index).InDuel = i And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER And TempPlayer(i).DuelTime <= 0) Or Map(MapNum).Moral = MAP_MORAL_PVP Or (Player(i, TempPlayer(i).UseChar).Access >= ACCESS_CREATOR) Or (Player(Index, TempPlayer(Index).UseChar).Access >= ACCESS_CREATOR) Then
                                                     For z = 1 To StatEnum.Stat_Count - 1
                                                         PlayerPokemon(i).StatBuff(z) = PlayerPokemon(i).StatBuff(z) + PokemonMove(MoveNum).dStat(z)
                                                         If PlayerPokemon(i).StatBuff(z) > 6 Then
@@ -1245,7 +1245,7 @@ Public Sub ProcessPlayerMove(ByVal Index As Long, ByVal MoveNum As Long)
                                                 End If
                                             End If
                                         Case 3    '//Heal
-                                            If Not TempPlayer(Index).InDuel = i And Not Map(MapNum).Moral = MAP_MORAL_PVP Then
+                                            If Not (TempPlayer(Index).InDuel = i And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER) And Not Map(MapNum).Moral = MAP_MORAL_PVP Then
                                                 If PlayerPokemon(i).slot > 0 Then
                                                     HealAmount = PlayerPokemons(i).Data(PlayerPokemon(i).slot).MaxHp * (PokemonMove(MoveNum).Power / 100)
                                                     PlayerPokemons(i).Data(PlayerPokemon(i).slot).CurHp = PlayerPokemons(Index).Data(PlayerPokemon(i).slot).CurHp + HealAmount
@@ -1308,7 +1308,7 @@ Public Sub ProcessPlayerMove(ByVal Index As Long, ByVal MoveNum As Long)
                                 Call AttackPlayer(i, MoveNum, PlayerPokemon(Index).Num, x, Y, PlayerPokemon(Index).Dir, pType, ownType, ownLevel, AtkStat, Power, PlayerPokemon(Index).NextCritical, PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).CurHp, PlayerPokemons(Index).Data(PlayerPokemon(Index).slot).MaxHp)
                             Else
 
-                                If Not TempPlayer(Index).InDuel = i Then
+                                If Not (TempPlayer(Index).InDuel = i And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER) Then
                                     InRange = False
                                     If PokemonMove(MoveNum).targetType = 1 Then    '//AoE
                                         If IsOnAoERange(Range, x, Y, Player(i, TempPlayer(i).UseChar).x, Player(i, TempPlayer(i).UseChar).Y) Then InRange = True
@@ -2609,7 +2609,6 @@ Public Sub PlayerAttackNpc(ByVal Index As Long, ByVal TargetIndex As Long, ByVal
 
         ' Limpa o Pokémon do mapa
         ClearMapPokemon TargetIndex
-
     Else
         MapPokemon(TargetIndex).CurHp = MapPokemon(TargetIndex).CurHp - Damage
         SendActionMsg MapNum, "-" & Damage, MapPokemon(TargetIndex).x * 32, MapPokemon(TargetIndex).Y * 32, BrightRed
@@ -2935,7 +2934,7 @@ Dim CanAttack As Boolean
                                 
                                 If CanAttack Then
                                     '//Check Location
-                                    If MapNpc(MapNum, MapNpcNum).InBattle = i And TempPlayer(i).InNpcDuel = MapNpcNum Then
+                                    If MapNpc(MapNum, MapNpcNum).InBattle = i And (TempPlayer(i).InDuel = MapNpcNum And TempPlayer(i).InDuelTargetType = TARGET_TYPE_NPC) Then
                                         If TempPlayer(i).DuelTime <= 0 Then
                                             InRange = False
                                             If PokemonMove(MoveNum).targetType = 1 Then '//AoE
@@ -3277,7 +3276,7 @@ Dim MapNum As Long
     If TargetIndex <= 0 Or TargetIndex > MAX_MAP_NPC Then Exit Sub
     MapNum = Player(Index, TempPlayer(Index).UseChar).Map
     If MapNpcPokemon(MapNum, TargetIndex).Num <= 0 Then Exit Sub
-    If Not TempPlayer(Index).InNpcDuel = TargetIndex Then Exit Sub
+    If Not (TempPlayer(Index).InDuel = TargetIndex And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_NPC) Then Exit Sub
     If Not MapNpc(MapNum, TargetIndex).InBattle = Index Then Exit Sub
     If MapNpc(MapNum, TargetIndex).CurPokemon <= 0 Then Exit Sub
     

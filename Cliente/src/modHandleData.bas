@@ -77,7 +77,7 @@ Public Sub InitMessages()
     HandleDataSub(SNpcPokemonMove) = GetAddress(AddressOf HandleNpcPokemonMove)
     HandleDataSub(SNpcPokemonDir) = GetAddress(AddressOf HandleNpcPokemonDir)
     HandleDataSub(SNpcPokemonVital) = GetAddress(AddressOf HandleNpcPokemonVital)
-    HandleDataSub(SPlayerNpcDuel) = GetAddress(AddressOf HandlePlayerNpcDuel)
+    HandleDataSub(SPlayerNpcDuel) = GetAddress(AddressOf HandlePlayerDuel)
     HandleDataSub(SRelearnMove) = GetAddress(AddressOf HandleReleaseMove)
     HandleDataSub(SPlayerAction) = GetAddress(AddressOf HandlePlayerAction)
     HandleDataSub(SPlayerExp) = GetAddress(AddressOf HandlePlayerExp)
@@ -370,9 +370,13 @@ Dim isPvP As Byte
         .Moving = NO
         .xOffset = 0
         .yOffset = 0
+        
+        .Opacity = ENTITY_OPACITY_ORIGIN
     End With
     
     Set buffer = Nothing
+    
+    Call ProcessPlayerDuel
 End Sub
 
 Private Sub HandleMap(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
@@ -616,19 +620,19 @@ End Sub
 
 Private Sub HandlePlayerMsg(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
 Dim buffer As clsBuffer
-Dim Msg As String, Colour As Long
+Dim Msg As String, colour As Long
 
     Set buffer = New clsBuffer
     buffer.WriteBytes Data()
     Msg = buffer.ReadString
-    Colour = buffer.ReadLong
+    colour = buffer.ReadLong
     Set buffer = Nothing
     
     If InStr(1, Msg, ColourChar) > 0 Then
         Debug.Print "Encontrou"
     End If
     
-    AddText KeepTwoDigit(Hour(time)) & ":" & KeepTwoDigit(Minute(time)) & " " & Trim$(Msg), Colour
+    AddText KeepTwoDigit(Hour(time)) & ":" & KeepTwoDigit(Minute(time)) & " " & Trim$(Msg), colour
 End Sub
 
 Private Sub HandleSpawnMapNpc(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
@@ -646,6 +650,7 @@ Dim MapNpcNum As Long
         .X = buffer.ReadLong
         .y = buffer.ReadLong
         .Dir = buffer.ReadByte
+        .Opacity = ENTITY_OPACITY_ORIGIN
     End With
     Set buffer = Nothing
     
@@ -671,8 +676,10 @@ Dim i As Long
             .X = buffer.ReadLong
             .y = buffer.ReadLong
             .Dir = buffer.ReadByte
+            .Opacity = ENTITY_OPACITY_ORIGIN
         End With
     Next
+    
     Set buffer = Nothing
 End Sub
 
@@ -758,6 +765,8 @@ Dim PokemonIndex As Long
         
         '//Status
         .Status = buffer.ReadByte
+        
+        .Opacity = ENTITY_OPACITY_ORIGIN
     End With
     Set buffer = Nothing
 End Sub
@@ -1993,6 +2002,7 @@ Dim npcIndex As Long
             .FrameState = 0
             .FrameTimer = GetTickCount + 100
         End If
+        
     End With
     Set buffer = Nothing
 End Sub
@@ -2058,15 +2068,6 @@ Dim npcIndex As Long
         .CurHP = buffer.ReadLong
         .MaxHP = buffer.ReadLong
     End With
-    Set buffer = Nothing
-End Sub
-
-Private Sub HandlePlayerNpcDuel(ByVal Index As Long, ByRef Data() As Byte, ByVal StartAddr As Long, ByVal ExtraVar As Long)
-Dim buffer As clsBuffer
-
-    Set buffer = New clsBuffer
-    buffer.WriteBytes Data()
-    InNpcDuel = buffer.ReadLong
     Set buffer = Nothing
 End Sub
 
@@ -2416,7 +2417,7 @@ Private Sub HandleRequestServerInfo(ByVal Index As Long, ByRef Data() As Byte, B
     
     ServerInfo(CurServerList).Status = buffer.ReadString
     ServerInfo(CurServerList).Player = buffer.ReadInteger
-    ServerInfo(CurServerList).Colour = buffer.ReadInteger
+    ServerInfo(CurServerList).colour = buffer.ReadInteger
     Set buffer = Nothing
     
     '//Close Socket

@@ -28,6 +28,7 @@ Module=modVip; src\modVip.bas
 Form=src\frmEditor_Vip.frm
 Module=modSkins; src\modSkins.bas
 Module=modMapTravel; src\modMapTravel.bas
+Module=modDuel; src\modDuel.bas
 Startup="Sub Main"
 HelpFile=""
 Title="server"

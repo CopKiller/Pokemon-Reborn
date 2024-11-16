@@ -1676,7 +1676,6 @@ Private Sub ChatboxKeyPress(KeyAscii As Integer)
 
     If KeyAscii = vbKeyReturn Then
         If Not ChatOn Then
-            Language
             ChatOn = True
             ChatMinimize = False
             EditTab = False
@@ -1700,7 +1699,6 @@ Private Sub ChatboxKeyPress(KeyAscii As Integer)
                 MyChat = vbNullString
             Else
                 EditTab = False
-                Language
                 ChatOn = True
                 MyChat = vbNullString
             End If
@@ -1799,7 +1797,6 @@ Dim i As Long
         Next
         
         If CursorX >= .X + 59 And CursorX <= .X + 59 + 314 And CursorY >= .Y + 144 And CursorY <= .Y + 144 + 19 Then
-            Language
             ChatOn = True
             EditTab = False
         End If

@@ -1,3 +1,237 @@
 [01:50] Server started up
 [01:52] Peixa has been warped on Map#4 x:26 y:43
 [01:52] Rodorfo has been warped on Map#4 x:30 y:43
+[12:51] Server started up
+[12:51] Rodorfo has been warped on Map#4 x:30 y:43
+[12:51] Peixa has been warped on Map#4 x:26 y:43
+[12:53] Peixa has been warped on Map#4 x:30 y:39
+[12:55] Peixa has been warped on Map#4 x:30 y:42
+[12:56] Peixa has been warped on Map#4 x:30 y:39
+[12:58] Rodorfo has been warped on Map#4 x:31 y:38
+[12:59] Peixa has been warped on Map#4 x:19 y:11
+[13:00] Peixa requested to edit npc
+[13:00] Peixa save npc#1 data
+[13:00] Peixa save npc#14 data
+[13:00] Peixa requested to edit npc
+[13:01] Peixa save npc#1 data
+[13:01] Peixa save npc#14 data
+[13:01] Peixa save npc#13 data
+[13:01] Peixa save npc#14 data
+[13:01] Peixa save npc#16 data
+[13:02] Peixa save npc#13 data
+[13:02] Peixa save npc#14 data
+[13:02] Peixa save npc#13 data
+[13:02] Peixa save npc#14 data
+[13:02] Peixa save npc#13 data
+[13:02] Peixa save npc#14 data
+[13:02] Peixa save npc#14 data
+[13:02] Peixa save npc#15 data
+[15:28] Server started up
+[15:29] Peixa has been warped on Map#4 x:19 y:11
+[15:55] Peixa has been warped on Map#4 x:19 y:11
+[15:55] Peixa has been warped on Map#4 x:19 y:11
+[15:56] Peixa has been warped on Map#4 x:19 y:15
+[15:59] Peixa has been warped on Map#4 x:19 y:15
+[15:59] Peixa has been warped on Map#4 x:19 y:15
+[16:01] Peixa has been warped on Map#4 x:19 y:15
+[16:02] Rodorfo has been warped on Map#4 x:31 y:38
+[16:04] Server started up
+[16:04] Rodorfo has been warped on Map#4 x:31 y:38
+[16:06] Rodorfo has been warped on Map#4 x:31 y:38
+[16:10] Rodorfo has been warped on Map#4 x:31 y:38
+[16:11] Rodorfo has been warped on Map#4 x:35 y:37
+[16:12] Peixa has been warped on Map#4 x:19 y:11
+[16:12] Account 'vacas' has been created
+[16:12] Character 'vacas' has been created from Account 'vacas
+[16:12] vacas has been warped on Map#5 x:10 y:7
+[16:13] Peixa requested to edit npc
+[16:13] Peixa requested npc data
+[16:13] Peixa requested to edit Conversation
+[16:16] Peixa save Conversation#1 data
+[16:16] Peixa save Conversation#5 data
+[16:16] Peixa requested to edit Conversation
+[16:17] Peixa save Conversation#1 data
+[16:18] vacas has been warped on Map#3 x:24 y:23
+[16:18] vacas has been warped on Map#4 x:25 y:50
+[16:23] vacas has been warped on Map#4 x:28 y:39
+[16:23] Peixa has been warped on Map#4 x:36 y:34
+[16:23] Rodorfo has been warped on Map#4 x:36 y:37
+[16:26] Rodorfo has been warped on Map#4 x:41 y:38
+[16:26] Peixa has been warped on Map#4 x:36 y:35
+[16:26] vacas has been warped on Map#4 x:35 y:36
+[16:32] vacas has been warped on Map#4 x:38 y:35
+[16:32] Rodorfo has been warped on Map#4 x:31 y:39
+[16:33] Rodorfo has been warped on Map#4 x:31 y:39
+[16:33] Peixa has been warped on Map#4 x:40 y:34
+[19:22] Server started up
+[19:23] Peixa has been warped on Map#4 x:40 y:34
+[19:24] Peixa has been warped on Map#4 x:37 y:37
+[19:24] Rodorfo has been warped on Map#4 x:31 y:39
+[19:25] vacas has been warped on Map#4 x:38 y:35
+[19:25] vacas has been warped on Map#5 x:10 y:7
+[19:35] vacas has been warped on Map#5 x:10 y:7
+[19:35] vacas has been warped on Map#3 x:24 y:23
+[19:35] vacas has been warped on Map#4 x:24 y:50
+[19:35] vacas has been warped on Map#5 x:10 y:7
+[19:38] vacas has been warped on Map#5 x:10 y:7
+[19:38] vacas has been warped on Map#3 x:24 y:23
+[19:38] vacas has been warped on Map#4 x:23 y:50
+[19:39] Rodorfo has been warped on Map#4 x:36 y:37
+[19:39] Peixa has been warped on Map#4 x:34 y:40
+[19:43] Rodorfo has been warped on Map#3 x:24 y:0
+[19:43] Rodorfo has been warped on Map#4 x:24 y:50
+[19:43] Rodorfo has been warped on Map#3 x:24 y:0
+[19:43] Rodorfo has been warped on Map#4 x:23 y:50
+[19:44] Rodorfo has been warped on Map#7 x:27 y:50
+[19:44] Rodorfo has been warped on Map#15 x:12 y:14
+[19:44] Rodorfo has been warped on Map#7 x:32 y:37
+[19:44] Rodorfo has been warped on Map#4 x:28 y:0
+[20:18] Peixa requested to edit npc
+[20:18] Peixa save npc#1 data
+[20:18] Peixa save npc#14 data
+[20:19] Peixa has been warped on Map#4 x:17 y:13
+[20:19] Rodorfo has been warped on Map#4 x:18 y:11
+[20:32] Rodorfo has been warped on Map#4 x:18 y:10
+[20:32] Peixa has been warped on Map#4 x:15 y:15
+[20:32] vacas has been warped on Map#4 x:11 y:11
+[20:41] [Mapa]Rodorfo: eae
+[21:04] Rodorfo has been warped on Map#3 x:24 y:0
+[21:04] Rodorfo has been warped on Map#4 x:24 y:50
+[21:04] Rodorfo has been warped on Map#7 x:28 y:50
+[21:05] Rodorfo has been warped on Map#22 x:50 y:28
+[21:05] Rodorfo has been warped on Map#7 x:0 y:29
+[21:05] Rodorfo has been warped on Map#17 x:22 y:50
+[21:05] Peixa has been warped on Map#17 x:31 y:29
+[21:05] Peixa warped to [17 | 31 | 29]
+[21:18] Rodorfo has been warped on Map#7 x:29 y:0
+[21:18] Rodorfo has been warped on Map#4 x:28 y:0
+[21:22] Rodorfo has been warped on Map#15 x:12 y:10
+[21:23] Rodorfo has been warped on Map#7 x:32 y:37
+[21:23] Rodorfo has been warped on Map#4 x:28 y:0
+[21:25] Peixa has been warped on Map#4 x:35 y:38
+[21:25] Peixa warped to [4 | 35 | 38]
+[21:37] vacas has been warped on Map#4 x:18 y:16
+[21:38] Peixa has been warped on Map#4 x:35 y:38
+[21:38] Rodorfo has been warped on Map#4 x:30 y:38
+[21:38] Peixa has been warped on Map#3 x:26 y:0
+[21:38] Peixa has been warped on Map#4 x:36 y:36
+[21:38] Peixa warped to [4 | 36 | 36]
+[21:39] [Mapa]Peixa: eaeeee
+[21:39] [Mapa]Peixa: eaeeee
+[21:41] Peixa has been warped on Map#3 x:24 y:0
+[21:41] Rodorfo requested to edit Item
+[21:43] Rodorfo requested Item data
+[21:43] Rodorfo , Admin Rights: Get Item#38 x200
+[21:43] Rodorfo use item Hyper Potion
+[21:43] Rodorfo use item Hyper Potion
+[21:43] Rodorfo use item Hyper Potion
+[21:43] Rodorfo requested to edit map#4
+[21:44] vacas has been warped on Map#4 x:29 y:40
+[21:44] Rodorfo has been warped on Map#4 x:33 y:38
+[21:44] Rodorfo updated map#4
+[21:44] Peixa has been warped on Map#4 x:35 y:36
+[21:44] Peixa warped to [4 | 35 | 36]
+[21:46] Peixa has been warped on Map#3 x:26 y:0
+[21:46] Peixa has been warped on Map#4 x:26 y:50
+[21:50] Rodorfo has been warped on Map#15 x:12 y:10
+[21:50] Rodorfo has been warped on Map#7 x:32 y:37
+[21:50] Rodorfo has been warped on Map#17 x:22 y:50
+[21:50] Rodorfo has been warped on Map#7 x:22 y:0
+[21:50] Rodorfo has been warped on Map#4 x:28 y:0
+[22:09] Peixa has been warped on Map#3 x:26 y:0
+[22:10] Peixa has been warped on Map#4 x:32 y:38
+[22:10] Peixa warped to [4 | 32 | 38]
+[22:10] vacas has been warped on Map#3 x:25 y:0
+[22:16] Rodorfo has been warped on Map#3 x:26 y:0
+[22:16] Rodorfo has been warped on Map#4 x:26 y:50
+[22:16] Rodorfo has been warped on Map#3 x:25 y:0
+[22:17] vacas has been warped on Map#4 x:24 y:50
+[22:17] vacas has been warped on Map#3 x:24 y:0
+[22:17] vacas has been warped on Map#4 x:24 y:50
+[22:18] Peixa has been warped on Map#5 x:10 y:7
+[22:25] vacas has been warped on Map#3 x:26 y:0
+[22:25] vacas has been warped on Map#4 x:24 y:50
+[22:25] Rodorfo has been warped on Map#8 x:12 y:11
+[22:26] vacas has been warped on Map#3 x:23 y:0
+[22:26] vacas has been warped on Map#4 x:23 y:50
+[22:27] Rodorfo has been warped on Map#3 x:30 y:12
+[22:32] Rodorfo has been warped on Map#4 x:24 y:50
+[22:32] vacas has been warped on Map#3 x:25 y:0
+[22:32] vacas has been warped on Map#4 x:25 y:50
+[22:32] vacas has been warped on Map#3 x:25 y:0
+[22:32] vacas has been warped on Map#4 x:25 y:50
+[22:32] vacas has been warped on Map#3 x:25 y:0
+[22:33] vacas has been warped on Map#4 x:25 y:50
+[22:33] vacas has been warped on Map#3 x:25 y:0
+[22:33] vacas has been warped on Map#4 x:24 y:50
+[22:34] vacas has been warped on Map#3 x:26 y:0
+[22:34] vacas has been warped on Map#4 x:24 y:50
+[22:34] vacas has been warped on Map#3 x:25 y:0
+[22:34] vacas has been warped on Map#4 x:25 y:50
+[22:34] vacas has been warped on Map#3 x:25 y:0
+[22:34] vacas has been warped on Map#4 x:25 y:50
+[22:34] vacas has been warped on Map#3 x:24 y:0
+[22:34] vacas has been warped on Map#4 x:25 y:50
+[22:34] vacas has been warped on Map#3 x:25 y:0
+[22:34] vacas has been warped on Map#4 x:25 y:50
+[22:34] Rodorfo has been warped on Map#15 x:12 y:10
+[22:34] vacas has been warped on Map#3 x:25 y:0
+[22:35] Rodorfo has been warped on Map#7 x:32 y:37
+[22:35] Rodorfo has been warped on Map#4 x:27 y:0
+[22:35] Rodorfo has been warped on Map#3 x:24 y:0
+[22:35] Rodorfo has been warped on Map#4 x:24 y:50
+[22:35] vacas has been warped on Map#4 x:25 y:50
+[22:35] vacas has been warped on Map#3 x:24 y:0
+[22:35] vacas has been warped on Map#4 x:24 y:50
+[22:39] Rodorfo has been warped on Map#15 x:12 y:10
+[22:43] vacas has been warped on Map#3 x:24 y:0
+[22:43] vacas has been warped on Map#4 x:24 y:50
+[22:43] vacas has been warped on Map#3 x:24 y:0
+[22:43] Rodorfo has been warped on Map#7 x:32 y:37
+[22:43] Rodorfo has been warped on Map#4 x:28 y:0
+[22:43] vacas has been warped on Map#4 x:24 y:50
+[22:44] vacas has been warped on Map#4 x:23 y:49
+[22:44] vacas has been warped on Map#3 x:24 y:0
+[22:44] vacas has been warped on Map#4 x:24 y:50
+[22:44] vacas has been warped on Map#3 x:25 y:0
+[22:44] vacas has been warped on Map#4 x:24 y:50
+[22:44] vacas has been warped on Map#3 x:24 y:0
+[22:44] vacas has been warped on Map#4 x:24 y:50
+[22:45] vacas has been warped on Map#3 x:24 y:0
+[22:45] vacas has been warped on Map#4 x:24 y:50
+[22:45] vacas has been warped on Map#3 x:25 y:0
+[22:45] vacas has been warped on Map#4 x:24 y:50
+[22:49] vacas has been warped on Map#5 x:10 y:7
+[22:49] vacas has been warped on Map#3 x:24 y:23
+[22:50] vacas has been warped on Map#4 x:24 y:50
+[22:50] vacas has been warped on Map#3 x:24 y:0
+[22:51] vacas has been warped on Map#4 x:24 y:50
+[22:51] vacas has been warped on Map#3 x:24 y:0
+[22:53] vacas has been warped on Map#4 x:24 y:50
+[22:53] vacas has been warped on Map#3 x:24 y:0
+[22:54] vacas has been warped on Map#4 x:24 y:50
+[22:54] vacas has been warped on Map#3 x:24 y:0
+[22:54] vacas has been warped on Map#4 x:23 y:50
+[22:54] Rodorfo has been warped on Map#15 x:12 y:10
+[22:54] vacas has been warped on Map#5 x:10 y:7
+[22:54] vacas has been warped on Map#3 x:24 y:23
+[22:55] vacas has been warped on Map#4 x:23 y:50
+[22:55] vacas has been warped on Map#5 x:10 y:7
+[23:02] vacas has been warped on Map#3 x:24 y:23
+[23:02] vacas has been warped on Map#4 x:24 y:50
+[23:02] vacas has been warped on Map#3 x:24 y:0
+[23:03] vacas has been warped on Map#4 x:23 y:50
+[23:03] vacas has been warped on Map#3 x:26 y:0
+[23:03] vacas has been warped on Map#4 x:26 y:50
+[23:03] vacas has been warped on Map#3 x:26 y:0
+[23:03] vacas has been warped on Map#4 x:26 y:50
+[23:03] Server closed
+[23:03] Server saving players...
+[23:03] Server saving complete...
+[23:12] Server started up
+[23:13] vacas has been warped on Map#4 x:26 y:44
+[23:13] vacas requested to edit Animation
+[23:13] vacas requested Animation data
+[23:14] Server closed
+[23:14] Server saving players...
+[23:14] Server saving complete...

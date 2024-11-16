@@ -165,6 +165,10 @@ Dim i As Long
                                 If MapPokemon(i).Num > 0 Then
                                     MapPokemon(i).TargetIndex = ownerIndex
                                     MapPokemon(i).targetType = TARGET_TYPE_PLAYER
+                                    
+                                    TempPlayer(ownerIndex).InDuel = i
+                                    TempPlayer(ownerIndex).InDuelTargetType = TARGET_TYPE_MAPPOKEMON
+                                    Call SendPlayerDuel(ownerIndex)
                                     Exit Sub
                                 End If
                                 
@@ -205,6 +209,7 @@ End Sub
 
 Public Sub ClearMapPokemon(ByVal MapPokeNum As Long, Optional ByVal RemoveData As Boolean = False)
 Dim i As Long
+Dim x As Long
 Dim MapNum As Long
 
     '//Add Cache
@@ -212,6 +217,33 @@ Dim MapNum As Long
     If Not RemoveData Then
         If MapPokemon(MapPokeNum).PokemonIndex > 0 Then
             i = MapPokemon(MapPokeNum).PokemonIndex
+        End If
+    End If
+    
+    If Spawn(MapPokeNum).UniqueEnemy = YES Then
+        If MapPokemon(MapPokeNum).targetType = TARGET_TYPE_PLAYER Or MapPokemon(MapPokeNum).targetType = TARGET_TYPE_PLAYERPOKEMON Then
+            If MapPokemon(MapPokeNum).TargetIndex > 0 And IsPlaying(MapPokemon(MapPokeNum).TargetIndex) Then
+            
+                
+                Dim find As Boolean
+                For x = 1 To Pokemon_HighIndex
+                    If x <> MapPokeNum Then
+                        If MapPokemon(x).targetType = TARGET_TYPE_PLAYER Or MapPokemon(x).targetType = TARGET_TYPE_PLAYERPOKEMON Then
+                            If MapPokemon(x).TargetIndex = MapPokemon(MapPokeNum).TargetIndex Then
+                                find = True
+                            End If
+                        End If
+                    End If
+                Next x
+                
+                If find = False Then
+                    TempPlayer(MapPokemon(MapPokeNum).TargetIndex).InDuel = 0
+                    TempPlayer(MapPokemon(MapPokeNum).TargetIndex).InDuelTargetType = 0
+                End If
+                
+                Call SendPlayerDuel(MapPokemon(MapPokeNum).TargetIndex)
+                
+            End If
         End If
     End If
     

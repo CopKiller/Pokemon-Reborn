@@ -334,9 +334,6 @@ Public SummaryData As Long
 Public BuySlotType As Byte
 Public BuySlotData As Byte
 
-'//Duel
-Public InNpcDuel As Long
-
 '//Move Relearn
 Public MoveRelearnPokeNum As Long
 Public MoveRelearnPokeSlot As Byte

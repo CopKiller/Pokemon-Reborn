@@ -112,6 +112,7 @@ Public Const BEHAVIOUR_MOVE As Byte = 1
 Public Const TARGET_TYPE_PLAYER As Byte = 1
 Public Const TARGET_TYPE_NPC As Byte = 2
 Public Const TARGET_TYPE_PLAYERPOKEMON As Byte = 3
+Public Const TARGET_TYPE_MAPPOKEMON As Byte = 4
 
 '//Language
 Public Const LANG_PT As Byte = 0

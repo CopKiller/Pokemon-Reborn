@@ -144,9 +144,7 @@ Dim SetWidth As Long
     
     ' Do this only if we are running from a .exe. If run from IDE it messes up debugging
     If App.LogMode = 1 Then HookForMouseWheel myHWnd
-    
-    
-    
+        
     AppLoop             '//Start the loop
 End Sub
 
@@ -471,8 +469,6 @@ Public Sub ClearGameData()
     ExpMultiply = 0
     ExpSecs = 0
     
-    InNpcDuel = 0
-    
     Erase PokemonsStorage_Select
 
     '//Clear Chat
@@ -489,6 +485,7 @@ Public Sub ClearGameData()
     ClearQuests
     ClearRank
     ClearVirtualShop
+    ClearPlayerDuel
 End Sub
 
 Public Sub ResetMenu()
@@ -607,6 +604,7 @@ Dim restartToChange As Boolean
     '//Language
     If tmpCurLanguage <> GameSetting.CurLanguage Then
         GameSetting.CurLanguage = tmpCurLanguage
+        Call Language
         SendSetLanguage
     End If
     

@@ -11,34 +11,34 @@ End Function
 
 Private Function TotalPlayerOnMap(ByVal MapNum As Long) As Long
     Dim i As Long
-    Dim Count As Long
+    Dim count As Long
 
-    Count = 0
+    count = 0
     For i = 1 To Player_HighIndex
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
                 If Player(i, TempPlayer(i).UseChar).Map = MapNum Then
-                    Count = Count + 1
+                    count = count + 1
                 End If
             End If
         End If
     Next
-    TotalPlayerOnMap = Count
+    TotalPlayerOnMap = count
 End Function
 
 Public Function TotalPlayerOnline()
     Dim i As Long
-    Dim Count As Long
+    Dim count As Long
 
-    Count = 0
+    count = 0
     For i = 1 To Player_HighIndex
         If IsPlaying(i) Then
             If TempPlayer(i).UseChar > 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End If
     Next
-    TotalPlayerOnline = Count
+    TotalPlayerOnline = count
 End Function
 
 Public Sub PlayerWarp(ByVal Index As Long, ByVal MapNum As Long, ByVal x As Long, ByVal Y As Long, ByVal Dir As Byte)
@@ -755,18 +755,9 @@ Public Sub LeftGame(ByVal Index As Long)
                 If TempPlayer(i).UseChar > 0 Then
                     If TempPlayer(i).PlayerRequest = Index Then
                         If TempPlayer(Index).RequestType = 1 Then  '//1 Duel
-                            '//Check if already in duel
                             If TempPlayer(Index).InDuel > 0 Then
-                                SendActionMsg Player(i, TempPlayer(i).UseChar).Map, "Win!", Player(i, TempPlayer(i).UseChar).x * 32, Player(i, TempPlayer(i).UseChar).Y * 32, White
-                                Player(i, TempPlayer(i).UseChar).Win = Player(i, TempPlayer(i).UseChar).Win + 1
-                                SendPlayerPvP (i)
-                                TempPlayer(i).InDuel = 0
-                                TempPlayer(i).DuelTime = 0
-                                TempPlayer(i).DuelTimeTmr = 0
-                                TempPlayer(i).WarningTimer = 0
-                                TempPlayer(i).PlayerRequest = 0
-                                TempPlayer(i).RequestType = 0
-                                SendRequest i
+                            
+                                PlayerDuelLose Index
                             Else
                                 '//Cancel Request to index
                                 TempPlayer(i).PlayerRequest = 0
@@ -829,9 +820,13 @@ Public Sub LeftGame(ByVal Index As Long)
             LeaveParty Index
         End If
         
+        'Check for npc duel
+        If TempPlayer(Index).InDuel > 0 And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_NPC Then
+            PlayerDuelLose Index
+        End If
         
-        TempPlayer(Index).InNpcDuel = 0
         TempPlayer(Index).InDuel = 0
+        TempPlayer(Index).InDuelTargetType = 0
         TempPlayer(Index).DuelTime = 0
         TempPlayer(Index).DuelTimeTmr = 0
         TempPlayer(Index).WarningTimer = 0
@@ -1041,10 +1036,10 @@ Public Function TryGivePlayerItem(ByVal Index As Long, ByVal ItemNum As Long, By
 End Function
 
 Public Function CountFreeInvSlot(ByVal Index As Long) As Long
-    Dim Count As Long, i As Long
+    Dim count As Long, i As Long
 
     CountFreeInvSlot = 0
-    Count = 0
+    count = 0
 
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
@@ -1052,12 +1047,12 @@ Public Function CountFreeInvSlot(ByVal Index As Long) As Long
     For i = 1 To MAX_PLAYER_INV
         With PlayerInv(Index).Data(i)
             If .Num = 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End With
     Next
 
-    CountFreeInvSlot = Count
+    CountFreeInvSlot = count
 End Function
 
 Public Function GiveItem(ByVal Index As Long, ByVal ItemNum As Long, ByRef ItemVal As Long, Optional ByVal TmrCooldown As Long = 0, Optional ByRef MsgFrom As String) As Boolean
@@ -1270,34 +1265,34 @@ End Sub
 
 Public Function CountPlayerPokemon(ByVal Index As Long) As Byte
     Dim i As Byte
-    Dim Count As Byte
+    Dim count As Byte
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         With PlayerPokemons(Index).Data(i)
             If .Num > 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End With
     Next
-    CountPlayerPokemon = Count
+    CountPlayerPokemon = count
 End Function
 
 Public Function CountPlayerPokemonAlive(ByVal Index As Long) As Byte
     Dim i As Byte
-    Dim Count As Byte
+    Dim count As Byte
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         With PlayerPokemons(Index).Data(i)
             If .Num > 0 Then
                 If .CurHp > 0 Then
-                    Count = Count + 1
+                    count = count + 1
                 End If
             End If
         End With
     Next
-    CountPlayerPokemonAlive = Count
+    CountPlayerPokemonAlive = count
 End Function
 
 '//Exp
@@ -1643,7 +1638,6 @@ Public Sub PlayerUseItem(ByVal Index As Long, ByVal InvSlot As Byte)
     If PlayerInv(Index).Data(InvSlot).Num <= 0 Then Exit Sub
     If PlayerInv(Index).Data(InvSlot).value <= 0 Then Exit Sub
     If TempPlayer(Index).InDuel > 0 Then Exit Sub
-    If TempPlayer(Index).InNpcDuel > 0 Then Exit Sub
 
     ItemNum = PlayerInv(Index).Data(InvSlot).Num
 
@@ -2136,25 +2130,25 @@ End Function
 
 '//Count Free Pokemno slot
 Public Function CountFreePokemonSlot(ByVal Index As Long) As Long
-    Dim Count As Long
+    Dim count As Long
     Dim i As Byte, x As Byte
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PLAYER_POKEMON
         If PlayerPokemons(Index).Data(i).Num = 0 Then
-            Count = Count + 1
+            count = count + 1
         End If
     Next
     For i = 1 To MAX_STORAGE_SLOT
         If PlayerPokemonStorage(Index).slot(i).Unlocked = YES Then
             For x = 1 To MAX_STORAGE
                 If PlayerPokemonStorage(Index).slot(i).Data(x).Num = 0 Then
-                    Count = Count + 1
+                    count = count + 1
                 End If
             Next
         End If
     Next
-    CountFreePokemonSlot = Count
+    CountFreePokemonSlot = count
 End Function
 
 Public Function FindSameInvStorageSlot(ByVal Index As Long, ByVal StorageSlot As Byte, ByVal ItemNum As Long) As Byte
@@ -2271,10 +2265,10 @@ Private Function CheckStorageValues(ByVal Index As Long, ByVal StorageSlot As Lo
 End Function
 
 Public Function CountFreeStorageSlot(ByVal Index As Long, ByVal StorageSlot As Long) As Long
-    Dim Count As Long, i As Long
+    Dim count As Long, i As Long
 
     CountFreeStorageSlot = 0
-    Count = 0
+    count = 0
 
     If Not IsPlaying(Index) Then Exit Function
     If TempPlayer(Index).UseChar <= 0 Then Exit Function
@@ -2282,12 +2276,12 @@ Public Function CountFreeStorageSlot(ByVal Index As Long, ByVal StorageSlot As L
     For i = 1 To MAX_STORAGE
         With PlayerInvStorage(Index).slot(StorageSlot).Data(i)
             If .Num = 0 Then
-                Count = Count + 1
+                count = count + 1
             End If
         End With
     Next
 
-    CountFreeStorageSlot = Count
+    CountFreeStorageSlot = count
 End Function
 
 
@@ -2533,10 +2527,12 @@ startOver:
                                     End If
                                 Next
                                 SpawnNpcPokemon Player(Index, TempPlayer(Index).UseChar).Map, TempPlayer(Index).CurConvoMapNpc, 1
-                                TempPlayer(Index).InNpcDuel = TempPlayer(Index).CurConvoMapNpc
+                                TempPlayer(Index).InDuel = TempPlayer(Index).CurConvoMapNpc
+                                TempPlayer(Index).InDuelTargetType = TARGET_TYPE_NPC
                                 TempPlayer(Index).DuelTime = 1
                                 TempPlayer(Index).DuelTimeTmr = GetTickCount + 1000
-                                SendPlayerNpcDuel Index
+                                
+                                SendPlayerDuel Index
                             End If
                         End If
                     Else
@@ -2988,8 +2984,14 @@ Public Sub ClearMyTarget(ByVal Index As Long, ByVal MapNum As Long)
             If MapPokemon(i).Map = MapNum Then
                 If MapPokemon(i).targetType = TARGET_TYPE_PLAYER Then
                     If MapPokemon(i).TargetIndex = Index Then
-                        MapPokemon(i).targetType = 0
-                        MapPokemon(i).TargetIndex = 0
+                    
+                        If Spawn(i).Fishing = YES Or Spawn(i).UniqueEnemy = YES Then
+                            Call ClearMapPokemon(i)
+                        Else
+                            MapPokemon(i).targetType = 0
+                            MapPokemon(i).TargetIndex = 0
+                        End If
+                        
                     End If
                 End If
             End If
@@ -3060,7 +3062,6 @@ End Function
 
 Public Sub SendPlayerPokemonFaint(ByVal Index As Long)
     Dim MapNum As Long
-    Dim DuelIndex As Long
 
     If Not IsPlaying(Index) Then Exit Sub
     If TempPlayer(Index).UseChar <= 0 Then Exit Sub
@@ -3069,46 +3070,73 @@ Public Sub SendPlayerPokemonFaint(ByVal Index As Long)
     MapNum = Player(Index, TempPlayer(Index).UseChar).Map
 
     ClearPlayerPokemon Index
+    
     If TempPlayer(Index).InDuel > 0 Then
-        If IsPlaying(TempPlayer(Index).InDuel) Then
-            If TempPlayer(TempPlayer(Index).InDuel).UseChar > 0 Then
-                If CountPlayerPokemonAlive(Index) <= 0 Then
-                    DuelIndex = TempPlayer(Index).InDuel
-                    '//Player Lose
-                    SendActionMsg MapNum, "Lose!", Player(Index, TempPlayer(Index).UseChar).x * 32, Player(Index, TempPlayer(Index).UseChar).Y * 32, White
-                    SendActionMsg MapNum, "Win!", Player(DuelIndex, TempPlayer(DuelIndex).UseChar).x * 32, Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Y * 32, White
-                    Player(Index, TempPlayer(Index).UseChar).Lose = Player(Index, TempPlayer(Index).UseChar).Lose + 1
-                    Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Win = Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Win + 1
-                    SendPlayerPvP (DuelIndex)
-                    SendPlayerPvP (Index)
-                    TempPlayer(Index).InDuel = 0
-                    TempPlayer(Index).DuelTime = 0
-                    TempPlayer(Index).DuelTimeTmr = 0
-                    TempPlayer(Index).WarningTimer = 0
-                    TempPlayer(Index).PlayerRequest = 0
-                    TempPlayer(Index).RequestType = 0
-                    TempPlayer(DuelIndex).InDuel = 0
-                    TempPlayer(DuelIndex).DuelTime = 0
-                    TempPlayer(DuelIndex).DuelTimeTmr = 0
-                    TempPlayer(DuelIndex).WarningTimer = 0
-                    TempPlayer(DuelIndex).PlayerRequest = 0
-                    TempPlayer(DuelIndex).RequestType = 0
-                    SendRequest DuelIndex
-                    SendRequest Index
-                Else
-                    TempPlayer(Index).DuelReset = YES
+        If TempPlayer(Index).InDuelTargetType = TARGET_TYPE_PLAYER Then
+            If IsPlaying(TempPlayer(Index).InDuel) Then
+                If TempPlayer(TempPlayer(Index).InDuel).UseChar > 0 Then
+                    If CountPlayerPokemonAlive(Index) <= 0 Then
+                        PlayerDuelLose Index
+                    Else
+                        TempPlayer(Index).DuelReset = YES
+                    End If
                 End If
+            End If
+        ElseIf TempPlayer(Index).InDuelTargetType = TARGET_TYPE_NPC Then
+            If CountPlayerPokemonAlive(Index) <= 0 Then
+                PlayerDuelLose Index
+            Else
+                TempPlayer(Index).DuelReset = YES
             End If
         End If
     End If
-    If TempPlayer(Index).InNpcDuel > 0 Then
-        If CountPlayerPokemonAlive(Index) <= 0 Then
-            '//Adicionado a apenas um método.
-            PlayerLoseToNpc Index, TempPlayer(Index).InNpcDuel
-        Else
-            TempPlayer(Index).DuelReset = YES
+End Sub
+
+Public Sub PlayerDuelLose(ByVal Index As Long)
+    Dim DuelIndex As Long
+    
+    If Not IsPlaying(Index) Then Exit Sub
+    If TempPlayer(Index).UseChar <= 0 Then Exit Sub
+    
+    ClearPlayerPokemon Index
+    
+    If TempPlayer(Index).InDuel > 0 Then
+        If IsPlaying(TempPlayer(Index).InDuel) Then
+            If TempPlayer(TempPlayer(Index).InDuel).UseChar > 0 Then
+                DuelIndex = TempPlayer(Index).InDuel
+                '//Player Lose
+                SendActionMsg GetPlayerMap(Index), "Lose!", Player(Index, TempPlayer(Index).UseChar).x * 32, Player(Index, TempPlayer(Index).UseChar).Y * 32, White
+                SendActionMsg GetPlayerMap(Index), "Win!", Player(DuelIndex, TempPlayer(DuelIndex).UseChar).x * 32, Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Y * 32, White
+                Player(Index, TempPlayer(Index).UseChar).Lose = Player(Index, TempPlayer(Index).UseChar).Lose + 1
+                Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Win = Player(DuelIndex, TempPlayer(DuelIndex).UseChar).Win + 1
+                SendPlayerPvP (DuelIndex)
+                SendPlayerPvP (Index)
+                TempPlayer(Index).InDuel = 0
+                TempPlayer(Index).InDuelTargetType = 0
+                TempPlayer(Index).DuelTime = 0
+                TempPlayer(Index).DuelTimeTmr = 0
+                TempPlayer(Index).WarningTimer = 0
+                TempPlayer(Index).PlayerRequest = 0
+                TempPlayer(Index).RequestType = 0
+                TempPlayer(DuelIndex).InDuel = 0
+                TempPlayer(DuelIndex).InDuelTargetType = 0
+                TempPlayer(DuelIndex).DuelTime = 0
+                TempPlayer(DuelIndex).DuelTimeTmr = 0
+                TempPlayer(DuelIndex).WarningTimer = 0
+                TempPlayer(DuelIndex).PlayerRequest = 0
+                TempPlayer(DuelIndex).RequestType = 0
+                SendRequest DuelIndex
+                SendRequest Index
+                SendPlayerDuel Index
+                SendPlayerDuel DuelIndex
+            End If
         End If
     End If
+    
+    If TempPlayer(Index).InDuel > 0 And TempPlayer(Index).InDuelTargetType = TARGET_TYPE_NPC Then
+        PlayerLoseToNpc Index, TempPlayer(Index).InDuel
+    End If
+                
 End Sub
 
 Public Function GetLevelNextExp(ByVal Level As Long) As Long
@@ -3272,6 +3300,8 @@ Public Sub KillPlayer(ByVal Index As Long)
 
         'AddAlert Index, "You lose " & ExpPenalty & " trainer exp", White
         AddAlert Index, "You lose $" & MoneyPenalty, White
+        
+        
 
         SendPlayerData Index
     End With
@@ -3385,15 +3415,15 @@ Public Sub JoinParty(ByVal Index As Long, ByVal InviteIndex As Long)
 End Sub
 
 Public Function PartyCount(ByVal Index As Long) As Byte
-    Dim i As Long, Count As Long
+    Dim i As Long, count As Long
 
-    Count = 0
+    count = 0
     For i = 1 To MAX_PARTY
         If TempPlayer(Index).PartyIndex(i) > 0 Then
-            Count = Count + 1
+            count = count + 1
         End If
     Next
-    PartyCount = Count
+    PartyCount = count
 End Function
 
 Public Function IsPartyMember(ByVal Index As Long, ByVal i As Long) As Boolean

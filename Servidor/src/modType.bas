@@ -950,10 +950,10 @@ Public Type TempPlayerRec
     RequestType As Byte
     '//Duel
     InDuel As Long
+    InDuelTargetType As Byte
     DuelTime As Long
     DuelTimeTmr As Long
     WarningTimer As Long
-    InNpcDuel As Long
     DuelReset As Byte
     
     '//Trade

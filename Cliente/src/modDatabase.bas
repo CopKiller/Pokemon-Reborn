@@ -110,6 +110,8 @@ Dim FileName As String
         frmMain.BorderStyle = 1 ' Fixed
     End If
     
+    Call Language
+    
     Exit Sub
 errorHandler:
     MsgBox Err.Number & vbNewLine & Err.Description
@@ -172,7 +174,7 @@ End Sub
 Public Sub ResetGuiLocation(ByVal vGui As GuiEnum)
     '// Starting Location will be given by code
     GUI(vGui).X = GUI(vGui).OrigX
-    GUI(vGui).Y = GUI(vGui).OrigY
+    GUI(vGui).y = GUI(vGui).OrigY
 End Sub
 
 Public Sub ResetGui()
@@ -285,53 +287,53 @@ Public Sub ResetGui()
     End With
     With Button(ButtonEnum.Game_Pokedex)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 6)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Bag)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 5)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Card)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 4)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Map)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 3)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Rank)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 2)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_VirtualShop)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Incubator)
         .X = Screen_Width - .Width - 10 - ((.Width + 5) * 1)
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     With Button(ButtonEnum.Game_Menu)
         .X = Screen_Width - .Width - 10
-        .Y = Screen_Height - .Height - 10
+        .y = Screen_Height - .Height - 10
     End With
     
     With Button(ButtonEnum.Game_Evolve)
         .X = 180
-        .Y = 19
+        .y = 19
     End With
     
     With Button(ButtonEnum.Convo_Reply1)
         .X = (Screen_Width / 2) - (.Width / 2)
-        .Y = (Screen_Height / 2) - (111 / 2)
+        .y = (Screen_Height / 2) - (111 / 2)
     End With
     With Button(ButtonEnum.Convo_Reply2)
         .X = (Screen_Width / 2) - (.Width / 2)
-        .Y = (Screen_Height / 2) - (111 / 2) + 37
+        .y = (Screen_Height / 2) - (111 / 2) + 37
     End With
     With Button(ButtonEnum.Convo_Reply3)
         .X = (Screen_Width / 2) - (.Width / 2)
-        .Y = (Screen_Height / 2) - (111 / 2) + 74
+        .y = (Screen_Height / 2) - (111 / 2) + 74
     End With
 End Sub
 
@@ -489,7 +491,7 @@ Dim FileName As String
                 .Height = Val(GetVar(FileName, FileTitle, "Height"))
                 
                 .X = Val(GetVar(FileName, FileTitle, "X"))
-                .Y = Val(GetVar(FileName, FileTitle, "Y"))
+                .y = Val(GetVar(FileName, FileTitle, "Y"))
             End With
         Next
     End If
@@ -541,7 +543,7 @@ End Sub
 Public Sub LoadMap(ByVal mapNum As Long)
 Dim FileName As String
 Dim f As Long
-Dim X As Long, Y As Long
+Dim X As Long, y As Long
 Dim i As Long, a As Byte
 
     FileName = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
@@ -572,8 +574,8 @@ Dim i As Long, a As Byte
         
         '//Tiles
         For X = 0 To Map.MaxX
-            For Y = 0 To Map.MaxY
-                With Map.Tile(X, Y)
+            For y = 0 To Map.MaxY
+                With Map.Tile(X, y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -620,7 +622,7 @@ Dim i As Long, a As Byte
             Get #f, , .MapTravel.IsTravel
             Get #f, , .MapTravel.costValue
             Get #f, , .MapTravel.X
-            Get #f, , .MapTravel.Y
+            Get #f, , .MapTravel.y
             Get #f, , .MapTravel.BadgeReq
         End With
     Close #f
@@ -630,7 +632,7 @@ End Sub
 Public Sub SaveMap(ByVal mapNum As Long)
 Dim FileName As String
 Dim f As Long
-Dim X As Long, Y As Long
+Dim X As Long, y As Long
 Dim i As Long, a As Long
 
     FileName = App.path & "\data\cache\maps\map_cache_" & mapNum & ".dat"
@@ -652,8 +654,8 @@ Dim i As Long, a As Long
         
         '//Tiles
         For X = 0 To Map.MaxX
-            For Y = 0 To Map.MaxY
-                With Map.Tile(X, Y)
+            For y = 0 To Map.MaxY
+                With Map.Tile(X, y)
                     '//Layer
                     For i = MapLayer.Ground To MapLayer.MapLayer_Count - 1
                         For a = MapLayerType.Normal To MapLayerType.Animated
@@ -701,7 +703,7 @@ Dim i As Long, a As Long
             Put #f, , .MapTravel.IsTravel
             Put #f, , .MapTravel.costValue
             Put #f, , .MapTravel.X
-            Put #f, , .MapTravel.Y
+            Put #f, , .MapTravel.y
             Put #f, , .MapTravel.BadgeReq
         End With
     Close #f
@@ -733,8 +735,6 @@ Dim i As Long
 Dim Control As Long
 
     '//Set Key to default
-    
-    Language
     
     '//Movement Key
     With ControlKey(ControlEnum.KeyUp)
@@ -1086,14 +1086,14 @@ End Sub
 ' ** Conversation **
 ' ***************
 Public Sub ClearConversation(ByVal ConversationNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim X As Byte, y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Conversation(ConversationNum)), LenB(Conversation(ConversationNum)))
     For X = 1 To MAX_CONV_DATA
-        For Y = 1 To MAX_LANGUAGE
-            Conversation(ConversationNum).ConvData(X).TextLang(Y).Text = vbNullString
+        For y = 1 To MAX_LANGUAGE
+            Conversation(ConversationNum).ConvData(X).TextLang(y).Text = vbNullString
             For z = 1 To 3
-                Conversation(ConversationNum).ConvData(X).TextLang(Y).tReply(z) = vbNullString
+                Conversation(ConversationNum).ConvData(X).TextLang(y).tReply(z) = vbNullString
             Next
         Next
     Next
@@ -1111,7 +1111,7 @@ End Sub
 ' ** Shop **
 ' ***************
 Public Sub ClearShop(ByVal ShopNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim X As Byte, y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Shop(ShopNum)), LenB(Shop(ShopNum)))
 End Sub
@@ -1128,7 +1128,7 @@ End Sub
 ' ** Quest **
 ' ***************
 Public Sub ClearQuest(ByVal QuestNum As Long)
-Dim X As Byte, Y As Byte, z As Byte
+Dim X As Byte, y As Byte, z As Byte
 
     Call ZeroMemory(ByVal VarPtr(Quest(QuestNum)), LenB(Quest(QuestNum)))
 End Sub
@@ -1194,7 +1194,7 @@ Dim i As Long
     
     For i = 0 To CreditTextCount
         Credit(i).Text = CreditText(i)
-        Credit(i).Y = (Screen_Height - 40) + (20 * i)
+        Credit(i).y = (Screen_Height - 40) + (20 * i)
         Credit(i).StartY = (Screen_Height - 40) + (20 * i)
     Next
 End Sub

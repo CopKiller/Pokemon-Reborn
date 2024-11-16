@@ -4,13 +4,10 @@ Public Sub DrawFooter()
 Dim Width As Long, Height As Long
 Dim i As Long
     
-    ' Importa a tradução
-    Language
-    
     ' Declaração de variáveis para armazenar o tamanho da janela
-    y = Screen_Height
+    Y = Screen_Height
     X = Screen_Width
-    textY = y - 40
+    textY = Y - 40
     
     ' Declaração da quantidade de colunas
     Column = X / 3
@@ -50,7 +47,7 @@ Dim i As Long
         End If
         
         ' Desenhar o texto de créditos
-        RenderText Font_Default, TextUIFooterCredits, Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterCredits) / 2, y - 26, colorHoverCredits
+        RenderText Font_Default, TextUIFooterCredits, Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterCredits) / 2, Y - 26, colorHoverCredits
     Else
         ' Hover ao passar o mouse sobre o texto de trocar a senha
         If CursorX >= Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 And CursorX <= (Column * 2) + Column / 2 - GetTextWidth(Font_Default, TextUIFooterCredits) / 2 + GetTextWidth(Font_Default, TextUIFooterCredits) And CursorY >= Screen_Height - 40 And CursorY <= (Screen_Height - 40) + 40 Then
@@ -62,7 +59,7 @@ Dim i As Long
         End If
         
         ' Desenhar o texto de troca de senha
-        RenderText Font_Default, TextUIFooterChangePassword, Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterChangePassword) / 2, y - 26, colorHoverChangePassword
+        RenderText Font_Default, TextUIFooterChangePassword, Column * 2 + (Column / 2) - GetTextWidth(Font_Default, TextUIFooterChangePassword) / 2, Y - 26, colorHoverChangePassword
         
     End If
     

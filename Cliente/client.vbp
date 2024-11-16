@@ -53,6 +53,7 @@ Module=modMenu_Icons; src\modMenu_Icons.bas
 Module=modIncubator; src\modIncubator.bas
 Module=modIncubator_Window; src\modIncubator_Window.bas
 Module=modMouseWheel; src\modMouseWheel.bas
+Module=modDuel; src\modDuel.bas
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""

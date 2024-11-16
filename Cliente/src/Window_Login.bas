@@ -19,9 +19,6 @@ Public Sub DrawLogin()
         ' Certifica que está visível
         If Not .Visible Then Exit Sub
 
-        ' Importa a tradução
-        Language
-
         ' Incia o valor do padding lateral
         PaddingLeft = 23
 
@@ -32,7 +29,7 @@ Public Sub DrawLogin()
         TextUIBoxSize = 104
 
         ' Desenha a janela
-        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .width, .height, .width, .height
+        RenderTexture Tex_Gui(.Pic), .X, .Y, .StartX, .StartY, .Width, .Height, .Width, .Height
 
         ' Desenha o texto do username
         RenderText Font_Default, TextUILoginUsername, (.X + PaddingLeft) + TextUIBoxSize / 2 - (GetTextWidth(Font_Default, TextUILoginUsername) / 2) - 2, (.Y + PaddingTop) + 13, White, , 255
@@ -50,7 +47,7 @@ Public Sub DrawLogin()
         For i = ButtonEnum.Login_Confirm To ButtonEnum.Login_Confirm
             If CanShowButton(i) Then
                 ' Desenha o botão
-                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).width, Button(i).height, Button(i).width, Button(i).height
+                RenderTexture Tex_Gui(.Pic), .X + Button(i).X, .Y + Button(i).Y, Button(i).StartX(Button(i).State), Button(i).StartY(Button(i).State), Button(i).Width, Button(i).Height, Button(i).Width, Button(i).Height
             End If
         Next
 
@@ -93,8 +90,8 @@ Public Sub DrawLogin()
 
             ' Desenha a quantidade de jogadores neste servidor!
             'SString = Replace$(SString, ColourChar, vbNullString)
-            SString = "Status:" & ColourChar & ServerInfo(CurServerList).Colour & Space(1) & ServerInfo(CurServerList).Status
-            SString = SString & ColourChar & Yellow & " Players:" & ColourChar & ServerInfo(CurServerList).Colour & Space(1) & ServerInfo(CurServerList).Player
+            SString = "Status:" & ColourChar & ServerInfo(CurServerList).colour & Space(1) & ServerInfo(CurServerList).Status
+            SString = SString & ColourChar & Yellow & " Players:" & ColourChar & ServerInfo(CurServerList).colour & Space(1) & ServerInfo(CurServerList).Player
             ' Degrade
             RenderTexture Tex_Gui(12), 0, 5, 59, 241, (GetTextWidth(Font_Default, SString)) - 70, 20, 165, 1
             RenderText Font_Default, SString, 0, 5, Yellow
@@ -132,7 +129,7 @@ Dim i As Byte
         If Not ServerList Then
             For i = ButtonEnum.Login_Confirm To ButtonEnum.Login_Confirm
                 If CanShowButton(i) Then
-                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).height Then
+                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateHover Then
                             Button(i).State = ButtonState.StateClick
                         End If
@@ -202,7 +199,7 @@ Dim tmpX As Long, tmpY As Long
         If Not ServerList Then
             For i = ButtonEnum.Login_Confirm To ButtonEnum.Login_Confirm
                 If CanShowButton(i) Then
-                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).height Then
+                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateNormal Then
                             Button(i).State = ButtonState.StateHover
                             
@@ -252,9 +249,9 @@ Dim tmpX As Long, tmpY As Long
             tmpY = CursorY - .OldMouseY
             
             If tmpX <= 0 Then tmpX = 0
-            If tmpX >= Screen_Width - .width Then tmpX = Screen_Width - .width
+            If tmpX >= Screen_Width - .Width Then tmpX = Screen_Width - .Width
             If tmpY <= 0 Then tmpY = 0
-            If tmpY >= Screen_Height - .height Then tmpY = Screen_Height - .height
+            If tmpY >= Screen_Height - .Height Then tmpY = Screen_Height - .Height
             
             .X = tmpX
             .Y = tmpY
@@ -334,7 +331,7 @@ Dim FoundError As Boolean
         If Not ServerList Then
             For i = ButtonEnum.Login_Confirm To ButtonEnum.Login_Confirm
                 If CanShowButton(i) Then
-                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).height Then
+                    If CursorX >= .X + Button(i).X And CursorX <= .X + Button(i).X + Button(i).Width And CursorY >= .Y + Button(i).Y And CursorY <= .Y + Button(i).Y + Button(i).Height Then
                         If Button(i).State = ButtonState.StateClick Then
                             Button(i).State = ButtonState.StateNormal
                             

@@ -9,9 +9,6 @@ Public Sub DrawChatbox()
         ' Certifica que está visível
         If Not .Visible Then Exit Sub
 
-        ' Importa a tradução
-        'Language
-
         If ReInit Then Exit Sub
         
         If ChatMinimize Then Exit Sub

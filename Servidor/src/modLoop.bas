@@ -298,7 +298,7 @@ Private Sub UpdatePlayerLogic()
                 End If
 
                 '//Duel
-                If TempPlayer(i).InDuel > 0 Or TempPlayer(i).InNpcDuel > 0 Then
+                If TempPlayer(i).InDuel > 0 And (TempPlayer(i).InDuelTargetType = TARGET_TYPE_PLAYER Or TempPlayer(i).InDuelTargetType = TARGET_TYPE_NPC) Then
                     '//Starting
                     If TempPlayer(i).DuelTime > 0 Then
                         If TempPlayer(i).DuelTimeTmr <= GetTickCount Then
@@ -320,6 +320,8 @@ Private Sub UpdatePlayerLogic()
                                         Case LANG_ES: AddAlert i, "You have " & Round((TempPlayer(i).DuelTimeTmr - GetTickCount) / 1000, 0) & "sec/s to release your pokemon, otherwise you will lose the duel", White
                                         End Select
                                     End If
+                                    
+                                    Call SendPlayerDuel(i)
                                 Else
                                     TempPlayer(i).DuelTimeTmr = GetTickCount + 1000
                                 End If
@@ -329,7 +331,7 @@ Private Sub UpdatePlayerLogic()
                         If PlayerPokemon(i).Num <= 0 Then
                             If TempPlayer(i).DuelTimeTmr <= GetTickCount Then
                                 '//PvP
-                                If TempPlayer(i).InDuel > 0 Then
+                                If TempPlayer(i).InDuel > 0 And TempPlayer(i).InDuelTargetType = TARGET_TYPE_PLAYER Then
                                     If IsPlaying(TempPlayer(i).InDuel) Then
                                         If TempPlayer(TempPlayer(i).InDuel).UseChar > 0 Then
                                             If TempPlayer(TempPlayer(i).InDuel).InDuel = i Then
@@ -352,26 +354,30 @@ Private Sub UpdatePlayerLogic()
                                                     SendPlayerPvP (TempPlayer(i).InDuel)
                                                 End If
                                                 TempPlayer(TempPlayer(i).InDuel).InDuel = 0
+                                                TempPlayer(TempPlayer(i).InDuel).InDuelTargetType = 0
                                                 TempPlayer(TempPlayer(i).InDuel).DuelTime = 0
                                                 TempPlayer(TempPlayer(i).InDuel).DuelTimeTmr = 0
                                                 TempPlayer(TempPlayer(i).InDuel).WarningTimer = 0
                                                 TempPlayer(TempPlayer(i).InDuel).PlayerRequest = 0
                                                 TempPlayer(TempPlayer(i).InDuel).RequestType = 0
                                                 SendRequest TempPlayer(i).InDuel
+                                                SendPlayerDuel TempPlayer(i).InDuel
                                             End If
                                         End If
                                     End If
                                     TempPlayer(i).InDuel = 0
+                                    TempPlayer(i).InDuelTargetType = 0
                                     TempPlayer(i).DuelTime = 0
                                     TempPlayer(i).DuelTimeTmr = 0
                                     TempPlayer(i).WarningTimer = 0
                                     TempPlayer(i).PlayerRequest = 0
                                     TempPlayer(i).RequestType = 0
                                     SendRequest i
+                                    SendPlayerDuel i
                                 End If
-                                If TempPlayer(i).InNpcDuel > 0 Then
+                                If TempPlayer(i).InDuel > 0 And TempPlayer(i).InDuelTargetType = TARGET_TYPE_NPC Then
                                     '//Adicionado a apenas um método.
-                                    PlayerLoseToNpc i, TempPlayer(i).InNpcDuel
+                                    PlayerLoseToNpc i, TempPlayer(i).InDuel
                                 End If
                             Else
                                 If TempPlayer(i).WarningTimer <= GetTickCount Then
@@ -806,7 +812,7 @@ Private Sub UpdatePokemonLogic()
                                         onSightDistanceX = MapPokemon(MapPokeNum).x - TargetX
                                         onSightDistanceY = MapPokemon(MapPokeNum).Y - TargetY
                                         If onSightDistanceX <= onSightRange And onSightDistanceY <= onSightRange Then
-
+                                            
                                         Else
                                             '//Fish system
                                             If Spawn(MapPokeNum).Fishing = YES Then
@@ -1044,6 +1050,26 @@ Private Sub UpdatePokemonLogic()
                         If Target > 0 Then
                             randNum = Int(Rnd * 3)
                             DidWalk = False
+                            
+                            '//Check Direction
+                            If Not DidWalk Then
+                                If MapPokemon(MapPokeNum).x - 1 = TargetX And MapPokemon(MapPokeNum).Y = TargetY Then
+                                    If Not MapPokemon(MapPokeNum).Dir = DIR_LEFT Then Call PokemonDir(MapPokeNum, DIR_LEFT)
+                                    DidWalk = True
+                                End If
+                                If MapPokemon(MapPokeNum).x + 1 = TargetX And MapPokemon(MapPokeNum).Y = TargetY Then
+                                    If Not MapPokemon(MapPokeNum).Dir = DIR_RIGHT Then Call PokemonDir(MapPokeNum, DIR_RIGHT)
+                                    DidWalk = True
+                                End If
+                                If MapPokemon(MapPokeNum).x = TargetX And MapPokemon(MapPokeNum).Y - 1 = TargetY Then
+                                    If Not MapPokemon(MapPokeNum).Dir = DIR_UP Then Call PokemonDir(MapPokeNum, DIR_UP)
+                                    DidWalk = True
+                                End If
+                                If MapPokemon(MapPokeNum).x = TargetX And MapPokemon(MapPokeNum).Y + 1 = TargetY Then
+                                    If Not MapPokemon(MapPokeNum).Dir = DIR_DOWN Then Call PokemonDir(MapPokeNum, DIR_DOWN)
+                                    DidWalk = True
+                                End If
+                            End If
 
                             '//CheckMovement
                             Select Case randNum
@@ -1100,38 +1126,18 @@ Private Sub UpdatePokemonLogic()
                                     If PokemonProcessMove(MapPokeNum, DIR_DOWN) Then DidWalk = True
                                 End If
                             End Select
-
-                            '//Check Direction
+                            
                             If Not DidWalk Then
-                                If MapPokemon(MapPokeNum).x - 1 = TargetX And MapPokemon(MapPokeNum).Y = TargetY Then
-                                    If Not MapPokemon(MapPokeNum).Dir = DIR_LEFT Then Call PokemonDir(MapPokeNum, DIR_LEFT)
-                                    DidWalk = True
-                                End If
-                                If MapPokemon(MapPokeNum).x + 1 = TargetX And MapPokemon(MapPokeNum).Y = TargetY Then
-                                    If Not MapPokemon(MapPokeNum).Dir = DIR_RIGHT Then Call PokemonDir(MapPokeNum, DIR_RIGHT)
-                                    DidWalk = True
-                                End If
-                                If MapPokemon(MapPokeNum).x = TargetX And MapPokemon(MapPokeNum).Y - 1 = TargetY Then
-                                    If Not MapPokemon(MapPokeNum).Dir = DIR_UP Then Call PokemonDir(MapPokeNum, DIR_UP)
-                                    DidWalk = True
-                                End If
-                                If MapPokemon(MapPokeNum).x = TargetX And MapPokemon(MapPokeNum).Y + 1 = TargetY Then
-                                    If Not MapPokemon(MapPokeNum).Dir = DIR_DOWN Then Call PokemonDir(MapPokeNum, DIR_DOWN)
-                                    DidWalk = True
-                                End If
-
-                                If Not DidWalk Then
                                     '//Randomize number to prevent continues movement
-                                    randNum = Int(Rnd * 15)
+                                randNum = Int(Rnd * 15)
 
-                                    If randNum = 1 Then
+                                If randNum = 1 Then
                                         '//Randomize number for direction
-                                        randNum = Int(Rnd * 5)
+                                    randNum = Int(Rnd * 5)
 
                                         '//Process Move
-                                        If PokemonProcessMove(MapPokeNum, randNum) Then
+                                    If PokemonProcessMove(MapPokeNum, randNum) Then
                                             '//Do Nothing
-                                        End If
                                     End If
                                 End If
                             End If

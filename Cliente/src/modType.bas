@@ -54,7 +54,7 @@ Private Type MapPokemonRec
     '//Location
     Map As Long
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
     
     '//Vital
@@ -84,6 +84,9 @@ Private Type MapPokemonRec
     IdleFrameTmr As Long
     IdleAnim As Byte
     MoveSpeed As Long
+    
+    Opacity As Byte
+    InDuel As Boolean
 End Type
 
 Private Type MapNpcPokemonRec
@@ -92,7 +95,7 @@ Private Type MapNpcPokemonRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
     
     '//Vital
@@ -130,7 +133,6 @@ Private Type MapNpcPokemonRec
     BallX As Long
     BallY As Long
     MoveSpeed As Long
-    
 End Type
 
 Private Type MapNpcRec
@@ -139,7 +141,7 @@ Private Type MapNpcRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
     
     '//Client Only
@@ -147,6 +149,8 @@ Private Type MapNpcRec
     xOffset As Long
     yOffset As Long
     Step As Byte
+    
+    Opacity As Byte
 End Type
 
 Public Type PlayerPokemonRec
@@ -155,7 +159,7 @@ Public Type PlayerPokemonRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
     
     '//For own index
@@ -231,7 +235,7 @@ Public Type PlayerRec
     '//Location
     Map As Long
     X As Long
-    Y As Long
+    y As Long
     Dir As Byte
 
     '//Vital
@@ -302,6 +306,9 @@ Public Type PlayerRec
     
     '//Travel System
     PlayerTravel(1 To MAX_MAP) As PlayerTravelRec
+    
+    '//Visibility in duels
+    Opacity As Byte
 End Type
 
 ' *****************
@@ -451,7 +458,7 @@ Public Type TilePosRec
     Used As Boolean
     ' Position of tile
     X As Integer
-    Y As Integer
+    y As Integer
 End Type
 
 Private Type NpcRec
@@ -563,7 +570,7 @@ Private Type PokemonMoveRec
     Description As String * 150
     dStat(1 To StatEnum.Stat_Count - 1) As Long
     AttackType As Byte
-    targetType As Byte
+    TargetType As Byte
     Animation As Long
     Interval As Long
     Duration As Long
@@ -750,7 +757,7 @@ Private Type CatchBallRec
     InUsed As Boolean
     Pic As Byte
     X As Long
-    Y As Long
+    y As Long
     State As Byte
     Frame As Byte
     FrameState As Byte
@@ -761,7 +768,7 @@ Private Type WeatherDropRec
     Pic As Long
     PicType As Byte
     X As Long
-    Y As Long
+    y As Long
     SpeedY As Long
 End Type
 
@@ -775,7 +782,7 @@ End Type
 
 Private Type CreditRec
     Text As String
-    Y As Long
+    y As Long
     StartY As Long
 End Type
 
@@ -791,7 +798,7 @@ Private Type ButtonRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     
     '//Size
     Height As Long
@@ -808,7 +815,7 @@ Private Type GuiRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     OrigX As Long
     OrigY As Long
     
@@ -892,9 +899,9 @@ Public Type ChatBubbleRec
     Msg As String
     colour As Long
     target As Long
-    targetType As Byte
+    TargetType As Byte
     X As Long
-    Y As Long
+    y As Long
     
     '//Client data only
     timer As Long
@@ -908,7 +915,7 @@ Private Type SelMenuRec
     
     '//Location
     X As Long
-    Y As Long
+    y As Long
     
     '//Text
     MaxText As Byte
@@ -926,7 +933,7 @@ Private Type ActionMsgRec
     Color As Long
     Scroll As Long
     X As Long
-    Y As Long
+    y As Long
     timer As Long
     Alpha As Long
 End Type
@@ -935,7 +942,7 @@ End Type
 Private Type AnimInstanceRec
     Animation As Long
     X As Long
-    Y As Long
+    y As Long
     '//timing
     timer(0 To 1) As Long
     '//rendering check
