@@ -1,0 +1,33 @@
+[21:30] Server started up
+[21:31] vacas has been warped on Map#4 x:26 y:44
+[21:31] vacas has been warped on Map#5 x:10 y:7
+[21:31] vacas has been warped on Map#3 x:24 y:23
+[21:31] vacas has been warped on Map#4 x:23 y:50
+[21:32] vacas requested to edit Item
+[21:32] vacas has been warped on Map#5 x:10 y:7
+[21:32] vacas use item Pokeball
+[21:32] vacas use item Pokeball
+[21:32] vacas use item Pokeball
+[21:32] vacas has been warped on Map#3 x:24 y:23
+[21:32] vacas use item Pokeball
+[21:32] vacas has been warped on Map#4 x:24 y:50
+[21:33] vacas has been warped on Map#5 x:10 y:7
+[21:34] vacas has been warped on Map#3 x:24 y:23
+[21:34] vacas use item Pokeball
+[21:36] vacas use item Pokeball
+[21:36] vacas use item Pokeball
+[21:36] vacas has been warped on Map#4 x:24 y:50
+[21:36] vacas use item Pokeball
+[21:36] vacas use item Pokeball
+[21:36] vacas has been warped on Map#5 x:10 y:7
+[21:38] vacas use item Pokeball
+[21:38] vacas has been warped on Map#3 x:24 y:23
+[21:38] vacas has been warped on Map#4 x:24 y:50
+[21:40] vacas use item Pokeball
+[21:40] vacas has caught Spearow
+[21:40] vacas use item Pokeball
+[21:40] vacas has caught Spearow
+[21:41] vacas has been warped on Map#5 x:10 y:7
+[21:41] Server closed
+[21:41] Server saving players...
+[21:41] Server saving complete...

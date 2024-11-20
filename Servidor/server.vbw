@@ -1,4 +1,4 @@
-modMain = 408, -7, 1274, 780, 
+modMain = 408, -7, 1274, 780, Z
 clsBuffer = 50, 50, 765, 657, C
 modTCP = 377, 69, 1080, 676, 
 modHandleData = 149, 0, 852, 607, 
@@ -11,7 +11,7 @@ modGlobal = 75, 75, 923, 586, C
 modEnumeration = 50, 50, 898, 561, 
 modPlayer = 320, -19, 1023, 588, 
 modPokemon = 266, 106, 969, 713, 
-modCombat = -45, 29, 1244, 636, Z
+modCombat = -45, 29, 1244, 636, 
 modServer_HandleData = 119, 89, 1419, 670, C
 modServer_TCP = 52, 52, 582, 485, 
 modServer_Packet = 234, 234, 1534, 815, 
